@@ -25,7 +25,7 @@ if (($row == '0') AND ($act == NULL)) {
 
 /* Carrega form para cadastro de técnicos */
 if ($act == 'cad') {
-    $postograd = "SELECT * FROM db_clti.tb_posto_grad";
+    $postograd = "SELECT * FROM db_clti.tb_posto_grad ORDER BY idtb_posto_grad 	DESC";
     $postograd = $pg->getRows($postograd);
     $corpoquadro = "SELECT * FROM db_clti.tb_corpo_quadro";
     $corpoquadro = $pg->getRows($corpoquadro);
@@ -153,7 +153,7 @@ if ($act == 'insert') {
     $nomeguerra = strtoupper($_POST['nomeguerra']);
     $senha = $_POST['senha'];
 
-    $sql = "SELECT * FROM db_clti.tb_lotacao_clti WHERE nip = '$nip' OR cpf = '$cpf' ";
+    $sql = "SELECT * FROM db_clti.tb_lotacao_clti WHERE nip = '$nip' OR cpf = '$cpf' AND senha = '$senha' ";
     $row = $pg->getRow($sql);
 
     if ($row) {
