@@ -12,9 +12,9 @@ $sigla = $pg->getCol($sql);
 
 ?>
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
+      <p class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
         <?php echo $sigla; ?>
-      </a>
+      </p>
       <!--<input class="form-control form-control-dark w-100" type="text" placeholder="Pesquisa" aria-label="Pesquisa">-->
       <p class="navbar-brand">Usuário ativo: <?php print $_SESSION['user_name']." - "; print $_SESSION['perfil']; ?></p>
       <ul class="navbar-nav px-3">
