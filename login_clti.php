@@ -45,7 +45,7 @@ echo "
                                 <div class=\"form-group\">
                                     <label for=\"usuario\" class=\"control-label\">Login do Admin:</label>
                                     <input id=\"usuario\" class=\"form-control\" type=\"text\" name=\"usuario\"
-                                            style=\"text-transform:uppercase\" placeholder=\"Ex. adminclti3dn\" 
+                                            style=\"text-transform:uppercase\" placeholder=\"NIP ou CPF\" 
                                             required=\"required\" autofocus=\"autofocus\">
                                     <div class=\"help-block with-errors\"></div>
                                 </div>
@@ -73,7 +73,7 @@ if ($act == 'acesso') {
     
     $hash = sha1(md5($senha));
     $salt = sha1(md5($usuario));
-    $senha = $salt+$hash;
+    $senha = $salt.$hash;
     $senha = sha1(md5($senha));
 
     $sql = "SELECT * FROM db_clti.tb_lotacao_clti WHERE nip = '$usuario' OR cpf = '$usuario' AND senha = '$senha'";

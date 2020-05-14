@@ -37,7 +37,8 @@ if ($act == 'cad') {
         <div class=\"row\">
             <main>
                 <div id=\"form-cadastro\">
-                    <form id=\"form\" action=\"?cmd=osic&act=insert\" method=\"post\" enctype=\"multipart/form-data\">
+                    <form id=\"insereusuario\" role=\"form\" action=\"?cmd=osic&act=insert\" 
+                        method=\"post\" enctype=\"multipart/form-data\">
                         <fieldset>
                             <legend>OSIC - Cadastro</legend>
 
@@ -106,8 +107,23 @@ if ($act == 'cad') {
                                        style=\"text-transform:uppercase\" required=\"required\">
                             </div>
 
+                            <div class=\"form-group\">
+                                <label for=\"senha\" class=\"control-label\">Senha:</label>
+                                <input id=\"senha\" class=\"form-control\" type=\"password\" name=\"senha\"
+                                       placeholder=\"Senha Segura\" minlength=\"8\"
+                                       maxlength=\"25\" required=\"required\">
+                                <div class=\"help-block with-errors\"></div>
+                            </div>
+
+                            <div class=\"form-group\">
+                                <label for=\"confirmasenha\" class=\"control-label\">Confirme a Senha:</label>
+                                <input id=\"confirmasenha\" class=\"form-control\" type=\"password\" name=\"confirmasenha\"
+                                    placeholder=\"Confirmação da Senha\" minlength=\"8\"
+                                    maxlength=\"25\" required=\"required\">
+                                <div class=\"help-block with-errors\"></div>
+                            </div>
+
                         </fieldset>
-                        <input type=\"hidden\" id=\"status\" name=\"status\" value=\"Ativo\">
                         <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">
                     </form>
                 </div>
@@ -136,25 +152,50 @@ if ($act == 'insert') {
     $cpf = $_POST['cpf'];
     $nome = strtoupper($_POST['nome']);
     $nomeguerra = strtoupper($_POST['nomeguerra']);
-    $status = $_POST['status'];
+    $senha = $_POST['senha'];
 
-    $sql = "INSERT INTO db_clti.tb_osic(id_om,
-            id_posto_grad, id_corpo_quadro, id_especialidade, 
-            nip, cpf, nome, nome_guerra, status)
-        VALUES ('$omapoiada', '$postograd', '$corpoquadro', '$especialidade', 
-            '$nip', '$cpf', '$nome', '$nomeguerra', '$status')";
+    if ($nip == NULL) {
+        $usuario = $cpf;
+    }
+    else {
+        $usuario = $nip;
+    }
+    
+    /* Checa se há OSIC com mesmo login cadastrado */
 
+    $sql = "SELECT * FROM db_clti.tb_osic WHERE nip = '$usuario' OR cpf = '$usuario' ";
+    $row = $pg->getRow($sql);
+    
+    if ($row) {
+        echo "<h5>Já existe um Admin cadastrado com esse NIP/CPF.</h5>";
+    }
 
-	$pg->exec($sql);
+    else {
 
-	if ($pg) {
-		echo "<h5>Resgistros incluídos no banco de dados.</h5>";
-	}
+        $hash = sha1(md5($senha));
+        $salt = sha1(md5($usuario));
+        $senha = $salt.$hash;
+        $senha = sha1(md5($senha));
 
-	else {
-		echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-        echo(pg_result_error($pg) . "<br />\n");
-	}
+        $sql = "INSERT INTO db_clti.tb_osic(
+            id_om,id_posto_grad, id_corpo_quadro, id_especialidade, 
+            nip, cpf, nome, nome_guerra, senha, perfil, status)
+            VALUES ('$omapoiada', '$postograd', '$corpoquadro', '$especialidade',
+            '$nip', '$cpf', '$nome', '$nomeguerra', '$senha', 'OSIC_OM', 'ATIVO')";
+
+        $pg->exec($sql);
+
+        if ($pg) {
+            echo "<h5>Resgistros incluídos no banco de dados.</h5>";
+        }
+
+        else {
+            echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+            echo(pg_result_error($pg) . "<br />\n");
+        }
+
+    }
+
 }
 
 ?>

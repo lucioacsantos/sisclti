@@ -38,7 +38,7 @@ if ($act == 'cad') {
         <div class=\"row\">
             <main>
                 <div id=\"form-cadastro\">
-                    <form id=\"insertadminom\" role=\"form\" action=\"?cmd=admin&act=insert\" 
+                    <form id=\"insereusuario\" role=\"form\" action=\"?cmd=admin&act=insert\" 
                         method=\"post\" enctype=\"multipart/form-data\">
                         <fieldset>
                             <legend>Administradores de Rede - Cadastro</legend>
@@ -154,6 +154,7 @@ if ($act == 'insert') {
     $nome = strtoupper($_POST['nome']);
     $nomeguerra = strtoupper($_POST['nomeguerra']);
     $senha = $_POST['senha'];
+
     if ($nip == NULL) {
         $usuario = $cpf;
     }
@@ -163,7 +164,7 @@ if ($act == 'insert') {
     
     /* Checa se há Admin com mesmo login cadastrado */
 
-    $sql = "SELECT * FROM db_clti.tb_admin WHERE nip = '$nip' OR cpf = '$cpf' ";
+    $sql = "SELECT * FROM db_clti.tb_admin WHERE nip = '$usuario' OR cpf = '$usuario' ";
     $row = $pg->getRow($sql);
 
     if ($row) {
@@ -172,10 +173,9 @@ if ($act == 'insert') {
 
     else {
 
-        
         $hash = sha1(md5($senha));
         $salt = sha1(md5($usuario));
-        $senha = $salt+$hash;
+        $senha = $salt.$hash;
         $senha = sha1(md5($senha));
 
         $sql = "INSERT INTO db_clti.tb_admin(

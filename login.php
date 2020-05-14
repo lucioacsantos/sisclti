@@ -73,7 +73,7 @@ if ($act == 'acesso') {
     
     $hash = sha1(md5($senha));
     $salt = sha1(md5($usuario));
-    $senha = $salt+$hash;
+    $senha = $salt.$hash;
     $senha = sha1(md5($senha));
 
     $sql = "SELECT * FROM db_clti.tb_admin WHERE nip = '$usuario' OR cpf = '$usuario' AND senha = '$senha'";

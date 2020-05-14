@@ -44,39 +44,7 @@
 		//} );
 
 		$( document ).ready( function () {
-			$( "#insertadminom" ).validate( {
-				rules: {
-					login: {
-						required: true,
-						minlength: 5
-					},
-					senha: {
-						required: true,
-						minlength: 8
-					},
-					confirmasenha: {
-						required: true,
-						minlength: 8,
-						equalTo: "#senha"
-          },
-        },
-				messages: {
-					login: {
-						required: "Por favor informe o Login do Admin",
-						minlength: "O Login deve possuir acima de 5 caracteres"
-					},
-					senha: {
-						required: "Por favor informe a senha",
-						minlength: "A Senha deve possuir acima de 8 caracteres"
-					},
-					confirmasenha: {
-						required: "Por favor informe a senha",
-						minlength: "A Senha deve possuir acima de 8 caracteres",
-						equalTo: "As Senhas estão diferentes"
-					},
-				},
-      } );
-      $( "#insertlotclti" ).validate( {
+      $( "#insereusuario" ).validate( {
 				rules: {
 					senha: {
 						required: true,

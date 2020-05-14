@@ -36,7 +36,7 @@ if ($act == 'cad') {
         <div class=\"row\">
             <main>
                 <div id=\"form-cadastro\">
-                    <form id=\"insertlotclti\" action=\"?cmd=lotclti&act=insert\" method=\"post\" enctype=\"multipart/form-data\">
+                    <form id=\"insereusuario\" action=\"?cmd=lotclti&act=insert\" method=\"post\" enctype=\"multipart/form-data\">
                         <fieldset>
                             <legend>Lotação do CLTI - Cadastro</legend>
 
@@ -164,7 +164,7 @@ if ($act == 'insert') {
 
         $hash = sha1(md5($senha));
         $salt = sha1(md5($nip));
-        $senha = $salt+$hash;
+        $senha = $salt.$hash;
         $senha = sha1(md5($senha));
 
         $sql = "INSERT INTO db_clti.tb_lotacao_clti(
