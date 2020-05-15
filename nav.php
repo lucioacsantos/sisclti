@@ -65,7 +65,25 @@ $sigla = $pg->getCol($sql);
                   Admin
                 </a>
               </li>
-              <!--<li class="nav-item">
+              <li class="nav-item">
+                <a class="nav-link" href="<?php echo "$url/ativos/?cmd=servidores"; ?>">
+                  <span data-feather="server"></span>
+                  Servidores
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="<?php echo "$url/ativos/?cmd=estacoes"; ?>">
+                  <span data-feather="monitor"></span>
+                  Estações de Trabalho
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="<?php echo "$url/ativos/?cmd=conectividade"; ?>">
+                  <span data-feather="cpu"></span>
+                  Equipamentos de Conectividade
+                </a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" href="#">
                   <span data-feather="bar-chart-2"></span>
                   Relatórios
@@ -76,7 +94,7 @@ $sigla = $pg->getCol($sql);
                   <span data-feather="layers"></span>
                   Integração
                 </a>
-              </li>-->
+              </li>
             </ul>
 
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -86,7 +104,7 @@ $sigla = $pg->getCol($sql);
               </a>
             </h6>
             <ul class="nav flex-column mb-2">
-              <!--<li class="nav-item">
+              <li class="nav-item">
                 <a class="nav-link" href="#">
                   <span data-feather="file-text"></span>
                   Mês Atual
@@ -97,7 +115,7 @@ $sigla = $pg->getCol($sql);
                   <span data-feather="file-text"></span>
                   Últimos Quinze Dias
                 </a>
-              </li>-->
+              </li>
             </ul>
           </div>
         </nav>
