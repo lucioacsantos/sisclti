@@ -66,19 +66,19 @@ $sigla = $pg->getCol($sql);
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="<?php echo "$url/ativos/?cmd=servidores"; ?>">
+                <a class="nav-link" href="<?php echo "$url/ativosti/?cmd=servidores"; ?>">
                   <span data-feather="server"></span>
                   Servidores
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="<?php echo "$url/ativos/?cmd=estacoes"; ?>">
+                <a class="nav-link" href="<?php echo "$url/ativosti/?cmd=estacoes"; ?>">
                   <span data-feather="monitor"></span>
                   Estações de Trabalho
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="<?php echo "$url/ativos/?cmd=conectividade"; ?>">
+                <a class="nav-link" href="<?php echo "$url/ativosti/?cmd=conectividade"; ?>">
                   <span data-feather="cpu"></span>
                   Equipamentos de Conectividade
                 </a>
