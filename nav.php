@@ -66,6 +66,12 @@ $sigla = $pg->getCol($sql);
                 </a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" href="<?php echo "$url/ativosti/?cmd=sistoperacionais"; ?>">
+                  <span data-feather="globe"></span>
+                  Sistemas Operacionais
+                </a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" href="<?php echo "$url/ativosti/?cmd=servidores"; ?>">
                   <span data-feather="server"></span>
                   Servidores

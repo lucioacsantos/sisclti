@@ -68,16 +68,17 @@ echo "
 
 /* Método Login */
 if ($act == 'acesso') {
-    $usuario = strtoupper($_POST['usuario']);
-    $senha = $_POST['senha'];
-    
-    $hash = sha1(md5($senha));
-    $salt = sha1(md5($usuario));
-    $senha = $salt.$hash;
-    $senha = sha1(md5($senha));
 
-    $sql = "SELECT * FROM db_clti.tb_lotacao_clti WHERE nip = '$usuario' OR cpf = '$usuario' AND senha = '$senha'";
+  $usuario = $_POST['usuario'];
+  $senha = $_POST['senha'];
+  
+  $hash = sha1(md5($senha));
+  $salt = sha1(md5($usuario));
+  $senha = $salt.$hash;
 
+  $sql = "SELECT * FROM db_clti.tb_lotacao_clti WHERE nip = '$usuario' AND senha = '$senha'
+      OR cpf = '$usuario' AND senha = '$senha'";
+  
 	$row = $pg->getRow($sql);
 
 	if ($row != NULL) {

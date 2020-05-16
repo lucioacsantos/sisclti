@@ -21,7 +21,32 @@ include "../nav.php";
 
 /* Montagem do grid html5 conforme módulo solicidade */
 switch ($cmd) {
-	case 'tipoclti':
+
+  case 'sistoperacionais':
+		echo "
+        <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
+          <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
+            <h1 class=\"h2\">Gerenciamento - Sistemas Operacionais</h1>
+            <div class=\"btn-toolbar mb-2 mb-md-0\">
+              <div class=\"btn-group mr-2\">
+                <a href=\"?cmd=sistoperacionais\"><button class=\"btn btn-sm btn-outline-secondary\">Sistemas Operacionais</button></a>
+                <a href=\"?cmd=sistoperacionais&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro de SO/SOR</button></a>
+              </div>
+              <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
+                <span data-feather=\"calendar\"></span>
+                Esta Semana
+              </button>-->
+            </div>
+          </div>";
+		include "sistoperacionais.inc.php";
+		echo"
+		</main>
+      </div>
+    </div>";
+
+    break;
+    
+	case 'servidores':
 		echo "
         <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
           <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
@@ -37,7 +62,7 @@ switch ($cmd) {
               </button>-->
             </div>
           </div>";
-		include "tipoclti.inc.php";
+		include "servidores.inc.php";
 		echo"
 		</main>
       </div>
@@ -45,7 +70,7 @@ switch ($cmd) {
 
 		break;
 
-	case 'gerclti':
+	case 'estacoes':
 		echo "
         <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
           <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
@@ -61,7 +86,7 @@ switch ($cmd) {
               </button>-->
             </div>
           </div>";
-		include "gerclti.inc.php";
+		include "estacoes.inc.php";
 		echo"
 		</main>
       </div>
@@ -69,7 +94,7 @@ switch ($cmd) {
 
 		break;
 
-  case 'lotclti':
+  case 'conectividade':
     echo "
         <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
           <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
@@ -85,80 +110,7 @@ switch ($cmd) {
               </button>-->
             </div>
           </div>";
-    include "lotclti.inc.php";
-    echo"
-    </main>
-      </div>
-    </div>";
-
-    break;
-
-    case 'omapoiadas':
-    echo "
-        <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
-          <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
-            <h1 class=\"h2\">Gerenciamento - OM Apoiadas pelo CLTI</h1>
-            <div class=\"btn-toolbar mb-2 mb-md-0\">
-              <div class=\"btn-group mr-2\">
-                <a href=\"?cmd=omapoiadas\"><button class=\"btn btn-sm btn-outline-secondary\">OM Apoiadas</button></a>
-                <a href=\"?cmd=omapoiadas&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Nova OM</button></a>
-              </div>
-              <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
-                <span data-feather=\"calendar\"></span>
-                Esta Semana
-              </button>-->
-            </div>
-          </div>";
-    include "omapoiadas.inc.php";
-    echo"
-    </main>
-      </div>
-    </div>";
-
-    break;
-
-    case 'osic':
-    echo "
-        <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
-          <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
-            <h1 class=\"h2\">Gerenciamento - OSIC das OM Apoiadas</h1>
-            <div class=\"btn-toolbar mb-2 mb-md-0\">
-              <div class=\"btn-group mr-2\">
-                <a href=\"?cmd=osic\"><button class=\"btn btn-sm btn-outline-secondary\">
-                  OSIC das OM</button></a>
-                <a href=\"?cmd=osic&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
-              </div>
-              <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
-                <span data-feather=\"calendar\"></span>
-                Esta Semana
-              </button>-->
-            </div>
-          </div>";
-    include "osic.inc.php";
-    echo"
-    </main>
-      </div>
-    </div>";
-
-    break;
-
-    case 'admin':
-    echo "
-        <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
-          <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
-            <h1 class=\"h2\">Gerenciamento - Admin das OM Apoiadas</h1>
-            <div class=\"btn-toolbar mb-2 mb-md-0\">
-              <div class=\"btn-group madminr-2\">
-                <a href=\"?cmd=admin\"><button class=\"btn btn-sm btn-outline-secondary\">Administradores</button></a>
-                <a href=\"?cmd=admin&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
-              </div>
-              <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
-                <span data-feather=\"calendar\"></span>
-                Esta Semana
-              </button>-->
-            </div>
-          </div>";
-    include "admin.inc.php";
+    include "conectividade.inc.php";
     echo"
     </main>
       </div>
