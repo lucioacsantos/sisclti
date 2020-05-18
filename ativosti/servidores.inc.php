@@ -11,7 +11,7 @@ require_once "../class/pgsql.class.php";
 $pg = new PgSql();
 
 /* Recupera informações do tipo de CLTI */
-$sql = "SELECT * FROM db_clti.tb_tipos_clti";
+$sql = "SELECT * FROM db_clti.tb_servidores";
 
 $row = $pg->getRow($sql);
 
@@ -19,7 +19,7 @@ $row = $pg->getRow($sql);
 
 /* Checa se o tipo de CLTI está cadastrado */
 if (($row == '0') AND ($act == NULL)) {
-	echo "<h5>A Classificação do CLTI não foi cadastrada,<br />
+	echo "<h5>Não há servidores cadastrados,<br />
 		 clique <a href=\"?cmd=tipoclti&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
 
@@ -32,7 +32,7 @@ if (($row == '0') AND ($act == 'cad')) {
                 <div id=\"form-cadastro\">
                     <form id=\"form\" action=\"?cmd=tipoclti&act=insert\" method=\"post\" enctype=\"multipart/form-data\">
                         <fieldset>
-                            <legend>Tipos de CLTI - Cadastro</legend>
+                            <legend>Servidores - Cadastro</legend>
 
                             <div class=\"form-group\">
                                 <label for=\"publicacao\">Publicação:</label>

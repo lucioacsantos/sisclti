@@ -125,21 +125,103 @@ if ($act == 'cad') {
 /* Monta quadro com lotação/efetivo */
 if (($row) AND ($act == NULL)) {
 
-	echo "<p>Lotação do CLTI: ".$pg->getCol("SELECT lotacao_oficiais+lotacao_pracas
-        FROM db_clti.tb_tipos_clti;")."</p>";
-    echo "<p>Efetivo do CLTI: ".$pg->getCol("SELECT COUNT(nip) 
-        AS qtde FROM db_clti.tb_lotacao_clti;")."</p>";
-    echo "<p>Lotação de Oficiais: ".$pg->getCol("SELECT lotacao_oficiais 
-        AS qtde FROM db_clti.tb_tipos_clti;")." - ";
-	echo "Efetivo de Oficiais: ".$pg->getCol("SELECT COUNT(nip) 
-        AS qtde FROM db_clti.tb_lotacao_clti WHERE id_posto_grad < '10';")."</p>";
-    echo "<p>Lotação de Praças: ".$pg->getCol("SELECT lotacao_pracas 
-        AS qtde FROM db_clti.tb_tipos_clti;")." - ";
-    echo "Efetivo de Praças: ".$pg->getCol("SELECT COUNT(nip) 
-        AS qtde FROM db_clti.tb_lotacao_clti WHERE id_posto_grad > '9' 
-        AND id_posto_grad < '21';")."</p>";
-    echo "Efetivo de Servidores Civis: ".$pg->getCol("SELECT COUNT(nip) 
-        AS qtde FROM db_clti.tb_lotacao_clti WHERE id_posto_grad = '21';")."</p>";
+    $clti = "SELECT * FROM db_clti.tb_lotacao_clti ORDER BY id_posto_grad DESC";
+    $clti = $pg->getRows($clti);
+
+    echo"<div class=\"table-responsive\">
+        <table class=\"table table-hover\">
+            <thead>
+                <tr>
+                    <th scope=\"col\">Pessoal do CLTI</th>
+                    <th scope=\"col\">Lotação</th>
+                    <th scope=\"col\">Efetivo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope=\"row\">#</th>
+                    <td>".$pg->getCol("SELECT lotacao_oficiais+lotacao_pracas
+                        FROM db_clti.tb_tipos_clti;")."</td>
+                    <td>".$pg->getCol("SELECT COUNT(nip) AS qtde 
+                        FROM db_clti.tb_lotacao_clti;")."</td>
+                </tr>
+                <tr>
+                    <th scope=\"row\">Oficiais</th>
+                    <td>".$pg->getCol("SELECT lotacao_oficiais AS qtde 
+                        FROM db_clti.tb_tipos_clti;")."</td>
+                    <td>".$pg->getCol("SELECT COUNT(nip) AS qtde 
+                        FROM db_clti.tb_lotacao_clti WHERE id_posto_grad < '10';")."</td>
+                </tr>
+                <tr>
+                    <th scope=\"row\">Praças</th>
+                    <td> ".$pg->getCol("SELECT lotacao_pracas AS qtde 
+                        FROM db_clti.tb_tipos_clti;")."</td>
+                    <td> ".$pg->getCol("SELECT COUNT(nip) AS qtde 
+                        FROM db_clti.tb_lotacao_clti WHERE id_posto_grad > '9' AND id_posto_grad < '21';")."</td>
+                </tr>
+                <tr>
+                    <th scope=\"row\">Servidores Civis</th>
+                    <td> 0</td>
+                    <td> ".$pg->getCol("SELECT COUNT(nip) AS qtde 
+                        FROM db_clti.tb_lotacao_clti WHERE id_posto_grad = '21';")."</td>
+                </tr>
+            </tbody>
+        </table>
+        </div>";
+
+        echo"<div class=\"table-responsive\">
+            <table class=\"table table-hover\">
+                <thead>
+                    <tr>
+                        <th scope=\"col\">Posto/Grad./Esp.</th>
+                        <th scope=\"col\">NIP</th>
+                        <th scope=\"col\">Nome</th>
+                        <th scope=\"col\">Nome de Guerra</th>
+                    </tr>
+                </thead>";
+
+    foreach ($clti as $key => $value) {
+
+        #Seleciona Sigla do Posto/Graduação
+        $postograd = $pg->getCol("SELECT sigla FROM db_clti.tb_posto_grad WHERE idtb_posto_grad = $value->id_posto_grad");
+        
+        #Selectiona Sigla do Corpo/Quadro
+        if ($value->id_corpo_quadro != 11){
+            $corpoquadro = $pg->getCol("SELECT sigla FROM db_clti.tb_corpo_quadro 
+                WHERE idtb_corpo_quadro = $value->id_corpo_quadro");
+        }
+        else{
+            $corpoquadro = "";
+        }
+        
+        #Seleciona Sigla da Especialidade
+        if ($value->id_especialidade != 12 AND $value->id_especialidade != 13) {
+            $especialidade = $pg->getCol("SELECT sigla FROM db_clti.tb_especialidade 
+                WHERE idtb_especialidade = $value->id_especialidade");
+        }
+        else{
+            $especialidade = "";
+        }
+
+        #Seleciona NIP caso seja militar da MB
+        if ($value->nip != NULL) {
+            $identificacao = $value->nip;
+        }
+        else{
+            $identificacao = "";
+        }
+
+        echo"       <tr>
+                        <th scope=\"row\">".$postograd." ".$corpoquadro." ".$especialidade."</th>
+                        <td>".$identificacao."</td>
+                        <td>".$value->nome."</td>
+                        <td>".$value->nome_guerra."</td>
+                    </tr>";
+    };
+    echo"
+                </tbody>
+            </table>
+            </div>";
 }
 
 /* Método INSERT */

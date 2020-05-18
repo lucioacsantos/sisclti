@@ -83,11 +83,17 @@ if ($act == 'cad') {
 /* Monta quadro de OM */
 if (($row) AND ($act == NULL)) {
 
+    $om = "SELECT * FROM db_clti.tb_om_apoiadas ORDER BY cod_om ASC";
+    $om = $pg->getRows($om);    
+
 	echo "<p>OM Apoiadas: ".$pg->getCol("SELECT COUNT(idtb_om_apoiadas)
-        FROM db_clti.tb_om_apoiadas;")."</p>";
-    echo "<p>Distribuição de OM por  ".$pg->getCol("SELECT COUNT(id_estado) 
-    	FROM (SELECT id_estado FROM db_clti.tb_om_apoiadas 
-    	GROUP BY id_estado) AS vw;;")." Estados </p>";
+            FROM db_clti.tb_om_apoiadas;")."</p>
+        <!--<p>Distribuição de OM por  ".$pg->getCol("SELECT COUNT(id_estado) 
+    	    FROM (SELECT id_estado FROM db_clti.tb_om_apoiadas 
+            GROUP BY id_estado) AS vw;;")." Estados </p>-->";
+    foreach ($om as $key => $value) {
+        echo"<p>".$value->cod_om." - ".$value->nome." - ".$value->sigla." - ".$value->indicativo."</p>";
+    };
 }
 
 /* Método INSERT */

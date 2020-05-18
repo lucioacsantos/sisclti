@@ -57,7 +57,7 @@ echo "
                                     <div class=\"help-block with-errors\"></div>
                                 </div>
                             </fieldset>
-                            <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">
+                            <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Entrar\">
                         </form>
                     </div>
 		        </main>
