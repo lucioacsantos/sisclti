@@ -136,11 +136,64 @@ if ($act == 'cad') {
 /* Monta quadro de administradores */
 if (($row) AND ($act == NULL)) {
 
-	echo "<p>OM Apoiadas: ".$pg->getCol("SELECT COUNT(idtb_om_apoiadas)
-        FROM db_clti.tb_om_apoiadas;")."</p>";
-    echo "<p>Distribuição de OM por  ".$pg->getCol("SELECT COUNT(id_estado) 
-    	FROM (SELECT id_estado FROM db_clti.tb_om_apoiadas 
-    	GROUP BY id_estado) AS vw;;")." Estados </p>";
+	$admin = "SELECT * FROM db_clti.tb_admin ORDER BY id_posto_grad DESC";
+    $admin = $pg->getRows($admin);
+
+    echo"<div class=\"table-responsive\">
+            <table class=\"table table-hover\">
+                <thead>
+                    <tr>
+                        <th scope=\"col\">Posto/Grad./Esp.</th>
+                        <th scope=\"col\">NIP</th>
+                        <th scope=\"col\">Nome</th>
+                        <th scope=\"col\">Nome de Guerra</th>
+                        <th scope=\"col\">Ações</th>
+                    </tr>
+                </thead>";
+
+    foreach ($admin as $key => $value) {
+
+        #Seleciona Sigla do Posto/Graduação
+        $postograd = $pg->getCol("SELECT sigla FROM db_clti.tb_posto_grad WHERE idtb_posto_grad = $value->id_posto_grad");
+        
+        #Selectiona Sigla do Corpo/Quadro
+        if ($value->id_corpo_quadro != 11){
+            $corpoquadro = $pg->getCol("SELECT sigla FROM db_clti.tb_corpo_quadro 
+                WHERE idtb_corpo_quadro = $value->id_corpo_quadro");
+        }
+        else{
+            $corpoquadro = "";
+        }
+        
+        #Seleciona Sigla da Especialidade
+        if ($value->id_especialidade != 12 AND $value->id_especialidade != 13) {
+            $especialidade = $pg->getCol("SELECT sigla FROM db_clti.tb_especialidade 
+                WHERE idtb_especialidade = $value->id_especialidade");
+        }
+        else{
+            $especialidade = "";
+        }
+
+        #Seleciona NIP caso seja militar da MB
+        if ($value->nip != NULL) {
+            $identificacao = $value->nip;
+        }
+        else{
+            $identificacao = "";
+        }
+
+        echo"       <tr>
+                        <th scope=\"row\">".$postograd." ".$corpoquadro." ".$especialidade."</th>
+                        <td>".$identificacao."</td>
+                        <td>".$value->nome."</td>
+                        <td>".$value->nome_guerra."</td>
+                        <td>Editar - Excluir</td>
+                    </tr>";
+    }
+    echo"
+                </tbody>
+            </table>
+            </div>";
 }
 
 /* Método INSERT */

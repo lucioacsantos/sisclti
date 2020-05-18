@@ -83,17 +83,37 @@ if ($act == 'cad') {
 /* Monta quadro de OM */
 if (($row) AND ($act == NULL)) {
 
+    echo"<div class=\"table-responsive\">
+            <table class=\"table table-hover\">
+                <thead>
+                    <tr>
+                        <th scope=\"col\">Código</th>
+                        <th scope=\"col\">Nome</th>
+                        <th scope=\"col\">Sigla</th>
+                        <th scope=\"col\">Ind. Naval</th>
+                        <th scope=\"col\">Ações</th>
+                    </tr>
+                </thead>";
+
     $om = "SELECT * FROM db_clti.tb_om_apoiadas ORDER BY cod_om ASC";
     $om = $pg->getRows($om);    
 
-	echo "<p>OM Apoiadas: ".$pg->getCol("SELECT COUNT(idtb_om_apoiadas)
-            FROM db_clti.tb_om_apoiadas;")."</p>
-        <!--<p>Distribuição de OM por  ".$pg->getCol("SELECT COUNT(id_estado) 
+	echo "<!--<p>Distribuição de OM por  ".$pg->getCol("SELECT COUNT(id_estado) 
     	    FROM (SELECT id_estado FROM db_clti.tb_om_apoiadas 
             GROUP BY id_estado) AS vw;;")." Estados </p>-->";
     foreach ($om as $key => $value) {
-        echo"<p>".$value->cod_om." - ".$value->nome." - ".$value->sigla." - ".$value->indicativo."</p>";
+        echo"       <tr>
+                        <th scope=\"row\">".$value->cod_om."</th>
+                        <td>".$value->nome."</td>
+                        <td>".$value->sigla."</td>
+                        <td>".$value->indicativo."</td>
+                        <td>Editar - Excluir</td>
+                    </tr>";
     };
+    echo"
+                </tbody>
+            </table>
+            </div>";
 }
 
 /* Método INSERT */

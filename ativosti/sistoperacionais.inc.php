@@ -74,12 +74,35 @@ if ($act == 'cad') {
 
 /* Monta quadro de administradores */
 if (($row) AND ($act == NULL)) {
-    $so = "SELECT * FROM db_clti.tb_sor ORDER BY desenvolvedor ASC";
+
+    echo"<div class=\"table-responsive\">
+            <table class=\"table table-hover\">
+                <thead>
+                    <tr>
+                        <th scope=\"col\">Desenvolvedor</th>
+                        <th scope=\"col\">Descrição</th>
+                        <th scope=\"col\">Versão</th>
+                        <th scope=\"col\">Situação</th>
+                        <th scope=\"col\">Ações</th>
+                    </tr>
+                </thead>";
+
+    $so = "SELECT * FROM db_clti.tb_sor ORDER BY desenvolvedor,versao ASC";
     $so = $pg->getRows($so);
     echo "<p>Sistemas Operacionais: </p>";
     foreach ($so as $key => $value) {
-        echo"<p>".$value->desenvolvedor." - ".$value->descricao." - ".$value->versao." - ".$value->situacao."</p>";
+        echo"       <tr>
+                        <th scope=\"row\">".$value->desenvolvedor."</th>
+                        <td>".$value->descricao."</td>
+                        <td>".$value->versao."</td>
+                        <td>".$value->situacao."</td>
+                        <td>Editar - Excluir</td>
+                    </tr>";
     };
+    echo"
+                </tbody>
+            </table>
+            </div>";
 }
 
 /* Método INSERT */

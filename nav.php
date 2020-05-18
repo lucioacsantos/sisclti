@@ -16,7 +16,21 @@ $sigla = $pg->getCol($sql);
         <?php echo $sigla; ?>
       </p>
       <!--<input class="form-control form-control-dark w-100" type="text" placeholder="Pesquisa" aria-label="Pesquisa">-->
-      <p class="navbar-brand">Usuário ativo: <?php print $_SESSION['user_name']." - "; print $_SESSION['perfil']; ?></p>
+      <p class="navbar-brand">Usuário ativo: 
+        <?php 
+          if (isset($_SESSION['user_name'])){
+            print $_SESSION['user_name']." - "; print $_SESSION['perfil']; 
+          }
+          else{
+            // muda o valor de logged_in para false
+            $_SESSION['logged_in'] = false;
+            // finaliza a sessão
+            session_destroy();
+            // retorna para a index.php
+            header('Location: '.$url.'/login.php');
+          }          
+        ?>
+      </p>
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
           <a class="nav-link" href="<?php echo "$url/logout.php"; ?>">Sair</a>

@@ -167,7 +167,9 @@ if (($row) AND ($act == NULL)) {
                 </tr>
             </tbody>
         </table>
-        </div>";
+        </div>
+        <p></p>
+        <p><h2>Equipe do CLTI</h2></p>";
 
         echo"<div class=\"table-responsive\">
             <table class=\"table table-hover\">
@@ -177,6 +179,7 @@ if (($row) AND ($act == NULL)) {
                         <th scope=\"col\">NIP</th>
                         <th scope=\"col\">Nome</th>
                         <th scope=\"col\">Nome de Guerra</th>
+                        <th scope=\"col\">Ações</th>
                     </tr>
                 </thead>";
 
@@ -216,6 +219,7 @@ if (($row) AND ($act == NULL)) {
                         <td>".$identificacao."</td>
                         <td>".$value->nome."</td>
                         <td>".$value->nome_guerra."</td>
+                        <td>Editar - Excluir</td>
                     </tr>";
     };
     echo"
