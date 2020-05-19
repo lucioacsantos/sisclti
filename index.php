@@ -15,7 +15,7 @@ if (!isLoggedIn()){
     header('Location: login.php');
 }
 
-/* URL Recuperada do Banco de Dados */
+/* Recupera Configurações do Sistema a partir do Banco de Dados */
 $url = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='URL'");
 
 /* Carrega Estrutura das Páginas */

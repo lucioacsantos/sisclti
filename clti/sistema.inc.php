@@ -18,69 +18,6 @@ $row = $pg->getRow($sql);
 @$cmd = $_GET['cmd'];
 @$act = $_GET['act'];
 
-/* Carregar form para cadastro do CLTI */
-if ($act == 'cad') {
-	echo "
-	<div class=\"container-fluid\">
-        <div class=\"row\">
-            <main>
-                <div id=\"form-cadastro\">
-                    <form id=\"form\" action=\"?cmd=gerclti&act=insert\" method=\"post\" enctype=\"multipart/form-data\">
-                        <fieldset>
-                            <legend>CLTI - Cadastro</legend>
-
-                            <div class=\"form-group\">
-                                <label for=\"tipoclti\">Tipo do CLTI:</label>
-                                <select id=\"tipoclti\" class=\"form-control\" name=\"tipoclti\">
-                                	<option value=\"".$tiposclti->idtipos_clti."\">
-                                		CLTI Tipo: ".$tiposclti->tipo_clti."</option>
-                                </select>
-                            </div>
-
-                            <div class=\"form-group\">
-                                <label for=\"nomeclti\">Nome do CLTI:</label>
-                                <input id=\"nomeclti\" class=\"form-control\" type=\"text\" name=\"nomeclti\"
-                                       placeholder=\"Nome do CLTI\" minlength=\"2\" required=\"required\">
-                            </div>
-
-                            <div class=\"form-group\">
-                                <label for=\"siglaclti\">Sigla do CLTI:</label>
-                                <input id=\"siglaclti\" class=\"form-control\" type=\"text\" name=\"siglaclti\"
-                                       placeholder=\"Sigla do CLTI\" minlength=\"2\" required=\"required\">
-                            </div>
-
-                            <div class=\"form-group\">
-                                <label for=\"indicativoclti\">Indicativo Naval do CLTI:</label>
-                                <input id=\"indicativoclti\" class=\"form-control\" type=\"text\" name=\"indicativoclti\"
-                                       placeholder=\"Indicativo Naval do CLTI\" minlength=\"2\" required=\"required\">
-                            </div>
-
-                            <div class=\"form-group\">
-                                <label for=\"dataativacao\">Data de Ativação do CLTI:</label>
-                                <input id=\"dataativacao\" class=\"form-control\" type=\"date\" name=\"dataativacao\"
-                                       placeholder=\"Data de Ativação do CLTI\" minlength=\"2\" required=\"required\">
-                            </div>
-
-                            <div class=\"form-group\">
-                                <label for=\"efetivooficiais\">Efetivo de Oficiais:</label>
-                                <input id=\"efetivooficiais\" class=\"form-control\" type=\"number\" name=\"efetivooficiais\"
-                                       placeholder=\"Efetivo de Oficiais\" minlength=\"2\" required=\"required\">
-                            </div>
-
-                            <div class=\"form-group\">
-                                <label for=\"efetivopracas\">Efetivo de Praças:</label>
-                                <input id=\"efetivopracas\" class=\"form-control\" type=\"number\" name=\"efetivopracas\"
-                                       placeholder=\"Efetivo de Praças\" minlength=\"2\" required=\"required\">
-                            </div>
-                        </fieldset>
-                        <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">
-                    </form>
-                </div>
-            </main>
-        </div>
-    </div>";
-}
-
 if ($row) {
 
     $config = "SELECT * FROM db_clti.tb_config";
@@ -103,9 +40,9 @@ if ($row) {
                         <th scope=\"row\">".$value->parametro."</th>
                         <td>".$value->valor."</td>
                         <td>
-                            <form id=\"form\" action=\"?cmd=sistema&act=insert\" method=\"post\" enctype=\"multipart/form-data\">
+                            <form id=\"form\" action=\"?cmd=sistema&act=update\" method=\"post\" enctype=\"multipart/form-data\">
                                 <input id=\"valor\" class=\"form-control\" type=\"text\" name=\"valor\"
-                                       placeholder=\"ex. http://www.site.mb/sisclti\" required=\"required\">
+                                       placeholder=\"Novo Parâmetro\" required=\"required\">
                                 <input id=\"idtb_config\" class=\"form-control\" type=\"text\" name=\"idtb_config\" 
                                     value=\"$value->idtb_config\" hidden=\"true\">
                         </td>
@@ -122,7 +59,7 @@ if ($row) {
 }
 
 /* Método INSERT */
-if ($act == 'insert') {
+if ($act == 'update') {
 	$valor = $_POST['valor'];
 	$idtb_config = $_POST['idtb_config'];
 
@@ -132,7 +69,8 @@ if ($act == 'insert') {
 
 	foreach ($pg as $key => $value) {
 		if ($value != '0') {
-			echo "<h5>Resgistros incluídos no banco de dados.</h5>";
+            echo "<h5>Resgistros incluídos no banco de dados.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;url=?cmd=sistema\">";
 		}
 
 		else {

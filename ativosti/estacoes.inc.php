@@ -181,7 +181,8 @@ if ($row) {
                         if ($value->situacao == "SEM ATIVIDADE"){
                             echo "<span data-feather=\"alert-triangle\"></span></td>";
                         }
-                 echo  "<td>Editar - Excluir</td>
+                 echo  "<td><a href=\"?cmd=admin&act=cad&param=".$value->idtb_admin."\">Editar</a> - 
+                        Excluir</td>
                     </tr>";
     }
     echo"
@@ -215,7 +216,8 @@ if ($act == 'insert') {
 
 	foreach ($pg as $key => $value) {
 		if ($value != '0') {
-			echo "<h5>Resgistros incluídos no banco de dados.</h5>";
+            echo "<h5>Resgistros incluídos no banco de dados.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;url=?cmd=estacoes\">";
 		}
 
 		else {

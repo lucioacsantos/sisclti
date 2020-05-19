@@ -118,7 +118,8 @@ if ($row) {
                         <td>".$value->fabricante."</td>
                         <td>".$value->modelo."</td>
                         <td>".$value->end_ip."</td>
-                        <td>Editar - Excluir</td>
+                        <td><a href=\"?cmd=admin&act=cad&param=".$value->idtb_admin."\">Editar</a> - 
+                            Excluir</td>
                     </tr>";
     }
     echo"
@@ -145,7 +146,8 @@ if ($act == 'insert') {
 
 	foreach ($pg as $key => $value) {
 		if ($value != '0') {
-			echo "<h5>Resgistros incluídos no banco de dados.</h5>";
+            echo "<h5>Resgistros incluídos no banco de dados.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;url=?cmd=conectividade\">";
 		}
 
 		else {

@@ -25,6 +25,13 @@ if (($row == '0') AND ($act == NULL)) {
 
 /* Carrega form para cadastro de Admin */
 if ($act == 'cad') {
+    @$param = $_GET['param'];
+    if ($param){
+        $sor = $pg->getRow("SELECT * FROM db_clti.tb_sor WHERE idtb_sor = '$param'");
+    }
+    else{
+        $sor = (object)['idtb_sor'=>'','desenvolvedor'=>'','descricao'=>'','versao'=>'','situacao'=>''];
+    }
     echo "
 	<div class=\"container-fluid\">
         <div class=\"row\">
@@ -39,25 +46,26 @@ if ($act == 'cad') {
                                 <label for=\"desenvolvedor\">Desenvolvedor:</label>
                                 <input id=\"desenvolvedor\" class=\"form-control\" type=\"text\" name=\"desenvolvedor\"
                                        placeholder=\"Desenvolvedor\" style=\"text-transform:uppercase\" 
-                                       required=\"required\">
+                                       required=\"required\" value=\"$sor->desenvolvedor\">
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"descricao\">Descrição:</label>
                                 <input id=\"descricao\" class=\"form-control\" type=\"text\" name=\"descricao\"
                                        placeholder=\"Descrição\" style=\"text-transform:uppercase\" 
-                                       required=\"required\">
+                                       required=\"required\" value=\"$sor->descricao\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"versao\">Versão:</label>
                                 <input id=\"versao\" class=\"form-control\" type=\"text\" name=\"versao\"
                                        placeholder=\"Versão\" style=\"text-transform:uppercase\" 
-                                       required=\"required\">
+                                       required=\"required\" value=\"$sor->versao\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"situacao\">Situação:</label>
                                 <select id=\"situacao\" class=\"form-control\" name=\"situacao\">
+                                <option value=\"$sor->situacao\" selected=\"true\">$sor->situacao</option>
                                     <option value=\"ATIVO\">Ativo</option>
                                     <option value=\"DESCONTINUADO\">Descontinuado</option>
                                 </select>
@@ -96,7 +104,8 @@ if (($row) AND ($act == NULL)) {
                         <td>".$value->descricao."</td>
                         <td>".$value->versao."</td>
                         <td>".$value->situacao."</td>
-                        <td>Editar - Excluir</td>
+                        <td><a href=\"?cmd=sistoperacionais&act=cad&param=".$value->idtb_sor."\">Editar</a> - 
+                            Excluir</td>
                     </tr>";
     };
     echo"
@@ -119,7 +128,8 @@ if ($act == 'insert') {
     $pg->exec($sql);
 
     if ($pg) {
-        echo "<h5>Resgistros incluídos no banco de dados.</h5>";
+        echo "<h5>Resgistros incluídos no banco de dados.</h5>
+        <meta http-equiv=\"refresh\" content=\"1;url=?cmd=sistoperacionais\">";
     }
 
     else {

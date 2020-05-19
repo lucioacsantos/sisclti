@@ -25,6 +25,18 @@ if (($row == '0') AND ($act == NULL)) {
 
 /* Carrega form para cadastro de Servidores */
 if ($act == 'cad') {
+    @$param = $_GET['param'];
+    if ($param){
+        $servidor = $pg->getRow("SELECT * FROM db_clti.tb_servidores WHERE idtb_servidores = '$param'");
+        $srv_om = $pg->getRow("SELECT * FROM db_clti.tb_om_apoiadas WHERE idtb_om_apoiadas = '$servidor->idtb_om_apoiadas'");
+        $srv_sor = $pg->getRow("SELECT * FROM db_clti.tb_sor WHERE idtb_sor = '$servidor->idtb_sor'");
+    }
+    else{
+        $servidor = (object)['idtb_servidor'=>'','idtb_om_apoiadas'=>'','modelo'=>'','processador'=>'','memoria'=>'',
+            'armazenamento'=>'','rede'=>'','idtb_sor'=>'','end_ip'=>'','finalidade'=>'','data_aquisicao'=>'',
+            'data_garantia'=>'','fabricante'=>'','localizacao'=>''];
+        $srv_om = (object)['idtb_om_apoiadas'=>'','sigla'=>''];
+    }
     $omapoiada = "SELECT * FROM db_clti.tb_om_apoiadas ORDER BY sigla ASC";
     $omapoiada = $pg->getRows($omapoiada);
     $so = "SELECT * FROM db_clti.tb_sor ORDER BY desenvolvedor,versao ASC";
@@ -128,8 +140,6 @@ if ($act == 'cad') {
                                     style=\"text-transform:uppercase\" required=\"required\">
                             </div>
 
-
-
                         </fieldset>
                         <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">
                     </form>
@@ -175,7 +185,8 @@ if ($row) {
                                 echo"$value->descricao"." "."$value->versao";
                             }
                  echo  "</td>
-                        <td>Editar - Excluir</td>
+                        <td><a href=\"?cmd=admin&act=cad&param=".$value->idtb_admin."\">Editar</a> - 
+                            Excluir</td>
                     </tr>";
     }
     echo"
@@ -210,7 +221,8 @@ if ($act == 'insert') {
 
 	foreach ($pg as $key => $value) {
 		if ($value != '0') {
-			echo "<h5>Resgistros incluídos no banco de dados.</h5>";
+            echo "<h5>Resgistros incluídos no banco de dados.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;url=?cmd=servidores\">";
 		}
 
 		else {
