@@ -5,7 +5,7 @@
 -- Dumped from database version 10.13 (Ubuntu 10.13-1.pgdg18.04+1)
 -- Dumped by pg_dump version 10.13 (Ubuntu 10.13-1.pgdg18.04+1)
 
--- Started on 2020-05-17 22:42:34 -03
+-- Started on 2020-05-19 22:00:27 -03
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -414,7 +414,9 @@ CREATE TABLE db_clti.tb_estacoes (
     end_ip character varying(255) NOT NULL,
     data_aquisicao date NOT NULL,
     data_garantia date NOT NULL,
-    req_minimos integer NOT NULL
+    localizacao character varying(255) NOT NULL,
+    req_minimos character varying(45) NOT NULL,
+    situacao character varying(255)
 );
 
 
@@ -800,7 +802,8 @@ CREATE TABLE db_clti.tb_servidores (
     finalidade character varying(255) NOT NULL,
     data_aquisicao date NOT NULL,
     data_garantia date,
-    fabricante character varying(255) NOT NULL
+    fabricante character varying(255) NOT NULL,
+    localizacao character varying(255)
 );
 
 
@@ -6580,6 +6583,7 @@ COPY db_clti.tb_clti (idtb_clti, idtipos_clti, efetivo_oficiais, efetivo_pracas,
 --
 
 COPY db_clti.tb_conectividade (idtb_conectividade, idtb_om_apoiadas, fabricante, modelo, localizacao, end_ip, data_aquisicao, data_garantia) FROM stdin;
+1	5	CISCO	C375048PS-S	SALA DE SERVIDORES	172.23.117.20	2019-05-17	2020-05-17
 \.
 
 
@@ -6591,6 +6595,8 @@ COPY db_clti.tb_conectividade (idtb_conectividade, idtb_om_apoiadas, fabricante,
 
 COPY db_clti.tb_config (idtb_config, parametro, valor) FROM stdin;
 1	URL	http://localhost/sisclti
+2	ESTADO	RN
+3	CIDADE	Natal
 \.
 
 
@@ -6662,7 +6668,8 @@ COPY db_clti.tb_especialidade (idtb_especialidade, nome, sigla) FROM stdin;
 -- Data for Name: tb_estacoes; Type: TABLE DATA; Schema: db_clti; Owner: postgres
 --
 
-COPY db_clti.tb_estacoes (idtb_estacoes, idtb_om_apoiadas, fabricante, modelo, processador, memoria, armazenamento, idtb_sor, end_ip, data_aquisicao, data_garantia, req_minimos) FROM stdin;
+COPY db_clti.tb_estacoes (idtb_estacoes, idtb_om_apoiadas, fabricante, modelo, processador, memoria, armazenamento, idtb_sor, end_ip, data_aquisicao, data_garantia, localizacao, req_minimos, situacao) FROM stdin;
+1	5	ARQUIMEDES	A85871	INTEL CORE I5 3.2GHZ	2X8GB	2X1TB SATA	9	172.23.119.35	2019-05-20	2020-05-20	CLTI - DIVISãO DE SISTEMAS	SIM	EM PRODUÇÃO
 \.
 
 
@@ -6711,7 +6718,7 @@ COPY db_clti.tb_estado (id, nome, uf, pais) FROM stdin;
 
 COPY db_clti.tb_lotacao_clti (idtripulacao_clti, id_posto_grad, id_corpo_quadro, id_especialidade, nip, cpf, nome, nome_guerra, status, senha, perfil) FROM stdin;
 18	16	1	8	99242991	\N	LUCIO ALEXANDRE CORREIA DOS SANTOS	ALEXANDRE	ATIVO	c4ce9a5fa42b7026826369e2e6faa9d3b15f0394e56d37e55c58dd2c5e4001594a9ca4efe19e6ac6	TEC_CLTI
-20	21	11	12	12345678	\N	ADMINCLTI	ADMINCLTI	ATIVO	1f82ea75c5cc526729e2d581aeb3aeccfef4407e256127614ef298fedf9376775a7d7328090f63bf	TEC_CLTI
+20	21	11	12	12345678		ADMINCLTI	ADMINCLTI	ATIVO	1f82ea75c5cc526729e2d581aeb3aeccfef4407e256127614ef298fedf9376775a7d7328090f63bf	TEC_CLTI
 \.
 
 
@@ -6805,7 +6812,9 @@ COPY db_clti.tb_qualificacao_ti (idtb_qualificacao_ti, idtb_pessoal_ti, nome_cur
 -- Data for Name: tb_servidores; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
-COPY db_clti.tb_servidores (idtb_servidores, idtb_om_apoiadas, modelo, processador, memoria, armazenamento, rede, idtb_sor, end_ip, finalidade, data_aquisicao, data_garantia, fabricante) FROM stdin;
+COPY db_clti.tb_servidores (idtb_servidores, idtb_om_apoiadas, modelo, processador, memoria, armazenamento, rede, idtb_sor, end_ip, finalidade, data_aquisicao, data_garantia, fabricante, localizacao) FROM stdin;
+1	5	DL 360 GEN9	INTEL XEON 3.2GHZ	4X8GB	4X600GB SAS	2XGIGABIT	6	192.168.1.100	SERVIDOR WEB	2012-05-15	2020-04-20	DELL	SALA DE SERVIDORES
+2	5	A85871	INTEL CORE I5 3.2GHZ	2X8GB	2X1TB SATA		9	172.23.119.35		2019-10-20	2020-10-20	ARQUIMEDES	CLTI - DIVISãO DE SISTEMAS
 \.
 
 
@@ -6825,6 +6834,8 @@ COPY db_clti.tb_sor (idtb_sor, desenvolvedor, descricao, versao, situacao) FROM 
 7	CANONICAL	UBUNTU MB	14.04	DESCONTINUADO
 8	CANONICAL	UBUNTU MB	16.04	ATIVO
 9	CANONICAL	UBUNTU MB	18.04	ATIVO
+10	CANONICAL	UBUNTU MB	14.04	ATIVO
+11	CANONICAL	UBUNTU MB	14.04	DESCONTINUADO
 \.
 
 
@@ -6890,7 +6901,7 @@ SELECT pg_catalog.setval('db_clti.tb_clti_idtb_clti_sequence', 3, true);
 -- Name: tb_conectividade_idtb_conectividade_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
-SELECT pg_catalog.setval('db_clti.tb_conectividade_idtb_conectividade_seq', 1, false);
+SELECT pg_catalog.setval('db_clti.tb_conectividade_idtb_conectividade_seq', 1, true);
 
 
 --
@@ -6899,7 +6910,7 @@ SELECT pg_catalog.setval('db_clti.tb_conectividade_idtb_conectividade_seq', 1, f
 -- Name: tb_config_idtb_config_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: postgres
 --
 
-SELECT pg_catalog.setval('db_clti.tb_config_idtb_config_seq', 1, true);
+SELECT pg_catalog.setval('db_clti.tb_config_idtb_config_seq', 3, true);
 
 
 --
@@ -6926,7 +6937,7 @@ SELECT pg_catalog.setval('db_clti.tb_especialidade_idtb_especialidade_sequence',
 -- Name: tb_estacoes_idtb_estacoes_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: postgres
 --
 
-SELECT pg_catalog.setval('db_clti.tb_estacoes_idtb_estacoes_seq', 1, false);
+SELECT pg_catalog.setval('db_clti.tb_estacoes_idtb_estacoes_seq', 1, true);
 
 
 --
@@ -6989,7 +7000,7 @@ SELECT pg_catalog.setval('db_clti.tb_qualificacao_ti_idtb_qualificacao_ti_seq', 
 -- Name: tb_servidores_idtb_servidores_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
-SELECT pg_catalog.setval('db_clti.tb_servidores_idtb_servidores_seq', 1, false);
+SELECT pg_catalog.setval('db_clti.tb_servidores_idtb_servidores_seq', 2, true);
 
 
 --
@@ -6998,7 +7009,7 @@ SELECT pg_catalog.setval('db_clti.tb_servidores_idtb_servidores_seq', 1, false);
 -- Name: tb_sor_idtb_sor_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
-SELECT pg_catalog.setval('db_clti.tb_sor_idtb_sor_seq', 9, true);
+SELECT pg_catalog.setval('db_clti.tb_sor_idtb_sor_seq', 11, true);
 
 
 --
@@ -7574,7 +7585,7 @@ GRANT ALL ON TABLE db_clti.tb_qualificacao_ti TO sisclti;
 GRANT ALL ON TABLE db_clti.tb_tipos_clti TO sisclti;
 
 
--- Completed on 2020-05-17 22:42:35 -03
+-- Completed on 2020-05-19 22:00:28 -03
 
 --
 -- PostgreSQL database dump complete
