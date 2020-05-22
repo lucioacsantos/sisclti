@@ -78,7 +78,7 @@ if ($act == 'acesso') {
 
   $sql = "SELECT * FROM db_clti.tb_lotacao_clti WHERE nip = '$usuario' AND senha = '$senha'
       OR cpf = '$usuario' AND senha = '$senha'";
-  
+  print $sql;
 	$row = $pg->getRow($sql);
 
 	if ($row != NULL) {

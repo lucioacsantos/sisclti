@@ -25,6 +25,7 @@ if (($row == '0') AND ($act == NULL)) {
 /* Carrega form para cadastro de OSIC */
 if ($act == 'cad') {
     @$param = $_GET['param'];
+    @$senha = $_GET['senha'];
     if ($param){
         $osic = $pg->getRow("SELECT * FROM db_clti.tb_osic WHERE idtb_osic = '$param'");
         $osic_om = $pg->getRow("SELECT idtb_om_apoiadas,sigla FROM db_clti.tb_om_apoiadas 
@@ -60,9 +61,151 @@ if ($act == 'cad') {
                 <div id=\"form-cadastro\">
                     <form id=\"insereusuario\" role=\"form\" action=\"?cmd=osic&act=insert\" 
                         method=\"post\" enctype=\"multipart/form-data\">
-                        <fieldset>
-                            <legend>OSIC - Cadastro</legend>
+                        <fieldset>";
 
+                            if ($param){
+                                if ($senha){
+                                    echo"
+                                    <legend>OSIC - Troca de Senha</legend>
+                                    <input id=\"omapoiada\" class=\"form-control\" name=\"omapoiada\"
+                                        value=\"$osic_om->idtb_om_apoiadas\" hidden=\"true\">
+                                    <input id=\"postograd\" class=\"form-control\" name=\"postograd\"
+                                        value=\"$osic_posto_grad->idtb_posto_grad\" hidden=\"true\">
+                                    <input id=\"corpoquadro\" class=\"form-control\" name=\"corpoquadro\"
+                                        value=\"$osic_corpo_quadro->idtb_corpo_quadro\" hidden=\"true\">
+                                    <input id=\"especialidade\" class=\"form-control\" name=\"especialidade\"
+                                        value=\"$osic_especialidade->idtb_especialidade\" hidden=\"true\">
+                                    <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
+                                        hidden=\"required\" value=\"$osic->nome\">
+                                    <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
+                                        hidden=\"required\" value=\"$osic->nome_guerra\">
+                                    
+                                    <div class=\"form-group\">
+                                        <label for=\"nip\">NIP:</label>
+                                        <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" readonly=\"true\"
+                                            placeholder=\"NIP\" maxlength=\"8\" required=\"required\" value=\"$osic->nip\">
+                                    </div>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"cpf\">CPF (Servidores Civis):</label>
+                                        <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" readonly=\"true\"
+                                            placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$osic->cpf\">
+                                    </div>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"senha\" class=\"control-label\">Senha:</label>
+                                        <input id=\"senha\" class=\"form-control\" type=\"password\" name=\"senha\"
+                                            placeholder=\"Senha Segura\" minlength=\"8\"
+                                            maxlength=\"25\" required=\"required\">
+                                        <div class=\"help-block with-errors\"></div>
+                                    </div>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"confirmasenha\" class=\"control-label\">Confirme a Senha:</label>
+                                        <input id=\"confirmasenha\" class=\"form-control\" type=\"password\" name=\"confirmasenha\"
+                                            placeholder=\"Confirmação da Senha\" minlength=\"8\"
+                                            maxlength=\"25\" required=\"required\">
+                                        <div class=\"help-block with-errors\"></div>
+                                    </div>
+                                    
+                                    <input id=\"ativo\" type=\"hidden\" name=\"ativo\" value=\"ATIVO\">";
+                                }
+
+                                else{
+                                    echo"
+                                    <legend>OSIC - Modificação</legend>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"omapoiada\">OM Apoiada:</label>
+                                        <select id=\"omapoiada\" class=\"form-control\" name=\"omapoiada\">
+                                            <option value=\"$osic_om->idtb_om_apoiadas\" selected=\"true\">
+                                                $osic_om->sigla</option>";
+                                            foreach ($omapoiada as $key => $value) {
+                                                echo"<option value=\"".$value->idtb_om_apoiadas."\">
+                                                    ".$value->sigla."</option>";
+                                            };
+                                        echo "</select>
+                                    </div>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"postograd\">Posto/Graduação:</label>
+                                        <select id=\"postograd\" class=\"form-control\" name=\"postograd\">
+                                            <option value=\"$osic_posto_grad->idtb_posto_grad\" selected=\"true\">
+                                                $osic_posto_grad->sigla</option>";
+                                            foreach ($postograd as $key => $value) {
+                                                echo"<option value=\"".$value->idtb_posto_grad."\">
+                                                    ".$value->nome."</option>";
+                                            };
+                                        echo "</select>
+                                    </div>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"corpoquadro\">Corpo/Quadro:</label>
+                                        <select id=\"corpoquadro\" class=\"form-control\" name=\"corpoquadro\">
+                                            <option value=\"$osic_corpo_quadro->idtb_corpo_quadro\" selected=\"true\">
+                                                $osic_corpo_quadro->sigla</option>";
+                                            foreach ($corpoquadro as $key => $value) {
+                                                echo"<option value=\"".$value->idtb_corpo_quadro."\">
+                                                    ".$value->nome."</option>";
+                                            };
+                                        echo "</select>
+                                    </div>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"especialidade\">Especialidade:</label>
+                                        <select id=\"especialidade\" class=\"form-control\" name=\"especialidade\">
+                                            <option value=\"$osic_especialidade->idtb_especialidade\" selected=\"true\">
+                                                $osic_especialidade->sigla</option>";
+                                            foreach ($especialidade as $key => $value) {
+                                                echo"<option value=\"".$value->idtb_especialidade."\">
+                                                    ".$value->nome."</option>";
+                                            };
+                                        echo "</select>
+                                    </div>
+                                    <div class=\"form-group\">
+                                        <label for=\"nome\">Nome Completo:</label>
+                                        <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
+                                            placeholder=\"Nome Completo\" minlength=\"2\" 
+                                            style=\"text-transform:uppercase\" required=\"required\" value=\"$osic->nome\">
+                                    </div>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"nomeguerra\">Nome de Guerra:</label>
+                                        <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
+                                            placeholder=\"Nome de Guerra\" minlength=\"2\"
+                                            style=\"text-transform:uppercase\" required=\"required\" value=\"$osic->nome_guerra\">
+                                    </div>
+                                    
+                                    <div class=\"form-group\">
+                                        <label for=\"nip\">NIP:</label>
+                                        <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" readonly=\"true\"
+                                            placeholder=\"NIP\" maxlength=\"8\" required=\"required\" value=\"$osic->nip\">
+                                    </div>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"cpf\">CPF (Servidores Civis):</label>
+                                        <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" readonly=\"true\"
+                                            placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$osic->cpf\">
+                                    </div>
+
+                                    <input id=\"senha\" class=\"form-control\" type=\"password\" name=\"senha\"
+                                        value=\"\" hidden=\"true\">
+                                    <input id=\"confirmasenha\" class=\"form-control\" type=\"password\" name=\"confirmasenha\"
+                                        value=\"\" hidden=\"true\">
+
+                                    <div class=\"form-group\">
+                                    <label for=\"ativo\" class=\"control-label\">Situação:</label>
+                                        <select id=\"ativo\" class=\"form-control\" name=\"ativo\">
+                                            <option value=\"$osic->status\" selected=\"true\">$osic->status</option>
+                                            <option value=\"ATIVO\">ATIVO</option>
+                                            <option value=\"INATIVO\">INATIVO</option>
+                                        <div class=\"help-block with-errors\"></div>
+                                    </div>";
+                                }
+                            }
+                            
+                            else{
+                            echo"
                             <div class=\"form-group\">
                                 <label for=\"omapoiada\">OM Apoiada:</label>
                                 <select id=\"omapoiada\" class=\"form-control\" name=\"omapoiada\">
@@ -113,55 +256,17 @@ if ($act == 'cad') {
                             <div class=\"form-group\">
                                 <label for=\"nome\">Nome Completo:</label>
                                 <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
-                                       placeholder=\"Nome Completo\" minlength=\"2\" 
-                                       style=\"text-transform:uppercase\" required=\"required\" value=\"$osic->nome\">
+                                    placeholder=\"Nome Completo\" minlength=\"2\" 
+                                    style=\"text-transform:uppercase\" required=\"required\" value=\"$osic->nome\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"nomeguerra\">Nome de Guerra:</label>
                                 <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
-                                       placeholder=\"Nome de Guerra\" minlength=\"2\"
-                                       style=\"text-transform:uppercase\" required=\"required\" value=\"$osic->nome_guerra\">
-                            </div>
-                            ";
-                            
-                            if ($param){
-                            echo"
-                            <div class=\"form-group\">
-                                <label for=\"nip\">NIP:</label>
-                                <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" readonly=\"true\"
-                                       placeholder=\"NIP\" maxlength=\"8\" required=\"required\" value=\"$osic->nip\">
+                                    placeholder=\"Nome de Guerra\" minlength=\"2\"
+                                    style=\"text-transform:uppercase\" required=\"required\" value=\"$osic->nome_guerra\">
                             </div>
 
-                            <div class=\"form-group\">
-                                <label for=\"cpf\">CPF (Servidores Civis):</label>
-                                <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" readonly=\"true\"
-                                       placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$osic->cpf\">
-                            </div>
-
-                            <div class=\"form-group\">
-                                <label for=\"senha1\" class=\"control-label\">Trocar Senha:</label>
-                                <input id=\"senha1\" class=\"form-control\" type=\"password\" name=\"senha1\"
-                                       placeholder=\"Senha Segura\" minlength=\"8\" maxlength=\"25\">
-                            </div>
-
-                            <div class=\"form-group\">
-                                <label for=\"senha2\" class=\"control-label\">Confirme a Senha:</label>
-                                <input id=\"senha2\" class=\"form-control\" type=\"password\" name=\"senha2\"
-                                    placeholder=\"Confirmação da Senha\" minlength=\"8\" maxlength=\"25\">
-                            </div>
-
-                            <div class=\"form-group\">
-                            <label for=\"ativo\" class=\"control-label\">Situação:</label>
-                            <select id=\"ativo\" class=\"form-control\" name=\"ativo\">
-                                <option value=\"$osic->status\" selected=\"true\">$osic->status</option>
-                                <option value=\"ATIVO\">ATIVO</option>
-                                <option value=\"INATIVO\">INATIVO</option>
-                            <div class=\"help-block with-errors\"></div>
-                            </div>";
-                            }
-                            else{
-                            echo"
                             <div class=\"form-group\">
                                 <label for=\"nip\">NIP:</label>
                                 <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" 
@@ -257,6 +362,7 @@ if (($row) AND ($act == NULL)) {
                         <td>".$value->nome."</td>
                         <td>".$value->nome_guerra."</td>
                         <td><a href=\"?cmd=osic&act=cad&param=".$value->idtb_osic."\">Editar</a> - 
+                            <a href=\"?cmd=osic&act=cad&param=".$value->idtb_osic."&senha=troca\">Senha</a> - 
                             Excluir</td>
                     </tr>";
     }
@@ -288,7 +394,7 @@ if ($act == 'insert') {
 
     /* Opta pelo Método Update */
     if ($idtb_osic){
-        $senha = $_POST['senha1'];
+        $senha = $_POST['senha'];
 
         if($senha==NULL){
             $sql = "UPDATE db_clti.tb_osic SET
@@ -303,12 +409,11 @@ if ($act == 'insert') {
             $hash = sha1(md5($senha));
             $salt = sha1(md5($usuario));
             $senha = $salt.$hash;
-            $senha = sha1(md5($senha));
 
             $sql = "UPDATE db_clti.tb_osic SET
                 id_om='$omapoiada',id_posto_grad='$postograd', id_corpo_quadro='$corpoquadro', 
                 id_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', nome_guerra='$nomeguerra', 
-                senha'$senha', status='$ativo'
+                senha='$senha', status='$ativo'
                 WHERE idtb_osic='$idtb_osic'";
         }
 
@@ -343,7 +448,6 @@ if ($act == 'insert') {
             $hash = sha1(md5($senha));
             $salt = sha1(md5($usuario));
             $senha = $salt.$hash;
-            $senha = sha1(md5($senha));
 
             $sql = "INSERT INTO db_clti.tb_osic(
                 id_om,id_posto_grad, id_corpo_quadro, id_especialidade, 

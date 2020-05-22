@@ -26,6 +26,7 @@ if (($row == '0') AND ($act == NULL)) {
 /* Carrega form para cadastro de técnicos */
 if ($act == 'cad') {
     @$param = $_GET['param'];
+    @$senha = $_GET['senha'];
     if ($param){
         $clti = $pg->getRow("SELECT * FROM db_clti.tb_lotacao_clti WHERE idtripulacao_clti = '$param'");
         $clti_posto_grad = $pg->getRow("SELECT idtb_posto_grad,sigla FROM db_clti.tb_posto_grad 
@@ -54,9 +55,131 @@ if ($act == 'cad') {
             <main>
                 <div id=\"form-cadastro\">
                     <form id=\"insereusuario\" action=\"?cmd=lotclti&act=insert\" method=\"post\" enctype=\"multipart/form-data\">
-                        <fieldset>
-                            <legend>Lotação do CLTI - Cadastro</legend>
+                        <fieldset>";
+                            
+                            if ($param){
+                                if ($senha){
+                                    echo"
+                                    <legend>Lotação do CLTI - Troca de Senha</legend>
+                                    <input id=\"postograd\" class=\"form-control\" name=\"postograd\"
+                                        value=\"$clti_posto_grad->idtb_posto_grad\" hidden=\"true\">
+                                    <input id=\"corpoquadro\" class=\"form-control\" name=\"corpoquadro\"
+                                        value=\"$clti_corpo_quadro->idtb_corpo_quadro\" hidden=\"true\">
+                                    <input id=\"especialidade\" class=\"form-control\" name=\"especialidade\"
+                                        value=\"$clti_especialidade->idtb_especialidade\" hidden=\"true\">
+                                    <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
+                                        hidden=\"true\" value=\"$clti->nome\">
+                                    <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
+                                        hidden=\"true\" value=\"$clti->nome_guerra\">
+                                    <div class=\"form-group\">
+                                        <label for=\"nip\">NIP:</label>
+                                        <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" readonly=\"true\"
+                                            placeholder=\"NIP\" maxlength=\"8\" required=\"required\" value=\"$clti->nip\">
+                                    </div>
 
+                                    <div class=\"form-group\">
+                                        <label for=\"cpf\">CPF (Servidores Civis):</label>
+                                        <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" readonly=\"true\"
+                                            placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$clti->cpf\">
+                                    </div>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"ativo\" class=\"control-label\">Situação:</label>
+                                        <input id=\"ativo\" class=\"form-control\" type=\"text\" name=\"ativo\" readonly=\"true\"
+                                            value=\"$clti->status\">
+                                    </div>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"senha\" class=\"control-label\">Trocar Senha:</label>
+                                        <input id=\"senha\" class=\"form-control\" type=\"password\" name=\"senha\"
+                                            placeholder=\"Senha Segura\" maxlength=\"25\">
+                                        <div class=\"help-block with-errors\"></div>
+                                    </div>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"confirmasenha\" class=\"control-label\">Confirme a Senha:</label>
+                                        <input id=\"confirmasenha\" class=\"form-control\" type=\"password\" name=\"confirmasenha\"
+                                            placeholder=\"Confirmação da Senha\" maxlength=\"25\">
+                                        <div class=\"help-block with-errors\"></div>
+                                    </div>";
+                                }
+                                else{
+                                    echo"
+                                    <legend>Lotação do CLTI - Alteração</legend>
+                                    <div class=\"form-group\">
+                                        <label for=\"postograd\">Posto/Graduação:</label>
+                                        <select id=\"postograd\" class=\"form-control\" name=\"postograd\">
+                                            <option value=\"$clti_posto_grad->idtb_posto_grad\" selected=\"true\">
+                                                $clti_posto_grad->sigla</option>";
+                                            foreach ($postograd as $key => $value) {
+                                                echo"<option value=\"".$value->idtb_posto_grad."\">
+                                                    ".$value->nome."</option>";
+                                            };
+                                        echo "</select>
+                                    </div>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"corpoquadro\">Corpo/Quadro:</label>
+                                        <select id=\"corpoquadro\" class=\"form-control\" name=\"corpoquadro\">
+                                            <option value=\"$clti_corpo_quadro->idtb_corpo_quadro\" selected=\"true\">
+                                                $clti_corpo_quadro->sigla</option>";
+                                            foreach ($corpoquadro as $key => $value) {
+                                                echo"<option value=\"".$value->idtb_corpo_quadro."\">
+                                                    ".$value->nome."</option>";
+                                            };
+                                        echo "</select>
+                                    </div>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"especialidade\">Especialidade:</label>
+                                        <select id=\"especialidade\" class=\"form-control\" name=\"especialidade\">
+                                            <option value=\"$clti_especialidade->idtb_especialidade\" selected=\"true\">
+                                                $clti_especialidade->sigla</option>";
+                                            foreach ($especialidade as $key => $value) {
+                                                echo"<option value=\"".$value->idtb_especialidade."\">
+                                                    ".$value->nome."</option>";
+                                            };
+                                        echo "</select>
+                                    </div>
+                                    <div class=\"form-group\">
+                                        <label for=\"nome\">Nome Completo:</label>
+                                        <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
+                                            placeholder=\"Nome Completo\" minlength=\"2\" 
+                                            style=\"text-transform:uppercase\" required=\"required\" value=\"$clti->nome\">
+                                    </div>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"nomeguerra\">Nome de Guerra:</label>
+                                        <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
+                                            placeholder=\"Nome de Guerra\" minlength=\"2\"
+                                            style=\"text-transform:uppercase\" required=\"required\" value=\"$clti->nome_guerra\">
+                                    </div>
+                                    <div class=\"form-group\">
+                                        <label for=\"nip\">NIP:</label>
+                                        <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" readonly=\"true\"
+                                            placeholder=\"NIP\" maxlength=\"8\" required=\"required\" value=\"$clti->nip\">
+                                    </div>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"cpf\">CPF (Servidores Civis):</label>
+                                        <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" readonly=\"true\"
+                                            placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$clti->cpf\">
+                                    </div>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"ativo\" class=\"control-label\">Situação:</label>
+                                        <select id=\"ativo\" class=\"form-control\" name=\"ativo\">
+                                            <option value=\"$clti->status\" selected=\"true\">$clti->status</option>
+                                            <option value=\"ATIVO\">ATIVO</option>
+                                            <option value=\"INATIVO\">INATIVO</option>
+                                    </div>
+                                    <input id=\"senha\" type=\"hidden\" name=\"senha\" value=\"\">";
+                                }
+                            }
+                            
+                            else{
+                            echo"
+                            <legend>Lotação do CLTI - Cadastro</legend>
                             <div class=\"form-group\">
                                 <label for=\"postograd\">Posto/Graduação:</label>
                                 <select id=\"postograd\" class=\"form-control\" name=\"postograd\">
@@ -105,45 +228,7 @@ if ($act == 'cad') {
                                        placeholder=\"Nome de Guerra\" minlength=\"2\"
                                        style=\"text-transform:uppercase\" required=\"required\" value=\"$clti->nome_guerra\">
                             </div>
-                            ";
-                            
-                            if ($param){
-                            echo"
-                            <div class=\"form-group\">
-                                <label for=\"nip\">NIP:</label>
-                                <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" readonly=\"true\"
-                                       placeholder=\"NIP\" maxlength=\"8\" required=\"required\" value=\"$clti->nip\">
-                            </div>
 
-                            <div class=\"form-group\">
-                                <label for=\"cpf\">CPF (Servidores Civis):</label>
-                                <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" readonly=\"true\"
-                                       placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$clti->cpf\">
-                            </div>
-
-                            <div class=\"form-group\">
-                                <label for=\"senha1\" class=\"control-label\">Trocar Senha:</label>
-                                <input id=\"senha1\" class=\"form-control\" type=\"password\" name=\"senha1\"
-                                       placeholder=\"Senha Segura\" minlength=\"8\" maxlength=\"25\">
-                            </div>
-
-                            <div class=\"form-group\">
-                                <label for=\"senha2\" class=\"control-label\">Confirme a Senha:</label>
-                                <input id=\"senha2\" class=\"form-control\" type=\"password\" name=\"senha2\"
-                                    placeholder=\"Confirmação da Senha\" minlength=\"8\" maxlength=\"25\">
-                            </div>
-
-                            <div class=\"form-group\">
-                            <label for=\"ativo\" class=\"control-label\">Situação:</label>
-                            <select id=\"ativo\" class=\"form-control\" name=\"ativo\">
-                                <option value=\"$clti->status\" selected=\"true\">$clti->status</option>
-                                <option value=\"ATIVO\">ATIVO</option>
-                                <option value=\"INATIVO\">INATIVO</option>
-                            <div class=\"help-block with-errors\"></div>
-                            </div>";
-                            }
-                            else{
-                            echo"
                             <div class=\"form-group\">
                                 <label for=\"nip\">NIP:</label>
                                 <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" 
@@ -283,6 +368,7 @@ if (($row) AND ($act == NULL)) {
                         <td>".$value->nome."</td>
                         <td>".$value->nome_guerra."</td>
                         <td><a href=\"?cmd=lotclti&act=cad&param=".$value->idtripulacao_clti."\">Editar</a> - 
+                            <a href=\"?cmd=lotclti&act=cad&param=".$value->idtripulacao_clti."&senha=troca\">Senha</a> -
                             Excluir</td>
                     </tr>";
     };
@@ -304,9 +390,16 @@ if ($act == 'insert') {
     $nomeguerra = strtoupper($_POST['nomeguerra']);
     $ativo = strtoupper($_POST['ativo']);
 
+    if ($nip == NULL) {
+        $usuario = $cpf;
+    }
+    else {
+        $usuario = $nip;
+    }
+
     /* Opta pelo Método Update */
     if ($idtb_lotacao_clti){
-        $senha = $_POST['senha1'];
+        $senha = $_POST['senha'];
 
         if($senha==NULL){
             $sql = "UPDATE db_clti.tb_lotacao_clti SET
@@ -321,15 +414,13 @@ if ($act == 'insert') {
             $hash = sha1(md5($senha));
             $salt = sha1(md5($usuario));
             $senha = $salt.$hash;
-            $senha = sha1(md5($senha));
 
             $sql = "UPDATE db_clti.tb_lotacao_clti SET
-                id_om='$omapoiada',id_posto_grad='$postograd', id_corpo_quadro='$corpoquadro', 
-                id_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', nome_guerra='$nomeguerra', 
-                senha'$senha', status='$ativo'
+                id_posto_grad='$postograd', id_corpo_quadro='$corpoquadro', 
+                id_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
+                nome_guerra='$nomeguerra', senha='$senha', status='$ativo'
                 WHERE idtripulacao_clti='$idtb_lotacao_clti'";
         }
-
 
         $pg->exec($sql);
 
@@ -347,20 +438,20 @@ if ($act == 'insert') {
     /* Opta pelo Método Insert */
     else{
 
-        $sql = "SELECT * FROM db_clti.tb_lotacao_clti WHERE nip = '$nip' OR cpf = '$cpf' AND senha = '$senha' ";
+        $sql = "SELECT * FROM db_clti.tb_lotacao_clti WHERE nip = '$usuario' OR cpf = '$usuario' ";
         $row = $pg->getRow($sql);
 
         if ($row) {
-            echo "<h5>Já existe um cadastro com esse NIP/CPF.</h5>";
+            echo "<h5>Já existe um cadastro com esse NIP/CPF.</h5>
+                $sql";
         }
 
         else {
 
             $senha = $_POST['senha'];
             $hash = sha1(md5($senha));
-            $salt = sha1(md5($nip));
+            $salt = sha1(md5($usuario));
             $senha = $salt.$hash;
-            $senha = sha1(md5($senha));
 
             $sql = "INSERT INTO db_clti.tb_lotacao_clti(
                     id_posto_grad, id_corpo_quadro, id_especialidade, 
