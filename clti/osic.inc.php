@@ -417,7 +417,6 @@ if ($act == 'insert') {
                 WHERE idtb_osic='$idtb_osic'";
         }
 
-
         $pg->exec($sql);
 
         if ($pg) {
