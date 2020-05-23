@@ -19,7 +19,8 @@ $sigla = $pg->getCol($sql);
       <p class="navbar-brand">Usuário ativo: 
         <?php 
           if (isset($_SESSION['user_name'])){
-            print $_SESSION['user_name']." - "; print $_SESSION['perfil']; 
+            print $_SESSION['user_name']." - "; print $_SESSION['perfil'];
+            $perfil = $_SESSION['perfil'];
           }
           else{
             // muda o valor de logged_in para false
@@ -44,47 +45,52 @@ $sigla = $pg->getCol($sql);
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link active" href="<?php echo "$url"; ?>">
-                  <span data-feather="home"></span>
-                  Dashboard <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="<?php echo "$url/clti"; ?>">
-                  <span data-feather="briefcase"></span>
-                  Módulo Gerência (CLTI)
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="<?php echo "$url/clti/?cmd=omapoiadas"; ?>">
-                  <span data-feather="anchor"></span>
-                  OM Apoiadas
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="<?php echo "$url/clti/?cmd=lotclti"; ?>">
-                  <span data-feather="users"></span>
-                  Lotação do CLTI
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="<?php echo "$url/clti/?cmd=osic"; ?>">
-                  <span data-feather="users"></span>
-                  OSIC
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="<?php echo "$url/clti/?cmd=admin"; ?>">
-                  <span data-feather="users"></span>
-                  Admin
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="<?php echo "$url/ativosti/?cmd=sistoperacionais"; ?>">
-                  <span data-feather="globe"></span>
-                  Sistemas Operacionais
-                </a>
-              </li>
+                  <a class="nav-link active" href="<?php echo "$url"; ?>">
+                    <span data-feather="home"></span>
+                    Dashboard <span class="sr-only">(current)</span>
+                  </a>
+                </li>
+              <?php
+              if ($perfil == 'TEC_CLTI'){
+                echo"
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/clti\">
+                    <span data-feather=\"briefcase\"></span>
+                    Módulo Gerência (CLTI)
+                  </a>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/clti/?cmd=omapoiadas\">
+                    <span data-feather=\"anchor\"></span>
+                    OM Apoiadas
+                  </a>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/clti/?cmd=lotclti\">
+                    <span data-feather=\"users\"></span>
+                    Lotação do CLTI
+                  </a>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/clti/?cmd=osic\">
+                    <span data-feather=\"users\"></span>
+                    OSIC
+                  </a>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/clti/?cmd=admin\">
+                    <span data-feather=\"users\"></span>
+                    Admin
+                  </a>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/ativosti/?cmd=sistoperacionais\">
+                    <span data-feather=\"globe\"></span>
+                    Sistemas Operacionais
+                  </a>
+                </li>";
+              }
+              ?>
               <li class="nav-item">
                 <a class="nav-link" href="<?php echo "$url/ativosti/?cmd=servidores"; ?>">
                   <span data-feather="server"></span>
@@ -104,6 +110,18 @@ $sigla = $pg->getCol($sql);
                 </a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" href="<?php echo "$url/omapoiada/?cmd=pessoalti"; ?>">
+                  <span data-feather="user-plus"></span>
+                  Pessoal de TI
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="<?php echo "$url/omapoiada/?cmd=cursosti"; ?>">
+                  <span data-feather="book-open"></span>
+                  Cursos na Área de TI
+                </a>
+              </li>
+              <!--<li class="nav-item">
                 <a class="nav-link" href="#">
                   <span data-feather="bar-chart-2"></span>
                   Relatórios
@@ -114,10 +132,10 @@ $sigla = $pg->getCol($sql);
                   <span data-feather="layers"></span>
                   Integração
                 </a>
-              </li>
+              </li>-->
             </ul>
 
-            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <!--<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
               <span>Relatórios Salvos</span>
               <a class="d-flex align-items-center text-muted" href="#">
                 <span data-feather="plus-circle"></span>
@@ -136,6 +154,6 @@ $sigla = $pg->getCol($sql);
                   Últimos Quinze Dias
                 </a>
               </li>
-            </ul>
+            </ul>-->
           </div>
         </nav>

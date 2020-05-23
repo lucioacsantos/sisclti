@@ -78,14 +78,15 @@ if ($act == 'acesso') {
 
   $sql = "SELECT * FROM db_clti.tb_lotacao_clti WHERE nip = '$usuario' AND senha = '$senha'
       OR cpf = '$usuario' AND senha = '$senha'";
-  print $sql;
-	$row = $pg->getRow($sql);
+
+  $row = $pg->getRow($sql);
 
 	if ($row != NULL) {
 	$row = $pg->getRow($sql);
         $_SESSION['logged_in'] = true;
         $_SESSION['user_name'] = $row->nome_guerra;
         $_SESSION['perfil'] = $row->perfil;
+        #$_SESSION['perfil'] = 'ADMIN_OM';
         $_SESSION['status'] = $row->status;
         
         header('Location: index.php');
