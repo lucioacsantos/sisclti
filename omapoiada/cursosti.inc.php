@@ -19,16 +19,16 @@ $row = $pg->getRow($sql);
 
 /* Checa se há Admin cadastrado */
 if (($row == '0') AND ($act == NULL)) {
-	echo "<h5>Não há Administradores cadastrados,<br />
-		 clique <a href=\"?cmd=admin&act=cad\">aqui</a> para fazê-lo.</h5>";
+	echo "<h5>Não há Cursos cadastrados,<br />
+		 clique <a href=\"?cmd=cursosti&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
 
 /* Carrega form para cadastro de Admin */
 if ($act == 'cad') {
     @$param = $_GET['param'];
-    @$senha = $_GET['senha'];
+    $nip = $_POST['nip'];
     if ($param){
-        $admin = $pg->getRow("SELECT * FROM db_clti.tb_admin WHERE idtb_admin = '$param'");
+        $pesti = $pg->getRow("SELECT * FROM db_clti.tb_admin WHERE idtb_admin = '$param'");
         $admin_om = $pg->getRow("SELECT idtb_om_apoiadas,sigla FROM db_clti.tb_om_apoiadas 
             WHERE idtb_om_apoiadas = '$admin->id_om'");
         $admin_posto_grad = $pg->getRow("SELECT idtb_posto_grad,sigla FROM db_clti.tb_posto_grad 
@@ -62,9 +62,9 @@ if ($act == 'cad') {
                         method=\"post\" enctype=\"multipart/form-data\">
                         <fieldset>";
 
-                            if ($param){
-                                if ($senha){
-                                    echo"
+                            if ($param == 'NOVO'){
+                                $
+                                                                    echo"
                                     <legend>Administradores de Rede - Troca de Senha</legend>
                                     <input id=\"omapoiada\" class=\"form-control\" name=\"omapoiada\"
                                         value=\"$admin_om->idtb_om_apoiadas\" hidden=\"true\">

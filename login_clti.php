@@ -84,10 +84,14 @@ if ($act == 'acesso') {
 	if ($row != NULL) {
 	$row = $pg->getRow($sql);
         $_SESSION['logged_in'] = true;
+        $_SESSION['user_id'] = $row->idtb_lotacao_clti;
         $_SESSION['user_name'] = $row->nome_guerra;
         $_SESSION['perfil'] = $row->perfil;
-        #$_SESSION['perfil'] = 'ADMIN_OM';
         $_SESSION['status'] = $row->status;
+
+        #$_SESSION['perfil'] = 'ADMIN_OM';
+        $_SESSION['id_om_apoiada'] = 1;
+        $_SESSION['om_apoiada'] = COM3ºDN;
         
         header('Location: index.php');
 	}

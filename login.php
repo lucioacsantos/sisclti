@@ -82,7 +82,7 @@ if ($act == 'acesso') {
   
 	if ($row != NULL) {
         $_SESSION['logged_in'] = true;
-        $_SESSION['user_id'] = $row->id_om;
+        $_SESSION['user_id'] = $row->idtb_admin;
         $_SESSION['user_name'] = $row->nome_guerra;
         $_SESSION['perfil'] = $row->perfil;
         $_SESSION['status'] = $row->status;
