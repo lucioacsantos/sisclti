@@ -66,35 +66,35 @@ if ($act == 'cad') {
                             <label for=\"fabricante\">Fabricante:</label>
                             <input id=\"fabricante\" class=\"form-control\" type=\"text\" name=\"fabricante\"
                                   placeholder=\"ex. HP / DELL\" style=\"text-transform:uppercase\" 
-                                  value=\"$estacoes->fabricante\" required=\"required\">
+                                  value=\"$estacoes->fabricante\" required=\"true\">
                         </div>
 
                         <div class=\"form-group\">
                             <label for=\"modelo\">Modelo:</label>
                             <input id=\"modelo\" class=\"form-control\" type=\"text\" name=\"modelo\"
                                   placeholder=\"ex. Ellite 800\" style=\"text-transform:uppercase\" 
-                                  value=\"$estacoes->modelo\" required=\"required\">
+                                  value=\"$estacoes->modelo\" required=\"true\">
                         </div>
 
                         <div class=\"form-group\">
                             <label for=\"processador\">Processador:</label>
                             <input id=\"processador\" class=\"form-control\" type=\"text\" name=\"processador\"
                                    placeholder=\"ex. Intel Core i5 3.2GHz\" style=\"text-transform:uppercase\" 
-                                   value=\"$estacoes->processador\" required=\"required\">
+                                   value=\"$estacoes->processador\" required=\"true\">
                         </div>
 
                         <div class=\"form-group\">
                             <label for=\"memoria\">Memória:</label>
                             <input id=\"memoria\" class=\"form-control\" type=\"text\" name=\"memoria\"
                                    placeholder=\"ex. 2x8GB (Qtde x Tamanho GB)\" style=\"text-transform:uppercase\" 
-                                   value=\"$estacoes->memoria\" required=\"required\">
+                                   value=\"$estacoes->memoria\" required=\"true\">
                         </div>
 
                         <div class=\"form-group\">
                             <label for=\"armazenamento\">Armazenamento:</label>
                             <input id=\"armazenamento\" class=\"form-control\" type=\"text\" name=\"armazenamento\"
                                    placeholder=\"ex. 1x500GB SATA (Qtde x Tamanho GB Tipo)\" style=\"text-transform:uppercase\" 
-                                   value=\"$estacoes->armazenamento\" required=\"required\">
+                                   value=\"$estacoes->armazenamento\" required=\"true\">
                         </div>
 
                         <div class=\"form-group\">
@@ -113,26 +113,26 @@ if ($act == 'cad') {
                             <label for=\"end_ip\">Endereço IP:</label>
                             <input id=\"end_ip\" class=\"form-control\" type=\"text\" name=\"end_ip\"
                                    placeholder=\"ex. 192.168.1.1\" style=\"text-transform:uppercase\"
-                                   value=\"$estacoes->end_ip\" required=\"required\">
+                                   value=\"$estacoes->end_ip\" required=\"true\">
                         </div>
 
                         <div class=\"form-group\">
                             <label for=\"localizacao\">Localização:</label>
                             <input id=\"localizacao\" class=\"form-control\" type=\"text\" name=\"localizacao\"
                                 placeholder=\"ex. Sala de Servidores\" style=\"text-transform:uppercase\"
-                                value=\"$estacoes->localizacao\" required=\"required\">
+                                value=\"$estacoes->localizacao\" required=\"true\">
                         </div>
 
                         <div class=\"form-group\">
                             <label for=\"data_aquisicao\">Data de Aquisição:</label>
                             <input id=\"data_aquisicao\" class=\"form-control\" type=\"date\" name=\"data_aquisicao\"
-                                style=\"text-transform:uppercase\" value=\"$estacoes->data_aquisicao\" required=\"required\">
+                                style=\"text-transform:uppercase\" value=\"$estacoes->data_aquisicao\" required=\"true\">
                         </div>
 
                         <div class=\"form-group\">
                             <label for=\"data_garantia\">Final da Garantia/Suporte:</label>
                             <input id=\"data_garantia\" class=\"form-control\" type=\"date\" name=\"data_garantia\"
-                                style=\"text-transform:uppercase\" value=\"$estacoes->data_garantia\" required=\"required\">
+                                style=\"text-transform:uppercase\" value=\"$estacoes->data_garantia\" required=\"true\">
                         </div>
 
                         <div class=\"form-group\">
@@ -234,101 +234,106 @@ if (($row) AND ($act == NULL)) {
 
 /* Método INSERT */
 if ($act == 'insert') {
-    $idtb_estacoes = $_POST['idtb_estacoes'];
-    $idtb_om_apoiadas = $_POST['idtb_om_apoiadas'];
-    $fabricante = strtoupper($_POST['fabricante']);
-    $modelo = strtoupper($_POST['modelo']);
-    $processador = strtoupper($_POST['processador']);
-	$memoria = strtoupper($_POST['memoria']);
-    $armazenamento = strtoupper($_POST['armazenamento']);
-    $end_ip = $_POST['end_ip'];
-    $sor = $_POST['sor'];
-    $localizacao = strtoupper($_POST['localizacao']);
-    $data_aquisicao = $_POST['data_aquisicao'];
-    $data_garantia = $_POST['data_garantia'];
-    $req_minimos = $_POST['req_minimos'];
-    $situacao = $_POST['situacao'];
+    if (isset($_SESSION['status'])){
+        $idtb_estacoes = $_POST['idtb_estacoes'];
+        $idtb_om_apoiadas = $_POST['idtb_om_apoiadas'];
+        $fabricante = strtoupper($_POST['fabricante']);
+        $modelo = strtoupper($_POST['modelo']);
+        $processador = strtoupper($_POST['processador']);
+        $memoria = strtoupper($_POST['memoria']);
+        $armazenamento = strtoupper($_POST['armazenamento']);
+        $end_ip = $_POST['end_ip'];
+        $sor = $_POST['sor'];
+        $localizacao = strtoupper($_POST['localizacao']);
+        $data_aquisicao = $_POST['data_aquisicao'];
+        $data_garantia = $_POST['data_garantia'];
+        $req_minimos = $_POST['req_minimos'];
+        $situacao = $_POST['situacao'];
 
-    /* Opta pelo Método Update */
-    if ($idtb_estacoes){
+        /* Opta pelo Método Update */
+        if ($idtb_estacoes){
 
-        $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_conectividade WHERE end_ip = '$end_ip'");
-        $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_estacoes WHERE end_ip = '$end_ip'");
-        $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_servidores WHERE end_ip = '$end_ip'");
+            $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_conectividade WHERE end_ip = '$end_ip'");
+            $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_estacoes WHERE end_ip = '$end_ip'");
+            $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_servidores WHERE end_ip = '$end_ip'");
 
-        if ($checa_ip){
-            echo "<h5>Endereço IP informado já está em uso, 
-                por favor verifique!</h5>
-                <meta http-equiv=\"refresh\" content=\"5;url=?cmd=estacoes\">";
-        }
-
-        else{
-
-            $sql = "UPDATE db_clti.tb_estacoes SET 
-            idtb_om_apoiadas='$idtb_om_apoiadas', fabricante='$fabricante', modelo='$modelo', processador='$processador', 
-                memoria='$memoria', armazenamento='$armazenamento', end_ip='$end_ip', idtb_sor='$sor', 
-                localizacao='$localizacao', data_aquisicao='$data_aquisicao', data_garantia='$data_garantia', 
-                req_minimos='$req_minimos', situacao='$situacao'
-            WHERE idtb_estacoes='$idtb_estacoes'";
-    
-            $pg->exec($sql);
-        
-            foreach ($pg as $key => $value) {
-                if ($value != '0') {
-                    echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=estacoes\">";
-                }
-        
-                else {
-                    echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                }
-            break;
-            }
-
-        }
-
-    }
-
-    /* Opta pelo Método Insert */
-    else{
-
-        $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_conectividade WHERE end_ip = '$end_ip'");
-        $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_estacoes WHERE end_ip = '$end_ip'");
-        $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_servidores WHERE end_ip = '$end_ip'");
-
-        if ($checa_ip){
-            echo "<h5>Endereço IP informado já está em uso, 
+            if ($checa_ip){
+                echo "<h5>Endereço IP informado já está em uso, 
                     por favor verifique!</h5>
-                <meta http-equiv=\"refresh\" content=\"5;url=?cmd=estacoes\">";
-        }
+                    <meta http-equiv=\"refresh\" content=\"5;url=?cmd=estacoes\">";
+            }
 
-        else{
+            else{
 
-            $sql = "INSERT INTO db_clti.tb_estacoes(
-                idtb_om_apoiadas, fabricante, modelo, processador, memoria, armazenamento, end_ip, 
-                    idtb_sor, localizacao, data_aquisicao, data_garantia, req_minimos, situacao)
-                VALUES ('$idtb_om_apoiadas', '$fabricante', '$modelo', '$processador', '$memoria', '$armazenamento', 
-                    '$end_ip', '$sor', '$localizacao', '$data_aquisicao', '$data_garantia', '$req_minimos', '$situacao')";
+                $sql = "UPDATE db_clti.tb_estacoes SET 
+                idtb_om_apoiadas='$idtb_om_apoiadas', fabricante='$fabricante', modelo='$modelo', processador='$processador', 
+                    memoria='$memoria', armazenamento='$armazenamento', end_ip='$end_ip', idtb_sor='$sor', 
+                    localizacao='$localizacao', data_aquisicao='$data_aquisicao', data_garantia='$data_garantia', 
+                    req_minimos='$req_minimos', situacao='$situacao'
+                WHERE idtb_estacoes='$idtb_estacoes'";
         
-            $pg->exec($sql);
-        
-            foreach ($pg as $key => $value) {
-                if ($value != '0') {
-                    echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=estacoes\">";
+                $pg->exec($sql);
+            
+                foreach ($pg as $key => $value) {
+                    if ($value != '0') {
+                        echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                        <meta http-equiv=\"refresh\" content=\"1;url=?cmd=estacoes\">";
+                    }
+            
+                    else {
+                        echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                    }
+                break;
                 }
-        
-                else {
-                    echo "<h5>Ocorreu algum erro, tente novamente.</h5>
-                    ";
-                }
-            break;
+
             }
 
         }
 
-    }
+        /* Opta pelo Método Insert */
+        else{
 
+            $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_conectividade WHERE end_ip = '$end_ip'");
+            $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_estacoes WHERE end_ip = '$end_ip'");
+            $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_servidores WHERE end_ip = '$end_ip'");
+
+            if ($checa_ip){
+                echo "<h5>Endereço IP informado já está em uso, 
+                        por favor verifique!</h5>
+                    <meta http-equiv=\"refresh\" content=\"5;url=?cmd=estacoes\">";
+            }
+
+            else{
+
+                $sql = "INSERT INTO db_clti.tb_estacoes(
+                    idtb_om_apoiadas, fabricante, modelo, processador, memoria, armazenamento, end_ip, 
+                        idtb_sor, localizacao, data_aquisicao, data_garantia, req_minimos, situacao)
+                    VALUES ('$idtb_om_apoiadas', '$fabricante', '$modelo', '$processador', '$memoria', '$armazenamento', 
+                        '$end_ip', '$sor', '$localizacao', '$data_aquisicao', '$data_garantia', '$req_minimos', '$situacao')";
+            
+                $pg->exec($sql);
+            
+                foreach ($pg as $key => $value) {
+                    if ($value != '0') {
+                        echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                        <meta http-equiv=\"refresh\" content=\"1;url=?cmd=estacoes\">";
+                    }
+            
+                    else {
+                        echo "<h5>Ocorreu algum erro, tente novamente.</h5>
+                        ";
+                    }
+                break;
+                }
+
+            }
+
+        }
+    }
+    else{
+        echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;$url\">";
+    }
 }
 
 ?>

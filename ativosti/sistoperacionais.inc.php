@@ -46,20 +46,20 @@ if ($act == 'cad') {
                                 <label for=\"desenvolvedor\">Desenvolvedor:</label>
                                 <input id=\"desenvolvedor\" class=\"form-control\" type=\"text\" name=\"desenvolvedor\"
                                        placeholder=\"Desenvolvedor\" style=\"text-transform:uppercase\" 
-                                       required=\"required\" value=\"$sor->desenvolvedor\">
+                                       required=\"true\" value=\"$sor->desenvolvedor\">
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"descricao\">Descrição:</label>
                                 <input id=\"descricao\" class=\"form-control\" type=\"text\" name=\"descricao\"
                                        placeholder=\"Descrição\" style=\"text-transform:uppercase\" 
-                                       required=\"required\" value=\"$sor->descricao\">
+                                       required=\"true\" value=\"$sor->descricao\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"versao\">Versão:</label>
                                 <input id=\"versao\" class=\"form-control\" type=\"text\" name=\"versao\"
                                        placeholder=\"Versão\" style=\"text-transform:uppercase\" 
-                                       required=\"required\" value=\"$sor->versao\">
+                                       required=\"true\" value=\"$sor->versao\">
                             </div>
 
                             <div class=\"form-group\">
@@ -116,27 +116,32 @@ if (($row) AND ($act == NULL)) {
 
 /* Método INSERT */
 if ($act == 'insert') {
-	$desenvolvedor = strtoupper($_POST['desenvolvedor']);
-    $descricao = strtoupper($_POST['descricao']);
-    $versao = strtoupper($_POST['versao']);
-    $situacao = $_POST['situacao'];
-    
-    $sql = "INSERT INTO db_clti.tb_sor(
-        desenvolvedor, descricao, versao, situacao)
-        VALUES ('$desenvolvedor', '$descricao', '$versao', '$situacao')";
+    if (isset($_SESSION['status'])){
+        $desenvolvedor = strtoupper($_POST['desenvolvedor']);
+        $descricao = strtoupper($_POST['descricao']);
+        $versao = strtoupper($_POST['versao']);
+        $situacao = $_POST['situacao'];
+        
+        $sql = "INSERT INTO db_clti.tb_sor(
+            desenvolvedor, descricao, versao, situacao)
+            VALUES ('$desenvolvedor', '$descricao', '$versao', '$situacao')";
 
-    $pg->exec($sql);
+        $pg->exec($sql);
 
-    if ($pg) {
-        echo "<h5>Resgistros incluídos no banco de dados.</h5>
-        <meta http-equiv=\"refresh\" content=\"1;url=?cmd=sistoperacionais\">";
+        if ($pg) {
+            echo "<h5>Resgistros incluídos no banco de dados.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;url=?cmd=sistoperacionais\">";
+        }
+
+        else {
+            echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+            echo(pg_result_error($pg) . "<br />\n");
+        }
     }
-
-    else {
-        echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-        echo(pg_result_error($pg) . "<br />\n");
+    else{
+        echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;$url\">";
     }
-
 }
 
 ?>

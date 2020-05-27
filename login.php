@@ -46,14 +46,14 @@ echo "
                                     <label for=\"usuario\" class=\"control-label\">Login do Admin:</label>
                                     <input id=\"usuario\" class=\"form-control\" type=\"text\" name=\"usuario\"
                                             style=\"text-transform:uppercase\" placeholder=\"NIP ou CPF\" 
-                                            required=\"required\" autofocus=\"autofocus\">
+                                            required=\"true\" autofocus=\"autofocus\">
                                     <div class=\"help-block with-errors\"></div>
                                 </div>
 
                                 <div class=\"form-group\">
                                     <label for=\"senha\" class=\"control-label\">Senha:</label>
                                     <input id=\"senha\" class=\"form-control\" type=\"password\" name=\"senha\"
-                                            placeholder=\"Senha Segura\" required=\"required\">
+                                            placeholder=\"Senha Segura\" required=\"true\">
                                     <div class=\"help-block with-errors\"></div>
                                 </div>
                             </fieldset>

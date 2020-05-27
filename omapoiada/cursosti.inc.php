@@ -82,7 +82,7 @@ if ($act == 'cad') {
                                     <div class=\"form-group\">
                                         <label for=\"nip\">NIP:</label>
                                         <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" readonly=\"true\"
-                                            placeholder=\"NIP\" maxlength=\"8\" required=\"required\" value=\"$admin->nip\">
+                                            placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$admin->nip\">
                                     </div>
 
                                     <div class=\"form-group\">
@@ -161,19 +161,19 @@ if ($act == 'cad') {
                                         <label for=\"nome\">Nome Completo:</label>
                                         <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
                                             placeholder=\"Nome Completo\" minlength=\"2\" 
-                                            style=\"text-transform:uppercase\" required=\"required\" value=\"$admin->nome\">
+                                            style=\"text-transform:uppercase\" required=\"true\" value=\"$admin->nome\">
                                     </div>
 
                                     <div class=\"form-group\">
                                         <label for=\"nomeguerra\">Nome de Guerra:</label>
                                         <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
                                             placeholder=\"Nome de Guerra\" minlength=\"2\"
-                                            style=\"text-transform:uppercase\" required=\"required\" value=\"$admin->nome_guerra\">
+                                            style=\"text-transform:uppercase\" required=\"true\" value=\"$admin->nome_guerra\">
                                     </div>
                                     <div class=\"form-group\">
                                         <label for=\"nip\">NIP:</label>
                                         <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" readonly=\"true\"
-                                            placeholder=\"NIP\" maxlength=\"8\" required=\"required\" value=\"$admin->nip\">
+                                            placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$admin->nip\">
                                     </div>
 
                                     <div class=\"form-group\">
@@ -251,19 +251,19 @@ if ($act == 'cad') {
                                 <label for=\"nome\">Nome Completo:</label>
                                 <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
                                     placeholder=\"Nome Completo\" minlength=\"2\" 
-                                    style=\"text-transform:uppercase\" required=\"required\" value=\"$admin->nome\">
+                                    style=\"text-transform:uppercase\" required=\"true\" value=\"$admin->nome\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"nomeguerra\">Nome de Guerra:</label>
                                 <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
                                     placeholder=\"Nome de Guerra\" minlength=\"2\"
-                                    style=\"text-transform:uppercase\" required=\"required\" value=\"$admin->nome_guerra\">
+                                    style=\"text-transform:uppercase\" required=\"true\" value=\"$admin->nome_guerra\">
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"nip\">NIP:</label>
                                 <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" 
-                                       placeholder=\"NIP\" maxlength=\"8\" required=\"required\" value=\"$admin->nip\">
+                                       placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$admin->nip\">
                             </div>
 
                             <div class=\"form-group\">
@@ -276,7 +276,7 @@ if ($act == 'cad') {
                                 <label for=\"senha\" class=\"control-label\">Senha:</label>
                                 <input id=\"senha\" class=\"form-control\" type=\"password\" name=\"senha\"
                                        placeholder=\"Senha Segura\" minlength=\"8\"
-                                       maxlength=\"25\" required=\"required\">
+                                       maxlength=\"25\" required=\"true\">
                                 <div class=\"help-block with-errors\"></div>
                             </div>
 
@@ -284,7 +284,7 @@ if ($act == 'cad') {
                                 <label for=\"confirmasenha\" class=\"control-label\">Confirme a Senha:</label>
                                 <input id=\"confirmasenha\" class=\"form-control\" type=\"password\" name=\"confirmasenha\"
                                     placeholder=\"Confirmação da Senha\" minlength=\"8\"
-                                    maxlength=\"25\" required=\"required\">
+                                    maxlength=\"25\" required=\"true\">
                                 <div class=\"help-block with-errors\"></div>
                             </div>
                             <input id=\"ativo\" type=\"hidden\" name=\"ativo\" value=\"ATIVO\">";
@@ -367,88 +367,51 @@ if (($row) AND ($act == NULL)) {
 
 /* Método INSERT */
 if ($act == 'insert') {
-    $idtb_admin = $_POST['idtb_admin'];
-	$omapoiada = $_POST['omapoiada'];
-    $postograd = $_POST['postograd'];
-    $corpoquadro = $_POST['corpoquadro'];
-    $especialidade = $_POST['especialidade'];
-    $nip = $_POST['nip'];
-    $cpf = $_POST['cpf'];
-    $nome = strtoupper($_POST['nome']);
-    $nomeguerra = strtoupper($_POST['nomeguerra']);
-    $ativo = strtoupper($_POST['ativo']);
+    if (isset($_SESSION['status'])){
+        $idtb_admin = $_POST['idtb_admin'];
+        $omapoiada = $_POST['omapoiada'];
+        $postograd = $_POST['postograd'];
+        $corpoquadro = $_POST['corpoquadro'];
+        $especialidade = $_POST['especialidade'];
+        $nip = $_POST['nip'];
+        $cpf = $_POST['cpf'];
+        $nome = strtoupper($_POST['nome']);
+        $nomeguerra = strtoupper($_POST['nomeguerra']);
+        $ativo = strtoupper($_POST['ativo']);
 
-    if ($nip == NULL) {
-        $usuario = $cpf;
-    }
-    else {
-        $usuario = $nip;
-    }
-
-    /* Opta pelo Método Update */
-    if ($idtb_admin){
-        $senha = $_POST['senha'];
-
-        if($senha==NULL){
-            $sql = "UPDATE db_clti.tb_admin SET
-            id_om='$omapoiada',id_posto_grad='$postograd', id_corpo_quadro='$corpoquadro', 
-            id_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
-            nome_guerra='$nomeguerra', status='$ativo'
-            WHERE idtb_admin='$idtb_admin'";
+        if ($nip == NULL) {
+            $usuario = $cpf;
         }
-
-        else{
-            
-            $hash = sha1(md5($senha));
-            $salt = sha1(md5($usuario));
-            $senha = $salt.$hash;
-
-            $sql = "UPDATE db_clti.tb_admin SET
-                id_om='$omapoiada',id_posto_grad='$postograd', id_corpo_quadro='$corpoquadro', 
-                id_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', nome_guerra='$nomeguerra', 
-                senha='$senha', status='$ativo'
-                WHERE idtb_admin='$idtb_admin'";
-        }
-
-
-        $pg->exec($sql);
-
-        if ($pg) {
-            echo "<h5>Resgistros incluídos no banco de dados.</h5>
-            <meta http-equiv=\"refresh\" content=\"1;url=?cmd=admin\">";
-        }
-
         else {
-            echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-            echo(pg_result_error($pg) . "<br />\n");
-        }
-    }
-
-    /* Opta pelo Método Insert */
-    else{
-
-        /* Checa se há Admin com mesmo login cadastrado */
-
-        $sql = "SELECT * FROM db_clti.tb_admin WHERE nip = '$usuario' OR cpf = '$usuario' ";
-        $row = $pg->getRow($sql);
-
-        if ($row) {
-            echo "<h5>Já existe um Admin cadastrado com esse NIP/CPF.</h5>";
+            $usuario = $nip;
         }
 
-        else {
+        /* Opta pelo Método Update */
+        if ($idtb_admin){
 
             $senha = $_POST['senha'];
 
-            $hash = sha1(md5($senha));
-            $salt = sha1(md5($usuario));
-            $senha = $salt.$hash;
+            if($senha==NULL){
+                $sql = "UPDATE db_clti.tb_admin SET
+                id_om='$omapoiada',id_posto_grad='$postograd', id_corpo_quadro='$corpoquadro', 
+                id_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
+                nome_guerra='$nomeguerra', status='$ativo'
+                WHERE idtb_admin='$idtb_admin'";
+            }
 
-            $sql = "INSERT INTO db_clti.tb_admin(
-                id_om,id_posto_grad, id_corpo_quadro, id_especialidade, 
-                nip, cpf, nome, nome_guerra, senha, perfil, status)
-                VALUES ('$omapoiada', '$postograd', '$corpoquadro', '$especialidade',
-                '$nip', '$cpf', '$nome', '$nomeguerra', '$senha', 'ADMIN_OM', 'ATIVO')";
+            else{
+                
+                $hash = sha1(md5($senha));
+                $salt = sha1(md5($usuario));
+                $senha = $salt.$hash;
+
+                $sql = "UPDATE db_clti.tb_admin SET
+                    id_om='$omapoiada',id_posto_grad='$postograd', id_corpo_quadro='$corpoquadro', 
+                    id_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', nome_guerra='$nomeguerra', 
+                    senha='$senha', status='$ativo'
+                    WHERE idtb_admin='$idtb_admin'";
+            }
+
 
             $pg->exec($sql);
 
@@ -461,9 +424,54 @@ if ($act == 'insert') {
                 echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
                 echo(pg_result_error($pg) . "<br />\n");
             }
+        }
 
+        /* Opta pelo Método Insert */
+        else{
+
+            /* Checa se há Admin com mesmo login cadastrado */
+
+            $sql = "SELECT * FROM db_clti.tb_admin WHERE nip = '$usuario' OR cpf = '$usuario' ";
+            $row = $pg->getRow($sql);
+
+            if ($row) {
+                echo "<h5>Já existe um Admin cadastrado com esse NIP/CPF.</h5>";
+            }
+
+            else {
+
+                $senha = $_POST['senha'];
+
+                $hash = sha1(md5($senha));
+                $salt = sha1(md5($usuario));
+                $senha = $salt.$hash;
+
+                $sql = "INSERT INTO db_clti.tb_admin(
+                    id_om,id_posto_grad, id_corpo_quadro, id_especialidade, 
+                    nip, cpf, nome, nome_guerra, senha, perfil, status)
+                    VALUES ('$omapoiada', '$postograd', '$corpoquadro', '$especialidade',
+                    '$nip', '$cpf', '$nome', '$nomeguerra', '$senha', 'ADMIN_OM', 'ATIVO')";
+
+                $pg->exec($sql);
+
+                if ($pg) {
+                    echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=admin\">";
+                }
+
+                else {
+                    echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                    echo(pg_result_error($pg) . "<br />\n");
+                }
+
+            }
         }
     }
+    else{
+        echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;$url\">";
+    }
+    
 }
 
 ?>

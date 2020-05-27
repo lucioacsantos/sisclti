@@ -46,37 +46,37 @@ if (($row == '0') AND ($act)) {
                             <div class=\"form-group\">
                                 <label for=\"nomeclti\">Nome do CLTI:</label>
                                 <input id=\"nomeclti\" class=\"form-control\" type=\"text\" name=\"nomeclti\"
-                                       placeholder=\"Nome do CLTI\" minlength=\"2\" required=\"required\">
+                                       placeholder=\"Nome do CLTI\" minlength=\"2\" required=\"true\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"siglaclti\">Sigla do CLTI:</label>
                                 <input id=\"siglaclti\" class=\"form-control\" type=\"text\" name=\"siglaclti\"
-                                       placeholder=\"Sigla do CLTI\" minlength=\"2\" required=\"required\">
+                                       placeholder=\"Sigla do CLTI\" minlength=\"2\" required=\"true\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"indicativoclti\">Indicativo Naval do CLTI:</label>
                                 <input id=\"indicativoclti\" class=\"form-control\" type=\"text\" name=\"indicativoclti\"
-                                       placeholder=\"Indicativo Naval do CLTI\" minlength=\"2\" required=\"required\">
+                                       placeholder=\"Indicativo Naval do CLTI\" minlength=\"2\" required=\"true\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"dataativacao\">Data de Ativação do CLTI:</label>
                                 <input id=\"dataativacao\" class=\"form-control\" type=\"date\" name=\"dataativacao\"
-                                       placeholder=\"Data de Ativação do CLTI\" minlength=\"2\" required=\"required\">
+                                       placeholder=\"Data de Ativação do CLTI\" minlength=\"2\" required=\"true\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"efetivooficiais\">Efetivo de Oficiais:</label>
                                 <input id=\"efetivooficiais\" class=\"form-control\" type=\"number\" name=\"efetivooficiais\"
-                                       placeholder=\"Efetivo de Oficiais\" minlength=\"2\" required=\"required\">
+                                       placeholder=\"Efetivo de Oficiais\" minlength=\"2\" required=\"true\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"efetivopracas\">Efetivo de Praças:</label>
                                 <input id=\"efetivopracas\" class=\"form-control\" type=\"number\" name=\"efetivopracas\"
-                                       placeholder=\"Efetivo de Praças\" minlength=\"2\" required=\"required\">
+                                       placeholder=\"Efetivo de Praças\" minlength=\"2\" required=\"true\">
                             </div>
                         </fieldset>
                         <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">
@@ -103,32 +103,38 @@ if ($row) {
 
 /* Método INSERT */
 if ($act == 'insert') {
-	$tipoclti = $_POST['tipoclti'];
-	$nomeclti = $_POST['nomeclti'];
-	$siglaclti = $_POST['siglaclti'];
-	$indicativoclti = $_POST['indicativoclti'];
-	$dataativacao = $_POST['dataativacao'];
-	$efetivooficiais = $_POST['efetivooficiais'];
-	$efetivopracas = $_POST['efetivopracas'];
+    if (isset($_SESSION['status'])){
+        $tipoclti = $_POST['tipoclti'];
+        $nomeclti = $_POST['nomeclti'];
+        $siglaclti = $_POST['siglaclti'];
+        $indicativoclti = $_POST['indicativoclti'];
+        $dataativacao = $_POST['dataativacao'];
+        $efetivooficiais = $_POST['efetivooficiais'];
+        $efetivopracas = $_POST['efetivopracas'];
 
-	$sql = "INSERT INTO db_clti.tb_clti(
-        idtipos_clti, efetivo_oficiais, efetivo_pracas, nome, 
-            sigla, indicativo, data_ativacao)
-    	VALUES ('$tipoclti','$efetivooficiais','$efetivopracas',
-    		'$nomeclti','$siglaclti','$indicativoclti','$dataativacao');";
+        $sql = "INSERT INTO db_clti.tb_clti(
+            idtipos_clti, efetivo_oficiais, efetivo_pracas, nome, 
+                sigla, indicativo, data_ativacao)
+            VALUES ('$tipoclti','$efetivooficiais','$efetivopracas',
+                '$nomeclti','$siglaclti','$indicativoclti','$dataativacao');";
 
-	$pg->exec($sql);
+        $pg->exec($sql);
 
-	foreach ($pg as $key => $value) {
-		if ($value != '0') {
-			echo "<h5>Resgistros incluídos no banco de dados.</h5>";
-		}
+        foreach ($pg as $key => $value) {
+            if ($value != '0') {
+                echo "<h5>Resgistros incluídos no banco de dados.</h5>";
+            }
 
-		else {
-			echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-		}
-	break;
-	}
+            else {
+                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+            }
+        break;
+        }
+    }
+    else{
+        echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;$url\">";
+    }
 }
 
 ?>

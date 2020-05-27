@@ -63,14 +63,14 @@ if ($act == 'cad') {
                         <label for=\"fabricante\">Fabricante:</label>
                         <input id=\"fabricante\" class=\"form-control\" type=\"text\" name=\"fabricante\"
                               placeholder=\"ex. CISCO\" style=\"text-transform:uppercase\"
-                              value=\"$conectividade->fabricante\" required=\"required\">
+                              value=\"$conectividade->fabricante\" required=\"true\">
                     </div>
 
                     <div class=\"form-group\">
                         <label for=\"modelo\">Modelo:</label>
                         <input id=\"modelo\" class=\"form-control\" type=\"text\" name=\"modelo\"
                               placeholder=\"ex. C3750-48PS-S\" style=\"text-transform:uppercase\"
-                              value=\"$conectividade->modelo\" required=\"required\">
+                              value=\"$conectividade->modelo\" required=\"true\">
                     </div>
 
                     <div class=\"form-group\">
@@ -84,21 +84,21 @@ if ($act == 'cad') {
                         <label for=\"localizacao\">Localização:</label>
                         <input id=\"localizacao\" class=\"form-control\" type=\"text\" name=\"localizacao\"
                             placeholder=\"ex. Sala de Servidores\"style=\"text-transform:uppercase\"
-                            value=\"$conectividade->localizacao\" required=\"required\">
+                            value=\"$conectividade->localizacao\" required=\"true\">
                     </div>
 
                     <div class=\"form-group\">
                         <label for=\"data_aquisicao\">Data de Aquisição:</label>
                         <input id=\"data_aquisicao\" class=\"form-control\" type=\"date\" name=\"data_aquisicao\"
                             style=\"text-transform:uppercase\" value=\"$conectividade->data_aquisicao\"
-                            required=\"required\">
+                            required=\"true\">
                     </div>
 
                     <div class=\"form-group\">
                         <label for=\"data_garantia\">Final da Garantia/Suporte:</label>
                         <input id=\"data_garantia\" class=\"form-control\" type=\"date\" name=\"data_garantia\"
                             style=\"text-transform:uppercase\"value=\"$conectividade->data_garantia\"
-                            required=\"required\">
+                            required=\"true\">
                     </div>
 
                 </fieldset>
@@ -151,89 +151,94 @@ if (($row) AND ($act == NULL)) {
 
 /* Método INSERT */
 if ($act == 'insert') {
-    $idtb_conectividade = $_POST['idtb_conectividade'];
-	$idtb_om_apoiadas = $_POST['idtb_om_apoiadas'];
-    $fabricante = strtoupper($_POST['fabricante']);
-    $modelo = strtoupper($_POST['modelo']);
-    $end_ip = $_POST['end_ip'];
-    $localizacao = strtoupper($_POST['localizacao']);
-    $data_aquisicao = $_POST['data_aquisicao'];
-    $data_garantia = $_POST['data_garantia'];
+    if (isset($_SESSION['status'])){
+        $idtb_conectividade = $_POST['idtb_conectividade'];
+        $idtb_om_apoiadas = $_POST['idtb_om_apoiadas'];
+        $fabricante = strtoupper($_POST['fabricante']);
+        $modelo = strtoupper($_POST['modelo']);
+        $end_ip = $_POST['end_ip'];
+        $localizacao = strtoupper($_POST['localizacao']);
+        $data_aquisicao = $_POST['data_aquisicao'];
+        $data_garantia = $_POST['data_garantia'];
 
-    /* Opta pelo Método Update */
-    if ($idtb_conectividade){
+        /* Opta pelo Método Update */
+        if ($idtb_conectividade){
 
-        $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_conectividade WHERE end_ip = '$end_ip'");
-        $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_estacoes WHERE end_ip = '$end_ip'");
-        $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_servidores WHERE end_ip = '$end_ip'");
+            $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_conectividade WHERE end_ip = '$end_ip'");
+            $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_estacoes WHERE end_ip = '$end_ip'");
+            $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_servidores WHERE end_ip = '$end_ip'");
 
-        if ($checa_ip){
-            echo "<h5>Endereço IP informado já está em uso, 
-                por favor verifique!</h5>
-                <meta http-equiv=\"refresh\" content=\"5;url=?cmd=conectividade\">";
+            if ($checa_ip){
+                echo "<h5>Endereço IP informado já está em uso, 
+                    por favor verifique!</h5>
+                    <meta http-equiv=\"refresh\" content=\"5;url=?cmd=conectividade\">";
+            }
+
+            else{
+
+                $sql = "UPDATE db_clti.tb_conectividade SET
+                    idtb_om_apoiadas='$idtb_om_apoiadas', fabricante='$fabricante', modelo='$modelo', end_ip='$end_ip', 
+                    localizacao='$localizacao', data_aquisicao='$data_aquisicao', data_garantia='$data_garantia'
+                WHERE idtb_conectividade='$idtb_conectividade'";
+        
+                $pg->exec($sql);
+            
+                foreach ($pg as $key => $value) {
+                    if ($value != '0') {
+                        echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                        <meta http-equiv=\"refresh\" content=\"1;url=?cmd=conectividade\">";
+                    }
+            
+                    else {
+                        echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                    }
+                break;
+                }
+
+            }
         }
-
-        else{
-
-            $sql = "UPDATE db_clti.tb_conectividade SET
-                idtb_om_apoiadas='$idtb_om_apoiadas', fabricante='$fabricante', modelo='$modelo', end_ip='$end_ip', 
-                localizacao='$localizacao', data_aquisicao='$data_aquisicao', data_garantia='$data_garantia'
-            WHERE idtb_conectividade='$idtb_conectividade'";
-    
-            $pg->exec($sql);
         
-            foreach ($pg as $key => $value) {
-                if ($value != '0') {
-                    echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=conectividade\">";
-                }
+        /* Opta pelo Método Insert */
+        else {
+
+            $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_conectividade WHERE end_ip = '$end_ip'");
+            $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_estacoes WHERE end_ip = '$end_ip'");
+            $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_servidores WHERE end_ip = '$end_ip'");
+            
+            if ($checa_ip){
+                echo "<h5>Endereço IP informado já está em uso, 
+                    por favor verifique!</h5>
+                    <meta http-equiv=\"refresh\" content=\"5;url=?cmd=conectividade\">";
+            }
+
+            else{
+
+                $sql = "INSERT INTO db_clti.tb_conectividade(
+                    idtb_om_apoiadas, fabricante, modelo, end_ip, localizacao, data_aquisicao, data_garantia)
+                VALUES ('$idtb_om_apoiadas', '$fabricante', '$modelo', '$end_ip', '$localizacao', '$data_aquisicao', '$data_garantia')";
         
-                else {
-                    echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                $pg->exec($sql);
+            
+                foreach ($pg as $key => $value) {
+                    if ($value != '0') {
+                        echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                        <meta http-equiv=\"refresh\" content=\"1;url=?cmd=conectividade\">";
+                    }
+            
+                    else {
+                        echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                    }
+                break;
                 }
-            break;
+
             }
 
         }
     }
-    
-    /* Opta pelo Método Insert */
-    else {
-
-        $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_conectividade WHERE end_ip = '$end_ip'");
-        $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_estacoes WHERE end_ip = '$end_ip'");
-        $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_servidores WHERE end_ip = '$end_ip'");
-        
-        if ($checa_ip){
-            echo "<h5>Endereço IP informado já está em uso, 
-                por favor verifique!</h5>
-                <meta http-equiv=\"refresh\" content=\"5;url=?cmd=conectividade\">";
-        }
-
-        else{
-
-            $sql = "INSERT INTO db_clti.tb_conectividade(
-                idtb_om_apoiadas, fabricante, modelo, end_ip, localizacao, data_aquisicao, data_garantia)
-            VALUES ('$idtb_om_apoiadas', '$fabricante', '$modelo', '$end_ip', '$localizacao', '$data_aquisicao', '$data_garantia')";
-    
-            $pg->exec($sql);
-        
-            foreach ($pg as $key => $value) {
-                if ($value != '0') {
-                    echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=conectividade\">";
-                }
-        
-                else {
-                    echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                }
-            break;
-            }
-
-        }
-
+    else{
+        echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;$url\">";
     }
-
 }
 
 ?>

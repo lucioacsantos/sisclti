@@ -42,7 +42,7 @@ if ($row) {
                         <td>
                             <form id=\"form\" action=\"?cmd=sistema&act=update\" method=\"post\" enctype=\"multipart/form-data\">
                                 <input id=\"valor\" class=\"form-control\" type=\"text\" name=\"valor\"
-                                       placeholder=\"Novo Parâmetro\" required=\"required\">
+                                       placeholder=\"Novo Parâmetro\" required=\"true\">
                                 <input id=\"idtb_config\" class=\"form-control\" type=\"text\" name=\"idtb_config\" 
                                     value=\"$value->idtb_config\" hidden=\"true\">
                         </td>
@@ -60,24 +60,30 @@ if ($row) {
 
 /* Método INSERT */
 if ($act == 'update') {
-	$valor = $_POST['valor'];
-	$idtb_config = $_POST['idtb_config'];
+    if (isset($_SESSION['status'])){
+        $valor = $_POST['valor'];
+        $idtb_config = $_POST['idtb_config'];
 
-	$sql = "UPDATE db_clti.tb_config SET valor = '$valor' WHERE idtb_config = '$idtb_config'";
+        $sql = "UPDATE db_clti.tb_config SET valor = '$valor' WHERE idtb_config = '$idtb_config'";
 
-	$pg->exec($sql);
+        $pg->exec($sql);
 
-	foreach ($pg as $key => $value) {
-		if ($value != '0') {
-            echo "<h5>Resgistros incluídos no banco de dados.</h5>
-            <meta http-equiv=\"refresh\" content=\"1;url=?cmd=sistema\">";
-		}
+        foreach ($pg as $key => $value) {
+            if ($value != '0') {
+                echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=sistema\">";
+            }
 
-		else {
-			echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-		}
-	break;
-	}
+            else {
+                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+            }
+        break;
+        }
+    }
+    else{
+        echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;$url\">";
+    }
 }
 
 ?>

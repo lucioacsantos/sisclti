@@ -26,29 +26,24 @@ if (($row == '0') AND ($act == NULL)) {
 /* Carrega form para cadastro de Admin */
 if ($act == 'cad') {
     @$param = $_GET['param'];
+    @$senha = $_GET['senha'];
     if ($param){
-        $admin_idlogin = $_SESSION['user_id'];
-        $admin_idom = $_SESSION['id_om_apoiada'];
-        $admin_siglaom = $_SESSION['om_apoiada'];
-        $pesti = $pg->getRow("SELECT * FROM db_clti.tb_pessoal_ti WHERE idtb_pessoal_ti = '$param'");
-        $pesti_om = $pg->getRow("SELECT idtb_om_apoiadas,sigla FROM db_clti.tb_om_apoiadas 
+        $admin = $pg->getRow("SELECT * FROM db_clti.tb_pessoal_ti WHERE idtb_admin = '$param'");
+        $admin_om = $pg->getRow("SELECT idtb_om_apoiadas,sigla FROM db_clti.tb_om_apoiadas 
             WHERE idtb_om_apoiadas = '$admin->id_om'");
-        $pesti_posto_grad = $pg->getRow("SELECT idtb_posto_grad,sigla FROM db_clti.tb_posto_grad 
+        $admin_posto_grad = $pg->getRow("SELECT idtb_posto_grad,sigla FROM db_clti.tb_posto_grad 
             WHERE idtb_posto_grad = '$admin->id_posto_grad'");
-        $pesti_corpo_quadro = $pg->getRow("SELECT idtb_corpo_quadro,sigla FROM db_clti.tb_corpo_quadro 
+        $admin_corpo_quadro = $pg->getRow("SELECT idtb_corpo_quadro,sigla FROM db_clti.tb_corpo_quadro 
             WHERE idtb_corpo_quadro = '$admin->id_corpo_quadro'");
-        $pesti_especialidade = $pg->getRow("SELECT idtb_especialidade,sigla FROM db_clti.tb_especialidade 
+        $admin_especialidade = $pg->getRow("SELECT idtb_especialidade,sigla FROM db_clti.tb_especialidade 
             WHERE idtb_especialidade = '$admin->id_especialidade'");
     }
     else{
-        $admin_idlogin = $_SESSION['user_id'];
-        $admin_idom = $_SESSION['id_om_apoiada'];
-        $admin_siglaom = $_SESSION['om_apoiada'];
-        $pesti = (object)['idtb_pessoal_ti'=>'','nip'=>'','cpf'=>'','nome'=>'','nome_guerra'=>''];
-        $pesti_om = (object)['idtb_om_apoiadas'=>'','sigla'=>''];
-        $pesti_posto_grad = (object)['idtb_posto_grad'=>'8','sigla'=>'1ºTen'];
-        $pesti_corpo_quadro = (object)['idtb_corpo_quadro'=>'','sigla'=>''];
-        $pesti_especialidade = (object)['idtb_especialidade'=>'','sigla'=>''];
+        $admin = (object)['idtb_admin'=>'','nip'=>'','cpf'=>'','nome'=>'','nome_guerra'=>''];
+        $admin_om = (object)['idtb_om_apoiadas'=>'','sigla'=>''];
+        $admin_posto_grad = (object)['idtb_posto_grad'=>'8','sigla'=>'1ºTen'];
+        $admin_corpo_quadro = (object)['idtb_corpo_quadro'=>'','sigla'=>''];
+        $admin_especialidade = (object)['idtb_especialidade'=>'','sigla'=>''];
     }
 	$omapoiada = "SELECT * FROM db_clti.tb_om_apoiadas ORDER BY sigla ASC";
     $omapoiada = $pg->getRows($omapoiada);
@@ -66,112 +61,172 @@ if ($act == 'cad') {
                     <form id=\"insereusuario\" role=\"form\" action=\"?cmd=pessoalti&act=insert\" 
                         method=\"post\" enctype=\"multipart/form-data\">
                         <fieldset>";
-
+                            #Prepara formulário para atualização de dados
                             if ($param){
-                                echo"
-                                <legend>Pessoal de TI - Alteração</legend>
-
-                                <div class=\"form-group\">
-                                    <label for=\"omapoiada\">OM Apoiada:</label>
-                                    <select id=\"omapoiada\" class=\"form-control\" name=\"omapoiada\">
-                                        <option value=\"$admin_idom\" selected=\"true\">$admin_siglaom</option>";
-                                        foreach ($omapoiada as $key => $value) {
-                                            echo"<option value=\"".$value->idtb_om_apoiadas."\">
-                                                ".$value->sigla."</option>";
-                                        };
-                                    echo "</select>
-                                </div>
-
-                                <div class=\"form-group\">
-                                    <label for=\"postograd\">Posto/Graduação:</label>
-                                    <select id=\"postograd\" class=\"form-control\" name=\"postograd\">
-                                        <option value=\"$pesti_posto_grad->idtb_posto_grad\" selected=\"true\">
-                                            $pesti_posto_grad->sigla</option>";
-                                        foreach ($postograd as $key => $value) {
-                                            echo"<option value=\"".$value->idtb_posto_grad."\">
-                                                ".$value->nome."</option>";
-                                        };
-                                    echo "</select>
-                                </div>
-
-                                <div class=\"form-group\">
-                                    <label for=\"corpoquadro\">Corpo/Quadro:</label>
-                                    <select id=\"corpoquadro\" class=\"form-control\" name=\"corpoquadro\">
-                                        <option value=\"$pesti_corpo_quadro->idtb_corpo_quadro\" selected=\"true\">
-                                            $pesti_corpo_quadro->sigla</option>";
-                                        foreach ($corpoquadro as $key => $value) {
-                                            echo"<option value=\"".$value->idtb_corpo_quadro."\">
-                                                ".$value->nome."</option>";
-                                        };
-                                    echo "</select>
-                                </div>
-
-                                <div class=\"form-group\">
-                                    <label for=\"especialidade\">Especialidade:</label>
-                                    <select id=\"especialidade\" class=\"form-control\" name=\"especialidade\">
-                                        <option value=\"$pesti_especialidade->idtb_especialidade\" selected=\"true\">
-                                            $pesti_especialidade->sigla</option>";
-                                        foreach ($especialidade as $key => $value) {
-                                            echo"<option value=\"".$value->idtb_especialidade."\">
-                                                ".$value->nome."</option>";
-                                        };
-                                    echo "</select>
-                                </div>
-                                <div class=\"form-group\">
-                                    <label for=\"nome\">Nome Completo:</label>
+                                #Em caso de troca de senha
+                                if ($senha){
+                                    echo"
+                                    <legend>Administradores de Rede - Troca de Senha</legend>
+                                    <input id=\"omapoiada\" class=\"form-control\" name=\"omapoiada\"
+                                        value=\"$admin_om->idtb_om_apoiadas\" hidden=\"true\">
+                                    <input id=\"postograd\" class=\"form-control\" name=\"postograd\"
+                                        value=\"$admin_posto_grad->idtb_posto_grad\" hidden=\"true\">
+                                    <input id=\"corpoquadro\" class=\"form-control\" name=\"corpoquadro\"
+                                        value=\"$admin_corpo_quadro->idtb_corpo_quadro\" hidden=\"true\">
+                                    <input id=\"especialidade\" class=\"form-control\" name=\"especialidade\"
+                                        value=\"$admin_especialidade->idtb_especialidade\" hidden=\"true\">
                                     <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
-                                        placeholder=\"Nome Completo\" minlength=\"2\" 
-                                        style=\"text-transform:uppercase\" required=\"required\" value=\"$pesti->nome\">
-                                </div>
-
-                                <div class=\"form-group\">
-                                    <label for=\"nomeguerra\">Nome de Guerra:</label>
+                                        hidden=\"required\" value=\"$admin->nome\">
                                     <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
-                                        placeholder=\"Nome de Guerra\" minlength=\"2\"
-                                        style=\"text-transform:uppercase\" required=\"required\" value=\"$pesti->nome_guerra\">
-                                </div>
-                                <div class=\"form-group\">
-                                    <label for=\"nip\">NIP:</label>
-                                    <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" readonly=\"true\"
-                                        placeholder=\"NIP\" maxlength=\"8\" required=\"required\" value=\"$pesti->nip\">
-                                </div>
+                                        hidden=\"required\" value=\"$admin->nome_guerra\">
+                                    <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
+                                        hidden=\"required\" value=\"$admin->correio_eletronico\">
+                                    <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
+                                        hidden=\"required\" value=\"$admin->funcao\">
 
-                                <div class=\"form-group\">
-                                    <label for=\"cpf\">CPF (Servidores Civis):</label>
-                                    <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" readonly=\"true\"
-                                        placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$pesti->cpf\">
-                                </div>
+                                    <div class=\"form-group\">
+                                        <label for=\"nip\">NIP:</label>
+                                        <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" readonly=\"true\"
+                                            placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$admin->nip\">
+                                    </div>
 
-                                <div class=\"form-group\">
-                                    <label for=\"correio_eletronico\">Correio Eletrônico:</label>
-                                    <input id=\"correio_eletronico\" class=\"form-control\" type=\"email\" 
-                                        name=\"correio_eletronico\" placeholder=\"Preferencialmente Zimbra\" 
-                                        value=\"$pesti->correio_eletronico\" required=\"true\">
-                                    <div class=\"help-block with-errors\"></div>
-                                </div>
+                                    <div class=\"form-group\">
+                                        <label for=\"cpf\">CPF (Servidores Civis):</label>
+                                        <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" readonly=\"true\"
+                                            placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$admin->cpf\">
+                                    </div>
 
-                                <div class=\"form-group\">
-                                    <label for=\"funcao\">Função de TI:</label>
-                                    <input id=\"funcao\" class=\"form-control\" type=\"text\" name=\"correfuncaoio_eletronico\" 
-                                        placeholder=\"ex. Suporte ao usuário\" value=\"$pesti->funcao\" required=\"true\">
-                                </div>
+                                    <div class=\"form-group\">
+                                        <label for=\"senha\" class=\"control-label\">Trocar Senha:</label>
+                                        <input id=\"senha\" class=\"form-control\" type=\"password\" name=\"senha\"
+                                            placeholder=\"Senha Segura\" minlength=\"8\" maxlength=\"25\">
+                                    </div>
 
-                                <div class=\"form-group\">
-                                    <label for=\"ativo\" class=\"control-label\">Situação:</label>
-                                    <select id=\"ativo\" class=\"form-control\" name=\"ativo\">
-                                        <option value=\"$pesti->status\" selected=\"true\">$pesti->status</option>
-                                        <option value=\"ATIVO\">ATIVO</option>
-                                        <option value=\"INATIVO\">INATIVO</option>
-                                    <div class=\"help-block with-errors\"></div>
-                                </div>";
+                                    <div class=\"form-group\">
+                                        <label for=\"confirmasenha\" class=\"control-label\">Confirme a Senha:</label>
+                                        <input id=\"confirmasenha\" class=\"form-control\" type=\"password\" name=\"confirmasenha\"
+                                            placeholder=\"Confirmação da Senha\" minlength=\"8\" maxlength=\"25\">
+                                    </div>
+
+                                    <input id=\"ativo\" class=\"form-control\" name=\"ativo\"
+                                        value=\"$admin->status\" hidden=\"true\">";
+                                }
+                                #Em caso de alteração de outros dados
+                                else{
+                                    echo"
+                                    <legend>Administradores de Rede - Alteração</legend>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"omapoiada\">OM Apoiada:</label>
+                                        <select id=\"omapoiada\" class=\"form-control\" name=\"omapoiada\">
+                                            <option value=\"$admin_om->idtb_om_apoiadas\" selected=\"true\">
+                                                $admin_om->sigla</option>";
+                                            foreach ($omapoiada as $key => $value) {
+                                                echo"<option value=\"".$value->idtb_om_apoiadas."\">
+                                                    ".$value->sigla."</option>";
+                                            };
+                                        echo "</select>
+                                    </div>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"postograd\">Posto/Graduação:</label>
+                                        <select id=\"postograd\" class=\"form-control\" name=\"postograd\">
+                                            <option value=\"$admin_posto_grad->idtb_posto_grad\" selected=\"true\">
+                                                $admin_posto_grad->sigla</option>";
+                                            foreach ($postograd as $key => $value) {
+                                                echo"<option value=\"".$value->idtb_posto_grad."\">
+                                                    ".$value->nome."</option>";
+                                            };
+                                        echo "</select>
+                                    </div>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"corpoquadro\">Corpo/Quadro:</label>
+                                        <select id=\"corpoquadro\" class=\"form-control\" name=\"corpoquadro\">
+                                            <option value=\"$admin_corpo_quadro->idtb_corpo_quadro\" selected=\"true\">
+                                                $admin_corpo_quadro->sigla</option>";
+                                            foreach ($corpoquadro as $key => $value) {
+                                                echo"<option value=\"".$value->idtb_corpo_quadro."\">
+                                                    ".$value->nome."</option>";
+                                            };
+                                        echo "</select>
+                                    </div>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"especialidade\">Especialidade:</label>
+                                        <select id=\"especialidade\" class=\"form-control\" name=\"especialidade\">
+                                            <option value=\"$admin_especialidade->idtb_especialidade\" selected=\"true\">
+                                                $admin_especialidade->sigla</option>";
+                                            foreach ($especialidade as $key => $value) {
+                                                echo"<option value=\"".$value->idtb_especialidade."\">
+                                                    ".$value->nome."</option>";
+                                            };
+                                        echo "</select>
+                                    </div>
+                                    <div class=\"form-group\">
+                                        <label for=\"nome\">Nome Completo:</label>
+                                        <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
+                                            placeholder=\"Nome Completo\" minlength=\"2\" 
+                                            style=\"text-transform:uppercase\" required=\"true\" value=\"$admin->nome\">
+                                    </div>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"nomeguerra\">Nome de Guerra:</label>
+                                        <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
+                                            placeholder=\"Nome de Guerra\" minlength=\"2\"
+                                            style=\"text-transform:uppercase\" required=\"true\" value=\"$admin->nome_guerra\">
+                                    </div>
+                                    <div class=\"form-group\">
+                                        <label for=\"nip\">NIP:</label>
+                                        <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" readonly=\"true\"
+                                            placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$admin->nip\">
+                                    </div>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"cpf\">CPF (Servidores Civis):</label>
+                                        <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" readonly=\"true\"
+                                            placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$admin->cpf\">
+                                    </div>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"correioeletronico\">Correio Eletrônico:</label>
+                                        <input id=\"correioeletronico\" class=\"form-control\" type=\"email\" 
+                                            name=\"correioeletronico\" placeholder=\"Preferencialmente Zimbra\" 
+                                            minlength=\"2\" style=\"text-transform:uppercase\" required=\"true\" 
+                                            value=\"$admin->correio_eletronico\">
+                                    </div>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"funcaoti\">Função de TI:</label>
+                                        <input id=\"funcaoti\" class=\"form-control\" type=\"text\" name=\"funcaoti\"
+                                            placeholder=\"ex. Suporte ao Usuário\" minlength=\"2\" 
+                                            style=\"text-transform:uppercase\" required=\"true\" value=\"$admin->funcao\">
+                                    </div>
+
+                                    <input id=\"senha\" class=\"form-control\" type=\"password\" name=\"senha\"
+                                            value=\"senha\" hidden=\"true\">
+                                    <input id=\"confirmasenha\" class=\"form-control\" type=\"password\" name=\"confirmasenha\"
+                                        value=\"confirmasenha\" hidden=\"true\">
+
+                                    <div class=\"form-group\">
+                                        <label for=\"ativo\" class=\"control-label\">Situação:</label>
+                                        <select id=\"ativo\" class=\"form-control\" name=\"ativo\">
+                                            <option value=\"$admin->status\" selected=\"true\">$admin->status</option>
+                                            <option value=\"ATIVO\">ATIVO</option>
+                                            <option value=\"INATIVO\">INATIVO</option>
+                                        <div class=\"help-block with-errors\"></div>
+                                    </div>";
+                                }
                             }
+                            #Prepara formulário para inclusão
                             else{
                             echo"
-                            <legend>Pessoal de TI - Cadastro</legend>
+                            <legend>Administradores de Rede - Cadastro</legend>
                             <div class=\"form-group\">
                                 <label for=\"omapoiada\">OM Apoiada:</label>
                                 <select id=\"omapoiada\" class=\"form-control\" name=\"omapoiada\">
-                                    <option value=\"$admin_idom\" selected=\"true\">$admin_siglaom</option>";
+                                    <option value=\"$admin_om->idtb_om_apoiadas\" selected=\"true\">
+                                        $admin_om->sigla</option>";
                                     foreach ($omapoiada as $key => $value) {
                                         echo"<option value=\"".$value->idtb_om_apoiadas."\">
                                             ".$value->sigla."</option>";
@@ -182,8 +237,8 @@ if ($act == 'cad') {
                             <div class=\"form-group\">
                                 <label for=\"postograd\">Posto/Graduação:</label>
                                 <select id=\"postograd\" class=\"form-control\" name=\"postograd\">
-                                    <option value=\"$pesti_posto_grad->idtb_posto_grad\" selected=\"true\">
-                                        $pesti_posto_grad->sigla</option>";
+                                    <option value=\"$admin_posto_grad->idtb_posto_grad\" selected=\"true\">
+                                        $admin_posto_grad->sigla</option>";
                                     foreach ($postograd as $key => $value) {
                                         echo"<option value=\"".$value->idtb_posto_grad."\">
                                             ".$value->nome."</option>";
@@ -194,8 +249,8 @@ if ($act == 'cad') {
                             <div class=\"form-group\">
                                 <label for=\"corpoquadro\">Corpo/Quadro:</label>
                                 <select id=\"corpoquadro\" class=\"form-control\" name=\"corpoquadro\">
-                                    <option value=\"$pesti_corpo_quadro->idtb_corpo_quadro\" selected=\"true\">
-                                        $pesti_corpo_quadro->sigla</option>";
+                                    <option value=\"$admin_corpo_quadro->idtb_corpo_quadro\" selected=\"true\">
+                                        $admin_corpo_quadro->sigla</option>";
                                     foreach ($corpoquadro as $key => $value) {
                                         echo"<option value=\"".$value->idtb_corpo_quadro."\">
                                             ".$value->nome."</option>";
@@ -206,57 +261,75 @@ if ($act == 'cad') {
                             <div class=\"form-group\">
                                 <label for=\"especialidade\">Especialidade:</label>
                                 <select id=\"especialidade\" class=\"form-control\" name=\"especialidade\">
-                                    <option value=\"$pesti_especialidade->idtb_especialidade\" selected=\"true\">
-                                        $pesti_especialidade->sigla</option>";
+                                    <option value=\"$admin_especialidade->idtb_especialidade\" selected=\"true\">
+                                        $admin_especialidade->sigla</option>";
                                     foreach ($especialidade as $key => $value) {
                                         echo"<option value=\"".$value->idtb_especialidade."\">
                                             ".$value->nome."</option>";
                                     };
                                 echo "</select>
                             </div>
+
+                            <div class=\"form-group\">
+                                <label for=\"nip\">NIP:</label>
+                                <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" 
+                                       placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$admin->nip\">
+                            </div>
+
+                            <div class=\"form-group\">
+                                <label for=\"cpf\">CPF (Servidores Civis):</label>
+                                <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" 
+                                       placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$admin->cpf\">
+                            </div>
+
                             <div class=\"form-group\">
                                 <label for=\"nome\">Nome Completo:</label>
                                 <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
                                     placeholder=\"Nome Completo\" minlength=\"2\" 
-                                    style=\"text-transform:uppercase\" required=\"required\" value=\"$pesti->nome\">
+                                    style=\"text-transform:uppercase\" required=\"true\" value=\"$admin->nome\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"nomeguerra\">Nome de Guerra:</label>
                                 <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
                                     placeholder=\"Nome de Guerra\" minlength=\"2\"
-                                    style=\"text-transform:uppercase\" required=\"required\" value=\"$pesti->nome_guerra\">
-                            </div>
-                            <div class=\"form-group\">
-                                <label for=\"nip\">NIP:</label>
-                                <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" 
-                                       placeholder=\"NIP\" maxlength=\"8\" required=\"required\" value=\"$pesti->nip\">
+                                    style=\"text-transform:uppercase\" required=\"true\" value=\"$admin->nome_guerra\">
                             </div>
 
                             <div class=\"form-group\">
-                                <label for=\"cpf\">CPF (Servidores Civis):</label>
-                                <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" 
-                                       placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$pesti->cpf\">
+                                <label for=\"correioe_letronico\">Correio Eletrônico:</label>
+                                <input id=\"correioel_etronico\" class=\"form-control\" type=\"email\" name=\"correioel_etronico\"
+                                    placeholder=\"Preferencialmente Zimbra\" minlength=\"2\"
+                                    required=\"true\" value=\"$admin->correio_eletronico\">
                             </div>
 
                             <div class=\"form-group\">
-                                <label for=\"correio_eletronico\">Correio Eletrônico:</label>
-                                <input id=\"correio_eletronico\" class=\"form-control\" type=\"email\" 
-                                    name=\"correio_eletronico\" placeholder=\"Preferencialmente Zimbra\" 
-                                    value=\"$pesti->correio_eletronico\" required=\"true\">
+                                <label for=\"funcaoti\">Função de TI:</label>
+                                <input id=\"funcaoti\" class=\"form-control\" type=\"text\" name=\"funcaoti\"
+                                    placeholder=\"ex. Suporte ao Usuário\" minlength=\"2\"
+                                    style=\"text-transform:uppercase\" required=\"true\" value=\"$admin->funcao\">
                             </div>
 
                             <div class=\"form-group\">
-                                <label for=\"funcao\">Função de TI:</label>
-                                <input id=\"funcao\" class=\"form-control\" type=\"text\" name=\"funcao\" 
-                                    placeholder=\"ex. Suporte ao usuário\" value=\"$pesti->funcao\" required=\"true\">
+                                <label for=\"senha\" class=\"control-label\">Senha:</label>
+                                <input id=\"senha\" class=\"form-control\" type=\"password\" name=\"senha\"
+                                       placeholder=\"Senha Segura\" minlength=\"8\"
+                                       maxlength=\"25\" required=\"true\">
+                                <div class=\"help-block with-errors\"></div>
                             </div>
 
+                            <div class=\"form-group\">
+                                <label for=\"confirmasenha\" class=\"control-label\">Confirme a Senha:</label>
+                                <input id=\"confirmasenha\" class=\"form-control\" type=\"password\" name=\"confirmasenha\"
+                                    placeholder=\"Confirmação da Senha\" minlength=\"8\"
+                                    maxlength=\"25\" required=\"true\">
+                                <div class=\"help-block with-errors\"></div>
+                            </div>
                             <input id=\"ativo\" type=\"hidden\" name=\"ativo\" value=\"ATIVO\">";
                             }
                         echo"
                         </fieldset>
-                        <input id=\"idtb_pessoal_ti\" type=\"hidden\" name=\"idtb_pessoal_ti\" value=\"$pesti->idtb_pessoal_ti\">
+                        <input id=\"idtb_admin\" type=\"hidden\" name=\"idtb_admin\" value=\"$admin->idtb_admin\">
                         <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">
                     </form>
                 </div>
@@ -268,8 +341,8 @@ if ($act == 'cad') {
 /* Monta quadro de administradores */
 if (($row) AND ($act == NULL)) {
 
-	$pesti = "SELECT * FROM db_clti.tb_pessoal_ti ORDER BY id_posto_grad DESC";
-    $pesti = $pg->getRows($pesti);
+	$admin = "SELECT * FROM db_clti.tb_pessoal_ti ORDER BY id_posto_grad DESC";
+    $admin = $pg->getRows($admin);
 
     echo"<div class=\"table-responsive\">
             <table class=\"table table-hover\">
@@ -283,7 +356,7 @@ if (($row) AND ($act == NULL)) {
                     </tr>
                 </thead>";
 
-    foreach ($pesti as $key => $value) {
+    foreach ($admin as $key => $value) {
 
         #Seleciona Sigla do Posto/Graduação
         $postograd = $pg->getCol("SELECT sigla FROM db_clti.tb_posto_grad WHERE idtb_posto_grad = $value->id_posto_grad");
@@ -319,7 +392,8 @@ if (($row) AND ($act == NULL)) {
                         <td>".$identificacao."</td>
                         <td>".$value->nome."</td>
                         <td>".$value->nome_guerra."</td>
-                        <td><a href=\"?cmd=pessoalti&act=cad&param=".$value->idtb_pessoal_ti."\">Editar</a> - 
+                        <td><a href=\"?cmd=pessoalti&act=cad&param=".$value->idtb_admin."\">Editar</a> - 
+                            <a href=\"?cmd=pessoalti&act=cad&param=".$value->idtb_admin."&senha=troca\">Senha</a> - 
                             Excluir</td>
                     </tr>";
     }
@@ -331,82 +405,113 @@ if (($row) AND ($act == NULL)) {
 
 /* Método INSERT */
 if ($act == 'insert') {
-    $idtb_pessoal_ti = $_POST['idtb_pessoal_ti'];
-	$omapoiada = $_POST['omapoiada'];
-    $postograd = $_POST['postograd'];
-    $corpoquadro = $_POST['corpoquadro'];
-    $especialidade = $_POST['especialidade'];
-    $nip = $_POST['nip'];
-    $cpf = $_POST['cpf'];
-    $nome = strtoupper($_POST['nome']);
-    $nomeguerra = strtoupper($_POST['nomeguerra']);
-    $correio_eletronico = strtolower($_POST['correio_eletronico']);
-    $funcao = strtoupper($_POST['funcao']);
-    $ativo = strtoupper($_POST['ativo']);
+    if (isset($_SESSION['status'])){
+        $idtb_admin = $_POST['idtb_admin'];
+        $omapoiada = $_POST['omapoiada'];
+        $postograd = $_POST['postograd'];
+        $corpoquadro = $_POST['corpoquadro'];
+        $especialidade = $_POST['especialidade'];
+        $nip = $_POST['nip'];
+        $cpf = $_POST['cpf'];
+        $nome = strtoupper($_POST['nome']);
+        $nomeguerra = strtoupper($_POST['nomeguerra']);
+        $correio_eletronico = strtolower($_POST['correio_eletronico']);
+        $funcao = strtoupper($_POST['funcao']);
+        $ativo = strtoupper($_POST['ativo']);
 
-    if ($nip == NULL) {
-        $usuario = $cpf;
-    }
-    else {
-        $usuario = $nip;
-    }
-
-    /* Opta pelo Método Update */
-    if ($idtb_pessoal_ti){
-
-        $sql = "UPDATE db_clti.tb_pessoal_ti SET
-            idtb_om_apoiada='$omapoiada',idtb_posto_grad='$postograd', idtb_corpo_quadro='$corpoquadro', 
-            idtb_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
-            nome_guerra='$nomeguerra', correio_eletronico='$correio_eletronico', 
-            funcao='$funcao', situacao='$ativo'
-            WHERE idtb_admin='$idtb_admin'";
-
-        $pg->exec($sql);
-
-        if ($pg) {
-            echo "<h5>Resgistros incluídos no banco de dados.</h5>
-            <meta http-equiv=\"refresh\" content=\"1;url=?cmd=pessoalti\">";
+        if ($nip == NULL) {
+            $usuario = $cpf;
         }
-
         else {
-            echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-            echo(pg_result_error($pg) . "<br />\n");
-        }
-    }
-
-    /* Opta pelo Método Insert */
-    else{
-
-        /* Checa se há Admin com mesmo login cadastrado */
-
-        $sql = "SELECT * FROM db_clti.tb_pessoal_ti WHERE nip = '$usuario' OR cpf = '$usuario' ";
-        $row = $pg->getRow($sql);
-
-        if ($row) {
-            echo "<h5>Já existe um Técnico cadastrado com esse NIP/CPF.</h5>";
+            $usuario = $nip;
         }
 
-        else {
+        /* Opta pelo Método Update */
+        if ($idtb_admin){
+            $senha = $_POST['senha'];
 
-            $sql = "INSERT INTO db_clti.tb_pessoal_ti(
-                idtb_om_apoiada,idtb_posto_grad, idtb_corpo_quadro, idtb_especialidade, 
-                nip, cpf, nome, nome_guerra, correio_eletronico, funcao, situacao)
-                VALUES ('$omapoiada', '$postograd', '$corpoquadro', '$especialidade',
-                '$nip', '$cpf', '$nome', '$nomeguerra', '$funcao', '$correio_eletronico', 'ATIVO')";
+            if($senha==NULL){
+                $sql = "UPDATE db_clti.tb_pessoal_ti SET
+                id_om='$omapoiada',id_posto_grad='$postograd', id_corpo_quadro='$corpoquadro', 
+                id_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
+                nome_guerra='$nomeguerra', correio_eletronico='$correio_eletronico',
+                funcao='$funcao', status='$ativo'
+                WHERE idtb_pessoal_ti='$idtb_admin'";
+            }
+
+            else{
+                
+                $hash = sha1(md5($senha));
+                $salt = sha1(md5($usuario));
+                $senha = $salt.$hash;
+
+                $sql = "UPDATE db_clti.tb_admin SET
+                    id_om='$omapoiada',id_posto_grad='$postograd', id_corpo_quadro='$corpoquadro', 
+                    id_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
+                    nome_guerra='$nomeguerra', senha='$senha', correio_eletronico='$correio_eletronico',
+                    funcao='$funcao', status='$ativo'
+                    WHERE idtb_admin='$idtb_admin'";
+            }
+
 
             $pg->exec($sql);
 
             if ($pg) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=pessoalti\">";
+                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=admin\">";
             }
 
             else {
                 echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
                 echo(pg_result_error($pg) . "<br />\n");
             }
-
         }
+
+        /* Opta pelo Método Insert */
+        else{
+
+            /* Checa se há Admin com mesmo login cadastrado */
+
+            $sql = "SELECT * FROM db_clti.tb_admin WHERE nip = '$usuario' OR cpf = '$usuario' ";
+            $row = $pg->getRow($sql);
+
+            if ($row) {
+                echo "<h5>Já existe um Admin cadastrado com esse NIP/CPF.</h5>";
+            }
+
+            else {
+
+                $senha = $_POST['senha'];
+
+                $hash = sha1(md5($senha));
+                $salt = sha1(md5($usuario));
+                $senha = $salt.$hash;
+
+                $sql = "INSERT INTO db_clti.tb_admin(
+                    id_om,id_posto_grad, id_corpo_quadro, id_especialidade, nip, 
+                    cpf, nome, nome_guerra, senha, correio_eletronico, funcao, status)
+                    VALUES ('$omapoiada', '$postograd', '$corpoquadro', '$especialidade',
+                    '$nip', '$cpf', '$nome', '$nomeguerra', '$senha', '$correio_eletronico',
+                    '$funcao', 'ATIVO')";
+
+                $pg->exec($sql);
+
+                if ($pg) {
+                    echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=pessoalti\">";
+                }
+
+                else {
+                    echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                    echo(pg_result_error($pg) . "<br />\n");
+                }
+
+            }
+        }
+    }
+    else{
+        echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;$url\">";
     }
 }
 

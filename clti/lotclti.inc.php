@@ -56,7 +56,7 @@ if ($act == 'cad') {
                 <div id=\"form-cadastro\">
                     <form id=\"insereusuario\" action=\"?cmd=lotclti&act=insert\" method=\"post\" enctype=\"multipart/form-data\">
                         <fieldset>";
-                            
+                            #Prepara formulário para atualização de dados
                             if ($param){
                                 if ($senha){
                                     echo"
@@ -71,10 +71,13 @@ if ($act == 'cad') {
                                         hidden=\"true\" value=\"$clti->nome\">
                                     <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
                                         hidden=\"true\" value=\"$clti->nome_guerra\">
+                                    <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
+                                        hidden=\"required\" value=\"$clti->correio_eletronico\">
+
                                     <div class=\"form-group\">
                                         <label for=\"nip\">NIP:</label>
                                         <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" readonly=\"true\"
-                                            placeholder=\"NIP\" maxlength=\"8\" required=\"required\" value=\"$clti->nip\">
+                                            placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$clti->nip\">
                                     </div>
 
                                     <div class=\"form-group\">
@@ -103,6 +106,7 @@ if ($act == 'cad') {
                                         <div class=\"help-block with-errors\"></div>
                                     </div>";
                                 }
+                                #Em caso de alteração de outros dados
                                 else{
                                     echo"
                                     <legend>Lotação do CLTI - Alteração</legend>
@@ -145,19 +149,28 @@ if ($act == 'cad') {
                                         <label for=\"nome\">Nome Completo:</label>
                                         <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
                                             placeholder=\"Nome Completo\" minlength=\"2\" 
-                                            style=\"text-transform:uppercase\" required=\"required\" value=\"$clti->nome\">
+                                            style=\"text-transform:uppercase\" required=\"true\" value=\"$clti->nome\">
                                     </div>
 
                                     <div class=\"form-group\">
                                         <label for=\"nomeguerra\">Nome de Guerra:</label>
                                         <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
                                             placeholder=\"Nome de Guerra\" minlength=\"2\"
-                                            style=\"text-transform:uppercase\" required=\"required\" value=\"$clti->nome_guerra\">
+                                            style=\"text-transform:uppercase\" required=\"true\" value=\"$clti->nome_guerra\">
                                     </div>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"correioeletronico\">Correio Eletrônico:</label>
+                                        <input id=\"correioeletronico\" class=\"form-control\" type=\"email\" 
+                                            name=\"correioeletronico\" placeholder=\"Preferencialmente Zimbra\" 
+                                            minlength=\"2\" style=\"text-transform:uppercase\" required=\"true\" 
+                                            value=\"$clti->correio_eletronico\">
+                                    </div>
+
                                     <div class=\"form-group\">
                                         <label for=\"nip\">NIP:</label>
                                         <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" readonly=\"true\"
-                                            placeholder=\"NIP\" maxlength=\"8\" required=\"required\" value=\"$clti->nip\">
+                                            placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$clti->nip\">
                                     </div>
 
                                     <div class=\"form-group\">
@@ -176,7 +189,7 @@ if ($act == 'cad') {
                                     <input id=\"senha\" type=\"hidden\" name=\"senha\" value=\"\">";
                                 }
                             }
-                            
+                            #Prepara formulário para inclusão
                             else{
                             echo"
                             <legend>Lotação do CLTI - Cadastro</legend>
@@ -215,24 +228,11 @@ if ($act == 'cad') {
                                     };
                                 echo "</select>
                             </div>
-                            <div class=\"form-group\">
-                                <label for=\"nome\">Nome Completo:</label>
-                                <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
-                                       placeholder=\"Nome Completo\" minlength=\"2\" 
-                                       style=\"text-transform:uppercase\" required=\"required\" value=\"$clti->nome\">
-                            </div>
-
-                            <div class=\"form-group\">
-                                <label for=\"nomeguerra\">Nome de Guerra:</label>
-                                <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
-                                       placeholder=\"Nome de Guerra\" minlength=\"2\"
-                                       style=\"text-transform:uppercase\" required=\"required\" value=\"$clti->nome_guerra\">
-                            </div>
 
                             <div class=\"form-group\">
                                 <label for=\"nip\">NIP:</label>
                                 <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" 
-                                       placeholder=\"NIP\" maxlength=\"8\" required=\"required\" value=\"$clti->nip\">
+                                       placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$clti->nip\">
                             </div>
 
                             <div class=\"form-group\">
@@ -242,10 +242,31 @@ if ($act == 'cad') {
                             </div>
 
                             <div class=\"form-group\">
+                                <label for=\"nome\">Nome Completo:</label>
+                                <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
+                                       placeholder=\"Nome Completo\" minlength=\"2\" 
+                                       style=\"text-transform:uppercase\" required=\"true\" value=\"$clti->nome\">
+                            </div>
+
+                            <div class=\"form-group\">
+                                <label for=\"nomeguerra\">Nome de Guerra:</label>
+                                <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
+                                       placeholder=\"Nome de Guerra\" minlength=\"2\"
+                                       style=\"text-transform:uppercase\" required=\"true\" value=\"$clti->nome_guerra\">
+                            </div>
+
+                            <div class=\"form-group\">
+                                <label for=\"correioe_letronico\">Correio Eletrônico:</label>
+                                <input id=\"correioel_etronico\" class=\"form-control\" type=\"email\" name=\"correioel_etronico\"
+                                    placeholder=\"Preferencialmente Zimbra\" minlength=\"2\"
+                                    style=\"text-transform:uppercase\" required=\"true\" value=\"$admin->correio_eletronico\">
+                            </div>
+
+                            <div class=\"form-group\">
                                 <label for=\"senha\" class=\"control-label\">Senha:</label>
                                 <input id=\"senha\" class=\"form-control\" type=\"password\" name=\"senha\"
                                        placeholder=\"Senha Segura\" minlength=\"8\"
-                                       maxlength=\"25\" required=\"required\">
+                                       maxlength=\"25\" required=\"true\">
                                 <div class=\"help-block with-errors\"></div>
                             </div>
 
@@ -253,7 +274,7 @@ if ($act == 'cad') {
                                 <label for=\"confirmasenha\" class=\"control-label\">Confirme a Senha:</label>
                                 <input id=\"confirmasenha\" class=\"form-control\" type=\"password\" name=\"confirmasenha\"
                                     placeholder=\"Confirmação da Senha\" minlength=\"8\"
-                                    maxlength=\"25\" required=\"required\">
+                                    maxlength=\"25\" required=\"true\">
                                 <div class=\"help-block with-errors\"></div>
                             </div>
                             <input id=\"ativo\" type=\"hidden\" name=\"ativo\" value=\"ATIVO\">";
@@ -380,85 +401,48 @@ if (($row) AND ($act == NULL)) {
 
 /* Método INSERT */
 if ($act == 'insert') {
-    $idtb_lotacao_clti = $_POST['idtb_lotacao_clti'];
-	$postograd = $_POST['postograd'];
-	$corpoquadro = $_POST['corpoquadro'];
-	$especialidade = $_POST['especialidade'];
-	$nip = $_POST['nip'];
-	$cpf = $_POST['cpf'];
-    $nome = strtoupper($_POST['nome']);
-    $nomeguerra = strtoupper($_POST['nomeguerra']);
-    $ativo = strtoupper($_POST['ativo']);
+    if (isset($_SESSION['status'])){
+        $idtb_lotacao_clti = $_POST['idtb_lotacao_clti'];
+        $postograd = $_POST['postograd'];
+        $corpoquadro = $_POST['corpoquadro'];
+        $especialidade = $_POST['especialidade'];
+        $nip = $_POST['nip'];
+        $cpf = $_POST['cpf'];
+        $nome = strtoupper($_POST['nome']);
+        $nomeguerra = strtoupper($_POST['nomeguerra']);
+        $ativo = strtoupper($_POST['ativo']);
 
-    if ($nip == NULL) {
-        $usuario = $cpf;
-    }
-    else {
-        $usuario = $nip;
-    }
-
-    /* Opta pelo Método Update */
-    if ($idtb_lotacao_clti){
-        $senha = $_POST['senha'];
-
-        if($senha==NULL){
-            $sql = "UPDATE db_clti.tb_lotacao_clti SET
-            id_posto_grad='$postograd', id_corpo_quadro='$corpoquadro', 
-            id_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
-            nome_guerra='$nomeguerra', status='$ativo'
-            WHERE idtripulacao_clti='$idtb_lotacao_clti'";
+        if ($nip == NULL) {
+            $usuario = $cpf;
+        }
+        else {
+            $usuario = $nip;
         }
 
-        else{
-            
-            $hash = sha1(md5($senha));
-            $salt = sha1(md5($usuario));
-            $senha = $salt.$hash;
+        /* Opta pelo Método Update */
+        if ($idtb_lotacao_clti){
+            $senha = $_POST['senha'];
 
-            $sql = "UPDATE db_clti.tb_lotacao_clti SET
+            if($senha==NULL){
+                $sql = "UPDATE db_clti.tb_lotacao_clti SET
                 id_posto_grad='$postograd', id_corpo_quadro='$corpoquadro', 
                 id_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
-                nome_guerra='$nomeguerra', senha='$senha', status='$ativo'
+                nome_guerra='$nomeguerra', status='$ativo'
                 WHERE idtripulacao_clti='$idtb_lotacao_clti'";
-        }
+            }
 
-        $pg->exec($sql);
+            else{
+                
+                $hash = sha1(md5($senha));
+                $salt = sha1(md5($usuario));
+                $senha = $salt.$hash;
 
-        if ($pg) {
-            echo "<h5>Resgistros incluídos no banco de dados.</h5>
-            <meta http-equiv=\"refresh\" content=\"1;url=?cmd=lotclti\">";
-        }
-
-        else {
-            echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-            echo(pg_result_error($pg) . "<br />\n");
-        }
-    }
-
-    /* Opta pelo Método Insert */
-    else{
-
-        $sql = "SELECT * FROM db_clti.tb_lotacao_clti WHERE nip = '$usuario' OR cpf = '$usuario' ";
-        $row = $pg->getRow($sql);
-
-        if ($row) {
-            echo "<h5>Já existe um cadastro com esse NIP/CPF.</h5>
-                $sql";
-        }
-
-        else {
-
-            $senha = $_POST['senha'];
-            $hash = sha1(md5($senha));
-            $salt = sha1(md5($usuario));
-            $senha = $salt.$hash;
-
-            $sql = "INSERT INTO db_clti.tb_lotacao_clti(
-                    id_posto_grad, id_corpo_quadro, id_especialidade, 
-                    nip, cpf, nome, nome_guerra, senha, status, perfil)
-                VALUES ('$postograd', '$corpoquadro', '$especialidade', 
-                    '$nip', '$cpf', '$nome', '$nomeguerra', '$senha', 'ATIVO', 'TEC_CLTI')";
-
+                $sql = "UPDATE db_clti.tb_lotacao_clti SET
+                    id_posto_grad='$postograd', id_corpo_quadro='$corpoquadro', 
+                    id_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
+                    nome_guerra='$nomeguerra', senha='$senha', status='$ativo'
+                    WHERE idtripulacao_clti='$idtb_lotacao_clti'";
+            }
 
             $pg->exec($sql);
 
@@ -472,7 +456,51 @@ if ($act == 'insert') {
                 echo(pg_result_error($pg) . "<br />\n");
             }
         }
+
+        /* Opta pelo Método Insert */
+        else{
+
+            $sql = "SELECT * FROM db_clti.tb_lotacao_clti WHERE nip = '$usuario' OR cpf = '$usuario' ";
+            $row = $pg->getRow($sql);
+
+            if ($row) {
+                echo "<h5>Já existe um cadastro com esse NIP/CPF.</h5>
+                    $sql";
+            }
+
+            else {
+
+                $senha = $_POST['senha'];
+                $hash = sha1(md5($senha));
+                $salt = sha1(md5($usuario));
+                $senha = $salt.$hash;
+
+                $sql = "INSERT INTO db_clti.tb_lotacao_clti(
+                        id_posto_grad, id_corpo_quadro, id_especialidade, 
+                        nip, cpf, nome, nome_guerra, senha, status, perfil)
+                    VALUES ('$postograd', '$corpoquadro', '$especialidade', 
+                        '$nip', '$cpf', '$nome', '$nomeguerra', '$senha', 'ATIVO', 'TEC_CLTI')";
+
+
+                $pg->exec($sql);
+
+                if ($pg) {
+                    echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=lotclti\">";
+                }
+
+                else {
+                    echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                    echo(pg_result_error($pg) . "<br />\n");
+                }
+            }
+        }
     }
+    else{
+        echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;$url\">";
+    }
+    
 }
 
 ?>

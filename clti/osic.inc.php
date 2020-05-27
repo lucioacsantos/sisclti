@@ -19,7 +19,8 @@ $row = $pg->getRow($sql);
 
 /* Checa se há OSIC cadastrado */
 if (($row == '0') AND ($act == NULL)) {
-	echo "<h5>Não há OSIC cadastrados, clique <a href=\"?cmd=osic&act=cad\">aqui</a> para fazê-lo.</h5>";
+    echo "<h5>Não há OSIC cadastrados, <br />
+        clique <a href=\"?cmd=osic&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
 
 /* Carrega form para cadastro de OSIC */
@@ -62,7 +63,7 @@ if ($act == 'cad') {
                     <form id=\"insereusuario\" role=\"form\" action=\"?cmd=osic&act=insert\" 
                         method=\"post\" enctype=\"multipart/form-data\">
                         <fieldset>";
-
+                            #Prepara formulário para atualização de dados
                             if ($param){
                                 if ($senha){
                                     echo"
@@ -79,11 +80,13 @@ if ($act == 'cad') {
                                         hidden=\"required\" value=\"$osic->nome\">
                                     <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
                                         hidden=\"required\" value=\"$osic->nome_guerra\">
+                                    <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
+                                        hidden=\"required\" value=\"$admin->correio_eletronico\">
                                     
                                     <div class=\"form-group\">
                                         <label for=\"nip\">NIP:</label>
                                         <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" readonly=\"true\"
-                                            placeholder=\"NIP\" maxlength=\"8\" required=\"required\" value=\"$osic->nip\">
+                                            placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$osic->nip\">
                                     </div>
 
                                     <div class=\"form-group\">
@@ -96,7 +99,7 @@ if ($act == 'cad') {
                                         <label for=\"senha\" class=\"control-label\">Senha:</label>
                                         <input id=\"senha\" class=\"form-control\" type=\"password\" name=\"senha\"
                                             placeholder=\"Senha Segura\" minlength=\"8\"
-                                            maxlength=\"25\" required=\"required\">
+                                            maxlength=\"25\" required=\"true\">
                                         <div class=\"help-block with-errors\"></div>
                                     </div>
 
@@ -104,13 +107,13 @@ if ($act == 'cad') {
                                         <label for=\"confirmasenha\" class=\"control-label\">Confirme a Senha:</label>
                                         <input id=\"confirmasenha\" class=\"form-control\" type=\"password\" name=\"confirmasenha\"
                                             placeholder=\"Confirmação da Senha\" minlength=\"8\"
-                                            maxlength=\"25\" required=\"required\">
+                                            maxlength=\"25\" required=\"true\">
                                         <div class=\"help-block with-errors\"></div>
                                     </div>
                                     
                                     <input id=\"ativo\" type=\"hidden\" name=\"ativo\" value=\"ATIVO\">";
                                 }
-
+                                #Em caso de alteração de outros dados
                                 else{
                                     echo"
                                     <legend>OSIC - Modificação</legend>
@@ -162,24 +165,33 @@ if ($act == 'cad') {
                                             };
                                         echo "</select>
                                     </div>
+
                                     <div class=\"form-group\">
                                         <label for=\"nome\">Nome Completo:</label>
                                         <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
                                             placeholder=\"Nome Completo\" minlength=\"2\" 
-                                            style=\"text-transform:uppercase\" required=\"required\" value=\"$osic->nome\">
+                                            style=\"text-transform:uppercase\" required=\"true\" value=\"$osic->nome\">
                                     </div>
 
                                     <div class=\"form-group\">
                                         <label for=\"nomeguerra\">Nome de Guerra:</label>
                                         <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
                                             placeholder=\"Nome de Guerra\" minlength=\"2\"
-                                            style=\"text-transform:uppercase\" required=\"required\" value=\"$osic->nome_guerra\">
+                                            style=\"text-transform:uppercase\" required=\"true\" value=\"$osic->nome_guerra\">
+                                    </div>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"correioeletronico\">Correio Eletrônico:</label>
+                                        <input id=\"correioeletronico\" class=\"form-control\" type=\"email\" 
+                                            name=\"correioeletronico\" placeholder=\"Preferencialmente Zimbra\" 
+                                            minlength=\"2\" style=\"text-transform:uppercase\" required=\"true\" 
+                                            value=\"$osic->correio_eletronico\">
                                     </div>
                                     
                                     <div class=\"form-group\">
                                         <label for=\"nip\">NIP:</label>
                                         <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" readonly=\"true\"
-                                            placeholder=\"NIP\" maxlength=\"8\" required=\"required\" value=\"$osic->nip\">
+                                            placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$osic->nip\">
                                     </div>
 
                                     <div class=\"form-group\">
@@ -188,22 +200,24 @@ if ($act == 'cad') {
                                             placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$osic->cpf\">
                                     </div>
 
+
+
                                     <input id=\"senha\" class=\"form-control\" type=\"password\" name=\"senha\"
                                         value=\"\" hidden=\"true\">
                                     <input id=\"confirmasenha\" class=\"form-control\" type=\"password\" name=\"confirmasenha\"
                                         value=\"\" hidden=\"true\">
 
                                     <div class=\"form-group\">
-                                    <label for=\"ativo\" class=\"control-label\">Situação:</label>
-                                        <select id=\"ativo\" class=\"form-control\" name=\"ativo\">
-                                            <option value=\"$osic->status\" selected=\"true\">$osic->status</option>
-                                            <option value=\"ATIVO\">ATIVO</option>
-                                            <option value=\"INATIVO\">INATIVO</option>
-                                        <div class=\"help-block with-errors\"></div>
+                                        <label for=\"ativo\" class=\"control-label\">Situação:</label>
+                                            <select id=\"ativo\" class=\"form-control\" name=\"ativo\">
+                                                <option value=\"$osic->status\" selected=\"true\">$osic->status</option>
+                                                <option value=\"ATIVO\">ATIVO</option>
+                                                <option value=\"INATIVO\">INATIVO</option>
+                                            <div class=\"help-block with-errors\"></div>
                                     </div>";
                                 }
                             }
-                            
+                            #Prepara formulário para inclusão
                             else{
                             echo"
                             <div class=\"form-group\">
@@ -253,24 +267,11 @@ if ($act == 'cad') {
                                     };
                                 echo "</select>
                             </div>
-                            <div class=\"form-group\">
-                                <label for=\"nome\">Nome Completo:</label>
-                                <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
-                                    placeholder=\"Nome Completo\" minlength=\"2\" 
-                                    style=\"text-transform:uppercase\" required=\"required\" value=\"$osic->nome\">
-                            </div>
-
-                            <div class=\"form-group\">
-                                <label for=\"nomeguerra\">Nome de Guerra:</label>
-                                <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
-                                    placeholder=\"Nome de Guerra\" minlength=\"2\"
-                                    style=\"text-transform:uppercase\" required=\"required\" value=\"$osic->nome_guerra\">
-                            </div>
 
                             <div class=\"form-group\">
                                 <label for=\"nip\">NIP:</label>
                                 <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" 
-                                       placeholder=\"NIP\" maxlength=\"8\" required=\"required\" value=\"$osic->nip\">
+                                       placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$osic->nip\">
                             </div>
 
                             <div class=\"form-group\">
@@ -280,10 +281,31 @@ if ($act == 'cad') {
                             </div>
 
                             <div class=\"form-group\">
+                                <label for=\"nome\">Nome Completo:</label>
+                                <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
+                                    placeholder=\"Nome Completo\" minlength=\"2\" 
+                                    style=\"text-transform:uppercase\" required=\"true\" value=\"$osic->nome\">
+                            </div>
+
+                            <div class=\"form-group\">
+                                <label for=\"nomeguerra\">Nome de Guerra:</label>
+                                <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
+                                    placeholder=\"Nome de Guerra\" minlength=\"2\"
+                                    style=\"text-transform:uppercase\" required=\"true\" value=\"$osic->nome_guerra\">
+                            </div>
+
+                            <div class=\"form-group\">
+                                <label for=\"correioe_letronico\">Correio Eletrônico:</label>
+                                <input id=\"correioel_etronico\" class=\"form-control\" type=\"email\" name=\"correioel_etronico\"
+                                    placeholder=\"Preferencialmente Zimbra\" minlength=\"2\"
+                                    style=\"text-transform:uppercase\" required=\"true\" value=\"$admin->correio_eletronico\">
+                            </div>
+
+                            <div class=\"form-group\">
                                 <label for=\"senha\" class=\"control-label\">Senha:</label>
                                 <input id=\"senha\" class=\"form-control\" type=\"password\" name=\"senha\"
                                        placeholder=\"Senha Segura\" minlength=\"8\"
-                                       maxlength=\"25\" required=\"required\">
+                                       maxlength=\"25\" required=\"true\">
                                 <div class=\"help-block with-errors\"></div>
                             </div>
 
@@ -291,7 +313,7 @@ if ($act == 'cad') {
                                 <label for=\"confirmasenha\" class=\"control-label\">Confirme a Senha:</label>
                                 <input id=\"confirmasenha\" class=\"form-control\" type=\"password\" name=\"confirmasenha\"
                                     placeholder=\"Confirmação da Senha\" minlength=\"8\"
-                                    maxlength=\"25\" required=\"required\">
+                                    maxlength=\"25\" required=\"true\">
                                 <div class=\"help-block with-errors\"></div>
                             </div>
                             <input id=\"ativo\" type=\"hidden\" name=\"ativo\" value=\"ATIVO\">";
@@ -374,85 +396,49 @@ if (($row) AND ($act == NULL)) {
 
 /* Método INSERT / UPDATE */
 if ($act == 'insert') {
-    $idtb_osic = $_POST['idtb_osic'];
-	$omapoiada = $_POST['omapoiada'];
-    $postograd = $_POST['postograd'];
-    $corpoquadro = $_POST['corpoquadro'];
-    $especialidade = $_POST['especialidade'];
-    $nip = $_POST['nip'];
-    $cpf = $_POST['cpf'];
-    $nome = strtoupper($_POST['nome']);
-    $nomeguerra = strtoupper($_POST['nomeguerra']);
-    $ativo = strtoupper($_POST['ativo']);
+    if (isset($_SESSION['status'])){
+        $idtb_osic = $_POST['idtb_osic'];
+        $omapoiada = $_POST['omapoiada'];
+        $postograd = $_POST['postograd'];
+        $corpoquadro = $_POST['corpoquadro'];
+        $especialidade = $_POST['especialidade'];
+        $nip = $_POST['nip'];
+        $cpf = $_POST['cpf'];
+        $nome = strtoupper($_POST['nome']);
+        $nomeguerra = strtoupper($_POST['nomeguerra']);
+        $ativo = strtoupper($_POST['ativo']);
 
-    if ($nip == NULL) {
-        $usuario = $cpf;
-    }
-    else {
-        $usuario = $nip;
-    }
-
-    /* Opta pelo Método Update */
-    if ($idtb_osic){
-        $senha = $_POST['senha'];
-
-        if($senha==NULL){
-            $sql = "UPDATE db_clti.tb_osic SET
-            id_om='$omapoiada',id_posto_grad='$postograd', id_corpo_quadro='$corpoquadro', 
-            id_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
-            nome_guerra='$nomeguerra', status='$ativo'
-            WHERE idtb_osic='$idtb_osic'";
+        if ($nip == NULL) {
+            $usuario = $cpf;
         }
-
-        else{
-            
-            $hash = sha1(md5($senha));
-            $salt = sha1(md5($usuario));
-            $senha = $salt.$hash;
-
-            $sql = "UPDATE db_clti.tb_osic SET
-                id_om='$omapoiada',id_posto_grad='$postograd', id_corpo_quadro='$corpoquadro', 
-                id_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', nome_guerra='$nomeguerra', 
-                senha='$senha', status='$ativo'
-                WHERE idtb_osic='$idtb_osic'";
-        }
-
-        $pg->exec($sql);
-
-        if ($pg) {
-            echo "<h5>Resgistros incluídos no banco de dados.</h5>
-            <meta http-equiv=\"refresh\" content=\"1;url=?cmd=osic\">";
-        }
-
         else {
-            echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-            echo(pg_result_error($pg) . "<br />\n");
-        }
-    }
-
-    /* Opta pelo Método Insert */
-    else{
-        /* Checa se há OSIC com mesmo login cadastrado */
-
-        $sql = "SELECT * FROM db_clti.tb_osic WHERE nip = '$usuario' OR cpf = '$usuario' ";
-        $row = $pg->getRow($sql);
-        
-        if ($row) {
-            echo "<h5>Já existe um Admin cadastrado com esse NIP/CPF.</h5>";
+            $usuario = $nip;
         }
 
-        else {
-
+        /* Opta pelo Método Update */
+        if ($idtb_osic){
             $senha = $_POST['senha'];
-            $hash = sha1(md5($senha));
-            $salt = sha1(md5($usuario));
-            $senha = $salt.$hash;
 
-            $sql = "INSERT INTO db_clti.tb_osic(
-                id_om,id_posto_grad, id_corpo_quadro, id_especialidade, 
-                nip, cpf, nome, nome_guerra, senha, perfil, status)
-                VALUES ('$omapoiada', '$postograd', '$corpoquadro', '$especialidade',
-                '$nip', '$cpf', '$nome', '$nomeguerra', '$senha', 'OSIC_OM', 'ATIVO')";
+            if($senha==NULL){
+                $sql = "UPDATE db_clti.tb_osic SET
+                id_om='$omapoiada',id_posto_grad='$postograd', id_corpo_quadro='$corpoquadro', 
+                id_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
+                nome_guerra='$nomeguerra', status='$ativo'
+                WHERE idtb_osic='$idtb_osic'";
+            }
+
+            else{
+                
+                $hash = sha1(md5($senha));
+                $salt = sha1(md5($usuario));
+                $senha = $salt.$hash;
+
+                $sql = "UPDATE db_clti.tb_osic SET
+                    id_om='$omapoiada',id_posto_grad='$postograd', id_corpo_quadro='$corpoquadro', 
+                    id_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', nome_guerra='$nomeguerra', 
+                    senha='$senha', status='$ativo'
+                    WHERE idtb_osic='$idtb_osic'";
+            }
 
             $pg->exec($sql);
 
@@ -465,11 +451,51 @@ if ($act == 'insert') {
                 echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
                 echo(pg_result_error($pg) . "<br />\n");
             }
+        }
 
+        /* Opta pelo Método Insert */
+        else{
+            /* Checa se há OSIC com mesmo login cadastrado */
+
+            $sql = "SELECT * FROM db_clti.tb_osic WHERE nip = '$usuario' OR cpf = '$usuario' ";
+            $row = $pg->getRow($sql);
+            
+            if ($row) {
+                echo "<h5>Já existe um Admin cadastrado com esse NIP/CPF.</h5>";
+            }
+
+            else {
+
+                $senha = $_POST['senha'];
+                $hash = sha1(md5($senha));
+                $salt = sha1(md5($usuario));
+                $senha = $salt.$hash;
+
+                $sql = "INSERT INTO db_clti.tb_osic(
+                    id_om,id_posto_grad, id_corpo_quadro, id_especialidade, 
+                    nip, cpf, nome, nome_guerra, senha, perfil, status)
+                    VALUES ('$omapoiada', '$postograd', '$corpoquadro', '$especialidade',
+                    '$nip', '$cpf', '$nome', '$nomeguerra', '$senha', 'OSIC_OM', 'ATIVO')";
+
+                $pg->exec($sql);
+
+                if ($pg) {
+                    echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=osic\">";
+                }
+
+                else {
+                    echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                    echo(pg_result_error($pg) . "<br />\n");
+                }
+
+            }
         }
     }
-    
-
+    else{
+        echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;$url\">";
+    }
 }
 
 ?>

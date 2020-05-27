@@ -61,7 +61,7 @@ if ($act == 'cad') {
                             <div class=\"form-group\">
                                 <label for=\"cod_om\">Código da OM:</label>
                                 <input id=\"cod_om\" class=\"form-control\" type=\"number\" name=\"cod_om\"
-                                       placeholder=\"Código da OM\" maxlength=\"8\" required=\"required\" 
+                                       placeholder=\"Código da OM\" maxlength=\"8\" required=\"true\" 
                                        value=\"$om->cod_om\">
                             </div>
 
@@ -69,21 +69,21 @@ if ($act == 'cad') {
                                 <label for=\"nome\">Nome da OM:</label>
                                 <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
                                        style=\"text-transform:uppercase\" placeholder=\"Nome da OM\" 
-                                       minlength=\"2\" required=\"required\" value=\"$om->nome\">
+                                       minlength=\"2\" required=\"true\" value=\"$om->nome\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"sigla\">Sigla da OM:</label>
                                 <input id=\"sigla\" class=\"form-control\" type=\"text\" name=\"sigla\"
                                        style=\"text-transform:uppercase\" placeholder=\"Sigla da OM\" 
-                                       minlength=\"2\" required=\"required\" value=\"$om->sigla\">
+                                       minlength=\"2\" required=\"true\" value=\"$om->sigla\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"indicativo\">Indicativo Naval da OM:</label>
                                 <input id=\"indicativo\" class=\"form-control\" type=\"text\" name=\"indicativo\"
                                        style=\"text-transform:uppercase\" placeholder=\"Indicativo Naval da OM\" 
-                                       maxlength=\"6\" required=\"required\" value=\"$om->indicativo\">
+                                       maxlength=\"6\" required=\"true\" value=\"$om->indicativo\">
                             </div>
 
                         </fieldset>
@@ -135,48 +135,54 @@ if (($row) AND ($act == NULL)) {
 
 /* Método INSERT / UPDATE */
 if ($act == 'insert') {
-    $idtb_om_apoiadas = $_POST['idtb_om_apoiadas'];
-	$estado = $_POST['estado'];
-	$cidade = $_POST['cidade'];
-	$cod_om = $_POST['cod_om'];
-	$nome = strtoupper($_POST['nome']);
-    $sigla = strtoupper($_POST['sigla']);
-    $indicativo = strtoupper($_POST['indicativo']);
+    if (isset($_SESSION['status'])){
+        $idtb_om_apoiadas = $_POST['idtb_om_apoiadas'];
+        $estado = $_POST['estado'];
+        $cidade = $_POST['cidade'];
+        $cod_om = $_POST['cod_om'];
+        $nome = strtoupper($_POST['nome']);
+        $sigla = strtoupper($_POST['sigla']);
+        $indicativo = strtoupper($_POST['indicativo']);
 
-    $sql = "SELECT id FROM db_clti.tb_estado WHERE uf = '$estado' ";
-    $estado = $pg->getCol($sql);
+        $sql = "SELECT id FROM db_clti.tb_estado WHERE uf = '$estado' ";
+        $estado = $pg->getCol($sql);
 
-    $sql = "SELECT id FROM db_clti.tb_cidade WHERE nome = '$cidade' ";
-    $cidade = $pg->getCol($sql);
+        $sql = "SELECT id FROM db_clti.tb_cidade WHERE nome = '$cidade' ";
+        $cidade = $pg->getCol($sql);
 
-    # Opta pelo método UPDATE
-    if ($idtb_om_apoiadas){
-        $sql = "UPDATE db_clti.tb_om_apoiadas SET 
-                id_estado=$estado, id_cidade=$cidade, cod_om=$cod_om, nome='$nome', 
-                sigla='$sigla', indicativo='$indicativo'
-            WHERE idtb_om_apoiadas=$idtb_om_apoiadas";
+        # Opta pelo método UPDATE
+        if ($idtb_om_apoiadas){
+            $sql = "UPDATE db_clti.tb_om_apoiadas SET 
+                    id_estado=$estado, id_cidade=$cidade, cod_om=$cod_om, nome='$nome', 
+                    sigla='$sigla', indicativo='$indicativo'
+                WHERE idtb_om_apoiadas=$idtb_om_apoiadas";
+        }
+
+        # Opta pelo método INSERT
+        else{
+            $sql = "INSERT INTO db_clti.tb_om_apoiadas(
+                    id_estado, id_cidade, cod_om, 
+                    nome, sigla, indicativo)
+                VALUES ('$estado', '$cidade', '$cod_om', 
+                    '$nome', '$sigla', '$indicativo')";
+        }
+        
+        $pg->exec($sql);
+
+        if ($pg) {
+            echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=omapoiadas\">";
+        }
+
+        else {
+            echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+            echo(pg_result_error($pg) . "<br />\n");
+        }
     }
-
-    # Opta pelo método INSERT
     else{
-        $sql = "INSERT INTO db_clti.tb_om_apoiadas(
-                id_estado, id_cidade, cod_om, 
-                nome, sigla, indicativo)
-    	    VALUES ('$estado', '$cidade', '$cod_om', 
-	    	    '$nome', '$sigla', '$indicativo')";
+        echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;$url\">";
     }
-    
-	$pg->exec($sql);
-
-	if ($pg) {
-		echo "<h5>Resgistros incluídos no banco de dados.</h5>
-            <meta http-equiv=\"refresh\" content=\"1;url=?cmd=omapoiadas\">";
-	}
-
-	else {
-		echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-        echo(pg_result_error($pg) . "<br />\n");
-	}
 }
 
 ?>

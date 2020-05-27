@@ -37,30 +37,30 @@ if (($row == '0') AND ($act == 'cad')) {
                             <div class=\"form-group\">
                                 <label for=\"publicacao\">Publicação:</label>
                                 <input id=\"publicacao\" class=\"form-control\" type=\"text\" name=\"publicacao\"
-                                       placeholder=\"ex. DCTIMARINST 30-04B\" minlength=\"2\" required=\"required\">
+                                       placeholder=\"ex. DCTIMARINST 30-04B\" minlength=\"2\" required=\"true\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"datapublicacao\">Data de Publicação:</label>
                                 <input id=\"datapublicacao\" class=\"form-control\" type=\"date\" name=\"datapublicacao\"
-                                       placeholder=\"\" minlength=\"2\" required=\"required\">
+                                       placeholder=\"\" minlength=\"2\" required=\"true\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"tipoclti\">Tipo do CLTI:</label>
                                 <input id=\"tipoclti\" class=\"form-control\" type=\"number\" name=\"tipoclti\"
-                                       placeholder=\"0\" minlength=\"2\" required=\"required\">
+                                       placeholder=\"0\" minlength=\"2\" required=\"true\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"lotacaooficiais\">Locatação de Oficiais:</label>
                                 <input id=\"lotacaooficiais\" class=\"form-control\" type=\"number\" name=\"lotacaooficiais\"
-                                       placeholder=\"0\" required=\"required\">
+                                       placeholder=\"0\" required=\"true\">
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"lotacaopracas\">Locatação de Praças:</label>
                                 <input id=\"lotacaopracas\" class=\"form-control\" type=\"number\" name=\"lotacaopracas\"
-                                       placeholder=\"0\" required=\"required\">
+                                       placeholder=\"0\" required=\"true\">
                             </div>
                         </fieldset>
                         <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">
@@ -83,29 +83,35 @@ if ($row) {
 
 /* Método INSERT */
 if ($act == 'insert') {
-	$publicacao = $_POST['publicacao'];
-	$datapublicacao = $_POST['datapublicacao'];
-	$tipoclti = $_POST['tipoclti'];
-	$lotacaooficiais = $_POST['lotacaooficiais'];
-	$lotacaopracas = $_POST['lotacaopracas'];
+    if (isset($_SESSION['status'])){
+        $publicacao = $_POST['publicacao'];
+        $datapublicacao = $_POST['datapublicacao'];
+        $tipoclti = $_POST['tipoclti'];
+        $lotacaooficiais = $_POST['lotacaooficiais'];
+        $lotacaopracas = $_POST['lotacaopracas'];
 
-	$sql = "INSERT INTO db_clti.tb_tipos_clti(
-		norma_atual, data_norma, tipo_clti, lotacao_oficiais, lotacao_pracas)
-	    VALUES ('$publicacao', '$datapublicacao', '$tipoclti', 
-	    	'$lotacaooficiais', '$lotacaopracas')";
+        $sql = "INSERT INTO db_clti.tb_tipos_clti(
+            norma_atual, data_norma, tipo_clti, lotacao_oficiais, lotacao_pracas)
+            VALUES ('$publicacao', '$datapublicacao', '$tipoclti', 
+                '$lotacaooficiais', '$lotacaopracas')";
 
-	$pg->exec($sql);
+        $pg->exec($sql);
 
-	foreach ($pg as $key => $value) {
-		if ($value != '0') {
-			echo "<h5>Resgistros incluídos no banco de dados.</h5>";
-		}
+        foreach ($pg as $key => $value) {
+            if ($value != '0') {
+                echo "<h5>Resgistros incluídos no banco de dados.</h5>";
+            }
 
-		else {
-			echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-		}
-	break;
-	}
+            else {
+                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+            }
+        break;
+        }
+    }
+    else{
+        echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;$url\">";
+    }
 }
 
 ?>
