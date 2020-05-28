@@ -64,11 +64,11 @@ if ($act == 'cad') {
                                     echo"
                                     <legend>Lotação do CLTI - Troca de Senha</legend>
                                     <input id=\"postograd\" class=\"form-control\" name=\"postograd\"
-                                        value=\"$clti->idtb_posto_grad\" hidden=\"true\">
+                                        value=\"$clti->id_posto_grad\" hidden=\"true\">
                                     <input id=\"corpoquadro\" class=\"form-control\" name=\"corpoquadro\"
-                                        value=\"$clti->idtb_corpo_quadro\" hidden=\"true\">
+                                        value=\"$clti->id_corpo_quadro\" hidden=\"true\">
                                     <input id=\"especialidade\" class=\"form-control\" name=\"especialidade\"
-                                        value=\"$clti->idtb_especialidade\" hidden=\"true\">
+                                        value=\"$clti->id_especialidade\" hidden=\"true\">
                                     <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
                                         hidden=\"true\" value=\"$clti->nome\">
                                     <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
@@ -115,7 +115,7 @@ if ($act == 'cad') {
                                     <div class=\"form-group\">
                                         <label for=\"postograd\">Posto/Graduação:</label>
                                         <select id=\"postograd\" class=\"form-control\" name=\"postograd\">
-                                            <option value=\"$clti->idtb_posto_grad\" selected=\"true\">
+                                            <option value=\"$clti->id_posto_grad\" selected=\"true\">
                                                 $clti->sigla_posto_grad</option>";
                                             foreach ($postograd as $key => $value) {
                                                 echo"<option value=\"".$value->idtb_posto_grad."\">
@@ -127,7 +127,7 @@ if ($act == 'cad') {
                                     <div class=\"form-group\">
                                         <label for=\"corpoquadro\">Corpo/Quadro:</label>
                                         <select id=\"corpoquadro\" class=\"form-control\" name=\"corpoquadro\">
-                                            <option value=\"$clti->idtb_corpo_quadro\" selected=\"true\">
+                                            <option value=\"$clti->id_corpo_quadro\" selected=\"true\">
                                                 $clti->sigla_corpo_quadro</option>";
                                             foreach ($corpoquadro as $key => $value) {
                                                 echo"<option value=\"".$value->idtb_corpo_quadro."\">
@@ -139,7 +139,7 @@ if ($act == 'cad') {
                                     <div class=\"form-group\">
                                         <label for=\"especialidade\">Especialidade:</label>
                                         <select id=\"especialidade\" class=\"form-control\" name=\"especialidade\">
-                                            <option value=\"$clti->idtb_especialidade\" selected=\"true\">
+                                            <option value=\"$clti->id_especialidade\" selected=\"true\">
                                                 $clti->sigla_espec</option>";
                                             foreach ($especialidade as $key => $value) {
                                                 echo"<option value=\"".$value->idtb_especialidade."\">
@@ -431,7 +431,7 @@ if ($act == 'insert') {
                 id_posto_grad='$postograd', id_corpo_quadro='$corpoquadro', 
                 id_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
                 nome_guerra='$nomeguerra', status='$ativo', correio_eletronico = '$correio_eletronico'
-                WHERE idtripulacao_clti='$idtb_lotacao_clti'";
+                WHERE idtripulacao_clti='$idtb_lotacao_clti' ";
             }
 
             else{
@@ -444,8 +444,9 @@ if ($act == 'insert') {
                     id_posto_grad='$postograd', id_corpo_quadro='$corpoquadro', 
                     id_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
                     nome_guerra='$nomeguerra', senha='$senha', status='$ativo', correio_eletronico = '$correio_eletronico'
-                    WHERE idtripulacao_clti='$idtb_lotacao_clti'";
+                    WHERE idtripulacao_clti='$idtb_lotacao_clti' ";
             }
+            print $sql;
 
             $pg->exec($sql);
 
@@ -482,7 +483,7 @@ if ($act == 'insert') {
                         id_posto_grad, id_corpo_quadro, id_especialidade, 
                         nip, cpf, nome, nome_guerra, senha, status, perfil, correio_eletronico)
                     VALUES ('$postograd', '$corpoquadro', '$especialidade', 
-                        '$nip', '$cpf', '$nome', '$nomeguerra', '$senha', 'ATIVO', 'TEC_CLTI', $correio_eletronico)";
+                        '$nip', '$cpf', '$nome', '$nomeguerra', '$senha', 'ATIVO', 'TEC_CLTI', '$correio_eletronico')";
 
 
                 $pg->exec($sql);

@@ -125,6 +125,8 @@ if ($act == 'insert') {
         $sql = "INSERT INTO db_clti.tb_sor(
             desenvolvedor, descricao, versao, situacao)
             VALUES ('$desenvolvedor', '$descricao', '$versao', '$situacao')";
+        
+        print $sql;
 
         $pg->exec($sql);
 

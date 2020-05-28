@@ -42,7 +42,7 @@ if ($act == 'cad') {
         $admin = (object)['idtb_admin'=>'','nip'=>'','cpf'=>'','nome'=>'','nome_guerra'=>'',
             'idtb_om_apoiadas'=>'','sigla'=>'','idtb_posto_grad'=>'8','sigla_posto_grad'=>'1ºTen',
             'idtb_corpo_quadro'=>'','sigla_corpo_quadro'=>'','idtb_especialidade'=>'','sigla_espec'=>'',
-            'correio_eletronico'=''];
+            'correio_eletronico'=>''];
         /*$admin_om = (object)['idtb_om_apoiadas'=>'','sigla'=>''];
         $admin_posto_grad = (object)['idtb_posto_grad'=>'8','sigla'=>'1ºTen'];
         $admin_corpo_quadro = (object)['idtb_corpo_quadro'=>'','sigla'=>''];
