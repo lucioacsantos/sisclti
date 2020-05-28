@@ -28,20 +28,22 @@ if ($act == 'cad') {
     @$param = $_GET['param'];
     @$senha = $_GET['senha'];
     if ($param){
-        $clti = $pg->getRow("SELECT * FROM db_clti.tb_lotacao_clti WHERE idtripulacao_clti = '$param'");
-        $clti_posto_grad = $pg->getRow("SELECT idtb_posto_grad,sigla FROM db_clti.tb_posto_grad 
+        $clti = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_clti WHERE idtripulacao_clti = '$param'");
+        /*$clti_posto_grad = $pg->getRow("SELECT idtb_posto_grad,sigla FROM db_clti.tb_posto_grad 
             WHERE idtb_posto_grad = '$clti->id_posto_grad'");
         $clti_corpo_quadro = $pg->getRow("SELECT idtb_corpo_quadro,sigla FROM db_clti.tb_corpo_quadro 
             WHERE idtb_corpo_quadro = '$clti->id_corpo_quadro'");
         $clti_especialidade = $pg->getRow("SELECT idtb_especialidade,sigla FROM db_clti.tb_especialidade 
-            WHERE idtb_especialidade = '$clti->id_especialidade'");
+            WHERE idtb_especialidade = '$clti->id_especialidade'");*/
     }
     else{
-        $clti = (object)['idtripulacao_clti'=>'','nip'=>'','cpf'=>'','nome'=>'','nome_guerra'=>''];
-        $clti_om = (object)['idtb_om_apoiadas'=>'','sigla'=>''];
+        $clti = (object)['idtripulacao_clti'=>'','nip'=>'','cpf'=>'','nome'=>'','nome_guerra'=>'',
+            'idtb_om_apoiadas'=>'','sigla'=>'','idtb_posto_grad'=>'8','sigla_posto_grad'=>'1ºTen',
+            'idtb_corpo_quadro'=>'','sigla_corpo_quadro'=>'','idtb_especialidade'=>'','sigla_espec'=>''];
+        /*$clti_om = (object)['idtb_om_apoiadas'=>'','sigla'=>''];
         $clti_posto_grad = (object)['idtb_posto_grad'=>'8','sigla'=>'1ºTen'];
         $clti_corpo_quadro = (object)['idtb_corpo_quadro'=>'','sigla'=>''];
-        $clti_especialidade = (object)['idtb_especialidade'=>'','sigla'=>''];
+        $clti_especialidade = (object)['idtb_especialidade'=>'','sigla'=>''];*/
     }
     $postograd = "SELECT * FROM db_clti.tb_posto_grad ORDER BY idtb_posto_grad 	DESC";
     $postograd = $pg->getRows($postograd);
@@ -62,17 +64,17 @@ if ($act == 'cad') {
                                     echo"
                                     <legend>Lotação do CLTI - Troca de Senha</legend>
                                     <input id=\"postograd\" class=\"form-control\" name=\"postograd\"
-                                        value=\"$clti_posto_grad->idtb_posto_grad\" hidden=\"true\">
+                                        value=\"$clti->idtb_posto_grad\" hidden=\"true\">
                                     <input id=\"corpoquadro\" class=\"form-control\" name=\"corpoquadro\"
-                                        value=\"$clti_corpo_quadro->idtb_corpo_quadro\" hidden=\"true\">
+                                        value=\"$clti->idtb_corpo_quadro\" hidden=\"true\">
                                     <input id=\"especialidade\" class=\"form-control\" name=\"especialidade\"
-                                        value=\"$clti_especialidade->idtb_especialidade\" hidden=\"true\">
+                                        value=\"$clti->idtb_especialidade\" hidden=\"true\">
                                     <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
                                         hidden=\"true\" value=\"$clti->nome\">
                                     <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
                                         hidden=\"true\" value=\"$clti->nome_guerra\">
-                                    <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
-                                        hidden=\"required\" value=\"$clti->correio_eletronico\">
+                                    <input id=\"correio_eletronico\" class=\"form-control\" type=\"text\" 
+                                        name=\"correio_eletronico\" hidden=\"required\" value=\"$clti->correio_eletronico\">
 
                                     <div class=\"form-group\">
                                         <label for=\"nip\">NIP:</label>
@@ -113,8 +115,8 @@ if ($act == 'cad') {
                                     <div class=\"form-group\">
                                         <label for=\"postograd\">Posto/Graduação:</label>
                                         <select id=\"postograd\" class=\"form-control\" name=\"postograd\">
-                                            <option value=\"$clti_posto_grad->idtb_posto_grad\" selected=\"true\">
-                                                $clti_posto_grad->sigla</option>";
+                                            <option value=\"$clti->idtb_posto_grad\" selected=\"true\">
+                                                $clti->sigla_posto_grad</option>";
                                             foreach ($postograd as $key => $value) {
                                                 echo"<option value=\"".$value->idtb_posto_grad."\">
                                                     ".$value->nome."</option>";
@@ -125,8 +127,8 @@ if ($act == 'cad') {
                                     <div class=\"form-group\">
                                         <label for=\"corpoquadro\">Corpo/Quadro:</label>
                                         <select id=\"corpoquadro\" class=\"form-control\" name=\"corpoquadro\">
-                                            <option value=\"$clti_corpo_quadro->idtb_corpo_quadro\" selected=\"true\">
-                                                $clti_corpo_quadro->sigla</option>";
+                                            <option value=\"$clti->idtb_corpo_quadro\" selected=\"true\">
+                                                $clti->sigla_corpo_quadro</option>";
                                             foreach ($corpoquadro as $key => $value) {
                                                 echo"<option value=\"".$value->idtb_corpo_quadro."\">
                                                     ".$value->nome."</option>";
@@ -137,8 +139,8 @@ if ($act == 'cad') {
                                     <div class=\"form-group\">
                                         <label for=\"especialidade\">Especialidade:</label>
                                         <select id=\"especialidade\" class=\"form-control\" name=\"especialidade\">
-                                            <option value=\"$clti_especialidade->idtb_especialidade\" selected=\"true\">
-                                                $clti_especialidade->sigla</option>";
+                                            <option value=\"$clti->idtb_especialidade\" selected=\"true\">
+                                                $clti->sigla_espec</option>";
                                             foreach ($especialidade as $key => $value) {
                                                 echo"<option value=\"".$value->idtb_especialidade."\">
                                                     ".$value->nome."</option>";
@@ -160,9 +162,9 @@ if ($act == 'cad') {
                                     </div>
 
                                     <div class=\"form-group\">
-                                        <label for=\"correioeletronico\">Correio Eletrônico:</label>
-                                        <input id=\"correioeletronico\" class=\"form-control\" type=\"email\" 
-                                            name=\"correioeletronico\" placeholder=\"Preferencialmente Zimbra\" 
+                                        <label for=\"correio_eletronico\">Correio Eletrônico:</label>
+                                        <input id=\"correio_eletronico\" class=\"form-control\" type=\"email\" 
+                                            name=\"correio_eletronico\" placeholder=\"Preferencialmente Zimbra\" 
                                             minlength=\"2\" style=\"text-transform:uppercase\" required=\"true\" 
                                             value=\"$clti->correio_eletronico\">
                                     </div>
@@ -196,8 +198,8 @@ if ($act == 'cad') {
                             <div class=\"form-group\">
                                 <label for=\"postograd\">Posto/Graduação:</label>
                                 <select id=\"postograd\" class=\"form-control\" name=\"postograd\">
-                                    <option value=\"$clti_posto_grad->idtb_posto_grad\" selected=\"true\">
-                                        $clti_posto_grad->sigla</option>";
+                                    <option value=\"$clti->idtb_posto_grad\" selected=\"true\">
+                                        $clti->sigla_posto_grad</option>";
                                     foreach ($postograd as $key => $value) {
                                         echo"<option value=\"".$value->idtb_posto_grad."\">
                                             ".$value->nome."</option>";
@@ -208,8 +210,8 @@ if ($act == 'cad') {
                             <div class=\"form-group\">
                                 <label for=\"corpoquadro\">Corpo/Quadro:</label>
                                 <select id=\"corpoquadro\" class=\"form-control\" name=\"corpoquadro\">
-                                    <option value=\"$clti_corpo_quadro->idtb_corpo_quadro\" selected=\"true\">
-                                        $clti_corpo_quadro->sigla</option>";
+                                    <option value=\"$clti->idtb_corpo_quadro\" selected=\"true\">
+                                        $clti->sigla_corpo_quadro</option>";
                                     foreach ($corpoquadro as $key => $value) {
                                         echo"<option value=\"".$value->idtb_corpo_quadro."\">
                                             ".$value->nome."</option>";
@@ -220,8 +222,8 @@ if ($act == 'cad') {
                             <div class=\"form-group\">
                                 <label for=\"especialidade\">Especialidade:</label>
                                 <select id=\"especialidade\" class=\"form-control\" name=\"especialidade\">
-                                    <option value=\"$clti_especialidade->idtb_especialidade\" selected=\"true\">
-                                        $clti_especialidade->sigla</option>";
+                                    <option value=\"$clti->idtb_especialidade\" selected=\"true\">
+                                        $clti->sigla_espec</option>";
                                     foreach ($especialidade as $key => $value) {
                                         echo"<option value=\"".$value->idtb_especialidade."\">
                                             ".$value->nome."</option>";
@@ -256,8 +258,8 @@ if ($act == 'cad') {
                             </div>
 
                             <div class=\"form-group\">
-                                <label for=\"correioe_letronico\">Correio Eletrônico:</label>
-                                <input id=\"correioel_etronico\" class=\"form-control\" type=\"email\" name=\"correioel_etronico\"
+                                <label for=\"correio_eletronico\">Correio Eletrônico:</label>
+                                <input id=\"correio_eletronico\" class=\"form-control\" type=\"email\" name=\"correio_eletronico\"
                                     placeholder=\"Preferencialmente Zimbra\" minlength=\"2\"
                                     style=\"text-transform:uppercase\" required=\"true\" value=\"$admin->correio_eletronico\">
                             </div>
@@ -410,6 +412,7 @@ if ($act == 'insert') {
         $cpf = $_POST['cpf'];
         $nome = strtoupper($_POST['nome']);
         $nomeguerra = strtoupper($_POST['nomeguerra']);
+        $correio_eletronico = strtolower($_POST['correio_eletronico']);
         $ativo = strtoupper($_POST['ativo']);
 
         if ($nip == NULL) {
@@ -427,7 +430,7 @@ if ($act == 'insert') {
                 $sql = "UPDATE db_clti.tb_lotacao_clti SET
                 id_posto_grad='$postograd', id_corpo_quadro='$corpoquadro', 
                 id_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
-                nome_guerra='$nomeguerra', status='$ativo'
+                nome_guerra='$nomeguerra', status='$ativo', correio_eletronico = '$correio_eletronico'
                 WHERE idtripulacao_clti='$idtb_lotacao_clti'";
             }
 
@@ -440,7 +443,7 @@ if ($act == 'insert') {
                 $sql = "UPDATE db_clti.tb_lotacao_clti SET
                     id_posto_grad='$postograd', id_corpo_quadro='$corpoquadro', 
                     id_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
-                    nome_guerra='$nomeguerra', senha='$senha', status='$ativo'
+                    nome_guerra='$nomeguerra', senha='$senha', status='$ativo', correio_eletronico = '$correio_eletronico'
                     WHERE idtripulacao_clti='$idtb_lotacao_clti'";
             }
 
@@ -477,9 +480,9 @@ if ($act == 'insert') {
 
                 $sql = "INSERT INTO db_clti.tb_lotacao_clti(
                         id_posto_grad, id_corpo_quadro, id_especialidade, 
-                        nip, cpf, nome, nome_guerra, senha, status, perfil)
+                        nip, cpf, nome, nome_guerra, senha, status, perfil, correio_eletronico)
                     VALUES ('$postograd', '$corpoquadro', '$especialidade', 
-                        '$nip', '$cpf', '$nome', '$nomeguerra', '$senha', 'ATIVO', 'TEC_CLTI')";
+                        '$nip', '$cpf', '$nome', '$nomeguerra', '$senha', 'ATIVO', 'TEC_CLTI', $correio_eletronico)";
 
 
                 $pg->exec($sql);

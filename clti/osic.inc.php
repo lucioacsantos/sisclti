@@ -28,22 +28,25 @@ if ($act == 'cad') {
     @$param = $_GET['param'];
     @$senha = $_GET['senha'];
     if ($param){
-        $osic = $pg->getRow("SELECT * FROM db_clti.tb_osic WHERE idtb_osic = '$param'");
-        $osic_om = $pg->getRow("SELECT idtb_om_apoiadas,sigla FROM db_clti.tb_om_apoiadas 
+        $osic = $pg->getRow("SELECT * FROM db_clti.vw_osic WHERE idtb_osic = '$param'");
+        /*$osic_om = $pg->getRow("SELECT idtb_om_apoiadas,sigla FROM db_clti.tb_om_apoiadas 
             WHERE idtb_om_apoiadas = '$osic->id_om'");
         $osic_posto_grad = $pg->getRow("SELECT idtb_posto_grad,sigla FROM db_clti.tb_posto_grad 
             WHERE idtb_posto_grad = '$osic->id_posto_grad'");
         $osic_corpo_quadro = $pg->getRow("SELECT idtb_corpo_quadro,sigla FROM db_clti.tb_corpo_quadro 
             WHERE idtb_corpo_quadro = '$osic->id_corpo_quadro'");
         $osic_especialidade = $pg->getRow("SELECT idtb_especialidade,sigla FROM db_clti.tb_especialidade 
-            WHERE idtb_especialidade = '$osic->id_especialidade'");
+            WHERE idtb_especialidade = '$osic->id_especialidade'");*/
     }
     else{
-        $osic = (object)['idtb_osic'=>'','nip'=>'','cpf'=>'','nome'=>'','nome_guerra'=>''];
-        $osic_om = (object)['idtb_om_apoiadas'=>'','sigla'=>''];
+        $osic = (object)['idtb_osic'=>'','nip'=>'','cpf'=>'','nome'=>'','nome_guerra'=>'',
+            'idtb_om_apoiadas'=>'','sigla'=>'','idtb_posto_grad'=>'8','sigla_posto_grad'=>'1ºTen',
+            'idtb_corpo_quadro'=>'','sigla_corpo_quadro'=>'','idtb_especialidade'=>'','sigla_espec'=>'',
+            'correio_eletronico'=>''];
+        /*$osic_om = (object)['idtb_om_apoiadas'=>'','sigla'=>''];
         $osic_posto_grad = (object)['idtb_posto_grad'=>'8','sigla'=>'1ºTen'];
         $osic_corpo_quadro = (object)['idtb_corpo_quadro'=>'','sigla'=>''];
-        $osic_especialidade = (object)['idtb_especialidade'=>'','sigla'=>''];
+        $osic_especialidade = (object)['idtb_especialidade'=>'','sigla'=>''];*/
     }
 
 	$omapoiada = "SELECT * FROM db_clti.tb_om_apoiadas ORDER BY sigla ASC";
@@ -69,19 +72,19 @@ if ($act == 'cad') {
                                     echo"
                                     <legend>OSIC - Troca de Senha</legend>
                                     <input id=\"omapoiada\" class=\"form-control\" name=\"omapoiada\"
-                                        value=\"$osic_om->idtb_om_apoiadas\" hidden=\"true\">
+                                        value=\"$osic->idtb_om_apoiadas\" hidden=\"true\">
                                     <input id=\"postograd\" class=\"form-control\" name=\"postograd\"
-                                        value=\"$osic_posto_grad->idtb_posto_grad\" hidden=\"true\">
+                                        value=\"$osic->idtb_posto_grad\" hidden=\"true\">
                                     <input id=\"corpoquadro\" class=\"form-control\" name=\"corpoquadro\"
-                                        value=\"$osic_corpo_quadro->idtb_corpo_quadro\" hidden=\"true\">
+                                        value=\"$osic->idtb_corpo_quadro\" hidden=\"true\">
                                     <input id=\"especialidade\" class=\"form-control\" name=\"especialidade\"
-                                        value=\"$osic_especialidade->idtb_especialidade\" hidden=\"true\">
+                                        value=\"$osic->idtb_especialidade\" hidden=\"true\">
                                     <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
                                         hidden=\"required\" value=\"$osic->nome\">
                                     <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
                                         hidden=\"required\" value=\"$osic->nome_guerra\">
-                                    <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
-                                        hidden=\"required\" value=\"$admin->correio_eletronico\">
+                                    <input id=\"correio_eletronico\" class=\"form-control\" type=\"text\" 
+                                        name=\"correio_eletronico\" hidden=\"required\" value=\"$osic->correio_eletronico\">
                                     
                                     <div class=\"form-group\">
                                         <label for=\"nip\">NIP:</label>
@@ -121,8 +124,8 @@ if ($act == 'cad') {
                                     <div class=\"form-group\">
                                         <label for=\"omapoiada\">OM Apoiada:</label>
                                         <select id=\"omapoiada\" class=\"form-control\" name=\"omapoiada\">
-                                            <option value=\"$osic_om->idtb_om_apoiadas\" selected=\"true\">
-                                                $osic_om->sigla</option>";
+                                            <option value=\"$osic->idtb_om_apoiadas\" selected=\"true\">
+                                                $osic->sigla</option>";
                                             foreach ($omapoiada as $key => $value) {
                                                 echo"<option value=\"".$value->idtb_om_apoiadas."\">
                                                     ".$value->sigla."</option>";
@@ -133,8 +136,8 @@ if ($act == 'cad') {
                                     <div class=\"form-group\">
                                         <label for=\"postograd\">Posto/Graduação:</label>
                                         <select id=\"postograd\" class=\"form-control\" name=\"postograd\">
-                                            <option value=\"$osic_posto_grad->idtb_posto_grad\" selected=\"true\">
-                                                $osic_posto_grad->sigla</option>";
+                                            <option value=\"$osic->idtb_posto_grad\" selected=\"true\">
+                                                $osic->sigla_posto_grad</option>";
                                             foreach ($postograd as $key => $value) {
                                                 echo"<option value=\"".$value->idtb_posto_grad."\">
                                                     ".$value->nome."</option>";
@@ -145,8 +148,8 @@ if ($act == 'cad') {
                                     <div class=\"form-group\">
                                         <label for=\"corpoquadro\">Corpo/Quadro:</label>
                                         <select id=\"corpoquadro\" class=\"form-control\" name=\"corpoquadro\">
-                                            <option value=\"$osic_corpo_quadro->idtb_corpo_quadro\" selected=\"true\">
-                                                $osic_corpo_quadro->sigla</option>";
+                                            <option value=\"$osic->idtb_corpo_quadro\" selected=\"true\">
+                                                $osic->sigla_corpo_quadro</option>";
                                             foreach ($corpoquadro as $key => $value) {
                                                 echo"<option value=\"".$value->idtb_corpo_quadro."\">
                                                     ".$value->nome."</option>";
@@ -157,8 +160,8 @@ if ($act == 'cad') {
                                     <div class=\"form-group\">
                                         <label for=\"especialidade\">Especialidade:</label>
                                         <select id=\"especialidade\" class=\"form-control\" name=\"especialidade\">
-                                            <option value=\"$osic_especialidade->idtb_especialidade\" selected=\"true\">
-                                                $osic_especialidade->sigla</option>";
+                                            <option value=\"$osic->idtb_especialidade\" selected=\"true\">
+                                                $osic->sigla_espec</option>";
                                             foreach ($especialidade as $key => $value) {
                                                 echo"<option value=\"".$value->idtb_especialidade."\">
                                                     ".$value->nome."</option>";
@@ -181,9 +184,9 @@ if ($act == 'cad') {
                                     </div>
 
                                     <div class=\"form-group\">
-                                        <label for=\"correioeletronico\">Correio Eletrônico:</label>
-                                        <input id=\"correioeletronico\" class=\"form-control\" type=\"email\" 
-                                            name=\"correioeletronico\" placeholder=\"Preferencialmente Zimbra\" 
+                                        <label for=\"correio_eletronico\">Correio Eletrônico:</label>
+                                        <input id=\"correio_eletronico\" class=\"form-control\" type=\"email\" 
+                                            name=\"correio_eletronico\" placeholder=\"Preferencialmente Zimbra\" 
                                             minlength=\"2\" style=\"text-transform:uppercase\" required=\"true\" 
                                             value=\"$osic->correio_eletronico\">
                                     </div>
@@ -223,8 +226,8 @@ if ($act == 'cad') {
                             <div class=\"form-group\">
                                 <label for=\"omapoiada\">OM Apoiada:</label>
                                 <select id=\"omapoiada\" class=\"form-control\" name=\"omapoiada\">
-                                    <option value=\"$osic_om->idtb_om_apoiadas\" selected=\"true\">
-                                        $osic_om->sigla</option>";
+                                    <option value=\"$osic->idtb_om_apoiadas\" selected=\"true\">
+                                        $osic->sigla</option>";
                                     foreach ($omapoiada as $key => $value) {
                                         echo"<option value=\"".$value->idtb_om_apoiadas."\">
                                             ".$value->sigla."</option>";
@@ -235,8 +238,8 @@ if ($act == 'cad') {
                             <div class=\"form-group\">
                                 <label for=\"postograd\">Posto/Graduação:</label>
                                 <select id=\"postograd\" class=\"form-control\" name=\"postograd\">
-                                    <option value=\"$osic_posto_grad->idtb_posto_grad\" selected=\"true\">
-                                        $osic_posto_grad->sigla</option>";
+                                    <option value=\"$osic->idtb_posto_grad\" selected=\"true\">
+                                        $osic->sigla_posto_grad</option>";
                                     foreach ($postograd as $key => $value) {
                                         echo"<option value=\"".$value->idtb_posto_grad."\">
                                             ".$value->nome."</option>";
@@ -247,8 +250,8 @@ if ($act == 'cad') {
                             <div class=\"form-group\">
                                 <label for=\"corpoquadro\">Corpo/Quadro:</label>
                                 <select id=\"corpoquadro\" class=\"form-control\" name=\"corpoquadro\">
-                                    <option value=\"$osic_corpo_quadro->idtb_corpo_quadro\" selected=\"true\">
-                                        $osic_corpo_quadro->sigla</option>";
+                                    <option value=\"$osic->idtb_corpo_quadro\" selected=\"true\">
+                                        $osic->sigla_corpo_quadro</option>";
                                     foreach ($corpoquadro as $key => $value) {
                                         echo"<option value=\"".$value->idtb_corpo_quadro."\">
                                             ".$value->nome."</option>";
@@ -259,8 +262,8 @@ if ($act == 'cad') {
                             <div class=\"form-group\">
                                 <label for=\"especialidade\">Especialidade:</label>
                                 <select id=\"especialidade\" class=\"form-control\" name=\"especialidade\">
-                                    <option value=\"$osic_especialidade->idtb_especialidade\" selected=\"true\">
-                                        $osic_especialidade->sigla</option>";
+                                    <option value=\"$osic->idtb_especialidade\" selected=\"true\">
+                                        $osic->sigla_espec</option>";
                                     foreach ($especialidade as $key => $value) {
                                         echo"<option value=\"".$value->idtb_especialidade."\">
                                             ".$value->nome."</option>";
@@ -295,10 +298,10 @@ if ($act == 'cad') {
                             </div>
 
                             <div class=\"form-group\">
-                                <label for=\"correioe_letronico\">Correio Eletrônico:</label>
-                                <input id=\"correioel_etronico\" class=\"form-control\" type=\"email\" name=\"correioel_etronico\"
+                                <label for=\"correio_eletronico\">Correio Eletrônico:</label>
+                                <input id=\"correio_eletronico\" class=\"form-control\" type=\"email\" name=\"correio_eletronico\"
                                     placeholder=\"Preferencialmente Zimbra\" minlength=\"2\"
-                                    style=\"text-transform:uppercase\" required=\"true\" value=\"$admin->correio_eletronico\">
+                                    style=\"text-transform:uppercase\" required=\"true\" value=\"$osic->correio_eletronico\">
                             </div>
 
                             <div class=\"form-group\">
@@ -406,6 +409,7 @@ if ($act == 'insert') {
         $cpf = $_POST['cpf'];
         $nome = strtoupper($_POST['nome']);
         $nomeguerra = strtoupper($_POST['nomeguerra']);
+        $correio_eletronico = strtolower($_POST['correio_eletronico']);
         $ativo = strtoupper($_POST['ativo']);
 
         if ($nip == NULL) {
@@ -423,7 +427,7 @@ if ($act == 'insert') {
                 $sql = "UPDATE db_clti.tb_osic SET
                 id_om='$omapoiada',id_posto_grad='$postograd', id_corpo_quadro='$corpoquadro', 
                 id_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
-                nome_guerra='$nomeguerra', status='$ativo'
+                nome_guerra='$nomeguerra', status='$ativo', correio_eletronico='$correio_eletronico'
                 WHERE idtb_osic='$idtb_osic'";
             }
 
@@ -436,7 +440,7 @@ if ($act == 'insert') {
                 $sql = "UPDATE db_clti.tb_osic SET
                     id_om='$omapoiada',id_posto_grad='$postograd', id_corpo_quadro='$corpoquadro', 
                     id_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', nome_guerra='$nomeguerra', 
-                    senha='$senha', status='$ativo'
+                    senha='$senha', status='$ativo', correio_eletronico='$correio_eletronico'
                     WHERE idtb_osic='$idtb_osic'";
             }
 
@@ -473,9 +477,9 @@ if ($act == 'insert') {
 
                 $sql = "INSERT INTO db_clti.tb_osic(
                     id_om,id_posto_grad, id_corpo_quadro, id_especialidade, 
-                    nip, cpf, nome, nome_guerra, senha, perfil, status)
+                    nip, cpf, nome, nome_guerra, senha, perfil, status, correio_eletronico)
                     VALUES ('$omapoiada', '$postograd', '$corpoquadro', '$especialidade',
-                    '$nip', '$cpf', '$nome', '$nomeguerra', '$senha', 'OSIC_OM', 'ATIVO')";
+                    '$nip', '$cpf', '$nome', '$nomeguerra', '$senha', 'OSIC_OM', 'ATIVO','$correio_eletronico')";
 
                 $pg->exec($sql);
 

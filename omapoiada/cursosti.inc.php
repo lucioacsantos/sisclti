@@ -11,7 +11,7 @@ require_once "../class/pgsql.class.php";
 $pg = new PgSql();
 
 /* Recupera informações dos Admin */
-$sql = "SELECT * FROM db_clti.tb_admin";
+$sql = "SELECT * FROM db_clti.tb_qualificacao_ti";
 
 $row = $pg->getRow($sql);
 
@@ -19,40 +19,69 @@ $row = $pg->getRow($sql);
 
 /* Checa se há Admin cadastrado */
 if (($row == '0') AND ($act == NULL)) {
-	echo "<h5>Não há Cursos cadastrados,<br />
-		 clique <a href=\"?cmd=cursosti&act=cad\">aqui</a> para fazê-lo.</h5>";
+    echo "
+    <div class=\"container-fluid\">
+        <div class=\"row\">
+            <main>
+                <div id=\"form-cadastro\">
+                    <form id=\"nip_cpf\" role=\"form\" action=\"?cmd=cursosti&act=cad\" 
+                    method=\"post\" enctype=\"multipart/form-data\">
+                        <fieldset>
+                        <legend>Qualificação em TI - Cadastro</legend>
+                            <div class=\"form-group\">
+                                <label for=\"nip_cpf\">Informe o NIP/CPF:</label>
+                                <input id=\"nip_cpf\" class=\"form-control\" type=\"num\" name=\"nip_cpf\" 
+                                    placeholder=\"NIP/CPF\" maxlength=\"11\" autofocus=\"true\" required=\"true\">
+                            </div>
+                        </fieldset>
+                        <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Localizar\">
+                    </form>
+                </div>
+            </main>
+        </div>
+    </div>";
 }
 
 /* Carrega form para cadastro de Admin */
 if ($act == 'cad') {
-    @$param = $_GET['param'];
-    $nip = $_POST['nip'];
-    if ($param){
-        $pesti = $pg->getRow("SELECT * FROM db_clti.tb_admin WHERE idtb_admin = '$param'");
-        $admin_om = $pg->getRow("SELECT idtb_om_apoiadas,sigla FROM db_clti.tb_om_apoiadas 
-            WHERE idtb_om_apoiadas = '$admin->id_om'");
-        $admin_posto_grad = $pg->getRow("SELECT idtb_posto_grad,sigla FROM db_clti.tb_posto_grad 
-            WHERE idtb_posto_grad = '$admin->id_posto_grad'");
-        $admin_corpo_quadro = $pg->getRow("SELECT idtb_corpo_quadro,sigla FROM db_clti.tb_corpo_quadro 
-            WHERE idtb_corpo_quadro = '$admin->id_corpo_quadro'");
-        $admin_especialidade = $pg->getRow("SELECT idtb_especialidade,sigla FROM db_clti.tb_especialidade 
-            WHERE idtb_especialidade = '$admin->id_especialidade'");
+    $nip_cpf = $_POST['nip_cpf'];
+    if ($nip_cpf != NULL){
+        if (strlen($nip_cpf) == 8){
+            $pesti = $pg->getRow("SELECT * FROM db_clti.vw_admin WHERE nip = '$nip_cpf'");
+            if ($pesti){ echo "Encontrado$pesti->posto - $pesti->nome_guerra";}
+            else{
+                $pesti = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_clti WHERE nip = '$nip_cpf'");
+                if ($pesti){ echo "Encontrado $pesti->posto - $pesti->nome_guerra";}
+                else{
+                    $pesti = $pg->getRow("SELECT * FROM db_clti.vw_osic WHERE nip = '$nip_cpf'");
+                    if ($pesti){ echo "Encontrado $pesti->posto - $pesti->nome_guerra";}
+                    else{
+                        $pesti = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_ti WHERE nip = '$nip_cpf'");
+                        if ($pesti){ echo "Encontrado $pesti->posto - $pesti->nome_guerra";}
+                        else{ echo "Não foi encontrado pessoal de TI com este NIP/CPF.";}
+                    }
+                }
+            }
+        }
+        elseif(strlen($nip_cpf) == 11){
+            $pesti = $pg->getRow("SELECT * FROM db_clti.vw_admin WHERE nip = '$nip_cpf'");
+            if ($pesti){ echo "Encontrado $pesti->posto - $pesti->nome_guerra";}
+            else{
+                $pesti = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_clti WHERE nip = '$nip_cpf'");
+                if ($pesti){ echo "Encontrado $pesti->posto - $pesti->nome_guerra";}
+                else{
+                    $pesti = $pg->getRow("SELECT * FROM db_clti.vw_osic WHERE nip = '$nip_cpf'");
+                    if ($pesti){ echo "Encontrado $pesti->posto - $pesti->nome_guerra";}
+                    else{
+                        $pesti = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_ti WHERE nip = '$nip_cpf'");
+                        if ($pesti){ echo "Encontrado $pesti->posto - $pesti->nome_guerra";}
+                        else{ echo "Não foi encontrado pessoal de TI com este NIP/CPF.";}
+                    }
+                }
+            }
+        }
     }
-    else{
-        $admin = (object)['idtb_admin'=>'','nip'=>'','cpf'=>'','nome'=>'','nome_guerra'=>''];
-        $admin_om = (object)['idtb_om_apoiadas'=>'','sigla'=>''];
-        $admin_posto_grad = (object)['idtb_posto_grad'=>'8','sigla'=>'1ºTen'];
-        $admin_corpo_quadro = (object)['idtb_corpo_quadro'=>'','sigla'=>''];
-        $admin_especialidade = (object)['idtb_especialidade'=>'','sigla'=>''];
-    }
-	$omapoiada = "SELECT * FROM db_clti.tb_om_apoiadas ORDER BY sigla ASC";
-    $omapoiada = $pg->getRows($omapoiada);
-    $postograd = "SELECT * FROM db_clti.tb_posto_grad ORDER BY idtb_posto_grad 	DESC";
-    $postograd = $pg->getRows($postograd);
-    $corpoquadro = "SELECT * FROM db_clti.tb_corpo_quadro";
-    $corpoquadro = $pg->getRows($corpoquadro);
-    $especialidade = "SELECT * FROM db_clti.tb_especialidade ORDER BY nome ASC";
-    $especialidade = $pg->getRows($especialidade);
+    /*
     echo "
 	<div class=\"container-fluid\">
         <div class=\"row\">
@@ -63,7 +92,7 @@ if ($act == 'cad') {
                         <fieldset>";
 
                             if ($param == 'NOVO'){
-                                $
+                                
                                                                     echo"
                                     <legend>Administradores de Rede - Troca de Senha</legend>
                                     <input id=\"omapoiada\" class=\"form-control\" name=\"omapoiada\"
@@ -297,7 +326,7 @@ if ($act == 'cad') {
                 </div>
             </main>
         </div>
-    </div>";
+    </div>";*/
 }
 
 /* Monta quadro de administradores */

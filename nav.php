@@ -118,7 +118,7 @@ $sigla = $pg->getCol($sql);
               <li class="nav-item">
                 <a class="nav-link" href="<?php echo "$url/omapoiada/?cmd=cursosti"; ?>">
                   <span data-feather="book-open"></span>
-                  Cursos na Área de TI
+                  Qualificação na Área de TI
                 </a>
               </li>
               <!--<li class="nav-item">
