@@ -28,8 +28,8 @@ if ($act == 'cad') {
     @$param = $_GET['param'];
     if ($param){
         $om = $pg->getRow("SELECT * FROM db_clti.tb_om_apoiadas WHERE idtb_om_apoiadas = '$param'");
-        $estado = $pg->getRow("SELECT * FROM db_clti.tb_estado WHERE id = '$om->id_estado'");
-        $cidade = $pg->getRow("SELECT * FROM db_clti.tb_cidade WHERE id = '$om->id_cidade'");
+        $estado = $pg->getRow("SELECT * FROM db_clti.tb_estado WHERE id = '$om->idtb_estado'");
+        $cidade = $pg->getRow("SELECT * FROM db_clti.tb_cidade WHERE id = '$om->idtb_cidade'");
     }
     else{
         $ESTADO = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='ESTADO'");
@@ -114,9 +114,6 @@ if (($row) AND ($act == NULL)) {
     $om = "SELECT * FROM db_clti.tb_om_apoiadas ORDER BY cod_om ASC";
     $om = $pg->getRows($om);    
 
-	echo "<!--<p>Distribuição de OM por  ".$pg->getCol("SELECT COUNT(id_estado) 
-    	    FROM (SELECT id_estado FROM db_clti.tb_om_apoiadas 
-            GROUP BY id_estado) AS vw;;")." Estados </p>-->";
     foreach ($om as $key => $value) {
         echo"       <tr>
                         <th scope=\"row\">".$value->cod_om."</th>
@@ -153,7 +150,7 @@ if ($act == 'insert') {
         # Opta pelo método UPDATE
         if ($idtb_om_apoiadas){
             $sql = "UPDATE db_clti.tb_om_apoiadas SET 
-                    id_estado=$estado, id_cidade=$cidade, cod_om=$cod_om, nome='$nome', 
+                    idtb_estado=$estado, idtb_cidade=$cidade, cod_om=$cod_om, nome='$nome', 
                     sigla='$sigla', indicativo='$indicativo'
                 WHERE idtb_om_apoiadas=$idtb_om_apoiadas";
         }
@@ -161,7 +158,7 @@ if ($act == 'insert') {
         # Opta pelo método INSERT
         else{
             $sql = "INSERT INTO db_clti.tb_om_apoiadas(
-                    id_estado, id_cidade, cod_om, 
+                    idtb_estado, idtb_cidade, cod_om, 
                     nome, sigla, indicativo)
                 VALUES ('$estado', '$cidade', '$cod_om', 
                     '$nome', '$sigla', '$indicativo')";

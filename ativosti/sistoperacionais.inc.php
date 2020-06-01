@@ -126,8 +126,6 @@ if ($act == 'insert') {
             desenvolvedor, descricao, versao, situacao)
             VALUES ('$desenvolvedor', '$descricao', '$versao', '$situacao')";
         
-        print $sql;
-
         $pg->exec($sql);
 
         if ($pg) {

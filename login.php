@@ -75,24 +75,25 @@ if ($act == 'acesso') {
   $salt = sha1(md5($usuario));
   $senha = $salt.$hash;
 
-  $sql = "SELECT * FROM db_clti.tb_admin WHERE nip = '$usuario' AND senha = '$senha'
+  $sql = "SELECT idtb_pessoal_ti FROM db_clti.tb_pessoal_ti WHERE nip = '$usuario' AND senha = '$senha'
     OR cpf = '$usuario' AND senha = '$senha'";
   
-  $row = $pg->getRow($sql);
-  
-	if ($row != NULL) {
-        $_SESSION['logged_in'] = true;
-        $_SESSION['user_id'] = $row->idtb_admin;
-        $_SESSION['user_name'] = $row->nome_guerra;
-        $_SESSION['perfil'] = $row->perfil;
-        $_SESSION['status'] = $row->status;
+  $row = $pg->getCol($sql);
+    
+	if ($row) {
 
-        $row = $pg->getRow("SELECT * FROM db_clti.tb_om_apoiadas WHERE idtb_om_apoiadas  = '$row->id_om' ");
-        
-        $_SESSION['id_om_apoiada'] = $row->idtb_om_apoiada;
-        $_SESSION['om_apoiada'] = $row->sigla;
-        
-        header('Location: index.php');
+    $row = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_ti WHERE nip = '$usuario' OR cpf = '$row' ");
+
+    $_SESSION['logged_in'] = true;
+    $_SESSION['user_id'] = $row->idtb_pessoal_ti;
+    $_SESSION['posto_grad'] = $row->sigla_posto_grad;
+    $_SESSION['user_name'] = $row->nome_guerra;
+    $_SESSION['perfil'] = $row->funcao;
+    $_SESSION['status'] = $row->status;
+    $_SESSION['id_om_apoiada'] = $row->idtb_om_apoiadas;
+    $_SESSION['om_apoiada'] = $row->sigla_om;
+    
+    header('Location: index.php');
 	}
 
 	else {

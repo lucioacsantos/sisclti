@@ -16,10 +16,10 @@ $sigla = $pg->getCol($sql);
         <?php echo $sigla; ?>
       </p>
       <!--<input class="form-control form-control-dark w-100" type="text" placeholder="Pesquisa" aria-label="Pesquisa">-->
-      <p class="navbar-brand">Usuário ativo: 
+      <p class="navbar-brand">
         <?php 
           if (isset($_SESSION['user_name'])){
-            print $_SESSION['user_name']." - "; print $_SESSION['perfil'];
+            echo "".$_SESSION['posto_grad']." - ".$_SESSION['user_name']." - ".$_SESSION['perfil']."";
             $perfil = $_SESSION['perfil'];
           }
           else{

@@ -23,61 +23,84 @@ if (($row == '0') AND ($act == NULL)) {
 }
 
 /* Carregar form para cadastro do CLTI */
-if (($row == '0') AND ($act)) {
-	$tiposclti = "SELECT * FROM db_clti.tb_tipos_clti";
-	$tiposclti = $pg->getRow($tiposclti);
+if ($act == 'cad') {
+    @$param = $_GET['param'];
+
+    if ($param){
+        $gerclti = $pg->getRow("SELECT * FROM db_clti.tb_clti WHERE idtb_clti = '$param'");
+    }
+    else{
+        $gerclti = (object)['idtb_admin'=>'','nome'=>'','sigla'=>'','indicativo'=>'','data_ativacao'=>''];
+    }
+    
 	echo "
 	<div class=\"container-fluid\">
         <div class=\"row\">
             <main>
                 <div id=\"form-cadastro\">
                     <form id=\"form\" action=\"?cmd=gerclti&act=insert\" method=\"post\" enctype=\"multipart/form-data\">
-                        <fieldset>
-                            <legend>CLTI - Cadastro</legend>
+                        <fieldset>";
+                            #Prepara formulário para atualização de dados
+                            if ($param){
+                                echo"
+                                <legend>CLTI - Cadastro</legend>
 
-                            <div class=\"form-group\">
-                                <label for=\"tipoclti\">Tipo do CLTI:</label>
-                                <select id=\"tipoclti\" class=\"form-control\" name=\"tipoclti\">
-                                	<option value=\"".$tiposclti->idtipos_clti."\">
-                                		CLTI Tipo: ".$tiposclti->tipo_clti."</option>
-                                </select>
-                            </div>
+                                    <input id=\"idclti\" class=\"form-control\" name=\"idclti\"
+                                        value=\"$gerclti->idtb_clti\" hidden=\"true\">
 
-                            <div class=\"form-group\">
-                                <label for=\"nomeclti\">Nome do CLTI:</label>
-                                <input id=\"nomeclti\" class=\"form-control\" type=\"text\" name=\"nomeclti\"
-                                       placeholder=\"Nome do CLTI\" minlength=\"2\" required=\"true\">
-                            </div>
+                                    <div class=\"form-group\">
+                                        <label for=\"nomeclti\">Nome do CLTI:</label>
+                                        <input id=\"nomeclti\" class=\"form-control\" type=\"text\" name=\"nomeclti\"
+                                            value=\"$gerclti->nome\" minlength=\"2\" required=\"true\">
+                                    </div>
 
-                            <div class=\"form-group\">
-                                <label for=\"siglaclti\">Sigla do CLTI:</label>
-                                <input id=\"siglaclti\" class=\"form-control\" type=\"text\" name=\"siglaclti\"
-                                       placeholder=\"Sigla do CLTI\" minlength=\"2\" required=\"true\">
-                            </div>
+                                    <div class=\"form-group\">
+                                        <label for=\"siglaclti\">Sigla do CLTI:</label>
+                                        <input id=\"siglaclti\" class=\"form-control\" type=\"text\" name=\"siglaclti\"
+                                        value=\"$gerclti->sigla\" minlength=\"2\" required=\"true\">
+                                    </div>
 
-                            <div class=\"form-group\">
-                                <label for=\"indicativoclti\">Indicativo Naval do CLTI:</label>
-                                <input id=\"indicativoclti\" class=\"form-control\" type=\"text\" name=\"indicativoclti\"
-                                       placeholder=\"Indicativo Naval do CLTI\" minlength=\"2\" required=\"true\">
-                            </div>
+                                    <div class=\"form-group\">
+                                        <label for=\"indicativoclti\">Indicativo Naval do CLTI:</label>
+                                        <input id=\"indicativoclti\" class=\"form-control\" type=\"text\" name=\"indicativoclti\"
+                                        value=\"$gerclti->indicativo\" minlength=\"2\" required=\"true\">
+                                    </div>
 
-                            <div class=\"form-group\">
-                                <label for=\"dataativacao\">Data de Ativação do CLTI:</label>
-                                <input id=\"dataativacao\" class=\"form-control\" type=\"date\" name=\"dataativacao\"
-                                       placeholder=\"Data de Ativação do CLTI\" minlength=\"2\" required=\"true\">
-                            </div>
+                                    <div class=\"form-group\">
+                                        <label for=\"dataativacao\">Data de Ativação do CLTI:</label>
+                                        <input id=\"dataativacao\" class=\"form-control\" type=\"date\" name=\"dataativacao\"
+                                        value=\"$gerclti->data_ativacao\" minlength=\"2\" required=\"true\">
+                                    </div>";
+                            }
+                            else{
+                                echo"
+                                    <legend>CLTI - Cadastro</legend>
 
-                            <div class=\"form-group\">
-                                <label for=\"efetivooficiais\">Efetivo de Oficiais:</label>
-                                <input id=\"efetivooficiais\" class=\"form-control\" type=\"number\" name=\"efetivooficiais\"
-                                       placeholder=\"Efetivo de Oficiais\" minlength=\"2\" required=\"true\">
-                            </div>
+                                    <div class=\"form-group\">
+                                        <label for=\"nomeclti\">Nome do CLTI:</label>
+                                        <input id=\"nomeclti\" class=\"form-control\" type=\"text\" name=\"nomeclti\"
+                                            placeholder=\"Nome do CLTI\" minlength=\"2\" required=\"true\">
+                                    </div>
 
-                            <div class=\"form-group\">
-                                <label for=\"efetivopracas\">Efetivo de Praças:</label>
-                                <input id=\"efetivopracas\" class=\"form-control\" type=\"number\" name=\"efetivopracas\"
-                                       placeholder=\"Efetivo de Praças\" minlength=\"2\" required=\"true\">
-                            </div>
+                                    <div class=\"form-group\">
+                                        <label for=\"siglaclti\">Sigla do CLTI:</label>
+                                        <input id=\"siglaclti\" class=\"form-control\" type=\"text\" name=\"siglaclti\"
+                                            placeholder=\"Sigla do CLTI\" minlength=\"2\" required=\"true\">
+                                    </div>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"indicativoclti\">Indicativo Naval do CLTI:</label>
+                                        <input id=\"indicativoclti\" class=\"form-control\" type=\"text\" name=\"indicativoclti\"
+                                            placeholder=\"Indicativo Naval do CLTI\" minlength=\"2\" required=\"true\">
+                                    </div>
+
+                                    <div class=\"form-group\">
+                                        <label for=\"dataativacao\">Data de Ativação do CLTI:</label>
+                                        <input id=\"dataativacao\" class=\"form-control\" type=\"date\" name=\"dataativacao\"
+                                            placeholder=\"Data de Ativação do CLTI\" minlength=\"2\" required=\"true\">
+                                    </div>";
+                            }
+                        echo"
                         </fieldset>
                         <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">
                     </form>
@@ -87,49 +110,88 @@ if (($row == '0') AND ($act)) {
     </div>";
 }
 
-if ($row) {
-    $idtipos_clti = $row->idtipos_clti;
-    $tiposclti = "SELECT tipo_clti FROM db_clti.tb_tipos_clti WHERE idtipos_clti='$idtipos_clti' ";
-    $tiposclti = $pg->getCol($tiposclti);
-	echo "<p>Tipo do CLTI: ".$tiposclti."</p>";
-	echo "<p>Nome do CLTI: ".$row->nome."</p>";
-	echo "<p>Sigla do CLTI: ".$row->sigla."</p>";
-	echo "<p>Indicativo do CLTI: ".$row->indicativo."</p>";
-	echo "<p>Data de Ativação: ".$row->data_ativacao."</p>";
-	echo "<p>Efetivo de Oficiais: ".$row->efetivo_oficiais."</p>";
-	echo "<p>Efetivo de Praças: ".$row->efetivo_pracas."</p>";
-	echo $act;
+if (($row) AND ($act == NULL)) {
+   
+    echo"<div class=\"table-responsive\">
+            <table class=\"table table-hover\">
+                <thead>
+                    <tr>
+                        <th scope=\"col\">Nome do CLTI</th>
+                        <th scope=\"col\">Sigla</th>
+                        <th scope=\"col\">Indicativo</th>
+                        <th scope=\"col\">Data de Ativação</th>
+                        <th scope=\"col\">Efetivo de Oficiais</th>
+                        <th scope=\"col\">Efetivo de Praças</th>
+                        <th scope=\"col\">Ações</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>".$row->nome."</td>
+                    <td>".$row->sigla."</td>
+                    <td>".$row->indicativo."</td>
+                    <td>".$row->data_ativacao."</td>
+                    <td>".$row->efetivo_oficiais."</td>
+                    <td>".$row->efetivo_pracas."</td>
+                    <td><a href=\"?cmd=gerclti&act=cad&param=".$row->idtb_clti."\">Editar</a> - 
+                        Excluir</td>
+                </tr>
+                </tbody>
+            </table>
+            </div>";
 }
 
 /* Método INSERT */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
-        $tipoclti = $_POST['tipoclti'];
+
+        $idtb_clti = $_POST['idclti'];
         $nomeclti = $_POST['nomeclti'];
         $siglaclti = $_POST['siglaclti'];
         $indicativoclti = $_POST['indicativoclti'];
         $dataativacao = $_POST['dataativacao'];
-        $efetivooficiais = $_POST['efetivooficiais'];
-        $efetivopracas = $_POST['efetivopracas'];
 
-        $sql = "INSERT INTO db_clti.tb_clti(
-            idtipos_clti, efetivo_oficiais, efetivo_pracas, nome, 
-                sigla, indicativo, data_ativacao)
-            VALUES ('$tipoclti','$efetivooficiais','$efetivopracas',
-                '$nomeclti','$siglaclti','$indicativoclti','$dataativacao');";
+        /* Opta pelo Método Update */
+        if ($idtb_clti){
 
-        $pg->exec($sql);
-
-        foreach ($pg as $key => $value) {
-            if ($value != '0') {
-                echo "<h5>Resgistros incluídos no banco de dados.</h5>";
+            $sql = "UPDATE db_clti.tb_clti SET nome='$nomeclti', sigla='$siglaclti', 
+                indicativo='$indicativoclti', data_ativacao='$dataativacao' WHERE idtb_clti = '$idtb_clti' ";
+    
+            $pg->exec($sql);
+    
+            foreach ($pg as $key => $value) {
+                if ($value != '0') {
+                    echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                    <meta http-equiv=\"refresh\" content=\"1;?cmd=gerclti\">";
+                }
+    
+                else {
+                    echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                }
+                break;
             }
 
-            else {
-                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-            }
-        break;
         }
+        else{
+
+            $sql = "INSERT INTO db_clti.tb_clti(
+                nome, sigla, indicativo, data_ativacao)
+                VALUES ('$nomeclti','$siglaclti','$indicativoclti','$dataativacao');";
+    
+            $pg->exec($sql);
+    
+            foreach ($pg as $key => $value) {
+                if ($value != '0') {
+                    echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                    <meta http-equiv=\"refresh\" content=\"1;?cmd=gerclti\">";
+                }
+    
+                else {
+                    echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                }
+            break;
+            }
+        }
+
     }
     else{
         echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>

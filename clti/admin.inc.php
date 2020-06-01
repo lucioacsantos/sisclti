@@ -11,7 +11,7 @@ require_once "../class/pgsql.class.php";
 $pg = new PgSql();
 
 /* Recupera informações dos Admin */
-$sql = "SELECT * FROM db_clti.tb_admin";
+$sql = "SELECT * FROM db_clti.tb_pessoal_ti WHERE funcao='ADMIN' AND status='ATIVO' ";
 
 $row = $pg->getRow($sql);
 
@@ -28,25 +28,13 @@ if ($act == 'cad') {
     @$param = $_GET['param'];
     @$senha = $_GET['senha'];
     if ($param){
-        $admin = $pg->getRow("SELECT * FROM db_clti.vw_admin WHERE idtb_admin = '$param'");
-        /*$admin_om = $pg->getRow("SELECT idtb_om_apoiadas,sigla FROM db_clti.tb_om_apoiadas 
-            WHERE idtb_om_apoiadas = '$admin->id_om'");
-        $admin_posto_grad = $pg->getRow("SELECT idtb_posto_grad,sigla FROM db_clti.tb_posto_grad 
-            WHERE idtb_posto_grad = '$admin->id_posto_grad'");
-        $admin_corpo_quadro = $pg->getRow("SELECT idtb_corpo_quadro,sigla FROM db_clti.tb_corpo_quadro 
-            WHERE idtb_corpo_quadro = '$admin->id_corpo_quadro'");
-        $admin_especialidade = $pg->getRow("SELECT idtb_especialidade,sigla FROM db_clti.tb_especialidade 
-            WHERE idtb_especialidade = '$admin->id_especialidade'");*/
+        $admin = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_ti WHERE idtb_pessoal_ti = '$param'");
     }
     else{
-        $admin = (object)['idtb_admin'=>'','nip'=>'','cpf'=>'','nome'=>'','nome_guerra'=>'',
-            'idtb_om_apoiadas'=>'','sigla'=>'','idtb_posto_grad'=>'8','sigla_posto_grad'=>'1ºTen',
+        $admin = (object)['idtb_pessoal_ti'=>'','nip'=>'','cpf'=>'','nome'=>'','nome_guerra'=>'',
+            'idtb_om_apoiadas'=>'','sigla_om'=>'','idtb_posto_grad'=>'8','sigla_posto_grad'=>'Primeiro Tenente',
             'idtb_corpo_quadro'=>'','sigla_corpo_quadro'=>'','idtb_especialidade'=>'','sigla_espec'=>'',
             'correio_eletronico'=>''];
-        /*$admin_om = (object)['idtb_om_apoiadas'=>'','sigla'=>''];
-        $admin_posto_grad = (object)['idtb_posto_grad'=>'8','sigla'=>'1ºTen'];
-        $admin_corpo_quadro = (object)['idtb_corpo_quadro'=>'','sigla'=>''];
-        $admin_especialidade = (object)['idtb_especialidade'=>'','sigla'=>''];*/
     }
 	$omapoiada = "SELECT * FROM db_clti.tb_om_apoiadas ORDER BY sigla ASC";
     $omapoiada = $pg->getRows($omapoiada);
@@ -120,7 +108,7 @@ if ($act == 'cad') {
                                         <label for=\"omapoiada\">OM Apoiada:</label>
                                         <select id=\"omapoiada\" class=\"form-control\" name=\"omapoiada\">
                                             <option value=\"$admin->idtb_om_apoiadas\" selected=\"true\">
-                                                $admin->sigla</option>";
+                                                $admin->sigla_om</option>";
                                             foreach ($omapoiada as $key => $value) {
                                                 echo"<option value=\"".$value->idtb_om_apoiadas."\">
                                                     ".$value->sigla."</option>";
@@ -179,9 +167,9 @@ if ($act == 'cad') {
                                     </div>
 
                                     <div class=\"form-group\">
-                                        <label for=\"correioeletronico\">Correio Eletrônico:</label>
-                                        <input id=\"correioeletronico\" class=\"form-control\" type=\"email\" 
-                                            name=\"correioeletronico\" placeholder=\"Preferencialmente Zimbra\" 
+                                        <label for=\"correio_eletronico\">Correio Eletrônico:</label>
+                                        <input id=\"correio_eletronico\" class=\"form-control\" type=\"email\" 
+                                            name=\"correio_eletronico\" placeholder=\"Preferencialmente Zimbra\" 
                                             minlength=\"2\" style=\"text-transform:uppercase\" required=\"true\" 
                                             value=\"$admin->correio_eletronico\">
                                     </div>
@@ -221,7 +209,7 @@ if ($act == 'cad') {
                                 <label for=\"omapoiada\">OM Apoiada:</label>
                                 <select id=\"omapoiada\" class=\"form-control\" name=\"omapoiada\">
                                     <option value=\"$admin->idtb_om_apoiadas\" selected=\"true\">
-                                        $admin->sigla</option>";
+                                        $admin->sigla_om</option>";
                                     foreach ($omapoiada as $key => $value) {
                                         echo"<option value=\"".$value->idtb_om_apoiadas."\">
                                             ".$value->sigla."</option>";
@@ -292,8 +280,8 @@ if ($act == 'cad') {
                             </div>
 
                             <div class=\"form-group\">
-                                <label for=\"correioe_letronico\">Correio Eletrônico:</label>
-                                <input id=\"correioel_etronico\" class=\"form-control\" type=\"email\" name=\"correioel_etronico\"
+                                <label for=\"correio_eletronico\">Correio Eletrônico:</label>
+                                <input id=\"correio_eletronico\" class=\"form-control\" type=\"email\" name=\"correio_eletronico\"
                                     placeholder=\"Preferencialmente Zimbra\" minlength=\"2\"
                                     style=\"text-transform:uppercase\" required=\"true\" value=\"$admin->correio_eletronico\">
                             </div>
@@ -317,7 +305,7 @@ if ($act == 'cad') {
                             }
                         echo"
                         </fieldset>
-                        <input id=\"idtb_admin\" type=\"hidden\" name=\"idtb_admin\" value=\"$admin->idtb_admin\">
+                        <input id=\"idtb_admin\" type=\"hidden\" name=\"idtb_admin\" value=\"$admin->idtb_pessoal_ti\">
                         <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">
                     </form>
                 </div>
@@ -329,7 +317,7 @@ if ($act == 'cad') {
 /* Monta quadro de administradores */
 if (($row) AND ($act == NULL)) {
 
-	$admin = "SELECT * FROM db_clti.tb_admin ORDER BY id_posto_grad DESC";
+	$admin = "SELECT * FROM db_clti.vw_pessoal_ti WHERE funcao='ADMIN' AND status='ATIVO' ORDER BY idtb_posto_grad DESC";
     $admin = $pg->getRows($admin);
 
     echo"<div class=\"table-responsive\">
@@ -337,7 +325,7 @@ if (($row) AND ($act == NULL)) {
                 <thead>
                     <tr>
                         <th scope=\"col\">Posto/Grad./Esp.</th>
-                        <th scope=\"col\">NIP</th>
+                        <th scope=\"col\">NIP/CPF</th>
                         <th scope=\"col\">Nome</th>
                         <th scope=\"col\">Nome de Guerra</th>
                         <th scope=\"col\">Ações</th>
@@ -346,42 +334,22 @@ if (($row) AND ($act == NULL)) {
 
     foreach ($admin as $key => $value) {
 
-        #Seleciona Sigla do Posto/Graduação
-        $postograd = $pg->getCol("SELECT sigla FROM db_clti.tb_posto_grad WHERE idtb_posto_grad = $value->id_posto_grad");
-        
-        #Selectiona Sigla do Corpo/Quadro
-        if ($value->id_corpo_quadro != 11){
-            $corpoquadro = $pg->getCol("SELECT sigla FROM db_clti.tb_corpo_quadro 
-                WHERE idtb_corpo_quadro = $value->id_corpo_quadro");
-        }
-        else{
-            $corpoquadro = "";
-        }
-        
-        #Seleciona Sigla da Especialidade
-        if ($value->id_especialidade != 12 AND $value->id_especialidade != 13) {
-            $especialidade = $pg->getCol("SELECT sigla FROM db_clti.tb_especialidade 
-                WHERE idtb_especialidade = $value->id_especialidade");
-        }
-        else{
-            $especialidade = "";
-        }
-
         #Seleciona NIP caso seja militar da MB
         if ($value->nip != NULL) {
             $identificacao = $value->nip;
         }
         else{
-            $identificacao = "";
+            $identificacao = $value->cpf;
         }
 
         echo"       <tr>
-                        <th scope=\"row\">".$postograd." ".$corpoquadro." ".$especialidade."</th>
+                        <th scope=\"row\">".$value->sigla_posto_grad." ".$value->sigla_corpo_quadro." 
+                            ".$value->sigla_espec."</th>
                         <td>".$identificacao."</td>
                         <td>".$value->nome."</td>
                         <td>".$value->nome_guerra."</td>
-                        <td><a href=\"?cmd=admin&act=cad&param=".$value->idtb_admin."\">Editar</a> - 
-                            <a href=\"?cmd=admin&act=cad&param=".$value->idtb_admin."&senha=troca\">Senha</a> - 
+                        <td><a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."\">Editar</a> - 
+                            <a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."&senha=troca\">Senha</a> - 
                             Excluir</td>
                     </tr>";
     }
@@ -394,7 +362,7 @@ if (($row) AND ($act == NULL)) {
 /* Método INSERT */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
-        $idtb_admin = $_POST['idtb_admin'];
+        $idtb_pessoal_ti = $_POST['idtb_admin'];
         $omapoiada = $_POST['omapoiada'];
         $postograd = $_POST['postograd'];
         $corpoquadro = $_POST['corpoquadro'];
@@ -414,15 +382,16 @@ if ($act == 'insert') {
         }
 
         /* Opta pelo Método Update */
-        if ($idtb_admin){
+        if ($idtb_pessoal_ti){
             $senha = $_POST['senha'];
 
             if($senha==NULL){
-                $sql = "UPDATE db_clti.tb_admin SET
-                id_om='$omapoiada',id_posto_grad='$postograd', id_corpo_quadro='$corpoquadro', 
-                id_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
-                nome_guerra='$nomeguerra', status='$ativo', correio_eletronico='$correio_eletronico'
-                WHERE idtb_admin='$idtb_admin'";
+                $sql = "UPDATE db_clti.tb_pessoal_ti SET
+                idtb_om_apoiadas='$omapoiada',idtb_posto_grad='$postograd', idtb_corpo_quadro='$corpoquadro', 
+                idtb_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
+                nome_guerra='$nomeguerra', correio_eletronico='$correio_eletronico',
+                funcao='ADMIN', status='$ativo'
+                WHERE idtb_pessoal_ti='$idtb_pessoal_ti'";
             }
 
             else{
@@ -431,11 +400,12 @@ if ($act == 'insert') {
                 $salt = sha1(md5($usuario));
                 $senha = $salt.$hash;
 
-                $sql = "UPDATE db_clti.tb_admin SET
-                    id_om='$omapoiada',id_posto_grad='$postograd', id_corpo_quadro='$corpoquadro', 
-                    id_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', nome_guerra='$nomeguerra', 
-                    senha='$senha', status='$ativo', correio_eletronico='$correio_eletronico'
-                    WHERE idtb_admin='$idtb_admin'";
+                $sql = "UPDATE db_clti.tb_pessoal_ti SET
+                    idtb_om_apoiadas='$omapoiada',idtb_posto_grad='$postograd', idtb_corpo_quadro='$corpoquadro', 
+                    idtb_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
+                    nome_guerra='$nomeguerra', senha='$senha', correio_eletronico='$correio_eletronico',
+                    funcao='ADMIN', status='$ativo'
+                    WHERE idtb_pessoal_ti='$idtb_pessoal_ti'";
             }
 
 
@@ -457,11 +427,18 @@ if ($act == 'insert') {
 
             /* Checa se há Admin com mesmo login cadastrado */
 
-            $sql = "SELECT * FROM db_clti.tb_admin WHERE nip = '$usuario' OR cpf = '$usuario' ";
-            $row = $pg->getRow($sql);
+            $nip_cpf = "SELECT * FROM db_clti.tb_pessoal_ti WHERE nip = '$usuario' OR cpf = '$usuario' ";
+            $nip_cpf = $pg->getRow($nip_cpf);
 
-            if ($row) {
+            $correio = "SELECT * FROM db_clti.tb_pessoal_ti WHERE correio_eletronico = '$correio_eletronico' ";
+            $correio = $pg->getRow($correio);
+
+            if ($nip_cpf) {
                 echo "<h5>Já existe um Admin cadastrado com esse NIP/CPF.</h5>";
+            }
+
+            elseif ($correio){
+                echo "<h5>Já existe um Admin cadastrado com esse Correio Eletrônico.</h5>";
             }
 
             else {
@@ -472,11 +449,12 @@ if ($act == 'insert') {
                 $salt = sha1(md5($usuario));
                 $senha = $salt.$hash;
 
-                $sql = "INSERT INTO db_clti.tb_admin(
-                    id_om,id_posto_grad, id_corpo_quadro, id_especialidade, 
-                    nip, cpf, nome, nome_guerra, senha, perfil, correio_eletronico, status)
+                $sql = "INSERT INTO db_clti.tb_pessoal_ti(
+                    idtb_om_apoiadas,idtb_posto_grad, idtb_corpo_quadro, idtb_especialidade, nip, 
+                    cpf, nome, nome_guerra, senha, correio_eletronico, funcao, status)
                     VALUES ('$omapoiada', '$postograd', '$corpoquadro', '$especialidade',
-                    '$nip', '$cpf', '$nome', '$nomeguerra', '$senha', 'ADMIN_OM', '$correio_eletronico', 'ATIVO')";
+                    '$nip', '$cpf', '$nome', '$nomeguerra', '$senha', '$correio_eletronico',
+                    'ADMIN', 'ATIVO')";
 
                 $pg->exec($sql);
 

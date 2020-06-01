@@ -76,22 +76,21 @@ if ($act == 'acesso') {
   $salt = sha1(md5($usuario));
   $senha = $salt.$hash;
 
-  $sql = "SELECT * FROM db_clti.tb_lotacao_clti WHERE nip = '$usuario' AND senha = '$senha'
+  $sql = "SELECT idtb_lotacao_clti FROM db_clti.tb_lotacao_clti WHERE nip = '$usuario' AND senha = '$senha'
       OR cpf = '$usuario' AND senha = '$senha'";
 
-  $row = $pg->getRow($sql);
+  $row = $pg->getCol($sql);
 
 	if ($row != NULL) {
-	$row = $pg->getRow($sql);
+
+        $row = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_clti WHERE idtb_lotacao_clti='$row'");
+
         $_SESSION['logged_in'] = true;
         $_SESSION['user_id'] = $row->idtb_lotacao_clti;
+        $_SESSION['posto_grad'] = $row->sigla_posto_grad;
         $_SESSION['user_name'] = $row->nome_guerra;
         $_SESSION['perfil'] = $row->perfil;
         $_SESSION['status'] = $row->status;
-
-        #$_SESSION['perfil'] = 'ADMIN_OM';
-        $_SESSION['id_om_apoiada'] = 1;
-        $_SESSION['om_apoiada'] = COM3ºDN;
         
         header('Location: index.php');
 	}

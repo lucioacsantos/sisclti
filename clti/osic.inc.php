@@ -11,7 +11,7 @@ require_once "../class/pgsql.class.php";
 $pg = new PgSql();
 
 /* Recupera informações dos OSIC */
-$sql = "SELECT * FROM db_clti.tb_osic";
+$sql = "SELECT * FROM db_clti.tb_pessoal_ti WHERE funcao='OSIC' AND status='ATIVO' ";
 
 $row = $pg->getRow($sql);
 
@@ -28,25 +28,13 @@ if ($act == 'cad') {
     @$param = $_GET['param'];
     @$senha = $_GET['senha'];
     if ($param){
-        $osic = $pg->getRow("SELECT * FROM db_clti.vw_osic WHERE idtb_osic = '$param'");
-        /*$osic_om = $pg->getRow("SELECT idtb_om_apoiadas,sigla FROM db_clti.tb_om_apoiadas 
-            WHERE idtb_om_apoiadas = '$osic->id_om'");
-        $osic_posto_grad = $pg->getRow("SELECT idtb_posto_grad,sigla FROM db_clti.tb_posto_grad 
-            WHERE idtb_posto_grad = '$osic->id_posto_grad'");
-        $osic_corpo_quadro = $pg->getRow("SELECT idtb_corpo_quadro,sigla FROM db_clti.tb_corpo_quadro 
-            WHERE idtb_corpo_quadro = '$osic->id_corpo_quadro'");
-        $osic_especialidade = $pg->getRow("SELECT idtb_especialidade,sigla FROM db_clti.tb_especialidade 
-            WHERE idtb_especialidade = '$osic->id_especialidade'");*/
+        $osic = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_ti WHERE idtb_pessoal_ti = '$param'");
     }
     else{
-        $osic = (object)['idtb_osic'=>'','nip'=>'','cpf'=>'','nome'=>'','nome_guerra'=>'',
-            'idtb_om_apoiadas'=>'','sigla'=>'','idtb_posto_grad'=>'8','sigla_posto_grad'=>'1ºTen',
+        $osic = (object)['idtb_pessoal_ti'=>'','nip'=>'','cpf'=>'','nome'=>'','nome_guerra'=>'',
+            'idtb_om_apoiadas'=>'','sigla_om'=>'','idtb_posto_grad'=>'8','sigla_posto_grad'=>'Primeiro Tenente',
             'idtb_corpo_quadro'=>'','sigla_corpo_quadro'=>'','idtb_especialidade'=>'','sigla_espec'=>'',
             'correio_eletronico'=>''];
-        /*$osic_om = (object)['idtb_om_apoiadas'=>'','sigla'=>''];
-        $osic_posto_grad = (object)['idtb_posto_grad'=>'8','sigla'=>'1ºTen'];
-        $osic_corpo_quadro = (object)['idtb_corpo_quadro'=>'','sigla'=>''];
-        $osic_especialidade = (object)['idtb_especialidade'=>'','sigla'=>''];*/
     }
 
 	$omapoiada = "SELECT * FROM db_clti.tb_om_apoiadas ORDER BY sigla ASC";
@@ -125,7 +113,7 @@ if ($act == 'cad') {
                                         <label for=\"omapoiada\">OM Apoiada:</label>
                                         <select id=\"omapoiada\" class=\"form-control\" name=\"omapoiada\">
                                             <option value=\"$osic->idtb_om_apoiadas\" selected=\"true\">
-                                                $osic->sigla</option>";
+                                                $osic->sigla_om</option>";
                                             foreach ($omapoiada as $key => $value) {
                                                 echo"<option value=\"".$value->idtb_om_apoiadas."\">
                                                     ".$value->sigla."</option>";
@@ -227,7 +215,7 @@ if ($act == 'cad') {
                                 <label for=\"omapoiada\">OM Apoiada:</label>
                                 <select id=\"omapoiada\" class=\"form-control\" name=\"omapoiada\">
                                     <option value=\"$osic->idtb_om_apoiadas\" selected=\"true\">
-                                        $osic->sigla</option>";
+                                        $osic->sigla_om</option>";
                                     foreach ($omapoiada as $key => $value) {
                                         echo"<option value=\"".$value->idtb_om_apoiadas."\">
                                             ".$value->sigla."</option>";
@@ -323,7 +311,7 @@ if ($act == 'cad') {
                             }
                         echo"
                         </fieldset>
-                        <input id=\"idtb_osic\" type=\"hidden\" name=\"idtb_osic\" value=\"$osic->idtb_osic\">
+                        <input id=\"idtb_osic\" type=\"hidden\" name=\"idtb_osic\" value=\"$osic->idtb_pessoal_ti\">
                         <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">
                     </form>
                 </div>
@@ -335,7 +323,7 @@ if ($act == 'cad') {
 /* Monta quadro de OSIC */
 if (($row) AND ($act == NULL)) {
 
-	$osic = "SELECT * FROM db_clti.tb_osic ORDER BY id_posto_grad DESC";
+	$osic = "SELECT * FROM db_clti.vw_pessoal_ti WHERE funcao = 'OSIC' ORDER BY idtb_posto_grad DESC";
     $osic = $pg->getRows($osic);
 
     echo"<div class=\"table-responsive\">
@@ -343,51 +331,31 @@ if (($row) AND ($act == NULL)) {
                 <thead>
                     <tr>
                         <th scope=\"col\">Posto/Grad./Esp.</th>
-                        <th scope=\"col\">NIP</th>
+                        <th scope=\"col\">NIP/CPF</th>
                         <th scope=\"col\">Nome</th>
                         <th scope=\"col\">Nome de Guerra</th>
                         <th scope=\"col\">Ações</th>
                     </tr>
                 </thead>";
 
-    foreach ($osic as $key => $value) {
-
-        #Seleciona Sigla do Posto/Graduação
-        $postograd = $pg->getCol("SELECT sigla FROM db_clti.tb_posto_grad WHERE idtb_posto_grad = $value->id_posto_grad");
-        
-        #Selectiona Sigla do Corpo/Quadro
-        if ($value->id_corpo_quadro != 11){
-            $corpoquadro = $pg->getCol("SELECT sigla FROM db_clti.tb_corpo_quadro 
-                WHERE idtb_corpo_quadro = $value->id_corpo_quadro");
-        }
-        else{
-            $corpoquadro = "";
-        }
-        
-        #Seleciona Sigla da Especialidade
-        if ($value->id_especialidade != 12 AND $value->id_especialidade != 13) {
-            $especialidade = $pg->getCol("SELECT sigla FROM db_clti.tb_especialidade 
-                WHERE idtb_especialidade = $value->id_especialidade");
-        }
-        else{
-            $especialidade = "";
-        }
+    foreach ($osic as $key => $value) {        
 
         #Seleciona NIP caso seja militar da MB
         if ($value->nip != NULL) {
             $identificacao = $value->nip;
         }
         else{
-            $identificacao = "";
+            $identificacao = $value->cpf;
         }
 
         echo"       <tr>
-                        <th scope=\"row\">".$postograd." ".$corpoquadro." ".$especialidade."</th>
+                        <th scope=\"row\">".$value->sigla_posto_grad." ".$value->sigla_corpo_quadro." 
+                            ".$value->sigla_espec."</th>
                         <td>".$identificacao."</td>
                         <td>".$value->nome."</td>
                         <td>".$value->nome_guerra."</td>
-                        <td><a href=\"?cmd=osic&act=cad&param=".$value->idtb_osic."\">Editar</a> - 
-                            <a href=\"?cmd=osic&act=cad&param=".$value->idtb_osic."&senha=troca\">Senha</a> - 
+                        <td><a href=\"?cmd=osic&act=cad&param=".$value->idtb_pessoal_ti."\">Editar</a> - 
+                            <a href=\"?cmd=osic&act=cad&param=".$value->idtb_pessoal_ti."&senha=troca\">Senha</a> - 
                             Excluir</td>
                     </tr>";
     }
@@ -400,7 +368,7 @@ if (($row) AND ($act == NULL)) {
 /* Método INSERT / UPDATE */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
-        $idtb_osic = $_POST['idtb_osic'];
+        $idtb_pessoal_ti = $_POST['idtb_osic'];
         $omapoiada = $_POST['omapoiada'];
         $postograd = $_POST['postograd'];
         $corpoquadro = $_POST['corpoquadro'];
@@ -420,15 +388,16 @@ if ($act == 'insert') {
         }
 
         /* Opta pelo Método Update */
-        if ($idtb_osic){
+        if ($idtb_pessoal_ti){
             $senha = $_POST['senha'];
 
             if($senha==NULL){
-                $sql = "UPDATE db_clti.tb_osic SET
-                id_om='$omapoiada',id_posto_grad='$postograd', id_corpo_quadro='$corpoquadro', 
-                id_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
-                nome_guerra='$nomeguerra', status='$ativo', correio_eletronico='$correio_eletronico'
-                WHERE idtb_osic='$idtb_osic'";
+                $sql = "UPDATE db_clti.tb_pessoal_ti SET
+                idtb_om_apoiadas='$omapoiada',idtb_posto_grad='$postograd', idtb_corpo_quadro='$corpoquadro', 
+                idtb_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
+                nome_guerra='$nomeguerra', correio_eletronico='$correio_eletronico',
+                funcao='OSIC', status='$ativo'
+                WHERE idtb_pessoal_ti='$idtb_pessoal_ti'";
             }
 
             else{
@@ -437,11 +406,12 @@ if ($act == 'insert') {
                 $salt = sha1(md5($usuario));
                 $senha = $salt.$hash;
 
-                $sql = "UPDATE db_clti.tb_osic SET
-                    id_om='$omapoiada',id_posto_grad='$postograd', id_corpo_quadro='$corpoquadro', 
-                    id_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', nome_guerra='$nomeguerra', 
-                    senha='$senha', status='$ativo', correio_eletronico='$correio_eletronico'
-                    WHERE idtb_osic='$idtb_osic'";
+                $sql = "UPDATE db_clti.tb_pessoal_ti SET
+                    idtb_om_apoiadas='$omapoiada',idtb_posto_grad='$postograd', idtb_corpo_quadro='$corpoquadro', 
+                    idtb_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
+                    nome_guerra='$nomeguerra', senha='$senha', correio_eletronico='$correio_eletronico',
+                    funcao='OSIC', status='$ativo'
+                    WHERE idtb_pessoal_ti='$idtb_pessoal_ti'";
             }
 
             $pg->exec($sql);
@@ -461,11 +431,18 @@ if ($act == 'insert') {
         else{
             /* Checa se há OSIC com mesmo login cadastrado */
 
-            $sql = "SELECT * FROM db_clti.tb_osic WHERE nip = '$usuario' OR cpf = '$usuario' ";
-            $row = $pg->getRow($sql);
-            
-            if ($row) {
-                echo "<h5>Já existe um Admin cadastrado com esse NIP/CPF.</h5>";
+            $nip_cpf = "SELECT * FROM db_clti.tb_pessoal_ti WHERE nip = '$usuario' OR cpf = '$usuario' ";
+            $nip_cpf = $pg->getRow($nip_cpf);
+
+            $correio = "SELECT * FROM db_clti.tb_pessoal_ti WHERE correio_eletronico = '$correio_eletronico' ";
+            $correio = $pg->getRow($correio);
+
+            if ($nip_cpf) {
+                echo "<h5>Já existe um OSIC cadastrado com esse NIP/CPF.</h5>";
+            }
+
+            elseif ($correio){
+                echo "<h5>Já existe um OSIC cadastrado com esse Correio Eletrônico.</h5>";
             }
 
             else {
@@ -475,11 +452,12 @@ if ($act == 'insert') {
                 $salt = sha1(md5($usuario));
                 $senha = $salt.$hash;
 
-                $sql = "INSERT INTO db_clti.tb_osic(
-                    id_om,id_posto_grad, id_corpo_quadro, id_especialidade, 
-                    nip, cpf, nome, nome_guerra, senha, perfil, status, correio_eletronico)
+                $sql = "INSERT INTO db_clti.tb_pessoal_ti(
+                    idtb_om_apoiadas,idtb_posto_grad, idtb_corpo_quadro, idtb_especialidade, nip, 
+                    cpf, nome, nome_guerra, senha, correio_eletronico, funcao, status)
                     VALUES ('$omapoiada', '$postograd', '$corpoquadro', '$especialidade',
-                    '$nip', '$cpf', '$nome', '$nomeguerra', '$senha', 'OSIC_OM', 'ATIVO','$correio_eletronico')";
+                    '$nip', '$cpf', '$nome', '$nomeguerra', '$senha', '$correio_eletronico',
+                    'OSIC', 'ATIVO')";
 
                 $pg->exec($sql);
 

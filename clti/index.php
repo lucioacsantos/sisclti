@@ -32,7 +32,6 @@ if (isset($_SESSION['user_name'])){
                 <h1 class=\"h2\">Gerenciamento - Tipos de CLTI</h1>
                 <div class=\"btn-toolbar mb-2 mb-md-0\">
                   <div class=\"btn-group mr-2\">
-                    <a href=\"?cmd=tipoclti\"><button class=\"btn btn-sm btn-outline-secondary\">Tipo do CLTI</button></a>
                     <a href=\"?cmd=gerclti\"><button class=\"btn btn-sm btn-outline-secondary\">Gerenciamento do CLTI</button></a>
                   </div>
                   <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
@@ -56,7 +55,6 @@ if (isset($_SESSION['user_name'])){
                 <h1 class=\"h2\">Gerenciamento - CLTI Ativo</h1>
                 <div class=\"btn-toolbar mb-2 mb-md-0\">
                   <div class=\"btn-group mr-2\">
-                    <a href=\"?cmd=tipoclti\"><button class=\"btn btn-sm btn-outline-secondary\">Tipo do CLTI</button></a>
                     <a href=\"?cmd=gerclti\"><button class=\"btn btn-sm btn-outline-secondary\">Dados do CLTI</button></a>
                   </div>
                   <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
@@ -201,7 +199,7 @@ if (isset($_SESSION['user_name'])){
                 <h1 class=\"h2\">Módulo de Gerenciamento do CLTI</h1>
                 <div class=\"btn-toolbar mb-2 mb-md-0\">
                   <div class=\"btn-group mr-2\">
-                    <a href=\"?cmd=tipoclti\"><button class=\"btn btn-sm btn-outline-secondary\">Tipo do CLTI</button></a>
+                    <!--<a href=\"?cmd=tipoclti\"><button class=\"btn btn-sm btn-outline-secondary\">Tipo do CLTI</button></a>-->
                     <a href=\"?cmd=gerclti\"><button class=\"btn btn-sm btn-outline-secondary\">Gerenciamento do CLTI</button></a>
                     <a href=\"?cmd=sistema\"><button class=\"btn btn-sm btn-outline-secondary\">Configurações</button></a>
                   </div>
@@ -213,9 +211,18 @@ if (isset($_SESSION['user_name'])){
               </div>
               <p>OM Apoiadas: ".$pg->getCol("SELECT COUNT(idtb_om_apoiadas)
                 FROM db_clti.tb_om_apoiadas;")." OM</p>
-              <p>Servidores: xx Servidores</p>
-              <p>Estações de Trabalho (ET): xx Estações de Trabalho</p>
-              <p>Pessoal de TI (OM Apoiadas): xx Técnicos de TI</p>
+              <p>Pessoal de TI (Admin): ".$pg->getCol("SELECT COUNT(idtb_admin)
+                FROM db_clti.tb_admin;")."</p>
+              <p>Pessoal de TI (OSIC): ".$pg->getCol("SELECT COUNT(idtb_osic)
+                FROM db_clti.tb_osic;")."</p>
+              <p>Pessoal de TI (Manutenção/Suporte): ".$pg->getCol("SELECT COUNT(idtb_pessoal_ti)
+                FROM db_clti.tb_pessoal_ti;")."</p>
+              <p>Servidores (Total): ".$pg->getCol("SELECT COUNT(idtb_servidores)
+                FROM db_clti.tb_servidores;")."</p>
+              <p>Estações de Trabalho (Total): ".$pg->getCol("SELECT COUNT(idtb_estacoes)
+                FROM db_clti.tb_estacoes;")."</p>
+              <p>Equipamentos de Conectividade (Total): ".$pg->getCol("SELECT COUNT(idtb_conectividade)
+                FROM db_clti.tb_conectividade;")."</p>
               <p>Chamados Totais: xx Chamados</p>
               <p>Chamados no Mês Corrente: xx Chamados</p>
               <p>Incidentes de TIC Relatados: xx Incidentes</p>
