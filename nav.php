@@ -72,6 +72,12 @@ $sigla = $pg->getCol($sql);
                   </a>
                 </li>
                 <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/clti/?cmd=qualificacao\">
+                    <span data-feather=\"book-open\"></span>
+                    Qualificação CLTI
+                  </a>
+                </li>
+                <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/clti/?cmd=osic\">
                     <span data-feather=\"users\"></span>
                     OSIC
