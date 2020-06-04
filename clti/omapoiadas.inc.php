@@ -1,9 +1,6 @@
 <?php
 /**
- * OMApoiadas
- * Operações relacionadas às OM Apoiadas
- * omapoiadas.class.php
- * 99242991 | Lúcio ALEXANDRE Correia dos Santos
+*** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
 /* Classe de interação com o PostgreSQL */

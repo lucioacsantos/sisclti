@@ -1,9 +1,6 @@
 <?php
 /**
- * MAIN
- * Área de visualização em HTML5
- * main.php
- * 99242991 | Lúcio ALEXANDRE Correia dos Santos
+*** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
 ?>

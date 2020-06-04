@@ -1,9 +1,6 @@
 <?php
 /**
- * HEAD
- * Início das páginas em HTML5
- * head.php
- * 99242991 | Lúcio ALEXANDRE Correia dos Santos
+*** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
 ?>
@@ -14,7 +11,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Sistema Integrado para Centros Locais de Tecnologia da Informação">
-    <meta name="author" content="@LucioACSantos | ajsantos.com.br">
+    <meta name="author" content="99242991 Lúcio ALEXANDRE Correia dos Santos">
     <?php echo "<link rel=\"icon\" href=\"$url/favicon.ico\">"; ?>
 
     <title>...::: SisCLTI :::...</title>

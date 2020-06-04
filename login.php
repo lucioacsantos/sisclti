@@ -1,9 +1,6 @@
 <?php
 /**
- * Login
- * Form para login dos administradores de OM
- * login.php
- * 99242991 | Lúcio ALEXANDRE Correia dos Santos
+*** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
 /* Classe de interação com o PostgreSQL */

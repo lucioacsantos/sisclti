@@ -1,9 +1,6 @@
 <?php
 /**
- * TipoCLTI
- * Configurações iniciais do tipo do CLTI
- * tipoclti.class.php
- * 99242991 | Lúcio ALEXANDRE Correia dos Santos
+*** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
 /* Classe de interação com o PostgreSQL */

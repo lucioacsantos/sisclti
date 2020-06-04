@@ -1,9 +1,6 @@
 <?php
 /**
- * NAV
- * Menus e acessórios de navegação HTML5
- * nav.php
- * 99242991 | Lúcio ALEXANDRE Correia dos Santos
+*** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
 $sql = "SELECT sigla FROM db_clti.tb_clti";
@@ -55,8 +52,8 @@ $sigla = $pg->getCol($sql);
                 echo"
                 <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/clti\">
-                    <span data-feather=\"briefcase\"></span>
-                    Módulo Gerência (CLTI)
+                    <span data-feather=\"settings\"></span>
+                    Configurações do Sistema
                   </a>
                 </li>
                 <li class=\"nav-item\">
@@ -89,10 +86,20 @@ $sigla = $pg->getCol($sql);
                     Admin
                   </a>
                 </li>
+                <h6 class=\"sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted\">
+                  <span>Ativos de TI</span>
+                  <span data-feather=\"plus-circle\"></span>
+                </h6>
                 <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/ativosti/?cmd=sistoperacionais\">
                     <span data-feather=\"globe\"></span>
                     Sistemas Operacionais
+                  </a>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/ativosti/?cmd=processadores\">
+                    <span data-feather=\"cpu\"></span>
+                    Processadores
                   </a>
                 </li>";
               }
@@ -111,10 +118,14 @@ $sigla = $pg->getCol($sql);
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="<?php echo "$url/ativosti/?cmd=conectividade"; ?>">
-                  <span data-feather="cpu"></span>
+                  <span data-feather="command"></span>
                   Equipamentos de Conectividade
                 </a>
               </li>
+              <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                  <span>Controle OM Apoiadas</span>
+                  <span data-feather="plus-circle"></span>
+                </h6>
               <li class="nav-item">
                 <a class="nav-link" href="<?php echo "$url/omapoiada/?cmd=pessoalti"; ?>">
                   <span data-feather="user-plus"></span>

@@ -1,9 +1,6 @@
 <?php
 /**
- * OSIC
- * Operações relacionadas aos OSIC
- * osci.class.php
- * 99242991 | Lúcio ALEXANDRE Correia dos Santos
+*** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
 /* Classe de interação com o PostgreSQL */

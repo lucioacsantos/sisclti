@@ -1,9 +1,6 @@
 <?php
 /**
- * Servidores
- * Configurações de Servidores
- * servidores.class.php
- * 99242991 | Lúcio ALEXANDRE Correia dos Santos
+*** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
 /* Classe de interação com o PostgreSQL */
@@ -27,17 +24,14 @@ if (($row == '0') AND ($act == NULL)) {
 if ($act == 'cad') {
     @$param = $_GET['param'];
     if ($param){
-        $conectividade = $pg->getRow("SELECT * FROM db_clti.tb_conectividade WHERE idtb_conectividade = '$param'");
-        $conectividade_om = $pg->getRow("SELECT * FROM db_clti.tb_om_apoiadas 
-            WHERE idtb_om_apoiadas = '$conectividade->idtb_om_apoiadas'");
+        $conectividade = $pg->getRow("SELECT * FROM db_clti.vw_conectividade WHERE idtb_conectividade = '$param'");
     }
     else{
         $conectividade = (object)['idtb_conectividade'=>'','idtb_om_apoiadas'=>'','modelo'=>'','end_ip'=>'','data_aquisicao'=>'',
-            'data_garantia'=>'','fabricante'=>'','localizacao'=>''];
-        $conectividade_om = (object)['idtb_conectividade'=>'','sigla'=>''];
+            'data_garantia'=>'','fabricante'=>'','localizacao'=>'','idtb_om_apoiadas'=>'','sigla'=>''];
     }
-    $omapoiada = "SELECT * FROM db_clti.tb_om_apoiadas ORDER BY sigla ASC";
-    $omapoiada = $pg->getRows($omapoiada);
+    $omapoiada = $pg->getRows("SELECT * FROM db_clti.tb_om_apoiadas ORDER BY sigla ASC");
+
 	echo "
 	<div class=\"container-fluid\">
         <div class=\"row\">
@@ -51,7 +45,7 @@ if ($act == 'cad') {
                         <label for=\"idtb_om_apoiadas\">OM Apoiada:</label>
                         <select id=\"idtb_om_apoiadas\" class=\"form-control\" name=\"idtb_om_apoiadas\">
                             <option value=\"$conectividade->idtb_om_apoiadas\" selected=\"true\">
-                                ".$conectividade_om->sigla."</option>";
+                                ".$conectividade->sigla."</option>";
                             foreach ($omapoiada as $key => $value) {
                                 echo"<option value=\"".$value->idtb_om_apoiadas."\">
                                     ".$value->sigla."</option>";
@@ -114,8 +108,7 @@ if ($act == 'cad') {
 
 /* Monta quadro com tipo do CLTI */
 if (($row) AND ($act == NULL)) {
-	$conectividade = "SELECT * FROM db_clti.tb_conectividade ORDER BY idtb_om_apoiadas ASC";
-    $conectividade = $pg->getRows($conectividade);
+	$conectividade = $pg->getRows("SELECT * FROM db_clti.vw_conectividade ORDER BY idtb_om_apoiadas ASC");
 
     echo"<div class=\"table-responsive\">
             <table class=\"table table-hover\">
@@ -132,10 +125,9 @@ if (($row) AND ($act == NULL)) {
     foreach ($conectividade as $key => $value) {
 
         #Seleciona Sigla da OM Apoiada
-        $omapoiada = $pg->getCol("SELECT sigla FROM db_clti.tb_om_apoiadas WHERE idtb_om_apoiadas = $value->idtb_om_apoiadas");
         
         echo"       <tr>
-                        <th scope=\"row\">".$omapoiada."</th>
+                        <th scope=\"row\">".$value->sigla."</th>
                         <td>".$value->fabricante."</td>
                         <td>".$value->modelo."</td>
                         <td>".$value->end_ip."</td>

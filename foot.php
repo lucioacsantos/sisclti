@@ -1,9 +1,6 @@
 <?php
 /**
- * Foot
- * Final das páginas em HTML5
- * foot.php
- * 99242991 | Lúcio ALEXANDRE Correia dos Santos
+*** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
 ?>

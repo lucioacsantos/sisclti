@@ -1,9 +1,6 @@
 <?php
 /**
- * Servidores
- * Configurações de Servidores
- * servidores.class.php
- * 99242991 | Lúcio ALEXANDRE Correia dos Santos
+*** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
 /* Classe de interação com o PostgreSQL */
@@ -27,20 +24,17 @@ if (($row == '0') AND ($act == NULL)) {
 if ($act == 'cad') {
     @$param = $_GET['param'];
     if ($param){
-        $servidor = $pg->getRow("SELECT * FROM db_clti.tb_servidores WHERE idtb_servidores = '$param'");
-        $srv_om = $pg->getRow("SELECT * FROM db_clti.tb_om_apoiadas WHERE idtb_om_apoiadas = '$servidor->idtb_om_apoiadas'");
-        $srv_sor = $pg->getRow("SELECT * FROM db_clti.tb_sor WHERE idtb_sor = '$servidor->idtb_sor'");
+        $servidor = $pg->getRow("SELECT * FROM db_clti.vw_servidores WHERE idtb_servidores = '$param'");
     }
     else{
-        $servidor = (object)['idtb_servidores'=>'','idtb_om_apoiadas'=>'','modelo'=>'','processador'=>'','memoria'=>'',
-            'armazenamento'=>'','rede'=>'','idtb_sor'=>'','end_ip'=>'','finalidade'=>'','data_aquisicao'=>'',
-            'data_garantia'=>'','fabricante'=>'','localizacao'=>''];
-        $srv_om = (object)['idtb_om_apoiadas'=>'','sigla'=>''];
+        $servidor = (object)['idtb_servidores'=>'','idtb_om_apoiadas'=>'','sigla'=>'','modelo'=>'','idtb_proc_modelo'=>'',
+            'clock_proc'=>'','qtde_proc'=>'','memoria'=>'','armazenamento'=>'','idtb_sor'=>'','end_ip'=>'', 'end_mac'=>'',
+            'finalidade'=>'','data_aquisicao'=>'','data_garantia'=>'','fabricante'=>'','localizacao'=>'','proc_fab'=>'',
+            'proc_modelo'=>'','versao'=>'','descricao'=>''];
     }
-    $omapoiada = "SELECT * FROM db_clti.tb_om_apoiadas ORDER BY sigla ASC";
-    $omapoiada = $pg->getRows($omapoiada);
-    $so = "SELECT * FROM db_clti.tb_sor ORDER BY desenvolvedor,versao ASC";
-    $so = $pg->getRows($so);
+    $omapoiada = $pg->getRows("SELECT * FROM db_clti.tb_om_apoiadas ORDER BY sigla ASC");
+    $so = $pg->getRows("SELECT * FROM db_clti.tb_sor ORDER BY desenvolvedor,versao ASC");
+    $proc = $pg->getRows("SELECT * FROM db_clti.vw_processadores ORDER BY fabricante ASC");
 	echo "
 	<div class=\"container-fluid\">
         <div class=\"row\">
@@ -54,7 +48,7 @@ if ($act == 'cad') {
                                 <label for=\"idtb_om_apoiadas\">OM Apoiada:</label>
                                 <select id=\"idtb_om_apoiadas\" class=\"form-control\" name=\"idtb_om_apoiadas\">
                                     <option value=\"$servidor->idtb_om_apoiadas\" selected=\"true\">
-                                        $srv_om->sigla</option>";
+                                        $servidor->sigla</option>";
                                     foreach ($omapoiada as $key => $value) {
                                         echo"<option value=\"".$value->idtb_om_apoiadas."\">
                                             ".$value->sigla."</option>";
@@ -77,38 +71,69 @@ if ($act == 'cad') {
                             </div>
 
                             <div class=\"form-group\">
-                                <label for=\"processador\">Processador:</label>
-                                <input id=\"processador\" class=\"form-control\" type=\"text\" name=\"processador\"
-                                       placeholder=\"ex. Intel Xeon 3.2GHz\" style=\"text-transform:uppercase\" 
-                                       value=\"$servidor->processador\" required=\"true\">
+                                <label for=\"idtb_proc_modelo\">Processador:</label>
+                                <select id=\"idtb_proc_modelo\" class=\"form-control\" name=\"idtb_proc_modelo\">
+                                <option value=\"$servidor->idtb_proc_modelo\" selected=\"true\">
+                                        ".$servidor->proc_fab." - ".$servidor->proc_modelo."</option>";
+                                    foreach ($proc as $key => $value) {
+                                        echo"<option value=\"".$value->idtb_proc_modelo."\">
+                                            ".$value->fabricante." - ".$value->modelo."</option>";
+                                    };
+                                echo "</select>
                             </div>
 
                             <div class=\"form-group\">
-                                <label for=\"memoria\">Memória:</label>
+                                <label for=\"clock_proc\">Clock do Processador:</label>
+                                <input id=\"clock_proc\" class=\"form-control\" type=\"number\" name=\"clock_proc\"
+                                    min=\"0\" step=\"0.1\" placeholder=\"ex. 3.2 (Em GHZ)\" 
+                                    value=\"$servidor->clock_proc\" required=\"true\">
+                            </div>
+
+                            <div class=\"form-group\">
+                                <label for=\"qtde_proc\">Número de Processadores:</label>
+                                <input id=\"qtde_proc\" class=\"form-control\" type=\"number\" name=\"qtde_proc\"
+                                    placeholder=\"Qtde. Processadores Físicos\" value=\"$servidor->qtde_proc\" 
+                                    required=\"true\">
+                            </div>
+
+                            <div class=\"form-group\">
+                                <label for=\"memoria\">Memória (Total em GB):</label>
                                 <input id=\"memoria\" class=\"form-control\" type=\"text\" name=\"memoria\"
-                                       placeholder=\"ex. 2x16GB (Qtde x Tamanho GB)\" style=\"text-transform:uppercase\" 
+                                       placeholder=\"ex. 32 (Total em GB)\" style=\"text-transform:uppercase\" 
                                        value=\"$servidor->memoria\" required=\"true\">
                             </div>
 
                             <div class=\"form-group\">
-                                <label for=\"armazenamento\">Armazenamento:</label>
+                                <label for=\"armazenamento\">Armazenamento (Total em GB):</label>
                                 <input id=\"armazenamento\" class=\"form-control\" type=\"text\" name=\"armazenamento\"
-                                       placeholder=\"ex. 4x600GB SAS (Qtde x Tamanho GB Tipo)\" style=\"text-transform:uppercase\" 
+                                       placeholder=\"ex. 500 (Total em GB)\" style=\"text-transform:uppercase\" 
                                        value=\"$servidor->armazenamento\" required=\"true\">
-                            </div>
-
-                            <div class=\"form-group\">
-                                <label for=\"rede\">Rede:</label>
-                                <input id=\"rede\" class=\"form-control\" type=\"text\" name=\"rede\"
-                                       placeholder=\"ex. 2xGigaBit (Qtde x Tipo)\" style=\"text-transform:uppercase\" 
-                                       value=\"$servidor->rede\" required=\"true\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"end_ip\">Endereço IP:</label>
                                 <input id=\"end_ip\" class=\"form-control\" type=\"text\" name=\"end_ip\"
-                                       placeholder=\"ex. 192.168.1.1\" style=\"text-transform:uppercase\" 
-                                       value=\"$servidor->end_ip\" required=\"true\">
+                                    placeholder=\"ex. 192.168.1.1\" style=\"text-transform:uppercase\"
+                                    value=\"$servidor->end_ip\" maxlength=\"15\" required=\"true\">
+                            </div>
+
+                            <div class=\"form-group\">
+                                <label for=\"end_mac\">Endereço MAC:</label>
+                                <input id=\"end_mac\" class=\"form-control\" type=\"text\" name=\"end_mac\"
+                                    placeholder=\"ex. FF-FF-FF-FF-FF-FF-FF-FF\" style=\"text-transform:uppercase\"
+                                    value=\"$servidor->end_mac\" maxlength=\"23\" required=\"true\">
+                            </div>
+
+                            <div class=\"form-group\">
+                                <label for=\"idtb_sor\">Sistema Operacional:</label>
+                                <select id=\"idtb_sor\" class=\"form-control\" name=\"idtb_sor\">
+                                    <option value=\"$servidor->idtb_sor\" selected=\"true\">
+                                        ".$servidor->descricao." - ".$servidor->versao."</option>";
+                                    foreach ($so as $key => $value) {
+                                        echo"<option value=\"".$value->idtb_sor."\">
+                                            ".$value->descricao." - ".$value->versao."</option>";
+                                    };
+                                echo "</select>
                             </div>
 
                             <div class=\"form-group\">
@@ -116,18 +141,6 @@ if ($act == 'cad') {
                                 <input id=\"finalidade\" class=\"form-control\" type=\"text\" name=\"finalidade\"
                                        placeholder=\"ex. Servidor Web\" style=\"text-transform:uppercase\" 
                                        value=\"$servidor->finalidade\" required=\"true\">
-                            </div>
-
-                            <div class=\"form-group\">
-                                <label for=\"sor\">Sistema Operacional:</label>
-                                <select id=\"sor\" class=\"form-control\" name=\"sor\">
-                                    <option value=\"$servidor->idtb_sor\" selected=\"true\">
-                                        ".$srv_sor->descricao." - ".$srv_sor->versao."</option>";
-                                    foreach ($so as $key => $value) {
-                                        echo"<option value=\"".$value->idtb_sor."\">
-                                            ".$value->descricao." - ".$value->versao."</option>";
-                                    };
-                                echo "</select>
                             </div>
 
                             <div class=\"form-group\">
@@ -147,7 +160,24 @@ if ($act == 'cad') {
                                 <label for=\"data_garantia\">Final da Garantia/Suporte:</label>
                                 <input id=\"data_garantia\" class=\"form-control\" type=\"date\" name=\"data_garantia\"
                                     style=\"text-transform:uppercase\" value=\"$servidor->data_garantia\" required=\"true\">
-                            </div>
+                            </div>";
+                            if ($param){
+                                echo"
+                                <div class=\"form-group\">
+                                <label for=\"status\">Situação:</label>
+                                <select id=\"status\" class=\"form-control\" name=\"status\">
+                                    <option value=\"$servidor->status\" selected=\"true\">
+                                        $servidor->status</option>
+                                    <option value=\"EM PRODUÇÃO\">EM PRODUÇÃO</option>
+                                    <option value=\"EM MANUTENÇÃO\">EM MANUTENÇÃO</option>
+                                </select>
+                            </div>";
+                            }
+                            else{
+                                echo"<input id=\"status\" type=\"hidden\" name=\"status\" 
+                                value=\"EM PRODUÇÃO\">";
+                            }
+                        echo"
 
                         </fieldset>
                         <input id=\"idtb_servidores\" type=\"hidden\" name=\"idtb_servidores\" 
@@ -162,7 +192,8 @@ if ($act == 'cad') {
 
 /* Monta quadro com tipo do CLTI */
 if (($row) AND ($act == NULL)) {
-	$srv = "SELECT * FROM db_clti.tb_servidores ORDER BY idtb_om_apoiadas ASC";
+
+	$srv = "SELECT * FROM db_clti.vw_servidores ORDER BY idtb_om_apoiadas ASC";
     $srv = $pg->getRows($srv);
 
     echo"<div class=\"table-responsive\">
@@ -173,35 +204,37 @@ if (($row) AND ($act == NULL)) {
                         <th scope=\"col\">Fabricante/Modelo</th>
                         <th scope=\"col\">Hardware</th>
                         <th scope=\"col\">Sistema Operacional</th>
-                        <th scope=\"col\">Endereço IP</th>
+                        <th scope=\"col\">Endereço IP/MAC</th>
+                        <th scope=\"col\">Situação</th>
                         <th scope=\"col\">Ações</th>
                     </tr>
                 </thead>";
 
     foreach ($srv as $key => $value) {
-
-        #Seleciona Sigla da OM Apoiada
-        $omapoiada = $pg->getCol("SELECT sigla FROM db_clti.tb_om_apoiadas WHERE idtb_om_apoiadas = $value->idtb_om_apoiadas");
-
-        #Seleciona Sistema Operacional
-        $sor = $pg->getRows("SELECT descricao, versao FROM db_clti.tb_sor WHERE idtb_sor = $value->idtb_sor");
         
         echo"       <tr>
-                        <th scope=\"row\">".$omapoiada."</th>
-                        <td>".$value->fabricante." / ".$value->modelo."</td>
-                        <td>".$value->processador." / ".$value->memoria." / ".$value->armazenamento."".$value->rede."</td>
-                        <td>".$value->end_ip."</td>
-                        <td>";
-                            foreach ($sor as $key => $sor){
-                                echo"$sor->descricao"." "."$sor->versao";
-                            }
-                 echo  "</td>
-                        <td><a href=\"?cmd=servidores&act=cad&param=".$value->idtb_servidores."\">Editar</a> - 
-                            Excluir</td>
-                    </tr>";
-    }
-    echo"
-                </tbody>
+                    <th scope=\"row\">".$value->sigla."</th>
+                    <td>".$value->fabricante." / ".$value->modelo."</td>
+                    <td>".$value->proc_fab." - ".$value->proc_modelo." - ".$value->clock_proc." GHz "
+                        .$value->memoria." GB/RAM ".$value->armazenamento." GB/HD</td>
+                    <td>".$value->descricao." - ".$value->versao."</td>
+                    <td>".$value->end_ip." / ".$value->end_mac."</td>
+                    <td>";
+                    if ($value->status == "EM PRODUÇÃO"){
+                        echo "<span data-feather=\"check-circle\"></span></td>";
+                    }
+                    if ($value->status == "EM MANUTENÇÃO"){
+                        echo "<span data-feather=\"activity\"></span></td>";
+                    }
+                    if ($value->status == "SEM ATIVIDADE"){
+                        echo "<span data-feather=\"alert-triangle\"></span></td>";
+                    }
+            echo  "<td><a href=\"?cmd=estacoes&act=cad&param=".$value->idtb_servidores."\">Editar</a> - 
+                    Excluir</td>
+                </tr>";
+            }
+            echo"
+            </tbody>
             </table>
             </div>";
 }
@@ -209,106 +242,107 @@ if (($row) AND ($act == NULL)) {
 /* Método INSERT */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
-        @$param = $_GET['param'];
-        if ($param){
-            $sor = $pg->getRow("SELECT * FROM db_clti.tb_sor WHERE idtb_sor = '$param'");
-        }
-        else{
-            $sor = (object)['idtb_sor'=>'','desenvolvedor'=>'','descricao'=>'','versao'=>'','situacao'=>''];
-        }
         $idtb_servidores = $_POST['idtb_servidores'];
         $idtb_om_apoiadas = $_POST['idtb_om_apoiadas'];
         $fabricante = strtoupper($_POST['fabricante']);
         $modelo = strtoupper($_POST['modelo']);
-        $processador = strtoupper($_POST['processador']);
-        $memoria = strtoupper($_POST['memoria']);
-        $armazenamento = strtoupper($_POST['armazenamento']);
-        $rede = strtoupper($_POST['rede']);
+        $idtb_proc_modelo = $_POST['idtb_proc_modelo'];
+        $clock_proc = $_POST['clock_proc'];
+        $qtde_proc = $_POST['qtde_proc'];
+        $memoria = $_POST['memoria'];
+        $armazenamento = $_POST['armazenamento'];
         $end_ip = $_POST['end_ip'];
+        $end_mac = $_POST['end_mac'];
         $finalidade = strtoupper($_POST['finalidade']);
-        $sor = $_POST['sor'];
+        $idtb_sor = $_POST['idtb_sor'];
         $localizacao = strtoupper($_POST['localizacao']);
         $data_aquisicao = $_POST['data_aquisicao'];
         $data_garantia = $_POST['data_garantia'];
+        $status = $_POST['status'];
 
         /* Opta pelo Método Update */
         if ($idtb_servidores){
-            if (isset($_SESSION['status'])){
-                $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_conectividade WHERE end_ip = '$end_ip'");
-                $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_estacoes WHERE end_ip = '$end_ip'");
-                $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_servidores WHERE end_ip = '$end_ip'");
 
-                if ($checa_ip){
-                    echo "<h5>Endereço IP informado já está em uso, 
-                        por favor verifique!</h5>
-                        <meta http-equiv=\"refresh\" content=\"5;url=?cmd=servidores\">";
-                }
+            $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_conectividade WHERE end_ip = '$end_ip'");
+            $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_estacoes WHERE end_ip = '$end_ip'");
+            $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_servidores WHERE end_ip = '$end_ip'");
 
-                else{
-
-                    $sql = "UPDATE db_clti.tb_servidores SET 
-                    idtb_om_apoiadas='$idtb_om_apoiadas', fabricante='$fabricante', modelo='$modelo', processador='$processador', 
-                        memoria='$memoria', armazenamento='$armazenamento', rede='$rede', end_ip='$end_ip', finalidade='$finalidade', 
-                        idtb_sor='$sor', localizacao='$localizacao', data_aquisicao='$data_aquisicao', data_garantia='$data_garantia'
-                    WHERE idtb_servidores='$idtb_servidores'";
-            
-                    $pg->exec($sql);
-                
-                    foreach ($pg as $key => $value) {
-                        if ($value != '0') {
-                            echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                            <meta http-equiv=\"refresh\" content=\"1;url=?cmd=servidores\">";
-                        }
-                
-                        else {
-                            echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                        }
-                    break;
-                    }
-
-                }
-
+            if ($checa_ip){
+                echo "<h5>Endereço IP informado já está em uso, 
+                    por favor verifique!</h5>
+                    <meta http-equiv=\"refresh\" content=\"5;url=?cmd=servidores\">";
             }
 
-            /* Opta pelo Método Insert */
             else{
 
-                $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_conectividade WHERE end_ip = '$end_ip'");
-                $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_estacoes WHERE end_ip = '$end_ip'");
-                $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_servidores WHERE end_ip = '$end_ip'");
-
-                if ($checa_ip){
-                    echo "<h5>Endereço IP informado já está em uso, 
-                        por favor verifique!</h5>
-                        <meta http-equiv=\"refresh\" content=\"5;url=?cmd=servidores\">";
-                }
-
-                else{
-
-                    $sql = "INSERT INTO db_clti.tb_servidores(
-                        idtb_om_apoiadas, fabricante, modelo, processador, memoria, armazenamento, rede, end_ip, 
-                            finalidade, idtb_sor, localizacao, data_aquisicao, data_garantia)
-                        VALUES ('$idtb_om_apoiadas', '$fabricante', '$modelo', '$processador', '$memoria', '$armazenamento', 
-                            '$rede', '$end_ip', '$finalidade', '$sor', '$localizacao', '$data_aquisicao', '$data_garantia')";
-                
-                    $pg->exec($sql);
-                
-                    foreach ($pg as $key => $value) {
-                        if ($value != '0') {
-                            echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                            <meta http-equiv=\"refresh\" content=\"1;url=?cmd=servidores\">";
-                        }
-                
-                        else {
-                            echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                        }
-                    break;
+                $sql = "UPDATE db_clti.tb_servidores SET 
+                    idtb_om_apoiadas='$idtb_om_apoiadas', fabricante='$fabricante', modelo='$modelo', 
+                    idtb_proc_modelo='$idtb_proc_modelo', clock_proc='$clock_proc', qtde_proc='$qtde_proc', memoria='$memoria', 
+                    armazenamento='$armazenamento', end_ip='$end_ip', end_mac='$end_mac', idtb_sor='$idtb_sor', 
+                    finalidade='$finalidade', data_aquisicao='$data_aquisicao', data_garantia='$data_garantia', 
+                    localizacao='$localizacao', status='$status'
+                WHERE idtb_servidores='$idtb_servidores'";
+        
+                $pg->exec($sql);
+            
+                foreach ($pg as $key => $value) {
+                    if ($value != '0') {
+                        echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                        <meta http-equiv=\"refresh\" content=\"1;url=?cmd=servidores\">";
                     }
-
+            
+                    else {
+                        echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                    }
+                break;
                 }
 
             }
+
         }
+
+        /* Opta pelo Método Insert */
+        else{
+
+            $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_conectividade WHERE end_ip = '$end_ip'");
+            $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_estacoes WHERE end_ip = '$end_ip'");
+            $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_servidores WHERE end_ip = '$end_ip'");
+
+            if ($checa_ip){
+                echo "<h5>Endereço IP informado já está em uso, 
+                    por favor verifique!</h5>
+                    <meta http-equiv=\"refresh\" content=\"5;url=?cmd=servidores\">";
+            }
+
+            else{
+
+                $sql = "INSERT INTO db_clti.tb_servidores(
+                        idtb_om_apoiadas, fabricante, modelo, idtb_proc_modelo, clock_proc, 
+                        qtde_proc, memoria, armazenamento, end_ip, end_mac, idtb_sor, 
+                        finalidade, data_aquisicao, data_garantia, localizacao, status)
+
+                    VALUES ('$idtb_om_apoiadas', '$fabricante', '$modelo', '$idtb_proc_modelo', '$clock_proc',
+                        '$qtde_proc', '$memoria', '$armazenamento','$end_ip', '$end_mac', '$idtb_sor', '$finalidade', 
+                        '$data_aquisicao', '$data_garantia', '$localizacao', '$status')";
+            
+                $pg->exec($sql);
+            
+                foreach ($pg as $key => $value) {
+                    if ($value != '0') {
+                        echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                        <meta http-equiv=\"refresh\" content=\"1;url=?cmd=servidores\">";
+                    }
+            
+                    else {
+                        echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                    }
+                break;
+                }
+
+            }
+
+        }
+
     }
     else{
         echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>

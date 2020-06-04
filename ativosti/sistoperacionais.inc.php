@@ -1,9 +1,6 @@
 <?php
 /**
- * SistemasOperacionais
- * Gerenciamento de SO/SOR
- * sistoperacionais.inc.php
- * 99242991 | Lúcio ALEXANDRE Correia dos Santos
+*** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
 /* Classe de interação com o PostgreSQL */
@@ -45,7 +42,7 @@ if ($act == 'cad') {
                             <div class=\"form-group\">
                                 <label for=\"desenvolvedor\">Desenvolvedor:</label>
                                 <input id=\"desenvolvedor\" class=\"form-control\" type=\"text\" name=\"desenvolvedor\"
-                                       placeholder=\"Desenvolvedor\" style=\"text-transform:uppercase\" 
+                                       placeholder=\"Desenvolvedor\" style=\"text-transform:uppercase\" autofocus=\"true\"
                                        required=\"true\" value=\"$sor->desenvolvedor\">
                             </div>
                             <div class=\"form-group\">
@@ -72,6 +69,7 @@ if ($act == 'cad') {
                             </div>
 
                         </fieldset>
+                        <input type=\"hidden\" name=\"idtb_sor\" value=\"$sor->idtb_sor\">
                         <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">
                     </form>
                 </div>
@@ -114,28 +112,49 @@ if (($row) AND ($act == NULL)) {
             </div>";
 }
 
-/* Método INSERT */
+/* Método INSERT/UPDATE */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
+        $idtb_sor = $_POST['idtb_sor'];
         $desenvolvedor = strtoupper($_POST['desenvolvedor']);
         $descricao = strtoupper($_POST['descricao']);
         $versao = strtoupper($_POST['versao']);
         $situacao = $_POST['situacao'];
         
-        $sql = "INSERT INTO db_clti.tb_sor(
-            desenvolvedor, descricao, versao, situacao)
-            VALUES ('$desenvolvedor', '$descricao', '$versao', '$situacao')";
-        
-        $pg->exec($sql);
-
-        if ($pg) {
-            echo "<h5>Resgistros incluídos no banco de dados.</h5>
-            <meta http-equiv=\"refresh\" content=\"1;url=?cmd=sistoperacionais\">";
+        if ($idtb_sor){
+            $sql = "UPDATE db_clti.tb_sor SET
+                desenvolvedor='$desenvolvedor', descricao='$descricao', versao='$versao', situacao='$situacao'
+                WHERE idtb_sor='$idtb_sor' ";
+            
+            $pg->exec($sql);
+    
+            if ($pg) {
+                echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=sistoperacionais\">";
+            }
+    
+            else {
+                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                echo(pg_result_error($pg) . "<br />\n");
+            }
         }
 
         else {
-            echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-            echo(pg_result_error($pg) . "<br />\n");
+            $sql = "INSERT INTO db_clti.tb_sor(
+                desenvolvedor, descricao, versao, situacao)
+                VALUES ('$desenvolvedor', '$descricao', '$versao', '$situacao')";
+            
+            $pg->exec($sql);
+    
+            if ($pg) {
+                echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=sistoperacionais\">";
+            }
+    
+            else {
+                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                echo(pg_result_error($pg) . "<br />\n");
+            }
         }
     }
     else{

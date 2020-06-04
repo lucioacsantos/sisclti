@@ -1,9 +1,6 @@
 <?php
 /**
- * Login
- * Form login para técnicos do CLTI
- * login_clti.php
- * 99242991 | Lúcio ALEXANDRE Correia dos Santos
+*** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
 /* Classe de interação com o PostgreSQL */

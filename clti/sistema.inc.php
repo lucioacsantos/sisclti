@@ -1,9 +1,6 @@
 <?php
 /**
- * GerCLTI
- * Gerenciamento de parâmetros do CLTI
- * gerclti.class.php
- * 99242991 | Lúcio ALEXANDRE Correia dos Santos
+*** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
 /* Clasee de interação com o PostgreSQL */

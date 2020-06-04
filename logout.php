@@ -1,9 +1,6 @@
 <?php
 /**
- * Logout
- * Encerra sessões abertas | finaliza login de usuário
- * logout.php
- * 99242991 | Lúcio ALEXANDRE Correia dos Santos
+*** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
  
 // inicia a sessão

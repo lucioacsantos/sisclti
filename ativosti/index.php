@@ -1,9 +1,6 @@
 <?php
 /**
- * Index
- * Carrega estrutura em HTML5
- * index.php
- * 99242991 | Lúcio ALEXANDRE Correia dos Santos
+*** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
 /* Clasee de interação com o PostgreSQL */
@@ -41,6 +38,31 @@ switch ($cmd) {
 		include "sistoperacionais.inc.php";
 		echo"
 		</main>
+      </div>
+    </div>";
+
+    break;
+  
+  case 'processadores':
+    echo "
+        <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
+          <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
+            <h1 class=\"h2\">Gerenciamento - Processadores</h1>
+            <div class=\"btn-toolbar mb-2 mb-md-0\">
+              <div class=\"btn-group mr-2\">
+                <a href=\"?cmd=processadores\"><button class=\"btn btn-sm btn-outline-secondary\">Processadores</button></a>
+                <a href=\"?cmd=processadores&act=cadfab\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro Fabricante</button></a>
+                <a href=\"?cmd=processadores&act=cadproc\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro Processador</button></a>
+              </div>
+              <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
+                <span data-feather=\"calendar\"></span>
+                Esta Semana
+              </button>-->
+            </div>
+          </div>";
+    include "processadores.inc.php";
+    echo"
+    </main>
       </div>
     </div>";
 

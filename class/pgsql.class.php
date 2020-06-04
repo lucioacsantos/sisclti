@@ -1,9 +1,6 @@
 <?php
 /**
- * PostgreSQL Class
- * Classe para Query no Banco de Dados
- * pgsql.class.php
- * 99242991 | Lúcio ALEXANDRE Correia dos Santos
+*** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
 /* Inicializa Sessão */

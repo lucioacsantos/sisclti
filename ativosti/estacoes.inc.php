@@ -1,9 +1,6 @@
 <?php
 /**
- * Servidores
- * Configurações de Servidores
- * servidores.class.php
- * 99242991 | Lúcio ALEXANDRE Correia dos Santos
+*** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
 /* Classe de interação com o PostgreSQL */
@@ -27,20 +24,17 @@ if (($row == '0') AND ($act == NULL)) {
 if ($act == 'cad') {
     @$param = $_GET['param'];
     if ($param){
-        $estacoes = $pg->getRow("SELECT * FROM db_clti.tb_estacoes WHERE idtb_estacoes = '$param'");
-        $et_om = $pg->getRow("SELECT * FROM db_clti.tb_om_apoiadas WHERE idtb_om_apoiadas = '$estacoes->idtb_om_apoiadas'");
-        $et_sor = $pg->getRow("SELECT * FROM db_clti.tb_sor WHERE idtb_sor = '$estacoes->idtb_sor'");
+        $estacoes = $pg->getRow("SELECT * FROM db_clti.vw_estacoes WHERE idtb_estacoes = '$param'");
     }
     else{
-        $estacoes = (object)['idtb_estacoes'=>'','idtb_om_apoiadas'=>'','modelo'=>'','processador'=>'','memoria'=>'',
-            'armazenamento'=>'','idtb_sor'=>'','end_ip'=>'','data_aquisicao'=>'','data_garantia'=>'',
-            'fabricante'=>'','localizacao'=>'','req_minimos'=>'','situacao'=>''];
-        $et_om = (object)['idtb_om_apoiadas'=>'','sigla'=>''];
+        $estacoes = (object)['idtb_estacoes'=>'','idtb_om_apoiadas'=>'','sigla'=>'','fabricante'=>'','modelo'=>'',
+            'idtb_proc_modelo'=>'','proc_modelo'=>'','proc_fab'=>'','clock_proc'=>'','memoria'=>'','armazenamento'=>'',
+            'idtb_sor'=>'','descricao'=>'','versao'=>'','end_ip'=>'','end_mac'=>'','data_aquisicao'=>'NULL',
+            'data_garantia'=>'NULL','localizacao'=>'','req_minimos'=>'','situacao'=>''];
     }
-    $omapoiada = "SELECT * FROM db_clti.tb_om_apoiadas ORDER BY sigla ASC";
-    $omapoiada = $pg->getRows($omapoiada);
-    $so = "SELECT * FROM db_clti.tb_sor ORDER BY desenvolvedor,versao ASC";
-    $so = $pg->getRows($so);
+    $omapoiada = $pg->getRows("SELECT * FROM db_clti.tb_om_apoiadas ORDER BY sigla ASC");
+    $so = $pg->getRows("SELECT * FROM db_clti.tb_sor ORDER BY desenvolvedor,versao ASC");
+    $proc = $pg->getRows("SELECT * FROM db_clti.vw_processadores ORDER BY fabricante ASC");
 	echo "
 	<div class=\"container-fluid\">
         <div class=\"row\">
@@ -54,7 +48,7 @@ if ($act == 'cad') {
                             <label for=\"idtb_om_apoiadas\">OM Apoiada:</label>
                             <select id=\"idtb_om_apoiadas\" class=\"form-control\" name=\"idtb_om_apoiadas\">
                                 <option value=\"$estacoes->idtb_om_apoiadas\" selected=\"true\">
-                                    ".$et_om->sigla."</option>";
+                                    ".$estacoes->sigla."</option>";
                                 foreach ($omapoiada as $key => $value) {
                                     echo"<option value=\"".$value->idtb_om_apoiadas."\">
                                         ".$value->sigla."</option>";
@@ -77,31 +71,41 @@ if ($act == 'cad') {
                         </div>
 
                         <div class=\"form-group\">
-                            <label for=\"processador\">Processador:</label>
-                            <input id=\"processador\" class=\"form-control\" type=\"text\" name=\"processador\"
-                                   placeholder=\"ex. Intel Core i5 3.2GHz\" style=\"text-transform:uppercase\" 
-                                   value=\"$estacoes->processador\" required=\"true\">
+                            <label for=\"idtb_proc_modelo\">Processador:</label>
+                            <select id=\"idtb_proc_modelo\" class=\"form-control\" name=\"idtb_proc_modelo\">
+                            <option value=\"$estacoes->idtb_proc_modelo\" selected=\"true\">
+                                    ".$estacoes->proc_fab." - ".$estacoes->proc_modelo."</option>";
+                                foreach ($proc as $key => $value) {
+                                    echo"<option value=\"".$value->idtb_proc_modelo."\">
+                                        ".$value->fabricante." - ".$value->modelo."</option>";
+                                };
+                            echo "</select>
+                        </div>
+
+                        <div class=\"form-group\">
+                            <label for=\"clock_proc\">Clock do Processador:</label>
+                            <input id=\"clock_proc\" class=\"form-control\" type=\"number\" name=\"clock_proc\"
+                                min=\"0\" step=\"0.1\" placeholder=\"ex. 3.2 (Em GHZ)\" 
+                                value=\"$estacoes->clock_proc\" required=\"true\">
                         </div>
 
                         <div class=\"form-group\">
                             <label for=\"memoria\">Memória:</label>
-                            <input id=\"memoria\" class=\"form-control\" type=\"text\" name=\"memoria\"
-                                   placeholder=\"ex. 2x8GB (Qtde x Tamanho GB)\" style=\"text-transform:uppercase\" 
-                                   value=\"$estacoes->memoria\" required=\"true\">
+                            <input id=\"memoria\" class=\"form-control\" type=\"number\" name=\"memoria\"
+                                   placeholder=\"ex. 16 (Total em GB)\" value=\"$estacoes->memoria\" required=\"true\">
                         </div>
 
                         <div class=\"form-group\">
-                            <label for=\"armazenamento\">Armazenamento:</label>
-                            <input id=\"armazenamento\" class=\"form-control\" type=\"text\" name=\"armazenamento\"
-                                   placeholder=\"ex. 1x500GB SATA (Qtde x Tamanho GB Tipo)\" style=\"text-transform:uppercase\" 
-                                   value=\"$estacoes->armazenamento\" required=\"true\">
+                            <label for=\"armazenamento\">Armazenamento (HD):</label>
+                            <input id=\"armazenamento\" class=\"form-control\" type=\"number\" name=\"armazenamento\"
+                                   placeholder=\"500 (Total em GB)\" value=\"$estacoes->armazenamento\" required=\"true\">
                         </div>
 
                         <div class=\"form-group\">
-                            <label for=\"sor\">Sistema Operacional:</label>
-                            <select id=\"sor\" class=\"form-control\" name=\"sor\">
+                            <label for=\"idtb_sor\">Sistema Operacional:</label>
+                            <select id=\"idtb_sor\" class=\"form-control\" name=\"idtb_sor\">
                                 <option value=\"$estacoes->idtb_sor\" selected=\"true\">
-                                    ".$et_sor->descricao." - ".$et_sor->versao."</option>";
+                                    ".$estacoes->descricao." - ".$estacoes->versao."</option>";
                                 foreach ($so as $key => $value) {
                                     echo"<option value=\"".$value->idtb_sor."\">
                                         ".$value->descricao." - ".$value->versao."</option>";
@@ -113,7 +117,14 @@ if ($act == 'cad') {
                             <label for=\"end_ip\">Endereço IP:</label>
                             <input id=\"end_ip\" class=\"form-control\" type=\"text\" name=\"end_ip\"
                                    placeholder=\"ex. 192.168.1.1\" style=\"text-transform:uppercase\"
-                                   value=\"$estacoes->end_ip\" required=\"true\">
+                                   value=\"$estacoes->end_ip\" maxlength=\"15\" required=\"true\">
+                        </div>
+
+                        <div class=\"form-group\">
+                            <label for=\"end_mac\">Endereço MAC:</label>
+                            <input id=\"end_mac\" class=\"form-control\" type=\"text\" name=\"end_mac\"
+                                   placeholder=\"ex. FF-FF-FF-FF-FF-FF-FF-FF\" style=\"text-transform:uppercase\"
+                                   value=\"$estacoes->end_mac\" maxlength=\"23\" required=\"true\">
                         </div>
 
                         <div class=\"form-group\">
@@ -147,17 +158,17 @@ if ($act == 'cad') {
                         if ($param){
                             echo"
                             <div class=\"form-group\">
-                            <label for=\"situacao\">Situação:</label>
-                            <select id=\"situacao\" class=\"form-control\" name=\"situacao\">
-                                <option value=\"$estacoes->situacao\" selected=\"true\">
-                                    $estacoes->situacao</option>
+                            <label for=\"status\">Situação:</label>
+                            <select id=\"status\" class=\"form-control\" name=\"status\">
+                                <option value=\"$estacoes->status\" selected=\"true\">
+                                    $estacoes->status</option>
                                 <option value=\"EM PRODUÇÃO\">EM PRODUÇÃO</option>
                                 <option value=\"EM MANUTENÇÃO\">EM MANUTENÇÃO</option>
                             </select>
                         </div>";
                         }
                         else{
-                            echo"<input id=\"situacao\" type=\"hidden\" name=\"situacao\" 
+                            echo"<input id=\"status\" type=\"hidden\" name=\"status\" 
                             value=\"EM PRODUÇÃO\">";
                         }
                     echo"
@@ -175,7 +186,7 @@ if ($act == 'cad') {
 /* Monta quadro com tipo do CLTI */
 if (($row) AND ($act == NULL)) {
 
-	$estacoes = "SELECT * FROM db_clti.tb_estacoes ORDER BY idtb_om_apoiadas ASC";
+	$estacoes = "SELECT * FROM db_clti.vw_estacoes ORDER BY idtb_om_apoiadas ASC";
     $estacoes = $pg->getRows($estacoes);
 
     echo"<div class=\"table-responsive\">
@@ -186,7 +197,7 @@ if (($row) AND ($act == NULL)) {
                         <th scope=\"col\">Fabricante/Modelo</th>
                         <th scope=\"col\">Hardware</th>
                         <th scope=\"col\">Sistema Operacional</th>
-                        <th scope=\"col\">Endereço IP</th>
+                        <th scope=\"col\">Endereço IP/MAC</th>
                         <th scope=\"col\">Req. Mínimos</th>
                         <th scope=\"col\">Situação</th>
                         <th scope=\"col\">Ações</th>
@@ -195,31 +206,22 @@ if (($row) AND ($act == NULL)) {
 
     foreach ($estacoes as $key => $value) {
 
-        #Seleciona Sigla da OM Apoiada
-        $omapoiada = $pg->getCol("SELECT sigla FROM db_clti.tb_om_apoiadas WHERE idtb_om_apoiadas = $value->idtb_om_apoiadas");
-
-        #Seleciona Sistema Operacional
-        $sor = $pg->getRows("SELECT descricao, versao FROM db_clti.tb_sor WHERE idtb_sor = $value->idtb_sor");
-        
         echo"       <tr>
-                        <th scope=\"row\">".$omapoiada."</th>
+                        <th scope=\"row\">".$value->sigla."</th>
                         <td>".$value->fabricante." / ".$value->modelo."</td>
-                        <td>".$value->processador." / ".$value->memoria." / ".$value->armazenamento."</td>
-                        <td>".$value->end_ip."</td>
-                        <td>";
-                            foreach ($sor as $chave => $valor){
-                                echo"$valor->descricao"." "."$valor->versao";
-                            }
-                 echo  "</td>
+                        <td>".$value->proc_fab." - ".$value->proc_modelo." - ".$value->clock_proc." GHz "
+                            .$value->memoria." GB/RAM ".$value->armazenamento." GB/HD</td>
+                        <td>".$value->descricao." - ".$value->versao."</td>
+                        <td>".$value->end_ip." / ".$value->end_mac."</td>
                         <td>".$value->req_minimos."</td>
                         <td>";
-                        if ($value->situacao == "EM PRODUÇÃO"){
+                        if ($value->status == "EM PRODUÇÃO"){
                             echo "<span data-feather=\"check-circle\"></span></td>";
                         }
-                        if ($value->situacao == "EM MANUTENÇÃO"){
+                        if ($value->status == "EM MANUTENÇÃO"){
                             echo "<span data-feather=\"activity\"></span></td>";
                         }
-                        if ($value->situacao == "SEM ATIVIDADE"){
+                        if ($value->status == "SEM ATIVIDADE"){
                             echo "<span data-feather=\"alert-triangle\"></span></td>";
                         }
                  echo  "<td><a href=\"?cmd=estacoes&act=cad&param=".$value->idtb_estacoes."\">Editar</a> - 
@@ -235,20 +237,23 @@ if (($row) AND ($act == NULL)) {
 /* Método INSERT */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
+        
         $idtb_estacoes = $_POST['idtb_estacoes'];
         $idtb_om_apoiadas = $_POST['idtb_om_apoiadas'];
         $fabricante = strtoupper($_POST['fabricante']);
         $modelo = strtoupper($_POST['modelo']);
-        $processador = strtoupper($_POST['processador']);
+        $idtb_proc_modelo = $_POST['idtb_proc_modelo'];
+        $clock_proc = $_POST['clock_proc'];
         $memoria = strtoupper($_POST['memoria']);
         $armazenamento = strtoupper($_POST['armazenamento']);
         $end_ip = $_POST['end_ip'];
-        $sor = $_POST['sor'];
+        $end_mac = $_POST['end_mac'];
+        $idtb_sor = $_POST['idtb_sor'];
         $localizacao = strtoupper($_POST['localizacao']);
         $data_aquisicao = $_POST['data_aquisicao'];
         $data_garantia = $_POST['data_garantia'];
         $req_minimos = $_POST['req_minimos'];
-        $situacao = $_POST['situacao'];
+        $status = $_POST['status'];
 
         /* Opta pelo Método Update */
         if ($idtb_estacoes){
@@ -266,10 +271,11 @@ if ($act == 'insert') {
             else{
 
                 $sql = "UPDATE db_clti.tb_estacoes SET 
-                idtb_om_apoiadas='$idtb_om_apoiadas', fabricante='$fabricante', modelo='$modelo', processador='$processador', 
-                    memoria='$memoria', armazenamento='$armazenamento', end_ip='$end_ip', idtb_sor='$sor', 
+                    idtb_om_apoiadas='$idtb_om_apoiadas', fabricante='$fabricante', modelo='$modelo', 
+                    idtb_proc_modelo='$idtb_proc_modelo', clock_proc='$clock_proc', memoria='$memoria', 
+                    armazenamento='$armazenamento', end_ip='$end_ip', end_mac='$end_mac', idtb_sor='$idtb_sor', 
                     localizacao='$localizacao', data_aquisicao='$data_aquisicao', data_garantia='$data_garantia', 
-                    req_minimos='$req_minimos', situacao='$situacao'
+                    req_minimos='$req_minimos', status='$status'
                 WHERE idtb_estacoes='$idtb_estacoes'";
         
                 $pg->exec($sql);
@@ -306,10 +312,11 @@ if ($act == 'insert') {
             else{
 
                 $sql = "INSERT INTO db_clti.tb_estacoes(
-                    idtb_om_apoiadas, fabricante, modelo, processador, memoria, armazenamento, end_ip, 
-                        idtb_sor, localizacao, data_aquisicao, data_garantia, req_minimos, situacao)
-                    VALUES ('$idtb_om_apoiadas', '$fabricante', '$modelo', '$processador', '$memoria', '$armazenamento', 
-                        '$end_ip', '$sor', '$localizacao', '$data_aquisicao', '$data_garantia', '$req_minimos', '$situacao')";
+                    idtb_om_apoiadas, fabricante, modelo, idtb_proc_modelo, clock_proc, memoria, armazenamento, 
+                    end_ip, end_mac, idtb_sor, localizacao, data_aquisicao, data_garantia, req_minimos, status)
+                VALUES ('$idtb_om_apoiadas', '$fabricante', '$modelo', '$idtb_proc_modelo', '$clock_proc', '$memoria', 
+                    '$armazenamento', '$end_ip', '$end_mac', '$idtb_sor', '$localizacao', '$data_aquisicao', 
+                    '$data_garantia', '$req_minimos', '$status')";
             
                 $pg->exec($sql);
             
