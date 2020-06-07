@@ -44,12 +44,18 @@ $sigla = $pg->getCol($sql);
               <li class="nav-item">
                   <a class="nav-link active" href="<?php echo "$url"; ?>">
                     <span data-feather="home"></span>
-                    Dashboard <span class="sr-only">(current)</span>
+                    Início <span class="sr-only">(current)</span>
                   </a>
                 </li>
               <?php
               if ($perfil == 'TEC_CLTI'){
                 echo"
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/dashboard\">
+                    <span data-feather=\"hash\"></span>
+                    Dashboard
+                  </a>
+                </li>
                 <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/clti\">
                     <span data-feather=\"settings\"></span>
@@ -86,6 +92,12 @@ $sigla = $pg->getCol($sql);
                     Admin
                   </a>
                 </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/clti/?cmd=funcoesti\">
+                    <span data-feather=\"crosshair\"></span>
+                    Funções de TI
+                  </a>
+                </li>
                 <h6 class=\"sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted\">
                   <span>Ativos de TI</span>
                   <span data-feather=\"plus-circle\"></span>
@@ -101,57 +113,77 @@ $sigla = $pg->getCol($sql);
                     <span data-feather=\"cpu\"></span>
                     Processadores
                   </a>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/ativosti/?cmd=servidores\">
+                    <span data-feather=\"server\"></span>
+                    Servidores
+                  </a>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/ativosti/?cmd=estacoes\">
+                    <span data-feather=\"monitor\"></span>
+                    Estações de Trabalho
+                  </a>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/ativosti/?cmd=conectividade\">
+                    <span data-feather=\"command\"></span>
+                    Equipamentos de Conectividade
+                  </a>
                 </li>";
               }
+              else{
+                echo"
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=servidores\">
+                    <span data-feather=\"server\"></span>
+                    Servidores
+                  </a>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=estacoes\">
+                    <span data-feather=\"monitor\"></span>
+                    Estações de Trabalho
+                  </a>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=conectividade\">
+                    <span data-feather=\"command\"></span>
+                    Equipamentos de Conectividade
+                  </a>
+                </li>
+                <h6 class=\"sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted\">
+                    <span>Controle OM Apoiadas</span>
+                    <span data-feather=\"plus-circle\"></span>
+                  </h6>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=pessoalti\">
+                    <span data-feather=\"user-plus\"></span>
+                    Pessoal de TI
+                  </a>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=cursosti\">
+                    <span data-feather=\"book-open\"></span>
+                    Qualificação na Área de TI
+                  </a>
+                </li>
+                <!--<li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"#\">
+                    <span data-feather=\"bar-chart-2\"></span>
+                    Relatórios
+                  </a>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"#\">
+                    <span data-feather=\"layers\"></span>
+                    Integração
+                  </a>
+                </li>-->
+              </ul>";
+              }
               ?>
-              <li class="nav-item">
-                <a class="nav-link" href="<?php echo "$url/ativosti/?cmd=servidores"; ?>">
-                  <span data-feather="server"></span>
-                  Servidores
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="<?php echo "$url/ativosti/?cmd=estacoes"; ?>">
-                  <span data-feather="monitor"></span>
-                  Estações de Trabalho
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="<?php echo "$url/ativosti/?cmd=conectividade"; ?>">
-                  <span data-feather="command"></span>
-                  Equipamentos de Conectividade
-                </a>
-              </li>
-              <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                  <span>Controle OM Apoiadas</span>
-                  <span data-feather="plus-circle"></span>
-                </h6>
-              <li class="nav-item">
-                <a class="nav-link" href="<?php echo "$url/omapoiada/?cmd=pessoalti"; ?>">
-                  <span data-feather="user-plus"></span>
-                  Pessoal de TI
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="<?php echo "$url/omapoiada/?cmd=cursosti"; ?>">
-                  <span data-feather="book-open"></span>
-                  Qualificação na Área de TI
-                </a>
-              </li>
-              <!--<li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="bar-chart-2"></span>
-                  Relatórios
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="layers"></span>
-                  Integração
-                </a>
-              </li>-->
-            </ul>
-
             <!--<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
               <span>Relatórios Salvos</span>
               <a class="d-flex align-items-center text-muted" href="#">

@@ -64,7 +64,79 @@ switch ($cmd) {
       </div>
     </div>";
 
-		break;
+    break;
+  
+    case 'servidores':
+      echo "
+          <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
+            <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
+              <h1 class=\"h2\">Gerenciamento - Servidores</h1>
+              <div class=\"btn-toolbar mb-2 mb-md-0\">
+                <div class=\"btn-group mr-2\">
+                  <a href=\"?cmd=servidores\"><button class=\"btn btn-sm btn-outline-secondary\">Servidores</button></a>
+                  <a href=\"?cmd=servidores&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro de Servidores</button></a>
+                </div>
+                <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
+                  <span data-feather=\"calendar\"></span>
+                  Esta Semana
+                </button>-->
+              </div>
+            </div>";
+      include "servidores.inc.php";
+      echo"
+      </main>
+        </div>
+      </div>";
+  
+      break;
+  
+    case 'estacoes':
+      echo "
+          <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
+            <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
+              <h1 class=\"h2\">Gerenciamento - Estações de Trabalho</h1>
+              <div class=\"btn-toolbar mb-2 mb-md-0\">
+                <div class=\"btn-group mr-2\">
+                  <a href=\"?cmd=estacoes\"><button class=\"btn btn-sm btn-outline-secondary\">Estações de Trabalho</button></a>
+                  <a href=\"?cmd=estacoes&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro de ET</button></a>
+                </div>
+                <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
+                  <span data-feather=\"calendar\"></span>
+                  Esta Semana
+                </button>-->
+              </div>
+            </div>";
+      include "estacoes.inc.php";
+      echo"
+      </main>
+        </div>
+      </div>";
+  
+      break;
+  
+    case 'conectividade':
+      echo "
+          <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
+            <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
+              <h1 class=\"h2\">Gerenciamento - Equipamentos de Conectividade</h1>
+              <div class=\"btn-toolbar mb-2 mb-md-0\">
+                <div class=\"btn-group mr-2\">
+                  <a href=\"?cmd=conectividade\"><button class=\"btn btn-sm btn-outline-secondary\">Equipamentos de Conectividade</button></a>
+                  <a href=\"?cmd=conectividade&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro de Equipamentos</button></a>
+                </div>
+                <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
+                  <span data-feather=\"calendar\"></span>
+                  Esta Semana
+                </button>-->
+              </div>
+            </div>";
+      include "conectividade.inc.php";
+      echo"
+      </main>
+        </div>
+      </div>";
+  
+      break;
 	
 	default:
 

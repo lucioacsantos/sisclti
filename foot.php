@@ -27,6 +27,7 @@
 
     <!-- Graphs -->
     <script src=\"$url/js/Chart.min.js\"></script>
+    <script src=\"$url/js/utils.js\"></script>
 
     <!-- Cidades | Estados -->
     <script src=\"$url/js/cidades-estados-utf8.js\"></script>";
@@ -68,37 +69,18 @@
 		} );
 	  </script>
 
-    <!-- Configurações do Gráfico -->
-    <script>
-      var ctx = document.getElementById("myChart");
-      var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"],
-          datasets: [{
-            data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-            lineTension: 0,
-            backgroundColor: 'transparent',
-            borderColor: '#007bff',
-            borderWidth: 4,
-            pointBackgroundColor: '#007bff'
-          }]
-        },
-        options: {
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: false
-              }
-            }]
-          },
-          legend: {
-            display: false,
-          }
-        }
-      });
-    </script>
+    <!-- Configurações dos Gráficos -->
+    <?php
 
+      require_once "dashboard/graficos.inc.php";
+
+      #ativos_ti();
+      #pessoal_ti();
+      #qualificacao_ti();
+      grafico_barras();
+    
+    ?>
+      
     <!-- JavaScript desabilita form submit quando existirem campos inválidos -->
     <script>
       (function() {
@@ -108,7 +90,7 @@
           /* Verifica todos os forms para aplicar avalidação do Bootstrap */
           var forms = document.getElementsByClassName('needs-validation');
 
-          /* Loop para prevenir o sumit */
+          /* Loop para prevenir o submit */
           var validation = Array.prototype.filter.call(forms, function(form) {
             form.addEventListener('submit', function(event) {
               if (form.checkValidity() === false) {

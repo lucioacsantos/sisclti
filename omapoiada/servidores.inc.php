@@ -32,7 +32,7 @@ if ($act == 'cad') {
             'finalidade'=>'','data_aquisicao'=>'','data_garantia'=>'','fabricante'=>'','localizacao'=>'','proc_fab'=>'',
             'proc_modelo'=>'','versao'=>'','descricao'=>''];
     }
-    $omapoiada = $pg->getRows("SELECT * FROM db_clti.tb_om_apoiadas ORDER BY sigla ASC");
+    $omapoiada = $_SESSION['id_om_apoiada'];
     $so = $pg->getRows("SELECT * FROM db_clti.tb_sor ORDER BY desenvolvedor,versao ASC");
     $proc = $pg->getRows("SELECT * FROM db_clti.vw_processadores ORDER BY fabricante ASC");
 	echo "
@@ -44,17 +44,7 @@ if ($act == 'cad') {
                         <fieldset>
                             <legend>Servidores - Cadastro</legend>
 
-                            <div class=\"form-group\">
-                                <label for=\"idtb_om_apoiadas\">OM Apoiada:</label>
-                                <select id=\"idtb_om_apoiadas\" class=\"form-control\" name=\"idtb_om_apoiadas\">
-                                    <option value=\"$servidor->idtb_om_apoiadas\" selected=\"true\">
-                                        $servidor->sigla</option>";
-                                    foreach ($omapoiada as $key => $value) {
-                                        echo"<option value=\"".$value->idtb_om_apoiadas."\">
-                                            ".$value->sigla."</option>";
-                                    };
-                                echo "</select>
-                            </div>
+                            <input type=\"hidden\" name=\"idtb_om_apoiadas\" value=\"$omapoiada\">
 
                             <div class=\"form-group\">
                                 <label for=\"fabricante\">Fabricante:</label>

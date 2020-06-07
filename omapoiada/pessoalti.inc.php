@@ -8,7 +8,7 @@ require_once "../class/pgsql.class.php";
 $pg = new PgSql();
 
 /* Recupera informações dos Admin */
-$sql = "SELECT * FROM db_clti.vw_pessoal_ti WHERE funcao!='OSIC' AND funcao!='ADMIN' ";
+$sql = "SELECT * FROM db_clti.vw_pessoal_ti WHERE sigla_funcao!='OSIC' AND sigla_funcao!='ADMIN' ";
 
 $row = $pg->getRow($sql);
 
@@ -30,16 +30,17 @@ if ($act == 'cad') {
     else{
         $pessti = (object)['idtb_pessoal_ti'=>'','nip'=>'','cpf'=>'','nome'=>'','nome_guerra'=>'',
             'idtb_om_apoiadas'=>'','sigla_om'=>'','idtb_posto_grad'=>'8','sigla_posto_grad'=>'Primeiro Tenente',
-            'idtb_corpo_quadro'=>'','sigla_corpo_quadro'=>'','idtb_especialidade'=>'','sigla_espec'=>''];
+            'idtb_corpo_quadro'=>'','sigla_corpo_quadro'=>'','idtb_especialidade'=>'','sigla_espec'=>'',
+            'idtb_funcoes_ti'=>'','sigla_funcao'=>'','correio_eletronico'=>''];
     }
-	$omapoiada = "SELECT * FROM db_clti.tb_om_apoiadas ORDER BY sigla ASC";
-    $omapoiada = $pg->getRows($omapoiada);
-    $postograd = "SELECT * FROM db_clti.tb_posto_grad ORDER BY idtb_posto_grad 	DESC";
-    $postograd = $pg->getRows($postograd);
-    $corpoquadro = "SELECT * FROM db_clti.tb_corpo_quadro";
-    $corpoquadro = $pg->getRows($corpoquadro);
-    $especialidade = "SELECT * FROM db_clti.tb_especialidade ORDER BY nome ASC";
-    $especialidade = $pg->getRows($especialidade);
+	$omapoiada = $pg->getRows("SELECT * FROM db_clti.tb_om_apoiadas ORDER BY sigla ASC");
+    $postograd = $pg->getRows("SELECT * FROM db_clti.tb_posto_grad ORDER BY idtb_posto_grad DESC");
+    $corpoquadro = $pg->getRows("SELECT * FROM db_clti.tb_corpo_quadro");
+    $especialidade = $pg->getRows("SELECT * FROM db_clti.tb_especialidade ORDER BY nome ASC");
+    $funcoesti = $pg->getRows("SELECT * FROM db_clti.tb_funcoes_ti WHERE sigla != 'ADMIN' AND sigla != 'OSIC' 
+        ORDER BY sigla ASC");
+    $idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
+
     echo "
 	<div class=\"container-fluid\">
         <div class=\"row\">
@@ -48,13 +49,14 @@ if ($act == 'cad') {
                     <form id=\"insereusuario\" role=\"form\" action=\"?cmd=pessoalti&act=insert\" 
                         method=\"post\" enctype=\"multipart/form-data\">
                         <fieldset>";
+
                             #Prepara formulário para atualização de dados
                             if ($param){
                                 #Em caso de troca de senha
                                 if ($senha){
                                     echo"
-                                    <legend>Administradores de Rede - Troca de Senha</legend>
-                                    <input id=\"omapoiada\" class=\"form-control\" name=\"omapoiada\"
+                                    <legend>Pessoal de TI - Troca de Senha</legend>
+                                    <input id=\"idtb_om_apoiadas\" class=\"form-control\" name=\"idtb_om_apoiadas\"
                                         value=\"$pessti->idtb_om_apoiadas\" hidden=\"true\">
                                     <input id=\"postograd\" class=\"form-control\" name=\"postograd\"
                                         value=\"$pessti->idtb_posto_grad\" hidden=\"true\">
@@ -69,7 +71,7 @@ if ($act == 'cad') {
                                     <input id=\"correio_eletronico\" class=\"form-control\" type=\"text\" name=\"correio_eletronico\"
                                         hidden=\"required\" value=\"$pessti->correio_eletronico\">
                                     <input id=\"funcaoti\" class=\"form-control\" type=\"text\" name=\"funcaoti\"
-                                        hidden=\"required\" value=\"$pessti->funcao\">
+                                        hidden=\"required\" value=\"$pessti->idtb_funcoes_ti\">
 
                                     <div class=\"form-group\">
                                         <label for=\"nip\">NIP:</label>
@@ -101,19 +103,9 @@ if ($act == 'cad') {
                                 #Em caso de alteração de outros dados
                                 else{
                                     echo"
-                                    <legend>Administradores de Rede - Alteração</legend>
+                                    <legend>Pessoal de TI - Alteração</legend>
 
-                                    <div class=\"form-group\">
-                                        <label for=\"omapoiada\">OM Apoiada:</label>
-                                        <select id=\"omapoiada\" class=\"form-control\" name=\"omapoiada\">
-                                            <option value=\"$pessti->idtb_om_apoiadas\" selected=\"true\">
-                                                $pessti->sigla_om</option>";
-                                            foreach ($omapoiada as $key => $value) {
-                                                echo"<option value=\"".$value->idtb_om_apoiadas."\">
-                                                    ".$value->sigla."</option>";
-                                            };
-                                        echo "</select>
-                                    </div>
+                                    <input type=\"hidden\" name=\"idtb_om_apoiadas\" value=\"$idtb_om_apoiadas\">
 
                                     <div class=\"form-group\">
                                         <label for=\"postograd\">Posto/Graduação:</label>
@@ -185,9 +177,14 @@ if ($act == 'cad') {
 
                                     <div class=\"form-group\">
                                         <label for=\"funcaoti\">Função de TI:</label>
-                                        <input id=\"funcaoti\" class=\"form-control\" type=\"text\" name=\"funcaoti\"
-                                            placeholder=\"ex. Suporte ao Usuário\" minlength=\"2\" 
-                                            style=\"text-transform:uppercase\" required=\"true\" value=\"$pessti->funcao\">
+                                        <select id=\"funcaoti\" class=\"form-control\" name=\"funcaoti\">
+                                            <option value=\"$pessti->idtb_funcoes_ti\" selected=\"true\">
+                                                $pessti->desc_funcao</option>";
+                                            foreach ($funcoesti as $key => $value) {
+                                                echo"<option value=\"".$value->idtb_funcoes_ti."\">
+                                                    ".$value->descricao."</option>";
+                                            };
+                                        echo "</select>
                                     </div>
 
                                     <input id=\"senha\" class=\"form-control\" type=\"password\" name=\"senha\"
@@ -208,18 +205,9 @@ if ($act == 'cad') {
                             #Prepara formulário para inclusão
                             else{
                             echo"
-                            <legend>Administradores de Rede - Cadastro</legend>
-                            <div class=\"form-group\">
-                                <label for=\"omapoiada\">OM Apoiada:</label>
-                                <select id=\"omapoiada\" class=\"form-control\" name=\"omapoiada\">
-                                    <option value=\"$pessti->idtb_om_apoiadas\" selected=\"true\">
-                                        $pessti->sigla_om</option>";
-                                    foreach ($omapoiada as $key => $value) {
-                                        echo"<option value=\"".$value->idtb_om_apoiadas."\">
-                                            ".$value->sigla."</option>";
-                                    };
-                                echo "</select>
-                            </div>
+                            <legend>Pessoal de TI - Cadastro</legend>
+                            
+                            <input type=\"hidden\" name=\"idtb_om_apoiadas\" value=\"$idtb_om_apoiadas\">
 
                             <div class=\"form-group\">
                                 <label for=\"postograd\">Posto/Graduação:</label>
@@ -292,9 +280,14 @@ if ($act == 'cad') {
 
                             <div class=\"form-group\">
                                 <label for=\"funcaoti\">Função de TI:</label>
-                                <input id=\"funcaoti\" class=\"form-control\" type=\"text\" name=\"funcaoti\"
-                                    placeholder=\"ex. Suporte ao Usuário\" minlength=\"2\"
-                                    style=\"text-transform:uppercase\" required=\"true\" value=\"$pessti->funcao\">
+                                <select id=\"funcaoti\" class=\"form-control\" name=\"funcaoti\">
+                                    <option value=\"$pessti->idtb_funcoes_ti\" selected=\"true\">
+                                        $pessti->sigla_funcao</option>";
+                                    foreach ($funcoesti as $key => $value) {
+                                        echo"<option value=\"".$value->idtb_funcoes_ti."\">
+                                            ".$value->descricao."</option>";
+                                    };
+                                echo "</select>
                             </div>
 
                             <div class=\"form-group\">
@@ -328,7 +321,7 @@ if ($act == 'cad') {
 /* Monta quadro de administradores */
 if (($row) AND ($act == NULL)) {
 
-	$pesti = "SELECT * FROM db_clti.vw_pessoal_ti WHERE funcao!='OSIC' AND funcao!='ADMIN' 
+	$pesti = "SELECT * FROM db_clti.vw_pessoal_ti WHERE sigla_funcao!='OSIC' AND sigla_funcao!='ADMIN' 
         ORDER BY idtb_posto_grad DESC";
     $pesti = $pg->getRows($pesti);
 
@@ -361,7 +354,7 @@ if (($row) AND ($act == NULL)) {
                         <td>".$identificacao."</td>
                         <td>".$value->nome."</td>
                         <td>".$value->nome_guerra."</td>
-                        <td>".$value->funcao."</td>
+                        <td>".$value->sigla_funcao."</td>
                         <td><a href=\"?cmd=pessoalti&act=cad&param=".$value->idtb_pessoal_ti."\">Editar</a> - 
                             <a href=\"?cmd=pessoalti&act=cad&param=".$value->idtb_pessoal_ti."&senha=troca\">Senha</a> - 
                             Excluir</td>
@@ -377,7 +370,7 @@ if (($row) AND ($act == NULL)) {
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         $idtb_pessoal_ti = $_POST['idtb_pessoal_ti'];
-        $omapoiada = $_POST['omapoiada'];
+        $idtb_om_apoiadas = $_POST['idtb_om_apoiadas'];
         $postograd = $_POST['postograd'];
         $corpoquadro = $_POST['corpoquadro'];
         $especialidade = $_POST['especialidade'];
@@ -402,10 +395,10 @@ if ($act == 'insert') {
 
             if($senha==NULL){
                 $sql = "UPDATE db_clti.tb_pessoal_ti SET
-                idtb_om_apoiadas='$omapoiada',idtb_posto_grad='$postograd', idtb_corpo_quadro='$corpoquadro', 
+                idtb_om_apoiadas='$idtb_om_apoiadas',idtb_posto_grad='$postograd', idtb_corpo_quadro='$corpoquadro', 
                 idtb_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
                 nome_guerra='$nomeguerra', correio_eletronico='$correio_eletronico',
-                funcao='$funcao', status='$ativo'
+                idtb_funcoes_ti='$funcao', status='$ativo'
                 WHERE idtb_pessoal_ti='$idtb_pessoal_ti'";
             }
 
@@ -416,10 +409,10 @@ if ($act == 'insert') {
                 $senha = $salt.$hash;
 
                 $sql = "UPDATE db_clti.tb_pessoal_ti SET
-                    idtb_om_apoiadas='$omapoiada',idtb_posto_grad='$postograd', idtb_corpo_quadro='$corpoquadro', 
+                    idtb_om_apoiadas='$idtb_om_apoiadas',idtb_posto_grad='$postograd', idtb_corpo_quadro='$corpoquadro', 
                     idtb_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
                     nome_guerra='$nomeguerra', senha='$senha', correio_eletronico='$correio_eletronico',
-                    funcao='$funcao', status='$ativo'
+                    idtb_funcoes_ti='$funcao', status='$ativo'
                     WHERE idtb_pessoal_ti='$idtb_pessoal_ti'";
             }
 
@@ -459,8 +452,8 @@ if ($act == 'insert') {
 
                 $sql = "INSERT INTO db_clti.tb_pessoal_ti(
                     idtb_om_apoiadas,idtb_posto_grad, idtb_corpo_quadro, idtb_especialidade, nip, 
-                    cpf, nome, nome_guerra, senha, correio_eletronico, funcao, status)
-                    VALUES ('$omapoiada', '$postograd', '$corpoquadro', '$especialidade',
+                    cpf, nome, nome_guerra, senha, correio_eletronico, idtb_funcoes_ti, status)
+                    VALUES ('$idtb_om_apoiadas', '$postograd', '$corpoquadro', '$especialidade',
                     '$nip', '$cpf', '$nome', '$nomeguerra', '$senha', '$correio_eletronico',
                     '$funcao', 'ATIVO')";
 
