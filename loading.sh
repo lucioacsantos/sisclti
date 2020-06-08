@@ -21,7 +21,7 @@ echo " XXXX";
 echo "X";
 echo " XXXX";
 echo "     X";
-echo "XXXX";
+echo " XXXX";
 echo "";
 echo "Aguarde.";
 sleep 0.2
@@ -31,7 +31,7 @@ echo " XXXX  XXXXX";
 echo "X        X";
 echo " XXXX    X";
 echo "     X   X";
-echo "XXXX   XXXXX";
+echo " XXXX  XXXXX";
 echo "";
 echo "Aguarde....";
 sleep 0.2
@@ -41,67 +41,55 @@ echo " XXXX  XXXXX   XXXX";
 echo "X        X    X";
 echo " XXXX    X     XXXX";
 echo "     X   X         X";
-echo "XXXX   XXXXX   XXXX";
+echo " XXXX  XXXXX   XXXX";
 echo "";
 echo "Aguarde....";
 sleep 0.2
 clear
 echo "";
-echo " XXXXX";
-echo "X";
-echo "X";
-echo "X";
-echo " XXXXX";
-echo "";
-echo "Aguarde.";
-sleep 0.2
-clear
-echo "";
-echo " XXXXX  X";
-echo "X       X";
-echo "X       X";
-echo "X       X";
-echo " XXXXX  XXXXX";
-echo "";
-echo "Aguarde..";
-sleep 0.2
-clear
-echo "";
-echo " XXXXX  X     XXXXX";
-echo "X       X       X";
-echo "X       X       X";
-echo "X       X       X";
-echo " XXXXX  XXXXX   X";
-echo "";
-echo "Aguarde...";
-sleep 0.2
-clear
-echo "";
-echo " XXXXX  X     XXXXX  XXXXX";
-echo "X       X       X      X";
-echo "X       X       X      X";
-echo "X       X       X      X";
-echo " XXXXX  XXXXX   X    XXXXX";
+echo " XXXX  XXXXX   XXXX    XXXXX";
+echo "X        X    X       X";
+echo " XXXX    X     XXXX   X";
+echo "     X   X         X  X";
+echo " XXXX  XXXXX   XXXX    XXXXX";
 echo "";
 echo "Aguarde....";
 sleep 0.2
 clear
 echo "";
-echo " XXXXX  X     XXXXX  XXXXX";
-echo "X       X       X      X";
-echo "X       X       X      X";
-echo "X       X       X      X";
-echo " XXXXX  XXXXX   X    XXXXX";
+echo " XXXX  XXXXX   XXXX    XXXXX  X";
+echo "X        X    X       X       X";
+echo " XXXX    X     XXXX   X       X";
+echo "     X   X         X  X       X";
+echo " XXXX  XXXXX   XXXX    XXXXX  XXXXXX";
 echo "";
-echo "Aguarde.";
+echo "Aguarde....";
+sleep 0.2
+clear
+echo " XXXX  XXXXX   XXXX    XXXXX  X      XXXXX";
+echo "X        X    X       X       X        X";
+echo " XXXX    X     XXXX   X       X        X";
+echo "     X   X         X  X       X        X";
+echo " XXXX  XXXXX   XXXX    XXXXX  XXXXXX   X";
+echo "";
+echo "Aguarde....";
+sleep 0.2
+clear
+echo " XXXX   XXXXX   XXXX    XXXXX  X       XXXXX  XXXXX";
+echo "X         X    X       X       X         X      X";
+echo " XXXX     X     XXXX   X       X         X      X";
+echo "     X    X         X  X       X         X      X";
+echo " XXXX   XXXXX   XXXX    XXXXX  XXXXXX    X    XXXXX";
+echo "";
+echo "Aguarde....";
 sleep 0.2
 clear
 echo "";
-echo " XXXX   XXXXX   XXXX    XXXXX  X     XXXXX  XXXXX";
-echo "X         X    X       X       X       X      X";
-echo " XXXX     X     XXXX   X       X       X      X";
-echo "     X    X         X  X       X       X      X";
-echo " XXXX   XXXXX   XXXX    XXXXX  XXXXX   X    XXXXX";
+echo " XXXX   XXXXX   XXXX    XXXXX  X      XXXXX  XXXXX";
+echo "X         X    X       X       X        X      X";
+echo " XXXX     X     XXXX   X       X        X      X";
+echo "     X    X         X  X       X        X      X";
+echo " XXXX   XXXXX   XXXX    XXXXX  XXXXX    X    XXXXX";
 echo "";
 echo "Aguarde....";
 sleep 0.5
