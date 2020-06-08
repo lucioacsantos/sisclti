@@ -42,9 +42,9 @@ systemctl enable httpd
 systemctl enable postgresql
 
 #Configurando PSQL
-echo "local  all all    trust" > /var/lib/pgsql/data/pg_hba.conf
-echo "host  all all 127.0.0.1/32    trust" >> /var/lib/pgsql/data/pg_hba.conf
-echo "local  all all    ::1/128 trust" >> /var/lib/pgsql/data/pg_hba.conf
+echo "local     all     all                 trust" > /var/lib/pgsql/data/pg_hba.conf
+echo "host      all     all 127.0.0.1/32    trust" >> /var/lib/pgsql/data/pg_hba.conf
+echo "host      all     all ::1/128 trust" >> /var/lib/pgsql/data/pg_hba.conf
 systemctl restart postgresql
 
 #Configurando o firewall e o SELinux
