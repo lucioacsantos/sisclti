@@ -5,7 +5,7 @@
 -- Dumped from database version 10.13 (Ubuntu 10.13-1.pgdg18.04+1)
 -- Dumped by pg_dump version 10.13 (Ubuntu 10.13-1.pgdg18.04+1)
 
--- Started on 2020-06-06 23:35:23 -03
+-- Started on 2020-06-08 09:27:32 -03
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -7163,9 +7163,7 @@ COPY db_clti.tb_cidade (id, nome, estado) FROM stdin;
 --
 
 COPY db_clti.tb_clti (idtb_clti, efetivo_oficiais, efetivo_pracas, nome, sigla, indicativo, data_ativacao) FROM stdin;
-6	\N	\N	CLTI COM3ºDN	CLTI3ºDN	CLTINA	2013-04-30
-4	1	1	CLTI COM3ºDN	CLTI3ºDN	CLTINA	2012-04-30
-5	\N	\N	CLTI COM3ºDN	CLTI3ºDN	CLTINA	2012-04-30
+7	0	0	CLTI COM3ºDN	CLTI-3ºDN	CLTINA	2012-04-30
 \.
 
 
@@ -7176,7 +7174,6 @@ COPY db_clti.tb_clti (idtb_clti, efetivo_oficiais, efetivo_pracas, nome, sigla, 
 --
 
 COPY db_clti.tb_conectividade (idtb_conectividade, idtb_om_apoiadas, fabricante, modelo, localizacao, end_ip, data_aquisicao, data_garantia) FROM stdin;
-3	8	CISCO	C375048PS-S	SALA DE SERVIDORES	172.23.117.20	2019-04-29	2020-04-29
 \.
 
 
@@ -7262,7 +7259,6 @@ COPY db_clti.tb_especialidade (idtb_especialidade, nome, sigla) FROM stdin;
 --
 
 COPY db_clti.tb_estacoes (idtb_estacoes, idtb_om_apoiadas, idtb_proc_modelo, clock_proc, fabricante, modelo, memoria, armazenamento, idtb_sor, end_ip, end_mac, data_aquisicao, data_garantia, localizacao, req_minimos, status) FROM stdin;
-1	8	12	3.20000005	ARQUIMEDES	A85871	8	500	30	172.23.119.35	ff-ff-ff-ff-ff-ff-ff-ff	2020-04-02	2021-04-02	CLTI - DIVISãO DE SISTEMAS	SIM	EM PRODUÇÃO
 \.
 
 
@@ -7325,7 +7321,6 @@ COPY db_clti.tb_funcoes_ti (idtb_funcoes_ti, descricao, sigla) FROM stdin;
 
 COPY db_clti.tb_lotacao_clti (idtb_lotacao_clti, idtb_posto_grad, idtb_corpo_quadro, idtb_especialidade, nip, cpf, nome, nome_guerra, status, senha, perfil, correio_eletronico) FROM stdin;
 21	16	1	8	12345678		ADMINCLTI	ADMINCLTI	ATIVO	1f82ea75c5cc526729e2d581aeb3aeccfef4407e256127614ef298fedf9376775a7d7328090f63bf	TEC_CLTI	adminclti@marinha.mil.br
-2	16	1	8	99242991		LÚCIO ALEXANDRE CORREIA SANTOS	ALEXANDRE	ATIVO	c4ce9a5fa42b7026826369e2e6faa9d3b15f0394e56d37e55c58dd2c5e4001594a9ca4efe19e6ac6	TEC_CLTI	lucio.alexandre@marinha.mil.br
 \.
 
 
@@ -7336,8 +7331,6 @@ COPY db_clti.tb_lotacao_clti (idtb_lotacao_clti, idtb_posto_grad, idtb_corpo_qua
 --
 
 COPY db_clti.tb_om_apoiadas (idtb_om_apoiadas, cod_om, nome, sigla, indicativo, idtb_estado, idtb_cidade) FROM stdin;
-8	83000	COMANDO DO 3º DISTRITO NAVAL	COM3ºDN	TERDIS	20	3770
-9	83200	GRUPAMENTO DE FUZILEIROS NAVAIS DE NATAL	GPTFNNA	GRFNAT	20	3770
 \.
 
 
@@ -7369,9 +7362,6 @@ COPY db_clti.tb_pais (id, nome, sigla) FROM stdin;
 --
 
 COPY db_clti.tb_pessoal_ti (idtb_pessoal_ti, idtb_om_apoiadas, idtb_posto_grad, idtb_corpo_quadro, idtb_especialidade, nip, cpf, nome, nome_guerra, correio_eletronico, funcao, status, senha, idtb_funcoes_ti) FROM stdin;
-10	8	8	1	12	99999999		LUCIO A C SANTOS	ALEXANDRE	lucio@marinha.mil.br	OSIC	ATIVO	c70b30d0ebe9fc5274cb5945191abc540618b6a4e56d37e55c58dd2c5e4001594a9ca4efe19e6ac6	2
-11	8	16	1	4	98765432		LUCIO A C SANTOS	ALEXANDRE	lucio1@marinha.mil.br	ADMIN	ATIVO	6473f38c2d93d39ecf2b28c4a24cf6839e47528be56d37e55c58dd2c5e4001594a9ca4efe19e6ac6	1
-12	8	16	1	4	99242991		LUCIO A C SANTOS	ALEXANDRE	lucio2@marinha.mil.br	TEC.SUPORTE	ATIVO	c4ce9a5fa42b7026826369e2e6faa9d3b15f0394e56d37e55c58dd2c5e4001594a9ca4efe19e6ac6	3
 \.
 
 
@@ -7481,7 +7471,6 @@ COPY db_clti.tb_proc_modelo (idtb_proc_modelo, idtb_proc_fab, modelo) FROM stdin
 --
 
 COPY db_clti.tb_qualificacao_clti (idtb_qualificacao_clti, nome_curso, instituicao, data_conclusao, carga_horaria, tipo, custo, meio, situacao, idtb_lotacao_clti) FROM stdin;
-1	TECNOLOGIA EM REDES DE COMPUTADORES	INSTITUTO FEDERAL DE EDUCAçãO TECNOLóGICA DO RN	\N	2474	GRADUAÇÃO	R$ 0,00	PRESENCIAL	EM ANDAMENTO	2
 \.
 
 
@@ -7492,7 +7481,6 @@ COPY db_clti.tb_qualificacao_clti (idtb_qualificacao_clti, nome_curso, instituic
 --
 
 COPY db_clti.tb_qualificacao_ti (idtb_qualificacao_ti, nome_curso, instituicao, data_conclusao, carga_horaria, tipo, custo, meio, situacao, idtb_pessoal_ti) FROM stdin;
-2	TECNOLOGIA EM REDES DE COMPUTADORES	INSTITUTO FEDERAL DE EDUCAçãO TECNOLóGICA DO RN	\N	2474	GRADUAÇÃO	R$ 0,00	PRESENCIAL	EM ANDAMENTO	10
 \.
 
 
@@ -7513,7 +7501,6 @@ COPY db_clti.tb_registro_log (idtb_registro_log, data_acao, acao, nip_cps_resp) 
 --
 
 COPY db_clti.tb_servidores (idtb_servidores, idtb_om_apoiadas, fabricante, modelo, idtb_proc_modelo, clock_proc, qtde_proc, memoria, armazenamento, end_ip, end_mac, idtb_sor, finalidade, data_aquisicao, data_garantia, localizacao, status) FROM stdin;
-1	8	DELL	DL 360 GEN9	10	3.20000005	2	64	1024	172.23.116.101	ff-ff-ff-ff-ff-ff-ff-ff	41	SERVIDOR WEB	2019-05-02	2019-05-02	SALA DE SERVIDORES	EM PRODUÇÃO
 \.
 
 
@@ -7605,7 +7592,7 @@ SELECT pg_catalog.setval('db_clti.tb_admin_idtb_admin_sequence', 2, true);
 -- Name: tb_clti_idtb_clti_sequence; Type: SEQUENCE SET; Schema: db_clti; Owner: postgres
 --
 
-SELECT pg_catalog.setval('db_clti.tb_clti_idtb_clti_sequence', 6, true);
+SELECT pg_catalog.setval('db_clti.tb_clti_idtb_clti_sequence', 7, true);
 
 
 --
@@ -8415,7 +8402,7 @@ GRANT ALL ON TABLE db_clti.tb_qualificacao_ti TO sisclti;
 GRANT ALL ON TABLE db_clti.tb_tipos_clti TO sisclti;
 
 
--- Completed on 2020-06-06 23:35:24 -03
+-- Completed on 2020-06-08 09:27:33 -03
 
 --
 -- PostgreSQL database dump complete
