@@ -108,7 +108,7 @@ do
 	fi
 	URLIP=$(echo "$URLIP" | sed 's/ //g')
 	URLIP=$(echo $URLIP | tr '[:upper:]' '[:lower:]')
-	if [ "${#BDPWS}" -ge 5 ]; then 
+	if [ "${#URLIP}" -ge 5 ]; then 
 		if (whiptail --title "Confirmação da URL/IP" --yesno "URL/IP: "$URLIP 8 78) then
     		break	
 		fi
@@ -119,9 +119,13 @@ do
 done
 
 #Executando configuração do banco de dados PostgreSQL
-psql -c "CREATE ROLE sisclti" -U postgres
-psql -c "ALTER ROLE sisclti WITH SUPERUSER INHERIT NOCREATEROLE CREATEDB LOGIN PASSWORD '$BDPWS'" -U postgres
-psql -U $BDUSR -d db_clti < db_clti.sql 
+psql -c "CREATE ROLE $BDUSR" -U postgres
+psql -c "ALTER ROLE $BDUSR WITH SUPERUSER INHERIT NOCREATEROLE CREATEDB LOGIN PASSWORD '$BDPWS'" -U postgres
+psql -c "CREATE DATABASE db_clti WITH TEMPLATE=template0 ENCODING='UTF8' LC_COLLATE='pt_BR.UTF-8' LC_CTYPE='pt_BR.UTF-8'" -U postgres
+psql -c "ALTER DATABASE db_clti OWNER TO $BDUSR" -U postgres
+psql -c "CREATE SCHEMA db_clti" -U postgres
+psql -c "ALTER SCHEMA db_clti OWNER TO $BDUSR" -U postgres
+psql -U postgres -d db_clti < db_clti.sql
 psql -c "UPDATE db_clti.tb_config SET valor='http://$URLIP/sisclti' WHERE parametro='URL' " -U postgres
 
 #Copia SisCLTI
