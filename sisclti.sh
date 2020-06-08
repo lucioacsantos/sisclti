@@ -126,7 +126,7 @@ psql -c "ALTER DATABASE db_clti OWNER TO $BDUSR" -U postgres
 psql -c "CREATE SCHEMA db_clti" -U postgres
 psql -c "ALTER SCHEMA db_clti OWNER TO $BDUSR" -U postgres
 psql -U postgres -d db_clti < db_clti.sql
-psql -c "UPDATE db_clti.tb_config SET valor='http://$URLIP/sisclti' WHERE parametro='URL' " -U postgres
+psql -c -d db_clti "UPDATE tb_config SET valor='http://$URLIP/sisclti' WHERE parametro='URL' " -U postgres
 
 #Copia SisCLTI
 cp -r $PWD/ /var/www/html/sisclti
