@@ -37,7 +37,7 @@ if ($act == 'cad') {
                     <form id=\"insertso\" role=\"form\" action=\"?cmd=funcoesti&act=insert\" 
                         method=\"post\" enctype=\"multipart/form-data\">
                         <fieldset>
-                            <legend>Sistemas Operacionais - Cadastro</legend>
+                            <legend>Funções de TI - Cadastro</legend>
 
                             <div class=\"form-group\">
                                 <label for=\"descricao\">Descrição:</label>
@@ -76,7 +76,7 @@ if (($row) AND ($act == NULL)) {
                     </tr>
                 </thead>";
 
-    $funcoesti = "SELECT * FROM db_clti.tb_funcoes_ti ORDER BY descricao ASC";
+    $funcoesti = "SELECT * FROM db_clti.tb_funcoes_ti WHERE sigla !='ADMIN' AND sigla != 'OSIC' ORDER BY descricao ASC";
     $funcoesti = $pg->getRows($funcoesti);
 
     foreach ($funcoesti as $key => $value) {

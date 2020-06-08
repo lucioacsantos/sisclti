@@ -8,7 +8,7 @@ require_once "../class/pgsql.class.php";
 $pg = new PgSql();
 
 /* Recupera informações dos OSIC */
-$sql = "SELECT * FROM db_clti.tb_pessoal_ti WHERE funcao='OSIC' AND status='ATIVO' ";
+$sql = "SELECT * FROM db_clti.vw_pessoal_ti WHERE sigla_funcao='OSIC' AND status='ATIVO' ";
 
 $row = $pg->getRow($sql);
 
@@ -320,7 +320,7 @@ if ($act == 'cad') {
 /* Monta quadro de OSIC */
 if (($row) AND ($act == NULL)) {
 
-	$osic = "SELECT * FROM db_clti.vw_pessoal_ti WHERE funcao = 'OSIC' ORDER BY idtb_posto_grad DESC";
+	$osic = "SELECT * FROM db_clti.vw_pessoal_ti WHERE sigla_funcao = 'OSIC' ORDER BY idtb_posto_grad DESC";
     $osic = $pg->getRows($osic);
 
     echo"<div class=\"table-responsive\">
@@ -451,10 +451,10 @@ if ($act == 'insert') {
 
                 $sql = "INSERT INTO db_clti.tb_pessoal_ti(
                     idtb_om_apoiadas,idtb_posto_grad, idtb_corpo_quadro, idtb_especialidade, nip, 
-                    cpf, nome, nome_guerra, senha, correio_eletronico, funcao, status)
+                    cpf, nome, nome_guerra, senha, correio_eletronico, idtb_funcoes_ti, status)
                     VALUES ('$omapoiada', '$postograd', '$corpoquadro', '$especialidade',
                     '$nip', '$cpf', '$nome', '$nomeguerra', '$senha', '$correio_eletronico',
-                    'OSIC', 'ATIVO')";
+                    1, 'ATIVO')";
 
                 $pg->exec($sql);
 

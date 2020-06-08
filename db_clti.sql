@@ -5,7 +5,7 @@
 -- Dumped from database version 10.13 (Ubuntu 10.13-1.pgdg18.04+1)
 -- Dumped by pg_dump version 10.13 (Ubuntu 10.13-1.pgdg18.04+1)
 
--- Started on 2020-06-08 09:27:32 -03
+-- Started on 2020-06-08 15:18:32 -03
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -19,7 +19,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- TOC entry 3240 (class 1262 OID 16594)
+-- TOC entry 3219 (class 1262 OID 16594)
 -- Name: db_clti; Type: DATABASE; Schema: -; Owner: sisclti
 --
 
@@ -60,7 +60,7 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 3242 (class 0 OID 0)
+-- TOC entry 3221 (class 0 OID 0)
 -- Dependencies: 1
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
@@ -113,60 +113,12 @@ CREATE SEQUENCE db_clti.pais_id_sequence
 
 ALTER TABLE db_clti.pais_id_sequence OWNER TO postgres;
 
---
--- TOC entry 200 (class 1259 OID 16602)
--- Name: tb_admin_idtb_admin_sequence; Type: SEQUENCE; Schema: db_clti; Owner: postgres
---
-
-CREATE SEQUENCE db_clti.tb_admin_idtb_admin_sequence
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE db_clti.tb_admin_idtb_admin_sequence OWNER TO postgres;
-
 SET default_tablespace = '';
 
 SET default_with_oids = false;
 
 --
--- TOC entry 201 (class 1259 OID 16604)
--- Name: tb_admin; Type: TABLE; Schema: db_clti; Owner: postgres
---
-
-CREATE TABLE db_clti.tb_admin (
-    idtb_admin integer DEFAULT nextval('db_clti.tb_admin_idtb_admin_sequence'::regclass) NOT NULL,
-    idtb_om_apoiadas integer,
-    idtb_posto_grad integer,
-    idtb_corpo_quadro integer,
-    idtb_especialidade integer,
-    nip character varying(8),
-    cpf character varying(11),
-    nome character varying(255),
-    nome_guerra character varying(45),
-    perfil character varying(45),
-    senha character(255) NOT NULL,
-    status character(45) NOT NULL,
-    correio_eletronico character varying(255) NOT NULL
-);
-
-
-ALTER TABLE db_clti.tb_admin OWNER TO postgres;
-
---
--- TOC entry 3243 (class 0 OID 0)
--- Dependencies: 201
--- Name: TABLE tb_admin; Type: COMMENT; Schema: db_clti; Owner: postgres
---
-
-COMMENT ON TABLE db_clti.tb_admin IS 'Tabela contendo os administradores de redes locais das OM.';
-
-
---
--- TOC entry 202 (class 1259 OID 16619)
+-- TOC entry 200 (class 1259 OID 16619)
 -- Name: tb_cidade; Type: TABLE; Schema: db_clti; Owner: postgres
 --
 
@@ -180,8 +132,8 @@ CREATE TABLE db_clti.tb_cidade (
 ALTER TABLE db_clti.tb_cidade OWNER TO postgres;
 
 --
--- TOC entry 3245 (class 0 OID 0)
--- Dependencies: 202
+-- TOC entry 3222 (class 0 OID 0)
+-- Dependencies: 200
 -- Name: TABLE tb_cidade; Type: COMMENT; Schema: db_clti; Owner: postgres
 --
 
@@ -189,7 +141,7 @@ COMMENT ON TABLE db_clti.tb_cidade IS 'Tabela contendo as cidades.';
 
 
 --
--- TOC entry 203 (class 1259 OID 16623)
+-- TOC entry 201 (class 1259 OID 16623)
 -- Name: tb_clti_idtb_clti_sequence; Type: SEQUENCE; Schema: db_clti; Owner: postgres
 --
 
@@ -204,7 +156,7 @@ CREATE SEQUENCE db_clti.tb_clti_idtb_clti_sequence
 ALTER TABLE db_clti.tb_clti_idtb_clti_sequence OWNER TO postgres;
 
 --
--- TOC entry 204 (class 1259 OID 16625)
+-- TOC entry 202 (class 1259 OID 16625)
 -- Name: tb_clti; Type: TABLE; Schema: db_clti; Owner: postgres
 --
 
@@ -222,8 +174,8 @@ CREATE TABLE db_clti.tb_clti (
 ALTER TABLE db_clti.tb_clti OWNER TO postgres;
 
 --
--- TOC entry 3247 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 3224 (class 0 OID 0)
+-- Dependencies: 202
 -- Name: TABLE tb_clti; Type: COMMENT; Schema: db_clti; Owner: postgres
 --
 
@@ -231,7 +183,7 @@ COMMENT ON TABLE db_clti.tb_clti IS 'Tabela contendo as informações do CLTI.';
 
 
 --
--- TOC entry 230 (class 1259 OID 16991)
+-- TOC entry 228 (class 1259 OID 16991)
 -- Name: tb_conectividade; Type: TABLE; Schema: db_clti; Owner: sisclti
 --
 
@@ -250,8 +202,8 @@ CREATE TABLE db_clti.tb_conectividade (
 ALTER TABLE db_clti.tb_conectividade OWNER TO sisclti;
 
 --
--- TOC entry 3249 (class 0 OID 0)
--- Dependencies: 230
+-- TOC entry 3226 (class 0 OID 0)
+-- Dependencies: 228
 -- Name: TABLE tb_conectividade; Type: COMMENT; Schema: db_clti; Owner: sisclti
 --
 
@@ -259,7 +211,7 @@ COMMENT ON TABLE db_clti.tb_conectividade IS 'Tabela contendo dispositivos de co
 
 
 --
--- TOC entry 229 (class 1259 OID 16989)
+-- TOC entry 227 (class 1259 OID 16989)
 -- Name: tb_conectividade_idtb_conectividade_seq; Type: SEQUENCE; Schema: db_clti; Owner: sisclti
 --
 
@@ -275,8 +227,8 @@ CREATE SEQUENCE db_clti.tb_conectividade_idtb_conectividade_seq
 ALTER TABLE db_clti.tb_conectividade_idtb_conectividade_seq OWNER TO sisclti;
 
 --
--- TOC entry 3250 (class 0 OID 0)
--- Dependencies: 229
+-- TOC entry 3227 (class 0 OID 0)
+-- Dependencies: 227
 -- Name: tb_conectividade_idtb_conectividade_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: sisclti
 --
 
@@ -284,7 +236,7 @@ ALTER SEQUENCE db_clti.tb_conectividade_idtb_conectividade_seq OWNED BY db_clti.
 
 
 --
--- TOC entry 205 (class 1259 OID 16629)
+-- TOC entry 203 (class 1259 OID 16629)
 -- Name: tb_config; Type: TABLE; Schema: db_clti; Owner: postgres
 --
 
@@ -298,8 +250,8 @@ CREATE TABLE db_clti.tb_config (
 ALTER TABLE db_clti.tb_config OWNER TO postgres;
 
 --
--- TOC entry 3251 (class 0 OID 0)
--- Dependencies: 205
+-- TOC entry 3228 (class 0 OID 0)
+-- Dependencies: 203
 -- Name: TABLE tb_config; Type: COMMENT; Schema: db_clti; Owner: postgres
 --
 
@@ -307,7 +259,7 @@ COMMENT ON TABLE db_clti.tb_config IS 'Parâmetros de configuração utilizados 
 
 
 --
--- TOC entry 206 (class 1259 OID 16635)
+-- TOC entry 204 (class 1259 OID 16635)
 -- Name: tb_config_idtb_config_seq; Type: SEQUENCE; Schema: db_clti; Owner: postgres
 --
 
@@ -322,8 +274,8 @@ CREATE SEQUENCE db_clti.tb_config_idtb_config_seq
 ALTER TABLE db_clti.tb_config_idtb_config_seq OWNER TO postgres;
 
 --
--- TOC entry 3253 (class 0 OID 0)
--- Dependencies: 206
+-- TOC entry 3230 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: tb_config_idtb_config_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: postgres
 --
 
@@ -331,7 +283,7 @@ ALTER SEQUENCE db_clti.tb_config_idtb_config_seq OWNED BY db_clti.tb_config.idtb
 
 
 --
--- TOC entry 207 (class 1259 OID 16637)
+-- TOC entry 205 (class 1259 OID 16637)
 -- Name: tb_corpo_quadro_idtb_corpo_quadro_sequence; Type: SEQUENCE; Schema: db_clti; Owner: postgres
 --
 
@@ -346,7 +298,7 @@ CREATE SEQUENCE db_clti.tb_corpo_quadro_idtb_corpo_quadro_sequence
 ALTER TABLE db_clti.tb_corpo_quadro_idtb_corpo_quadro_sequence OWNER TO postgres;
 
 --
--- TOC entry 208 (class 1259 OID 16639)
+-- TOC entry 206 (class 1259 OID 16639)
 -- Name: tb_corpo_quadro; Type: TABLE; Schema: db_clti; Owner: postgres
 --
 
@@ -360,8 +312,8 @@ CREATE TABLE db_clti.tb_corpo_quadro (
 ALTER TABLE db_clti.tb_corpo_quadro OWNER TO postgres;
 
 --
--- TOC entry 3254 (class 0 OID 0)
--- Dependencies: 208
+-- TOC entry 3231 (class 0 OID 0)
+-- Dependencies: 206
 -- Name: TABLE tb_corpo_quadro; Type: COMMENT; Schema: db_clti; Owner: postgres
 --
 
@@ -369,7 +321,7 @@ COMMENT ON TABLE db_clti.tb_corpo_quadro IS 'Tabela contendo os corpos e quadros
 
 
 --
--- TOC entry 209 (class 1259 OID 16643)
+-- TOC entry 207 (class 1259 OID 16643)
 -- Name: tb_especialidade_idtb_especialidade_sequence; Type: SEQUENCE; Schema: db_clti; Owner: postgres
 --
 
@@ -384,7 +336,7 @@ CREATE SEQUENCE db_clti.tb_especialidade_idtb_especialidade_sequence
 ALTER TABLE db_clti.tb_especialidade_idtb_especialidade_sequence OWNER TO postgres;
 
 --
--- TOC entry 210 (class 1259 OID 16645)
+-- TOC entry 208 (class 1259 OID 16645)
 -- Name: tb_especialidade; Type: TABLE; Schema: db_clti; Owner: postgres
 --
 
@@ -398,8 +350,8 @@ CREATE TABLE db_clti.tb_especialidade (
 ALTER TABLE db_clti.tb_especialidade OWNER TO postgres;
 
 --
--- TOC entry 3256 (class 0 OID 0)
--- Dependencies: 210
+-- TOC entry 3233 (class 0 OID 0)
+-- Dependencies: 208
 -- Name: TABLE tb_especialidade; Type: COMMENT; Schema: db_clti; Owner: postgres
 --
 
@@ -407,7 +359,7 @@ COMMENT ON TABLE db_clti.tb_especialidade IS 'Tabela contendo as especialidades 
 
 
 --
--- TOC entry 247 (class 1259 OID 25684)
+-- TOC entry 244 (class 1259 OID 25684)
 -- Name: tb_estacoes; Type: TABLE; Schema: db_clti; Owner: postgres
 --
 
@@ -434,7 +386,7 @@ CREATE TABLE db_clti.tb_estacoes (
 ALTER TABLE db_clti.tb_estacoes OWNER TO postgres;
 
 --
--- TOC entry 246 (class 1259 OID 25682)
+-- TOC entry 243 (class 1259 OID 25682)
 -- Name: tb_estacoes_idtb_estacoes_seq; Type: SEQUENCE; Schema: db_clti; Owner: postgres
 --
 
@@ -450,8 +402,8 @@ CREATE SEQUENCE db_clti.tb_estacoes_idtb_estacoes_seq
 ALTER TABLE db_clti.tb_estacoes_idtb_estacoes_seq OWNER TO postgres;
 
 --
--- TOC entry 3258 (class 0 OID 0)
--- Dependencies: 246
+-- TOC entry 3235 (class 0 OID 0)
+-- Dependencies: 243
 -- Name: tb_estacoes_idtb_estacoes_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: postgres
 --
 
@@ -459,7 +411,7 @@ ALTER SEQUENCE db_clti.tb_estacoes_idtb_estacoes_seq OWNED BY db_clti.tb_estacoe
 
 
 --
--- TOC entry 211 (class 1259 OID 16649)
+-- TOC entry 209 (class 1259 OID 16649)
 -- Name: tb_estado; Type: TABLE; Schema: db_clti; Owner: postgres
 --
 
@@ -474,8 +426,8 @@ CREATE TABLE db_clti.tb_estado (
 ALTER TABLE db_clti.tb_estado OWNER TO postgres;
 
 --
--- TOC entry 3259 (class 0 OID 0)
--- Dependencies: 211
+-- TOC entry 3236 (class 0 OID 0)
+-- Dependencies: 209
 -- Name: TABLE tb_estado; Type: COMMENT; Schema: db_clti; Owner: postgres
 --
 
@@ -483,7 +435,7 @@ COMMENT ON TABLE db_clti.tb_estado IS 'Tabela contendo os estados.';
 
 
 --
--- TOC entry 253 (class 1259 OID 25781)
+-- TOC entry 250 (class 1259 OID 25781)
 -- Name: tb_funcoes_ti; Type: TABLE; Schema: db_clti; Owner: postgres
 --
 
@@ -497,7 +449,7 @@ CREATE TABLE db_clti.tb_funcoes_ti (
 ALTER TABLE db_clti.tb_funcoes_ti OWNER TO postgres;
 
 --
--- TOC entry 252 (class 1259 OID 25779)
+-- TOC entry 249 (class 1259 OID 25779)
 -- Name: tb_funcao_ti_idtb_funcao_ti_seq; Type: SEQUENCE; Schema: db_clti; Owner: postgres
 --
 
@@ -513,8 +465,8 @@ CREATE SEQUENCE db_clti.tb_funcao_ti_idtb_funcao_ti_seq
 ALTER TABLE db_clti.tb_funcao_ti_idtb_funcao_ti_seq OWNER TO postgres;
 
 --
--- TOC entry 3261 (class 0 OID 0)
--- Dependencies: 252
+-- TOC entry 3238 (class 0 OID 0)
+-- Dependencies: 249
 -- Name: tb_funcao_ti_idtb_funcao_ti_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: postgres
 --
 
@@ -522,7 +474,7 @@ ALTER SEQUENCE db_clti.tb_funcao_ti_idtb_funcao_ti_seq OWNED BY db_clti.tb_funco
 
 
 --
--- TOC entry 212 (class 1259 OID 16653)
+-- TOC entry 210 (class 1259 OID 16653)
 -- Name: tb_lotacao_clti_idtb_lotacao_clti_sequence; Type: SEQUENCE; Schema: db_clti; Owner: postgres
 --
 
@@ -537,7 +489,7 @@ CREATE SEQUENCE db_clti.tb_lotacao_clti_idtb_lotacao_clti_sequence
 ALTER TABLE db_clti.tb_lotacao_clti_idtb_lotacao_clti_sequence OWNER TO postgres;
 
 --
--- TOC entry 213 (class 1259 OID 16655)
+-- TOC entry 211 (class 1259 OID 16655)
 -- Name: tb_lotacao_clti; Type: TABLE; Schema: db_clti; Owner: sisclti
 --
 
@@ -560,8 +512,8 @@ CREATE TABLE db_clti.tb_lotacao_clti (
 ALTER TABLE db_clti.tb_lotacao_clti OWNER TO sisclti;
 
 --
--- TOC entry 3262 (class 0 OID 0)
--- Dependencies: 213
+-- TOC entry 3239 (class 0 OID 0)
+-- Dependencies: 211
 -- Name: TABLE tb_lotacao_clti; Type: COMMENT; Schema: db_clti; Owner: sisclti
 --
 
@@ -569,7 +521,7 @@ COMMENT ON TABLE db_clti.tb_lotacao_clti IS 'Tabela contendo os dados da equipe 
 
 
 --
--- TOC entry 214 (class 1259 OID 16663)
+-- TOC entry 212 (class 1259 OID 16663)
 -- Name: tb_om_apoiadas_idtb_om_apoiadas_sequence; Type: SEQUENCE; Schema: db_clti; Owner: postgres
 --
 
@@ -584,7 +536,7 @@ CREATE SEQUENCE db_clti.tb_om_apoiadas_idtb_om_apoiadas_sequence
 ALTER TABLE db_clti.tb_om_apoiadas_idtb_om_apoiadas_sequence OWNER TO postgres;
 
 --
--- TOC entry 215 (class 1259 OID 16665)
+-- TOC entry 213 (class 1259 OID 16665)
 -- Name: tb_om_apoiadas; Type: TABLE; Schema: db_clti; Owner: sisclti
 --
 
@@ -602,8 +554,8 @@ CREATE TABLE db_clti.tb_om_apoiadas (
 ALTER TABLE db_clti.tb_om_apoiadas OWNER TO sisclti;
 
 --
--- TOC entry 3263 (class 0 OID 0)
--- Dependencies: 215
+-- TOC entry 3240 (class 0 OID 0)
+-- Dependencies: 213
 -- Name: TABLE tb_om_apoiadas; Type: COMMENT; Schema: db_clti; Owner: sisclti
 --
 
@@ -611,7 +563,7 @@ COMMENT ON TABLE db_clti.tb_om_apoiadas IS 'Tabela contendo os dados das OM apoi
 
 
 --
--- TOC entry 216 (class 1259 OID 16669)
+-- TOC entry 214 (class 1259 OID 16669)
 -- Name: tb_osic_idtb_osic_sequence; Type: SEQUENCE; Schema: db_clti; Owner: postgres
 --
 
@@ -626,7 +578,7 @@ CREATE SEQUENCE db_clti.tb_osic_idtb_osic_sequence
 ALTER TABLE db_clti.tb_osic_idtb_osic_sequence OWNER TO postgres;
 
 --
--- TOC entry 217 (class 1259 OID 16671)
+-- TOC entry 215 (class 1259 OID 16671)
 -- Name: tb_osic; Type: TABLE; Schema: db_clti; Owner: postgres
 --
 
@@ -650,8 +602,8 @@ CREATE TABLE db_clti.tb_osic (
 ALTER TABLE db_clti.tb_osic OWNER TO postgres;
 
 --
--- TOC entry 3264 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 3241 (class 0 OID 0)
+-- Dependencies: 215
 -- Name: TABLE tb_osic; Type: COMMENT; Schema: db_clti; Owner: postgres
 --
 
@@ -659,7 +611,7 @@ COMMENT ON TABLE db_clti.tb_osic IS 'Tabela contendo os OSIC das OM.';
 
 
 --
--- TOC entry 218 (class 1259 OID 16675)
+-- TOC entry 216 (class 1259 OID 16675)
 -- Name: tb_pais; Type: TABLE; Schema: db_clti; Owner: postgres
 --
 
@@ -673,8 +625,8 @@ CREATE TABLE db_clti.tb_pais (
 ALTER TABLE db_clti.tb_pais OWNER TO postgres;
 
 --
--- TOC entry 3266 (class 0 OID 0)
--- Dependencies: 218
+-- TOC entry 3243 (class 0 OID 0)
+-- Dependencies: 216
 -- Name: TABLE tb_pais; Type: COMMENT; Schema: db_clti; Owner: postgres
 --
 
@@ -682,7 +634,7 @@ COMMENT ON TABLE db_clti.tb_pais IS 'Tabela contendo países.';
 
 
 --
--- TOC entry 226 (class 1259 OID 16906)
+-- TOC entry 224 (class 1259 OID 16906)
 -- Name: tb_pessoal_ti; Type: TABLE; Schema: db_clti; Owner: postgres
 --
 
@@ -697,7 +649,6 @@ CREATE TABLE db_clti.tb_pessoal_ti (
     nome character varying(255) NOT NULL,
     nome_guerra character varying(255) NOT NULL,
     correio_eletronico character varying(255) NOT NULL,
-    funcao character varying(255),
     status character varying(255) NOT NULL,
     senha character varying(255) NOT NULL,
     idtb_funcoes_ti integer NOT NULL
@@ -707,8 +658,8 @@ CREATE TABLE db_clti.tb_pessoal_ti (
 ALTER TABLE db_clti.tb_pessoal_ti OWNER TO postgres;
 
 --
--- TOC entry 3268 (class 0 OID 0)
--- Dependencies: 226
+-- TOC entry 3245 (class 0 OID 0)
+-- Dependencies: 224
 -- Name: TABLE tb_pessoal_ti; Type: COMMENT; Schema: db_clti; Owner: postgres
 --
 
@@ -716,7 +667,7 @@ COMMENT ON TABLE db_clti.tb_pessoal_ti IS 'Tabela contendo pessoal de TI.';
 
 
 --
--- TOC entry 225 (class 1259 OID 16904)
+-- TOC entry 223 (class 1259 OID 16904)
 -- Name: tb_pessoal_ti_idtb_pessoal_ti_seq; Type: SEQUENCE; Schema: db_clti; Owner: postgres
 --
 
@@ -732,8 +683,8 @@ CREATE SEQUENCE db_clti.tb_pessoal_ti_idtb_pessoal_ti_seq
 ALTER TABLE db_clti.tb_pessoal_ti_idtb_pessoal_ti_seq OWNER TO postgres;
 
 --
--- TOC entry 3270 (class 0 OID 0)
--- Dependencies: 225
+-- TOC entry 3247 (class 0 OID 0)
+-- Dependencies: 223
 -- Name: tb_pessoal_ti_idtb_pessoal_ti_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: postgres
 --
 
@@ -741,7 +692,7 @@ ALTER SEQUENCE db_clti.tb_pessoal_ti_idtb_pessoal_ti_seq OWNED BY db_clti.tb_pes
 
 
 --
--- TOC entry 219 (class 1259 OID 16679)
+-- TOC entry 217 (class 1259 OID 16679)
 -- Name: tb_posto_grad; Type: TABLE; Schema: db_clti; Owner: postgres
 --
 
@@ -755,8 +706,8 @@ CREATE TABLE db_clti.tb_posto_grad (
 ALTER TABLE db_clti.tb_posto_grad OWNER TO postgres;
 
 --
--- TOC entry 3271 (class 0 OID 0)
--- Dependencies: 219
+-- TOC entry 3248 (class 0 OID 0)
+-- Dependencies: 217
 -- Name: TABLE tb_posto_grad; Type: COMMENT; Schema: db_clti; Owner: postgres
 --
 
@@ -764,7 +715,7 @@ COMMENT ON TABLE db_clti.tb_posto_grad IS 'Tabela contendo os postos e graduaç�
 
 
 --
--- TOC entry 220 (class 1259 OID 16682)
+-- TOC entry 218 (class 1259 OID 16682)
 -- Name: tb_posto_grad_idtb_posto_grad_seq; Type: SEQUENCE; Schema: db_clti; Owner: postgres
 --
 
@@ -779,8 +730,8 @@ CREATE SEQUENCE db_clti.tb_posto_grad_idtb_posto_grad_seq
 ALTER TABLE db_clti.tb_posto_grad_idtb_posto_grad_seq OWNER TO postgres;
 
 --
--- TOC entry 3273 (class 0 OID 0)
--- Dependencies: 220
+-- TOC entry 3250 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: tb_posto_grad_idtb_posto_grad_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: postgres
 --
 
@@ -788,7 +739,7 @@ ALTER SEQUENCE db_clti.tb_posto_grad_idtb_posto_grad_seq OWNED BY db_clti.tb_pos
 
 
 --
--- TOC entry 241 (class 1259 OID 25618)
+-- TOC entry 238 (class 1259 OID 25618)
 -- Name: tb_proc_fab; Type: TABLE; Schema: db_clti; Owner: postgres
 --
 
@@ -801,7 +752,7 @@ CREATE TABLE db_clti.tb_proc_fab (
 ALTER TABLE db_clti.tb_proc_fab OWNER TO postgres;
 
 --
--- TOC entry 240 (class 1259 OID 25616)
+-- TOC entry 237 (class 1259 OID 25616)
 -- Name: tb_proc_fab_idtb_proc_fab_seq; Type: SEQUENCE; Schema: db_clti; Owner: postgres
 --
 
@@ -817,8 +768,8 @@ CREATE SEQUENCE db_clti.tb_proc_fab_idtb_proc_fab_seq
 ALTER TABLE db_clti.tb_proc_fab_idtb_proc_fab_seq OWNER TO postgres;
 
 --
--- TOC entry 3274 (class 0 OID 0)
--- Dependencies: 240
+-- TOC entry 3251 (class 0 OID 0)
+-- Dependencies: 237
 -- Name: tb_proc_fab_idtb_proc_fab_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: postgres
 --
 
@@ -826,7 +777,7 @@ ALTER SEQUENCE db_clti.tb_proc_fab_idtb_proc_fab_seq OWNED BY db_clti.tb_proc_fa
 
 
 --
--- TOC entry 243 (class 1259 OID 25626)
+-- TOC entry 240 (class 1259 OID 25626)
 -- Name: tb_proc_modelo; Type: TABLE; Schema: db_clti; Owner: postgres
 --
 
@@ -840,7 +791,7 @@ CREATE TABLE db_clti.tb_proc_modelo (
 ALTER TABLE db_clti.tb_proc_modelo OWNER TO postgres;
 
 --
--- TOC entry 242 (class 1259 OID 25624)
+-- TOC entry 239 (class 1259 OID 25624)
 -- Name: tb_proc_modelo_idtb_proc_modelo_seq; Type: SEQUENCE; Schema: db_clti; Owner: postgres
 --
 
@@ -856,8 +807,8 @@ CREATE SEQUENCE db_clti.tb_proc_modelo_idtb_proc_modelo_seq
 ALTER TABLE db_clti.tb_proc_modelo_idtb_proc_modelo_seq OWNER TO postgres;
 
 --
--- TOC entry 3275 (class 0 OID 0)
--- Dependencies: 242
+-- TOC entry 3252 (class 0 OID 0)
+-- Dependencies: 239
 -- Name: tb_proc_modelo_idtb_proc_modelo_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: postgres
 --
 
@@ -865,7 +816,7 @@ ALTER SEQUENCE db_clti.tb_proc_modelo_idtb_proc_modelo_seq OWNED BY db_clti.tb_p
 
 
 --
--- TOC entry 238 (class 1259 OID 25597)
+-- TOC entry 235 (class 1259 OID 25597)
 -- Name: tb_qualificacao_clti; Type: TABLE; Schema: db_clti; Owner: postgres
 --
 
@@ -886,7 +837,7 @@ CREATE TABLE db_clti.tb_qualificacao_clti (
 ALTER TABLE db_clti.tb_qualificacao_clti OWNER TO postgres;
 
 --
--- TOC entry 237 (class 1259 OID 25595)
+-- TOC entry 234 (class 1259 OID 25595)
 -- Name: tb_qualificacao_clti_idtb_qualificacao_clti_seq; Type: SEQUENCE; Schema: db_clti; Owner: postgres
 --
 
@@ -902,8 +853,8 @@ CREATE SEQUENCE db_clti.tb_qualificacao_clti_idtb_qualificacao_clti_seq
 ALTER TABLE db_clti.tb_qualificacao_clti_idtb_qualificacao_clti_seq OWNER TO postgres;
 
 --
--- TOC entry 3276 (class 0 OID 0)
--- Dependencies: 237
+-- TOC entry 3253 (class 0 OID 0)
+-- Dependencies: 234
 -- Name: tb_qualificacao_clti_idtb_qualificacao_clti_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: postgres
 --
 
@@ -911,7 +862,7 @@ ALTER SEQUENCE db_clti.tb_qualificacao_clti_idtb_qualificacao_clti_seq OWNED BY 
 
 
 --
--- TOC entry 228 (class 1259 OID 16937)
+-- TOC entry 226 (class 1259 OID 16937)
 -- Name: tb_qualificacao_ti; Type: TABLE; Schema: db_clti; Owner: postgres
 --
 
@@ -932,8 +883,8 @@ CREATE TABLE db_clti.tb_qualificacao_ti (
 ALTER TABLE db_clti.tb_qualificacao_ti OWNER TO postgres;
 
 --
--- TOC entry 3277 (class 0 OID 0)
--- Dependencies: 228
+-- TOC entry 3254 (class 0 OID 0)
+-- Dependencies: 226
 -- Name: TABLE tb_qualificacao_ti; Type: COMMENT; Schema: db_clti; Owner: postgres
 --
 
@@ -941,7 +892,7 @@ COMMENT ON TABLE db_clti.tb_qualificacao_ti IS 'Tabela contendo cursos/qualifica
 
 
 --
--- TOC entry 227 (class 1259 OID 16935)
+-- TOC entry 225 (class 1259 OID 16935)
 -- Name: tb_qualificacao_ti_idtb_qualificacao_ti_seq; Type: SEQUENCE; Schema: db_clti; Owner: postgres
 --
 
@@ -957,8 +908,8 @@ CREATE SEQUENCE db_clti.tb_qualificacao_ti_idtb_qualificacao_ti_seq
 ALTER TABLE db_clti.tb_qualificacao_ti_idtb_qualificacao_ti_seq OWNER TO postgres;
 
 --
--- TOC entry 3279 (class 0 OID 0)
--- Dependencies: 227
+-- TOC entry 3256 (class 0 OID 0)
+-- Dependencies: 225
 -- Name: tb_qualificacao_ti_idtb_qualificacao_ti_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: postgres
 --
 
@@ -966,7 +917,7 @@ ALTER SEQUENCE db_clti.tb_qualificacao_ti_idtb_qualificacao_ti_seq OWNED BY db_c
 
 
 --
--- TOC entry 232 (class 1259 OID 25326)
+-- TOC entry 230 (class 1259 OID 25326)
 -- Name: tb_registro_log; Type: TABLE; Schema: db_clti; Owner: sisclti
 --
 
@@ -981,7 +932,7 @@ CREATE TABLE db_clti.tb_registro_log (
 ALTER TABLE db_clti.tb_registro_log OWNER TO sisclti;
 
 --
--- TOC entry 231 (class 1259 OID 25324)
+-- TOC entry 229 (class 1259 OID 25324)
 -- Name: tb_registro_log_idtb_registro_log_seq; Type: SEQUENCE; Schema: db_clti; Owner: sisclti
 --
 
@@ -997,8 +948,8 @@ CREATE SEQUENCE db_clti.tb_registro_log_idtb_registro_log_seq
 ALTER TABLE db_clti.tb_registro_log_idtb_registro_log_seq OWNER TO sisclti;
 
 --
--- TOC entry 3280 (class 0 OID 0)
--- Dependencies: 231
+-- TOC entry 3257 (class 0 OID 0)
+-- Dependencies: 229
 -- Name: tb_registro_log_idtb_registro_log_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: sisclti
 --
 
@@ -1006,7 +957,7 @@ ALTER SEQUENCE db_clti.tb_registro_log_idtb_registro_log_seq OWNED BY db_clti.tb
 
 
 --
--- TOC entry 245 (class 1259 OID 25675)
+-- TOC entry 242 (class 1259 OID 25675)
 -- Name: tb_servidores; Type: TABLE; Schema: db_clti; Owner: postgres
 --
 
@@ -1034,7 +985,7 @@ CREATE TABLE db_clti.tb_servidores (
 ALTER TABLE db_clti.tb_servidores OWNER TO postgres;
 
 --
--- TOC entry 244 (class 1259 OID 25673)
+-- TOC entry 241 (class 1259 OID 25673)
 -- Name: tb_servidores_idtb_servidores_seq; Type: SEQUENCE; Schema: db_clti; Owner: postgres
 --
 
@@ -1050,8 +1001,8 @@ CREATE SEQUENCE db_clti.tb_servidores_idtb_servidores_seq
 ALTER TABLE db_clti.tb_servidores_idtb_servidores_seq OWNER TO postgres;
 
 --
--- TOC entry 3281 (class 0 OID 0)
--- Dependencies: 244
+-- TOC entry 3258 (class 0 OID 0)
+-- Dependencies: 241
 -- Name: tb_servidores_idtb_servidores_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: postgres
 --
 
@@ -1059,7 +1010,7 @@ ALTER SEQUENCE db_clti.tb_servidores_idtb_servidores_seq OWNED BY db_clti.tb_ser
 
 
 --
--- TOC entry 224 (class 1259 OID 16811)
+-- TOC entry 222 (class 1259 OID 16811)
 -- Name: tb_sor; Type: TABLE; Schema: db_clti; Owner: sisclti
 --
 
@@ -1075,8 +1026,8 @@ CREATE TABLE db_clti.tb_sor (
 ALTER TABLE db_clti.tb_sor OWNER TO sisclti;
 
 --
--- TOC entry 3282 (class 0 OID 0)
--- Dependencies: 224
+-- TOC entry 3259 (class 0 OID 0)
+-- Dependencies: 222
 -- Name: TABLE tb_sor; Type: COMMENT; Schema: db_clti; Owner: sisclti
 --
 
@@ -1084,7 +1035,7 @@ COMMENT ON TABLE db_clti.tb_sor IS 'Tabela contendo Sitemas Operacionais.';
 
 
 --
--- TOC entry 223 (class 1259 OID 16809)
+-- TOC entry 221 (class 1259 OID 16809)
 -- Name: tb_sor_idtb_sor_seq; Type: SEQUENCE; Schema: db_clti; Owner: sisclti
 --
 
@@ -1100,8 +1051,8 @@ CREATE SEQUENCE db_clti.tb_sor_idtb_sor_seq
 ALTER TABLE db_clti.tb_sor_idtb_sor_seq OWNER TO sisclti;
 
 --
--- TOC entry 3283 (class 0 OID 0)
--- Dependencies: 223
+-- TOC entry 3260 (class 0 OID 0)
+-- Dependencies: 221
 -- Name: tb_sor_idtb_sor_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: sisclti
 --
 
@@ -1109,7 +1060,7 @@ ALTER SEQUENCE db_clti.tb_sor_idtb_sor_seq OWNED BY db_clti.tb_sor.idtb_sor;
 
 
 --
--- TOC entry 221 (class 1259 OID 16686)
+-- TOC entry 219 (class 1259 OID 16686)
 -- Name: tb_tipos_clti_idtipos_clti_sequence; Type: SEQUENCE; Schema: db_clti; Owner: postgres
 --
 
@@ -1124,7 +1075,7 @@ CREATE SEQUENCE db_clti.tb_tipos_clti_idtipos_clti_sequence
 ALTER TABLE db_clti.tb_tipos_clti_idtipos_clti_sequence OWNER TO postgres;
 
 --
--- TOC entry 222 (class 1259 OID 16688)
+-- TOC entry 220 (class 1259 OID 16688)
 -- Name: tb_tipos_clti; Type: TABLE; Schema: db_clti; Owner: postgres
 --
 
@@ -1141,8 +1092,8 @@ CREATE TABLE db_clti.tb_tipos_clti (
 ALTER TABLE db_clti.tb_tipos_clti OWNER TO postgres;
 
 --
--- TOC entry 3284 (class 0 OID 0)
--- Dependencies: 222
+-- TOC entry 3261 (class 0 OID 0)
+-- Dependencies: 220
 -- Name: TABLE tb_tipos_clti; Type: COMMENT; Schema: db_clti; Owner: postgres
 --
 
@@ -1150,39 +1101,7 @@ COMMENT ON TABLE db_clti.tb_tipos_clti IS 'Tabela contendo os tipos de CLTI.';
 
 
 --
--- TOC entry 235 (class 1259 OID 25482)
--- Name: vw_admin; Type: VIEW; Schema: db_clti; Owner: postgres
---
-
-CREATE VIEW db_clti.vw_admin AS
- SELECT adm.idtb_admin,
-    adm.idtb_posto_grad,
-    posto.sigla AS sigla_posto_grad,
-    adm.idtb_corpo_quadro,
-    corpo.sigla AS sigla_corpo_quadro,
-    adm.idtb_especialidade,
-    espec.sigla AS sigla_espec,
-    adm.idtb_om_apoiadas,
-    om.sigla AS sigla_om,
-    adm.nip,
-    adm.cpf,
-    adm.nome,
-    adm.nome_guerra,
-    adm.correio_eletronico,
-    adm.perfil,
-    adm.status
-   FROM db_clti.tb_admin adm,
-    db_clti.tb_posto_grad posto,
-    db_clti.tb_corpo_quadro corpo,
-    db_clti.tb_especialidade espec,
-    db_clti.tb_om_apoiadas om
-  WHERE ((adm.idtb_posto_grad = posto.idtb_posto_grad) AND (adm.idtb_corpo_quadro = corpo.idtb_corpo_quadro) AND (adm.idtb_especialidade = espec.idtb_especialidade) AND (adm.idtb_om_apoiadas = om.idtb_om_apoiadas));
-
-
-ALTER TABLE db_clti.vw_admin OWNER TO postgres;
-
---
--- TOC entry 249 (class 1259 OID 25703)
+-- TOC entry 246 (class 1259 OID 25703)
 -- Name: vw_conectividade; Type: VIEW; Schema: db_clti; Owner: postgres
 --
 
@@ -1204,7 +1123,7 @@ CREATE VIEW db_clti.vw_conectividade AS
 ALTER TABLE db_clti.vw_conectividade OWNER TO postgres;
 
 --
--- TOC entry 250 (class 1259 OID 25737)
+-- TOC entry 247 (class 1259 OID 25737)
 -- Name: vw_estacoes; Type: VIEW; Schema: db_clti; Owner: postgres
 --
 
@@ -1243,7 +1162,7 @@ CREATE VIEW db_clti.vw_estacoes AS
 ALTER TABLE db_clti.vw_estacoes OWNER TO postgres;
 
 --
--- TOC entry 233 (class 1259 OID 25434)
+-- TOC entry 231 (class 1259 OID 25434)
 -- Name: vw_osic; Type: VIEW; Schema: db_clti; Owner: postgres
 --
 
@@ -1275,7 +1194,7 @@ CREATE VIEW db_clti.vw_osic AS
 ALTER TABLE db_clti.vw_osic OWNER TO postgres;
 
 --
--- TOC entry 234 (class 1259 OID 25439)
+-- TOC entry 232 (class 1259 OID 25439)
 -- Name: vw_pessoal_clti; Type: VIEW; Schema: db_clti; Owner: postgres
 --
 
@@ -1304,7 +1223,7 @@ CREATE VIEW db_clti.vw_pessoal_clti AS
 ALTER TABLE db_clti.vw_pessoal_clti OWNER TO postgres;
 
 --
--- TOC entry 254 (class 1259 OID 25803)
+-- TOC entry 251 (class 1259 OID 25803)
 -- Name: vw_pessoal_ti; Type: VIEW; Schema: db_clti; Owner: postgres
 --
 
@@ -1339,7 +1258,7 @@ CREATE VIEW db_clti.vw_pessoal_ti AS
 ALTER TABLE db_clti.vw_pessoal_ti OWNER TO postgres;
 
 --
--- TOC entry 248 (class 1259 OID 25695)
+-- TOC entry 245 (class 1259 OID 25695)
 -- Name: vw_processadores; Type: VIEW; Schema: db_clti; Owner: postgres
 --
 
@@ -1356,7 +1275,7 @@ CREATE VIEW db_clti.vw_processadores AS
 ALTER TABLE db_clti.vw_processadores OWNER TO postgres;
 
 --
--- TOC entry 239 (class 1259 OID 25611)
+-- TOC entry 236 (class 1259 OID 25611)
 -- Name: vw_qualificacao_clti; Type: VIEW; Schema: db_clti; Owner: sisclti
 --
 
@@ -1391,7 +1310,7 @@ CREATE VIEW db_clti.vw_qualificacao_clti AS
 ALTER TABLE db_clti.vw_qualificacao_clti OWNER TO sisclti;
 
 --
--- TOC entry 236 (class 1259 OID 25565)
+-- TOC entry 233 (class 1259 OID 25565)
 -- Name: vw_qualificacao_pesti; Type: VIEW; Schema: db_clti; Owner: postgres
 --
 
@@ -1429,7 +1348,7 @@ CREATE VIEW db_clti.vw_qualificacao_pesti AS
 ALTER TABLE db_clti.vw_qualificacao_pesti OWNER TO postgres;
 
 --
--- TOC entry 251 (class 1259 OID 25770)
+-- TOC entry 248 (class 1259 OID 25770)
 -- Name: vw_servidores; Type: VIEW; Schema: db_clti; Owner: postgres
 --
 
@@ -1469,7 +1388,7 @@ CREATE VIEW db_clti.vw_servidores AS
 ALTER TABLE db_clti.vw_servidores OWNER TO postgres;
 
 --
--- TOC entry 2962 (class 2604 OID 16994)
+-- TOC entry 2950 (class 2604 OID 16994)
 -- Name: tb_conectividade idtb_conectividade; Type: DEFAULT; Schema: db_clti; Owner: sisclti
 --
 
@@ -1477,7 +1396,7 @@ ALTER TABLE ONLY db_clti.tb_conectividade ALTER COLUMN idtb_conectividade SET DE
 
 
 --
--- TOC entry 2947 (class 2604 OID 16693)
+-- TOC entry 2935 (class 2604 OID 16693)
 -- Name: tb_config idtb_config; Type: DEFAULT; Schema: db_clti; Owner: postgres
 --
 
@@ -1485,7 +1404,7 @@ ALTER TABLE ONLY db_clti.tb_config ALTER COLUMN idtb_config SET DEFAULT nextval(
 
 
 --
--- TOC entry 2968 (class 2604 OID 25687)
+-- TOC entry 2956 (class 2604 OID 25687)
 -- Name: tb_estacoes idtb_estacoes; Type: DEFAULT; Schema: db_clti; Owner: postgres
 --
 
@@ -1493,7 +1412,7 @@ ALTER TABLE ONLY db_clti.tb_estacoes ALTER COLUMN idtb_estacoes SET DEFAULT next
 
 
 --
--- TOC entry 2969 (class 2604 OID 25784)
+-- TOC entry 2957 (class 2604 OID 25784)
 -- Name: tb_funcoes_ti idtb_funcoes_ti; Type: DEFAULT; Schema: db_clti; Owner: postgres
 --
 
@@ -1501,7 +1420,7 @@ ALTER TABLE ONLY db_clti.tb_funcoes_ti ALTER COLUMN idtb_funcoes_ti SET DEFAULT 
 
 
 --
--- TOC entry 2960 (class 2604 OID 16909)
+-- TOC entry 2948 (class 2604 OID 16909)
 -- Name: tb_pessoal_ti idtb_pessoal_ti; Type: DEFAULT; Schema: db_clti; Owner: postgres
 --
 
@@ -1509,7 +1428,7 @@ ALTER TABLE ONLY db_clti.tb_pessoal_ti ALTER COLUMN idtb_pessoal_ti SET DEFAULT 
 
 
 --
--- TOC entry 2957 (class 2604 OID 16694)
+-- TOC entry 2945 (class 2604 OID 16694)
 -- Name: tb_posto_grad idtb_posto_grad; Type: DEFAULT; Schema: db_clti; Owner: postgres
 --
 
@@ -1517,7 +1436,7 @@ ALTER TABLE ONLY db_clti.tb_posto_grad ALTER COLUMN idtb_posto_grad SET DEFAULT 
 
 
 --
--- TOC entry 2965 (class 2604 OID 25621)
+-- TOC entry 2953 (class 2604 OID 25621)
 -- Name: tb_proc_fab idtb_proc_fab; Type: DEFAULT; Schema: db_clti; Owner: postgres
 --
 
@@ -1525,7 +1444,7 @@ ALTER TABLE ONLY db_clti.tb_proc_fab ALTER COLUMN idtb_proc_fab SET DEFAULT next
 
 
 --
--- TOC entry 2966 (class 2604 OID 25629)
+-- TOC entry 2954 (class 2604 OID 25629)
 -- Name: tb_proc_modelo idtb_proc_modelo; Type: DEFAULT; Schema: db_clti; Owner: postgres
 --
 
@@ -1533,7 +1452,7 @@ ALTER TABLE ONLY db_clti.tb_proc_modelo ALTER COLUMN idtb_proc_modelo SET DEFAUL
 
 
 --
--- TOC entry 2964 (class 2604 OID 25600)
+-- TOC entry 2952 (class 2604 OID 25600)
 -- Name: tb_qualificacao_clti idtb_qualificacao_clti; Type: DEFAULT; Schema: db_clti; Owner: postgres
 --
 
@@ -1541,7 +1460,7 @@ ALTER TABLE ONLY db_clti.tb_qualificacao_clti ALTER COLUMN idtb_qualificacao_clt
 
 
 --
--- TOC entry 2961 (class 2604 OID 16940)
+-- TOC entry 2949 (class 2604 OID 16940)
 -- Name: tb_qualificacao_ti idtb_qualificacao_ti; Type: DEFAULT; Schema: db_clti; Owner: postgres
 --
 
@@ -1549,7 +1468,7 @@ ALTER TABLE ONLY db_clti.tb_qualificacao_ti ALTER COLUMN idtb_qualificacao_ti SE
 
 
 --
--- TOC entry 2963 (class 2604 OID 25329)
+-- TOC entry 2951 (class 2604 OID 25329)
 -- Name: tb_registro_log idtb_registro_log; Type: DEFAULT; Schema: db_clti; Owner: sisclti
 --
 
@@ -1557,7 +1476,7 @@ ALTER TABLE ONLY db_clti.tb_registro_log ALTER COLUMN idtb_registro_log SET DEFA
 
 
 --
--- TOC entry 2967 (class 2604 OID 25678)
+-- TOC entry 2955 (class 2604 OID 25678)
 -- Name: tb_servidores idtb_servidores; Type: DEFAULT; Schema: db_clti; Owner: postgres
 --
 
@@ -1565,7 +1484,7 @@ ALTER TABLE ONLY db_clti.tb_servidores ALTER COLUMN idtb_servidores SET DEFAULT 
 
 
 --
--- TOC entry 2959 (class 2604 OID 16814)
+-- TOC entry 2947 (class 2604 OID 16814)
 -- Name: tb_sor idtb_sor; Type: DEFAULT; Schema: db_clti; Owner: sisclti
 --
 
@@ -1573,18 +1492,8 @@ ALTER TABLE ONLY db_clti.tb_sor ALTER COLUMN idtb_sor SET DEFAULT nextval('db_cl
 
 
 --
--- TOC entry 3191 (class 0 OID 16604)
--- Dependencies: 201
--- Data for Name: tb_admin; Type: TABLE DATA; Schema: db_clti; Owner: postgres
---
-
-COPY db_clti.tb_admin (idtb_admin, idtb_om_apoiadas, idtb_posto_grad, idtb_corpo_quadro, idtb_especialidade, nip, cpf, nome, nome_guerra, perfil, senha, status, correio_eletronico) FROM stdin;
-\.
-
-
---
--- TOC entry 3192 (class 0 OID 16619)
--- Dependencies: 202
+-- TOC entry 3171 (class 0 OID 16619)
+-- Dependencies: 200
 -- Data for Name: tb_cidade; Type: TABLE DATA; Schema: db_clti; Owner: postgres
 --
 
@@ -7157,8 +7066,8 @@ COPY db_clti.tb_cidade (id, nome, estado) FROM stdin;
 
 
 --
--- TOC entry 3194 (class 0 OID 16625)
--- Dependencies: 204
+-- TOC entry 3173 (class 0 OID 16625)
+-- Dependencies: 202
 -- Data for Name: tb_clti; Type: TABLE DATA; Schema: db_clti; Owner: postgres
 --
 
@@ -7168,8 +7077,8 @@ COPY db_clti.tb_clti (idtb_clti, efetivo_oficiais, efetivo_pracas, nome, sigla, 
 
 
 --
--- TOC entry 3220 (class 0 OID 16991)
--- Dependencies: 230
+-- TOC entry 3199 (class 0 OID 16991)
+-- Dependencies: 228
 -- Data for Name: tb_conectividade; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
@@ -7178,8 +7087,8 @@ COPY db_clti.tb_conectividade (idtb_conectividade, idtb_om_apoiadas, fabricante,
 
 
 --
--- TOC entry 3195 (class 0 OID 16629)
--- Dependencies: 205
+-- TOC entry 3174 (class 0 OID 16629)
+-- Dependencies: 203
 -- Data for Name: tb_config; Type: TABLE DATA; Schema: db_clti; Owner: postgres
 --
 
@@ -7191,8 +7100,8 @@ COPY db_clti.tb_config (idtb_config, parametro, valor) FROM stdin;
 
 
 --
--- TOC entry 3198 (class 0 OID 16639)
--- Dependencies: 208
+-- TOC entry 3177 (class 0 OID 16639)
+-- Dependencies: 206
 -- Data for Name: tb_corpo_quadro; Type: TABLE DATA; Schema: db_clti; Owner: postgres
 --
 
@@ -7219,8 +7128,8 @@ COPY db_clti.tb_corpo_quadro (idtb_corpo_quadro, nome, sigla) FROM stdin;
 
 
 --
--- TOC entry 3200 (class 0 OID 16645)
--- Dependencies: 210
+-- TOC entry 3179 (class 0 OID 16645)
+-- Dependencies: 208
 -- Data for Name: tb_especialidade; Type: TABLE DATA; Schema: db_clti; Owner: postgres
 --
 
@@ -7253,8 +7162,8 @@ COPY db_clti.tb_especialidade (idtb_especialidade, nome, sigla) FROM stdin;
 
 
 --
--- TOC entry 3232 (class 0 OID 25684)
--- Dependencies: 247
+-- TOC entry 3211 (class 0 OID 25684)
+-- Dependencies: 244
 -- Data for Name: tb_estacoes; Type: TABLE DATA; Schema: db_clti; Owner: postgres
 --
 
@@ -7263,8 +7172,8 @@ COPY db_clti.tb_estacoes (idtb_estacoes, idtb_om_apoiadas, idtb_proc_modelo, clo
 
 
 --
--- TOC entry 3201 (class 0 OID 16649)
--- Dependencies: 211
+-- TOC entry 3180 (class 0 OID 16649)
+-- Dependencies: 209
 -- Data for Name: tb_estado; Type: TABLE DATA; Schema: db_clti; Owner: postgres
 --
 
@@ -7300,8 +7209,8 @@ COPY db_clti.tb_estado (id, nome, uf, pais) FROM stdin;
 
 
 --
--- TOC entry 3234 (class 0 OID 25781)
--- Dependencies: 253
+-- TOC entry 3213 (class 0 OID 25781)
+-- Dependencies: 250
 -- Data for Name: tb_funcoes_ti; Type: TABLE DATA; Schema: db_clti; Owner: postgres
 --
 
@@ -7314,8 +7223,8 @@ COPY db_clti.tb_funcoes_ti (idtb_funcoes_ti, descricao, sigla) FROM stdin;
 
 
 --
--- TOC entry 3203 (class 0 OID 16655)
--- Dependencies: 213
+-- TOC entry 3182 (class 0 OID 16655)
+-- Dependencies: 211
 -- Data for Name: tb_lotacao_clti; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
@@ -7325,18 +7234,19 @@ COPY db_clti.tb_lotacao_clti (idtb_lotacao_clti, idtb_posto_grad, idtb_corpo_qua
 
 
 --
--- TOC entry 3205 (class 0 OID 16665)
--- Dependencies: 215
+-- TOC entry 3184 (class 0 OID 16665)
+-- Dependencies: 213
 -- Data for Name: tb_om_apoiadas; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 COPY db_clti.tb_om_apoiadas (idtb_om_apoiadas, cod_om, nome, sigla, indicativo, idtb_estado, idtb_cidade) FROM stdin;
+10	83000	COMANDO DO 3º DISTRITO NAVAL	COM3ºDN	TERDIS	20	3770
 \.
 
 
 --
--- TOC entry 3207 (class 0 OID 16671)
--- Dependencies: 217
+-- TOC entry 3186 (class 0 OID 16671)
+-- Dependencies: 215
 -- Data for Name: tb_osic; Type: TABLE DATA; Schema: db_clti; Owner: postgres
 --
 
@@ -7345,8 +7255,8 @@ COPY db_clti.tb_osic (idtb_osic, idtb_om_apoiadas, idtb_posto_grad, idtb_corpo_q
 
 
 --
--- TOC entry 3208 (class 0 OID 16675)
--- Dependencies: 218
+-- TOC entry 3187 (class 0 OID 16675)
+-- Dependencies: 216
 -- Data for Name: tb_pais; Type: TABLE DATA; Schema: db_clti; Owner: postgres
 --
 
@@ -7356,18 +7266,19 @@ COPY db_clti.tb_pais (id, nome, sigla) FROM stdin;
 
 
 --
--- TOC entry 3216 (class 0 OID 16906)
--- Dependencies: 226
+-- TOC entry 3195 (class 0 OID 16906)
+-- Dependencies: 224
 -- Data for Name: tb_pessoal_ti; Type: TABLE DATA; Schema: db_clti; Owner: postgres
 --
 
-COPY db_clti.tb_pessoal_ti (idtb_pessoal_ti, idtb_om_apoiadas, idtb_posto_grad, idtb_corpo_quadro, idtb_especialidade, nip, cpf, nome, nome_guerra, correio_eletronico, funcao, status, senha, idtb_funcoes_ti) FROM stdin;
+COPY db_clti.tb_pessoal_ti (idtb_pessoal_ti, idtb_om_apoiadas, idtb_posto_grad, idtb_corpo_quadro, idtb_especialidade, nip, cpf, nome, nome_guerra, correio_eletronico, status, senha, idtb_funcoes_ti) FROM stdin;
+14	10	8	1	12	12345678		LUCIO A C SANTOS	ALEXANDRE	lucio@marinha.mil.br	ATIVO	1f82ea75c5cc526729e2d581aeb3aeccfef4407e256127614ef298fedf9376775a7d7328090f63bf	1
 \.
 
 
 --
--- TOC entry 3209 (class 0 OID 16679)
--- Dependencies: 219
+-- TOC entry 3188 (class 0 OID 16679)
+-- Dependencies: 217
 -- Data for Name: tb_posto_grad; Type: TABLE DATA; Schema: db_clti; Owner: postgres
 --
 
@@ -7397,8 +7308,8 @@ COPY db_clti.tb_posto_grad (idtb_posto_grad, nome, sigla) FROM stdin;
 
 
 --
--- TOC entry 3226 (class 0 OID 25618)
--- Dependencies: 241
+-- TOC entry 3205 (class 0 OID 25618)
+-- Dependencies: 238
 -- Data for Name: tb_proc_fab; Type: TABLE DATA; Schema: db_clti; Owner: postgres
 --
 
@@ -7409,8 +7320,8 @@ COPY db_clti.tb_proc_fab (idtb_proc_fab, nome) FROM stdin;
 
 
 --
--- TOC entry 3228 (class 0 OID 25626)
--- Dependencies: 243
+-- TOC entry 3207 (class 0 OID 25626)
+-- Dependencies: 240
 -- Data for Name: tb_proc_modelo; Type: TABLE DATA; Schema: db_clti; Owner: postgres
 --
 
@@ -7465,8 +7376,8 @@ COPY db_clti.tb_proc_modelo (idtb_proc_modelo, idtb_proc_fab, modelo) FROM stdin
 
 
 --
--- TOC entry 3224 (class 0 OID 25597)
--- Dependencies: 238
+-- TOC entry 3203 (class 0 OID 25597)
+-- Dependencies: 235
 -- Data for Name: tb_qualificacao_clti; Type: TABLE DATA; Schema: db_clti; Owner: postgres
 --
 
@@ -7475,8 +7386,8 @@ COPY db_clti.tb_qualificacao_clti (idtb_qualificacao_clti, nome_curso, instituic
 
 
 --
--- TOC entry 3218 (class 0 OID 16937)
--- Dependencies: 228
+-- TOC entry 3197 (class 0 OID 16937)
+-- Dependencies: 226
 -- Data for Name: tb_qualificacao_ti; Type: TABLE DATA; Schema: db_clti; Owner: postgres
 --
 
@@ -7485,8 +7396,8 @@ COPY db_clti.tb_qualificacao_ti (idtb_qualificacao_ti, nome_curso, instituicao, 
 
 
 --
--- TOC entry 3222 (class 0 OID 25326)
--- Dependencies: 232
+-- TOC entry 3201 (class 0 OID 25326)
+-- Dependencies: 230
 -- Data for Name: tb_registro_log; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
@@ -7495,8 +7406,8 @@ COPY db_clti.tb_registro_log (idtb_registro_log, data_acao, acao, nip_cps_resp) 
 
 
 --
--- TOC entry 3230 (class 0 OID 25675)
--- Dependencies: 245
+-- TOC entry 3209 (class 0 OID 25675)
+-- Dependencies: 242
 -- Data for Name: tb_servidores; Type: TABLE DATA; Schema: db_clti; Owner: postgres
 --
 
@@ -7505,8 +7416,8 @@ COPY db_clti.tb_servidores (idtb_servidores, idtb_om_apoiadas, fabricante, model
 
 
 --
--- TOC entry 3214 (class 0 OID 16811)
--- Dependencies: 224
+-- TOC entry 3193 (class 0 OID 16811)
+-- Dependencies: 222
 -- Data for Name: tb_sor; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
@@ -7540,8 +7451,8 @@ COPY db_clti.tb_sor (idtb_sor, desenvolvedor, descricao, versao, situacao) FROM 
 
 
 --
--- TOC entry 3212 (class 0 OID 16688)
--- Dependencies: 222
+-- TOC entry 3191 (class 0 OID 16688)
+-- Dependencies: 220
 -- Data for Name: tb_tipos_clti; Type: TABLE DATA; Schema: db_clti; Owner: postgres
 --
 
@@ -7551,7 +7462,7 @@ COPY db_clti.tb_tipos_clti (idtb_tipos_clti, norma_atual, data_norma, lotacao_of
 
 
 --
--- TOC entry 3286 (class 0 OID 0)
+-- TOC entry 3263 (class 0 OID 0)
 -- Dependencies: 197
 -- Name: cidade_id_sequence; Type: SEQUENCE SET; Schema: db_clti; Owner: postgres
 --
@@ -7560,7 +7471,7 @@ SELECT pg_catalog.setval('db_clti.cidade_id_sequence', 1, false);
 
 
 --
--- TOC entry 3287 (class 0 OID 0)
+-- TOC entry 3264 (class 0 OID 0)
 -- Dependencies: 198
 -- Name: estado_id_sequence; Type: SEQUENCE SET; Schema: db_clti; Owner: postgres
 --
@@ -7569,7 +7480,7 @@ SELECT pg_catalog.setval('db_clti.estado_id_sequence', 1, false);
 
 
 --
--- TOC entry 3288 (class 0 OID 0)
+-- TOC entry 3265 (class 0 OID 0)
 -- Dependencies: 199
 -- Name: pais_id_sequence; Type: SEQUENCE SET; Schema: db_clti; Owner: postgres
 --
@@ -7578,17 +7489,8 @@ SELECT pg_catalog.setval('db_clti.pais_id_sequence', 1, false);
 
 
 --
--- TOC entry 3289 (class 0 OID 0)
--- Dependencies: 200
--- Name: tb_admin_idtb_admin_sequence; Type: SEQUENCE SET; Schema: db_clti; Owner: postgres
---
-
-SELECT pg_catalog.setval('db_clti.tb_admin_idtb_admin_sequence', 2, true);
-
-
---
--- TOC entry 3290 (class 0 OID 0)
--- Dependencies: 203
+-- TOC entry 3266 (class 0 OID 0)
+-- Dependencies: 201
 -- Name: tb_clti_idtb_clti_sequence; Type: SEQUENCE SET; Schema: db_clti; Owner: postgres
 --
 
@@ -7596,8 +7498,8 @@ SELECT pg_catalog.setval('db_clti.tb_clti_idtb_clti_sequence', 7, true);
 
 
 --
--- TOC entry 3291 (class 0 OID 0)
--- Dependencies: 229
+-- TOC entry 3267 (class 0 OID 0)
+-- Dependencies: 227
 -- Name: tb_conectividade_idtb_conectividade_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
@@ -7605,8 +7507,8 @@ SELECT pg_catalog.setval('db_clti.tb_conectividade_idtb_conectividade_seq', 3, t
 
 
 --
--- TOC entry 3292 (class 0 OID 0)
--- Dependencies: 206
+-- TOC entry 3268 (class 0 OID 0)
+-- Dependencies: 204
 -- Name: tb_config_idtb_config_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: postgres
 --
 
@@ -7614,8 +7516,8 @@ SELECT pg_catalog.setval('db_clti.tb_config_idtb_config_seq', 3, true);
 
 
 --
--- TOC entry 3293 (class 0 OID 0)
--- Dependencies: 207
+-- TOC entry 3269 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: tb_corpo_quadro_idtb_corpo_quadro_sequence; Type: SEQUENCE SET; Schema: db_clti; Owner: postgres
 --
 
@@ -7623,8 +7525,8 @@ SELECT pg_catalog.setval('db_clti.tb_corpo_quadro_idtb_corpo_quadro_sequence', 1
 
 
 --
--- TOC entry 3294 (class 0 OID 0)
--- Dependencies: 209
+-- TOC entry 3270 (class 0 OID 0)
+-- Dependencies: 207
 -- Name: tb_especialidade_idtb_especialidade_sequence; Type: SEQUENCE SET; Schema: db_clti; Owner: postgres
 --
 
@@ -7632,8 +7534,8 @@ SELECT pg_catalog.setval('db_clti.tb_especialidade_idtb_especialidade_sequence',
 
 
 --
--- TOC entry 3295 (class 0 OID 0)
--- Dependencies: 246
+-- TOC entry 3271 (class 0 OID 0)
+-- Dependencies: 243
 -- Name: tb_estacoes_idtb_estacoes_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: postgres
 --
 
@@ -7641,8 +7543,8 @@ SELECT pg_catalog.setval('db_clti.tb_estacoes_idtb_estacoes_seq', 1, true);
 
 
 --
--- TOC entry 3296 (class 0 OID 0)
--- Dependencies: 252
+-- TOC entry 3272 (class 0 OID 0)
+-- Dependencies: 249
 -- Name: tb_funcao_ti_idtb_funcao_ti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: postgres
 --
 
@@ -7650,8 +7552,8 @@ SELECT pg_catalog.setval('db_clti.tb_funcao_ti_idtb_funcao_ti_seq', 4, true);
 
 
 --
--- TOC entry 3297 (class 0 OID 0)
--- Dependencies: 212
+-- TOC entry 3273 (class 0 OID 0)
+-- Dependencies: 210
 -- Name: tb_lotacao_clti_idtb_lotacao_clti_sequence; Type: SEQUENCE SET; Schema: db_clti; Owner: postgres
 --
 
@@ -7659,17 +7561,17 @@ SELECT pg_catalog.setval('db_clti.tb_lotacao_clti_idtb_lotacao_clti_sequence', 2
 
 
 --
--- TOC entry 3298 (class 0 OID 0)
--- Dependencies: 214
+-- TOC entry 3274 (class 0 OID 0)
+-- Dependencies: 212
 -- Name: tb_om_apoiadas_idtb_om_apoiadas_sequence; Type: SEQUENCE SET; Schema: db_clti; Owner: postgres
 --
 
-SELECT pg_catalog.setval('db_clti.tb_om_apoiadas_idtb_om_apoiadas_sequence', 9, true);
+SELECT pg_catalog.setval('db_clti.tb_om_apoiadas_idtb_om_apoiadas_sequence', 10, true);
 
 
 --
--- TOC entry 3299 (class 0 OID 0)
--- Dependencies: 216
+-- TOC entry 3275 (class 0 OID 0)
+-- Dependencies: 214
 -- Name: tb_osic_idtb_osic_sequence; Type: SEQUENCE SET; Schema: db_clti; Owner: postgres
 --
 
@@ -7677,17 +7579,17 @@ SELECT pg_catalog.setval('db_clti.tb_osic_idtb_osic_sequence', 6, true);
 
 
 --
--- TOC entry 3300 (class 0 OID 0)
--- Dependencies: 225
+-- TOC entry 3276 (class 0 OID 0)
+-- Dependencies: 223
 -- Name: tb_pessoal_ti_idtb_pessoal_ti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: postgres
 --
 
-SELECT pg_catalog.setval('db_clti.tb_pessoal_ti_idtb_pessoal_ti_seq', 12, true);
+SELECT pg_catalog.setval('db_clti.tb_pessoal_ti_idtb_pessoal_ti_seq', 14, true);
 
 
 --
--- TOC entry 3301 (class 0 OID 0)
--- Dependencies: 220
+-- TOC entry 3277 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: tb_posto_grad_idtb_posto_grad_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: postgres
 --
 
@@ -7695,8 +7597,8 @@ SELECT pg_catalog.setval('db_clti.tb_posto_grad_idtb_posto_grad_seq', 21, true);
 
 
 --
--- TOC entry 3302 (class 0 OID 0)
--- Dependencies: 240
+-- TOC entry 3278 (class 0 OID 0)
+-- Dependencies: 237
 -- Name: tb_proc_fab_idtb_proc_fab_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: postgres
 --
 
@@ -7704,8 +7606,8 @@ SELECT pg_catalog.setval('db_clti.tb_proc_fab_idtb_proc_fab_seq', 4, true);
 
 
 --
--- TOC entry 3303 (class 0 OID 0)
--- Dependencies: 242
+-- TOC entry 3279 (class 0 OID 0)
+-- Dependencies: 239
 -- Name: tb_proc_modelo_idtb_proc_modelo_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: postgres
 --
 
@@ -7713,8 +7615,8 @@ SELECT pg_catalog.setval('db_clti.tb_proc_modelo_idtb_proc_modelo_seq', 47, true
 
 
 --
--- TOC entry 3304 (class 0 OID 0)
--- Dependencies: 237
+-- TOC entry 3280 (class 0 OID 0)
+-- Dependencies: 234
 -- Name: tb_qualificacao_clti_idtb_qualificacao_clti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: postgres
 --
 
@@ -7722,8 +7624,8 @@ SELECT pg_catalog.setval('db_clti.tb_qualificacao_clti_idtb_qualificacao_clti_se
 
 
 --
--- TOC entry 3305 (class 0 OID 0)
--- Dependencies: 227
+-- TOC entry 3281 (class 0 OID 0)
+-- Dependencies: 225
 -- Name: tb_qualificacao_ti_idtb_qualificacao_ti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: postgres
 --
 
@@ -7731,8 +7633,8 @@ SELECT pg_catalog.setval('db_clti.tb_qualificacao_ti_idtb_qualificacao_ti_seq', 
 
 
 --
--- TOC entry 3306 (class 0 OID 0)
--- Dependencies: 231
+-- TOC entry 3282 (class 0 OID 0)
+-- Dependencies: 229
 -- Name: tb_registro_log_idtb_registro_log_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
@@ -7740,8 +7642,8 @@ SELECT pg_catalog.setval('db_clti.tb_registro_log_idtb_registro_log_seq', 1, fal
 
 
 --
--- TOC entry 3307 (class 0 OID 0)
--- Dependencies: 244
+-- TOC entry 3283 (class 0 OID 0)
+-- Dependencies: 241
 -- Name: tb_servidores_idtb_servidores_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: postgres
 --
 
@@ -7749,8 +7651,8 @@ SELECT pg_catalog.setval('db_clti.tb_servidores_idtb_servidores_seq', 1, true);
 
 
 --
--- TOC entry 3308 (class 0 OID 0)
--- Dependencies: 223
+-- TOC entry 3284 (class 0 OID 0)
+-- Dependencies: 221
 -- Name: tb_sor_idtb_sor_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
@@ -7758,8 +7660,8 @@ SELECT pg_catalog.setval('db_clti.tb_sor_idtb_sor_seq', 41, true);
 
 
 --
--- TOC entry 3309 (class 0 OID 0)
--- Dependencies: 221
+-- TOC entry 3285 (class 0 OID 0)
+-- Dependencies: 219
 -- Name: tb_tipos_clti_idtipos_clti_sequence; Type: SEQUENCE SET; Schema: db_clti; Owner: postgres
 --
 
@@ -7767,7 +7669,7 @@ SELECT pg_catalog.setval('db_clti.tb_tipos_clti_idtipos_clti_sequence', 17, true
 
 
 --
--- TOC entry 2973 (class 2606 OID 16696)
+-- TOC entry 2959 (class 2606 OID 16696)
 -- Name: tb_cidade cidade_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -7776,7 +7678,7 @@ ALTER TABLE ONLY db_clti.tb_cidade
 
 
 --
--- TOC entry 2983 (class 2606 OID 16698)
+-- TOC entry 2969 (class 2606 OID 16698)
 -- Name: tb_estado estado_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -7785,7 +7687,7 @@ ALTER TABLE ONLY db_clti.tb_estado
 
 
 --
--- TOC entry 2998 (class 2606 OID 16700)
+-- TOC entry 2984 (class 2606 OID 16700)
 -- Name: tb_pais pais_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -7794,16 +7696,7 @@ ALTER TABLE ONLY db_clti.tb_pais
 
 
 --
--- TOC entry 2971 (class 2606 OID 16704)
--- Name: tb_admin tb_admin_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: postgres
---
-
-ALTER TABLE ONLY db_clti.tb_admin
-    ADD CONSTRAINT tb_admin_pkey PRIMARY KEY (idtb_admin);
-
-
---
--- TOC entry 2975 (class 2606 OID 16706)
+-- TOC entry 2961 (class 2606 OID 16706)
 -- Name: tb_clti tb_clti_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -7812,7 +7705,7 @@ ALTER TABLE ONLY db_clti.tb_clti
 
 
 --
--- TOC entry 3010 (class 2606 OID 17012)
+-- TOC entry 2996 (class 2606 OID 17012)
 -- Name: tb_conectividade tb_conectividade_end_ip_key; Type: CONSTRAINT; Schema: db_clti; Owner: sisclti
 --
 
@@ -7821,7 +7714,7 @@ ALTER TABLE ONLY db_clti.tb_conectividade
 
 
 --
--- TOC entry 3012 (class 2606 OID 16999)
+-- TOC entry 2998 (class 2606 OID 16999)
 -- Name: tb_conectividade tb_conectividade_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: sisclti
 --
 
@@ -7830,7 +7723,7 @@ ALTER TABLE ONLY db_clti.tb_conectividade
 
 
 --
--- TOC entry 2977 (class 2606 OID 16708)
+-- TOC entry 2963 (class 2606 OID 16708)
 -- Name: tb_config tb_config_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -7839,7 +7732,7 @@ ALTER TABLE ONLY db_clti.tb_config
 
 
 --
--- TOC entry 2979 (class 2606 OID 16710)
+-- TOC entry 2965 (class 2606 OID 16710)
 -- Name: tb_corpo_quadro tb_corpo_quadro_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -7848,7 +7741,7 @@ ALTER TABLE ONLY db_clti.tb_corpo_quadro
 
 
 --
--- TOC entry 2981 (class 2606 OID 16712)
+-- TOC entry 2967 (class 2606 OID 16712)
 -- Name: tb_especialidade tb_especialidade_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -7857,7 +7750,7 @@ ALTER TABLE ONLY db_clti.tb_especialidade
 
 
 --
--- TOC entry 3028 (class 2606 OID 25786)
+-- TOC entry 3014 (class 2606 OID 25786)
 -- Name: tb_funcoes_ti tb_funcao_ti_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -7866,7 +7759,7 @@ ALTER TABLE ONLY db_clti.tb_funcoes_ti
 
 
 --
--- TOC entry 2992 (class 2606 OID 16714)
+-- TOC entry 2978 (class 2606 OID 16714)
 -- Name: tb_om_apoiadas tb_om_apoiadas_cod_om_nome_sigla_indicativo_key; Type: CONSTRAINT; Schema: db_clti; Owner: sisclti
 --
 
@@ -7875,7 +7768,7 @@ ALTER TABLE ONLY db_clti.tb_om_apoiadas
 
 
 --
--- TOC entry 2994 (class 2606 OID 16716)
+-- TOC entry 2980 (class 2606 OID 16716)
 -- Name: tb_om_apoiadas tb_om_apoiadas_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: sisclti
 --
 
@@ -7884,7 +7777,7 @@ ALTER TABLE ONLY db_clti.tb_om_apoiadas
 
 
 --
--- TOC entry 2996 (class 2606 OID 16718)
+-- TOC entry 2982 (class 2606 OID 16718)
 -- Name: tb_osic tb_osic_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -7893,7 +7786,7 @@ ALTER TABLE ONLY db_clti.tb_osic
 
 
 --
--- TOC entry 3006 (class 2606 OID 16983)
+-- TOC entry 2992 (class 2606 OID 16983)
 -- Name: tb_pessoal_ti tb_pessoal_ti_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -7902,7 +7795,7 @@ ALTER TABLE ONLY db_clti.tb_pessoal_ti
 
 
 --
--- TOC entry 3000 (class 2606 OID 16720)
+-- TOC entry 2986 (class 2606 OID 16720)
 -- Name: tb_posto_grad tb_posto_grad_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -7911,7 +7804,7 @@ ALTER TABLE ONLY db_clti.tb_posto_grad
 
 
 --
--- TOC entry 3018 (class 2606 OID 25702)
+-- TOC entry 3004 (class 2606 OID 25702)
 -- Name: tb_proc_fab tb_proc_fab_nome_key; Type: CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -7920,7 +7813,7 @@ ALTER TABLE ONLY db_clti.tb_proc_fab
 
 
 --
--- TOC entry 3020 (class 2606 OID 25623)
+-- TOC entry 3006 (class 2606 OID 25623)
 -- Name: tb_proc_fab tb_proc_fab_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -7929,7 +7822,7 @@ ALTER TABLE ONLY db_clti.tb_proc_fab
 
 
 --
--- TOC entry 3022 (class 2606 OID 25700)
+-- TOC entry 3008 (class 2606 OID 25700)
 -- Name: tb_proc_modelo tb_proc_modelo_modelo_key; Type: CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -7938,7 +7831,7 @@ ALTER TABLE ONLY db_clti.tb_proc_modelo
 
 
 --
--- TOC entry 3024 (class 2606 OID 25631)
+-- TOC entry 3010 (class 2606 OID 25631)
 -- Name: tb_proc_modelo tb_proc_modelo_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -7947,7 +7840,7 @@ ALTER TABLE ONLY db_clti.tb_proc_modelo
 
 
 --
--- TOC entry 3016 (class 2606 OID 25605)
+-- TOC entry 3002 (class 2606 OID 25605)
 -- Name: tb_qualificacao_clti tb_qualificacao_clti_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -7956,7 +7849,7 @@ ALTER TABLE ONLY db_clti.tb_qualificacao_clti
 
 
 --
--- TOC entry 3008 (class 2606 OID 16945)
+-- TOC entry 2994 (class 2606 OID 16945)
 -- Name: tb_qualificacao_ti tb_qualificacao_ti_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -7965,7 +7858,7 @@ ALTER TABLE ONLY db_clti.tb_qualificacao_ti
 
 
 --
--- TOC entry 3014 (class 2606 OID 25331)
+-- TOC entry 3000 (class 2606 OID 25331)
 -- Name: tb_registro_log tb_registro_log_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: sisclti
 --
 
@@ -7974,7 +7867,7 @@ ALTER TABLE ONLY db_clti.tb_registro_log
 
 
 --
--- TOC entry 3026 (class 2606 OID 25754)
+-- TOC entry 3012 (class 2606 OID 25754)
 -- Name: tb_servidores tb_servidores_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -7983,7 +7876,7 @@ ALTER TABLE ONLY db_clti.tb_servidores
 
 
 --
--- TOC entry 3004 (class 2606 OID 16819)
+-- TOC entry 2990 (class 2606 OID 16819)
 -- Name: tb_sor tb_sor_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: sisclti
 --
 
@@ -7992,7 +7885,7 @@ ALTER TABLE ONLY db_clti.tb_sor
 
 
 --
--- TOC entry 3002 (class 2606 OID 16722)
+-- TOC entry 2988 (class 2606 OID 16722)
 -- Name: tb_tipos_clti tb_tipos_clti_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -8001,7 +7894,7 @@ ALTER TABLE ONLY db_clti.tb_tipos_clti
 
 
 --
--- TOC entry 2988 (class 2606 OID 16724)
+-- TOC entry 2974 (class 2606 OID 16724)
 -- Name: tb_lotacao_clti tb_tripulacao_clti_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: sisclti
 --
 
@@ -8010,7 +7903,7 @@ ALTER TABLE ONLY db_clti.tb_lotacao_clti
 
 
 --
--- TOC entry 2990 (class 2606 OID 16726)
+-- TOC entry 2976 (class 2606 OID 16726)
 -- Name: tb_lotacao_clti unico_nip_cpf; Type: CONSTRAINT; Schema: db_clti; Owner: sisclti
 --
 
@@ -8019,7 +7912,7 @@ ALTER TABLE ONLY db_clti.tb_lotacao_clti
 
 
 --
--- TOC entry 2984 (class 1259 OID 16727)
+-- TOC entry 2970 (class 1259 OID 16727)
 -- Name: fki_id_corpo_quadro; Type: INDEX; Schema: db_clti; Owner: sisclti
 --
 
@@ -8027,7 +7920,7 @@ CREATE INDEX fki_id_corpo_quadro ON db_clti.tb_lotacao_clti USING btree (idtb_co
 
 
 --
--- TOC entry 2985 (class 1259 OID 16728)
+-- TOC entry 2971 (class 1259 OID 16728)
 -- Name: fki_id_especialidade; Type: INDEX; Schema: db_clti; Owner: sisclti
 --
 
@@ -8035,7 +7928,7 @@ CREATE INDEX fki_id_especialidade ON db_clti.tb_lotacao_clti USING btree (idtb_e
 
 
 --
--- TOC entry 2986 (class 1259 OID 16729)
+-- TOC entry 2972 (class 1259 OID 16729)
 -- Name: fki_id_posto_grad; Type: INDEX; Schema: db_clti; Owner: sisclti
 --
 
@@ -8043,43 +7936,7 @@ CREATE INDEX fki_id_posto_grad ON db_clti.tb_lotacao_clti USING btree (idtb_post
 
 
 --
--- TOC entry 3031 (class 2606 OID 25384)
--- Name: tb_admin tb_admin_idtb_corpo_quadro_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: postgres
---
-
-ALTER TABLE ONLY db_clti.tb_admin
-    ADD CONSTRAINT tb_admin_idtb_corpo_quadro_fkey FOREIGN KEY (idtb_corpo_quadro) REFERENCES db_clti.tb_corpo_quadro(idtb_corpo_quadro) NOT VALID;
-
-
---
--- TOC entry 3032 (class 2606 OID 25389)
--- Name: tb_admin tb_admin_idtb_especialidade_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: postgres
---
-
-ALTER TABLE ONLY db_clti.tb_admin
-    ADD CONSTRAINT tb_admin_idtb_especialidade_fkey FOREIGN KEY (idtb_especialidade) REFERENCES db_clti.tb_especialidade(idtb_especialidade) NOT VALID;
-
-
---
--- TOC entry 3029 (class 2606 OID 25374)
--- Name: tb_admin tb_admin_idtb_om_apoiadas_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: postgres
---
-
-ALTER TABLE ONLY db_clti.tb_admin
-    ADD CONSTRAINT tb_admin_idtb_om_apoiadas_fkey FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas) NOT VALID;
-
-
---
--- TOC entry 3030 (class 2606 OID 25379)
--- Name: tb_admin tb_admin_idtb_posto_grad_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: postgres
---
-
-ALTER TABLE ONLY db_clti.tb_admin
-    ADD CONSTRAINT tb_admin_idtb_posto_grad_fkey FOREIGN KEY (idtb_posto_grad) REFERENCES db_clti.tb_posto_grad(idtb_posto_grad) NOT VALID;
-
-
---
--- TOC entry 3033 (class 2606 OID 17132)
+-- TOC entry 3015 (class 2606 OID 17132)
 -- Name: tb_cidade tb_cidade_estado_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -8088,7 +7945,7 @@ ALTER TABLE ONLY db_clti.tb_cidade
 
 
 --
--- TOC entry 3050 (class 2606 OID 17000)
+-- TOC entry 3032 (class 2606 OID 17000)
 -- Name: tb_conectividade tb_conectividade_idtb_om_apoiadas_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: sisclti
 --
 
@@ -8097,7 +7954,7 @@ ALTER TABLE ONLY db_clti.tb_conectividade
 
 
 --
--- TOC entry 3034 (class 2606 OID 17137)
+-- TOC entry 3016 (class 2606 OID 17137)
 -- Name: tb_estado tb_estado_pais_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -8106,7 +7963,7 @@ ALTER TABLE ONLY db_clti.tb_estado
 
 
 --
--- TOC entry 3036 (class 2606 OID 25404)
+-- TOC entry 3018 (class 2606 OID 25404)
 -- Name: tb_lotacao_clti tb_lotacao_clti_idtb_corpo_quadro_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: sisclti
 --
 
@@ -8115,7 +7972,7 @@ ALTER TABLE ONLY db_clti.tb_lotacao_clti
 
 
 --
--- TOC entry 3037 (class 2606 OID 25409)
+-- TOC entry 3019 (class 2606 OID 25409)
 -- Name: tb_lotacao_clti tb_lotacao_clti_idtb_especialidade_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: sisclti
 --
 
@@ -8124,7 +7981,7 @@ ALTER TABLE ONLY db_clti.tb_lotacao_clti
 
 
 --
--- TOC entry 3035 (class 2606 OID 25399)
+-- TOC entry 3017 (class 2606 OID 25399)
 -- Name: tb_lotacao_clti tb_lotacao_clti_idtb_posto_grad_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: sisclti
 --
 
@@ -8133,7 +7990,7 @@ ALTER TABLE ONLY db_clti.tb_lotacao_clti
 
 
 --
--- TOC entry 3038 (class 2606 OID 16775)
+-- TOC entry 3020 (class 2606 OID 16775)
 -- Name: tb_om_apoiadas tb_om_apoiadas_id_cidade_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: sisclti
 --
 
@@ -8142,7 +7999,7 @@ ALTER TABLE ONLY db_clti.tb_om_apoiadas
 
 
 --
--- TOC entry 3039 (class 2606 OID 16780)
+-- TOC entry 3021 (class 2606 OID 16780)
 -- Name: tb_om_apoiadas tb_om_apoiadas_id_estado_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: sisclti
 --
 
@@ -8151,7 +8008,7 @@ ALTER TABLE ONLY db_clti.tb_om_apoiadas
 
 
 --
--- TOC entry 3042 (class 2606 OID 25424)
+-- TOC entry 3024 (class 2606 OID 25424)
 -- Name: tb_osic tb_osic_idtb_corpo_quadro_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -8160,7 +8017,7 @@ ALTER TABLE ONLY db_clti.tb_osic
 
 
 --
--- TOC entry 3043 (class 2606 OID 25429)
+-- TOC entry 3025 (class 2606 OID 25429)
 -- Name: tb_osic tb_osic_idtb_especialidade_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -8169,7 +8026,7 @@ ALTER TABLE ONLY db_clti.tb_osic
 
 
 --
--- TOC entry 3040 (class 2606 OID 25414)
+-- TOC entry 3022 (class 2606 OID 25414)
 -- Name: tb_osic tb_osic_idtb_om_apoiadas_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -8178,7 +8035,7 @@ ALTER TABLE ONLY db_clti.tb_osic
 
 
 --
--- TOC entry 3041 (class 2606 OID 25419)
+-- TOC entry 3023 (class 2606 OID 25419)
 -- Name: tb_osic tb_osic_idtb_posto_grad_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -8187,7 +8044,7 @@ ALTER TABLE ONLY db_clti.tb_osic
 
 
 --
--- TOC entry 3046 (class 2606 OID 16972)
+-- TOC entry 3028 (class 2606 OID 16972)
 -- Name: tb_pessoal_ti tb_pessoal_ti_idtb_corpo_quadro_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -8196,7 +8053,7 @@ ALTER TABLE ONLY db_clti.tb_pessoal_ti
 
 
 --
--- TOC entry 3047 (class 2606 OID 16977)
+-- TOC entry 3029 (class 2606 OID 16977)
 -- Name: tb_pessoal_ti tb_pessoal_ti_idtb_especialidade_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -8205,7 +8062,7 @@ ALTER TABLE ONLY db_clti.tb_pessoal_ti
 
 
 --
--- TOC entry 3048 (class 2606 OID 25793)
+-- TOC entry 3030 (class 2606 OID 25793)
 -- Name: tb_pessoal_ti tb_pessoal_ti_idtb_funcoes_ti_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -8214,7 +8071,7 @@ ALTER TABLE ONLY db_clti.tb_pessoal_ti
 
 
 --
--- TOC entry 3044 (class 2606 OID 16962)
+-- TOC entry 3026 (class 2606 OID 16962)
 -- Name: tb_pessoal_ti tb_pessoal_ti_idtb_om_apoiada_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -8223,7 +8080,7 @@ ALTER TABLE ONLY db_clti.tb_pessoal_ti
 
 
 --
--- TOC entry 3045 (class 2606 OID 16967)
+-- TOC entry 3027 (class 2606 OID 16967)
 -- Name: tb_pessoal_ti tb_pessoal_ti_idtb_posto_grad_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -8232,7 +8089,7 @@ ALTER TABLE ONLY db_clti.tb_pessoal_ti
 
 
 --
--- TOC entry 3052 (class 2606 OID 25633)
+-- TOC entry 3034 (class 2606 OID 25633)
 -- Name: tb_proc_modelo tb_proc_modelo_idtb_proc_fab_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -8241,7 +8098,7 @@ ALTER TABLE ONLY db_clti.tb_proc_modelo
 
 
 --
--- TOC entry 3051 (class 2606 OID 25606)
+-- TOC entry 3033 (class 2606 OID 25606)
 -- Name: tb_qualificacao_clti tb_qualificacao_clti_idtb_lotacao_clti_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -8250,7 +8107,7 @@ ALTER TABLE ONLY db_clti.tb_qualificacao_clti
 
 
 --
--- TOC entry 3049 (class 2606 OID 25550)
+-- TOC entry 3031 (class 2606 OID 25550)
 -- Name: tb_qualificacao_ti tb_qualificacao_ti_idtb_pessoal_ti_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -8259,7 +8116,7 @@ ALTER TABLE ONLY db_clti.tb_qualificacao_ti
 
 
 --
--- TOC entry 3053 (class 2606 OID 25755)
+-- TOC entry 3035 (class 2606 OID 25755)
 -- Name: tb_servidores tb_servidores_idtb_om_apoiadas_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -8268,7 +8125,7 @@ ALTER TABLE ONLY db_clti.tb_servidores
 
 
 --
--- TOC entry 3054 (class 2606 OID 25760)
+-- TOC entry 3036 (class 2606 OID 25760)
 -- Name: tb_servidores tb_servidores_idtb_proc_modelo_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -8277,7 +8134,7 @@ ALTER TABLE ONLY db_clti.tb_servidores
 
 
 --
--- TOC entry 3055 (class 2606 OID 25765)
+-- TOC entry 3037 (class 2606 OID 25765)
 -- Name: tb_servidores tb_servidores_idtb_sor_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: postgres
 --
 
@@ -8286,17 +8143,8 @@ ALTER TABLE ONLY db_clti.tb_servidores
 
 
 --
--- TOC entry 3244 (class 0 OID 0)
--- Dependencies: 201
--- Name: TABLE tb_admin; Type: ACL; Schema: db_clti; Owner: postgres
---
-
-GRANT ALL ON TABLE db_clti.tb_admin TO sisclti;
-
-
---
--- TOC entry 3246 (class 0 OID 0)
--- Dependencies: 202
+-- TOC entry 3223 (class 0 OID 0)
+-- Dependencies: 200
 -- Name: TABLE tb_cidade; Type: ACL; Schema: db_clti; Owner: postgres
 --
 
@@ -8304,8 +8152,8 @@ GRANT ALL ON TABLE db_clti.tb_cidade TO sisclti;
 
 
 --
--- TOC entry 3248 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 3225 (class 0 OID 0)
+-- Dependencies: 202
 -- Name: TABLE tb_clti; Type: ACL; Schema: db_clti; Owner: postgres
 --
 
@@ -8313,8 +8161,8 @@ GRANT ALL ON TABLE db_clti.tb_clti TO sisclti;
 
 
 --
--- TOC entry 3252 (class 0 OID 0)
--- Dependencies: 205
+-- TOC entry 3229 (class 0 OID 0)
+-- Dependencies: 203
 -- Name: TABLE tb_config; Type: ACL; Schema: db_clti; Owner: postgres
 --
 
@@ -8322,8 +8170,8 @@ GRANT ALL ON TABLE db_clti.tb_config TO sisclti;
 
 
 --
--- TOC entry 3255 (class 0 OID 0)
--- Dependencies: 208
+-- TOC entry 3232 (class 0 OID 0)
+-- Dependencies: 206
 -- Name: TABLE tb_corpo_quadro; Type: ACL; Schema: db_clti; Owner: postgres
 --
 
@@ -8331,8 +8179,8 @@ GRANT ALL ON TABLE db_clti.tb_corpo_quadro TO sisclti;
 
 
 --
--- TOC entry 3257 (class 0 OID 0)
--- Dependencies: 210
+-- TOC entry 3234 (class 0 OID 0)
+-- Dependencies: 208
 -- Name: TABLE tb_especialidade; Type: ACL; Schema: db_clti; Owner: postgres
 --
 
@@ -8340,8 +8188,8 @@ GRANT ALL ON TABLE db_clti.tb_especialidade TO sisclti;
 
 
 --
--- TOC entry 3260 (class 0 OID 0)
--- Dependencies: 211
+-- TOC entry 3237 (class 0 OID 0)
+-- Dependencies: 209
 -- Name: TABLE tb_estado; Type: ACL; Schema: db_clti; Owner: postgres
 --
 
@@ -8349,8 +8197,8 @@ GRANT ALL ON TABLE db_clti.tb_estado TO sisclti;
 
 
 --
--- TOC entry 3265 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 3242 (class 0 OID 0)
+-- Dependencies: 215
 -- Name: TABLE tb_osic; Type: ACL; Schema: db_clti; Owner: postgres
 --
 
@@ -8358,8 +8206,8 @@ GRANT ALL ON TABLE db_clti.tb_osic TO sisclti;
 
 
 --
--- TOC entry 3267 (class 0 OID 0)
--- Dependencies: 218
+-- TOC entry 3244 (class 0 OID 0)
+-- Dependencies: 216
 -- Name: TABLE tb_pais; Type: ACL; Schema: db_clti; Owner: postgres
 --
 
@@ -8367,8 +8215,8 @@ GRANT ALL ON TABLE db_clti.tb_pais TO sisclti;
 
 
 --
--- TOC entry 3269 (class 0 OID 0)
--- Dependencies: 226
+-- TOC entry 3246 (class 0 OID 0)
+-- Dependencies: 224
 -- Name: TABLE tb_pessoal_ti; Type: ACL; Schema: db_clti; Owner: postgres
 --
 
@@ -8376,8 +8224,8 @@ GRANT ALL ON TABLE db_clti.tb_pessoal_ti TO sisclti;
 
 
 --
--- TOC entry 3272 (class 0 OID 0)
--- Dependencies: 219
+-- TOC entry 3249 (class 0 OID 0)
+-- Dependencies: 217
 -- Name: TABLE tb_posto_grad; Type: ACL; Schema: db_clti; Owner: postgres
 --
 
@@ -8385,8 +8233,8 @@ GRANT ALL ON TABLE db_clti.tb_posto_grad TO sisclti;
 
 
 --
--- TOC entry 3278 (class 0 OID 0)
--- Dependencies: 228
+-- TOC entry 3255 (class 0 OID 0)
+-- Dependencies: 226
 -- Name: TABLE tb_qualificacao_ti; Type: ACL; Schema: db_clti; Owner: postgres
 --
 
@@ -8394,15 +8242,15 @@ GRANT ALL ON TABLE db_clti.tb_qualificacao_ti TO sisclti;
 
 
 --
--- TOC entry 3285 (class 0 OID 0)
--- Dependencies: 222
+-- TOC entry 3262 (class 0 OID 0)
+-- Dependencies: 220
 -- Name: TABLE tb_tipos_clti; Type: ACL; Schema: db_clti; Owner: postgres
 --
 
 GRANT ALL ON TABLE db_clti.tb_tipos_clti TO sisclti;
 
 
--- Completed on 2020-06-08 09:27:33 -03
+-- Completed on 2020-06-08 15:18:32 -03
 
 --
 -- PostgreSQL database dump complete

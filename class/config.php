@@ -5,6 +5,6 @@
 	$host = "localhost";
 	$port = "5432";
 	$dbname = "db_clti";
-	$user = "db_user";
-	$password = "db_passwd";
+	$user = "sisclti";
+	$password = "sisclti";
 ?>

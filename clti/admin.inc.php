@@ -8,7 +8,7 @@ require_once "../class/pgsql.class.php";
 $pg = new PgSql();
 
 /* Recupera informações dos Admin */
-$sql = "SELECT * FROM db_clti.tb_pessoal_ti WHERE funcao='ADMIN' AND status='ATIVO' ";
+$sql = "SELECT * FROM db_clti.vw_pessoal_ti WHERE sigla_funcao='ADMIN' AND status='ATIVO' ";
 
 $row = $pg->getRow($sql);
 
@@ -314,7 +314,7 @@ if ($act == 'cad') {
 /* Monta quadro de administradores */
 if (($row) AND ($act == NULL)) {
 
-	$admin = "SELECT * FROM db_clti.vw_pessoal_ti WHERE funcao='ADMIN' AND status='ATIVO' ORDER BY idtb_posto_grad DESC";
+	$admin = "SELECT * FROM db_clti.vw_pessoal_ti WHERE sigla_funcao='ADMIN' AND status='ATIVO' ORDER BY idtb_posto_grad DESC";
     $admin = $pg->getRows($admin);
 
     echo"<div class=\"table-responsive\">
@@ -448,10 +448,10 @@ if ($act == 'insert') {
 
                 $sql = "INSERT INTO db_clti.tb_pessoal_ti(
                     idtb_om_apoiadas,idtb_posto_grad, idtb_corpo_quadro, idtb_especialidade, nip, 
-                    cpf, nome, nome_guerra, senha, correio_eletronico, funcao, status)
+                    cpf, nome, nome_guerra, senha, correio_eletronico, idtb_funcoes_ti, status)
                     VALUES ('$omapoiada', '$postograd', '$corpoquadro', '$especialidade',
                     '$nip', '$cpf', '$nome', '$nomeguerra', '$senha', '$correio_eletronico',
-                    'ADMIN', 'ATIVO')";
+                    1, 'ATIVO')";
 
                 $pg->exec($sql);
 
