@@ -42,8 +42,8 @@ systemctl enable httpd
 systemctl enable postgresql
 
 #Configurando PSQL
-curl http://clti.com3dn.mb/repodata/pg_hba.conf > /var/lib/pgsql/data/pg_hba.conf
-systemctl restart postgresql
+#curl http://clti.com3dn.mb/repodata/pg_hba.conf > /var/lib/pgsql/data/pg_hba.conf
+#systemctl restart postgresql
 
 #Configurando o firewall e o SELinux
 firewall-cmd --add-service=http
@@ -127,7 +127,8 @@ psql -c "UPDATE db_clti.tb_config SET valor='http://$URLIP/sisclti' WHERE parame
 cp -r $PWD/ /var/www/html/sisclti
 
 #Configurações inciciais do sistema
-sed -i "s/sisclti/$BDPWS/g" /var/www/html/sisclti/class/config.php
+sed -i "s/db_user/$BDUSR/g" /var/www/html/sisclti/class/config.php
+sed -i "s/db_passwd/$BDPWS/g" /var/www/html/sisclti/class/config.php
 
 exit 0
 
