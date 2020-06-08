@@ -30,24 +30,32 @@ CONFIGURAÇÃO DO SERVIDOR WEB COM POSTGRESQL\n\n
 then
 
 #Instalação dos pacotes necessários
+echo "Instalando pacotes necessários..."
+sleep 0.5
 yum group install -y "Servidor de Web Básico"
 yum -y install postgresql-server
 yum -y install php php-gd php-dom php-pgsql
 
 #Inicializando e habilitando os serviços
+echo "Inicializando e habilitando os serviços..."
+sleep 0.5
 systemctl start httpd
 postgresql-setup initdb
 systemctl start postgresql
 systemctl enable httpd
 systemctl enable postgresql
 
-#Configurando PSQL
+#Configurando PostgreSQL
+echo "Configurando PostgreSQL..."
+sleep 0.5
 echo "local     all     all                 trust" > /var/lib/pgsql/data/pg_hba.conf
 echo "host      all     all 127.0.0.1/32    trust" >> /var/lib/pgsql/data/pg_hba.conf
 echo "host      all     all ::1/128 trust" >> /var/lib/pgsql/data/pg_hba.conf
 systemctl restart postgresql
 
 #Configurando o firewall e o SELinux
+echo "Configurando o firewall e o SELinux..."
+sleep 0.5
 firewall-cmd --add-service=http
 firewall-cmd --add-service=http --permanent
 firewall-cmd --add-port=443/tcp
@@ -98,6 +106,8 @@ do
 done
 
 #Executando configuração do banco de dados PostgreSQL
+echo "Executando configuração do banco de dados PostgreSQL..."
+sleep 0.5
 psql -c "DROP ROLE sisclti" -U postgres
 psql -c "DROP DATABASE db_clti" -U postgres
 psql -c "DROP SCHEMA db_clti" -U postgres
@@ -111,6 +121,8 @@ echo "UPDATE db_clti.tb_config SET valor='http://$URLIP/sisclti' WHERE parametro
 psql -U postgres -d db_clti < db_clti.sql
 
 #Copia SisCLTI
+echo "Transferindo arquivos para diretório web..."
+sleep 0.5
 cp -r $PWD/ /var/www/html/sisclti
 
 #Configurações inciciais do sistema
@@ -119,15 +131,21 @@ sed -i ‘2c\'	$password = "\"$BDPWS\"";’ /var/www/html/sisclti/class/config.p
 #sed -i "s/db_passwd/$BDPWS/g" /var/www/html/sisclti/class/config.php
 
 #Configurações seguras do PostgreSQL
+echo "Aplicando configurações seguras do PostgreSQL..."
+sleep 0.5
 echo "local     all     all                 peer" > /var/lib/pgsql/data/pg_hba.conf
 echo "host      all     all 127.0.0.1/32    md5" >> /var/lib/pgsql/data/pg_hba.conf
 echo "host      all     all ::1/128         md5" >> /var/lib/pgsql/data/pg_hba.conf
 
 #Reiniciando serviços
+echo "Reiniciando serviços"
+sleep 0.5
 systemctl restart http
 systemctl restart postgresql
 
 #Encerrando script após configurações corretas
+echo "Encerrando..."
+sleep 0.5
 exit 0
 
 #Interrompendo a configuração caso selecione não no início
