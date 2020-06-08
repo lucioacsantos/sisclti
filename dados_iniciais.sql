@@ -6763,20 +6763,20 @@ INSERT INTO db_clti.tb_estado (nome,uf,pais) VALUES
 ,('Sergipe','SE',1)
 ,('São Paulo','SP',1)
 ,('Tocantins','TO',1)
-;
-INSERT INTO db_clti.tb_funcoes_ti (descricao,sigla) VALUES 
+;INSERT INTO db_clti.tb_funcoes_ti (descricao,sigla) VALUES 
 ('ADMINISTRADOR DA REDE LOCAL','ADMIN')
 ,('OFICIAL DE SEGURANçA DAS INFORMAçõES E COMUNICAçõES','OSIC')
 ,('TéCNICO DE SUPORTE AO USUáRIO','TEC.SUPORTE')
 ,('TéCNICO DE MANUTENçãO DE HARDWARE','TEC.MANUT.')
-;
-INSERT INTO db_clti.tb_lotacao_clti (idtb_posto_grad,idtb_corpo_quadro,idtb_especialidade,nip,cpf,nome,nome_guerra,status,senha,perfil,correio_eletronico) VALUES 
+;INSERT INTO db_clti.tb_lotacao_clti (idtb_posto_grad,idtb_corpo_quadro,idtb_especialidade,nip,cpf,nome,nome_guerra,status,senha,perfil,correio_eletronico) VALUES 
 (16,1,8,'12345678','','ADMINCLTI','ADMINCLTI','ATIVO','1f82ea75c5cc526729e2d581aeb3aeccfef4407e256127614ef298fedf9376775a7d7328090f63bf','TEC_CLTI','adminclti@marinha.mil.br')
-;
-INSERT INTO db_clti.tb_pais (nome,sigla) VALUES 
+;INSERT INTO db_clti.tb_om_apoiadas (cod_om,nome,sigla,indicativo,idtb_estado,idtb_cidade) VALUES 
+(83000,'COMANDO DO 3º DISTRITO NAVAL','COM3ºDN','TERDIS',20,3770)
+;INSERT INTO db_clti.tb_pais (nome,sigla) VALUES 
 ('Brasil','BR')
-;
-INSERT INTO db_clti.tb_posto_grad (nome,sigla) VALUES 
+;INSERT INTO db_clti.tb_pessoal_ti (idtb_om_apoiadas,idtb_posto_grad,idtb_corpo_quadro,idtb_especialidade,nip,cpf,nome,nome_guerra,correio_eletronico,status,senha,idtb_funcoes_ti) VALUES 
+(10,8,1,12,'12345678','','LUCIO A C SANTOS','ALEXANDRE','lucio@marinha.mil.br','ATIVO','1f82ea75c5cc526729e2d581aeb3aeccfef4407e256127614ef298fedf9376775a7d7328090f63bf',1)
+;INSERT INTO db_clti.tb_posto_grad (nome,sigla) VALUES 
 ('Almirante-de-Esquadra','AE')
 ,('Vice-Almirante','VA')
 ,('Contra-Almirante','CA')
