@@ -129,16 +129,7 @@ cp -r $PWD/ /var/www/html/sisclti
 #Configurações inciciais do sistema
 sed -i "s/sisclti/$BDPWS/g" /var/www/html/sisclti/class/config.php
 
-#Encerrando instalação
-if whiptail \
-   --title 'CLTI-3°DN' \
-   --no-button 'Atualização' --yes-button 'Nova' --yesno '\n     
-ACESSE PELO NAVEGADOR COM URL/sisclti \n\n 
-	Usuário 12345678/Senha mb@2020# \n\n
-    	DESEJA ENCERRAR?' 0 0
-
-fi
-exti 0
+exit 0
 
 #Interrompendo a configuração caso selecione não no início
 else
