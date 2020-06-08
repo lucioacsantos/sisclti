@@ -108,9 +108,9 @@ done
 #Executando configuração do banco de dados PostgreSQL
 echo "Executando configuração do banco de dados PostgreSQL..."
 sleep 0.5
-psql -c "DROP ROLE sisclti" -U postgres
-psql -c "DROP DATABASE db_clti" -U postgres
 psql -c "DROP SCHEMA db_clti" -U postgres
+psql -c "DROP DATABASE db_clti" -U postgres
+psql -c "DROP ROLE sisclti" -U postgres
 psql -c "CREATE ROLE sisclti" -U postgres
 psql -c "ALTER ROLE sisclti WITH SUPERUSER INHERIT NOCREATEROLE CREATEDB LOGIN PASSWORD '$BDPWS'" -U postgres
 psql -c "CREATE DATABASE db_clti WITH TEMPLATE=template0 ENCODING='UTF8' LC_COLLATE='pt_BR.UTF-8' LC_CTYPE='pt_BR.UTF-8'" -U postgres
@@ -126,7 +126,7 @@ sleep 0.5
 cp -r $PWD/ /var/www/html/sisclti
 
 #Configurações inciciais do sistema
-sed -i ‘2c\'	$password = "\"$BDPWS\"";’ /var/www/html/sisclti/class/config.php
+sed -i ‘2c\'	$password = ""$BDPWS"";’ /var/www/html/sisclti/class/config.php
 #sed -i "s/db_user/$BDUSR/g" /var/www/html/sisclti/class/config.php
 #sed -i "s/db_passwd/$BDPWS/g" /var/www/html/sisclti/class/config.php
 
