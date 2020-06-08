@@ -32,7 +32,7 @@ then
 #Instalação dos pacotes necessários
 yum group install -y "Servidor de Web Básico"
 yum -y install postgresql-server
-yum -y install php php-mbstring php-gd php-dom php-pgsql
+yum -y install php php-gd php-dom php-pgsql
 
 #Inicializando e habilitando os serviços
 systemctl start httpd
@@ -54,27 +54,6 @@ firewall-cmd --add-port=443/tcp
 firewall-cmd --add-port=443/tcp --permanent
 setsebool -P httpd_can_network_connect 1
 setsebool -P httpd_can_network_connect_db 1
-
-#Solicita nome de usuário para banco de dados
-while [ true ]
-do
-	BDUSR=$(whiptail --title "Usuário do Banco de Dados" --inputbox "Informe um usuário para o banco de dados do SisCLTI" 10 60  3>&1 1>&2 2>&3)
-	exitstatus=$?
-	if [ $exitstatus = 1 ]; then
-		echo "Cancelado."
-		exit
-	fi
-	BDUSR=$(echo "$BDUSR" | sed 's/ //g')
-	BDUSR=$(echo $BDUSR | tr '[:upper:]' '[:lower:]')
-	if [ "${#BDUSR}" -ge 5 ]; then 
-		if (whiptail --title "Confirmação do Usuário do Banco de Dados" --yesno "Usuário do Banco de Dados: "$BDUSR 8 78) then
-    		break	
-		fi
-	else
-		whiptail --title "ERRO" --msgbox "Usuário do Banco de Dados inválido. Clique em OK para continuar." 8 78
-	fi
-
-done
 
 #Solicita senha para o usuário criado do banco de dados para o SisCLTI
 while [ true ]
@@ -132,8 +111,9 @@ psql -U postgres -d db_clti < db_clti.sql
 cp -r $PWD/ /var/www/html/sisclti
 
 #Configurações inciciais do sistema
-sed -i "s/db_user/$BDUSR/g" /var/www/html/sisclti/class/config.php
-sed -i "s/db_passwd/$BDPWS/g" /var/www/html/sisclti/class/config.php
+sed -i ‘2c\'	$password = "\"$BDPWS\"";’ /var/www/html/sisclti/class/config.php
+#sed -i "s/db_user/$BDUSR/g" /var/www/html/sisclti/class/config.php
+#sed -i "s/db_passwd/$BDPWS/g" /var/www/html/sisclti/class/config.php
 
 #Configurações seguras do PostgreSQL
 echo "local     all     all                 peer" > /var/lib/pgsql/data/pg_hba.conf

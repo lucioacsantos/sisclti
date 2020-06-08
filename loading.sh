@@ -75,6 +75,7 @@ echo "";
 echo "Aguarde....";
 sleep 0.2
 clear
+echo "";
 echo " XXXX   XXXXX   XXXX    XXXXX  X       XXXXX  XXXXX";
 echo "X         X    X       X       X         X      X";
 echo " XXXX     X     XXXX   X       X         X      X";
