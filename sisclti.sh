@@ -140,6 +140,11 @@ echo "local     all     all                 peer" > /var/lib/pgsql/data/pg_hba.c
 echo "host      all     all 127.0.0.1/32    md5" >> /var/lib/pgsql/data/pg_hba.conf
 echo "host      all     all ::1/128         md5" >> /var/lib/pgsql/data/pg_hba.conf
 
+#Reiniciando serviços
+systemctl restart http
+systemctl restart postgresql
+
+#Encerrando script após configurações corretas
 exit 0
 
 #Interrompendo a configuração caso selecione não no início
