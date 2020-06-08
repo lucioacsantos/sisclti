@@ -122,8 +122,8 @@ done
 psql -c "CREATE ROLE $BDUSR" -U postgres
 psql -c "ALTER ROLE $BDUSR WITH SUPERUSER INHERIT NOCREATEROLE CREATEDB LOGIN PASSWORD '$BDPWS'" -U postgres
 psql -c "CREATE DATABASE db_clti WITH TEMPLATE=template0 ENCODING='UTF8' LC_COLLATE='pt_BR.UTF-8' LC_CTYPE='pt_BR.UTF-8'" -U postgres
-psql -c "ALTER DATABASE db_clti OWNER TO $BDUSR"
-psql -c "UPDATE db_clti.tb_config SET valor='http://$URLIP/sisclti' WHERE parametro='URL' "
+psql -c "ALTER DATABASE db_clti OWNER TO $BDUSR" -U postgres
+psql -c "UPDATE db_clti.tb_config SET valor='http://$URLIP/sisclti' WHERE parametro='URL' " -U postgres
 
 #Copia SisCLTI
 cp -r $PWD/ /var/www/html/sisclti
