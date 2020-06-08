@@ -111,12 +111,12 @@ sleep 0.5
 psql -c "DROP ROLE sisclti" -U postgres
 psql -c "DROP DATABASE db_clti" -U postgres
 psql -c "DROP SCHEMA db_clti" -U postgres
-psql -c "CREATE ROLE $BDUSR" -U postgres
-psql -c "ALTER ROLE $BDUSR WITH SUPERUSER INHERIT NOCREATEROLE CREATEDB LOGIN PASSWORD '$BDPWS'" -U postgres
+psql -c "CREATE ROLE sisclti" -U postgres
+psql -c "ALTER ROLE sisclti WITH SUPERUSER INHERIT NOCREATEROLE CREATEDB LOGIN PASSWORD '$BDPWS'" -U postgres
 psql -c "CREATE DATABASE db_clti WITH TEMPLATE=template0 ENCODING='UTF8' LC_COLLATE='pt_BR.UTF-8' LC_CTYPE='pt_BR.UTF-8'" -U postgres
-psql -c "ALTER DATABASE db_clti OWNER TO $BDUSR" -U postgres
+psql -c "ALTER DATABASE db_clti OWNER TO sisclti" -U postgres
 psql -c "CREATE SCHEMA db_clti" -U postgres
-psql -c "ALTER SCHEMA db_clti OWNER TO $BDUSR" -U postgres
+psql -c "ALTER SCHEMA db_clti OWNER TO sisclti" -U postgres
 echo "UPDATE db_clti.tb_config SET valor='http://$URLIP/sisclti' WHERE parametro='URL' " >> db_clti.sql
 psql -e -f db_clti.sql -d db_clti -U postgres > log.txt
 
