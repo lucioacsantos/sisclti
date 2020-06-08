@@ -125,8 +125,8 @@ psql -c "CREATE DATABASE db_clti WITH TEMPLATE=template0 ENCODING='UTF8' LC_COLL
 psql -c "ALTER DATABASE db_clti OWNER TO $BDUSR" -U postgres
 psql -c "CREATE SCHEMA db_clti" -U postgres
 psql -c "ALTER SCHEMA db_clti OWNER TO $BDUSR" -U postgres
+echo "UPDATE tb_config SET valor='http://$URLIP/sisclti' WHERE parametro='URL' " >> db_clti.sql
 psql -U postgres -d db_clti < db_clti.sql
-psql -c -d db_clti "UPDATE tb_config SET valor='http://$URLIP/sisclti' WHERE parametro='URL' " -U postgres
 
 #Copia SisCLTI
 cp -r $PWD/ /var/www/html/sisclti
