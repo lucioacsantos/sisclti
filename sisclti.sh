@@ -118,7 +118,7 @@ psql -c "ALTER DATABASE db_clti OWNER TO $BDUSR" -U postgres
 psql -c "CREATE SCHEMA db_clti" -U postgres
 psql -c "ALTER SCHEMA db_clti OWNER TO $BDUSR" -U postgres
 echo "UPDATE db_clti.tb_config SET valor='http://$URLIP/sisclti' WHERE parametro='URL' " >> db_clti.sql
-psql -U postgres -d db_clti < db_clti.sql
+psql -e -f db_clti.sql -d db_clti -U postgres
 
 #Copia SisCLTI
 echo "Transferindo arquivos para diretório web..."
@@ -140,7 +140,7 @@ echo "host      all     all ::1/128         md5" >> /var/lib/pgsql/data/pg_hba.c
 #Reiniciando serviços
 echo "Reiniciando serviços"
 sleep 0.5
-systemctl restart http
+systemctl restart httpd
 systemctl restart postgresql
 
 #Encerrando script após configurações corretas
