@@ -118,7 +118,7 @@ psql -c "ALTER DATABASE db_clti OWNER TO sisclti" -U postgres
 psql -c "CREATE SCHEMA db_clti" -U postgres
 psql -c "ALTER SCHEMA db_clti OWNER TO sisclti" -U postgres
 echo "UPDATE db_clti.tb_config SET valor='http://$URLIP/sisclti' WHERE parametro='URL' " >> db_clti.sql
-psql -e -f db_clti.sql -d db_clti -U postgres > log.txt
+psql -e -f db_clti.sql -d db_clti -U postgres
 
 #Copia SisCLTI
 echo "Transferindo arquivos para diretório web..."
