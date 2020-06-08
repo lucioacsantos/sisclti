@@ -124,7 +124,7 @@ psql -c "ALTER DATABASE db_clti OWNER TO $BDUSR"
 psql -c "UPDATE db_clti.tb_config SET valor='http://$URLIP/sisclti' WHERE parametro='URL' "
 
 #Copia SisCLTI
-cp -r $PWD/ /var/www/html/
+cp -r $PWD/ /var/www/html/sisclti
 
 #Configurações inciciais do sistema
 sed -i "s/sisclti/$BDPWS/g" /var/www/html/sisclti/class/config.php
