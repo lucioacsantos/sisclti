@@ -124,9 +124,8 @@ sleep 0.5
 cp -r $PWD/ /var/www/html/sisclti
 
 #Configurações inciciais do sistema
-sed -i ‘2c\'	$password = ""$BDPWS"";’ /var/www/html/sisclti/class/config.php
 #sed -i "s/db_user/$BDUSR/g" /var/www/html/sisclti/class/config.php
-#sed -i "s/db_passwd/$BDPWS/g" /var/www/html/sisclti/class/config.php
+sed -i "s/db_passwd/$BDPWS/g" /var/www/html/sisclti/class/config.php
 
 #Configurações seguras do PostgreSQL
 echo "Aplicando configurações seguras do PostgreSQL..."

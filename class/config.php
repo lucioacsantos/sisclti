@@ -6,5 +6,5 @@
 	$port = "5432";
 	$dbname = "db_clti";
 	$user = "sisclti";
-	$password = "sisclti";
+	$password = "db_passwd";
 ?>
