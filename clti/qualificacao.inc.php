@@ -94,6 +94,7 @@ if ($act == 'cad') {
                                     <option value=\"MESTRADO\">MESTRADO</option>
                                     <option value=\"DOUTORADO\">DOUTORADO</option>
                                     <option value=\"TÉCNICO\">TÉCNICO</option>
+				    <option value=\"CERTIFICAÇÃO\">CERTIFICAÇÃO</option>
                                     <option value=\"LIVRE\">LIVRE</option>
                                 </select>
                             </div>
