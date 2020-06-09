@@ -155,7 +155,29 @@ if ($act == 'cad') {
 /* Monta quadro de administradores */
 if (($row) AND ($act == NULL)) {
 
-	$qualiti = "SELECT * FROM db_clti.vw_qualificacao_clti ORDER BY idtb_lotacao_clti ASC";
+echo "
+    <div class=\"container-fluid\">
+        <div class=\"row\">
+            <main>
+                <div id=\"form-cadastro\">
+                    <form id=\"nip_cpf\" role=\"form\" action=\"?cmd=qualificacao&act=cad\" 
+                    method=\"post\" enctype=\"multipart/form-data\">
+                        <fieldset>
+                        <legend>Qualificação em TI - Cadastro</legend>
+                            <div class=\"form-group\">
+                                <label for=\"nip_cpf\">Informe o NIP/CPF:</label>
+                                <input id=\"nip_cpf\" class=\"form-control\" type=\"num\" name=\"nip_cpf\" 
+                                    placeholder=\"NIP/CPF\" maxlength=\"11\" autofocus=\"true\" required=\"true\">
+                            </div>
+                        </fieldset>
+                        <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Localizar\">
+                    </form>
+                </div>
+            </main>
+        </div>
+    </div>";
+
+	$qualiti = "SELECT * FROM db_clti.vw_qualificacao_clti ORDER BY idtb_posto_grad, tipo, nome_curso, data_conclusao ASC";
     $qualiti = $pg->getRows($qualiti);
 
     echo"<div class=\"table-responsive\">
@@ -167,6 +189,7 @@ if (($row) AND ($act == NULL)) {
                         <th scope=\"col\">Nome de Guerra</th>
                         <th scope=\"col\">Curso</th>
                         <th scope=\"col\">Situação</th>
+			<th scope=\"col\">Conclusão</th>
                         <th scope=\"col\">Ações</th>
                     </tr>
                 </thead>";
@@ -187,6 +210,7 @@ if (($row) AND ($act == NULL)) {
                         <td>$value->nome_guerra</td>
                         <td>$value->tipo $value->nome_curso</td>
                         <td>$value->situacao</td>
+			<td>$value->data_conclusao</td>
                         <td><a href=\"?cmd=qualificacao&act=cad&param=".$value->idtb_qualificacao_clti."\">Editar</a> - 
                             Excluir</td>
                     </tr>";
@@ -244,7 +268,7 @@ if ($act == 'insert') {
                     idtb_lotacao_clti, instituicao, tipo, nome_curso, meio, situacao, 
                     data_conclusao, carga_horaria, custo)
                 VALUES ('$idtb_lotacao_clti', '$instituicao', '$tipo', '$nome_curso',
-                    '$meio', '$situacao', $data_conclusao, '$carga_horaria', '$custo')";
+                    '$meio', '$situacao', '$data_conclusao', '$carga_horaria', '$custo')";
 
             $pg->exec($sql);
 

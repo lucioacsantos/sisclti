@@ -206,6 +206,13 @@ function grafico_barras(){
 				data: barChartData,
 				options: {
 					responsive: true,
+					scales: {
+						yAxes: [{
+						    ticks: {
+							beginAtZero: true
+						    }
+						}]
+					    },
 					legend: {
 						position: 'top',
 					},

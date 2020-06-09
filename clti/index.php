@@ -256,12 +256,12 @@ if (isset($_SESSION['user_name'])){
               </div>
               <p>OM Apoiadas: ".$pg->getCol("SELECT COUNT(idtb_om_apoiadas)
                 FROM db_clti.tb_om_apoiadas;")." OM</p>
-              <p>Pessoal de TI (Admin): ".$pg->getCol("SELECT COUNT(idtb_pessoal_ti)
-                FROM db_clti.tb_admin;")."</p>
-              <p>Pessoal de TI (OSIC): ".$pg->getCol("SELECT COUNT(idtb_osic)
-                FROM db_clti.tb_osic;")."</p>
-              <p>Pessoal de TI (Manutenção/Suporte): ".$pg->getCol("SELECT COUNT(idtb_pessoal_ti)
-                FROM db_clti.tb_pessoal_ti;")."</p>
+              <p>Pessoal de TI (Admin): ".$pg->getCol("SELECT COUNT(idtb_pessoal_ti) AS qtde FROM db_clti.vw_pessoal_ti 
+    		GROUP BY idtb_funcoes_ti HAVING idtb_funcoes_ti=1 ")."</p>
+              <p>Pessoal de TI (OSIC): ".$pg->getCol("SELECT COUNT(idtb_pessoal_ti) AS qtde FROM db_clti.vw_pessoal_ti 
+    		GROUP BY idtb_funcoes_ti HAVING idtb_funcoes_ti=2 ")."</p>
+              <p>Pessoal de TI (Manutenção/Suporte): ".$pg->getCol("SELECT COUNT(idtb_pessoal_ti) AS qtde FROM db_clti.vw_pessoal_ti 
+    		GROUP BY idtb_funcoes_ti HAVING idtb_funcoes_ti!=1 AND idtb_funcoes_ti!=2 ")."</p>
               <p>Servidores (Total): ".$pg->getCol("SELECT COUNT(idtb_servidores)
                 FROM db_clti.tb_servidores;")."</p>
               <p>Estações de Trabalho (Total): ".$pg->getCol("SELECT COUNT(idtb_estacoes)

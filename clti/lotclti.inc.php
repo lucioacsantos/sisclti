@@ -283,7 +283,7 @@ if ($act == 'cad') {
 /* Monta quadro com lotação/efetivo */
 if (($row) AND ($act == NULL)) {
 
-    $clti = "SELECT * FROM db_clti.vw_pessoal_clti ORDER BY idtb_posto_grad DESC";
+    $clti = "SELECT * FROM db_clti.vw_pessoal_clti ORDER BY idtb_posto_grad ASC";
     $clti = $pg->getRows($clti);
 
     echo"<div class=\"table-responsive\">
