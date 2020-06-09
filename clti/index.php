@@ -256,7 +256,7 @@ if (isset($_SESSION['user_name'])){
               </div>
               <p>OM Apoiadas: ".$pg->getCol("SELECT COUNT(idtb_om_apoiadas)
                 FROM db_clti.tb_om_apoiadas;")." OM</p>
-              <p>Pessoal de TI (Admin): ".$pg->getCol("SELECT COUNT(idtb_admin)
+              <p>Pessoal de TI (Admin): ".$pg->getCol("SELECT COUNT(idtb_pessoal_ti)
                 FROM db_clti.tb_admin;")."</p>
               <p>Pessoal de TI (OSIC): ".$pg->getCol("SELECT COUNT(idtb_osic)
                 FROM db_clti.tb_osic;")."</p>

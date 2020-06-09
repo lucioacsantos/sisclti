@@ -60,8 +60,7 @@ firewall-cmd --add-service=http
 firewall-cmd --add-service=http --permanent
 firewall-cmd --add-port=443/tcp
 firewall-cmd --add-port=443/tcp --permanent
-setsebool -P httpd_can_network_connect 1
-setsebool -P httpd_can_network_connect_db 1
+sed -i "s/SELINUX=enforcing/SELINUX=disabled/g" /etc/sysconfig/selinux
 
 #Solicita senha para o usuário criado do banco de dados para o SisCLTI
 while [ true ]
@@ -108,23 +107,22 @@ done
 #Executando configuração do banco de dados PostgreSQL
 echo "Executando configuração do banco de dados PostgreSQL..."
 sleep 0.5
-psql -c "DROP SCHEMA db_clti" -U postgres
-psql -c "DROP DATABASE db_clti" -U postgres
-psql -c "DROP ROLE sisclti" -U postgres
-psql -c "CREATE ROLE sisclti" -U postgres
-psql -c "ALTER ROLE sisclti WITH SUPERUSER INHERIT NOCREATEROLE CREATEDB LOGIN PASSWORD '$BDPWS'" -U postgres
-psql -c "CREATE DATABASE db_clti WITH TEMPLATE=template0 ENCODING='UTF8' LC_COLLATE='pt_BR.UTF-8' LC_CTYPE='pt_BR.UTF-8'" -U postgres
-psql -c "ALTER DATABASE db_clti OWNER TO sisclti" -U postgres
-psql -c "CREATE SCHEMA db_clti" -U postgres
-psql -c "ALTER SCHEMA db_clti OWNER TO sisclti" -U postgres
+#psql -c "DROP SCHEMA db_clti" -U postgres
+#psql -c "DROP DATABASE db_clti" -U postgres
+#psql -c "DROP ROLE sisclti" -U postgres
+#psql -c "CREATE ROLE sisclti" -U postgres
+#psql -c "ALTER ROLE sisclti WITH SUPERUSER INHERIT NOCREATEROLE CREATEDB LOGIN PASSWORD '$BDPWS'" -U postgres
+#psql -c "CREATE DATABASE db_clti WITH TEMPLATE=template0 ENCODING='UTF8' LC_COLLATE='pt_BR.UTF-8' LC_CTYPE='pt_BR.UTF-8'" -U postgres
+#psql -c "ALTER DATABASE db_clti OWNER TO sisclti" -U postgres
 
 #Copia SisCLTI
 echo "Transferindo arquivos para diretório web..."
 sleep 0.5
-cp -r $PWD/ /var/www/html/sisclti
+cp -ru $PWD/ /var/www/html/sisclti
+#rm -fr $PWD
 
 #Configurações inciciais do sistema
-#sed -i "s/db_user/$BDUSR/g" /var/www/html/sisclti/class/config.php
+sed -i "s/localhost/$URLIP/g" /var/www/html/sisclti/db_clti_.sql
 sed -i "s/db_passwd/$BDPWS/g" /var/www/html/sisclti/class/config.php
 
 #Configurações seguras do PostgreSQL
@@ -137,13 +135,11 @@ echo "host      all     all ::1/128         md5" >> /var/lib/pgsql/data/pg_hba.c
 #Reiniciando serviços
 echo "Reiniciando serviços"
 sleep 0.5
-systemctl restart httpd
-systemctl restart postgresql
 
 #Encerrando script após configurações corretas
 echo "Encerrando..."
 sleep 0.5
-exit 0
+reboot
 
 #Interrompendo a configuração caso selecione não no início
 else
