@@ -116,7 +116,7 @@ psql -c "ALTER DATABASE db_clti OWNER TO sisclti" -U postgres
 echo "Transferindo arquivos para diretório web..."
 sleep 0.5
 cp -ru $PWD/ /var/www/html/sisclti
-#rm -fr $PWD
+rm -fr $PWD
 
 #Configurações inciciais do sistema
 sed -i "s/localhost/$URLIP/g" /var/www/html/sisclti/db_clti_dados.sql
@@ -132,11 +132,13 @@ echo "host      all     all ::1/128         md5" >> /var/lib/pgsql/data/pg_hba.c
 #Reiniciando serviços
 echo "Reiniciando serviços"
 sleep 0.5
+systemctl restart httpd
+systemctl restart postgresql
 
 #Encerrando script após configurações corretas
 echo "Encerrando..."
 sleep 0.5
-reboot
+#reboot
 
 #Interrompendo a configuração caso selecione não no início
 else
