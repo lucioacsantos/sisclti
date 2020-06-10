@@ -107,13 +107,10 @@ done
 #Executando configuração do banco de dados PostgreSQL
 echo "Executando configuração do banco de dados PostgreSQL..."
 sleep 0.5
-#psql -c "DROP SCHEMA db_clti" -U postgres
-#psql -c "DROP DATABASE db_clti" -U postgres
-#psql -c "DROP ROLE sisclti" -U postgres
-#psql -c "CREATE ROLE sisclti" -U postgres
-#psql -c "ALTER ROLE sisclti WITH SUPERUSER INHERIT NOCREATEROLE CREATEDB LOGIN PASSWORD '$BDPWS'" -U postgres
-#psql -c "CREATE DATABASE db_clti WITH TEMPLATE=template0 ENCODING='UTF8' LC_COLLATE='pt_BR.UTF-8' LC_CTYPE='pt_BR.UTF-8'" -U postgres
-#psql -c "ALTER DATABASE db_clti OWNER TO sisclti" -U postgres
+psql -c "CREATE ROLE sisclti" -U postgres
+psql -c "ALTER ROLE sisclti WITH SUPERUSER INHERIT NOCREATEROLE CREATEDB LOGIN PASSWORD '$BDPWS'" -U postgres
+psql -c "CREATE DATABASE db_clti WITH TEMPLATE=template0 ENCODING='UTF8' LC_COLLATE='pt_BR.UTF-8' LC_CTYPE='pt_BR.UTF-8'" -U postgres
+psql -c "ALTER DATABASE db_clti OWNER TO sisclti" -U postgres
 
 #Copia SisCLTI
 echo "Transferindo arquivos para diretório web..."
@@ -122,7 +119,7 @@ cp -ru $PWD/ /var/www/html/sisclti
 #rm -fr $PWD
 
 #Configurações inciciais do sistema
-sed -i "s/localhost/$URLIP/g" /var/www/html/sisclti/db_clti_.sql
+sed -i "s/localhost/$URLIP/g" /var/www/html/sisclti/db_clti_dados.sql
 sed -i "s/db_passwd/$BDPWS/g" /var/www/html/sisclti/class/config.php
 
 #Configurações seguras do PostgreSQL
