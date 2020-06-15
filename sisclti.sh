@@ -116,7 +116,7 @@ psql -c "ALTER DATABASE db_clti OWNER TO sisclti" -U postgres
 echo "Transferindo arquivos para diretório web..."
 sleep 0.5
 cp -ru $PWD/ /var/www/html/sisclti
-rm -fr $PWD
+#rm -fr $PWD
 
 #Configurações inciciais do sistema
 sed -i "s/localhost/$URLIP/g" /var/www/html/sisclti/db_clti_dados.sql
