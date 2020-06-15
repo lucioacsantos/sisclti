@@ -6790,8 +6790,6 @@ INSERT INTO db_clti.tb_cidade (nome,estado) VALUES
 ,('Wanderlândia',27)
 ,('Xambioá',27)
 ;
-INSERT INTO db_clti.tb_clti (efetivo_oficiais,efetivo_pracas,nome,sigla,indicativo,data_ativacao) VALUES 
-(0,0,'CLTI COM3ºDN','CLTI-3ºDN','CLTINA','2012-04-30')
 ;INSERT INTO db_clti.tb_config (parametro,valor) VALUES 
 ('URL','http://localhost/sisclti')
 ,('ESTADO','RN')
