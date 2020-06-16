@@ -44,13 +44,7 @@ if ($act == 'cad') {
 /* Monta quadro com Estações de Trabalho */
 if (($row) AND ($act == NULL)) {
 
-    $omapoiada = $_SESSION['id_om_apoiada'];
-    if ($omapoiada != ''){
-        $estacoes = $pg->getRows("SELECT * FROM db_clti.vw_estacoes WHERE idtb_om_apoiadas = $omapoiada");
-    }
-    else{
-        $estacoes = $pg->getRows("SELECT * FROM db_clti.vw_estacoes ORDER BY idtb_om_apoiadas ASC");
-    }
+    $estacoes = $pg->getRows("SELECT * FROM db_clti.vw_estacoes ORDER BY idtb_om_apoiadas ASC");
 
     echo"<div class=\"table-responsive\">
             <table class=\"table table-hover\">

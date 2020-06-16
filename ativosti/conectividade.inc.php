@@ -38,13 +38,7 @@ if ($act == 'cad') {
 /* Monta quadro com tipo do CLTI */
 if (($row) AND ($act == NULL)) {
 
-    $omapoiada = $_SESSION['id_om_apoiada'];
-    if ($omapoiada != ''){
-        $conectividade = $pg->getRows("SELECT * FROM db_clti.vw_conectividade WHERE idtb_om_apoiadas = $omapoiada");
-    }
-    else{
-        $conectividade = $pg->getRows("SELECT * FROM db_clti.vw_conectividade ORDER BY idtb_om_apoiadas ASC");
-    }
+    $conectividade = $pg->getRows("SELECT * FROM db_clti.vw_conectividade ORDER BY idtb_om_apoiadas ASC");
 
     echo"<div class=\"table-responsive\">
             <table class=\"table table-hover\">

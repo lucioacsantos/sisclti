@@ -42,13 +42,7 @@ if ($act == 'cad') {
 /* Monta quadro com servidores */
 if (($row) AND ($act == NULL)) {
 
-    $omapoiada = $_SESSION['id_om_apoiada'];
-    if ($omapoiada != ''){
-        $srv = $pg->getRows("SELECT * FROM db_clti.vw_servidores WHERE idtb_om_apoiadas = $omapoiada");
-    }
-    else{
-        $srv = $pg->getRows("SELECT * FROM db_clti.vw_servidores ORDER BY idtb_om_apoiadas ASC");
-    }
+    $srv = $pg->getRows("SELECT * FROM db_clti.vw_servidores ORDER BY idtb_om_apoiadas ASC");
 
     echo"<div class=\"table-responsive\">
             <table class=\"table table-hover\">
