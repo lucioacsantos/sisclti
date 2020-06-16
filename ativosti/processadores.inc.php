@@ -8,7 +8,7 @@ require_once "../class/pgsql.class.php";
 $pg = new PgSql();
 
 /* Recupera informações dos Admin */
-$sql = "SELECT * FROM db_clti.tb_sor";
+$sql = "SELECT * FROM db_clti.tb_proc_modelo";
 
 $row = $pg->getRow($sql);
 

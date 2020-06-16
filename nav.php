@@ -115,6 +115,12 @@ $sigla = $pg->getCol($sql);
                   </a>
                 </li>
                 <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/ativosti/?cmd=memorias\">
+                    <span data-feather=\"cpu\"></span>
+                    Memórias
+                  </a>
+                </li>
+                <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/ativosti/?cmd=servidores\">
                     <span data-feather=\"server\"></span>
                     Servidores

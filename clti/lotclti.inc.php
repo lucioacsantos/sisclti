@@ -280,7 +280,9 @@ if ($act == 'cad') {
     </div>";
 }
 
-/* Monta quadro com lotação/efetivo */
+/* Monta quadro com lotação/efetivo
+   O usuário padrão '12345678' não entra na contagem
+*/
 if (($row) AND ($act == NULL)) {
 
     $clti = "SELECT * FROM db_clti.vw_pessoal_clti ORDER BY idtb_posto_grad ASC";
@@ -301,27 +303,28 @@ if (($row) AND ($act == NULL)) {
                     <td>".$pg->getCol("SELECT lotacao_oficiais+lotacao_pracas
                         FROM db_clti.tb_tipos_clti;")."</td>
                     <td>".$pg->getCol("SELECT COUNT(nip) AS qtde 
-                        FROM db_clti.tb_lotacao_clti;")."</td>
+                        FROM db_clti.tb_lotacao_clti WHERE nip != '12345678' ")."</td>
                 </tr>
                 <tr>
                     <th scope=\"row\">Oficiais</th>
                     <td>".$pg->getCol("SELECT lotacao_oficiais AS qtde 
                         FROM db_clti.tb_tipos_clti;")."</td>
                     <td>".$pg->getCol("SELECT COUNT(nip) AS qtde 
-                        FROM db_clti.tb_lotacao_clti WHERE idtb_posto_grad < '10';")."</td>
+                        FROM db_clti.tb_lotacao_clti WHERE idtb_posto_grad < '10' AND nip != '12345678' ")."</td>
                 </tr>
                 <tr>
                     <th scope=\"row\">Praças</th>
                     <td> ".$pg->getCol("SELECT lotacao_pracas AS qtde 
                         FROM db_clti.tb_tipos_clti;")."</td>
                     <td> ".$pg->getCol("SELECT COUNT(nip) AS qtde 
-                        FROM db_clti.tb_lotacao_clti WHERE idtb_posto_grad > '9' AND idtb_posto_grad < '21';")."</td>
+                        FROM db_clti.tb_lotacao_clti WHERE idtb_posto_grad > '9' AND idtb_posto_grad < '21'  
+                        AND nip != '12345678' ")."</td>
                 </tr>
                 <tr>
                     <th scope=\"row\">Servidores Civis</th>
                     <td> 0</td>
                     <td> ".$pg->getCol("SELECT COUNT(cpf) AS qtde 
-                        FROM db_clti.tb_lotacao_clti WHERE idtb_posto_grad = '21';")."</td>
+                        FROM db_clti.tb_lotacao_clti WHERE idtb_posto_grad = '21' AND nip != '12345678' ")."</td>
                 </tr>
             </tbody>
         </table>

@@ -58,32 +58,6 @@ CREATE TABLE db_clti.tb_especialidade (
 );
 
 
--- db_clti.tb_estacoes definition
-
--- Drop table
-
--- DROP TABLE db_clti.tb_estacoes;
-
-CREATE TABLE db_clti.tb_estacoes (
-	idtb_estacoes serial NOT NULL,
-	idtb_om_apoiadas int4 NOT NULL,
-	idtb_proc_modelo int4 NOT NULL,
-	clock_proc float4 NOT NULL,
-	fabricante varchar(255) NOT NULL,
-	modelo varchar(255) NOT NULL,
-	memoria varchar(255) NOT NULL,
-	armazenamento varchar(255) NOT NULL,
-	idtb_sor int4 NOT NULL,
-	end_ip varchar(255) NULL,
-	end_mac varchar(255) NULL,
-	data_aquisicao date NULL,
-	data_garantia date NULL,
-	localizacao varchar(255) NOT NULL,
-	req_minimos varchar(45) NOT NULL,
-	status varchar(255) NOT NULL
-);
-
-
 -- db_clti.tb_funcoes_ti definition
 
 -- Drop table
@@ -95,6 +69,21 @@ CREATE TABLE db_clti.tb_funcoes_ti (
 	descricao varchar(255) NOT NULL,
 	sigla varchar(45) NOT NULL,
 	CONSTRAINT tb_funcao_ti_pkey PRIMARY KEY (idtb_funcoes_ti)
+);
+
+
+-- db_clti.tb_memorias definition
+
+-- Drop table
+
+-- DROP TABLE db_clti.tb_memorias;
+
+CREATE TABLE db_clti.tb_memorias (
+	idtb_memorias serial NOT NULL,
+	tipo varchar(255) NOT NULL,
+	modelo varchar(255) NOT NULL,
+	clock int4 NOT NULL,
+	CONSTRAINT tb_memorias_pkey PRIMARY KEY (idtb_memorias)
 );
 
 
@@ -200,7 +189,7 @@ CREATE TABLE db_clti.tb_estado (
 	uf varchar(5) NOT NULL,
 	pais int4 NOT NULL,
 	CONSTRAINT estado_pkey PRIMARY KEY (id),
-	CONSTRAINT tb_estado_pais_fkey FOREIGN KEY (pais) REFERENCES db_clti.tb_pais(id) NOT VALID
+	CONSTRAINT tb_estado_pais_fkey FOREIGN KEY (pais) REFERENCES db_clti.tb_pais(id)
 );
 
 
@@ -225,9 +214,9 @@ CREATE TABLE db_clti.tb_lotacao_clti (
 	correio_eletronico varchar(255) NULL,
 	CONSTRAINT tb_tripulacao_clti_pkey PRIMARY KEY (idtb_lotacao_clti),
 	CONSTRAINT unico_nip_cpf UNIQUE (nip, cpf),
-	CONSTRAINT tb_lotacao_clti_idtb_corpo_quadro_fkey FOREIGN KEY (idtb_corpo_quadro) REFERENCES db_clti.tb_corpo_quadro(idtb_corpo_quadro) NOT VALID,
-	CONSTRAINT tb_lotacao_clti_idtb_especialidade_fkey FOREIGN KEY (idtb_especialidade) REFERENCES db_clti.tb_especialidade(idtb_especialidade) NOT VALID,
-	CONSTRAINT tb_lotacao_clti_idtb_posto_grad_fkey FOREIGN KEY (idtb_posto_grad) REFERENCES db_clti.tb_posto_grad(idtb_posto_grad) NOT VALID
+	CONSTRAINT tb_lotacao_clti_idtb_corpo_quadro_fkey FOREIGN KEY (idtb_corpo_quadro) REFERENCES db_clti.tb_corpo_quadro(idtb_corpo_quadro),
+	CONSTRAINT tb_lotacao_clti_idtb_especialidade_fkey FOREIGN KEY (idtb_especialidade) REFERENCES db_clti.tb_especialidade(idtb_especialidade),
+	CONSTRAINT tb_lotacao_clti_idtb_posto_grad_fkey FOREIGN KEY (idtb_posto_grad) REFERENCES db_clti.tb_posto_grad(idtb_posto_grad)
 );
 CREATE INDEX fki_id_corpo_quadro ON db_clti.tb_lotacao_clti USING btree (idtb_corpo_quadro);
 CREATE INDEX fki_id_especialidade ON db_clti.tb_lotacao_clti USING btree (idtb_especialidade);
@@ -246,7 +235,7 @@ CREATE TABLE db_clti.tb_proc_modelo (
 	modelo varchar(255) NOT NULL,
 	CONSTRAINT tb_proc_modelo_modelo_key UNIQUE (modelo),
 	CONSTRAINT tb_proc_modelo_pkey PRIMARY KEY (idtb_proc_modelo),
-	CONSTRAINT tb_proc_modelo_idtb_proc_fab_fkey FOREIGN KEY (idtb_proc_fab) REFERENCES db_clti.tb_proc_fab(idtb_proc_fab) NOT VALID
+	CONSTRAINT tb_proc_modelo_idtb_proc_fab_fkey FOREIGN KEY (idtb_proc_fab) REFERENCES db_clti.tb_proc_fab(idtb_proc_fab)
 );
 
 
@@ -268,7 +257,7 @@ CREATE TABLE db_clti.tb_qualificacao_clti (
 	situacao varchar(45) NOT NULL,
 	idtb_lotacao_clti int4 NOT NULL,
 	CONSTRAINT tb_qualificacao_clti_pkey PRIMARY KEY (idtb_qualificacao_clti),
-	CONSTRAINT tb_qualificacao_clti_idtb_lotacao_clti_fkey FOREIGN KEY (idtb_lotacao_clti) REFERENCES db_clti.tb_lotacao_clti(idtb_lotacao_clti) NOT VALID
+	CONSTRAINT tb_qualificacao_clti_idtb_lotacao_clti_fkey FOREIGN KEY (idtb_lotacao_clti) REFERENCES db_clti.tb_lotacao_clti(idtb_lotacao_clti)
 );
 
 
@@ -283,7 +272,7 @@ CREATE TABLE db_clti.tb_cidade (
 	nome varchar(120) NOT NULL,
 	estado int4 NOT NULL,
 	CONSTRAINT cidade_pkey PRIMARY KEY (id),
-	CONSTRAINT tb_cidade_estado_fkey FOREIGN KEY (estado) REFERENCES db_clti.tb_estado(id) NOT VALID
+	CONSTRAINT tb_cidade_estado_fkey FOREIGN KEY (estado) REFERENCES db_clti.tb_estado(id)
 );
 
 
@@ -329,10 +318,10 @@ CREATE TABLE db_clti.tb_osic (
 	status varchar(45) NULL,
 	correio_eletronico varchar(255) NOT NULL,
 	CONSTRAINT tb_osic_pkey PRIMARY KEY (idtb_osic),
-	CONSTRAINT tb_osic_idtb_corpo_quadro_fkey FOREIGN KEY (idtb_corpo_quadro) REFERENCES db_clti.tb_corpo_quadro(idtb_corpo_quadro) NOT VALID,
-	CONSTRAINT tb_osic_idtb_especialidade_fkey FOREIGN KEY (idtb_especialidade) REFERENCES db_clti.tb_especialidade(idtb_especialidade) NOT VALID,
-	CONSTRAINT tb_osic_idtb_om_apoiadas_fkey FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas) NOT VALID,
-	CONSTRAINT tb_osic_idtb_posto_grad_fkey FOREIGN KEY (idtb_posto_grad) REFERENCES db_clti.tb_posto_grad(idtb_posto_grad) NOT VALID
+	CONSTRAINT tb_osic_idtb_corpo_quadro_fkey FOREIGN KEY (idtb_corpo_quadro) REFERENCES db_clti.tb_corpo_quadro(idtb_corpo_quadro),
+	CONSTRAINT tb_osic_idtb_especialidade_fkey FOREIGN KEY (idtb_especialidade) REFERENCES db_clti.tb_especialidade(idtb_especialidade),
+	CONSTRAINT tb_osic_idtb_om_apoiadas_fkey FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas),
+	CONSTRAINT tb_osic_idtb_posto_grad_fkey FOREIGN KEY (idtb_posto_grad) REFERENCES db_clti.tb_posto_grad(idtb_posto_grad)
 );
 
 
@@ -357,11 +346,11 @@ CREATE TABLE db_clti.tb_pessoal_ti (
 	senha varchar(255) NOT NULL,
 	idtb_funcoes_ti int4 NOT NULL,
 	CONSTRAINT tb_pessoal_ti_pkey PRIMARY KEY (idtb_pessoal_ti),
-	CONSTRAINT tb_pessoal_ti_idtb_corpo_quadro_fkey FOREIGN KEY (idtb_corpo_quadro) REFERENCES db_clti.tb_corpo_quadro(idtb_corpo_quadro) NOT VALID,
-	CONSTRAINT tb_pessoal_ti_idtb_especialidade_fkey FOREIGN KEY (idtb_especialidade) REFERENCES db_clti.tb_especialidade(idtb_especialidade) NOT VALID,
-	CONSTRAINT tb_pessoal_ti_idtb_funcoes_ti_fkey FOREIGN KEY (idtb_funcoes_ti) REFERENCES db_clti.tb_funcoes_ti(idtb_funcoes_ti) NOT VALID,
-	CONSTRAINT tb_pessoal_ti_idtb_om_apoiada_fkey FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas) NOT VALID,
-	CONSTRAINT tb_pessoal_ti_idtb_posto_grad_fkey FOREIGN KEY (idtb_posto_grad) REFERENCES db_clti.tb_posto_grad(idtb_posto_grad) NOT VALID
+	CONSTRAINT tb_pessoal_ti_idtb_corpo_quadro_fkey FOREIGN KEY (idtb_corpo_quadro) REFERENCES db_clti.tb_corpo_quadro(idtb_corpo_quadro),
+	CONSTRAINT tb_pessoal_ti_idtb_especialidade_fkey FOREIGN KEY (idtb_especialidade) REFERENCES db_clti.tb_especialidade(idtb_especialidade),
+	CONSTRAINT tb_pessoal_ti_idtb_funcoes_ti_fkey FOREIGN KEY (idtb_funcoes_ti) REFERENCES db_clti.tb_funcoes_ti(idtb_funcoes_ti),
+	CONSTRAINT tb_pessoal_ti_idtb_om_apoiada_fkey FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas),
+	CONSTRAINT tb_pessoal_ti_idtb_posto_grad_fkey FOREIGN KEY (idtb_posto_grad) REFERENCES db_clti.tb_posto_grad(idtb_posto_grad)
 );
 
 
@@ -383,7 +372,7 @@ CREATE TABLE db_clti.tb_qualificacao_ti (
 	situacao varchar(45) NOT NULL,
 	idtb_pessoal_ti int4 NOT NULL,
 	CONSTRAINT tb_qualificacao_ti_pkey PRIMARY KEY (idtb_qualificacao_ti),
-	CONSTRAINT tb_qualificacao_ti_idtb_pessoal_ti_fkey FOREIGN KEY (idtb_pessoal_ti) REFERENCES db_clti.tb_pessoal_ti(idtb_pessoal_ti) NOT VALID
+	CONSTRAINT tb_qualificacao_ti_idtb_pessoal_ti_fkey FOREIGN KEY (idtb_pessoal_ti) REFERENCES db_clti.tb_pessoal_ti(idtb_pessoal_ti)
 );
 
 
@@ -412,9 +401,9 @@ CREATE TABLE db_clti.tb_servidores (
 	localizacao varchar(255) NOT NULL,
 	status varchar(255) NOT NULL,
 	CONSTRAINT tb_servidores_pkey PRIMARY KEY (idtb_servidores),
-	CONSTRAINT tb_servidores_idtb_om_apoiadas_fkey FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas) NOT VALID,
-	CONSTRAINT tb_servidores_idtb_proc_modelo_fkey FOREIGN KEY (idtb_proc_modelo) REFERENCES db_clti.tb_proc_modelo(idtb_proc_modelo) NOT VALID,
-	CONSTRAINT tb_servidores_idtb_sor_fkey FOREIGN KEY (idtb_sor) REFERENCES db_clti.tb_sor(idtb_sor) NOT VALID
+	CONSTRAINT tb_servidores_idtb_om_apoiadas_fkey FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas),
+	CONSTRAINT tb_servidores_idtb_proc_modelo_fkey FOREIGN KEY (idtb_proc_modelo) REFERENCES db_clti.tb_proc_modelo(idtb_proc_modelo),
+	CONSTRAINT tb_servidores_idtb_sor_fkey FOREIGN KEY (idtb_sor) REFERENCES db_clti.tb_sor(idtb_sor)
 );
 
 
@@ -435,5 +424,37 @@ CREATE TABLE db_clti.tb_conectividade (
 	data_garantia date NULL,
 	CONSTRAINT tb_conectividade_end_ip_key UNIQUE (end_ip),
 	CONSTRAINT tb_conectividade_pkey PRIMARY KEY (idtb_conectividade),
-	CONSTRAINT tb_conectividade_idtb_om_apoiadas_fkey FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas) NOT VALID
+	CONSTRAINT tb_conectividade_idtb_om_apoiadas_fkey FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas)
+);
+
+
+-- db_clti.tb_estacoes definition
+
+-- Drop table
+
+-- DROP TABLE db_clti.tb_estacoes;
+
+CREATE TABLE db_clti.tb_estacoes (
+	idtb_estacoes serial NOT NULL,
+	idtb_om_apoiadas int4 NOT NULL,
+	idtb_proc_modelo int4 NOT NULL,
+	clock_proc float4 NOT NULL,
+	fabricante varchar(255) NOT NULL,
+	modelo varchar(255) NOT NULL,
+	idtb_memorias int4 NULL,
+	memoria varchar(255) NOT NULL,
+	armazenamento varchar(255) NOT NULL,
+	idtb_sor int4 NOT NULL,
+	end_ip varchar(255) NULL,
+	end_mac varchar(255) NULL,
+	data_aquisicao date NULL,
+	data_garantia date NULL,
+	localizacao varchar(255) NOT NULL,
+	req_minimos varchar(45) NOT NULL,
+	status varchar(255) NOT NULL,
+	CONSTRAINT tb_estacoes_pkey PRIMARY KEY (idtb_estacoes),
+	CONSTRAINT tb_estacoes_fk FOREIGN KEY (idtb_memorias) REFERENCES db_clti.tb_memorias(idtb_memorias),
+	CONSTRAINT tb_estacoes_fk_1 FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas),
+	CONSTRAINT tb_estacoes_fk_2 FOREIGN KEY (idtb_proc_modelo) REFERENCES db_clti.tb_proc_modelo(idtb_proc_modelo),
+	CONSTRAINT tb_estacoes_fk_3 FOREIGN KEY (idtb_sor) REFERENCES db_clti.tb_sor(idtb_sor)
 );
