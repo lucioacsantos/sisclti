@@ -31,6 +31,15 @@ $sql = "ALTER TABLE db_clti.tb_estacoes ADD CONSTRAINT tb_estacoes_fk_3 FOREIGN 
     REFERENCES db_clti.tb_sor(idtb_sor)";
 $pg->exec($sql);
 
+$sql = "CREATE TABLE db_clti.tb_memorias (
+	idtb_memorias serial NOT NULL,
+	tipo varchar(255) NOT NULL,
+	modelo varchar(255) NOT NULL,
+	clock int4 NOT NULL,
+	CONSTRAINT tb_memorias_pkey PRIMARY KEY (idtb_memorias)
+);";
+$pg->exec($sql);
+
 $sql = "INSERT INTO db_clti.tb_memorias(tipo,modelo,clock) values ('DDR', 'PC-1600',	200),
 ('DDR', 'PC-2100',	266),('DDR', 'PC-2400', 300),('DDR', 'PC-2700', 333),('DDR', 'PC-3000', 370),
 ('DDR', 'PC-3200', 400),('DDR', 'PC-3700', 466),('DDR', 'PC-4000', 500),('DDR2', 'PC2-4200', 533),
