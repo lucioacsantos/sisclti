@@ -12,6 +12,9 @@ echo "Executando atualização...";
 $sql = "ALTER TABLE db_clti.tb_estacoes ADD idtb_memorias int4 NOT NULL";
 $pg->exec($sql);
 
+$sql = "UPDATE db_clti.tb_estacoes SET idtb_memorias = 1";
+$pg->exec($sql);
+
 $sql = "ALTER TABLE db_clti.tb_estacoes ADD CONSTRAINT tb_estacoes_fk FOREIGN KEY (idtb_memorias) 
     REFERENCES db_clti.tb_memorias(idtb_memorias)";
 $pg->exec($sql);
@@ -38,9 +41,6 @@ $sql = "INSERT INTO db_clti.tb_memorias(tipo,modelo,clock) values ('DDR', 'PC-16
 ('DDR4', 'PC4-12800', 1600),('DDR4', 'PC4-14900', 1866),('DDR4', 'PC4-17000', 2133),('DDR4', 'PC4-19200', 2400),
 ('DDR4', 'PC4-21300', 2666),('DDR4', 'PC4-25600', 3200),('DDR4', 'PC4-27700', 3466),('DDR4', 'PC4-28000', 3600),
 ('DDR4', 'PC4-32000', 4000);";
-$pg->exec($sql);
-
-$sql = "UPDATE db_clti.tb_estacoes SET idtb_memorias = 1";
 $pg->exec($sql);
 
 ?>
