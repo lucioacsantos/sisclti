@@ -52,7 +52,7 @@ $sql = "ALTER TABLE db_clti.tb_estacoes ADD CONSTRAINT tb_estacoes_fk_3 FOREIGN 
     REFERENCES db_clti.tb_sor(idtb_sor)";
 $pg->exec($sql);
 
-$sql = "ALTER TABLE db_clti.tb_estacoes ALTER COLUMN idtb_memorias NOT NULL";
+$sql = "ALTER TABLE db_clti.tb_memorias ALTER COLUMN clock SET NOT NULL;";
 $pg->exec($sql);
 
 ?>
