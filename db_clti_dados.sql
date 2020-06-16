@@ -6793,7 +6793,8 @@ INSERT INTO db_clti.tb_cidade (nome,estado) VALUES
 ;INSERT INTO db_clti.tb_config (parametro,valor) VALUES 
 ('URL','http://localhost/sisclti')
 ,('ESTADO','RN')
-,('CIDADE','Natal')
+,('CIDADE','Natal'),
+('VERSAO','1.0')
 ;INSERT INTO db_clti.tb_funcoes_ti (descricao,sigla) VALUES 
 ('ADMINISTRADOR DA REDE LOCAL','ADMIN')
 ,('OFICIAL DE SEGURANçA DAS INFORMAçõES E COMUNICAçõES','OSIC')

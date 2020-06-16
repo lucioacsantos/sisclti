@@ -15,40 +15,6 @@ AS SELECT conec.idtb_conectividade,
   WHERE conec.idtb_om_apoiadas = om.idtb_om_apoiadas;
 
 
--- db_clti.vw_estacoes source
-
-CREATE OR REPLACE VIEW db_clti.vw_estacoes
-AS SELECT et.idtb_estacoes,
-    et.idtb_om_apoiadas,
-    et.idtb_proc_modelo,
-    et.clock_proc,
-    et.fabricante,
-    et.modelo,
-    et.memoria,
-    et.armazenamento,
-    et.idtb_sor,
-    et.end_ip,
-    et.end_mac,
-    et.data_aquisicao,
-    et.data_garantia,
-    et.localizacao,
-    et.req_minimos,
-    et.status,
-    om.sigla,
-    fab.idtb_proc_fab,
-    fab.nome AS proc_fab,
-    modelo.modelo AS proc_modelo,
-    sor.descricao,
-    sor.versao,
-    sor.situacao
-   FROM db_clti.tb_estacoes et,
-    db_clti.tb_proc_fab fab,
-    db_clti.tb_proc_modelo modelo,
-    db_clti.tb_om_apoiadas om,
-    db_clti.tb_sor sor
-  WHERE et.idtb_proc_modelo = modelo.idtb_proc_modelo AND et.idtb_om_apoiadas = om.idtb_om_apoiadas AND et.idtb_sor = sor.idtb_sor AND modelo.idtb_proc_fab = fab.idtb_proc_fab;
-
-
 -- db_clti.vw_osic source
 
 CREATE OR REPLACE VIEW db_clti.vw_osic
@@ -238,3 +204,41 @@ AS SELECT srv.idtb_servidores,
     db_clti.tb_om_apoiadas om,
     db_clti.tb_sor sor
   WHERE srv.idtb_proc_modelo = modelo.idtb_proc_modelo AND srv.idtb_om_apoiadas = om.idtb_om_apoiadas AND srv.idtb_sor = sor.idtb_sor AND modelo.idtb_proc_fab = fab.idtb_proc_fab;
+
+
+-- db_clti.vw_estacoes source
+
+CREATE OR REPLACE VIEW db_clti.vw_estacoes
+AS SELECT et.idtb_estacoes,
+    et.idtb_om_apoiadas,
+    et.idtb_proc_modelo,
+    et.clock_proc,
+    et.fabricante,
+    et.modelo,
+    et.memoria,
+    mem.tipo AS tipo_mem,
+    mem.modelo AS modelo_mem,
+    mem.clock AS clock_mem,
+    et.armazenamento,
+    et.idtb_sor,
+    et.end_ip,
+    et.end_mac,
+    et.data_aquisicao,
+    et.data_garantia,
+    et.localizacao,
+    et.req_minimos,
+    et.status,
+    om.sigla,
+    fab.idtb_proc_fab,
+    fab.nome AS proc_fab,
+    modelo.modelo AS proc_modelo,
+    sor.descricao,
+    sor.versao,
+    sor.situacao
+   FROM db_clti.tb_estacoes et,
+    db_clti.tb_proc_fab fab,
+    db_clti.tb_proc_modelo modelo,
+    db_clti.tb_om_apoiadas om,
+    db_clti.tb_sor sor,
+    db_clti.tb_memorias mem
+  WHERE et.idtb_proc_modelo = modelo.idtb_proc_modelo AND et.idtb_om_apoiadas = om.idtb_om_apoiadas AND et.idtb_sor = sor.idtb_sor AND modelo.idtb_proc_fab = fab.idtb_proc_fab AND et.idtb_memorias = mem.idtb_memorias;

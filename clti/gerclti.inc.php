@@ -141,7 +141,7 @@ if (($row) AND ($act == NULL)) {
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
 
-        $idtb_clti = $_POST['idclti'];
+        @$idtb_clti = $_POST['idclti'];
         $nomeclti = $_POST['nomeclti'];
         $siglaclti = $_POST['siglaclti'];
         $indicativoclti = $_POST['indicativoclti'];

@@ -85,7 +85,7 @@ if ($act == 'acesso') {
     $_SESSION['user_id'] = $row->idtb_pessoal_ti;
     $_SESSION['posto_grad'] = $row->sigla_posto_grad;
     $_SESSION['user_name'] = $row->nome_guerra;
-    $_SESSION['perfil'] = $row->funcao;
+    $_SESSION['perfil'] = $row->sigla_funcao;
     $_SESSION['status'] = $row->status;
     $_SESSION['id_om_apoiada'] = $row->idtb_om_apoiadas;
     $_SESSION['om_apoiada'] = $row->sigla_om;

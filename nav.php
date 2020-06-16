@@ -3,14 +3,14 @@
 *** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
-$sql = "SELECT sigla FROM db_clti.tb_clti";
+$sigla = $pg->getCol("SELECT sigla FROM db_clti.tb_clti");
 
-$sigla = $pg->getCol($sql);
+$versao = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='VERSAO' ");
 
 ?>
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
       <p class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
-        <?php echo $sigla; ?>
+        <?php echo "".$sigla." - SisCLTI v".$versao.""; ?>
       </p>
       <!--<input class="form-control form-control-dark w-100" type="text" placeholder="Pesquisa" aria-label="Pesquisa">-->
       <p class="navbar-brand">
@@ -24,7 +24,7 @@ $sigla = $pg->getCol($sql);
             $_SESSION['logged_in'] = false;
             // finaliza a sessão
             session_destroy();
-            // retorna para a index.php
+            // retorna para a login.php
             header('Location: '.$url.'/login.php');
           }          
         ?>
