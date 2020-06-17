@@ -7,7 +7,33 @@
 require_once "class/pgsql.class.php";
 $pg = new PgSql();
 
-echo "Executando atualização...";
+echo"
+
+<!doctype html>
+<html lang=\"pt_BR\">
+  <head>
+    <meta charset=\"utf-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">
+    <meta name=\"description\" content=\"Sistema Integrado para Centros Locais de Tecnologia da Informação\">
+    <meta name=\"author\" content=\"99242991 Lúcio ALEXANDRE Correia dos Santos\">
+
+    <title>...::: SisCLTI :::...</title>
+
+    <link href=\"url/css/bootstrap.min.css\" rel=\"stylesheet\">
+
+    <!-- Dashboard CSS  -->
+    <link href=\"url/css/dashboard.css\" rel=\"stylesheet\">
+
+    <!-- ForValidation CSS  -->
+    <link href=\"url/css/form-validation.css\" rel=\"stylesheet\">
+
+    <!-- Stylesheet CSS -->
+    <link href=\"url/css/stylesheet.css\" rel=\"stylesheet\">
+
+  </head>
+
+  <body>
+  <p><h5>Executando atualização...</h5></p>";
 
 $versao = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='VERSAO' ");
 
@@ -66,7 +92,7 @@ if ($versao == '1.0' OR $versao == NULL){
 		  AND et.idtb_sor = sor.idtb_sor AND modelo.idtb_proc_fab = fab.idtb_proc_fab 
 		  AND et.idtb_memorias = mem.idtb_memorias;");
 	
-	echo "Atualização finalizada, acesse o sistema novamente.";
+	echo "<p><h5>Atualização finalizada, acesse o sistema novamente.</h5></p>";
 }
 
 else{
@@ -133,7 +159,7 @@ else{
 		  AND et.idtb_memorias = mem.idtb_memorias;";
 	$pg->exec($sql);
 	
-	echo "Atualização finalizada, acesse o sistema novamente.";
+	echo "<p><h5>Atualização finalizada, acesse o sistema novamente.</h5></p>";
 }
 
 

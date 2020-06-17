@@ -121,6 +121,12 @@ $versao = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='VERS
                   </a>
                 </li>
                 <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=setores\">
+                    <span data-feather=\"server\"></span>
+                    Setores da OM
+                  </a>
+                </li>
+                <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/ativosti/?cmd=servidores\">
                     <span data-feather=\"server\"></span>
                     Servidores
@@ -141,6 +147,12 @@ $versao = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='VERS
               }
               else{
                 echo"
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=setores\">
+                    <span data-feather=\"server\"></span>
+                    Setores da OM
+                  </a>
+                </li>
                 <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=servidores\">
                     <span data-feather=\"server\"></span>
