@@ -37,6 +37,7 @@ if ($act == 'cad') {
     $so = $pg->getRows("SELECT * FROM db_clti.tb_sor ORDER BY desenvolvedor,versao ASC");
     $proc = $pg->getRows("SELECT * FROM db_clti.vw_processadores ORDER BY fabricante ASC");
     $mem = $pg->getRows("SELECT * FROM db_clti.tb_memorias ORDER BY tipo DESC");
+    $local = $pg->getRows("SELECT * FROM db_clti.vw_setores ORDER BY nome_setor ASC");
     
     include "estacoes-formcad.inc.php";
 }

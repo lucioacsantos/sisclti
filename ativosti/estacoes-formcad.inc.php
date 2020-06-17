@@ -106,6 +106,14 @@
 
                         <div class=\"form-group\">
                             <label for=\"localizacao\">Localização:</label>
+                            <select id=\"idtb_proc_modelo\" class=\"form-control\" name=\"idtb_proc_modelo\">
+                            <option value=\"$estacoes->localizacao\" selected=\"true\">
+                                    ".$estacoes->proc_fab." - ".$estacoes->proc_modelo."</option>";
+                                foreach ($proc as $key => $value) {
+                                    echo"<option value=\"".$value->idtb_proc_modelo."\">
+                                        ".$value->fabricante." - ".$value->modelo."</option>";
+                                };
+                            echo "</select>
                             <input id=\"localizacao\" class=\"form-control\" type=\"text\" name=\"localizacao\"
                                 placeholder=\"ex. Sala de Servidores\" style=\"text-transform:uppercase\"
                                 value=\"$estacoes->localizacao\" required=\"true\">

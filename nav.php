@@ -116,13 +116,13 @@ $versao = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='VERS
                 </li>
                 <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/ativosti/?cmd=memorias\">
-                    <span data-feather=\"cpu\"></span>
+                    <span data-feather=\"credit-card\"></span>
                     Memórias
                   </a>
                 </li>
                 <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=setores\">
-                    <span data-feather=\"server\"></span>
+                    <span data-feather=\"layout\"></span>
                     Setores da OM
                   </a>
                 </li>
@@ -149,7 +149,7 @@ $versao = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='VERS
                 echo"
                 <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=setores\">
-                    <span data-feather=\"server\"></span>
+                    <span data-feather=\"layout\"></span>
                     Setores da OM
                   </a>
                 </li>

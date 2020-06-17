@@ -51,7 +51,7 @@ if (($setores) AND ($act == NULL)) {
                 </thead>";
 
     $setores = $cns->setores('','');
-    echo "<p>Setores da OM: </p>";
+    
     foreach ($setores as $key => $value) {
         echo"       <tr>
                         <th scope=\"row\">".$value->cod_funcional."</th>
