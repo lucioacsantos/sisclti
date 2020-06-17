@@ -297,6 +297,24 @@ CREATE TABLE db_clti.tb_om_apoiadas (
 );
 
 
+-- db_clti.tb_om_setores definition
+
+-- Drop table
+
+-- DROP TABLE db_clti.tb_om_setores;
+
+CREATE TABLE db_clti.tb_om_setores (
+	idtb_om_setores serial NOT NULL,
+	idtb_om_apoiadas int4 NOT NULL,
+	nome_setor varchar(255) NOT NULL,
+	sigla_setor varchar(255) NULL,
+	cod_funcional varchar(45) NULL,
+	compartimento varchar(255) NULL,
+	CONSTRAINT tb_om_setores_fk FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas)
+);
+CREATE INDEX tb_om_setores_idtb_om_setores_idx ON db_clti.tb_om_setores USING btree (idtb_om_setores);
+
+
 -- db_clti.tb_osic definition
 
 -- Drop table
