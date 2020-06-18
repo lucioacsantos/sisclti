@@ -1,117 +1,3 @@
-INSERT INTO db_clti.tb_posto_grad (nome,sigla) VALUES 
-('Almirante-de-Esquadra','AE')
-,('Vice-Almirante','VA')
-,('Contra-Almirante','CA')
-,('Capitão-de-Mar-e-Guerra','CMG')
-,('Capitão-de-Fragata','CF')
-,('Capitão-de-Corveta','CC')
-,('Capitão-Tenente','CT')
-,('Primeiro-Tenente','1ºTen')
-,('Segundo-Tenente','2ºTen')
-,('Guarda-Marinha','GM')
-;
-INSERT INTO db_clti.tb_posto_grad (nome,sigla) VALUES 
-('Aspirante','ASP')
-,('Suboficial','SO')
-,('Primeiro-Sargento','1ºSG')
-,('Segundo-Sargento','2ºSG')
-,('Terceiro-Sargento','3ºSG')
-,('Cabo','CB')
-,('Soldado','SD')
-,('Marinheiro Especializado','MN-ESP')
-,('Marinheiro','MN')
-,('Marinheiro Recruta','MN-RC')
-;
-INSERT INTO db_clti.tb_posto_grad (nome,sigla) VALUES 
-('Servidor Civil','SCivil')
-;
-INSERT INTO db_clti.tb_corpo_quadro (nome,sigla) VALUES 
-('CFN','FN')
-,('CA','CA')
-,('CPFN','FN')
-,('CPA','CPA')
-,('CAP','CAP')
-,('CAF','CAF')
-,('CSM','S')
-,('CD','CD')
-,('IM','IM')
-,('T','T')
-;
-INSERT INTO db_clti.tb_corpo_quadro (nome,sigla) VALUES 
-('NA','N/A')
-,('AFN','AFN')
-,('RM2','RM2')
-,('MD','MD')
-,('F','F')
-,('QC-FN','QC-FN')
-,('Corpo de Praças da Reserva','CPR')
-,('QC-IM','QC-IM')
-;INSERT INTO db_clti.tb_especialidade (nome,sigla) VALUES 
-('Infantaria','IF')
-,('Escrita','ES')
-,('Comunicações Navais','CN')
-,('Administração','AD')
-,('Artilharia','AT')
-,('Motorista','MO')
-,('Engenharia','EG')
-,('Eletrônica','ET')
-,('Músico','MU')
-,('Processamento de Dados','PD')
-;
-INSERT INTO db_clti.tb_especialidade (nome,sigla) VALUES 
-('Corneteiro','CT')
-,('Não Aplicável','NA')
-,('Não Informada','NI')
-,('Caldeira','CA')
-,('Enfermeiro','EF')
-,('Cozinheiro','CO')
-,('Arrumador','AR')
-,('Barbeiro','BA')
-,('Reservista Primeira Categoria','RM1')
-,('Manobras e Reparo de Avição','RV')
-;
-INSERT INTO db_clti.tb_especialidade (nome,sigla) VALUES 
-('Carpinteiro','CP')
-,('Recruta','RC')
-,('RESERVISTA DE SEGUNDA CATEGORIA','RM-2')
-,('Máquinas','MA')
-;
-INSERT INTO db_clti.tb_pais (nome,sigla) VALUES 
-('Brasil','BR')
-;
-INSERT INTO db_clti.tb_estado (nome,uf,pais) VALUES 
-('Acre','AC',1)
-,('Alagoas','AL',1)
-,('Amazonas','AM',1)
-,('Amapá','AP',1)
-,('Bahia','BA',1)
-,('Ceará','CE',1)
-,('Distrito Federal','DF',1)
-,('Espírito Santo','ES',1)
-,('Goiás','GO',1)
-,('Maranhão','MA',1)
-;
-INSERT INTO db_clti.tb_estado (nome,uf,pais) VALUES 
-('Minas Gerais','MG',1)
-,('Mato Grosso do Sul','MS',1)
-,('Mato Grosso','MT',1)
-,('Pará','PA',1)
-,('Paraíba','PB',1)
-,('Pernambuco','PE',1)
-,('Piauí','PI',1)
-,('Paraná','PR',1)
-,('Rio de Janeiro','RJ',1)
-,('Rio Grande do Norte','RN',1)
-;
-INSERT INTO db_clti.tb_estado (nome,uf,pais) VALUES 
-('Rondônia','RO',1)
-,('Roraima','RR',1)
-,('Rio Grande do Sul','RS',1)
-,('Santa Catarina','SC',1)
-,('Sergipe','SE',1)
-,('São Paulo','SP',1)
-,('Tocantins','TO',1)
-;
 INSERT INTO db_clti.tb_cidade (nome,estado) VALUES 
 ('Afonso Cláudio',8)
 ,('Água Doce do Norte',8)
@@ -6789,12 +6675,97 @@ INSERT INTO db_clti.tb_cidade (nome,estado) VALUES
 ,('Tupiratins',27)
 ,('Wanderlândia',27)
 ,('Xambioá',27)
-;
+;INSERT INTO db_clti.tb_clti (efetivo_oficiais,efetivo_pracas,nome,sigla,indicativo,data_ativacao) VALUES 
+(0,0,'CLTI COM3ºDN','CLTI-3ºDN','CLTINA','2012-04-30')
 ;INSERT INTO db_clti.tb_config (parametro,valor) VALUES 
 ('URL','http://localhost/sisclti')
 ,('ESTADO','RN')
-,('CIDADE','Natal'),
-('VERSAO','1.0')
+,('CIDADE','Natal')
+,('VERSAO','1.2')
+;INSERT INTO db_clti.tb_corpo_quadro (nome,sigla) VALUES 
+('CFN','FN')
+,('CA','CA')
+,('CPFN','FN')
+,('CPA','CPA')
+,('CAP','CAP')
+,('CAF','CAF')
+,('CSM','S')
+,('CD','CD')
+,('IM','IM')
+,('T','T')
+;
+INSERT INTO db_clti.tb_corpo_quadro (nome,sigla) VALUES 
+('NA','N/A')
+,('AFN','AFN')
+,('RM2','RM2')
+,('MD','MD')
+,('F','F')
+,('QC-FN','QC-FN')
+,('Corpo de Praças da Reserva','CPR')
+,('QC-IM','QC-IM')
+;INSERT INTO db_clti.tb_especialidade (nome,sigla) VALUES 
+('Infantaria','IF')
+,('Escrita','ES')
+,('Comunicações Navais','CN')
+,('Administração','AD')
+,('Artilharia','AT')
+,('Motorista','MO')
+,('Engenharia','EG')
+,('Eletrônica','ET')
+,('Músico','MU')
+,('Processamento de Dados','PD')
+;
+INSERT INTO db_clti.tb_especialidade (nome,sigla) VALUES 
+('Corneteiro','CT')
+,('Não Aplicável','NA')
+,('Não Informada','NI')
+,('Caldeira','CA')
+,('Enfermeiro','EF')
+,('Cozinheiro','CO')
+,('Arrumador','AR')
+,('Barbeiro','BA')
+,('Reservista Primeira Categoria','RM1')
+,('Manobras e Reparo de Avição','RV')
+;
+INSERT INTO db_clti.tb_especialidade (nome,sigla) VALUES 
+('Carpinteiro','CP')
+,('Recruta','RC')
+,('RESERVISTA DE SEGUNDA CATEGORIA','RM-2')
+,('Máquinas','MA')
+;INSERT INTO db_clti.tb_estacoes (idtb_om_apoiadas,idtb_proc_modelo,clock_proc,fabricante,modelo,memoria,armazenamento,idtb_sor,end_ip,end_mac,data_aquisicao,data_garantia,req_minimos,status,idtb_memorias,idtb_om_setores) VALUES 
+(1,11,3.2,'HP','ELLITE 800','8','500',14,'172.23.119.35','fsfsfsfsfsfsfsfs','2019-05-15','2020-05-15','SIM','EM PRODUÇÃO',60,2)
+;INSERT INTO db_clti.tb_estado (nome,uf,pais) VALUES 
+('Acre','AC',1)
+,('Alagoas','AL',1)
+,('Amazonas','AM',1)
+,('Amapá','AP',1)
+,('Bahia','BA',1)
+,('Ceará','CE',1)
+,('Distrito Federal','DF',1)
+,('Espírito Santo','ES',1)
+,('Goiás','GO',1)
+,('Maranhão','MA',1)
+;
+INSERT INTO db_clti.tb_estado (nome,uf,pais) VALUES 
+('Minas Gerais','MG',1)
+,('Mato Grosso do Sul','MS',1)
+,('Mato Grosso','MT',1)
+,('Pará','PA',1)
+,('Paraíba','PB',1)
+,('Pernambuco','PE',1)
+,('Piauí','PI',1)
+,('Paraná','PR',1)
+,('Rio de Janeiro','RJ',1)
+,('Rio Grande do Norte','RN',1)
+;
+INSERT INTO db_clti.tb_estado (nome,uf,pais) VALUES 
+('Rondônia','RO',1)
+,('Roraima','RR',1)
+,('Rio Grande do Sul','RS',1)
+,('Santa Catarina','SC',1)
+,('Sergipe','SE',1)
+,('São Paulo','SP',1)
+,('Tocantins','TO',1)
 ;INSERT INTO db_clti.tb_funcoes_ti (descricao,sigla) VALUES 
 ('ADMINISTRADOR DA REDE LOCAL','ADMIN')
 ,('OFICIAL DE SEGURANçA DAS INFORMAçõES E COMUNICAçõES','OSIC')
@@ -6802,12 +6773,88 @@ INSERT INTO db_clti.tb_cidade (nome,estado) VALUES
 ,('TéCNICO DE MANUTENçãO DE HARDWARE','TEC.MANUT.')
 ;INSERT INTO db_clti.tb_lotacao_clti (idtb_posto_grad,idtb_corpo_quadro,idtb_especialidade,nip,cpf,nome,nome_guerra,status,senha,perfil,correio_eletronico) VALUES 
 (16,1,8,'12345678','','ADMINCLTI','ADMINCLTI','ATIVO','1f82ea75c5cc526729e2d581aeb3aeccfef4407e256127614ef298fedf9376775a7d7328090f63bf','TEC_CLTI','adminclti@marinha.mil.br')
+;INSERT INTO db_clti.tb_memorias (tipo,modelo,clock) VALUES 
+('DDR','PC-1600',200)
+,('DDR','PC-2100',266)
+,('DDR','PC-2400',300)
+,('DDR','PC-2700',333)
+,('DDR','PC-3000',370)
+,('DDR','PC-3200',400)
+,('DDR','PC-3700',466)
+,('DDR','PC-4000',500)
+,('DDR2','PC2-4200',533)
+,('DDR2','PC2-5300',667)
 ;
-INSERT INTO db_clti.tb_proc_fab (nome) VALUES 
+INSERT INTO db_clti.tb_memorias (tipo,modelo,clock) VALUES 
+('DDR2','PC2-6400',800)
+,('DDR2','PC2-7400',933)
+,('DDR2','PC2-8500',1066)
+,('DDR2','PC2-9600',1200)
+,('DDR2','PC2-1066',1333)
+,('DDR3','PC3-6400',800)
+,('DDR3','PC3-8500',1066)
+,('DDR3','PC3-10600',1333)
+,('DDR3','PC3-12800',1600)
+,('DDR3','PC3-14900',1866)
+;
+INSERT INTO db_clti.tb_memorias (tipo,modelo,clock) VALUES 
+('DDR3','PC3-16000',2000)
+,('DDR3','PC3-17000',2133)
+,('DDR3','PC3-19200',2400)
+,('DDR3','PC3-20800',2600)
+,('DDR3','PC3-22400',2800)
+,('DDR4','PC4-12800',1600)
+,('DDR4','PC4-14900',1866)
+,('DDR4','PC4-17000',2133)
+,('DDR4','PC4-19200',2400)
+,('DDR4','PC4-21300',2666)
+;
+INSERT INTO db_clti.tb_memorias (tipo,modelo,clock) VALUES 
+('DDR4','PC4-25600',3200)
+,('DDR4','PC4-27700',3466)
+,('DDR4','PC4-28000',3600)
+,('DDR4','PC4-32000',4000)
+;INSERT INTO db_clti.tb_om_apoiadas (cod_om,nome,sigla,indicativo,idtb_estado,idtb_cidade) VALUES 
+(83000,'COMANDO DO 3º DISTRITO NAVAL','COM3ºDN','TERDIS',20,3770)
+,(83800,'BASE NAVAL DE NATAL','BNN','BNNATL',20,3770)
+;INSERT INTO db_clti.tb_om_setores (idtb_om_apoiadas,nome_setor,sigla_setor,cod_funcional,compartimento) VALUES 
+(1,'SETOR1','SIGLA1','COD1','COMPART1')
+,(1,'SETOR2','SIGLA2','COD2','COMPART2')
+;INSERT INTO db_clti.tb_pais (nome,sigla) VALUES 
+('Brasil','BR')
+;INSERT INTO db_clti.tb_pessoal_ti (idtb_om_apoiadas,idtb_posto_grad,idtb_corpo_quadro,idtb_especialidade,nip,cpf,nome,nome_guerra,correio_eletronico,status,senha,idtb_funcoes_ti) VALUES 
+(1,8,1,4,'12345678','','ADMINCLTI','ADMINCLTI','adminclti@marinha.mil.br','ATIVO','1f82ea75c5cc526729e2d581aeb3aeccfef4407e256127614ef298fedf9376775a7d7328090f63bf',1)
+;INSERT INTO db_clti.tb_posto_grad (nome,sigla) VALUES 
+('Almirante-de-Esquadra','AE')
+,('Vice-Almirante','VA')
+,('Contra-Almirante','CA')
+,('Capitão-de-Mar-e-Guerra','CMG')
+,('Capitão-de-Fragata','CF')
+,('Capitão-de-Corveta','CC')
+,('Capitão-Tenente','CT')
+,('Primeiro-Tenente','1ºTen')
+,('Segundo-Tenente','2ºTen')
+,('Guarda-Marinha','GM')
+;
+INSERT INTO db_clti.tb_posto_grad (nome,sigla) VALUES 
+('Aspirante','ASP')
+,('Suboficial','SO')
+,('Primeiro-Sargento','1ºSG')
+,('Segundo-Sargento','2ºSG')
+,('Terceiro-Sargento','3ºSG')
+,('Cabo','CB')
+,('Soldado','SD')
+,('Marinheiro Especializado','MN-ESP')
+,('Marinheiro','MN')
+,('Marinheiro Recruta','MN-RC')
+;
+INSERT INTO db_clti.tb_posto_grad (nome,sigla) VALUES 
+('Servidor Civil','SCivil')
+;INSERT INTO db_clti.tb_proc_fab (nome) VALUES 
 ('INTEL')
 ,('AMD')
-;
-INSERT INTO db_clti.tb_proc_modelo (idtb_proc_fab,modelo) VALUES 
+,('')
+;INSERT INTO db_clti.tb_proc_modelo (idtb_proc_fab,modelo) VALUES 
 (1,'CELERON')
 ,(1,'CORE 2 DUO')
 ,(1,'Core 2 Extreme')
@@ -6862,8 +6909,7 @@ INSERT INTO db_clti.tb_proc_modelo (idtb_proc_fab,modelo) VALUES
 ,(2,'Quad-Core A8 5800K')
 ,(2,'Quad-Core A8 6790K')
 ,(2,'Quad-Core A8 6800K')
-;
-INSERT INTO db_clti.tb_sor (desenvolvedor,descricao,versao,situacao) VALUES 
+;INSERT INTO db_clti.tb_sor (desenvolvedor,descricao,versao,situacao) VALUES 
 ('MICROSOFT','WINDOWS','XP','DESCONTINUADO')
 ,('MICROSOFT','WINDOWS','7','DESCONTINUADO')
 ,('MICROSOFT','WINDOWS','8','DESCONTINUADO')
@@ -6896,39 +6942,3 @@ INSERT INTO db_clti.tb_sor (desenvolvedor,descricao,versao,situacao) VALUES
 ;INSERT INTO db_clti.tb_tipos_clti (norma_atual,data_norma,lotacao_oficiais,lotacao_pracas,tipo_clti) VALUES 
 ('DCTIMARINST 30-06C','2019-04-30',1,1,'1')
 ;
-
-INSERT INTO db_clti.tb_memorias(tipo,modelo,clock) values
-('DDR', 'PC-1600',	200),
-('DDR', 'PC-2100',	266),
-('DDR', 'PC-2400', 300),
-('DDR', 'PC-2700', 333),
-('DDR', 'PC-3000', 370),
-('DDR', 'PC-3200', 400),
-('DDR', 'PC-3700', 466),
-('DDR', 'PC-4000', 500),
-('DDR2', 'PC2-4200', 533),
-('DDR2', 'PC2-5300', 667),
-('DDR2', 'PC2-6400', 800),
-('DDR2', 'PC2-7400', 933),
-('DDR2', 'PC2-8500', 1066),
-('DDR2', 'PC2-9600', 1200),
-('DDR2', 'PC2-1066', 1333),
-('DDR3', 'PC3-6400', 800),
-('DDR3', 'PC3-8500', 1066),
-('DDR3', 'PC3-10600', 1333),
-('DDR3', 'PC3-12800', 1600),
-('DDR3', 'PC3-14900', 1866),
-('DDR3', 'PC3-16000', 2000),
-('DDR3', 'PC3-17000', 2133),
-('DDR3', 'PC3-19200', 2400),
-('DDR3', 'PC3-20800', 2600),
-('DDR3', 'PC3-22400', 2800),
-('DDR4', 'PC4-12800', 1600),
-('DDR4', 'PC4-14900', 1866),
-('DDR4', 'PC4-17000', 2133),
-('DDR4', 'PC4-19200', 2400),
-('DDR4', 'PC4-21300', 2666),
-('DDR4', 'PC4-25600', 3200),
-('DDR4', 'PC4-27700', 3466),
-('DDR4', 'PC4-28000', 3600),
-('DDR4', 'PC4-32000', 4000);

@@ -6,7 +6,8 @@
 /* Classe de interação com o PostgreSQL */
 require_once "../class/queries.class.php";
 $cns = new ConsultaSQL();
-$setores = $cns->setores('','');
+
+$setores = $cns->select($tb_om_setores,'','');
 
 @$act = $_GET['act'];
 
@@ -21,11 +22,11 @@ if ($act == 'cad') {
     @$param = $_GET['param'];
 
     if ($param){
-        $tabela = "db_clti.tb_om_setores";
+
         $condicoes = "idtb_om_setores = '$param'";
         $ordenacao = "idtb_om_setores ASC";
 
-        $setores = $cns->select($tabela,$condicoes,$ordenacao);
+        $setores = $cns->select($tb_om_setores,$condicoes,$ordenacao);
     }
     else{
         $setores = (object)['idtb_om_setores'=>'','nome_setor'=>'','sigla_setor'=>'',
@@ -42,6 +43,7 @@ if (($setores) AND ($act == NULL)) {
             <table class=\"table table-hover\">
                 <thead>
                     <tr>
+                        <th scope=\"col\">OM</th>
                         <th scope=\"col\">Cód.Elem.Funcional</th>
                         <th scope=\"col\">Nome</th>
                         <th scope=\"col\">Sigla</th>
@@ -50,11 +52,15 @@ if (($setores) AND ($act == NULL)) {
                     </tr>
                 </thead>";
 
-    $setores = $cns->setores('','');
+    $condicoes = "idtb_om_apoiadas = '".$_SESSION['id_om_apoiada']."'";
+    $ordenacao = "idtb_om_setores ASC";
+
+    $setores = $cns->selectMulti($vw_setores,$condicoes,$ordenacao);
     
     foreach ($setores as $key => $value) {
         echo"       <tr>
-                        <th scope=\"row\">".$value->cod_funcional."</th>
+                        <th scope=\"row\">".$value->sigla_om."</th>
+                        <td>".$value->cod_funcional."</td>
                         <td>".$value->nome_setor."</td>
                         <td>".$value->sigla_setor."</td>
                         <td>".$value->compartimento."</td>
@@ -81,12 +87,11 @@ if ($act == 'insert') {
         /* Opta pelo Método Update */
         if ($idtb_om_setores){
 
-            $tabela = "db_clti.tb_om_setores";
             $campos = "idtb_om_apoiadas, nome_setor, sigla_setor, cod_funcional, compartimento";
             $valores = ("'$idtb_om_apoiadas','$nome_setor','$sigla_setor','$cod_funcional','$compart'");
             $condicoes = "idtb_om_setores = '$idtb_om_setores'";
 
-            $update = $cns->update($tabela,$campos,$valores,$condicoes);
+            $update = $cns->update($tb_om_setores,$campos,$valores,$condicoes);
         
             if ($update) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
@@ -101,11 +106,10 @@ if ($act == 'insert') {
         /* Opta pelo Método Insert */
         else{
 
-            $tabela = "db_clti.tb_om_setores";
             $campos = "idtb_om_apoiadas, nome_setor, sigla_setor, cod_funcional, compartimento";
             $valores = ("'$idtb_om_apoiadas','$nome_setor','$sigla_setor','$cod_funcional','$compart'");
 
-            $insert = $cns->insert($tabela,$campos,$valores);
+            $insert = $cns->insert($tb_om_setores,$campos,$valores);
         
             if ($insert) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>

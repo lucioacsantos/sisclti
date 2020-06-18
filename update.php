@@ -50,10 +50,23 @@ if ($versao == '1.0'){
 	);
 	CREATE INDEX tb_om_setores_idtb_om_setores_idx ON db_clti.tb_om_setores USING btree (idtb_om_setores);");
 
+	$pg->exec("CREATE OR REPLACE VIEW db_clti.vw_setores
+	AS SELECT setores.idtb_om_setores,
+		setores.idtb_om_apoiadas,
+		setores.nome_setor,
+		setores.sigla_setor,
+		setores.cod_funcional,
+		setores.compartimento,
+		om.sigla AS sigla_om,
+		om.indicativo AS indicativo_om
+	FROM db_clti.tb_om_setores setores,
+		db_clti.tb_om_apoiadas om
+	WHERE setores.idtb_om_apoiadas = om.idtb_om_apoiadas");
+
 	$pg->exec("UPDATE db_clti.tb_config SET (valor) = ('1.1') WHERE parametro='VERSAO' ");
 	
-	echo "<p><h5>Atualização finalizada, Versão 1.1.</h5></p>
-	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
+	echo "<p><h5>Atualização finalizada, Versão 1.1. Aguarde...</h5></p>
+	<meta http-equiv=\"refresh\" content=\"5\">";
 }
 
 elseif ($versao == '1.1'){
@@ -74,11 +87,16 @@ elseif ($versao == '1.1'){
 
 	$pg->exec("CREATE UNIQUE INDEX tb_om_setores_idtb_om_setores_idx ON db_clti.tb_om_setores USING btree (idtb_om_setores)");
 
+	$pg->exec("INSERT INTO db_clti.tb_om_setores (idtb_om_apoiadas,nome_setor,sigla_setor,cod_funcional,compartimento) 
+		VALUES ('1','SETOR EXEMPLO','SIGLA','COD','COMPART')");
+
 	$pg->exec("DROP VIEW db_clti.vw_estacoes");
 
 	$pg->exec("ALTER TABLE db_clti.tb_estacoes DROP COLUMN localizacao");
 
-	$pg->exec("ALTER TABLE db_clti.tb_estacoes ADD COLUMN idtb_om_setores INT NOT NULL");
+	$pg->exec("ALTER TABLE db_clti.tb_estacoes ADD COLUMN idtb_om_setores INT NOT NULL DEFAULT 1");
+
+	$pg->exec("UPDATE db_clti.tb_estacoes SET idtb_om_setores = '1' ");
 
 	$pg->exec("ALTER TABLE db_clti.tb_estacoes ADD CONSTRAINT tb_estacoes_fk_4 FOREIGN KEY (idtb_om_setores) 
 		REFERENCES db_clti.tb_om_setores(idtb_om_setores)");
@@ -116,11 +134,32 @@ elseif ($versao == '1.1'){
 	
 	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.2' WHERE parametro='VERSAO' ");
 		
-	echo "<p><h5>Atualização finalizada, Versão 1.2.</h5></p>
-	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
+	echo "<p><h5>Atualização finalizada, Versão 1.2. Aguarde...</h5></p>
+	<meta http-equiv=\"refresh\" content=\"5\">";
 }
 
 elseif ($versao == '1.2'){
+
+	$pg->exec("DROP VIEW db_clti.vw_estacoes");
+
+	$pg->exec("CREATE OR REPLACE VIEW db_clti.vw_estacoes
+		AS SELECT et.idtb_estacoes,et.idtb_om_apoiadas,et.idtb_proc_modelo,et.clock_proc,
+			et.fabricante,et.modelo,et.idtb_memorias,et.memoria,mem.tipo AS tipo_mem,mem.modelo AS modelo_mem,
+			mem.clock AS clock_mem,et.armazenamento,et.idtb_sor,et.end_ip,et.end_mac,
+			et.data_aquisicao,et.data_garantia,et.idtb_om_setores,setores.sigla_setor,
+			setores.compartimento,et.req_minimos,et.status,om.sigla,fab.idtb_proc_fab,
+			fab.nome AS proc_fab,modelo.modelo AS proc_modelo,sor.descricao,sor.versao,sor.situacao
+		FROM db_clti.tb_estacoes et,
+			db_clti.tb_proc_fab fab,
+			db_clti.tb_proc_modelo modelo,
+			db_clti.tb_om_apoiadas om,
+			db_clti.tb_sor sor,
+			db_clti.tb_om_setores setores,
+			db_clti.tb_memorias mem
+		WHERE et.idtb_proc_modelo = modelo.idtb_proc_modelo AND et.idtb_om_apoiadas = om.idtb_om_apoiadas 
+			AND et.idtb_sor = sor.idtb_sor AND modelo.idtb_proc_fab = fab.idtb_proc_fab 
+			AND et.idtb_memorias = mem.idtb_memorias AND et.idtb_om_setores = setores.idtb_om_setores");
+
 	echo "<p><h5>Seu sistema está atualizado, Versão 1.2.</h5></p>
 	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
 }
@@ -189,7 +228,8 @@ else{
 		  AND et.idtb_memorias = mem.idtb_memorias;";
 	$pg->exec($sql);
 	
-	echo "<p><h5>Atualização finalizada, Versão 1.0, acesse o sistema novamente.</h5></p>";
+	echo "<p><h5>Atualização finalizada, Versão 1.0. Aguarde...</h5></p>
+	<meta http-equiv=\"refresh\" content=\"5\">";
 }
 
 

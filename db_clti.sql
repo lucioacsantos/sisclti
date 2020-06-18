@@ -87,6 +87,24 @@ CREATE TABLE db_clti.tb_memorias (
 );
 
 
+-- db_clti.tb_om_setores definition
+
+-- Drop table
+
+-- DROP TABLE db_clti.tb_om_setores;
+
+CREATE TABLE db_clti.tb_om_setores (
+	idtb_om_setores serial NOT NULL,
+	idtb_om_apoiadas int4 NOT NULL,
+	nome_setor varchar(255) NOT NULL,
+	sigla_setor varchar(255) NOT NULL,
+	cod_funcional varchar(45) NOT NULL,
+	compartimento varchar(255) NOT NULL,
+	CONSTRAINT tb_om_setores_pk PRIMARY KEY (idtb_om_setores)
+);
+CREATE UNIQUE INDEX tb_om_setores_idtb_om_setores_idx ON db_clti.tb_om_setores USING btree (idtb_om_setores);
+
+
 -- db_clti.tb_pais definition
 
 -- Drop table
@@ -297,24 +315,6 @@ CREATE TABLE db_clti.tb_om_apoiadas (
 );
 
 
--- db_clti.tb_om_setores definition
-
--- Drop table
-
--- DROP TABLE db_clti.tb_om_setores;
-
-CREATE TABLE db_clti.tb_om_setores (
-	idtb_om_setores serial NOT NULL,
-	idtb_om_apoiadas int4 NOT NULL,
-	nome_setor varchar(255) NOT NULL,
-	sigla_setor varchar(255) NULL,
-	cod_funcional varchar(45) NULL,
-	compartimento varchar(255) NULL,
-	CONSTRAINT tb_om_setores_fk FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas)
-);
-CREATE INDEX tb_om_setores_idtb_om_setores_idx ON db_clti.tb_om_setores USING btree (idtb_om_setores);
-
-
 -- db_clti.tb_osic definition
 
 -- Drop table
@@ -466,13 +466,14 @@ CREATE TABLE db_clti.tb_estacoes (
 	end_mac varchar(255) NULL,
 	data_aquisicao date NULL,
 	data_garantia date NULL,
-	localizacao varchar(255) NOT NULL,
 	req_minimos varchar(45) NOT NULL,
 	status varchar(255) NOT NULL,
 	idtb_memorias int4 NULL,
+	idtb_om_setores int4 NOT NULL DEFAULT 1,
 	CONSTRAINT tb_estacoes_pkey PRIMARY KEY (idtb_estacoes),
 	CONSTRAINT tb_estacoes_fk FOREIGN KEY (idtb_memorias) REFERENCES db_clti.tb_memorias(idtb_memorias),
 	CONSTRAINT tb_estacoes_fk_1 FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas),
 	CONSTRAINT tb_estacoes_fk_2 FOREIGN KEY (idtb_proc_modelo) REFERENCES db_clti.tb_proc_modelo(idtb_proc_modelo),
-	CONSTRAINT tb_estacoes_fk_3 FOREIGN KEY (idtb_sor) REFERENCES db_clti.tb_sor(idtb_sor)
+	CONSTRAINT tb_estacoes_fk_3 FOREIGN KEY (idtb_sor) REFERENCES db_clti.tb_sor(idtb_sor),
+	CONSTRAINT tb_estacoes_fk_4 FOREIGN KEY (idtb_om_setores) REFERENCES db_clti.tb_om_setores(idtb_om_setores)
 );

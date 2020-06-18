@@ -4,18 +4,17 @@
 **/
 
 /* Classe de interação com o PostgreSQL */
-require_once "../class/pgsql.class.php";
-$pg = new PgSql();
+require_once "../class/queries.class.php";
+$cns = new ConsultaSQL();
 
-/* Recupera informações do tipo de CLTI */
-$sql = "SELECT * FROM db_clti.tb_estacoes";
+$omapoiada = $_SESSION['id_om_apoiada'];
 
-$row = $pg->getRow($sql);
+$estacoes = $cns->select($tb_estacoes,'','');
 
 @$act = $_GET['act'];
 
 /* Checa se o tipo de CLTI está cadastrado */
-if (($row == '0') AND ($act == NULL)) {
+if ((!$estacoes) AND ($act == NULL)) {
 	echo "<h5>Não há estações cadastradas,<br />
 		 clique <a href=\"?cmd=estacoes&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
@@ -24,32 +23,42 @@ if (($row == '0') AND ($act == NULL)) {
 if ($act == 'cad') {
     @$param = $_GET['param'];
     if ($param){
-        $estacoes = $pg->getRow("SELECT * FROM db_clti.vw_estacoes WHERE idtb_estacoes = '$param'");
+
+        $condicoes = "idtb_estacoes = '$param'";
+        $ordenacao = "idtb_estacoes ASC";
+        $estacoes = $cns->select($vw_estacoes,$condicoes,$ordenacao);
+
     }
     else{
         $estacoes = (object)['idtb_estacoes'=>'','idtb_om_apoiadas'=>'','sigla'=>'','fabricante'=>'','modelo'=>'',
             'idtb_proc_modelo'=>'','proc_modelo'=>'','proc_fab'=>'','clock_proc'=>'','idtb_memorias'=>'','tipo_mem'=>'',
-            'modelo_mem'=>'','clock_mem'=>'','memoria'=>'','armazenamento'=>'',
+            'modelo_mem'=>'','clock_mem'=>'','memoria'=>'','armazenamento'=>'','idtb_om_setores'=>'','sigla_setor'=>'',
             'idtb_sor'=>'','descricao'=>'','versao'=>'','end_ip'=>'','end_mac'=>'','data_aquisicao'=>'NULL',
-            'data_garantia'=>'NULL','localizacao'=>'','req_minimos'=>'','situacao'=>''];
+            'compartimento'=>'','data_garantia'=>'NULL','localizacao'=>'','req_minimos'=>'','situacao'=>''];
     }
-    $omapoiada = $_SESSION['id_om_apoiada'];
-    $so = $pg->getRows("SELECT * FROM db_clti.tb_sor ORDER BY desenvolvedor,versao ASC");
-    $proc = $pg->getRows("SELECT * FROM db_clti.vw_processadores ORDER BY fabricante ASC");
-    $mem = $pg->getRows("SELECT * FROM db_clti.tb_memorias ORDER BY tipo DESC");
+    $ordenacao = "desenvolvedor,versao ASC";
+    $so = $cns->selectMulti($tb_sor,'',$ordenacao);
+    $ordenacao = "fabricante ASC";
+    $proc = $cns->selectMulti($vw_processadores,'',$ordenacao);
+    $ordenacao = "tipo DESC";
+    $mem = $cns->selectMulti($tb_memorias,'',$ordenacao);
+    $ordenacao = "nome_setor ASC";
+    $local = $cns->selectMulti($vw_setores,'',$ordenacao);
     
     include "estacoes-formcad.inc.php";
 }
 
 /* Monta quadro com Estações de Trabalho */
-if (($row) AND ($act == NULL)) {
+if (($estacoes) AND ($act == NULL)) {
 
-    $omapoiada = $_SESSION['id_om_apoiada'];
+    
     if ($omapoiada != ''){
-        $estacoes = $pg->getRows("SELECT * FROM db_clti.vw_estacoes WHERE idtb_om_apoiadas = $omapoiada");
+        $condicoes = "idtb_om_apoiadas = $omapoiada";
+        $estacoes = $cns->selectMulti($vw_estacoes,$condicoes,'');
     }
     else{
-        $estacoes = $pg->getRows("SELECT * FROM db_clti.vw_estacoes ORDER BY idtb_om_apoiadas ASC");
+        $ordenacao = "ORDER BY idtb_om_apoiadas ASC";
+        $estacoes = $cns->selectMulti($vw_estacoes,'',$ordenacao);
     }
 
     echo"<div class=\"table-responsive\">
@@ -114,7 +123,7 @@ if ($act == 'insert') {
         $end_ip = $_POST['end_ip'];
         $end_mac = $_POST['end_mac'];
         $idtb_sor = $_POST['idtb_sor'];
-        $localizacao = strtoupper($_POST['localizacao']);
+        $idtb_om_setores = $_POST['idtb_om_setores'];
         $data_aquisicao = $_POST['data_aquisicao'];
         $data_garantia = $_POST['data_garantia'];
         $req_minimos = $_POST['req_minimos'];
@@ -127,7 +136,7 @@ if ($act == 'insert') {
                 idtb_om_apoiadas='$idtb_om_apoiadas', fabricante='$fabricante', modelo='$modelo', 
                 idtb_proc_modelo='$idtb_proc_modelo', clock_proc='$clock_proc', idtb_memorias='$idtb_memorias',
                 memoria='$memoria', armazenamento='$armazenamento', end_ip='$end_ip', end_mac='$end_mac', 
-                idtb_sor='$idtb_sor', localizacao='$localizacao', data_aquisicao='$data_aquisicao', 
+                idtb_sor='$idtb_sor', idtb_om_setores='$idtb_om_setores', data_aquisicao='$data_aquisicao', 
                 data_garantia='$data_garantia', req_minimos='$req_minimos', status='$status'
             WHERE idtb_estacoes='$idtb_estacoes'";
 
@@ -149,9 +158,10 @@ if ($act == 'insert') {
         /* Opta pelo Método Insert */
         else{
 
-            $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_conectividade WHERE end_ip = '$end_ip'");
-            $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_estacoes WHERE end_ip = '$end_ip'");
-            $checa_ip = $pg->getRow("SELECT end_ip FROM db_clti.tb_servidores WHERE end_ip = '$end_ip'");
+            $condicoes = "end_ip = '$end_ip'";
+            $checa_ip = $cns->select($tb_conectividade,$condicoes,'');
+            $checa_ip = $cns->select($tb_estacoes,$condicoes,'');
+            $checa_ip = $cns->select($tb_servidores,$condicoes,'');
 
             if ($checa_ip){
                 echo "<h5>Endereço IP informado já está em uso, 
@@ -163,9 +173,9 @@ if ($act == 'insert') {
 
                 $sql = "INSERT INTO db_clti.tb_estacoes(
                     idtb_om_apoiadas, fabricante, modelo, idtb_proc_modelo, clock_proc, idtb_memorias, memoria, armazenamento, 
-                    end_ip, end_mac, idtb_sor, localizacao, data_aquisicao, data_garantia, req_minimos, status)
+                    end_ip, end_mac, idtb_sor, idtb_om_setores, data_aquisicao, data_garantia, req_minimos, status)
                 VALUES ('$idtb_om_apoiadas', '$fabricante', '$modelo', '$idtb_proc_modelo', '$clock_proc','$idtb_memorias',
-                    '$memoria', '$armazenamento', '$end_ip', '$end_mac', '$idtb_sor', '$localizacao', '$data_aquisicao', 
+                    '$memoria', '$armazenamento', '$end_ip', '$end_mac', '$idtb_sor', '$idtb_om_setores', '$data_aquisicao', 
                     '$data_garantia', '$req_minimos', '$status')";
             
                 $pg->exec($sql);
