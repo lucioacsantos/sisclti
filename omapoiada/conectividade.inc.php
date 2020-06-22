@@ -4,18 +4,17 @@
 **/
 
 /* Classe de interação com o PostgreSQL */
-require_once "../class/pgsql.class.php";
-$pg = new PgSql();
+require_once "../class/queries.class.php";
+$cns = new ConsultaSQL();
 
-/* Recupera informações do tipo de CLTI */
-$sql = "SELECT * FROM db_clti.tb_conectividade";
+$omapoiada = $_SESSION['id_om_apoiada'];
 
-$row = $pg->getRow($sql);
+$conectividade = $cns->select($tb_conectividade,'','');
 
 @$act = $_GET['act'];
 
 /* Checa se o tipo de CLTI está cadastrado */
-if (($row == '0') AND ($act == NULL)) {
+if ((!$conectividade) AND ($act == NULL)) {
 	echo "<h5>Não há equipamentos de conectividade cadastrados,<br />
 		 clique <a href=\"?cmd=conectividade&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
@@ -24,26 +23,33 @@ if (($row == '0') AND ($act == NULL)) {
 if ($act == 'cad') {
     @$param = $_GET['param'];
     if ($param){
-        $conectividade = $pg->getRow("SELECT * FROM db_clti.vw_conectividade WHERE idtb_conectividade = '$param'");
+        $condicoes = "idtb_conectividade = '$param'";
+        $ordenacao = "idtb_conectividade ASC";
+        $conectividade = $cns->select($vw_conectividade,$condicoes,$ordenacao);
     }
     else{
         $conectividade = (object)['idtb_conectividade'=>'','idtb_om_apoiadas'=>'','modelo'=>'','end_ip'=>'','data_aquisicao'=>'',
-            'data_garantia'=>'','fabricante'=>'','localizacao'=>'','idtb_om_apoiadas'=>'','sigla'=>''];
+            'data_garantia'=>'','fabricante'=>'','idtb_om_setores'=>'','sigla_setor'=>'','idtb_om_apoiadas'=>'','sigla'=>'',
+            'compartimento'=>'',];
     }
-    $idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
+    $ordenacao = "nome_setor ASC";
+    $local = $cns->selectMulti($vw_setores,'',$ordenacao);
 
 	include "conectividade-formcad.inc.php";
 }
 
 /* Monta quadro com equipamentos de conectividade */
-if (($row) AND ($act == NULL)) {
+if (($conectividade) AND ($act == NULL)) {
 
     $omapoiada = $_SESSION['id_om_apoiada'];
     if ($omapoiada != ''){
-        $conectividade = $pg->getRows("SELECT * FROM db_clti.vw_conectividade WHERE idtb_om_apoiadas = $omapoiada");
+        $condicoes = "idtb_om_apoiadas = '$omapoiada'";
+        $conectividade = $cns->selectMulti($vw_conectividade,$condicoes,'');
     }
     else{
-        $conectividade = $pg->getRows("SELECT * FROM db_clti.vw_conectividade ORDER BY idtb_om_apoiadas ASC");
+        $condicoes = "idtb_om_apoiadas = '$omapoiada'";
+        $ordenacao = "ASC";
+        $conectividade = $cns->selectMulti($vw_conectividade,$condicoes,$ordenacao);
     }
 
     echo"<div class=\"table-responsive\">
@@ -85,7 +91,7 @@ if ($act == 'insert') {
         $fabricante = strtoupper($_POST['fabricante']);
         $modelo = strtoupper($_POST['modelo']);
         $end_ip = $_POST['end_ip'];
-        $localizacao = strtoupper($_POST['localizacao']);
+        $idtb_om_setores = strtoupper($_POST['idtb_om_setores']);
         $data_aquisicao = $_POST['data_aquisicao'];
         $data_garantia = $_POST['data_garantia'];
 
@@ -106,7 +112,7 @@ if ($act == 'insert') {
 
                 $sql = "UPDATE db_clti.tb_conectividade SET
                     idtb_om_apoiadas='$idtb_om_apoiadas', fabricante='$fabricante', modelo='$modelo', end_ip='$end_ip', 
-                    localizacao='$localizacao', data_aquisicao='$data_aquisicao', data_garantia='$data_garantia'
+                    idtb_om_setores='$idtb_om_setores', data_aquisicao='$data_aquisicao', data_garantia='$data_garantia'
                 WHERE idtb_conectividade='$idtb_conectividade'";
         
                 $pg->exec($sql);
@@ -142,8 +148,8 @@ if ($act == 'insert') {
             else{
 
                 $sql = "INSERT INTO db_clti.tb_conectividade(
-                    idtb_om_apoiadas, fabricante, modelo, end_ip, localizacao, data_aquisicao, data_garantia)
-                VALUES ('$idtb_om_apoiadas', '$fabricante', '$modelo', '$end_ip', '$localizacao', '$data_aquisicao', '$data_garantia')";
+                    idtb_om_apoiadas, fabricante, modelo, end_ip, idtb_om_setores, data_aquisicao, data_garantia)
+                VALUES ('$idtb_om_apoiadas', '$fabricante', '$modelo', '$end_ip', '$idtb_om_setores', '$data_aquisicao', '$data_garantia')";
         
                 $pg->exec($sql);
             

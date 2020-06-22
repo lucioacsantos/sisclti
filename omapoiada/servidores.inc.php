@@ -4,18 +4,17 @@
 **/
 
 /* Classe de interação com o PostgreSQL */
-require_once "../class/pgsql.class.php";
-$pg = new PgSql();
+require_once "../class/queries.class.php";
+$cns = new ConsultaSQL();
 
-/* Recupera informações do tipo de CLTI */
-$sql = "SELECT * FROM db_clti.tb_servidores";
+$omapoiada = $_SESSION['id_om_apoiada'];
 
-$row = $pg->getRow($sql);
+$servidor = $cns->select($tb_servidores,'','');
 
 @$act = $_GET['act'];
 
 /* Checa se o tipo de CLTI está cadastrado */
-if (($row == '0') AND ($act == NULL)) {
+if ((!$servidor) AND ($act == NULL)) {
 	echo "<h5>Não há servidores cadastrados,<br />
 		 clique <a href=\"?cmd=servidores&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
@@ -24,30 +23,38 @@ if (($row == '0') AND ($act == NULL)) {
 if ($act == 'cad') {
     @$param = $_GET['param'];
     if ($param){
-        $servidor = $pg->getRow("SELECT * FROM db_clti.vw_servidores WHERE idtb_servidores = '$param'");
+        $condicoes = "idtb_servidores = '$param'";
+        $ordenacao = "idtb_servidores ASC";
+        $servidor = $cns->select($vw_servidores,$condicoes,$ordenacao);
     }
     else{
         $servidor = (object)['idtb_servidores'=>'','idtb_om_apoiadas'=>'','sigla'=>'','modelo'=>'','idtb_proc_modelo'=>'',
             'clock_proc'=>'','qtde_proc'=>'','memoria'=>'','armazenamento'=>'','idtb_sor'=>'','end_ip'=>'', 'end_mac'=>'',
-            'finalidade'=>'','data_aquisicao'=>'','data_garantia'=>'','fabricante'=>'','localizacao'=>'','proc_fab'=>'',
-            'proc_modelo'=>'','versao'=>'','descricao'=>''];
+            'finalidade'=>'','data_aquisicao'=>'','data_garantia'=>'','fabricante'=>'','idtb_om_setores'=>'','sigla_setor'=>'',
+            'proc_fab'=>'','proc_modelo'=>'','versao'=>'','descricao'=>'','compartimento'=>'',];
     }
-    $omapoiada = $_SESSION['id_om_apoiada'];
-    $so = $pg->getRows("SELECT * FROM db_clti.tb_sor ORDER BY desenvolvedor,versao ASC");
-    $proc = $pg->getRows("SELECT * FROM db_clti.vw_processadores ORDER BY fabricante ASC");
+    $ordenacao = "desenvolvedor,versao ASC";
+    $so = $cns->selectMulti($tb_sor,'',$ordenacao);
+    $ordenacao = "fabricante ASC";
+    $proc = $cns->selectMulti($vw_processadores,'',$ordenacao);
+    $ordenacao = "tipo DESC";
+    $mem = $cns->selectMulti($tb_memorias,'',$ordenacao);
+    $ordenacao = "nome_setor ASC";
+    $local = $cns->selectMulti($vw_setores,'',$ordenacao);
     
     include "servidores-formcad.inc.php";
 }
 
 /* Monta quadro com servidores */
-if (($row) AND ($act == NULL)) {
+if (($servidor) AND ($act == NULL)) {
 
-    $omapoiada = $_SESSION['id_om_apoiada'];
     if ($omapoiada != ''){
-        $srv = $pg->getRows("SELECT * FROM db_clti.vw_servidores WHERE idtb_om_apoiadas = $omapoiada");
+        $condicoes = "idtb_om_apoiadas = $omapoiada";
+        $srv = $cns->selectMulti($vw_servidores,$condicoes,'');
     }
     else{
-        $srv = $pg->getRows("SELECT * FROM db_clti.vw_servidores ORDER BY idtb_om_apoiadas ASC");
+        $ordenacao = "ORDER BY idtb_om_apoiadas ASC";
+        $srv = $cns->selectMulti($vw_servidores,'',$ordenacao);
     }
 
     echo"<div class=\"table-responsive\">
@@ -109,7 +116,7 @@ if ($act == 'insert') {
         $end_mac = $_POST['end_mac'];
         $finalidade = strtoupper($_POST['finalidade']);
         $idtb_sor = $_POST['idtb_sor'];
-        $localizacao = strtoupper($_POST['localizacao']);
+        $idtb_om_setores = strtoupper($_POST['idtb_om_setores']);
         $data_aquisicao = $_POST['data_aquisicao'];
         $data_garantia = $_POST['data_garantia'];
         $status = $_POST['status'];
@@ -122,7 +129,7 @@ if ($act == 'insert') {
                 idtb_proc_modelo='$idtb_proc_modelo', clock_proc='$clock_proc', qtde_proc='$qtde_proc', memoria='$memoria', 
                 armazenamento='$armazenamento', end_ip='$end_ip', end_mac='$end_mac', idtb_sor='$idtb_sor', 
                 finalidade='$finalidade', data_aquisicao='$data_aquisicao', data_garantia='$data_garantia', 
-                localizacao='$localizacao', status='$status'
+                idtb_om_setores='$idtb_om_setores', status='$status'
             WHERE idtb_servidores='$idtb_servidores'";
     
             $pg->exec($sql);
@@ -158,11 +165,11 @@ if ($act == 'insert') {
                 $sql = "INSERT INTO db_clti.tb_servidores(
                         idtb_om_apoiadas, fabricante, modelo, idtb_proc_modelo, clock_proc, 
                         qtde_proc, memoria, armazenamento, end_ip, end_mac, idtb_sor, 
-                        finalidade, data_aquisicao, data_garantia, localizacao, status)
+                        finalidade, data_aquisicao, data_garantia, idtb_om_setores, status)
 
                     VALUES ('$idtb_om_apoiadas', '$fabricante', '$modelo', '$idtb_proc_modelo', '$clock_proc',
                         '$qtde_proc', '$memoria', '$armazenamento','$end_ip', '$end_mac', '$idtb_sor', '$finalidade', 
-                        '$data_aquisicao', '$data_garantia', '$localizacao', '$status')";
+                        '$data_aquisicao', '$data_garantia', '$idtb_om_setores', '$status')";
             
                 $pg->exec($sql);
             

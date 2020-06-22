@@ -9,7 +9,7 @@ echo "
                 <fieldset>
                     <legend>Equipamentos de Conectividade - Cadastro</legend>
 
-                    <input type=\"hidden\" name=\"idtb_om_apoiadas\" value=\"$idtb_om_apoiadas\">
+                    <input type=\"hidden\" name=\"idtb_om_apoiadas\" value=\"$omapoiada\">
 
                     <div class=\"form-group\">
                         <label for=\"fabricante\">Fabricante:</label>
@@ -33,10 +33,15 @@ echo "
                     </div>
 
                     <div class=\"form-group\">
-                        <label for=\"localizacao\">Localização:</label>
-                        <input id=\"localizacao\" class=\"form-control\" type=\"text\" name=\"localizacao\"
-                            placeholder=\"ex. Sala de Servidores\"style=\"text-transform:uppercase\"
-                            value=\"$conectividade->localizacao\" required=\"true\">
+                        <label for=\"idtb_om_setores\">Localização:</label>
+                        <select id=\"idtb_om_setores\" class=\"form-control\" name=\"idtb_om_setores\">
+                            <option value=\"$conectividade->idtb_om_setores\" selected=\"true\">
+                                    ".$conectividade->sigla_setor." - ".$conectividade->compartimento."</option>";
+                                foreach ($local as $key => $value) {
+                                    echo"<option value=\"".$value->idtb_om_setores."\">
+                                        ".$value->sigla_setor." - ".$value->compartimento."</option>";
+                                };
+                            echo "</select>
                     </div>
 
                     <div class=\"form-group\">

@@ -416,9 +416,10 @@ CREATE TABLE db_clti.tb_servidores (
 	finalidade varchar(255) NOT NULL,
 	data_aquisicao date NULL,
 	data_garantia date NULL,
-	localizacao varchar(255) NOT NULL,
 	status varchar(255) NOT NULL,
+	idtb_om_setores int4 NULL,
 	CONSTRAINT tb_servidores_pkey PRIMARY KEY (idtb_servidores),
+	CONSTRAINT tb_servidores_fk FOREIGN KEY (idtb_om_setores) REFERENCES db_clti.tb_om_setores(idtb_om_setores),
 	CONSTRAINT tb_servidores_idtb_om_apoiadas_fkey FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas),
 	CONSTRAINT tb_servidores_idtb_proc_modelo_fkey FOREIGN KEY (idtb_proc_modelo) REFERENCES db_clti.tb_proc_modelo(idtb_proc_modelo),
 	CONSTRAINT tb_servidores_idtb_sor_fkey FOREIGN KEY (idtb_sor) REFERENCES db_clti.tb_sor(idtb_sor)
@@ -436,12 +437,13 @@ CREATE TABLE db_clti.tb_conectividade (
 	idtb_om_apoiadas int4 NOT NULL,
 	fabricante varchar(255) NOT NULL,
 	modelo varchar(255) NOT NULL,
-	localizacao varchar(255) NOT NULL,
 	end_ip varchar(255) NULL,
 	data_aquisicao date NOT NULL,
 	data_garantia date NULL,
+	idtb_om_setores int4 NULL,
 	CONSTRAINT tb_conectividade_end_ip_key UNIQUE (end_ip),
 	CONSTRAINT tb_conectividade_pkey PRIMARY KEY (idtb_conectividade),
+	CONSTRAINT tb_conectividade_fk FOREIGN KEY (idtb_om_setores) REFERENCES db_clti.tb_om_setores(idtb_om_setores),
 	CONSTRAINT tb_conectividade_idtb_om_apoiadas_fkey FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas)
 );
 

@@ -5,14 +5,17 @@ AS SELECT conec.idtb_conectividade,
     conec.idtb_om_apoiadas,
     conec.fabricante,
     conec.modelo,
-    conec.localizacao,
+    conec.idtb_om_setores,
     conec.end_ip,
     conec.data_aquisicao,
     conec.data_garantia,
-    om.sigla
+    om.sigla,
+    setores.sigla_setor,
+    setores.compartimento
    FROM db_clti.tb_conectividade conec,
+    db_clti.tb_om_setores setores,
     db_clti.tb_om_apoiadas om
-  WHERE conec.idtb_om_apoiadas = om.idtb_om_apoiadas;
+  WHERE conec.idtb_om_apoiadas = om.idtb_om_apoiadas AND conec.idtb_om_setores = setores.idtb_om_setores;
 
 
 -- db_clti.vw_estacoes source
@@ -24,6 +27,7 @@ AS SELECT et.idtb_estacoes,
     et.clock_proc,
     et.fabricante,
     et.modelo,
+    et.idtb_memorias,
     et.memoria,
     mem.tipo AS tipo_mem,
     mem.modelo AS modelo_mem,
@@ -230,7 +234,7 @@ AS SELECT srv.idtb_servidores,
     srv.finalidade,
     srv.data_aquisicao,
     srv.data_garantia,
-    srv.localizacao,
+    srv.idtb_om_setores,
     srv.status,
     om.sigla,
     fab.idtb_proc_fab,
@@ -238,13 +242,16 @@ AS SELECT srv.idtb_servidores,
     modelo.modelo AS proc_modelo,
     sor.descricao,
     sor.versao,
-    sor.situacao
+    sor.situacao,
+    setores.sigla_setor,
+    setores.compartimento
    FROM db_clti.tb_servidores srv,
     db_clti.tb_proc_fab fab,
     db_clti.tb_proc_modelo modelo,
     db_clti.tb_om_apoiadas om,
+    db_clti.tb_om_setores setores,
     db_clti.tb_sor sor
-  WHERE srv.idtb_proc_modelo = modelo.idtb_proc_modelo AND srv.idtb_om_apoiadas = om.idtb_om_apoiadas AND srv.idtb_sor = sor.idtb_sor AND modelo.idtb_proc_fab = fab.idtb_proc_fab;
+  WHERE srv.idtb_proc_modelo = modelo.idtb_proc_modelo AND srv.idtb_om_apoiadas = om.idtb_om_apoiadas AND srv.idtb_sor = sor.idtb_sor AND modelo.idtb_proc_fab = fab.idtb_proc_fab AND srv.idtb_om_setores = setores.idtb_om_setores;
 
 
 -- db_clti.vw_setores source

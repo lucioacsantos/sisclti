@@ -23,11 +23,9 @@ if ((!$estacoes) AND ($act == NULL)) {
 if ($act == 'cad') {
     @$param = $_GET['param'];
     if ($param){
-
         $condicoes = "idtb_estacoes = '$param'";
         $ordenacao = "idtb_estacoes ASC";
         $estacoes = $cns->select($vw_estacoes,$condicoes,$ordenacao);
-
     }
     else{
         $estacoes = (object)['idtb_estacoes'=>'','idtb_om_apoiadas'=>'','sigla'=>'','fabricante'=>'','modelo'=>'',
