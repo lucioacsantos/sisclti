@@ -8,7 +8,7 @@ $sigla = $pg->getCol("SELECT sigla FROM db_clti.tb_clti");
 $versao = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='VERSAO' ");
 
 ?>
-<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
       <p class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
         <?php echo "".$sigla." - SisCLTI v".$versao.""; ?>
       </p>
@@ -143,7 +143,8 @@ $versao = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='VERS
                     <span data-feather=\"command\"></span>
                     Equipamentos de Conectividade
                   </a>
-                </li>";
+                </li>
+              </ul>";
               }
               else{
                 echo"

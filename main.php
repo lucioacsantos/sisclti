@@ -19,19 +19,7 @@
               </button>-->
             </div>
           </div>
-          <div class="table-responsive">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col"><canvas class="my-4 w-100" id="canvas" width="900" height="380"></canvas></th>
-                </tr>
-              </thead>
-              <tr>
-                <th scope="row"><!--<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>--></th>
-              </tr>
-              </tbody>
-            </table>
-          </div>
+          <canvas class="my-4 w-100" id="grafico_barras_om" width="900" height="380"></canvas>
         </main>
       </div>
     </div>

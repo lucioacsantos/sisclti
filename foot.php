@@ -71,14 +71,12 @@
 
     <!-- Configurações dos Gráficos -->
     <?php
-
       require_once "dashboard/graficos.inc.php";
-
-      #ativos_ti();
-      #pessoal_ti();
-      #qualificacao_ti();
+      ativos_ti();
+      pessoal_ti();
+      qualificacao_ti();
       grafico_barras();
-    
+      grafico_barras_om();
     ?>
       
     <!-- JavaScript desabilita form submit quando existirem campos inválidos -->
