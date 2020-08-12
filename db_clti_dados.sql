@@ -1,3 +1,37 @@
+INSERT INTO db_clti.tb_pais (nome,sigla) VALUES 
+('Brasil','BR');
+INSERT INTO db_clti.tb_estado (nome,uf,pais) VALUES 
+('Acre','AC',1)
+,('Alagoas','AL',1)
+,('Amazonas','AM',1)
+,('Amapá','AP',1)
+,('Bahia','BA',1)
+,('Ceará','CE',1)
+,('Distrito Federal','DF',1)
+,('Espírito Santo','ES',1)
+,('Goiás','GO',1)
+,('Maranhão','MA',1);
+INSERT INTO db_clti.tb_estado (nome,uf,pais) VALUES 
+('Minas Gerais','MG',1)
+,('Mato Grosso do Sul','MS',1)
+,('Mato Grosso','MT',1)
+,('Pará','PA',1)
+,('Paraíba','PB',1)
+,('Pernambuco','PE',1)
+,('Piauí','PI',1)
+,('Paraná','PR',1)
+,('Rio de Janeiro','RJ',1)
+,('Rio Grande do Norte','RN',1)
+;
+INSERT INTO db_clti.tb_estado (nome,uf,pais) VALUES 
+('Rondônia','RO',1)
+,('Roraima','RR',1)
+,('Rio Grande do Sul','RS',1)
+,('Santa Catarina','SC',1)
+,('Sergipe','SE',1)
+,('São Paulo','SP',1)
+,('Tocantins','TO',1)
+;
 INSERT INTO db_clti.tb_cidade (nome,estado) VALUES 
 ('Afonso Cláudio',8)
 ,('Água Doce do Norte',8)
@@ -6681,7 +6715,7 @@ INSERT INTO db_clti.tb_cidade (nome,estado) VALUES
 ('URL','http://localhost/sisclti')
 ,('ESTADO','RN')
 ,('CIDADE','Natal')
-,('VERSAO','1.2')
+,('VERSAO','1.3')
 ;INSERT INTO db_clti.tb_corpo_quadro (nome,sigla) VALUES 
 ('CFN','FN')
 ,('CA','CA')
@@ -6731,49 +6765,13 @@ INSERT INTO db_clti.tb_especialidade (nome,sigla) VALUES
 ('Carpinteiro','CP')
 ,('Recruta','RC')
 ,('RESERVISTA DE SEGUNDA CATEGORIA','RM-2')
-,('Máquinas','MA')
-;INSERT INTO db_clti.tb_estacoes (idtb_om_apoiadas,idtb_proc_modelo,clock_proc,fabricante,modelo,memoria,armazenamento,idtb_sor,end_ip,end_mac,data_aquisicao,data_garantia,req_minimos,status,idtb_memorias,idtb_om_setores) VALUES 
-(1,11,3.2,'HP','ELLITE 800','8','500',14,'172.23.119.35','fsfsfsfsfsfsfsfs','2019-05-15','2020-05-15','SIM','EM PRODUÇÃO',60,2)
-;INSERT INTO db_clti.tb_estado (nome,uf,pais) VALUES 
-('Acre','AC',1)
-,('Alagoas','AL',1)
-,('Amazonas','AM',1)
-,('Amapá','AP',1)
-,('Bahia','BA',1)
-,('Ceará','CE',1)
-,('Distrito Federal','DF',1)
-,('Espírito Santo','ES',1)
-,('Goiás','GO',1)
-,('Maranhão','MA',1)
-;
-INSERT INTO db_clti.tb_estado (nome,uf,pais) VALUES 
-('Minas Gerais','MG',1)
-,('Mato Grosso do Sul','MS',1)
-,('Mato Grosso','MT',1)
-,('Pará','PA',1)
-,('Paraíba','PB',1)
-,('Pernambuco','PE',1)
-,('Piauí','PI',1)
-,('Paraná','PR',1)
-,('Rio de Janeiro','RJ',1)
-,('Rio Grande do Norte','RN',1)
-;
-INSERT INTO db_clti.tb_estado (nome,uf,pais) VALUES 
-('Rondônia','RO',1)
-,('Roraima','RR',1)
-,('Rio Grande do Sul','RS',1)
-,('Santa Catarina','SC',1)
-,('Sergipe','SE',1)
-,('São Paulo','SP',1)
-,('Tocantins','TO',1)
-;INSERT INTO db_clti.tb_funcoes_ti (descricao,sigla) VALUES 
+,('Máquinas','MA');
+INSERT INTO db_clti.tb_funcoes_ti (descricao,sigla) VALUES 
 ('ADMINISTRADOR DA REDE LOCAL','ADMIN')
 ,('OFICIAL DE SEGURANçA DAS INFORMAçõES E COMUNICAçõES','OSIC')
 ,('TéCNICO DE SUPORTE AO USUáRIO','TEC.SUPORTE')
-,('TéCNICO DE MANUTENçãO DE HARDWARE','TEC.MANUT.')
-;INSERT INTO db_clti.tb_lotacao_clti (idtb_posto_grad,idtb_corpo_quadro,idtb_especialidade,nip,cpf,nome,nome_guerra,status,senha,perfil,correio_eletronico) VALUES 
-(16,1,8,'12345678','','ADMINCLTI','ADMINCLTI','ATIVO','1f82ea75c5cc526729e2d581aeb3aeccfef4407e256127614ef298fedf9376775a7d7328090f63bf','TEC_CLTI','adminclti@marinha.mil.br')
-;INSERT INTO db_clti.tb_memorias (tipo,modelo,clock) VALUES 
+,('TéCNICO DE MANUTENçãO DE HARDWARE','TEC.MANUT.');
+INSERT INTO db_clti.tb_memorias (tipo,modelo,clock) VALUES 
 ('DDR','PC-1600',200)
 ,('DDR','PC-2100',266)
 ,('DDR','PC-2400',300)
@@ -6820,10 +6818,6 @@ INSERT INTO db_clti.tb_memorias (tipo,modelo,clock) VALUES
 ;INSERT INTO db_clti.tb_om_setores (idtb_om_apoiadas,nome_setor,sigla_setor,cod_funcional,compartimento) VALUES 
 (1,'SETOR1','SIGLA1','COD1','COMPART1')
 ,(1,'SETOR2','SIGLA2','COD2','COMPART2')
-;INSERT INTO db_clti.tb_pais (nome,sigla) VALUES 
-('Brasil','BR')
-;INSERT INTO db_clti.tb_pessoal_ti (idtb_om_apoiadas,idtb_posto_grad,idtb_corpo_quadro,idtb_especialidade,nip,cpf,nome,nome_guerra,correio_eletronico,status,senha,idtb_funcoes_ti) VALUES 
-(1,8,1,4,'12345678','','ADMINCLTI','ADMINCLTI','adminclti@marinha.mil.br','ATIVO','1f82ea75c5cc526729e2d581aeb3aeccfef4407e256127614ef298fedf9376775a7d7328090f63bf',1)
 ;INSERT INTO db_clti.tb_posto_grad (nome,sigla) VALUES 
 ('Almirante-de-Esquadra','AE')
 ,('Vice-Almirante','VA')
@@ -6941,4 +6935,9 @@ INSERT INTO db_clti.tb_sor (desenvolvedor,descricao,versao,situacao) VALUES
 ,('ORACLE','ORACLE LINUX','7','ATIVO')
 ;INSERT INTO db_clti.tb_tipos_clti (norma_atual,data_norma,lotacao_oficiais,lotacao_pracas,tipo_clti) VALUES 
 ('DCTIMARINST 30-06C','2019-04-30',1,1,'1')
+;
+INSERT INTO db_clti.tb_pessoal_ti (idtb_om_apoiadas,idtb_posto_grad,idtb_corpo_quadro,idtb_especialidade,nip,cpf,nome,nome_guerra,correio_eletronico,status,senha,idtb_funcoes_ti) VALUES 
+(1,8,1,4,'12345678','','ADMINCLTI','ADMINCLTI','adminclti@marinha.mil.br','ATIVO','1f82ea75c5cc526729e2d581aeb3aeccfef4407e256127614ef298fedf9376775a7d7328090f63bf',1)
+;INSERT INTO db_clti.tb_lotacao_clti (idtb_posto_grad,idtb_corpo_quadro,idtb_especialidade,nip,cpf,nome,nome_guerra,status,senha,perfil,correio_eletronico) VALUES 
+(16,1,8,'12345678','','ADMINCLTI','ADMINCLTI','ATIVO','1f82ea75c5cc526729e2d581aeb3aeccfef4407e256127614ef298fedf9376775a7d7328090f63bf','TEC_CLTI','adminclti@marinha.mil.br')
 ;
