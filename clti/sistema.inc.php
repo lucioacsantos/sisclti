@@ -4,22 +4,17 @@
 **/
 
 /* Clasee de interação com o PostgreSQL */
-require_once "../class/pgsql.class.php";
-$pg = new PgSql();
+require_once "../class/constantes.inc.php";
+$cfg = new Config();
 
-/* Recupera informações do CLTI */
-$sql = "SELECT * FROM db_clti.tb_config";
-
-$row = $pg->getRow($sql);
+/* Recupera informações */
+$row = $cfg->SelectAll();
 
 @$cmd = $_GET['cmd'];
 @$act = $_GET['act'];
 
 if ($row) {
-
-    $config = "SELECT * FROM db_clti.tb_config";
-    $config = $pg->getRows($config);
-
+    $config = $cfg->SelectAll();
     echo"<div class=\"table-responsive\">
             <table class=\"table table-hover\">
                 <thead>
@@ -55,26 +50,18 @@ if ($row) {
             </div>";
 }
 
-/* Método INSERT */
+/* Método UPDATE */
 if ($act == 'update') {
     if (isset($_SESSION['status'])){
-        $valor = $_POST['valor'];
-        $idtb_config = $_POST['idtb_config'];
-
-        $sql = "UPDATE db_clti.tb_config SET valor = '$valor' WHERE idtb_config = '$idtb_config'";
-
-        $pg->exec($sql);
-
-        foreach ($pg as $key => $value) {
-            if ($value != '0') {
-                echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=sistema\">";
-            }
-
-            else {
-                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-            }
-        break;
+        $cfg->valor = $_POST['valor'];
+        $cfg->idtb_config = $_POST['idtb_config'];
+        $row = $cfg->UpdateConfig();
+        if ($row) {
+            echo "<h5>Resgistros incluídos no banco de dados.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;url=?cmd=sistema\">";
+        }
+        else {
+            echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
         }
     }
     else{
@@ -82,5 +69,4 @@ if ($act == 'update') {
             <meta http-equiv=\"refresh\" content=\"1;$url\">";
     }
 }
-
 ?>

@@ -4,24 +4,22 @@
 **/
 
 /* Classe de interação com o PostgreSQL */
-require_once "../class/pgsql.class.php";
-$pg = new PgSql();
+require_once "../class/constantes.inc.php";
+$cfg = new Config();
 
 /* Recupera informações do tipo de CLTI */
-$sql = "SELECT * FROM db_clti.tb_tipos_clti";
-
-$row = $pg->getRow($sql);
+$row = $cfg->SelectAllTiposCLTI();
 
 @$act = $_GET['act'];
 
 /* Checa se o tipo de CLTI está cadastrado */
-if (($row == '0') AND ($act == NULL)) {
+if (($row == NULL) AND ($act == NULL)) {
 	echo "<h5>A Classificação do CLTI não foi cadastrada,<br />
 		 clique <a href=\"?cmd=tipoclti&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
 
 /* Carrega form para cadastro do tipo de CLTI */
-if (($row == '0') AND ($act == 'cad')) {
+if (($row == NULL) AND ($act == 'cad')) {
 	echo "
 	<div class=\"container-fluid\">
         <div class=\"row\">
@@ -81,28 +79,19 @@ if ($row) {
 /* Método INSERT */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
-        $publicacao = $_POST['publicacao'];
-        $datapublicacao = $_POST['datapublicacao'];
-        $tipoclti = $_POST['tipoclti'];
-        $lotacaooficiais = $_POST['lotacaooficiais'];
-        $lotacaopracas = $_POST['lotacaopracas'];
+        $cfg->publicacao = $_POST['publicacao'];
+        $cfg->datapublicacao = $_POST['datapublicacao'];
+        $cfg->tipoclti = $_POST['tipoclti'];
+        $cfg->lotacaooficiais = $_POST['lotacaooficiais'];
+        $cfg->lotacaopracas = $_POST['lotacaopracas'];
 
-        $sql = "INSERT INTO db_clti.tb_tipos_clti(
-            norma_atual, data_norma, tipo_clti, lotacao_oficiais, lotacao_pracas)
-            VALUES ('$publicacao', '$datapublicacao', '$tipoclti', 
-                '$lotacaooficiais', '$lotacaopracas')";
+        $row = $cfg->InsertTiposCLTI();
+        if ($value != '0') {
+            echo "<h5>Resgistros incluídos no banco de dados.</h5>";
+        }
 
-        $pg->exec($sql);
-
-        foreach ($pg as $key => $value) {
-            if ($value != '0') {
-                echo "<h5>Resgistros incluídos no banco de dados.</h5>";
-            }
-
-            else {
-                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-            }
-        break;
+        else {
+            echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
         }
     }
     else{

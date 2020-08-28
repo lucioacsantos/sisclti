@@ -4,18 +4,18 @@
 **/
 
 /* Classe de interação com o PostgreSQL */
-require_once "../class/pgsql.class.php";
-$pg = new PgSql();
+require_once "../class/constantes.inc.php";
+$om = new OMAPoiadas();
+$pesti = new PessoalTI();
+$mil = new Militar();
 
 /* Recupera informações dos OSIC */
-$sql = "SELECT * FROM db_clti.vw_pessoal_ti WHERE sigla_funcao='OSIC' AND status='ATIVO' ";
-
-$row = $pg->getRow($sql);
+$row = $pesti->SelectAllOSIC();
 
 @$act = $_GET['act'];
 
 /* Checa se há OSIC cadastrado */
-if (($row == '0') AND ($act == NULL)) {
+if (($row == NULL) AND ($act == NULL)) {
     echo "<h5>Não há OSIC cadastrados, <br />
         clique <a href=\"?cmd=osic&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
@@ -25,7 +25,8 @@ if ($act == 'cad') {
     @$param = $_GET['param'];
     @$senha = $_GET['senha'];
     if ($param){
-        $osic = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_ti WHERE idtb_pessoal_ti = '$param'");
+        $pesti->idtb_pessoal_ti = $param;
+        $osic = $pesti->SelectIdPesTI();
     }
     else{
         $osic = (object)['idtb_pessoal_ti'=>'','nip'=>'','cpf'=>'','nome'=>'','nome_guerra'=>'',
@@ -33,16 +34,11 @@ if ($act == 'cad') {
             'idtb_corpo_quadro'=>'','sigla_corpo_quadro'=>'','idtb_especialidade'=>'','sigla_espec'=>'',
             'correio_eletronico'=>''];
     }
-
-	$omapoiada = "SELECT * FROM db_clti.tb_om_apoiadas ORDER BY sigla ASC";
-    $omapoiada = $pg->getRows($omapoiada);
-    $postograd = "SELECT * FROM db_clti.tb_posto_grad";
-    $postograd = $pg->getRows($postograd);
-    $corpoquadro = "SELECT * FROM db_clti.tb_corpo_quadro";
-    $corpoquadro = $pg->getRows($corpoquadro);
-    $especialidade = "SELECT * FROM db_clti.tb_especialidade ORDER BY nome ASC";
-    $especialidade = $pg->getRows($especialidade);
-
+	$om->ordem = "ORDER BY sigla ASC";
+	$omapoiada = $om->SelectAllOMTable();
+    $postograd = $mil->SelectAllPostoGrad();
+    $corpoquadro = $mil->SelectAllCorpoQuadro();
+    $especialidade = $mil->SelectAllEspec();
     echo "
 	<div class=\"container-fluid\">
         <div class=\"row\">
@@ -320,8 +316,8 @@ if ($act == 'cad') {
 /* Monta quadro de OSIC */
 if (($row) AND ($act == NULL)) {
 
-	$osic = "SELECT * FROM db_clti.vw_pessoal_ti WHERE sigla_funcao = 'OSIC' ORDER BY idtb_posto_grad DESC";
-    $osic = $pg->getRows($osic);
+	$pesti->ordem = "ORDER BY idtb_posto_grad DESC";
+    $admin = $pesti->SelectAllOSIC();
 
     echo"<div class=\"table-responsive\">
             <table class=\"table table-hover\">
@@ -366,16 +362,20 @@ if (($row) AND ($act == NULL)) {
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         $idtb_pessoal_ti = $_POST['idtb_osic'];
-        $omapoiada = $_POST['omapoiada'];
-        $postograd = $_POST['postograd'];
-        $corpoquadro = $_POST['corpoquadro'];
-        $especialidade = $_POST['especialidade'];
+        $pesti->idtb_pessoal_ti = $idtb_pessoal_ti;
+        $pesti->idtb_om_apoiadas = $_POST['omapoiada'];
+        $pesti->idtb_posto_grad = $_POST['postograd'];
+        $pesti->idtb_corpo_quadro = $_POST['corpoquadro'];
+        $pesti->idtb_especialidade = $_POST['especialidade'];
         $nip = $_POST['nip'];
+        $pesti->nip = $nip;
         $cpf = $_POST['cpf'];
-        $nome = strtoupper($_POST['nome']);
-        $nomeguerra = strtoupper($_POST['nomeguerra']);
-        $correio_eletronico = strtolower($_POST['correio_eletronico']);
-        $ativo = strtoupper($_POST['ativo']);
+        $pesti->cpf = $cpf;
+        $pesti->nome = strtoupper($_POST['nome']);
+        $pesti->nome_guerra = strtoupper($_POST['nomeguerra']);
+        $pesti->correio_eletronico = strtolower($_POST['correio_eletronico']);
+        $pesti->status = strtoupper($_POST['ativo']);
+        $pesti->idtb_funcoes_ti = '2';
 
         if ($nip == NULL) {
             $usuario = $cpf;
@@ -383,91 +383,62 @@ if ($act == 'insert') {
         else {
             $usuario = $nip;
         }
-
+        $pesti->usuario = $usuario;
         /* Opta pelo Método Update */
         if ($idtb_pessoal_ti){
             $senha = $_POST['senha'];
-
             if($senha==NULL){
-                $sql = "UPDATE db_clti.tb_pessoal_ti SET
-                idtb_om_apoiadas='$omapoiada',idtb_posto_grad='$postograd', idtb_corpo_quadro='$corpoquadro', 
-                idtb_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
-                nome_guerra='$nomeguerra', correio_eletronico='$correio_eletronico',
-                funcao='OSIC', status='$ativo'
-                WHERE idtb_pessoal_ti='$idtb_pessoal_ti'";
+                $row = $pesti->UpdatePesTI();
+                if ($row) {
+                    echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=admin\">";
+                }
+                else {
+                    echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                    echo(pg_result_error($row) . "<br />\n");
+                }
             }
-
-            else{
-                
+            else{   
                 $hash = sha1(md5($senha));
                 $salt = sha1(md5($usuario));
-                $senha = $salt.$hash;
-
-                $sql = "UPDATE db_clti.tb_pessoal_ti SET
-                    idtb_om_apoiadas='$omapoiada',idtb_posto_grad='$postograd', idtb_corpo_quadro='$corpoquadro', 
-                    idtb_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
-                    nome_guerra='$nomeguerra', senha='$senha', correio_eletronico='$correio_eletronico',
-                    funcao='OSIC', status='$ativo'
-                    WHERE idtb_pessoal_ti='$idtb_pessoal_ti'";
-            }
-
-            $pg->exec($sql);
-
-            if ($pg) {
-                echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=osic\">";
-            }
-
-            else {
-                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                echo(pg_result_error($pg) . "<br />\n");
+                $pesti->senha = $salt.$hash;
+                $row = $pesti->UpdateSenhaPesti();
+                if ($row) {
+                    echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=admin\">";
+                }
+                else {
+                    echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                    echo(pg_result_error($row) . "<br />\n");
+                }
             }
         }
-
         /* Opta pelo Método Insert */
         else{
             /* Checa se há OSIC com mesmo login cadastrado */
-
-            $nip_cpf = "SELECT * FROM db_clti.tb_pessoal_ti WHERE nip = '$usuario' OR cpf = '$usuario' ";
-            $nip_cpf = $pg->getRow($nip_cpf);
-
-            $correio = "SELECT * FROM db_clti.tb_pessoal_ti WHERE correio_eletronico = '$correio_eletronico' ";
-            $correio = $pg->getRow($correio);
-
-            if ($nip_cpf) {
-                echo "<h5>Já existe um OSIC cadastrado com esse NIP/CPF.</h5>";
+            /* Checa se há Admin com mesmo login cadastrado */
+            $nip_cpf = $pesti->ChecaNIPCPF();
+            $correio = $pesti->ChecaCorreio();
+            if ($nip_cpf != NULL) {
+                echo "<h5>Já existe um Admin cadastrado com esse NIP/CPF.</h5>";
             }
-
-            elseif ($correio){
-                echo "<h5>Já existe um OSIC cadastrado com esse Correio Eletrônico.</h5>";
+            elseif ($correio != NULL){
+                echo "<h5>Já existe um Admin cadastrado com esse Correio Eletrônico.</h5>";
             }
-
             else {
-
                 $senha = $_POST['senha'];
                 $hash = sha1(md5($senha));
                 $salt = sha1(md5($usuario));
-                $senha = $salt.$hash;
-
-                $sql = "INSERT INTO db_clti.tb_pessoal_ti(
-                    idtb_om_apoiadas,idtb_posto_grad, idtb_corpo_quadro, idtb_especialidade, nip, 
-                    cpf, nome, nome_guerra, senha, correio_eletronico, idtb_funcoes_ti, status)
-                    VALUES ('$omapoiada', '$postograd', '$corpoquadro', '$especialidade',
-                    '$nip', '$cpf', '$nome', '$nomeguerra', '$senha', '$correio_eletronico',
-                    1, 'ATIVO')";
-
-                $pg->exec($sql);
-
-                if ($pg) {
+                $pesti->senha = $salt.$hash;
+                $row = $pesti->InsertPesTI();
+                if ($row) {
                     echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=osic\">";
+                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=admin\">";
                 }
-
                 else {
                     echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                    echo(pg_result_error($pg) . "<br />\n");
+                    echo(pg_result_error($row) . "<br />\n");
                 }
-
             }
         }
     }
@@ -476,5 +447,4 @@ if ($act == 'insert') {
             <meta http-equiv=\"refresh\" content=\"1;$url\">";
     }
 }
-
 ?>

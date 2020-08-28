@@ -4,18 +4,16 @@
 **/
 
 /* Classe de interação com o PostgreSQL */
-require_once "../class/pgsql.class.php";
-$pg = new PgSql();
+require_once "../class/constantes.inc.php";
+$fti = new PessoalTI();
 
-/* Recupera informações dos Admin */
-$sql = "SELECT * FROM db_clti.tb_funcoes_ti";
-
-$row = $pg->getRow($sql);
+/* Recupera informações */
+$row = $fti->SelectAllFuncoesTI();
 
 @$act = $_GET['act'];
 
 /* Checa se há SO cadastrado */
-if (($row == '0') AND ($act == NULL)) {
+if (($row == NULL) AND ($act == NULL)) {
 	echo "<h5>Não há Funções de TI cadastradas,<br />
 		 clique <a href=\"?cmd=funcoesti&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
@@ -24,7 +22,8 @@ if (($row == '0') AND ($act == NULL)) {
 if ($act == 'cad') {
     @$param = $_GET['param'];
     if ($param){
-        $funcoesti = $pg->getRow("SELECT * FROM db_clti.tb_funcoes_ti WHERE idtb_funcoes_ti = '$param'");
+        $fti->idtb_funcoes_ti = $param;
+        $funcoesti = $fti->SelectIdFuncoesTI();
     }
     else{
         $funcoesti = (object)['idtb_funcoes_ti'=>'','descricao'=>'','sigla'=>''];
@@ -75,9 +74,8 @@ if (($row) AND ($act == NULL)) {
                         <th scope=\"col\">Ações</th>
                     </tr>
                 </thead>";
-
-    $funcoesti = "SELECT * FROM db_clti.tb_funcoes_ti WHERE sigla !='ADMIN' AND sigla != 'OSIC' ORDER BY descricao ASC";
-    $funcoesti = $pg->getRows($funcoesti);
+    $fti->ordena = "ORDER BY descricao ASC";
+    $funcoesti = $fti->SelectAllFuncoesTI();
 
     foreach ($funcoesti as $key => $value) {
         echo"       <tr>
@@ -97,42 +95,30 @@ if (($row) AND ($act == NULL)) {
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         $idtb_funcoes_ti = $_POST['idtb_funcoes_ti'];
-        $descricao = strtoupper($_POST['descricao']);
-        $sigla = strtoupper($_POST['sigla']);
+        $fti->idtb_funcoes_ti = $idtb_funcoes_ti;
+        $fti->descricao = strtoupper($_POST['descricao']);
+        $fti->sigla = strtoupper($_POST['sigla']);
         
         if ($idtb_funcoes_ti){
-            $sql = "UPDATE db_clti.tb_funcoes_ti SET
-                descricao='$descricao', sigla='$sigla'
-                WHERE idtb_funcoes_ti='$idtb_funcoes_ti' ";
-            
-            $pg->exec($sql);
-    
-            if ($pg) {
+            $row = $fti->UpdateFuncoesTI();    
+            if ($row) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
                 <meta http-equiv=\"refresh\" content=\"1;url=?cmd=funcoesti\">";
-            }
-    
+            }    
             else {
                 echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                echo(pg_result_error($pg) . "<br />\n");
+                echo(pg_result_error($row) . "<br />\n");
             }
         }
-
         else {
-            $sql = "INSERT INTO db_clti.tb_funcoes_ti(
-                descricao, sigla)
-                VALUES ('$descricao', '$sigla')";
-            
-            $pg->exec($sql);
-    
-            if ($pg) {
+            $row = $fti->InsertFuncoesTI();    
+            if ($row) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
                 <meta http-equiv=\"refresh\" content=\"1;url=?cmd=funcoesti\">";
-            }
-    
+            }    
             else {
                 echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                echo(pg_result_error($pg) . "<br />\n");
+                echo(pg_result_error($row) . "<br />\n");
             }
         }
     }

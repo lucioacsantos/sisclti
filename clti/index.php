@@ -4,11 +4,23 @@
 **/
 
 /* Clasee de interação com o PostgreSQL */
-require_once "../class/pgsql.class.php";
-$pg = new PgSql();
+require_once "../class/constantes.inc.php";
+$config = new Config();
+$om = new OMApoiadas();
+$pesti = new PessoalTI();
+$srv = new Servidores();
+$et = new Estacoes();
+$conect = new Conectividade();
+$qtdeom = $om->CountOMApoiadas();
+$qtdeadmin = $pesti->CountAdmin();
+$qtdeosic = $pesti->CountOSIC();
+$qtdepesti = $pesti->CountPesTI();
+$qtdesrv = $srv->CountSrv();
+$qtdeet = $et->CountET();
+$qtdeconect = $conect->CountConect();
 
 /* URL Recuperada do Banco de Dados */
-$url = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='URL'");
+$url = $config->SelectURL();
 
 include "../head.php";
 
@@ -254,20 +266,13 @@ if (isset($_SESSION['user_name'])){
                   </button>-->
                 </div>
               </div>
-              <p>OM Apoiadas: ".$pg->getCol("SELECT COUNT(idtb_om_apoiadas)
-                FROM db_clti.tb_om_apoiadas;")." OM</p>
-              <p>Pessoal de TI (Admin): ".$pg->getCol("SELECT COUNT(idtb_pessoal_ti) AS qtde FROM db_clti.vw_pessoal_ti 
-    		GROUP BY idtb_funcoes_ti HAVING idtb_funcoes_ti=1 ")."</p>
-              <p>Pessoal de TI (OSIC): ".$pg->getCol("SELECT COUNT(idtb_pessoal_ti) AS qtde FROM db_clti.vw_pessoal_ti 
-    		GROUP BY idtb_funcoes_ti HAVING idtb_funcoes_ti=2 ")."</p>
-              <p>Pessoal de TI (Manutenção/Suporte): ".$pg->getCol("SELECT COUNT(idtb_pessoal_ti) AS qtde FROM db_clti.vw_pessoal_ti 
-    		GROUP BY idtb_funcoes_ti HAVING idtb_funcoes_ti!=1 AND idtb_funcoes_ti!=2 ")."</p>
-              <p>Servidores (Total): ".$pg->getCol("SELECT COUNT(idtb_servidores)
-                FROM db_clti.tb_servidores;")."</p>
-              <p>Estações de Trabalho (Total): ".$pg->getCol("SELECT COUNT(idtb_estacoes)
-                FROM db_clti.tb_estacoes;")."</p>
-              <p>Equipamentos de Conectividade (Total): ".$pg->getCol("SELECT COUNT(idtb_conectividade)
-                FROM db_clti.tb_conectividade;")."</p>
+              <p>OM Apoiadas: ".$qtdeom." OM</p>
+              <p>Pessoal de TI (Admin): ".$qtdeadmin."</p>
+              <p>Pessoal de TI (OSIC): ".$qtdeosic."</p>
+              <p>Pessoal de TI (Manutenção/Suporte): ".$qtdepesti."</p>
+              <p>Servidores (Total): ".$qtdesrv."</p>
+              <p>Estações de Trabalho (Total): ".$qtdeet."</p>
+              <p>Equipamentos de Conectividade (Total): ".$qtdeconect."</p>
               <p>Chamados Totais: xx Chamados</p>
               <p>Chamados no Mês Corrente: xx Chamados</p>
               <p>Incidentes de TIC Relatados: xx Incidentes</p>
@@ -286,7 +291,5 @@ if (isset($_SESSION['user_name'])){
       <meta http-equiv=\"refresh\" content=\"5;$url\">";
   }
 }
-
-
 include "../foot.php";
 ?>

@@ -3,17 +3,6 @@
 *** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
-/* Inicializa Sessão */
-session_start();
-
-/* Função para Verificar Login */
-function isLoggedIn(){
-    if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true){
-        return false;
-    }
-    return true;
-}
-
 /* Classe PgSQL */
 class PgSql
 {

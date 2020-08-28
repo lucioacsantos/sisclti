@@ -4,18 +4,16 @@
 **/
 
 /* Classe de interação com o PostgreSQL */
-require_once "../class/pgsql.class.php";
-$pg = new PgSql();
+require_once "../class/constantes.inc.php";
+$so = new SO();
 
-/* Recupera informações dos Admin */
-$sql = "SELECT * FROM db_clti.tb_sor";
-
-$row = $pg->getRow($sql);
+/* Recupera informações */
+$row = $so->SelectAllSO();
 
 @$act = $_GET['act'];
 
 /* Checa se há SO cadastrado */
-if (($row == '0') AND ($act == NULL)) {
+if (($row == NULL) AND ($act == NULL)) {
 	echo "<h5>Não há Sistemas Operacionais cadastrados,<br />
 		 clique <a href=\"?cmd=sistoperacionais&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
@@ -24,7 +22,8 @@ if (($row == '0') AND ($act == NULL)) {
 if ($act == 'cad') {
     @$param = $_GET['param'];
     if ($param){
-        $sor = $pg->getRow("SELECT * FROM db_clti.tb_sor WHERE idtb_sor = '$param'");
+        $so->idtb_sor = $param;
+        $sor = $so->SelectIdSO();
     }
     else{
         $sor = (object)['idtb_sor'=>'','desenvolvedor'=>'','descricao'=>'','versao'=>'','situacao'=>''];
@@ -93,10 +92,10 @@ if (($row) AND ($act == NULL)) {
                     </tr>
                 </thead>";
 
-    $so = "SELECT * FROM db_clti.tb_sor ORDER BY desenvolvedor,versao ASC";
-    $so = $pg->getRows($so);
+    $ordena = "ORDER BY desenvolvedor,versao ASC";
+    $sor = $so->SelectAllSO();
     echo "<p>Sistemas Operacionais: </p>";
-    foreach ($so as $key => $value) {
+    foreach ($sor as $key => $value) {
         echo"       <tr>
                         <th scope=\"row\">".$value->desenvolvedor."</th>
                         <td>".$value->descricao."</td>
@@ -116,44 +115,39 @@ if (($row) AND ($act == NULL)) {
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         $idtb_sor = $_POST['idtb_sor'];
-        $desenvolvedor = strtoupper($_POST['desenvolvedor']);
-        $descricao = strtoupper($_POST['descricao']);
-        $versao = strtoupper($_POST['versao']);
-        $situacao = $_POST['situacao'];
+        $so->idtb_sor = $_POST['idtb_sor'];
+        $so->desenvolvedor = strtoupper($_POST['desenvolvedor']);
+        $so->descricao = strtoupper($_POST['descricao']);
+        $so->versao = strtoupper($_POST['versao']);
+        $so->situacao = $_POST['situacao'];
         
         if ($idtb_sor){
-            $sql = "UPDATE db_clti.tb_sor SET
-                desenvolvedor='$desenvolvedor', descricao='$descricao', versao='$versao', situacao='$situacao'
-                WHERE idtb_sor='$idtb_sor' ";
             
-            $pg->exec($sql);
+            $row = $so->UpdateSO();
     
-            if ($pg) {
+            if ($row) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
                 <meta http-equiv=\"refresh\" content=\"1;url=?cmd=sistoperacionais\">";
             }
     
             else {
                 echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                echo(pg_result_error($pg) . "<br />\n");
+                echo(pg_result_error($row) . "<br />\n");
             }
         }
 
         else {
-            $sql = "INSERT INTO db_clti.tb_sor(
-                desenvolvedor, descricao, versao, situacao)
-                VALUES ('$desenvolvedor', '$descricao', '$versao', '$situacao')";
             
-            $pg->exec($sql);
+            $row = $so->InsertSO();
     
-            if ($pg) {
+            if ($row) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
                 <meta http-equiv=\"refresh\" content=\"1;url=?cmd=sistoperacionais\">";
             }
     
             else {
                 echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                echo(pg_result_error($pg) . "<br />\n");
+                echo(pg_result_error($row) . "<br />\n");
             }
         }
     }

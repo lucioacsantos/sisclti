@@ -4,16 +4,10 @@
 **/
 
 /* Classe de interação com o PostgreSQL */
-require_once "class/pgsql.class.php";
-$pg = new PgSql();
-
-/* URL Recuperada do Banco de Dados */
-$url = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='URL'");
+require_once "class/constantes.inc.php";
 
 /* Carrega Estrutura das Páginas */
 include "head.php";
-
-//include "nav.php";
 
 @$act = $_GET['act'];
 
@@ -61,40 +55,34 @@ echo "
             </div>
         </div>";
 
-//include "foot.php";
-
 /* Método Login */
 if ($act == 'acesso') {
-
-  $usuario = $_POST['usuario'];
-  $senha = $_POST['senha'];
-  
-  $hash = sha1(md5($senha));
-  $salt = sha1(md5($usuario));
+  $usr = new Usuario();
+  $usr->usuario = $_POST['usuario'];
+  $hash = sha1(md5($_POST['senha']));
+  $salt = sha1(md5($_POST['usuario']));
   $senha = $salt.$hash;
+  $usr->senha = $senha;
 
-  $sql = "SELECT idtb_lotacao_clti FROM db_clti.tb_lotacao_clti WHERE nip = '$usuario' AND senha = '$senha'
-      OR cpf = '$usuario' AND senha = '$senha'";
-
-  $row = $pg->getCol($sql);
-
+  $row = $usr->LoginCLTI();
+    
 	if ($row != NULL) {
 
-        $row = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_clti WHERE idtb_lotacao_clti='$row'");
+    $usr->iduser = $row->idtb_lotacao_clti;
+    $row = $usr->perfilCLTI();
 
-        $_SESSION['logged_in'] = true;
-        $_SESSION['user_id'] = $row->idtb_lotacao_clti;
-        $_SESSION['posto_grad'] = $row->sigla_posto_grad;
-        $_SESSION['user_name'] = $row->nome_guerra;
-        $_SESSION['perfil'] = $row->perfil;
-        $_SESSION['status'] = $row->status;
-        
-        header('Location: index.php');
+    $_SESSION['logged_in'] = true;
+    $_SESSION['user_id'] = $row->idtb_lotacao_clti;
+    $_SESSION['posto_grad'] = $row->sigla_posto_grad;
+    $_SESSION['user_name'] = $row->nome_guerra;
+    $_SESSION['perfil'] = $row->perfil;
+    $_SESSION['status'] = $row->status;
+
+    header('Location: index.php');
 	}
-
 	else {
 		echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-        echo(pg_result_error($pg) . "<br />\n");
+        echo(pg_result_error($row) . "<br />\n");
 	}
 }
 

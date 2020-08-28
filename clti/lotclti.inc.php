@@ -4,18 +4,18 @@
 **/
 
 /* Classe de interação com o PostgreSQL */
-require_once "../class/pgsql.class.php";
-$pg = new PgSql();
+require_once "../class/constantes.inc.php";
+$pesclti = new PessoalCLTI();
+$config = new Config();
+$mil = new Militar();
 
 /* Recupera informações do tipo da Lotação do CLTI */
-$sql = "SELECT * FROM db_clti.tb_lotacao_clti";
-
-$row = $pg->getRow($sql);
+$row = $pesclti->SelectALL();
 
 @$act = $_GET['act'];
 
 /* Checa se há técnicos cadastrados */
-if (($row == '0') AND ($act == NULL)) {
+if (($row == NULL) AND ($act == NULL)) {
 	echo "<h5>Não há técnicos cadastrados neste CLTI,<br />
 		 clique <a href=\"?cmd=lotclti&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
@@ -25,19 +25,17 @@ if ($act == 'cad') {
     @$param = $_GET['param'];
     @$senha = $_GET['senha'];
     if ($param){
-        $clti = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_clti WHERE idtb_lotacao_clti = '$param'");
+        $pesclti->idtb_lotacao_clti = $param;
+        $clti = $pesclti->SelectId();
     }
     else{
         $clti = (object)['idtb_lotacao_clti'=>'','nip'=>'','cpf'=>'','nome'=>'','nome_guerra'=>'',
             'idtb_om_apoiadas'=>'','sigla'=>'','idtb_posto_grad'=>'8','sigla_posto_grad'=>'Primeiro Tenente',
             'idtb_corpo_quadro'=>'','sigla_corpo_quadro'=>'','idtb_especialidade'=>'','sigla_espec'=>''];
     }
-    $postograd = "SELECT * FROM db_clti.tb_posto_grad ORDER BY idtb_posto_grad 	DESC";
-    $postograd = $pg->getRows($postograd);
-    $corpoquadro = "SELECT * FROM db_clti.tb_corpo_quadro";
-    $corpoquadro = $pg->getRows($corpoquadro);
-    $especialidade = "SELECT * FROM db_clti.tb_especialidade ORDER BY nome ASC";
-    $especialidade = $pg->getRows($especialidade);
+    $postograd = $mil->SelectAllPostoGrad();
+    $corpoquadro = $mil->SelectAllCorpoQuadro();
+    $especialidade = $mil->SelectAllEspec();
 	echo "
 	<div class=\"container-fluid\">
         <div class=\"row\">
@@ -285,8 +283,15 @@ if ($act == 'cad') {
 */
 if (($row) AND ($act == NULL)) {
 
-    $clti = "SELECT * FROM db_clti.vw_pessoal_clti ORDER BY idtb_posto_grad ASC";
-    $clti = $pg->getRows($clti);
+    $pesclti->ordena = "ORDER BY idtb_posto_grad ASC";
+    $clti = $pesclti->SelectALL();
+    $lotacao = $config->CountLotacaoCLTI();
+    $lotof = $config->CountLotOficiaisCLTI();
+    $lotpr = $config->CountLotPracasCLTI();
+    $efetof = $pesclti->CountOficiais();
+    $efetpr = $pesclti->CountPracas();
+    $efetfcivis = $pesclti->CountFCivil();
+    $efetivo = $efetof+$efetpr+$efetfcivis;
 
     echo"<div class=\"table-responsive\">
         <table class=\"table table-hover\">
@@ -300,31 +305,23 @@ if (($row) AND ($act == NULL)) {
             <tbody>
                 <tr>
                     <th scope=\"row\">#</th>
-                    <td>".$pg->getCol("SELECT lotacao_oficiais+lotacao_pracas
-                        FROM db_clti.tb_tipos_clti;")."</td>
-                    <td>".$pg->getCol("SELECT COUNT(nip) AS qtde 
-                        FROM db_clti.tb_lotacao_clti WHERE nip != '12345678' ")."</td>
+                    <td>".$lotacao."</td>
+                    <td>".$efetivo."</td>
                 </tr>
                 <tr>
                     <th scope=\"row\">Oficiais</th>
-                    <td>".$pg->getCol("SELECT lotacao_oficiais AS qtde 
-                        FROM db_clti.tb_tipos_clti;")."</td>
-                    <td>".$pg->getCol("SELECT COUNT(nip) AS qtde 
-                        FROM db_clti.tb_lotacao_clti WHERE idtb_posto_grad < '10' AND nip != '12345678' ")."</td>
+                    <td>".$lotof."</td>
+                    <td>".$efetof."</td>
                 </tr>
                 <tr>
                     <th scope=\"row\">Praças</th>
-                    <td> ".$pg->getCol("SELECT lotacao_pracas AS qtde 
-                        FROM db_clti.tb_tipos_clti;")."</td>
-                    <td> ".$pg->getCol("SELECT COUNT(nip) AS qtde 
-                        FROM db_clti.tb_lotacao_clti WHERE idtb_posto_grad > '9' AND idtb_posto_grad < '21'  
-                        AND nip != '12345678' ")."</td>
+                    <td> ".$lotpr."</td>
+                    <td> ".$efetpr."</td>
                 </tr>
                 <tr>
                     <th scope=\"row\">Servidores Civis</th>
                     <td> 0</td>
-                    <td> ".$pg->getCol("SELECT COUNT(cpf) AS qtde 
-                        FROM db_clti.tb_lotacao_clti WHERE idtb_posto_grad = '21' AND nip != '12345678' ")."</td>
+                    <td> ".$efetfcivis."</td>
                 </tr>
             </tbody>
         </table>
@@ -375,15 +372,19 @@ if (($row) AND ($act == NULL)) {
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         $idtb_lotacao_clti = $_POST['idtb_lotacao_clti'];
-        $postograd = $_POST['postograd'];
-        $corpoquadro = $_POST['corpoquadro'];
-        $especialidade = $_POST['especialidade'];
+        $pesclti->idtb_lotacao_clti = $idtb_lotacao_clti;
+        $pesclti->idtb_posto_grad = $_POST['postograd'];
+        $pesclti->idtb_corpo_quadro = $_POST['corpoquadro'];
+        $pesclti->idtb_especialidade = $_POST['especialidade'];
         $nip = $_POST['nip'];
+        $pesclti->nip = $nip;
         $cpf = $_POST['cpf'];
-        $nome = strtoupper($_POST['nome']);
-        $nomeguerra = strtoupper($_POST['nomeguerra']);
-        $correio_eletronico = strtolower($_POST['correio_eletronico']);
-        $ativo = strtoupper($_POST['ativo']);
+        $pesclti->cpf = $cpf;
+        $pesclti->nome = strtoupper($_POST['nome']);
+        $pesclti->nome_guerra = strtoupper($_POST['nomeguerra']);
+        $pesclti->correio_eletronico = strtolower($_POST['correio_eletronico']);
+        $pesclti->status = strtoupper($_POST['ativo']);
+        $pesclti->perfil = "TEC_CLTI";
 
         if ($nip == NULL) {
             $usuario = $cpf;
@@ -391,80 +392,60 @@ if ($act == 'insert') {
         else {
             $usuario = $nip;
         }
-
+        $pesclti->usuario = $usuario;
         /* Opta pelo Método Update */
         if ($idtb_lotacao_clti){
             $senha = $_POST['senha'];
 
             if($senha==NULL){
-                $sql = "UPDATE db_clti.tb_lotacao_clti SET
-                idtb_posto_grad='$postograd', idtb_corpo_quadro='$corpoquadro', 
-                idtb_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
-                nome_guerra='$nomeguerra', status='$ativo', correio_eletronico = '$correio_eletronico'
-                WHERE idtb_lotacao_clti='$idtb_lotacao_clti' ";
-            }
-
-            else{
-                
-                $hash = sha1(md5($senha));
-                $salt = sha1(md5($usuario));
-                $senha = $salt.$hash;
-
-                $sql = "UPDATE db_clti.tb_lotacao_clti SET
-                    idtb_posto_grad='$postograd', idtb_corpo_quadro='$corpoquadro', 
-                    idtb_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
-                    nome_guerra='$nomeguerra', senha='$senha', status='$ativo', correio_eletronico = '$correio_eletronico'
-                    WHERE idtb_lotacao_clti='$idtb_lotacao_clti' ";
-            }
-
-            $pg->exec($sql);
-
-            if ($pg) {
-                echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=lotclti\">";
-            }
-
-            else {
-                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                echo(pg_result_error($pg) . "<br />\n");
-            }
-        }
-
-        /* Opta pelo Método Insert */
-        else{
-
-            $sql = "SELECT * FROM db_clti.tb_lotacao_clti WHERE nip = '$usuario' OR cpf = '$usuario' ";
-            $row = $pg->getRow($sql);
-
-            if ($row) {
-                echo "<h5>Já existe um cadastro com esse NIP/CPF.</h5>
-                    $sql";
-            }
-
-            else {
-
-                $senha = $_POST['senha'];
-                $hash = sha1(md5($senha));
-                $salt = sha1(md5($usuario));
-                $senha = $salt.$hash;
-
-                $sql = "INSERT INTO db_clti.tb_lotacao_clti(
-                        idtb_posto_grad, idtb_corpo_quadro, idtb_especialidade, 
-                        nip, cpf, nome, nome_guerra, senha, status, perfil, correio_eletronico)
-                    VALUES ('$postograd', '$corpoquadro', '$especialidade', 
-                        '$nip', '$cpf', '$nome', '$nomeguerra', '$senha', 'ATIVO', 'TEC_CLTI', '$correio_eletronico')";
-
-
-                $pg->exec($sql);
-
-                if ($pg) {
+                $row = $pesclti->Update();
+                if ($row) {
                     echo "<h5>Resgistros incluídos no banco de dados.</h5>
                     <meta http-equiv=\"refresh\" content=\"1;url=?cmd=lotclti\">";
                 }
-
                 else {
                     echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                    echo(pg_result_error($pg) . "<br />\n");
+                    echo(pg_result_error($row) . "<br />\n");
+                }
+            }
+            else{
+                $hash = sha1(md5($senha));
+                $salt = sha1(md5($usuario));
+                $pesclti->senha = $salt.$hash;
+                $row = $pesclti->UpdateSenha();
+                if ($row) {
+                    echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=lotclti\">";
+                }
+                else {
+                    echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                    echo(pg_result_error($row) . "<br />\n");
+                }
+            }
+        }
+        /* Opta pelo Método Insert */
+        else{
+            $nip_cpf = $pesclti->ChecaNIPCPF();
+            $correio = $pesclti->ChecaCorreio();
+            if ($nip_cpf != NULL) {
+                echo "<h5>Já existe um Admin cadastrado com esse NIP/CPF.</h5>";
+            }
+            elseif ($correio != NULL){
+                echo "<h5>Já existe um Admin cadastrado com esse Correio Eletrônico.</h5>";
+            }
+            else {
+                $senha = $_POST['senha'];
+                $hash = sha1(md5($senha));
+                $salt = sha1(md5($usuario));
+                $pesti->senha = $salt.$hash;
+                $row = $pesclti->Insert();
+                if ($row) {
+                    echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=lotclti\">";
+                }
+                else {
+                    echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                    echo(pg_result_error($row) . "<br />\n");
                 }
             }
         }

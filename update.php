@@ -258,7 +258,48 @@ elseif ($versao == '1.2'){
 }
 
 elseif ($versao == '1.3'){
-	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.3.</div>
+
+	$pg->exec("CREATE TABLE db_clti.tb_manutencao_et (
+		idtb_manutencao_et serial NOT NULL,
+		idtb_estacoes int NOT NULL,
+		idtb_om_apoiadas int NOT NULL,
+		data_entrada date NOT NULL,
+		data_saida date NULL,
+		diagnostico char NULL,
+		custo_manutencao float4 NULL,
+		situacao varchar(255) NOT NULL,
+		CONSTRAINT tb_manutencao_et_pk PRIMARY KEY (idtb_manutencao_et),
+		CONSTRAINT tb_manutencao_et_fk FOREIGN KEY (idtb_estacoes) REFERENCES db_clti.tb_estacoes(idtb_estacoes),
+		CONSTRAINT tb_manutencao_et_fk_1 FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas)
+	);
+	CREATE INDEX tb_manutencao_et_idtb_manutencao_et_idx ON db_clti.tb_manutencao_et (idtb_manutencao_et);
+	COMMENT ON TABLE db_clti.tb_manutencao_et IS 'Tabela para controle de manutenção das ET.'");
+
+	$pg->exec("CREATE TABLE db_clti.tb_nec_aquisicao (
+		idtb_nec_aquisicao serial NOT NULL,
+		idtb_manutencao_et int NOT NULL,
+		desc_nec_aquisicao varchar(255) NULL,
+		preco_cotado float4 NULL,
+		previsao_aquisicao date NULL,
+		situacao varchar (255) NULL,
+		motivo_cancelamento varchar(255) NULL,
+		CONSTRAINT tb_nec_aquisicao_pk PRIMARY KEY (idtb_nec_aquisicao),
+		CONSTRAINT tb_nec_aquisicao_fk FOREIGN KEY (idtb_manutencao_et) REFERENCES db_clti.tb_manutencao_et 
+			(idtb_manutencao_et)
+	);
+	CREATE INDEX tb_nec_aquisicao_idtb_nec_aquisicao_idx ON db_clti.tb_nec_aquisicao (idtb_nec_aquisicao);
+	COMMENT ON TABLE db_clti.tb_nec_aquisicao IS 'Tabela contendo necessidade de aquisição de material 
+		para repado de ET.'");
+
+	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.4' WHERE parametro='VERSAO' ");
+	
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.4.</div>
+	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
+}
+
+elseif ($versao == '1.4'){
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.4.</div>
 	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
 }
 

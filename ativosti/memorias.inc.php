@@ -4,18 +4,16 @@
 **/
 
 /* Classe de interação com o PostgreSQL */
-require_once "../class/pgsql.class.php";
-$pg = new PgSql();
+require_once "../class/constantes.inc.php";
+$hw = new Hardware();
 
-/* Recupera informações dos Admin */
-$sql = "SELECT * FROM db_clti.tb_memorias";
-
-$row = $pg->getRow($sql);
+/* Recupera informações */
+$row = $hw->SelectAllMem();
 
 @$act = $_GET['act'];
 
 /* Checa se há SO cadastrado */
-if (($row == '0') AND ($act == NULL)) {
+if (($row == NULL) AND ($act == NULL)) {
 	echo "<h5>Não há Memórias cadastradas,<br />
 		 clique <a href=\"?cmd=memorias&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
@@ -24,7 +22,8 @@ if (($row == '0') AND ($act == NULL)) {
 if ($act == 'cad') {
     @$param = $_GET['param'];
     if ($param){
-        $memorias = $pg->getRow("SELECT * FROM db_clti.tb_memorias WHERE idtb_memorias = '$param'");
+        $hw->idtb_memorias = $param;
+        $memorias = $hw->SelectIdMem();
     }
     else{
         $memorias = (object)['idtb_memorias'=>'','tipo'=>'', 'modelo'=>'','clock'=>''];
@@ -83,9 +82,9 @@ if (($row) AND ($act == NULL)) {
                     </tr>
                 </thead>";
 
-    $proc = "SELECT * FROM db_clti.tb_memorias ";
-    $proc = $pg->getRows($proc);
-    foreach ($proc as $key => $value) {
+    $hw->ordena = "ORDER BY tipo,modelo,clock ASC";
+    $memorias = $hw->SelectAllMem();
+    foreach ($memorias as $key => $value) {
         echo"       <tr>
                         <th scope=\"row\">".$value->tipo."</th>
                         <td>".$value->modelo."</td>
@@ -105,41 +104,38 @@ if (($row) AND ($act == NULL)) {
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         $idtb_memorias = $_POST['idtb_memorias'];
-        $modelo = strtoupper($_POST['modelo']);
-        $tipo = strtoupper($_POST['tipo']);
-        $clock = $_POST['clock'];
+        $hw->idtb_memorias = $_POST['idtb_memorias'];
+        $hw->modelo = strtoupper($_POST['modelo']);
+        $hw->tipo = strtoupper($_POST['tipo']);
+        $hw->clock = $_POST['clock'];
         
         if ($idtb_memorias){
-            $sql = "UPDATE db_clti.tb_memorias SET modelo='$modelo', tipo='$tipo' , clock='$clock'
-                WHERE idtb_memorias='$idtb_memorias' ";
             
-            $pg->exec($sql);
+            $row = $hw->UpdateMem();
     
-            if ($pg) {
+            if ($row) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
                 <meta http-equiv=\"refresh\" content=\"1;url=?cmd=memorias\">";
             }
     
             else {
                 echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                echo(pg_result_error($pg) . "<br />\n");
+                echo(pg_result_error($row) . "<br />\n");
             }
         }
 
         else{
-            $sql = "INSERT INTO db_clti.tb_memorias(modelo,tipo,clock)
-                VALUES ('$modelo', '$tipo', '$clock')";
             
-            $pg->exec($sql);
+            $row = $hw->InsertMem();
     
-            if ($pg) {
+            if ($row) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
                 <meta http-equiv=\"refresh\" content=\"1;url=?cmd=memorias\">";
             }
     
             else {
                 echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                echo(pg_result_error($pg) . "<br />\n");
+                echo(pg_result_error($row) . "<br />\n");
             }
         }
     }

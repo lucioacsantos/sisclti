@@ -4,18 +4,18 @@
 **/
 
 /* Classe de interação com o PostgreSQL */
-require_once "../class/pgsql.class.php";
-$pg = new PgSql();
+require_once "../class/constantes.inc.php";
+$om = new OMAPoiadas();
+$pesti = new PessoalTI();
+$mil = new Militar();
 
-/* Recupera informações dos Admin */
-$sql = "SELECT * FROM db_clti.vw_pessoal_ti WHERE sigla_funcao='ADMIN' AND status='ATIVO' ";
-
-$row = $pg->getRow($sql);
+/* Recupera informações */
+$row = $pesti->SelectALLAdmin();
 
 @$act = $_GET['act'];
 
 /* Checa se há Admin cadastrado */
-if (($row == '0') AND ($act == NULL)) {
+if (($row == NULL) AND ($act == NULL)) {
 	echo "<h5>Não há Administradores cadastrados,<br />
 		 clique <a href=\"?cmd=admin&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
@@ -25,7 +25,8 @@ if ($act == 'cad') {
     @$param = $_GET['param'];
     @$senha = $_GET['senha'];
     if ($param){
-        $admin = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_ti WHERE idtb_pessoal_ti = '$param'");
+        $pesti->idtb_pessoal_ti = $param;
+        $admin = $pesti->SelectIdPesTI();
     }
     else{
         $admin = (object)['idtb_pessoal_ti'=>'','nip'=>'','cpf'=>'','nome'=>'','nome_guerra'=>'',
@@ -33,14 +34,11 @@ if ($act == 'cad') {
             'idtb_corpo_quadro'=>'','sigla_corpo_quadro'=>'','idtb_especialidade'=>'','sigla_espec'=>'',
             'correio_eletronico'=>''];
     }
-	$omapoiada = "SELECT * FROM db_clti.tb_om_apoiadas ORDER BY sigla ASC";
-    $omapoiada = $pg->getRows($omapoiada);
-    $postograd = "SELECT * FROM db_clti.tb_posto_grad ORDER BY idtb_posto_grad 	DESC";
-    $postograd = $pg->getRows($postograd);
-    $corpoquadro = "SELECT * FROM db_clti.tb_corpo_quadro";
-    $corpoquadro = $pg->getRows($corpoquadro);
-    $especialidade = "SELECT * FROM db_clti.tb_especialidade ORDER BY nome ASC";
-    $especialidade = $pg->getRows($especialidade);
+    $om->ordem = "ORDER BY sigla ASC";
+	$omapoiada = $om->SelectAllOMTable();
+    $postograd = $mil->SelectAllPostoGrad();
+    $corpoquadro = $mil->SelectAllCorpoQuadro();
+    $especialidade = $mil->SelectAllEspec();
     echo "
 	<div class=\"container-fluid\">
         <div class=\"row\">
@@ -184,9 +182,9 @@ if ($act == 'cad') {
                                     </div>
 
                                     <input id=\"senha\" class=\"form-control\" type=\"password\" name=\"senha\"
-                                            value=\"senha\" hidden=\"true\">
+                                            value=\"\" hidden=\"true\">
                                     <input id=\"confirmasenha\" class=\"form-control\" type=\"password\" name=\"confirmasenha\"
-                                        value=\"confirmasenha\" hidden=\"true\">
+                                        value=\"\" hidden=\"true\">
 
                                     <div class=\"form-group\">
                                         <label for=\"ativo\" class=\"control-label\">Situação:</label>
@@ -312,10 +310,10 @@ if ($act == 'cad') {
 }
 
 /* Monta quadro de administradores */
-if (($row) AND ($act == NULL)) {
+if (($row != NULL) AND ($act == NULL)) {
 
-	$admin = "SELECT * FROM db_clti.vw_pessoal_ti WHERE sigla_funcao='ADMIN' AND status='ATIVO' ORDER BY idtb_posto_grad DESC";
-    $admin = $pg->getRows($admin);
+	$pesti->ordem = "ORDER BY idtb_posto_grad DESC";
+    $admin = $pesti->SelectALLAdmin();
 
     echo"<div class=\"table-responsive\">
             <table class=\"table table-hover\">
@@ -360,111 +358,81 @@ if (($row) AND ($act == NULL)) {
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         $idtb_pessoal_ti = $_POST['idtb_admin'];
-        $omapoiada = $_POST['omapoiada'];
-        $postograd = $_POST['postograd'];
-        $corpoquadro = $_POST['corpoquadro'];
-        $especialidade = $_POST['especialidade'];
+        $pesti->idtb_pessoal_ti = $_POST['idtb_admin'];
+        $pesti->idtb_om_apoiadas = $_POST['omapoiada'];
+        $pesti->idtb_posto_grad = $_POST['postograd'];
+        $pesti->idtb_corpo_quadro = $_POST['corpoquadro'];
+        $pesti->idtb_especialidade = $_POST['especialidade'];
         $nip = $_POST['nip'];
+        $pesti->nip = $nip;
         $cpf = $_POST['cpf'];
-        $nome = strtoupper($_POST['nome']);
-        $nomeguerra = strtoupper($_POST['nomeguerra']);
-        $correio_eletronico = strtolower($_POST['correio_eletronico']);
-        $ativo = strtoupper($_POST['ativo']);
-
+        $pesti->cpf = $cpf;
+        $pesti->nome = strtoupper($_POST['nome']);
+        $pesti->nome_guerra = strtoupper($_POST['nomeguerra']);
+        $pesti->correio_eletronico = strtolower($_POST['correio_eletronico']);
+        $pesti->status = strtoupper($_POST['ativo']);
+        $pesti->idtb_funcoes_ti = '1';
         if ($nip == NULL) {
             $usuario = $cpf;
         }
         else {
             $usuario = $nip;
         }
-
+        $pesti->usuario = $usuario;
         /* Opta pelo Método Update */
         if ($idtb_pessoal_ti){
             $senha = $_POST['senha'];
-
             if($senha==NULL){
-                $sql = "UPDATE db_clti.tb_pessoal_ti SET
-                idtb_om_apoiadas='$omapoiada',idtb_posto_grad='$postograd', idtb_corpo_quadro='$corpoquadro', 
-                idtb_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
-                nome_guerra='$nomeguerra', correio_eletronico='$correio_eletronico',
-                funcao='ADMIN', status='$ativo'
-                WHERE idtb_pessoal_ti='$idtb_pessoal_ti'";
-            }
-
-            else{
-                
-                $hash = sha1(md5($senha));
-                $salt = sha1(md5($usuario));
-                $senha = $salt.$hash;
-
-                $sql = "UPDATE db_clti.tb_pessoal_ti SET
-                    idtb_om_apoiadas='$omapoiada',idtb_posto_grad='$postograd', idtb_corpo_quadro='$corpoquadro', 
-                    idtb_especialidade='$especialidade', nip='$nip', cpf='$cpf', nome='$nome', 
-                    nome_guerra='$nomeguerra', senha='$senha', correio_eletronico='$correio_eletronico',
-                    funcao='ADMIN', status='$ativo'
-                    WHERE idtb_pessoal_ti='$idtb_pessoal_ti'";
-            }
-
-
-            $pg->exec($sql);
-
-            if ($pg) {
-                echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=admin\">";
-            }
-
-            else {
-                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                echo(pg_result_error($pg) . "<br />\n");
-            }
-        }
-
-        /* Opta pelo Método Insert */
-        else{
-
-            /* Checa se há Admin com mesmo login cadastrado */
-
-            $nip_cpf = "SELECT * FROM db_clti.tb_pessoal_ti WHERE nip = '$usuario' OR cpf = '$usuario' ";
-            $nip_cpf = $pg->getRow($nip_cpf);
-
-            $correio = "SELECT * FROM db_clti.tb_pessoal_ti WHERE correio_eletronico = '$correio_eletronico' ";
-            $correio = $pg->getRow($correio);
-
-            if ($nip_cpf) {
-                echo "<h5>Já existe um Admin cadastrado com esse NIP/CPF.</h5>";
-            }
-
-            elseif ($correio){
-                echo "<h5>Já existe um Admin cadastrado com esse Correio Eletrônico.</h5>";
-            }
-
-            else {
-
-                $senha = $_POST['senha'];
-
-                $hash = sha1(md5($senha));
-                $salt = sha1(md5($usuario));
-                $senha = $salt.$hash;
-
-                $sql = "INSERT INTO db_clti.tb_pessoal_ti(
-                    idtb_om_apoiadas,idtb_posto_grad, idtb_corpo_quadro, idtb_especialidade, nip, 
-                    cpf, nome, nome_guerra, senha, correio_eletronico, idtb_funcoes_ti, status)
-                    VALUES ('$omapoiada', '$postograd', '$corpoquadro', '$especialidade',
-                    '$nip', '$cpf', '$nome', '$nomeguerra', '$senha', '$correio_eletronico',
-                    1, 'ATIVO')";
-
-                $pg->exec($sql);
-
-                if ($pg) {
+                $row = $pesti->UpdatePesTI();
+                if ($row) {
                     echo "<h5>Resgistros incluídos no banco de dados.</h5>
                     <meta http-equiv=\"refresh\" content=\"1;url=?cmd=admin\">";
                 }
-
                 else {
                     echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                    echo(pg_result_error($pg) . "<br />\n");
+                    echo(pg_result_error($row) . "<br />\n");
                 }
-
+            }
+            else{
+                $hash = sha1(md5($senha));
+                $salt = sha1(md5($usuario));
+                $pesti->senha = $salt.$hash;
+                $row = $pesti->UpdateSenhaPesti();
+                if ($row) {
+                    echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=admin\">";
+                }
+                else {
+                    echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                    echo(pg_result_error($row) . "<br />\n");
+                }
+            }            
+        }
+        /* Opta pelo Método Insert */
+        else{
+            /* Checa se há Admin com mesmo login cadastrado */
+            $nip_cpf = $pesti->ChecaNIPCPF();
+            $correio = $pesti->ChecaCorreio();
+            if ($nip_cpf != NULL) {
+                echo "<h5>Já existe um Admin cadastrado com esse NIP/CPF.</h5>";
+            }
+            elseif ($correio != NULL){
+                echo "<h5>Já existe um Admin cadastrado com esse Correio Eletrônico.</h5>";
+            }
+            else {
+                $senha = $_POST['senha'];
+                $hash = sha1(md5($senha));
+                $salt = sha1(md5($usuario));
+                $pesti->senha = $salt.$hash;
+                $row = $pesti->InsertPesTI();
+                if ($row) {
+                    echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=admin\">";
+                }
+                else {
+                    echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                    echo(pg_result_error($row) . "<br />\n");
+                }
             }
         }
     }
@@ -473,5 +441,4 @@ if ($act == 'insert') {
             <meta http-equiv=\"refresh\" content=\"1;$url\">";
     }
 }
-
 ?>

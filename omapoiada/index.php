@@ -4,11 +4,11 @@
 **/
 
 /* Clasee de interação com o PostgreSQL */
-require_once "../class/pgsql.class.php";
-$pg = new PgSql();
+require_once "../class/constantes.inc.php";
+$cfg = new Config();
 
 /* URL Recuperada do Banco de Dados */
-$url = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='URL'");
+$url = $cfg->SelectURL();
 
 include "../head.php";
 
@@ -137,6 +137,30 @@ switch ($cmd) {
       </div>";
   
       break;
+
+      case 'manutencaoet':
+        echo "
+            <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
+              <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
+                <h1 class=\"h2\">Manutenção - Estações de Trabalho</h1>
+                <div class=\"btn-toolbar mb-2 mb-md-0\">
+                  <div class=\"btn-group mr-2\">
+                    <a href=\"?cmd=necaquisicao\"><button class=\"btn btn-sm btn-outline-secondary\">
+                      Nec. de Aquisição</button></a>
+                  </div>
+                  <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
+                    <span data-feather=\"calendar\"></span>
+                    Esta Semana
+                  </button>-->
+                </div>
+              </div>";
+        include "manutencaoet.inc.php";
+        echo"
+        </main>
+          </div>
+        </div>";
+    
+        break;
   
     case 'conectividade':
       echo "
@@ -179,8 +203,7 @@ switch ($cmd) {
               </button>-->
             </div>
           </div>
-          <p>OM Apoiadas: ".$pg->getCol("SELECT COUNT(idtb_om_apoiadas)
-            FROM db_clti.tb_om_apoiadas;")." OM</p>
+          <p>OM Apoiadas: xx OM</p>
           <p>Servidores: xx Servidores</p>
           <p>Estações de Trabalho (ET): xx Estações de Trabalho</p>
           <p>Pessoal de TI (OM Apoiadas): xx Técnicos de TI</p>

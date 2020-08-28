@@ -3,9 +3,12 @@
 *** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
-$sigla = $pg->getCol("SELECT sigla FROM db_clti.tb_clti");
-
-$versao = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='VERSAO' ");
+/* Classe de interação com o PostgreSQL */
+require_once "class/constantes.inc.php";
+$config = new Config();
+$url = $config->SelectURL();
+$sigla = $config->SelectSigla();
+$versao = $config->SelectVersao();
 
 ?>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
@@ -120,7 +123,7 @@ $versao = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='VERS
                     Memórias
                   </a>
                 </li>
-                <li class=\"nav-item\">
+                <!--<li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=setores\">
                     <span data-feather=\"layout\"></span>
                     Setores da OM
@@ -143,7 +146,7 @@ $versao = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='VERS
                     <span data-feather=\"command\"></span>
                     Equipamentos de Conectividade
                   </a>
-                </li>
+                </li>-->
               </ul>";
               }
               else{
@@ -203,25 +206,5 @@ $versao = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='VERS
               </ul>";
               }
               ?>
-            <!--<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-              <span>Relatórios Salvos</span>
-              <a class="d-flex align-items-center text-muted" href="#">
-                <span data-feather="plus-circle"></span>
-              </a>
-            </h6>
-            <ul class="nav flex-column mb-2">
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="file-text"></span>
-                  Mês Atual
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="file-text"></span>
-                  Últimos Quinze Dias
-                </a>
-              </li>
-            </ul>-->
           </div>
         </nav>

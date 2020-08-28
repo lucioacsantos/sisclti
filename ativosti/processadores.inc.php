@@ -4,18 +4,16 @@
 **/
 
 /* Classe de interação com o PostgreSQL */
-require_once "../class/pgsql.class.php";
-$pg = new PgSql();
+require_once "../class/constantes.inc.php";
+$hw = new Hardware();
 
-/* Recupera informações dos Admin */
-$sql = "SELECT * FROM db_clti.tb_proc_modelo";
-
-$row = $pg->getRow($sql);
+/* Recupera informações */
+$row = $hw->SelectAllProcModelo();
 
 @$act = $_GET['act'];
 
 /* Checa se há SO cadastrado */
-if (($row == '0') AND ($act == NULL)) {
+if (($row == NULL) AND ($act == NULL)) {
 	echo "<h5>Não há Processadores cadastrados,<br />
 		 clique <a href=\"?cmd=processadores&act=cadfab\">aqui</a> para fazê-lo.</h5>";
 }
@@ -24,7 +22,8 @@ if (($row == '0') AND ($act == NULL)) {
 if ($act == 'cadfab') {
     @$param = $_GET['param'];
     if ($param){
-        $procfab = $pg->getRow("SELECT * FROM db_clti.tb_proc_fab WHERE idtb_proc_fab = '$param'");
+        $hw->idtb_proc_fab = $param;
+        $procfab = $hw->SelectIdProcFab();
     }
     else{
         $procfab = (object)['idtb_proc_fab'=>'','nome'=>''];
@@ -60,13 +59,14 @@ if ($act == 'cadfab') {
 if ($act == 'cadproc') {
     @$param = $_GET['param'];
     if ($param){
-        $procmodelo = $pg->getRow("SELECT * FROM db_clti.vw_processadores WHERE idtb_proc_modelo = '$param'");
+        $hw->idtb_proc_modelo = $param;
+        $procmodelo = $hw->SelectIdProcView();
     }
     else{
         $procmodelo = (object)['idtb_proc_modelo'=>'','idtb_proc_fab'=>'','fabricante'=>'','modelo'=>''];
     }
-    $procfab = "SELECT * FROM db_clti.tb_proc_fab ORDER BY nome ASC";
-    $procfab = $pg->getRows($procfab);
+    $hw->ordena = "ORDER BY nome ASC";
+    $procfab = $hw->SelectAllProcFab();
     echo "
 	<div class=\"container-fluid\">
         <div class=\"row\">
@@ -118,8 +118,8 @@ if (($row) AND ($act == NULL)) {
                     </tr>
                 </thead>";
 
-    $proc = "SELECT * FROM db_clti.vw_processadores ORDER BY fabricante,modelo ASC";
-    $proc = $pg->getRows($proc);
+    $hw->ordena = "ORDER BY fabricante,modelo ASC";
+    $proc = $hw->SelectAllProcView();
     foreach ($proc as $key => $value) {
         echo"       <tr>
                         <th scope=\"row\">
@@ -142,38 +142,36 @@ if (($row) AND ($act == NULL)) {
 if ($act == 'insertfab') {
     if (isset($_SESSION['status'])){
         $idtb_proc_fab = strtoupper($_POST['idtb_proc_fab']);
-        $nome = strtoupper($_POST['fabricante']);
+        $hw->idtb_proc_fab = strtoupper($_POST['idtb_proc_fab']);
+        $hw->nome = strtoupper($_POST['fabricante']);
         
         if ($idtb_proc_fab){
-            $sql = "UPDATE db_clti.tb_proc_fab SET nome='$nome' WHERE idtb_proc_fab='$idtb_proc_fab' ";
             
-            $pg->exec($sql);
+            $row = $hw->UpdateProcFab();
     
-            if ($pg) {
+            if ($row) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
                 <meta http-equiv=\"refresh\" content=\"1;url=?cmd=processadores\">";
             }
     
             else {
                 echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                echo(pg_result_error($pg) . "<br />\n");
+                echo(pg_result_error($row) . "<br />\n");
             }
         }
 
         else{
-            $sql = "INSERT INTO db_clti.tb_proc_fab(nome)
-                VALUES ('$nome')";
             
-            $pg->exec($sql);
+            $row = $hw->InsertProcFab();
     
-            if ($pg) {
+            if ($row) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
                 <meta http-equiv=\"refresh\" content=\"1;url=?cmd=processadores\">";
             }
     
             else {
                 echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                echo(pg_result_error($pg) . "<br />\n");
+                echo(pg_result_error($row) . "<br />\n");
             }
         }
     }
@@ -187,40 +185,37 @@ if ($act == 'insertfab') {
 if ($act == 'insertmodelo') {
     if (isset($_SESSION['status'])){
         $idtb_proc_modelo = strtoupper($_POST['idtb_proc_modelo']);
-        $idtb_proc_fab = strtoupper($_POST['idtb_proc_fab']);
-        $modelo = strtoupper($_POST['modelo']);
+        $hw->idtb_proc_modelo = strtoupper($_POST['idtb_proc_modelo']);
+        $hw->idtb_proc_fab = strtoupper($_POST['idtb_proc_fab']);
+        $hw->modelo = strtoupper($_POST['modelo']);
         
         if ($idtb_proc_modelo){
-            $sql = "UPDATE db_clti.tb_proc_modelo SET idtb_proc_fab='$idtb_proc_fab', modelo='$modelo' 
-                WHERE idtb_proc_modelo='$idtb_proc_modelo' ";
-            
-            $pg->exec($sql);
+
+            $row = $hw->UpdateProcModelo();
     
-            if ($pg) {
+            if ($row) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
                 <meta http-equiv=\"refresh\" content=\"1;url=?cmd=processadores\">";
             }
     
             else {
                 echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                echo(pg_result_error($pg) . "<br />\n");
+                echo(pg_result_error($row) . "<br />\n");
             }
         }
 
         else{
-            $sql = "INSERT INTO db_clti.tb_proc_modelo(idtb_proc_fab,modelo)
-                VALUES ('$idtb_proc_fab','$modelo')";
             
-            $pg->exec($sql);
+            $row = $hw->InsertProcModelo();
     
-            if ($pg) {
+            if ($row) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
                 <meta http-equiv=\"refresh\" content=\"1;url=?cmd=processadores\">";
             }
     
             else {
                 echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                echo(pg_result_error($pg) . "<br />\n");
+                echo(pg_result_error($row) . "<br />\n");
             }
         }
     }

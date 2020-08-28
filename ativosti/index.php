@@ -4,11 +4,9 @@
 **/
 
 /* Clasee de interação com o PostgreSQL */
-require_once "../class/pgsql.class.php";
-$pg = new PgSql();
-
-/* URL Recuperada do Banco de Dados */
-$url = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='URL'");
+require_once "../class/constantes.inc.php";
+$om = new OMApoiadas();
+$qtdeom = $om->CountOMApoiadas();
 
 include "../head.php";
 
@@ -181,8 +179,7 @@ switch ($cmd) {
               </button>-->
             </div>
           </div>
-          <p>OM Apoiadas: ".$pg->getCol("SELECT COUNT(idtb_om_apoiadas)
-            FROM db_clti.tb_om_apoiadas;")." OM</p>
+          <p>OM Apoiadas: ".$qtdeom." OM</p>
           <p>Servidores: xx Servidores</p>
           <p>Estações de Trabalho (ET): xx Estações de Trabalho</p>
           <p>Pessoal de TI (OM Apoiadas): xx Técnicos de TI</p>

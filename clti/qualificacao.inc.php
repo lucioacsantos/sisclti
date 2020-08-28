@@ -4,8 +4,8 @@
 **/
 
 /* Classe de interação com o PostgreSQL */
-require_once "../class/pgsql.class.php";
-$pg = new PgSql();
+require_once "../class/constantes.inc.php";
+$qti = new PessoalCLTI();
 
 /* Recupera informações dos Admin */
 $sql = "SELECT * FROM db_clti.tb_qualificacao_clti";
@@ -39,16 +39,18 @@ if (($row == '0') AND ($act == NULL)) {
     </div>";
 }
 
-/* Carrega form para cadastro de Admin */
+/* Carrega form para cadastro */
 if ($act == 'cad') {
     @$nip_cpf = $_POST['nip_cpf'];
     @$param = $_GET['param'];
 
     if ($param){
-        $qualiti = $pg->getRow("SELECT * FROM db_clti.vw_qualificacao_clti WHERE idtb_qualificacao_clti = '$param' ");
+        $qti->idtb_qualificacao_clti = $param;
+        $qualiti = $qti->SelectIdQualif();
     }
     else{
-        $qualiti = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_clti WHERE nip = '$nip_cpf' OR cpf = '$nip_cpf' ");
+        $qti->idtb_qualificacao_clti = $nip_cpf;
+        $qualiti = $qualiti = $qti->SelectIdQualif();
         if ($qualiti){
             $qualiti = (object)['idtb_lotacao_clti'=>$qualiti->idtb_lotacao_clti,'idtb_qualificacao_clti'=>'',
                 'sigla_posto_grad'=>$qualiti->sigla_posto_grad,'nome_guerra'=>$qualiti->nome_guerra,
@@ -155,7 +157,7 @@ if ($act == 'cad') {
     </div>";
 }
 
-/* Monta quadro de administradores */
+/* Monta quadro */
 if (($row) AND ($act == NULL)) {
 
 echo "
@@ -180,8 +182,8 @@ echo "
         </div>
     </div>";
 
-	$qualiti = "SELECT * FROM db_clti.vw_qualificacao_clti ORDER BY idtb_posto_grad, tipo, nome_curso, data_conclusao ASC";
-    $qualiti = $pg->getRows($qualiti);
+	$ordena = "ORDER BY idtb_posto_grad, tipo, nome_curso, data_conclusao ASC";
+    $qualiti = $qti->SelectAllQualif();
 
     echo"<div class=\"table-responsive\">
             <table class=\"table table-hover\">
@@ -228,61 +230,43 @@ echo "
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         $idtb_qualificacao_clti = $_POST['idtb_qualificacao_clti'];
-        $idtb_lotacao_clti = $_POST['idtb_lotacao_clti'];
-        $instituicao = strtoupper($_POST['instituicao']);
-        $tipo = strtoupper($_POST['tipo']);
-        $nome_curso = strtoupper($_POST['nome_curso']);
-        $meio = strtoupper($_POST['meio']);
-        $situacao = strtoupper($_POST['situacao']);
+        $qti->idtb_qualificacao_clti = $idtb_qualificacao_clti;
+        $qti->idtb_lotacao_clti = $_POST['idtb_lotacao_clti'];
+        $qti->instituicao = strtoupper($_POST['instituicao']);
+        $qti->tipo = strtoupper($_POST['tipo']);
+        $qti->nome_curso = strtoupper($_POST['nome_curso']);
+        $qti->meio = strtoupper($_POST['meio']);
+        $qti->situacao = strtoupper($_POST['situacao']);
         $data_conclusao = $_POST['data_conclusao'];
-        $carga_horaria = $_POST['carga_horaria'];
-        $custo = $_POST['custo'];
+        $qti->carga_horaria = $_POST['carga_horaria'];
+        $qti->custo = $_POST['custo'];
 
         if ($data_conclusao == NULL) {
-            $data_conclusao = 'NULL';
+            $qti->data_conclusao = 'NULL';
         }
 
         /* Opta pelo Método Update */
         if ($idtb_qualificacao_clti){
-
-            $sql = "UPDATE db_clti.tb_qualificacao_clti SET
-                idtb_lotacao_clti='$idtb_lotacao_clti',instituicao='$instituicao', tipo='$tipo', nome_curso='$nome_curso', 
-                meio='$meio', situacao='$situacao', data_conclusao='$data_conclusao', 
-                carga_horaria='$carga_horaria', custo='$custo'
-                WHERE idtb_qualificacao_clti='$idtb_qualificacao_clti'";
-
-            $pg->exec($sql);
-
-            if ($pg) {
+            $row = $qti->UpdateQualif();
+            if ($row) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
                 <meta http-equiv=\"refresh\" content=\"1;?cmd=qualificacao\">";
             }
-
             else {
                 echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                echo(pg_result_error($pg) . "<br />\n");
+                echo(pg_result_error($row) . "<br />\n");
             }
         }
-
         /* Opta pelo Método Insert */
         else{
-
-            $sql = "INSERT INTO db_clti.tb_qualificacao_clti(
-                    idtb_lotacao_clti, instituicao, tipo, nome_curso, meio, situacao, 
-                    data_conclusao, carga_horaria, custo)
-                VALUES ('$idtb_lotacao_clti', '$instituicao', '$tipo', '$nome_curso',
-                    '$meio', '$situacao', '$data_conclusao', '$carga_horaria', '$custo')";
-
-            $pg->exec($sql);
-
-            if ($pg) {
+            $row = $qti->InsertQualif();
+            if ($row) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
                 <meta http-equiv=\"refresh\" content=\"1;?cmd=qualificacao\">";
             }
-
             else {
                 echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                echo(pg_result_error($pg) . "<br />\n");
+                echo(pg_result_error($row) . "<br />\n");
             }
         }
     }
@@ -290,7 +274,5 @@ if ($act == 'insert') {
         echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
             <meta http-equiv=\"refresh\" content=\"1;$url\">";
     }
-    
 }
-
 ?>

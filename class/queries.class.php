@@ -3,6 +3,9 @@
 *** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
+/* Inicializa Sessão */
+session_start();
+
 /* Registro de Tabelas e Visões */
 $tb_cidade="db_clti.tb_cidade";
 $tb_clti="db_clti.tb_clti";
@@ -14,7 +17,9 @@ $tb_estacoes="db_clti.tb_estacoes";
 $tb_estado="db_clti.tb_estado";
 $tb_funcoes_ti="db_clti.tb_funcoes_ti";
 $tb_lotacao_clti="db_clti.tb_lotacao_clti";
+$tb_manutencao_et="db_clti.tb_manutencao_et";
 $tb_memorias="db_clti.tb_memorias";
+$tb_nec_aquisicao="db_clti.tb_nec_aquisicao";
 $tb_om_apoiadas="db_clti.tb_om_apoiadas";
 $tb_om_setores="db_clti.tb_om_setores";
 $tb_osic="db_clti.tb_osic";
@@ -40,7 +45,13 @@ $vw_qualificacao_pesti="db_clti.vw_qualificacao_pesti";
 $vw_servidores="db_clti.vw_servidores";
 $vw_setores="db_clti.vw_setores";
 
-
+/* Função para Verificar Login */
+function isLoggedIn(){
+    if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true){
+        return false;
+    }
+    return true;
+}
 
 /* Classe PgSQL */
 class ConsultaSQL
@@ -54,51 +65,51 @@ class ConsultaSQL
         return $query;
     }
 
-    public function update($tabela,$campos,$valores,$condicoes) 
+    public function update($tabela,$campos_valores,$condicoes) 
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $query = $pg->exec("UPDATE $tabela SET ($campos) = ($valores) WHERE $condicoes");
+        $query = $pg->exec("UPDATE $tabela SET $campos_valores WHERE $condicoes");
         return $query;
     }
 
-    public function select($tabela,$condicoes,$ordenacao)
+    public function select($campos,$tabela,$condicoes,$ordenacao)
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
 
         if ($condicoes and $ordenacao){
-            $query = $pg->getRow("SELECT * FROM $tabela WHERE $condicoes ORDER BY $ordenacao");
+            $query = $pg->getRow("SELECT $campos FROM $tabela WHERE $condicoes ORDER BY $ordenacao");
         }
         elseif ($condicoes and !$ordenacao){
-            $query = $pg->getRow("SELECT * FROM $tabela WHERE $condicoes");
+            $query = $pg->getRow("SELECT $campos FROM $tabela WHERE $condicoes");
         }
         elseif (!$condicoes and $ordenacao){
-            $query = $pg->getRow("SELECT * FROM $tabela ORDER BY $ordenacao");
+            $query = $pg->getRow("SELECT $campos FROM $tabela ORDER BY $ordenacao");
         }
         else{
-            $query = $pg->getRow("SELECT * FROM $tabela");
+            $query = $pg->getRow("SELECT $campos FROM $tabela");
         }
         
         return $query;
     }
 
-    public function selectMulti($tabela,$condicoes,$ordenacao)
+    public function selectMulti($campos,$tabela,$condicoes,$ordenacao)
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
 
         if ($condicoes and $ordenacao){
-            $query = $pg->getRows("SELECT * FROM $tabela WHERE $condicoes ORDER BY $ordenacao");
+            $query = $pg->getRows("SELECT $campos FROM $tabela WHERE $condicoes ORDER BY $ordenacao");
         }
         elseif ($condicoes and !$ordenacao){
-            $query = $pg->getRows("SELECT * FROM $tabela WHERE $condicoes");
+            $query = $pg->getRows("SELECT $campos FROM $tabela WHERE $condicoes");
         }
         elseif (!$condicoes and $ordenacao){
-            $query = $pg->getRows("SELECT * FROM $tabela ORDER BY $ordenacao");
+            $query = $pg->getRows("SELECT $campos FROM $tabela ORDER BY $ordenacao");
         }
         else{
-            $query = $pg->getRows("SELECT * FROM $tabela");
+            $query = $pg->getRows("SELECT $campos FROM $tabela");
         }
 
         return $query;

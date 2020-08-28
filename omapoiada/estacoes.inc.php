@@ -4,17 +4,21 @@
 **/
 
 /* Classe de interação com o PostgreSQL */
-require_once "../class/queries.class.php";
-$cns = new ConsultaSQL();
+require_once "../class/constantes.inc.php";
+$et = new Estacoes();
+$om = new OMApoiadas();
+$ip = new IP();
+$sor = new SO();
+$hw = new Hardware();
 
 $omapoiada = $_SESSION['id_om_apoiada'];
 
-$estacoes = $cns->select($tb_estacoes,'','');
+$row = $et->SelectAllTable();
 
 @$act = $_GET['act'];
 
 /* Checa se o tipo de CLTI está cadastrado */
-if ((!$estacoes) AND ($act == NULL)) {
+if (($estacoes == NULL) AND ($act == NULL)) {
 	echo "<h5>Não há estações cadastradas,<br />
 		 clique <a href=\"?cmd=estacoes&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
@@ -23,9 +27,8 @@ if ((!$estacoes) AND ($act == NULL)) {
 if ($act == 'cad') {
     @$param = $_GET['param'];
     if ($param){
-        $condicoes = "idtb_estacoes = '$param'";
-        $ordenacao = "idtb_estacoes ASC";
-        $estacoes = $cns->select($vw_estacoes,$condicoes,$ordenacao);
+        $et->idtb_estacoes = $param;
+        $estacoes = $et->SelectIdView();
     }
     else{
         $estacoes = (object)['idtb_estacoes'=>'','idtb_om_apoiadas'=>'','sigla'=>'','fabricante'=>'','modelo'=>'',
@@ -34,14 +37,16 @@ if ($act == 'cad') {
             'idtb_sor'=>'','descricao'=>'','versao'=>'','end_ip'=>'','end_mac'=>'','data_aquisicao'=>'NULL',
             'compartimento'=>'','data_garantia'=>'NULL','localizacao'=>'','req_minimos'=>'','situacao'=>''];
     }
-    $ordenacao = "desenvolvedor,versao ASC";
-    $so = $cns->selectMulti($tb_sor,'',$ordenacao);
-    $ordenacao = "fabricante ASC";
-    $proc = $cns->selectMulti($vw_processadores,'',$ordenacao);
-    $ordenacao = "tipo DESC";
-    $mem = $cns->selectMulti($tb_memorias,'',$ordenacao);
-    $ordenacao = "nome_setor ASC";
-    $local = $cns->selectMulti($vw_setores,'',$ordenacao);
+    $om->ordena = "ORDER BY cod_om ASC";
+    $omapoiada = $om->SelectAllTable();
+    $sor->ordena = "ORDER BY desenvolvedor,versao ASC";
+    $so = $sor->SelectSOAtivo();
+    $hw->ordena = "ORDER BY fabricante ASC";
+    $proc = $hw->SelectAllProcView();
+    $hw->ordena = "ORDER BY tipo DESC";
+    $mem = $hw->SelectAllMem();
+    $om->ordena = "ORDER BY nome_setor ASC";
+    $local = $om->SelectAllSetoresView();
     
     include "estacoes-formcad.inc.php";
 }
@@ -52,11 +57,11 @@ if (($estacoes) AND ($act == NULL)) {
     
     if ($omapoiada != ''){
         $condicoes = "idtb_om_apoiadas = $omapoiada";
-        $estacoes = $cns->selectMulti($vw_estacoes,$condicoes,'');
+        $estacoes = $cns->selectMulti($campos,$vw_estacoes,$condicoes,'');
     }
     else{
-        $ordenacao = "ORDER BY idtb_om_apoiadas ASC";
-        $estacoes = $cns->selectMulti($vw_estacoes,'',$ordenacao);
+        $ordenacao = "idtb_om_apoiadas ASC";
+        $estacoes = $cns->selectMulti($campos,$vw_estacoes,'',$ordenacao);
     }
 
     echo"<div class=\"table-responsive\">
@@ -95,8 +100,10 @@ if (($estacoes) AND ($act == NULL)) {
                         if ($value->status == "SEM ATIVIDADE"){
                             echo "<span data-feather=\"alert-triangle\"></span></td>";
                         }
-                 echo  "<td><a href=\"?cmd=estacoes&act=cad&param=".$value->idtb_estacoes."\">Editar</a> - 
-                        Excluir</td>
+                 echo  "<td>
+                            <a href=\"?cmd=estacoes&act=cad&param=".$value->idtb_estacoes."\">Editar</a> - 
+                            <a href=\"?cmd=manutencaoet&act=cad&param=".$value->idtb_estacoes."\">Manutenção</a>
+                        </td>
                     </tr>";
     }
     echo"

@@ -4,18 +4,17 @@
 **/
 
 /* Classe de interação com o PostgreSQL */
-require_once "../class/pgsql.class.php";
-$pg = new PgSql();
+require_once "../class/constantes.inc.php";
+$omap = new OMAPoiadas();
+$cfg = new Config();
 
-/* Recupera informações do tipo das OM Apoiadas */
-$sql = "SELECT * FROM db_clti.tb_om_apoiadas";
-
-$row = $pg->getRow($sql);
+/* Recupera informações */
+$row = $omap->SelectAllOMTable();
 
 @$act = $_GET['act'];
 
 /* Checa se há OM cadastradas */
-if (($row == '0') AND ($act == NULL)) {
+if (($row == NULL) AND ($act == NULL)) {
 	echo "<h5>Não há OM Apoiadas cadastradas neste CLTI,<br />
 		 clique <a href=\"?cmd=omapoiadas&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
@@ -24,13 +23,18 @@ if (($row == '0') AND ($act == NULL)) {
 if ($act == 'cad') {
     @$param = $_GET['param'];
     if ($param){
-        $om = $pg->getRow("SELECT * FROM db_clti.tb_om_apoiadas WHERE idtb_om_apoiadas = '$param'");
-        $estado = $pg->getRow("SELECT * FROM db_clti.tb_estado WHERE id = '$om->idtb_estado'");
-        $cidade = $pg->getRow("SELECT * FROM db_clti.tb_cidade WHERE id = '$om->idtb_cidade'");
+        $omap->idtb_om_apoiadas = $param;
+        $om = $omap->SelectIdOMTable();
+        $omap->estado = $om->idtb_estado;
+        $estado = $omap->SelectIdEstado();
+        $omap->cidade = $om->idtb_cidade;
+        $cidade = $omap->SelectIdCidade();
     }
     else{
-        $ESTADO = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='ESTADO'");
-        $CIDADE = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='CIDADE'");
+        $row = $cfg->SelectEstado();
+        $ESTADO = $row->valor;
+        $row = $cfg->SelectCidade();
+        $CIDADE = $row->valor;
         $om = (object)['idtb_om_apoiadas'=>'','cod_om'=>'','nome'=>'','sigla'=>'','indicativo'=>''];
         $estado = (object)['uf'=>$ESTADO];
         $cidade = (object)['nome'=>$CIDADE];
@@ -108,8 +112,8 @@ if (($row) AND ($act == NULL)) {
                     </tr>
                 </thead>";
 
-    $om = "SELECT * FROM db_clti.tb_om_apoiadas ORDER BY cod_om ASC";
-    $om = $pg->getRows($om);    
+    $omap->ordena = "ORDER BY cod_om ASC";
+    $om = $omap->SelectAllOMTable();
 
     foreach ($om as $key => $value) {
         echo"       <tr>
@@ -131,46 +135,41 @@ if (($row) AND ($act == NULL)) {
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         $idtb_om_apoiadas = $_POST['idtb_om_apoiadas'];
-        $estado = $_POST['estado'];
-        $cidade = $_POST['cidade'];
-        $cod_om = $_POST['cod_om'];
-        $nome = strtoupper($_POST['nome']);
-        $sigla = strtoupper($_POST['sigla']);
-        $indicativo = strtoupper($_POST['indicativo']);
-
-        $sql = "SELECT id FROM db_clti.tb_estado WHERE uf = '$estado' ";
-        $estado = $pg->getCol($sql);
-
-        $sql = "SELECT id FROM db_clti.tb_cidade WHERE nome = '$cidade' ";
-        $cidade = $pg->getCol($sql);
+        $omap->idtb_om_apoiadas = $idtb_om_apoiadas;
+        $omap->estado = $_POST['estado'];
+        $omap->cidade = $_POST['cidade'];
+        $omap->cod_om = $_POST['cod_om'];
+        $omap->nome = strtoupper($_POST['nome']);
+        $omap->sigla = strtoupper($_POST['sigla']);
+        $omap->indicativo = strtoupper($_POST['indicativo']);
+        $omap->estado = $omap->SelectUfEstado();
+        $omap->cidade = $omap->SelectNomeCidade();
 
         # Opta pelo método UPDATE
         if ($idtb_om_apoiadas){
-            $sql = "UPDATE db_clti.tb_om_apoiadas SET 
-                    idtb_estado=$estado, idtb_cidade=$cidade, cod_om=$cod_om, nome='$nome', 
-                    sigla='$sigla', indicativo='$indicativo'
-                WHERE idtb_om_apoiadas=$idtb_om_apoiadas";
+            $row = $omap->UpdateOM();
+            if ($row) {
+                echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=omapoiadas\">";
+            }    
+            else {
+                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                echo(pg_result_error($row) . "<br />\n");
+            }
         }
 
         # Opta pelo método INSERT
         else{
-            $sql = "INSERT INTO db_clti.tb_om_apoiadas(
-                    idtb_estado, idtb_cidade, cod_om, 
-                    nome, sigla, indicativo)
-                VALUES ('$estado', '$cidade', '$cod_om', 
-                    '$nome', '$sigla', '$indicativo')";
-        }
-        
-        $pg->exec($sql);
-
-        if ($pg) {
-            echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=omapoiadas\">";
-        }
-
-        else {
-            echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-            echo(pg_result_error($pg) . "<br />\n");
+            $row = $omap->InsertOM();
+            if ($row) {
+                echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=omapoiadas\">";
+            }
+    
+            else {
+                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                echo(pg_result_error($row) . "<br />\n");
+            }
         }
     }
     else{

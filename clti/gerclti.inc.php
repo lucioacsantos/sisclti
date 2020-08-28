@@ -4,13 +4,11 @@
 **/
 
 /* Clasee de interação com o PostgreSQL */
-require_once "../class/pgsql.class.php";
-$pg = new PgSql();
+require_once "../class/constantes.inc.php";
+$config = new Config();
 
 /* Recupera informações do CLTI */
-$sql = "SELECT * FROM db_clti.tb_clti";
-
-$row = $pg->getRow($sql);
+$row = $config->SelectAllCLTI();
 
 @$act = $_GET['act'];
 
@@ -24,7 +22,8 @@ if ($act == 'cad') {
     @$param = $_GET['param'];
 
     if ($param){
-        $gerclti = $pg->getRow("SELECT * FROM db_clti.tb_clti WHERE idtb_clti = '$param'");
+        $config->idtb_clti = $param;
+        $gerclti = $config->SelectIdCLTI();
     }
     else{
         $gerclti = (object)['idtb_admin'=>'','nome'=>'','sigla'=>'','indicativo'=>'','data_ativacao'=>''];
@@ -142,58 +141,37 @@ if ($act == 'insert') {
     if (isset($_SESSION['status'])){
 
         @$idtb_clti = $_POST['idclti'];
-        $nomeclti = $_POST['nomeclti'];
-        $siglaclti = $_POST['siglaclti'];
-        $indicativoclti = $_POST['indicativoclti'];
-        $dataativacao = $_POST['dataativacao'];
+        $config->idtb_clti = $idtb_clti;
+        $config->nome = $_POST['nomeclti'];
+        $config->sigla = $_POST['siglaclti'];
+        $config->indicativo = $_POST['indicativoclti'];
+        $config->data_ativacao = $_POST['dataativacao'];
 
         /* Opta pelo Método Update */
         if ($idtb_clti){
-
-            $sql = "UPDATE db_clti.tb_clti SET nome='$nomeclti', sigla='$siglaclti', 
-                indicativo='$indicativoclti', data_ativacao='$dataativacao' WHERE idtb_clti = '$idtb_clti' ";
-    
-            $pg->exec($sql);
-    
-            foreach ($pg as $key => $value) {
-                if ($value != '0') {
-                    echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                    <meta http-equiv=\"refresh\" content=\"1;?cmd=gerclti\">";
-                }
-    
-                else {
-                    echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                }
-                break;
+            $row = $config->UpdateCLTI();    
+            if ($row) {
+                echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                <meta http-equiv=\"refresh\" content=\"1;?cmd=gerclti\">";
+            }    
+            else {
+                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
             }
-
         }
         else{
-
-            $sql = "INSERT INTO db_clti.tb_clti(
-                nome, sigla, indicativo, data_ativacao)
-                VALUES ('$nomeclti','$siglaclti','$indicativoclti','$dataativacao');";
-    
-            $pg->exec($sql);
-    
-            foreach ($pg as $key => $value) {
-                if ($value != '0') {
-                    echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                    <meta http-equiv=\"refresh\" content=\"1;?cmd=gerclti\">";
-                }
-    
-                else {
-                    echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                }
-            break;
+            $row = $config->InsertCLTI();    
+            if ($row) {
+                echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                <meta http-equiv=\"refresh\" content=\"1;?cmd=gerclti\">";
+            }
+            else {
+                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
             }
         }
-
     }
     else{
         echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
             <meta http-equiv=\"refresh\" content=\"1;$url\">";
     }
 }
-
 ?>
