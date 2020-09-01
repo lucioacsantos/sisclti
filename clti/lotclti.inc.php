@@ -437,7 +437,7 @@ if ($act == 'insert') {
                 $senha = $_POST['senha'];
                 $hash = sha1(md5($senha));
                 $salt = sha1(md5($usuario));
-                $pesti->senha = $salt.$hash;
+                $pesclti->senha = $salt.$hash;
                 $row = $pesclti->Insert();
                 if ($row) {
                     echo "<h5>Resgistros incluídos no banco de dados.</h5>

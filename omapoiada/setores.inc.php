@@ -4,15 +4,18 @@
 **/
 
 /* Classe de interação com o PostgreSQL */
-require_once "../class/queries.class.php";
-$cns = new ConsultaSQL();
+require_once "../class/constantes.inc.php";
+$om = new OMAPoiadas();
 
-$setores = $cns->select($tb_om_setores,'','');
+$omapoiada = $_SESSION['id_om_apoiada'];
+$om->idtb_om_apoiadas = $omapoiada;
+
+$setores = $om->SelectAllSetoresView();
 
 @$act = $_GET['act'];
 
 /* Checa se há SO cadastrado */
-if ((!$setores) AND ($act == NULL)) {
+if (($setores == NULL) AND ($act == NULL)) {
 	echo "<h5>Não há setores/seções/divisões cadastrados,<br />
 		 clique <a href=\"?cmd=setores&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
@@ -20,25 +23,18 @@ if ((!$setores) AND ($act == NULL)) {
 /* Carrega form para cadastro de setores */
 if ($act == 'cad') {
     @$param = $_GET['param'];
-
     if ($param){
-
-        $condicoes = "idtb_om_setores = '$param'";
-        $ordenacao = "idtb_om_setores ASC";
-
-        $setores = $cns->select($tb_om_setores,$condicoes,$ordenacao);
+        $om->idtb_om_setores = $param;
+        $setores = $om->SelectIdSetoresView();
     }
     else{
         $setores = (object)['idtb_om_setores'=>'','nome_setor'=>'','sigla_setor'=>'',
             'cod_funcional'=>'','compartimento'=>''];
-    }
-    
+    }    
     include "setores-formcad.inc.php";
 }
-
 /* Monta quadro de setores por OM */
 if (($setores) AND ($act == NULL)) {
-
     echo"<div class=\"table-responsive\">
             <table class=\"table table-hover\">
                 <thead>
@@ -51,12 +47,8 @@ if (($setores) AND ($act == NULL)) {
                         <th scope=\"col\">Ações</th>
                     </tr>
                 </thead>";
-
-    $condicoes = "idtb_om_apoiadas = '".$_SESSION['id_om_apoiada']."'";
-    $ordenacao = "idtb_om_setores ASC";
-
-    $setores = $cns->selectMulti($vw_setores,$condicoes,$ordenacao);
-    
+    $ordena = "idtb_om_setores ASC";
+    $setores = $om->SelectAllSetoresView();    
     foreach ($setores as $key => $value) {
         echo"       <tr>
                         <th scope=\"row\">".$value->sigla_om."</th>
@@ -78,39 +70,27 @@ if (($setores) AND ($act == NULL)) {
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         $idtb_om_setores = $_POST['idtb_om_setores'];
-        $nome_setor = strtoupper($_POST['nome_setor']);
-        $sigla_setor = strtoupper($_POST['sigla_setor']);
-        $cod_funcional = strtoupper($_POST['cod_funcional']);
-        $compart = strtoupper($_POST['compart']);
-        $idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
+        $om->idtb_om_setores = $idtb_om_setores;
+        $om->nome_setor = strtoupper($_POST['nome_setor']);
+        $om->sigla_setor = strtoupper($_POST['sigla_setor']);
+        $om->cod_funcional = strtoupper($_POST['cod_funcional']);
+        $om->compart = strtoupper($_POST['compart']);
+        $om->idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
 
         /* Opta pelo Método Update */
         if ($idtb_om_setores){
-
-            $campos = "idtb_om_apoiadas, nome_setor, sigla_setor, cod_funcional, compartimento";
-            $valores = ("'$idtb_om_apoiadas','$nome_setor','$sigla_setor','$cod_funcional','$compart'");
-            $condicoes = "idtb_om_setores = '$idtb_om_setores'";
-
-            $update = $cns->update($tb_om_setores,$campos,$valores,$condicoes);
-        
+            $update = $om->UpdateSetores();
             if ($update) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
                 <meta http-equiv=\"refresh\" content=\"1;url=?cmd=setores\">";
             }
-    
             else {
                 echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
             }
         }
-
         /* Opta pelo Método Insert */
         else{
-
-            $campos = "idtb_om_apoiadas, nome_setor, sigla_setor, cod_funcional, compartimento";
-            $valores = ("'$idtb_om_apoiadas','$nome_setor','$sigla_setor','$cod_funcional','$compart'");
-
-            $insert = $cns->insert($tb_om_setores,$campos,$valores);
-        
+            $insert = $om->InsertSetores();
             if ($insert) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
                 <meta http-equiv=\"refresh\" content=\"1;url=?cmd=setores\">";
@@ -119,12 +99,10 @@ if ($act == 'insert') {
                 echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
             }
         }
-
     }
     else{
         echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
             <meta http-equiv=\"refresh\" content=\"1;$url\">";
     }
 }
-
 ?>

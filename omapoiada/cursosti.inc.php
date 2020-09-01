@@ -5,15 +5,15 @@
 
 /* Classe de interação com o PostgreSQL */
 require_once "../class/constantes.inc.php";
-$QTI = new PessoalTI();
+$qti = new PessoalTI();
 
 /* Recupera informações dos Admin */
-$row = $pesti->SelectAllQualif();
+$row = $qti->SelectAllQualif();
 
 @$act = $_GET['act'];
 
 /* Formulário para NIP/CPF */
-if (($row == NULL) AND ($act == NULL)) {
+if ($act == NULL) {
     echo "
     <div class=\"container-fluid\">
         <div class=\"row\">
@@ -39,16 +39,15 @@ if (($row == NULL) AND ($act == NULL)) {
 
 /* Carrega form para cadastro de Admin */
 if ($act == 'cad') {
-    $nip_cpf = $_POST['nip_cpf'];
     @$param = $_GET['param'];
 
     if ($param){
-        $qti->idtb_qualificacao_clti = $param;
+        $qti->idtb_qualificacao_ti = $param;
         $qualiti = $qti->SelectIdQualif();
     }
     else{
-        $qti->idtb_qualificacao_clti = $nip_cpf;
-        $qualiti = $qualiti = $qti->SelectIdQualif();
+        @$qti->nip_cpf = $_POST['nip_cpf'];
+        $qualiti = $qti->ChecaNIPCPF();
         if ($qualiti){
             $qualiti = (object)['idtb_pessoal_ti'=>$qualiti->idtb_pessoal_ti,'idtb_qualificacao_ti'=>'',
                 'sigla_om'=>$qualiti->sigla_om,'sigla_posto_grad'=>$qualiti->sigla_posto_grad,
@@ -190,7 +189,7 @@ if (($row) AND ($act == NULL)) {
                         <td>$value->sigla_om</td>
                         <td>$value->tipo $value->nome_curso</td>
                         <td>$value->situacao</td>
-                        <td><a href=\"?cmd=admin&act=cad&param=".$value->idtb_qualificacao_ti."\">Editar</a> - 
+                        <td><a href=\"?cmd=cursosti&act=cad&param=".$value->idtb_qualificacao_ti."\">Editar</a> - 
                             Excluir</td>
                     </tr>";
     }
@@ -211,6 +210,7 @@ if ($act == 'insert') {
         $qti->meio = strtoupper($_POST['meio']);
         $qti->situacao = strtoupper($_POST['situacao']);
         $data_conclusao = $_POST['data_conclusao'];
+        $qti->data_conclusao = $data_conclusao;
         $qti->carga_horaria = $_POST['carga_horaria'];
         $qti->custo = $_POST['custo'];
 
@@ -223,7 +223,7 @@ if ($act == 'insert') {
             $row = $qti->UpdateQualif();
             if ($row) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                <meta http-equiv=\"refresh\" content=\"1;?cmd=qualificacao\">";
+                <meta http-equiv=\"refresh\" content=\"1;?cmd=cursosti\">";
             }
             else {
                 echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
@@ -235,7 +235,7 @@ if ($act == 'insert') {
             $row = $qti->InsertQualif();
             if ($row) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                <meta http-equiv=\"refresh\" content=\"1;?cmd=qualificacao\">";
+                <meta http-equiv=\"refresh\" content=\"1;?cmd=cursosti\">";
             }
             else {
                 echo "<h5>Ocorreu algum erro, tente novamente.</h5>";

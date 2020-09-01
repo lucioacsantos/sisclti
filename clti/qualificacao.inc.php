@@ -8,14 +8,12 @@ require_once "../class/constantes.inc.php";
 $qti = new PessoalCLTI();
 
 /* Recupera informações dos Admin */
-$sql = "SELECT * FROM db_clti.tb_qualificacao_clti";
-
-$row = $pg->getRow($sql);
+$row = $qti->SelectAllQualif();
 
 @$act = $_GET['act'];
 
 /* Formulário para NIP/CPF */
-if (($row == '0') AND ($act == NULL)) {
+if ($act == NULL) {
     echo "
     <div class=\"container-fluid\">
         <div class=\"row\">
@@ -41,7 +39,6 @@ if (($row == '0') AND ($act == NULL)) {
 
 /* Carrega form para cadastro */
 if ($act == 'cad') {
-    @$nip_cpf = $_POST['nip_cpf'];
     @$param = $_GET['param'];
 
     if ($param){
@@ -49,8 +46,8 @@ if ($act == 'cad') {
         $qualiti = $qti->SelectIdQualif();
     }
     else{
-        $qti->idtb_qualificacao_clti = $nip_cpf;
-        $qualiti = $qualiti = $qti->SelectIdQualif();
+        @$qti->nip_cpf = $_POST['nip_cpf'];
+        $qualiti = $qti->ChecaNIPCPF();
         if ($qualiti){
             $qualiti = (object)['idtb_lotacao_clti'=>$qualiti->idtb_lotacao_clti,'idtb_qualificacao_clti'=>'',
                 'sigla_posto_grad'=>$qualiti->sigla_posto_grad,'nome_guerra'=>$qualiti->nome_guerra,
@@ -160,29 +157,7 @@ if ($act == 'cad') {
 /* Monta quadro */
 if (($row) AND ($act == NULL)) {
 
-echo "
-    <div class=\"container-fluid\">
-        <div class=\"row\">
-            <main>
-                <div id=\"form-cadastro\">
-                    <form id=\"nip_cpf\" role=\"form\" action=\"?cmd=qualificacao&act=cad\" 
-                    method=\"post\" enctype=\"multipart/form-data\">
-                        <fieldset>
-                        <legend>Qualificação em TI - Cadastro</legend>
-                            <div class=\"form-group\">
-                                <label for=\"nip_cpf\">Informe o NIP/CPF:</label>
-                                <input id=\"nip_cpf\" class=\"form-control\" type=\"num\" name=\"nip_cpf\" 
-                                    placeholder=\"NIP/CPF\" maxlength=\"11\" autofocus=\"true\" required=\"true\">
-                            </div>
-                        </fieldset>
-                        <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Localizar\">
-                    </form>
-                </div>
-            </main>
-        </div>
-    </div>";
-
-	$ordena = "ORDER BY idtb_posto_grad, tipo, nome_curso, data_conclusao ASC";
+    $ordena = "ORDER BY idtb_posto_grad, tipo, nome_curso, data_conclusao ASC";
     $qualiti = $qti->SelectAllQualif();
 
     echo"<div class=\"table-responsive\">
@@ -215,7 +190,7 @@ echo "
                         <td>$value->nome_guerra</td>
                         <td>$value->tipo $value->nome_curso</td>
                         <td>$value->situacao</td>
-			<td>$value->data_conclusao</td>
+			            <td>$value->data_conclusao</td>
                         <td><a href=\"?cmd=qualificacao&act=cad&param=".$value->idtb_qualificacao_clti."\">Editar</a> - 
                             Excluir</td>
                     </tr>";
@@ -238,6 +213,7 @@ if ($act == 'insert') {
         $qti->meio = strtoupper($_POST['meio']);
         $qti->situacao = strtoupper($_POST['situacao']);
         $data_conclusao = $_POST['data_conclusao'];
+        $qti->data_conclusao = $data_conclusao;
         $qti->carga_horaria = $_POST['carga_horaria'];
         $qti->custo = $_POST['custo'];
 

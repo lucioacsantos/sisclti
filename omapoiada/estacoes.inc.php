@@ -12,13 +12,14 @@ $sor = new SO();
 $hw = new Hardware();
 
 $omapoiada = $_SESSION['id_om_apoiada'];
+$om->idtb_om_apoiadas = $omapoiada;
 
-$row = $et->SelectAllTable();
+$row = $et->SelectAllETTable();
 
 @$act = $_GET['act'];
 
 /* Checa se o tipo de CLTI está cadastrado */
-if (($estacoes == NULL) AND ($act == NULL)) {
+if (($row == NULL) AND ($act == NULL)) {
 	echo "<h5>Não há estações cadastradas,<br />
 		 clique <a href=\"?cmd=estacoes&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
@@ -28,7 +29,7 @@ if ($act == 'cad') {
     @$param = $_GET['param'];
     if ($param){
         $et->idtb_estacoes = $param;
-        $estacoes = $et->SelectIdView();
+        $estacoes = $et->SelectIdETView();
     }
     else{
         $estacoes = (object)['idtb_estacoes'=>'','idtb_om_apoiadas'=>'','sigla'=>'','fabricante'=>'','modelo'=>'',
@@ -38,7 +39,7 @@ if ($act == 'cad') {
             'compartimento'=>'','data_garantia'=>'NULL','localizacao'=>'','req_minimos'=>'','situacao'=>''];
     }
     $om->ordena = "ORDER BY cod_om ASC";
-    $omapoiada = $om->SelectAllTable();
+    $omap = $om->SelectAllOMTable();
     $sor->ordena = "ORDER BY desenvolvedor,versao ASC";
     $so = $sor->SelectSOAtivo();
     $hw->ordena = "ORDER BY fabricante ASC";
@@ -52,16 +53,16 @@ if ($act == 'cad') {
 }
 
 /* Monta quadro com Estações de Trabalho */
-if (($estacoes) AND ($act == NULL)) {
+if (($row) AND ($act == NULL)) {
 
     
     if ($omapoiada != ''){
-        $condicoes = "idtb_om_apoiadas = $omapoiada";
-        $estacoes = $cns->selectMulti($campos,$vw_estacoes,$condicoes,'');
+        $et->idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
+        $estacoes = $et->SelectAllETView();
     }
     else{
-        $ordenacao = "idtb_om_apoiadas ASC";
-        $estacoes = $cns->selectMulti($campos,$vw_estacoes,'',$ordenacao);
+        $et->ordena = "idtb_om_apoiadas ASC";
+        $estacoes = $et->SelectAllETView();
     }
 
     echo"<div class=\"table-responsive\">
@@ -117,89 +118,55 @@ if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         
         $idtb_estacoes = $_POST['idtb_estacoes'];
-        $idtb_om_apoiadas = $_POST['idtb_om_apoiadas'];
-        $fabricante = strtoupper($_POST['fabricante']);
-        $modelo = strtoupper($_POST['modelo']);
-        $idtb_proc_modelo = $_POST['idtb_proc_modelo'];
-        $clock_proc = $_POST['clock_proc'];
-        $idtb_memorias = $_POST['idtb_memorias'];
-        $memoria = strtoupper($_POST['memoria']);
-        $armazenamento = strtoupper($_POST['armazenamento']);
-        $end_ip = $_POST['end_ip'];
-        $end_mac = $_POST['end_mac'];
-        $idtb_sor = $_POST['idtb_sor'];
-        $idtb_om_setores = $_POST['idtb_om_setores'];
-        $data_aquisicao = $_POST['data_aquisicao'];
-        $data_garantia = $_POST['data_garantia'];
-        $req_minimos = $_POST['req_minimos'];
-        $status = $_POST['status'];
+        $et->idtb_estacoes = $idtb_estacoes;
+        $et->idtb_om_apoiadas = $_POST['idtb_om_apoiadas'];
+        $et->fabricante = strtoupper($_POST['fabricante']);
+        $et->modelo = strtoupper($_POST['modelo']);
+        $et->idtb_proc_modelo = $_POST['idtb_proc_modelo'];
+        $et->clock_proc = $_POST['clock_proc'];
+        $et->idtb_memorias = $_POST['idtb_memorias'];
+        $et->memoria = strtoupper($_POST['memoria']);
+        $et->armazenamento = strtoupper($_POST['armazenamento']);
+        $et->end_ip = $_POST['end_ip'];
+        $ip->end_ip = $_POST['end_ip'];
+        $et->end_mac = $_POST['end_mac'];
+        $et->idtb_sor = $_POST['idtb_sor'];
+        $et->idtb_om_setores = $_POST['idtb_om_setores'];
+        $et->data_aquisicao = $_POST['data_aquisicao'];
+        $et->data_garantia = $_POST['data_garantia'];
+        $et->req_minimos = $_POST['req_minimos'];
+        $et->status = $_POST['status'];
 
         /* Opta pelo Método Update */
         if ($idtb_estacoes){
-
-            $sql = "UPDATE db_clti.tb_estacoes SET 
-                idtb_om_apoiadas='$idtb_om_apoiadas', fabricante='$fabricante', modelo='$modelo', 
-                idtb_proc_modelo='$idtb_proc_modelo', clock_proc='$clock_proc', idtb_memorias='$idtb_memorias',
-                memoria='$memoria', armazenamento='$armazenamento', end_ip='$end_ip', end_mac='$end_mac', 
-                idtb_sor='$idtb_sor', idtb_om_setores='$idtb_om_setores', data_aquisicao='$data_aquisicao', 
-                data_garantia='$data_garantia', req_minimos='$req_minimos', status='$status'
-            WHERE idtb_estacoes='$idtb_estacoes'";
-
-            $pg->exec($sql);
-        
-            foreach ($pg as $key => $value) {
-                if ($value != '0') {
-                    echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=estacoes\">";
-                }
-        
-                else {
-                    echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                }
-            break;
-            }            
+            $row = $et->UpdateET();
+            if ($row) {
+                echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=estacoes\">";
+            }
+            else {
+                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+            }
         }
-
         /* Opta pelo Método Insert */
         else{
-
-            $condicoes = "end_ip = '$end_ip'";
-            $checa_ip = $cns->select($tb_conectividade,$condicoes,'');
-            $checa_ip = $cns->select($tb_estacoes,$condicoes,'');
-            $checa_ip = $cns->select($tb_servidores,$condicoes,'');
-
+            $checa_ip = $ip->SearchIP();
             if ($checa_ip){
                 echo "<h5>Endereço IP informado já está em uso, 
                         por favor verifique!</h5>
                     <meta http-equiv=\"refresh\" content=\"5;url=?cmd=estacoes\">";
             }
-
             else{
-
-                $sql = "INSERT INTO db_clti.tb_estacoes(
-                    idtb_om_apoiadas, fabricante, modelo, idtb_proc_modelo, clock_proc, idtb_memorias, memoria, armazenamento, 
-                    end_ip, end_mac, idtb_sor, idtb_om_setores, data_aquisicao, data_garantia, req_minimos, status)
-                VALUES ('$idtb_om_apoiadas', '$fabricante', '$modelo', '$idtb_proc_modelo', '$clock_proc','$idtb_memorias',
-                    '$memoria', '$armazenamento', '$end_ip', '$end_mac', '$idtb_sor', '$idtb_om_setores', '$data_aquisicao', 
-                    '$data_garantia', '$req_minimos', '$status')";
-            
-                $pg->exec($sql);
-            
-                foreach ($pg as $key => $value) {
-                    if ($value != '0') {
-                        echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                        <meta http-equiv=\"refresh\" content=\"1;url=?cmd=estacoes\">";
-                    }
-            
-                    else {
-                        echo "<h5>Ocorreu algum erro, tente novamente.</h5>
-                        ";
-                    }
-                break;
+                $row = $et->InsertET();            
+                if ($row) {
+                    echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=estacoes\">";
                 }
-
+                else {
+                    echo "<h5>Ocorreu algum erro, tente novamente.</h5>
+                    ";
+                }
             }
-
         }
     }
     else{
@@ -207,5 +174,4 @@ if ($act == 'insert') {
             <meta http-equiv=\"refresh\" content=\"1;$url\">";
     }
 }
-
 ?>

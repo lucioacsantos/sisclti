@@ -10,7 +10,7 @@ $omap = new OMAPoiadas();
 $ip = new IP();
 
 $omapoiada = $_SESSION['id_om_apoiada'];
-
+$omap->idtb_om_apoiadas = $omapoiada;
 $conectividade = $conect->SelectAllConectView();
 
 @$act = $_GET['act'];
@@ -25,8 +25,8 @@ if (($conectividade == NULL) AND ($act == NULL)) {
 if ($act == 'cad') {
     @$param = $_GET['param'];
     if ($param){
-        $$conect->ordena = "ORDER BY idtb_conectividade ASC";
-        $conectividade = $conect->SelectAllConectView();
+        $conect->idtb_conectividade = $param;
+        $conectividade = $conect->SelectIdConectView();
     }
     else{
         $conectividade = (object)['idtb_conectividade'=>'','idtb_om_apoiadas'=>'','modelo'=>'','end_ip'=>'','data_aquisicao'=>'',
@@ -44,12 +44,11 @@ if (($conectividade) AND ($act == NULL)) {
 
     $omapoiada = $_SESSION['id_om_apoiada'];
     if ($omapoiada != ''){
-        $condicoes = "idtb_om_apoiadas = '$omapoiada'";
-        $conectividade = $cns->selectMulti($vw_conectividade,$condicoes,'');
-    }
-    else{
         $conect->idtb_om_apoiadas = $omapoiada;
         $conectividade = $conect->SelectAllOMConectView();
+    }
+    else{
+        $conectividade = $conect->SelectAllConectView();
     }
 
     echo"<div class=\"table-responsive\">
@@ -92,6 +91,7 @@ if ($act == 'insert') {
         $conect->fabricante = strtoupper($_POST['fabricante']);
         $conect->modelo = strtoupper($_POST['modelo']);
         $conect->end_ip = $_POST['end_ip'];
+        $ip->end_ip = $_POST['end_ip'];
         $conect->idtb_om_setores = strtoupper($_POST['idtb_om_setores']);
         $conect->data_aquisicao = $_POST['data_aquisicao'];
         $conect->data_garantia = $_POST['data_garantia'];
@@ -119,7 +119,7 @@ if ($act == 'insert') {
         /* Opta pelo Método Insert */
         else {
 
-            $checa_ip = $ip->SearchIP();            
+            $checa_ip = $ip->SearchIP();
             if ($checa_ip){
                 echo "<h5>Endereço IP informado já está em uso, 
                     por favor verifique!</h5>

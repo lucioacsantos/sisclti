@@ -6715,7 +6715,7 @@ INSERT INTO db_clti.tb_cidade (nome,estado) VALUES
 ('URL','http://localhost/sisclti')
 ,('ESTADO','RN')
 ,('CIDADE','Natal')
-,('VERSAO','1.3')
+,('VERSAO','1.4')
 ;INSERT INTO db_clti.tb_corpo_quadro (nome,sigla) VALUES 
 ('CFN','FN')
 ,('CA','CA')

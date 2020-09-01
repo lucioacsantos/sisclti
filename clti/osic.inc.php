@@ -317,7 +317,7 @@ if ($act == 'cad') {
 if (($row) AND ($act == NULL)) {
 
 	$pesti->ordem = "ORDER BY idtb_posto_grad DESC";
-    $admin = $pesti->SelectAllOSIC();
+    $osic = $pesti->SelectAllOSIC();
 
     echo"<div class=\"table-responsive\">
             <table class=\"table table-hover\">

@@ -479,3 +479,45 @@ CREATE TABLE db_clti.tb_estacoes (
 	CONSTRAINT tb_estacoes_fk_3 FOREIGN KEY (idtb_sor) REFERENCES db_clti.tb_sor(idtb_sor),
 	CONSTRAINT tb_estacoes_fk_4 FOREIGN KEY (idtb_om_setores) REFERENCES db_clti.tb_om_setores(idtb_om_setores)
 );
+
+
+-- db_clti.tb_manutencao_et definition
+
+-- Drop table
+
+-- DROP TABLE db_clti.tb_manutencao_et;
+
+CREATE TABLE db_clti.tb_manutencao_et (
+	idtb_manutencao_et serial NOT NULL,
+	idtb_estacoes int4 NOT NULL,
+	idtb_om_apoiadas int4 NOT NULL,
+	data_entrada date NOT NULL,
+	data_saida date NULL,
+	diagnostico bpchar(255) NULL,
+	custo_manutencao float4 NULL,
+	situacao varchar(255) NOT NULL,
+	CONSTRAINT tb_manutencao_et_pk PRIMARY KEY (idtb_manutencao_et),
+	CONSTRAINT tb_manutencao_et_fk FOREIGN KEY (idtb_estacoes) REFERENCES db_clti.tb_estacoes(idtb_estacoes),
+	CONSTRAINT tb_manutencao_et_fk_1 FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas)
+);
+CREATE INDEX tb_manutencao_et_idtb_manutencao_et_idx ON db_clti.tb_manutencao_et USING btree (idtb_manutencao_et);
+
+
+-- db_clti.tb_nec_aquisicao definition
+
+-- Drop table
+
+-- DROP TABLE db_clti.tb_nec_aquisicao;
+
+CREATE TABLE db_clti.tb_nec_aquisicao (
+	idtb_nec_aquisicao serial NOT NULL,
+	idtb_manutencao_et int4 NOT NULL,
+	desc_nec_aquisicao varchar(255) NULL,
+	preco_cotado float4 NULL,
+	previsao_aquisicao date NULL,
+	situacao varchar(255) NULL,
+	motivo_cancelamento varchar(255) NULL,
+	CONSTRAINT tb_nec_aquisicao_pk PRIMARY KEY (idtb_nec_aquisicao),
+	CONSTRAINT tb_nec_aquisicao_fk FOREIGN KEY (idtb_manutencao_et) REFERENCES db_clti.tb_manutencao_et(idtb_manutencao_et)
+);
+CREATE INDEX tb_nec_aquisicao_idtb_nec_aquisicao_idx ON db_clti.tb_nec_aquisicao USING btree (idtb_nec_aquisicao);

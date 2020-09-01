@@ -34,7 +34,7 @@ echo "
                     <div class=\"form-group\">
                         <label for=\"custo_manutencao\">Custo de Manutenção:</label>
                         <input id=\"custo_manutencao\" class=\"form-control\" type=\"number\" name=\"custo_manutencao\"
-                            min=\"0\" step=\"0.1\" placeholder=\"Custo em R$\" 
+                            min=\"0\" step=\"0.1\" placeholder=\"Custo em R$\" default=\"0\"
                             value=\"$manutencaoet->custo_manutencao\">
                     </div>
 

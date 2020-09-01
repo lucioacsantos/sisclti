@@ -4,13 +4,12 @@
 **/
 
 /* Classe de interação com o PostgreSQL */
-require_once "../class/queries.class.php";
-$cns = new ConsultaSQL();
+require_once "../class/constantes.inc.php";
+$et = new Estacoes();
 
 $omapoiada = $_SESSION['id_om_apoiada'];
-
-$campos = "*";
-$manutencaoet = $cns->select($campos,$tb_manutencao_et,'','');
+$et->idtb_om_apoiadas = $omapoiada;
+$manutencaoet = $et->SelectMntAbertoET();
 
 @$act = $_GET['act'];
 
@@ -23,26 +22,23 @@ if ((!$manutencaoet) AND ($act == NULL)) {
 if ($act == 'cad') {
     @$param = $_GET['param'];
     if ($param){
-        $condicoes = "idtb_estacoes = $param";
-        $estacoes = $cns->select($campos,$vw_estacoes,$condicoes,'');
-        $manutencaoet = (object)['idtb_manutencao_et'=>'','idtb_estacoes'=>$estacoes->idtb_estacoes,
+        $et->idtb_manutencao_et = $param;
+        $manutencaoet = $et->SelectIdMntET();
+        /*$manutencaoet = (object)['idtb_manutencao_et'=>'','idtb_estacoes'=>$estacoes->idtb_estacoes,
             'idtb_om_apoiadas'=>$estacoes->idtb_om_apoiadas,'data_entrada'=>'','data_saida'=>'',
-            'diagnostico'=>'','custo_manutencao'=>'','situacao'=>'Em Manutenção'];
+            'diagnostico'=>'','custo_manutencao'=>'','situacao'=>'Em Manutenção'];*/
     }
     else{
         $manutencaoet = (object)['idtb_manutencao_et'=>'','idtb_estacoes'=>'','idtb_om_apoiadas'=>'','data_entrada'=>'',
-            'data_saida'=>'','diagnostico'=>'','custo_manutencao'=>'','situacao'=>''];
+            'data_saida'=>'','diagnostico'=>'','custo_manutencao'=>'','situacao'=>'Em Manutenção'];
     }
-
 	include "manutencaoet-formcad.inc.php";
 }
 
 /* Monta quadro de manutenção */
 if (($manutencaoet) AND ($act == NULL)) {
-
-    $condicoes = "idtb_om_apoiadas = '$omapoiada'";
-    $ordenacao = "idtb_manutencao_et ASC";
-    $manutencaoet = $cns->selectMulti($campos,$tb_manutencao_et,$condicoes,$ordenacao);
+    $ordena = " ORDER BY idtb_manutencao_et ASC";
+    $manutencaoet = $et->SelectMntAbertoET();
 
     echo"<div class=\"table-responsive\">
             <table class=\"table table-hover\">
@@ -68,7 +64,8 @@ if (($manutencaoet) AND ($act == NULL)) {
                         <td>".$value->data_saida."</td>
                         <td>".$value->custo_manutencao."</td>
                         <td>".$value->situacao."</td>
-                        <td><a href=\"?cmd=conectividade&act=cad&param=".$value->idtb_manutencao_et."\">Editar</a></td>
+                        <td><a href=\"?cmd=manutencaoet&act=cad&param=".$value->idtb_manutencao_et."\">Editar</a>
+                        <a href=\"?cmd=necaquisicao&act=cad&param=".$value->idtb_manutencao_et."\">Nec.Aquisição</a></td>
                     </tr>";
     }
     echo"
@@ -81,55 +78,47 @@ if (($manutencaoet) AND ($act == NULL)) {
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         $idtb_manutencao_et = $_POST['idtb_manutencao_et'];
-        $idtb_estacoes = $_POST['idtb_estacoes'];
-        $idtb_om_apoiadas = $_POST['idtb_om_apoiadas'];
-        $data_entrada = $_POST['data_entrada'];
+        $et->idtb_manutencao_et = $idtb_manutencao_et;
+        $et->idtb_estacoes = $_POST['idtb_estacoes'];
+        $et->idtb_om_apoiadas = $_POST['idtb_om_apoiadas'];
+        $et->data_entrada = $_POST['data_entrada'];
         $data_saida = $_POST['data_saida'];
-        $diagnostico = strtoupper($_POST['diagnostico']);
+        $et->data_saida = $_POST['data_saida'];
+        $et->diagnostico = strtoupper($_POST['diagnostico']);
+        $et->custo_manutencao = $_POST['custo_manutencao'];
         $custo_manutencao = $_POST['custo_manutencao'];
-        $situacao = strtoupper($_POST['situacao']);
+        $et->situacao = strtoupper($_POST['situacao']);
+
+        if ($data_saida == NULL) {
+            $et->data_saida = 'NULL';
+        }
+        if ($custo_manutencao == NULL) {
+            $et->custo_manutencao = '0';
+        }
 
         /* Opta pelo Método Update */
         if ($idtb_manutencao_et){
-
-            $campos_valores = "idtb_manutencao_et='$idtb_manutencao_et', idtb_estacoes='$idtb_estacoes', 
-                idtb_om_apoiadas='$idtb_om_apoiadas', data_entrada='$data_entrada', data_saida='$data_saida', 
-                diagnostico='$diagnostico', custo_manutencao='$custo_manutencao', situacao='$situacao'";
-            $condicoes = "idtb_manutencao_et='$idtb_manutencao_et'";
-    
-            $pg = $cns->update($tb_manutencao_et,$campos_valores,$condicoes);
-        
-            foreach ($pg as $key => $value) {
-                if ($value != '0') {
-                    echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=conectividade\">";
-                }
-        
-                else {
-                    echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                }
-            break;
+            $row = $et->UpdateMntET();
+            if ($row) {
+                echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=manutencaoet\">";
+            }    
+            else {
+                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                echo(pg_result_error($row) . "<br />\n");
             }
         }
         
         /* Opta pelo Método Insert */
         else {
-
-            $campos = "idtb_estacoes,idtb_om_apoiadas,data_entrada,data_saida,diagnostico,custo_manutencao,situacao";
-            $valores = "'$idtb_estacoes','$idtb_om_apoiadas',$data_entrada,'$data_saida','$diagnostico',
-                '$custo_manutencao','$situacao'";
-            $pg = $cns->insert($tb_manutencao_et,$campos,$valores);
-        
-            foreach ($pg as $key => $value) {
-                if ($value != '0') {
-                    echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=conectividade\">";
-                }
-        
-                else {
-                    echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                }
-            break;
+            $row = $et->InsertMntET();
+            if ($row) {
+                echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=manutencaoet\">";
+            }    
+            else {
+                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                echo(pg_result_error($row) . "<br />\n");
             }
         }
     }
@@ -138,5 +127,4 @@ if ($act == 'insert') {
             <meta http-equiv=\"refresh\" content=\"1;$url\">";
     }
 }
-
 ?>

@@ -169,6 +169,13 @@ $versao = $config->SelectVersao();
                     Estações de Trabalho
                   </a>
                 </li>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=manutencaoet\">
+                    <span data-feather=\"monitor\"></span>
+                    Manutenção de ET
+                  </a>
+                </li>
                 <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=conectividade\">
                     <span data-feather=\"command\"></span>

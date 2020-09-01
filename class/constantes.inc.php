@@ -212,6 +212,11 @@ class OMAPoiadas
     public $nome;
     public $sigla;
     public $indicativo;
+    public $idtb_om_setores;
+    public $nome_setor;
+    public $sigla_setor;
+    public $cod_funcional;
+    public $compart;
     public $ordena;
 
     /** OM */
@@ -252,7 +257,34 @@ class OMAPoiadas
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRows("SELECT * FROM db_clti.vw_setores $this->ordena");
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_setores WHERE idtb_om_apoiadas=$this->idtb_om_apoiadas $this->ordena");
+        return $row;
+    }
+    public function SelectIdSetoresView()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("SELECT * FROM db_clti.vw_setores WHERE idtb_om_setores=$this->idtb_om_setores");
+        return $row;
+    }
+    public function InsertSetores()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "INSERT INTO db_clti.tb_om_setores (idtb_om_apoiadas,nome_setor,sigla_setor,cod_funcional,compartimento) 
+            VALUES ('$this->idtb_om_apoiadas','$this->nome_setor','$this->sigla_setor','$this->cod_funcional',
+            '$this->compart')";
+        $row = $pg->exec($sql);
+        return $row;
+    }
+    public function UpdateSetores()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "UPDATE db_clti.tb_om_setores SET (idtb_om_apoiadas,nome_setor,sigla_setor,cod_funcional,compartimento) 
+            = ('$this->idtb_om_apoiadas','$this->nome_setor','$this->sigla_setor','$this->cod_funcional',
+            '$this->compart') WHERE idtb_om_setores='$this->idtb_om_setores'";
+        $row = $pg->exec($sql);
         return $row;
     }
     public function CountOMApoiadas()
@@ -316,6 +348,7 @@ class PessoalTI
     public $idtb_especialidade;
     public $nip;
     public $cpf;
+    public $nip_cpf;
     public $usuario;
     public $nome;
     public $nome_guerra;
@@ -340,7 +373,7 @@ class PessoalTI
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT * FROM db_clti.tb_pessoal_ti WHERE nip = '$this->usuario' OR cpf = '$this->usuario'");
+        $row = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_ti WHERE nip = '$this->usuario' OR cpf = '$this->usuario'");
         return $row;
     }
     public function ChecaCorreio()
@@ -368,11 +401,11 @@ class PessoalTI
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "INSERT INTO db_clti.tb_pessoal_ti(idtb_pessoal_ti,idtb_om_apoiadas,idtb_posto_grad,idtb_corpo_quadro,
-            idtb_especialidade,nip,,cpf,nome,nome_guerra,correio_eletronico,status,senha,idtb_funcoes_ti)
-            VALUES ('$this->idtb_pessoal_ti','$this->idtb_om_apoiadas','$this->idtb_posto_grad','$this->idtb_corpo_quadro',
+        $sql = "INSERT INTO db_clti.tb_pessoal_ti(idtb_om_apoiadas,idtb_posto_grad,idtb_corpo_quadro,
+            idtb_especialidade,nip,cpf,nome,nome_guerra,correio_eletronico,status,senha,idtb_funcoes_ti)
+            VALUES ('$this->idtb_om_apoiadas','$this->idtb_posto_grad','$this->idtb_corpo_quadro',
             '$this->idtb_especialidade','$this->nip','$this->cpf','$this->nome','$this->nome_guerra',
-            '$this->correio_eletronico','$this->status','$this->senha','$this->idtb_funcoes_ti)";
+            '$this->correio_eletronico','$this->status','$this->senha','$this->idtb_funcoes_ti')";
         $row = $pg->exec($sql);
         return $row;
     }
@@ -392,11 +425,7 @@ class PessoalTI
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "UPDATE db_clti.tb_pessoal_ti SET (idtb_om_apoiadas,idtb_posto_grad,idtb_corpo_quadro,
-        idtb_especialidade,nip,cpf,nome,nome_guerra,correio_eletronico,status,senha,idtb_funcoes_ti)
-        = ('$this->idtb_om_apoiadas','$this->idtb_posto_grad','$this->idtb_corpo_quadro','$this->idtb_especialidade',
-        '$this->nip','$this->cpf','$this->nome','$this->nome_guerra','$this->correio_eletronico','$this->status',
-        '$this->senha','$this->idtb_funcoes_ti') WHERE idtb_pessoal_ti='$this->idtb_pessoal_ti' ";
+        $sql = "UPDATE db_clti.tb_pessoal_ti SET senha='$this->senha' WHERE idtb_pessoal_ti='$this->idtb_pessoal_ti'";
         $row = $pg->exec($sql);
         return $row;
     }
@@ -420,6 +449,13 @@ class PessoalTI
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getRows("SELECT * FROM db_clti.tb_funcoes_ti");
+        return $row;
+    }
+    public function SelectOutrasFuncoesTI()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_funcoes_ti WHERE sigla != 'ADMIN' AND sigla != 'OSIC' ");
         return $row;
     }
     public function SelectIdFuncoesTI()
@@ -450,14 +486,14 @@ class PessoalTI
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT * FROM db_clti.vw_qualificacao_ti '$this->ordena'");
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_qualificacao_pesti $this->ordena");
         return $row;
     }
     public function SelectIdQualif()
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT * FROM db_clti.vw_qualificacao_ti 
+        $row = $pg->getRow("SELECT * FROM db_clti.vw_qualificacao_pesti 
             WHERE idtb_qualificacao_ti='$this->idtb_qualificacao_ti'");
         return $row;
     }
@@ -543,7 +579,7 @@ class PessoalCLTI
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT * FROM db_clti.tb_lotacao_clti WHERE nip = '$this->usuario' OR cpf = '$this->usuario'");
+        $row = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_clti WHERE nip = '$this->usuario' OR cpf = '$this->usuario'");
         return $row;
     }
     public function ChecaCorreio()
@@ -571,9 +607,9 @@ class PessoalCLTI
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "INSERT INTO db_clti.tb_lotacao_clti(idtb_lotacao_clti,idtb_posto_grad,idtb_corpo_quadro,
+        $sql = "INSERT INTO db_clti.tb_lotacao_clti(idtb_posto_grad,idtb_corpo_quadro,
             idtb_especialidade,nip,cpf,nome,nome_guerra,correio_eletronico,status,senha,perfil)
-            VALUES ('$this->idtb_lotacao_clti','$this->idtb_posto_grad','$this->idtb_corpo_quadro',
+            VALUES ('$this->idtb_posto_grad','$this->idtb_corpo_quadro',
             '$this->idtb_especialidade','$this->nip','$this->cpf','$this->nome','$this->nome_guerra',
             '$this->correio_eletronico','$this->status','$this->senha','$this->perfil')";
         $row = $pg->exec($sql);
@@ -583,9 +619,9 @@ class PessoalCLTI
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "UPDATE db_clti.tb_lotacao_clti SET (idtb_lotacao_clti,idtb_posto_grad,idtb_corpo_quadro,
+        $sql = "UPDATE db_clti.tb_lotacao_clti SET (idtb_posto_grad,idtb_corpo_quadro,
         idtb_especialidade,nip,cpf,nome,nome_guerra,correio_eletronico,status,perfil)
-        = ('$this->idtb_lotacao_clti','$this->idtb_posto_grad','$this->idtb_corpo_quadro','$this->idtb_especialidade',
+        = ('$this->idtb_posto_grad','$this->idtb_corpo_quadro','$this->idtb_especialidade',
         '$this->nip','$this->cpf','$this->nome','$this->nome_guerra','$this->correio_eletronico','$this->status',
         '$this->perfil') WHERE idtb_lotacao_clti='$this->idtb_lotacao_clti'";
         $row = $pg->exec($sql);
@@ -595,11 +631,8 @@ class PessoalCLTI
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "UPDATE db_clti.tb_lotacao_clti SET (idtb_lotacao_clti,idtb_posto_grad,idtb_corpo_quadro,
-        idtb_especialidade,nip,cpf,nome,nome_guerra,correio_eletronico,status,senha,perfil)
-        = ('$this->idtb_lotacao_clti','$this->idtb_posto_grad','$this->idtb_corpo_quadro','$this->idtb_especialidade',
-        '$this->nip','$this->cpf','$this->nome','$this->nome_guerra','$this->correio_eletronico','$this->status',
-        '$this->senha','$this->perfil') WHERE idtb_lotacao_clti='$this->idtb_lotacao_clti'";
+        $sql = "UPDATE db_clti.tb_lotacao_clti SET senha= '$this->senha' 
+            WHERE idtb_lotacao_clti='$this->idtb_lotacao_clti'";
         $row = $pg->exec($sql);
         return $row;
     }
@@ -607,7 +640,7 @@ class PessoalCLTI
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT * FROM db_clti.vw_qualificacao_clti '$this->ordena'");
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_qualificacao_clti $this->ordena");
         return $row;
     }
     public function SelectIdQualif()
@@ -708,7 +741,7 @@ class Conectividade
     public $fabricante;
     public $modelo;
     public $end_ip;
-    public $localizacao;
+    public $idtb_om_setores;
     public $data_aquisicao;
     public $data_garantia;
 
@@ -723,9 +756,9 @@ class Conectividade
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "UPDATE db_clti.tb_conectividade SET (idtb_om_apoiadas, fabricante, modelo, end_ip, localizacao, 
+        $sql = "UPDATE db_clti.tb_conectividade SET (idtb_om_apoiadas, fabricante, modelo, end_ip, idtb_om_setores, 
             data_aquisicao, data_garantia) = ('$this->idtb_om_apoiadas', '$this->fabricante', '$this->modelo', 
-            '$this->end_ip', '$this->localizacao', '$this->data_aquisicao', '$this->data_garantia') 
+            '$this->end_ip', '$this->idtb_om_setores', '$this->data_aquisicao', '$this->data_garantia') 
             WHERE idtb_conectividade='$this->idtb_conectividade'";
         $row = $pg->exec($sql);
         return $row;
@@ -734,9 +767,9 @@ class Conectividade
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "INSERT INTO db_clti.tb_conectividade(idtb_om_apoiadas, fabricante, modelo, end_ip, localizacao, 
+        $sql = "INSERT INTO db_clti.tb_conectividade(idtb_om_apoiadas, fabricante, modelo, end_ip, idtb_om_setores, 
             data_aquisicao, data_garantia) VALUES ('$this->idtb_om_apoiadas', '$this->fabricante', '$this->modelo', 
-            '$this->end_ip', '$this->localizacao', '$this->data_aquisicao', '$this->data_garantia')";
+            '$this->end_ip', '$this->idtb_om_setores', '$this->data_aquisicao', '$this->data_garantia')";
         $row = $pg->exec($sql);
         return $row;
     }
@@ -758,7 +791,7 @@ class Conectividade
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT * FROM db_clti.vw_conectividade WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas");
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_conectividade WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas");
         return $row;
     }
     public function CountConect()
@@ -780,7 +813,7 @@ class Estacoes
     public $fabricante;
     public $modelo;
     public $end_ip;
-    public $localizacao;
+    public $idtb_om_setores;
     public $data_aquisicao;
     public $data_garantia;
     public $idtb_proc_modelo;
@@ -791,6 +824,12 @@ class Estacoes
     public $end_mac;
     public $idtb_sor;
     public $req_minimos;
+    public $idtb_manutencao_et;
+    public $data_entrada;
+    public $data_saida;
+    public $diagnostico;
+    public $custo_manutencao;
+    public $situacao;
     public $status;
 
     public function SelectAllETTable()
@@ -806,7 +845,7 @@ class Estacoes
         $pg = new PgSql();
         $sql = "UPDATE db_clti.tb_estacoes SET
             idtb_om_apoiadas='$this->idtb_om_apoiadas',fabricante='$this->fabricante',modelo='$this->modelo', 
-            end_ip='$this->end_ip', localizacao='$this->localizacao',data_aquisicao='$this->data_aquisicao',
+            end_ip='$this->end_ip', idtb_om_setores='$this->idtb_om_setores',data_aquisicao='$this->data_aquisicao',
             data_garantia='$this->data_garantia' WHERE idtb_estacoes='$this->idtb_estacoes'";
         $row = $pg->exec($sql);
         return $row;
@@ -815,9 +854,9 @@ class Estacoes
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "INSERT INTO db_clti.tb_estacoes(idtb_om_apoiadas, fabricante, modelo, end_ip, localizacao, 
+        $sql = "INSERT INTO db_clti.tb_estacoes(idtb_om_apoiadas, fabricante, modelo, end_ip, idtb_om_setores, 
             data_aquisicao, data_garantia)
-        VALUES ('$this->idtb_om_apoiadas', '$this->fabricante', '$this->modelo', '$this->end_ip', '$this->localizacao', 
+        VALUES ('$this->idtb_om_apoiadas', '$this->fabricante', '$this->modelo', '$this->end_ip', '$this->idtb_om_setores', 
             '$this->data_aquisicao', '$this->data_garantia')";
         $row = $pg->exec($sql);
         return $row;
@@ -834,6 +873,44 @@ class Estacoes
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getRow("SELECT * FROM db_clti.vw_estacoes WHERE idtb_estacoes = $this->idtb_estacoes");
+        return $row;
+    }
+    public function SelectIdOMETView()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("SELECT * FROM db_clti.vw_estacoes WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas");
+        return $row;
+    }
+    public function SelectMntAbertoET(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_manutencao_et WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas");
+        return $row;
+    }
+    public function SelectIdMntET(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("SELECT * FROM db_clti.tb_manutencao_et 
+            WHERE idtb_manutencao_et = $this->idtb_manutencao_et");
+        return $row;
+    }
+    public function InsertMntET(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "INSERT INTO db_clti.tb_manutencao_et (idtb_estacoes,idtb_om_apoiadas,data_entrada,diagnostico,
+            custo_manutencao,situacao) VALUES ('$this->idtb_estacoes','$this->idtb_om_apoiadas','$this->data_entrada',
+            '$this->diagnostico','$this->custo_manutencao','$this->situacao')";
+        $row = $pg->exec($sql);
+        return $row;
+    }
+    public function UpdateMntET(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "UPDATE db_clti.tb_manutencao_et SET (data_saida,diagnostico,custo_manutencao,
+            situacao) = ($this->data_saida,'$this->diagnostico','$this->custo_manutencao','$this->situacao') 
+            WHERE idtb_manutencao_et='$this->idtb_manutencao_et'";
+        $row = $pg->exec($sql);
         return $row;
     }
     public function CountET()
@@ -849,7 +926,7 @@ class Estacoes
 /** Classe Servidores */
 class Servidores
 {
-    public $idtb_estacoes;
+    public $idtb_servidores;
     public $ordena;
     public $idtb_om_apoiadas;
     public $fabricante;
@@ -859,56 +936,73 @@ class Servidores
     public $data_aquisicao;
     public $data_garantia;
     public $idtb_proc_modelo;
+    public $qtde_proc;
     public $clock_proc;
     public $idtb_memorias;
     public $memoria;
     public $armazenamento;
     public $end_mac;
+    public $finalidade;
     public $idtb_sor;
-    public $req_minimos;
+    public $idtb_om_setores;
     public $status;
 
-    public function SelectAllETTable()
+    public function SelectAllSrvTable()
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRows("SELECT * FROM db_clti.tb_estacoes");
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_servidores");
         return $row;
     }
-    public function UpdateET()
+    public function UpdateSrv()
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "UPDATE db_clti.tb_estacoes SET
-            idtb_om_apoiadas='$this->idtb_om_apoiadas',fabricante='$this->fabricante',modelo='$this->modelo', 
-            end_ip='$this->end_ip', localizacao='$this->localizacao',data_aquisicao='$this->data_aquisicao',
-            data_garantia='$this->data_garantia' WHERE idtb_estacoes='$this->idtb_estacoes'";
+        $sql = "UPDATE db_clti.tb_servidores SET 
+            idtb_om_apoiadas='$this->idtb_om_apoiadas', fabricante='$this->fabricante', modelo='$this->modelo', 
+            idtb_proc_modelo='$this->idtb_proc_modelo', clock_proc='$this->clock_proc', qtde_proc='$this->qtde_proc', 
+            memoria='$this->memoria', armazenamento='$this->armazenamento', end_ip='$this->end_ip', 
+            end_mac='$this->end_mac', idtb_sor='$this->idtb_sor', finalidade='$this->finalidade', 
+            data_aquisicao='$this->data_aquisicao', data_garantia='$this->data_garantia', 
+            idtb_om_setores='$this->idtb_om_setores', status='$this->status'
+            WHERE idtb_servidores='$this->idtb_servidores'";
         $row = $pg->exec($sql);
         return $row;
     }
-    public function InsertET()
+    public function InsertSrv()
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "INSERT INTO db_clti.tb_estacoes(idtb_om_apoiadas, fabricante, modelo, end_ip, localizacao, 
-            data_aquisicao, data_garantia)
-        VALUES ('$this->idtb_om_apoiadas', '$this->fabricante', '$this->modelo', '$this->end_ip', '$this->localizacao', 
-            '$this->data_aquisicao', '$this->data_garantia')";
+        $sql = "INSERT INTO db_clti.tb_servidores(
+            idtb_om_apoiadas, fabricante, modelo, idtb_proc_modelo, clock_proc, 
+            qtde_proc, memoria, armazenamento, end_ip, end_mac, idtb_sor, 
+            finalidade, data_aquisicao, data_garantia, idtb_om_setores, status)
+            VALUES ('$this->idtb_om_apoiadas', '$this->fabricante', '$this->modelo', '$this->idtb_proc_modelo', 
+            '$this->clock_proc','$this->qtde_proc', '$this->memoria', '$this->armazenamento','$this->end_ip', 
+            '$this->end_mac', '$this->idtb_sor', '$this->finalidade','$this->data_aquisicao', 
+            '$this->data_garantia', '$this->idtb_om_setores', '$this->status')";
         $row = $pg->exec($sql);
         return $row;
     }
-    public function SelectAllETView()
+    public function SelectAllSrvView()
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRows("SELECT * FROM db_clti.vw_estacoes");
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_servidores");
         return $row;
     }
-    public function SelectIdETView()
+    public function SelectIdSrvView()
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT * FROM db_clti.vw_estacoes WHERE idtb_estacoes = $this->idtb_estacoes");
+        $row = $pg->getRow("SELECT * FROM db_clti.vw_servidores WHERE idtb_servidores = $this->idtb_servidores");
+        return $row;
+    }
+    public function SelectIdOMSrvView()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_servidores WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas");
         return $row;
     }
     public function CountSrv()
@@ -930,9 +1024,9 @@ class IP
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRows("SELECT * FROM db_clti.tb_conectividade WHERE end_ip = $this->end_ip");
-        $row = $pg->getRows("SELECT * FROM db_clti.tb_estacoes WHERE end_ip = $this->end_ip");
-        $row = $pg->getRows("SELECT * FROM db_clti.tb_servidores WHERE end_ip = $this->end_ip");
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_conectividade WHERE end_ip = '$this->end_ip'");
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_estacoes WHERE end_ip = '$this->end_ip'");
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_servidores WHERE end_ip = '$this->end_ip'");
         return $row;
     }
 }
