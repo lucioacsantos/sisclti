@@ -3,57 +3,76 @@
 *** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
-/* Classe de interação com o PostgreSQL */
+/* Clasee de interação com o PostgreSQL */
 require_once "class/constantes.inc.php";
+$config = new Config();
+$url = $config->SelectURL();
+$sigla = $config->SelectSigla();
+$versao = $config->SelectVersao();
 
-/* Carrega Estrutura das Páginas */
-include "head.php";
+?>
 
+<!doctype html>
+<html lang="pt_BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Sistema Integrado para Centros Locais de Tecnologia da Informação">
+    <meta name="author" content="99242991 Lúcio ALEXANDRE Correia dos Santos">
+    <?php echo "<link rel=\"icon\" href=\"$url/favicon.ico\">"; ?>
+
+    <title>...::: SisCLTI :::...</title>
+
+    <?php
+    /* Carrega CSS a partir da $url */
+    echo"
+    <!-- Bootstrap core CSS -->
+    <link href=\"$url/css/bootstrap.min.css\" rel=\"stylesheet\">
+
+    <!-- Stylesheet CSS -->
+    <link href=\"$url/css/signin.css\" rel=\"stylesheet\">";
+
+    ?>
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+  </head>
+
+  <body>
+
+<?php
 @$act = $_GET['act'];
 
-echo "
-        <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
-          <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
-            <h1 class=\"h2\">SisCLTI - Login do Usuário</h1><a href=\"login_clti.php\">Clique aqui pata Téc. CLTI</a>
-            <div class=\"btn-toolbar mb-2 mb-md-0\">
-              <div class=\"btn-group mr-2\">
-                <!--
-                <a href=\"?cmd=tipoclti\"><button class=\"btn btn-sm btn-outline-secondary\">Tipo do CLTI</button></a>
-                <a href=\"?cmd=gerclti\"><button class=\"btn btn-sm btn-outline-secondary\">Gerenciamento do CLTI</button></a>
-                -->
-              </div>
-            </div>
-          </div>
-          <div class=\"container-fluid\">
-            <div class=\"row\">
-                <main>
-                    <div id=\"form-login\">
-                        <form id=\"login\" role=\"form\" action=\"?act=acesso\" 
-                            method=\"post\" enctype=\"multipart/form-data\">
-                            <fieldset>
-                                <legend>Login de Usuário</legend>
-
-                                <div class=\"form-group\">
-                                    <label for=\"usuario\" class=\"control-label\">Login do Admin:</label>
-                                    <input id=\"usuario\" class=\"form-control\" type=\"text\" name=\"usuario\"
-                                            style=\"text-transform:uppercase\" placeholder=\"NIP ou CPF\" 
-                                            required=\"true\" autofocus=\"autofocus\">
-                                    <div class=\"help-block with-errors\"></div>
-                                </div>
-
-                                <div class=\"form-group\">
-                                    <label for=\"senha\" class=\"control-label\">Senha:</label>
-                                    <input id=\"senha\" class=\"form-control\" type=\"password\" name=\"senha\"
-                                            placeholder=\"Senha Segura\" required=\"true\">
-                                    <div class=\"help-block with-errors\"></div>
-                                </div>
-                            </fieldset>
-                            <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Entrar\">
-                        </form>
-                    </div>
-		        </main>
-            </div>
-        </div>";
+if ($act == NULL){
+  echo "
+  <form class=\"form-signin\" id=\"login\" role=\"form\" action=\"?act=acesso\" 
+    method=\"post\" enctype=\"multipart/form-data\">
+    <h1 class=\"h3 mb-3 font-weight-normal\">Login de Usuário</h1>
+    <label for=\"usuario\" class=\"sr-only\">NIP ou CPF</label>
+    <input type=\"text\" name=\"usuario\" id=\"usuario\" class=\"form-control\" placeholder=\"NIP ou CPF\" required autofocus>
+    <div class=\"help-block with-errors\"></div>
+    <label for=\"senha\" class=\"sr-only\">Senha</label>
+    <input type=\"password\" name=\"senha\" id=\"senha\" class=\"form-control\" placeholder=\"Senha\" required>
+    <div class=\"help-block with-errors\"></div>
+    <button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Entrar</button>
+    <p class=\"mt-5 mb-3 text-muted\"><a href=\"login_clti.php\">Técnicos do CLTI clique aqui.</a></p>
+  </form>";
+}
 
 /* Método Login */
 if ($act == 'acesso') {
@@ -83,8 +102,20 @@ if ($act == 'acesso') {
     header('Location: index.php');
 	}
 	else {
-    echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-    echo(pg_result_error($row) . "<br />\n");
+    echo "
+    <form class=\"form-signin\" id=\"login\" role=\"form\" action=\"?act=acesso\" 
+      method=\"post\" enctype=\"multipart/form-data\">
+      <h5>Ocorreu algum erro, tente novamente.</h5>
+      <h1 class=\"h3 mb-3 font-weight-normal\">Login de Usuário</h1>
+      <label for=\"usuario\" class=\"sr-only\">NIP ou CPF</label>
+      <input type=\"text\" name=\"usuario\" id=\"usuario\" class=\"form-control\" placeholder=\"NIP ou CPF\" required autofocus>
+      <div class=\"help-block with-errors\"></div>
+      <label for=\"senha\" class=\"sr-only\">Senha</label>
+      <input type=\"password\" name=\"senha\" id=\"senha\" class=\"form-control\" placeholder=\"Senha\" required>
+      <div class=\"help-block with-errors\"></div>
+      <button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Entrar</button>
+      <p class=\"mt-5 mb-3 text-muted\"><a href=\"login_clti.php\">Técnicos do CLTI clique aqui.</a></p>
+    </form>";
 	}
 }
 
