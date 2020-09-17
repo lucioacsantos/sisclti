@@ -24,9 +24,14 @@ if ($act == 'cad') {
     if ($param){
         $et->idtb_manutencao_et = $param;
         $manutencaoet = $et->SelectIdMntET();
-        /*$manutencaoet = (object)['idtb_manutencao_et'=>'','idtb_estacoes'=>$estacoes->idtb_estacoes,
-            'idtb_om_apoiadas'=>$estacoes->idtb_om_apoiadas,'data_entrada'=>'','data_saida'=>'',
-            'diagnostico'=>'','custo_manutencao'=>'','situacao'=>'Em Manutenção'];*/
+        if ($manutencaoet == NULL){
+            $et->idtb_estacoes = $param;
+            $estacoes = $et->SelectIdETView();
+            $manutencaoet = (object)['idtb_manutencao_et'=>'','idtb_estacoes'=>$estacoes->idtb_estacoes,
+                'idtb_om_apoiadas'=>$estacoes->idtb_om_apoiadas,'data_entrada'=>'','data_saida'=>'',
+                'diagnostico'=>'','custo_manutencao'=>'','situacao'=>'Em Manutenção'];
+        }
+        
     }
     else{
         $manutencaoet = (object)['idtb_manutencao_et'=>'','idtb_estacoes'=>'','idtb_om_apoiadas'=>'','data_entrada'=>'',
@@ -65,7 +70,8 @@ if (($manutencaoet) AND ($act == NULL)) {
                         <td>".$value->custo_manutencao."</td>
                         <td>".$value->situacao."</td>
                         <td><a href=\"?cmd=manutencaoet&act=cad&param=".$value->idtb_manutencao_et."\">Editar</a>
-                        <a href=\"?cmd=necaquisicao&act=cad&param=".$value->idtb_manutencao_et."\">Nec.Aquisição</a></td>
+                            <!--<a href=\"?cmd=necaquisicao&act=cad&param=".$value->idtb_manutencao_et."\">Nec.Aquisição</a>-->
+                        </td>
                     </tr>";
     }
     echo"
