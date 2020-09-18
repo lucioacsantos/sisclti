@@ -31,31 +31,31 @@ if (($row == NULL) AND ($act == 'cad')) {
 
                             <div class=\"form-group\">
                                 <label for=\"publicacao\">Publicação:</label>
-                                <input id=\"publicacao\" class=\"form-control\" type=\"text\" name=\"publicacao\"
+                                <input id=\"publicacao\" class=\"form-control\" type=\"text\" name=\"publicacao\" autocomplete=\"off\"
                                        placeholder=\"ex. DCTIMARINST 30-04B\" minlength=\"2\" required=\"true\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"datapublicacao\">Data de Publicação:</label>
                                 <input id=\"datapublicacao\" class=\"form-control\" type=\"date\" name=\"datapublicacao\"
-                                       placeholder=\"\" minlength=\"2\" required=\"true\">
+                                       placeholder=\"\" minlength=\"2\" required=\"true\" autocomplete=\"off\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"tipoclti\">Tipo do CLTI:</label>
                                 <input id=\"tipoclti\" class=\"form-control\" type=\"number\" name=\"tipoclti\"
-                                       placeholder=\"0\" minlength=\"2\" required=\"true\">
+                                       placeholder=\"0\" minlength=\"2\" required=\"true\" autocomplete=\"off\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"lotacaooficiais\">Locatação de Oficiais:</label>
                                 <input id=\"lotacaooficiais\" class=\"form-control\" type=\"number\" name=\"lotacaooficiais\"
-                                       placeholder=\"0\" required=\"true\">
+                                       placeholder=\"0\" required=\"true\" autocomplete=\"off\">
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"lotacaopracas\">Locatação de Praças:</label>
                                 <input id=\"lotacaopracas\" class=\"form-control\" type=\"number\" name=\"lotacaopracas\"
-                                       placeholder=\"0\" required=\"true\">
+                                       placeholder=\"0\" required=\"true\" autocomplete=\"off\">
                             </div>
                         </fieldset>
                         <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">

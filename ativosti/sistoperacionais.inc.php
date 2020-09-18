@@ -42,20 +42,20 @@ if ($act == 'cad') {
                                 <label for=\"desenvolvedor\">Desenvolvedor:</label>
                                 <input id=\"desenvolvedor\" class=\"form-control\" type=\"text\" name=\"desenvolvedor\"
                                        placeholder=\"Desenvolvedor\" style=\"text-transform:uppercase\" autofocus=\"true\"
-                                       required=\"true\" value=\"$sor->desenvolvedor\">
+                                       required=\"true\" value=\"$sor->desenvolvedor\" autocomplete=\"off\">
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"descricao\">Descrição:</label>
                                 <input id=\"descricao\" class=\"form-control\" type=\"text\" name=\"descricao\"
                                        placeholder=\"Descrição\" style=\"text-transform:uppercase\" 
-                                       required=\"true\" value=\"$sor->descricao\">
+                                       required=\"true\" value=\"$sor->descricao\" autocomplete=\"off\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"versao\">Versão:</label>
                                 <input id=\"versao\" class=\"form-control\" type=\"text\" name=\"versao\"
                                        placeholder=\"Versão\" style=\"text-transform:uppercase\" 
-                                       required=\"true\" value=\"$sor->versao\">
+                                       required=\"true\" value=\"$sor->versao\" autocomplete=\"off\">
                             </div>
 
                             <div class=\"form-group\">

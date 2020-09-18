@@ -41,14 +41,14 @@ if ($act == 'cad') {
                             <div class=\"form-group\">
                                 <label for=\"descricao\">Descrição:</label>
                                 <input id=\"descricao\" class=\"form-control\" type=\"text\" name=\"descricao\"
-                                       placeholder=\"ex. Administrador da Rede Local\" 
+                                       placeholder=\"ex. Administrador da Rede Local\" autocomplete=\"off\"
                                        style=\"text-transform:uppercase\" autofocus=\"true\"
                                        required=\"true\" value=\"$funcoesti->descricao\">
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"sigla\">Sigla:</label>
                                 <input id=\"sigla\" class=\"form-control\" type=\"text\" name=\"sigla\"
-                                       placeholder=\"ex. ADMIN\" style=\"text-transform:uppercase\" 
+                                       placeholder=\"ex. ADMIN\" style=\"text-transform:uppercase\" autocomplete=\"off\"
                                        required=\"true\" value=\"$funcoesti->sigla\">
                             </div>
 

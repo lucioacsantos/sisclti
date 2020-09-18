@@ -58,25 +58,25 @@ if ($act == 'cad') {
                                         hidden=\"true\" value=\"$clti->nome\">
                                     <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
                                         hidden=\"true\" value=\"$clti->nome_guerra\">
-                                    <input id=\"correio_eletronico\" class=\"form-control\" type=\"text\" 
+                                    <input id=\"correio_eletronico\" class=\"form-control\" type=\"text\" autocomplete=\"off\"
                                         name=\"correio_eletronico\" hidden=\"required\" value=\"$clti->correio_eletronico\">
 
                                     <div class=\"form-group\">
                                         <label for=\"nip\">NIP:</label>
                                         <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" readonly=\"true\"
-                                            placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$clti->nip\">
+                                            placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$clti->nip\" autocomplete=\"off\">
                                     </div>
 
                                     <div class=\"form-group\">
                                         <label for=\"cpf\">CPF (Servidores Civis):</label>
                                         <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" readonly=\"true\"
-                                            placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$clti->cpf\">
+                                            placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$clti->cpf\" autocomplete=\"off\">
                                     </div>
 
                                     <div class=\"form-group\">
                                         <label for=\"ativo\" class=\"control-label\">Situação:</label>
                                         <input id=\"ativo\" class=\"form-control\" type=\"text\" name=\"ativo\" readonly=\"true\"
-                                            value=\"$clti->status\">
+                                            value=\"$clti->status\" autocomplete=\"off\">
                                     </div>
 
                                     <div class=\"form-group\">
@@ -135,14 +135,14 @@ if ($act == 'cad') {
                                     <div class=\"form-group\">
                                         <label for=\"nome\">Nome Completo:</label>
                                         <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
-                                            placeholder=\"Nome Completo\" minlength=\"2\" 
+                                            placeholder=\"Nome Completo\" minlength=\"2\" autocomplete=\"off\"
                                             style=\"text-transform:uppercase\" required=\"true\" value=\"$clti->nome\">
                                     </div>
 
                                     <div class=\"form-group\">
                                         <label for=\"nomeguerra\">Nome de Guerra:</label>
                                         <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
-                                            placeholder=\"Nome de Guerra\" minlength=\"2\"
+                                            placeholder=\"Nome de Guerra\" minlength=\"2\" autocomplete=\"off\"
                                             style=\"text-transform:uppercase\" required=\"true\" value=\"$clti->nome_guerra\">
                                     </div>
 
@@ -151,19 +151,19 @@ if ($act == 'cad') {
                                         <input id=\"correio_eletronico\" class=\"form-control\" type=\"email\" 
                                             name=\"correio_eletronico\" placeholder=\"Preferencialmente Zimbra\" 
                                             minlength=\"2\" style=\"text-transform:uppercase\" required=\"true\" 
-                                            value=\"$clti->correio_eletronico\">
+                                            value=\"$clti->correio_eletronico\" autocomplete=\"off\">
                                     </div>
 
                                     <div class=\"form-group\">
                                         <label for=\"nip\">NIP:</label>
                                         <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" readonly=\"true\"
-                                            placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$clti->nip\">
+                                            placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$clti->nip\" autocomplete=\"off\">
                                     </div>
 
                                     <div class=\"form-group\">
                                         <label for=\"cpf\">CPF (Servidores Civis):</label>
                                         <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" readonly=\"true\"
-                                            placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$clti->cpf\">
+                                            placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$clti->cpf\" autocomplete=\"off\">
                                     </div>
 
                                     <div class=\"form-group\">
@@ -218,34 +218,34 @@ if ($act == 'cad') {
 
                             <div class=\"form-group\">
                                 <label for=\"nip\">NIP:</label>
-                                <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" 
+                                <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" autocomplete=\"off\"
                                        placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$clti->nip\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"cpf\">CPF (Servidores Civis):</label>
-                                <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" 
+                                <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" autocomplete=\"off\"
                                        placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$clti->cpf\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"nome\">Nome Completo:</label>
                                 <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
-                                       placeholder=\"Nome Completo\" minlength=\"2\" 
+                                       placeholder=\"Nome Completo\" minlength=\"2\" autocomplete=\"off\"
                                        style=\"text-transform:uppercase\" required=\"true\" value=\"$clti->nome\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"nomeguerra\">Nome de Guerra:</label>
                                 <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
-                                       placeholder=\"Nome de Guerra\" minlength=\"2\"
+                                       placeholder=\"Nome de Guerra\" minlength=\"2\" autocomplete=\"off\"
                                        style=\"text-transform:uppercase\" required=\"true\" value=\"$clti->nome_guerra\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"correio_eletronico\">Correio Eletrônico:</label>
                                 <input id=\"correio_eletronico\" class=\"form-control\" type=\"email\" name=\"correio_eletronico\"
-                                    placeholder=\"Preferencialmente Zimbra\" minlength=\"2\"
+                                    placeholder=\"Preferencialmente Zimbra\" minlength=\"2\" autocomplete=\"off\"
                                     style=\"text-transform:uppercase\" required=\"true\" value=\"$clti->correio_eletronico\">
                             </div>
 

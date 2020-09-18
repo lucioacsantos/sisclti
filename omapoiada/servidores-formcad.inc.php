@@ -14,7 +14,7 @@ echo "
                             <div class=\"form-group\">
                                 <label for=\"fabricante\">Fabricante:</label>
                                 <input id=\"fabricante\" class=\"form-control\" type=\"text\" name=\"fabricante\"
-                                      placeholder=\"ex. DELL / IBM\" style=\"text-transform:uppercase\" 
+                                      placeholder=\"ex. DELL / IBM\" style=\"text-transform:uppercase\" autocomplete=\"off\"
                                       value=\"$servidor->fabricante\" required=\"true\">
                             </div>
 
@@ -22,7 +22,7 @@ echo "
                                 <label for=\"modelo\">Modelo:</label>
                                 <input id=\"modelo\" class=\"form-control\" type=\"text\" name=\"modelo\"
                                       placeholder=\"ex. DL 360 Gen9\" style=\"text-transform:uppercase\"
-                                      value=\"$servidor->modelo\"  required=\"true\">
+                                      value=\"$servidor->modelo\"  required=\"true\" autocomplete=\"off\">
                             </div>
 
                             <div class=\"form-group\">
@@ -40,7 +40,7 @@ echo "
                             <div class=\"form-group\">
                                 <label for=\"clock_proc\">Clock do Processador:</label>
                                 <input id=\"clock_proc\" class=\"form-control\" type=\"number\" name=\"clock_proc\"
-                                    min=\"0\" step=\"0.1\" placeholder=\"ex. 3.2 (Em GHZ)\" 
+                                    min=\"0\" step=\"0.1\" placeholder=\"ex. 3.2 (Em GHZ)\" autocomplete=\"off\"
                                     value=\"$servidor->clock_proc\" required=\"true\">
                             </div>
 
@@ -48,27 +48,27 @@ echo "
                                 <label for=\"qtde_proc\">Número de Processadores:</label>
                                 <input id=\"qtde_proc\" class=\"form-control\" type=\"number\" name=\"qtde_proc\"
                                     placeholder=\"Qtde. Processadores Físicos\" value=\"$servidor->qtde_proc\" 
-                                    required=\"true\">
+                                    required=\"true\" autocomplete=\"off\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"memoria\">Memória (Total em GB):</label>
                                 <input id=\"memoria\" class=\"form-control\" type=\"text\" name=\"memoria\"
                                        placeholder=\"ex. 32 (Total em GB)\" style=\"text-transform:uppercase\" 
-                                       value=\"$servidor->memoria\" required=\"true\">
+                                       value=\"$servidor->memoria\" required=\"true\" autocomplete=\"off\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"armazenamento\">Armazenamento (Total em GB):</label>
                                 <input id=\"armazenamento\" class=\"form-control\" type=\"text\" name=\"armazenamento\"
                                        placeholder=\"ex. 500 (Total em GB)\" style=\"text-transform:uppercase\" 
-                                       value=\"$servidor->armazenamento\" required=\"true\">
+                                       value=\"$servidor->armazenamento\" required=\"true\" autocomplete=\"off\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"end_ip\">Endereço IP:</label>
                                 <input id=\"end_ip\" class=\"form-control\" type=\"text\" name=\"end_ip\"
-                                    placeholder=\"ex. 192.168.1.1\" style=\"text-transform:uppercase\"
+                                    placeholder=\"ex. 192.168.1.1\" style=\"text-transform:uppercase\" autocomplete=\"off\"
                                     value=\"$servidor->end_ip\" maxlength=\"15\" required=\"true\">
                             </div>
 
@@ -76,7 +76,7 @@ echo "
                                 <label for=\"end_mac\">Endereço MAC:</label>
                                 <input id=\"end_mac\" class=\"form-control\" type=\"text\" name=\"end_mac\"
                                     placeholder=\"ex. FF-FF-FF-FF-FF-FF-FF-FF\" style=\"text-transform:uppercase\"
-                                    value=\"$servidor->end_mac\" maxlength=\"23\" required=\"true\">
+                                    value=\"$servidor->end_mac\" maxlength=\"23\" required=\"true\" autocomplete=\"off\">
                             </div>
 
                             <div class=\"form-group\">
@@ -95,7 +95,7 @@ echo "
                                 <label for=\"finalidade\">Finalidade:</label>
                                 <input id=\"finalidade\" class=\"form-control\" type=\"text\" name=\"finalidade\"
                                        placeholder=\"ex. Servidor Web\" style=\"text-transform:uppercase\" 
-                                       value=\"$servidor->finalidade\" required=\"true\">
+                                       value=\"$servidor->finalidade\" required=\"true\" autocomplete=\"off\">
                             </div>
 
                             <div class=\"form-group\">
@@ -112,13 +112,13 @@ echo "
 
                             <div class=\"form-group\">
                                 <label for=\"data_aquisicao\">Data de Aquisição:</label>
-                                <input id=\"data_aquisicao\" class=\"form-control\" type=\"date\" name=\"data_aquisicao\"
+                                <input id=\"data_aquisicao\" class=\"form-control\" type=\"date\" name=\"data_aquisicao\" autocomplete=\"off\"
                                     style=\"text-transform:uppercase\" value=\"$servidor->data_aquisicao\" required=\"true\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"data_garantia\">Final da Garantia/Suporte:</label>
-                                <input id=\"data_garantia\" class=\"form-control\" type=\"date\" name=\"data_garantia\"
+                                <input id=\"data_garantia\" class=\"form-control\" type=\"date\" name=\"data_garantia\" autocomplete=\"off\"
                                     style=\"text-transform:uppercase\" value=\"$servidor->data_garantia\" required=\"true\">
                             </div>";
                             if ($param){

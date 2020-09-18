@@ -24,7 +24,7 @@ echo "
                     <div class=\"form-group\">
                         <label for=\"fabricante\">Fabricante:</label>
                         <input id=\"fabricante\" class=\"form-control\" type=\"text\" name=\"fabricante\"
-                              placeholder=\"ex. CISCO\" style=\"text-transform:uppercase\"
+                              placeholder=\"ex. CISCO\" style=\"text-transform:uppercase\" autocomplete=\"off\"
                               value=\"$conectividade->fabricante\" required=\"true\">
                     </div>
 
@@ -32,35 +32,35 @@ echo "
                         <label for=\"modelo\">Modelo:</label>
                         <input id=\"modelo\" class=\"form-control\" type=\"text\" name=\"modelo\"
                               placeholder=\"ex. C3750-48PS-S\" style=\"text-transform:uppercase\"
-                              value=\"$conectividade->modelo\" required=\"true\">
+                              value=\"$conectividade->modelo\" required=\"true\" autocomplete=\"off\">
                     </div>
 
                     <div class=\"form-group\">
                         <label for=\"end_ip\">Endereço IP:</label>
                         <input id=\"end_ip\" class=\"form-control\" type=\"text\" name=\"end_ip\"
                                placeholder=\"ex. 192.168.1.1\" style=\"text-transform:uppercase\"
-                               value=\"$conectividade->end_ip\">
+                               value=\"$conectividade->end_ip\" autocomplete=\"off\">
                     </div>
 
                     <div class=\"form-group\">
                         <label for=\"localizacao\">Localização:</label>
                         <input id=\"localizacao\" class=\"form-control\" type=\"text\" name=\"localizacao\"
                             placeholder=\"ex. Sala de Servidores\"style=\"text-transform:uppercase\"
-                            value=\"$conectividade->localizacao\" required=\"true\">
+                            value=\"$conectividade->localizacao\" required=\"true\" autocomplete=\"off\">
                     </div>
 
                     <div class=\"form-group\">
                         <label for=\"data_aquisicao\">Data de Aquisição:</label>
                         <input id=\"data_aquisicao\" class=\"form-control\" type=\"date\" name=\"data_aquisicao\"
                             style=\"text-transform:uppercase\" value=\"$conectividade->data_aquisicao\"
-                            required=\"true\">
+                            required=\"true\" autocomplete=\"off\">
                     </div>
 
                     <div class=\"form-group\">
                         <label for=\"data_garantia\">Final da Garantia/Suporte:</label>
                         <input id=\"data_garantia\" class=\"form-control\" type=\"date\" name=\"data_garantia\"
                             style=\"text-transform:uppercase\"value=\"$conectividade->data_garantia\"
-                            required=\"true\">
+                            required=\"true\" autocomplete=\"off\">
                     </div>
 
                 </fieldset>

@@ -63,28 +63,28 @@ if ($act == 'cad') {
                                 <label for=\"cod_om\">Código da OM:</label>
                                 <input id=\"cod_om\" class=\"form-control\" type=\"number\" name=\"cod_om\"
                                        placeholder=\"Código da OM\" maxlength=\"8\" required=\"true\" 
-                                       value=\"$om->cod_om\">
+                                       value=\"$om->cod_om\" autocomplete=\"off\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"nome\">Nome da OM:</label>
                                 <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
                                        style=\"text-transform:uppercase\" placeholder=\"Nome da OM\" 
-                                       minlength=\"2\" required=\"true\" value=\"$om->nome\">
+                                       minlength=\"2\" required=\"true\" value=\"$om->nome\" autocomplete=\"off\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"sigla\">Sigla da OM:</label>
                                 <input id=\"sigla\" class=\"form-control\" type=\"text\" name=\"sigla\"
                                        style=\"text-transform:uppercase\" placeholder=\"Sigla da OM\" 
-                                       minlength=\"2\" required=\"true\" value=\"$om->sigla\">
+                                       minlength=\"2\" required=\"true\" value=\"$om->sigla\" autocomplete=\"off\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"indicativo\">Indicativo Naval da OM:</label>
                                 <input id=\"indicativo\" class=\"form-control\" type=\"text\" name=\"indicativo\"
                                        style=\"text-transform:uppercase\" placeholder=\"Indicativo Naval da OM\" 
-                                       maxlength=\"6\" required=\"true\" value=\"$om->indicativo\">
+                                       maxlength=\"6\" required=\"true\" value=\"$om->indicativo\" autocomplete=\"off\">
                             </div>
 
                         </fieldset>

@@ -25,7 +25,7 @@ if ($act == NULL) {
                         <legend>Qualificação em TI - Cadastro</legend>
                             <div class=\"form-group\">
                                 <label for=\"nip_cpf\">Informe o NIP/CPF:</label>
-                                <input id=\"nip_cpf\" class=\"form-control\" type=\"num\" name=\"nip_cpf\" 
+                                <input id=\"nip_cpf\" class=\"form-control\" type=\"num\" name=\"nip_cpf\" autocomplete=\"off\"
                                     placeholder=\"NIP/CPF\" maxlength=\"11\" autofocus=\"true\" required=\"true\">
                             </div>
                         </fieldset>
@@ -78,7 +78,7 @@ if ($act == 'cad') {
                             <div class=\"form-group\">
                                 <label for=\"instituicao\">Instituição de Ensino:</label>
                                 <input id=\"instituicao\" class=\"form-control\" type=\"text\" name=\"instituicao\"
-                                    placeholder=\"ex. Universidade Federal do RN\" minlength=\"2\" 
+                                    placeholder=\"ex. Universidade Federal do RN\" minlength=\"2\" autocomplete=\"off\"
                                     style=\"text-transform:uppercase\" required=\"true\" autofocus=\"true\"
                                     value=\"$qualiti->instituicao\">
                             </div>
@@ -93,9 +93,9 @@ if ($act == 'cad') {
                                     <option value=\"MESTRADO\">MESTRADO</option>
                                     <option value=\"DOUTORADO\">DOUTORADO</option>
                                     <option value=\"TÉCNICO\">TÉCNICO</option>
-				    <option value=\"CERTIFICAÇÃO\">CERTIFICAÇÃO</option>
-				    <option value=\"ESPECIAL\">CURSO ESPECIAL</option>
-				    <option value=\"EXPEDITO\">CURSO EXPEDITO</option>
+				                    <option value=\"CERTIFICAÇÃO\">CERTIFICAÇÃO</option>
+				                    <option value=\"ESPECIAL\">CURSO ESPECIAL</option>
+				                    <option value=\"EXPEDITO\">CURSO EXPEDITO</option>
                                     <option value=\"LIVRE\">LIVRE</option>
                                 </select>
                             </div>
@@ -103,7 +103,7 @@ if ($act == 'cad') {
                             <div class=\"form-group\">
                                 <label for=\"nome_curso\">Nome do Curso:</label>
                                 <input id=\"nome_curso\" class=\"form-control\" type=\"text\" name=\"nome_curso\"
-                                    placeholder=\"ex. Análise de Sistemas\" minlength=\"2\"
+                                    placeholder=\"ex. Análise de Sistemas\" minlength=\"2\" autocomplete=\"off\"
                                     style=\"text-transform:uppercase\" required=\"true\" value=\"$qualiti->nome_curso\">
                             </div>
 
@@ -129,19 +129,19 @@ if ($act == 'cad') {
                             <div class=\"form-group\">
                                 <label for=\"data_conclusao\">Data de Conclusão:</label>
                                 <input id=\"data_conclusao\" class=\"form-control\" type=\"date\" name=\"data_conclusao\" 
-                                    value=\"$qualiti->data_conclusao\">
+                                    value=\"$qualiti->data_conclusao\" autocomplete=\"off\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"carga_horaria\" class=\"control-label\">Carga Horária:</label>
                                 <input id=\"carga_horaria\" class=\"form-control\" type=\"number\" name=\"carga_horaria\"
-                                    required=\"true\" value=\"$qualiti->carga_horaria\">
+                                    required=\"true\" value=\"$qualiti->carga_horaria\" autocomplete=\"off\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"custo\" class=\"control-label\">Custo (Obrigatório se custeado pela OM):</label>
                                 <input id=\"custo\" class=\"form-control\" type=\"number\" name=\"custo\"
-                                    value=\"$qualiti->custo\">
+                                    value=\"$qualiti->custo\" autocomplete=\"off\">
                             </div>
                         </fieldset>
                         <input id=\"idtb_qualificacao_clti\" type=\"hidden\" name=\"idtb_qualificacao_clti\" 

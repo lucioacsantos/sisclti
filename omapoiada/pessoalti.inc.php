@@ -73,18 +73,18 @@ if ($act == 'cad') {
                                     <input id=\"correio_eletronico\" class=\"form-control\" type=\"text\" name=\"correio_eletronico\"
                                         hidden=\"required\" value=\"$pessti->correio_eletronico\">
                                     <input id=\"funcaoti\" class=\"form-control\" type=\"text\" name=\"funcaoti\"
-                                        hidden=\"required\" value=\"$pessti->idtb_funcoes_ti\">
+                                        hidden=\"required\" value=\"$pessti->idtb_funcoes_ti\" autocomplete=\"off\">
 
                                     <div class=\"form-group\">
                                         <label for=\"nip\">NIP:</label>
                                         <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" readonly=\"true\"
-                                            placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$pessti->nip\">
+                                            placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$pessti->nip\" autocomplete=\"off\">
                                     </div>
 
                                     <div class=\"form-group\">
                                         <label for=\"cpf\">CPF (Servidores Civis):</label>
                                         <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" readonly=\"true\"
-                                            placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$pessti->cpf\">
+                                            placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$pessti->cpf\" autocomplete=\"off\">
                                     </div>
 
                                     <div class=\"form-group\">
@@ -147,31 +147,31 @@ if ($act == 'cad') {
                                     <div class=\"form-group\">
                                         <label for=\"nome\">Nome Completo:</label>
                                         <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
-                                            placeholder=\"Nome Completo\" minlength=\"2\" 
+                                            placeholder=\"Nome Completo\" minlength=\"2\" autocomplete=\"off\"
                                             style=\"text-transform:uppercase\" required=\"true\" value=\"$pessti->nome\">
                                     </div>
 
                                     <div class=\"form-group\">
                                         <label for=\"nomeguerra\">Nome de Guerra:</label>
                                         <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
-                                            placeholder=\"Nome de Guerra\" minlength=\"2\"
+                                            placeholder=\"Nome de Guerra\" minlength=\"2\" autocomplete=\"off\"
                                             style=\"text-transform:uppercase\" required=\"true\" value=\"$pessti->nome_guerra\">
                                     </div>
                                     <div class=\"form-group\">
                                         <label for=\"nip\">NIP:</label>
                                         <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" readonly=\"true\"
-                                            placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$pessti->nip\">
+                                            placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$pessti->nip\" autocomplete=\"off\">
                                     </div>
 
                                     <div class=\"form-group\">
                                         <label for=\"cpf\">CPF (Servidores Civis):</label>
                                         <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" readonly=\"true\"
-                                            placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$pessti->cpf\">
+                                            placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$pessti->cpf\" autocomplete=\"off\">
                                     </div>
 
                                     <div class=\"form-group\">
                                         <label for=\"correio_eletronico\">Correio Eletrônico:</label>
-                                        <input id=\"correio_eletronico\" class=\"form-control\" type=\"email\" 
+                                        <input id=\"correio_eletronico\" class=\"form-control\" type=\"email\" autocomplete=\"off\"
                                             name=\"correio_eletronico\" placeholder=\"Preferencialmente Zimbra\" 
                                             minlength=\"2\" style=\"text-transform:uppercase\" required=\"true\" 
                                             value=\"$pessti->correio_eletronico\">
@@ -244,34 +244,34 @@ if ($act == 'cad') {
 
                             <div class=\"form-group\">
                                 <label for=\"nip\">NIP:</label>
-                                <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" 
+                                <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" autocomplete=\"off\"
                                        placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$pessti->nip\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"cpf\">CPF (Servidores Civis):</label>
-                                <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" 
+                                <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" autocomplete=\"off\"
                                        placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$pessti->cpf\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"nome\">Nome Completo:</label>
                                 <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
-                                    placeholder=\"Nome Completo\" minlength=\"2\" 
+                                    placeholder=\"Nome Completo\" minlength=\"2\" autocomplete=\"off\"
                                     style=\"text-transform:uppercase\" required=\"true\" value=\"$pessti->nome\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"nomeguerra\">Nome de Guerra:</label>
                                 <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
-                                    placeholder=\"Nome de Guerra\" minlength=\"2\"
+                                    placeholder=\"Nome de Guerra\" minlength=\"2\" autocomplete=\"off\"
                                     style=\"text-transform:uppercase\" required=\"true\" value=\"$pessti->nome_guerra\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"correio_eletronico\">Correio Eletrônico:</label>
                                 <input id=\"correio_eletronico\" class=\"form-control\" type=\"email\" name=\"correio_eletronico\"
-                                    placeholder=\"Preferencialmente Zimbra\" minlength=\"2\"
+                                    placeholder=\"Preferencialmente Zimbra\" minlength=\"2\" autocomplete=\"off\"
                                     required=\"true\" value=\"$pessti->correio_eletronico\">
                             </div>
 

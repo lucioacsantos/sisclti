@@ -34,9 +34,9 @@ if ($row) {
                         <td>
                             <form id=\"form\" action=\"?cmd=sistema&act=update\" method=\"post\" enctype=\"multipart/form-data\">
                                 <input id=\"valor\" class=\"form-control\" type=\"text\" name=\"valor\"
-                                       placeholder=\"Novo Parâmetro\" required=\"true\">
+                                       placeholder=\"Novo Parâmetro\" required=\"true\" autocomplete=\"off\">
                                 <input id=\"idtb_config\" class=\"form-control\" type=\"text\" name=\"idtb_config\" 
-                                    value=\"$value->idtb_config\" hidden=\"true\">
+                                    value=\"$value->idtb_config\" hidden=\"true\" autocomplete=\"off\">
                         </td>
                         <td>
                                 <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">

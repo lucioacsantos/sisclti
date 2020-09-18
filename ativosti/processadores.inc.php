@@ -41,7 +41,7 @@ if ($act == 'cadfab') {
                             <div class=\"form-group\">
                                 <label for=\"fabricante\">Fabricante:</label>
                                 <input id=\"fabricante\" class=\"form-control\" type=\"text\" name=\"fabricante\"
-                                       placeholder=\"fabricante\" style=\"text-transform:uppercase\" 
+                                       placeholder=\"fabricante\" style=\"text-transform:uppercase\" autocomplete=\"off\"
                                        required=\"true\" value=\"$procfab->nome\">
                             </div>
 
@@ -93,7 +93,7 @@ if ($act == 'cadproc') {
                                 <label for=\"modelo\">Modelo:</label>
                                 <input id=\"modelo\" class=\"form-control\" type=\"text\" name=\"modelo\"
                                        placeholder=\"modelo\" style=\"text-transform:uppercase\" 
-                                       required=\"true\" value=\"$procmodelo->modelo\">
+                                       required=\"true\" value=\"$procmodelo->modelo\" autocomplete=\"off\">
                             </div>
 
                         </fieldset>

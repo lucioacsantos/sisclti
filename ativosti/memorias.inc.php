@@ -42,19 +42,19 @@ if ($act == 'cad') {
                                 <label for=\"tipo\">Tipo:</label>
                                 <input id=\"tipo\" class=\"form-control\" type=\"text\" name=\"tipo\"
                                        placeholder=\"ex. DDR3\" style=\"text-transform:uppercase\" 
-                                       required=\"true\" value=\"$memorias->tipo\">
+                                       required=\"true\" value=\"$memorias->tipo\" autocomplete=\"off\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"modelo\">Modelo:</label>
                                 <input id=\"modelo\" class=\"form-control\" type=\"text\" name=\"modelo\"
                                        placeholder=\"ex. PC4200\" style=\"text-transform:uppercase\" 
-                                       required=\"true\" value=\"$memorias->modelo\">
+                                       required=\"true\" value=\"$memorias->modelo\" autocomplete=\"off\">
                             </div>
 
                             <div class=\"form-group\">
                                 <label for=\"clock\">Clock Mhz:</label>
-                                <input id=\"clock\" class=\"form-control\" type=\"number\" name=\"clock\"
+                                <input id=\"clock\" class=\"form-control\" type=\"number\" name=\"clock\" autocomplete=\"off\"
                                        placeholder=\"ex. 533\" required=\"true\" value=\"$memorias->clock\">
                             </div>
 

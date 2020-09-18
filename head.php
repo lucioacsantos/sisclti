@@ -19,6 +19,9 @@ $versao = $config->SelectVersao();
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Sistema Integrado para Centros Locais de Tecnologia da Informação">
     <meta name="author" content="99242991 Lúcio ALEXANDRE Correia dos Santos">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <?php echo "<link rel=\"icon\" href=\"$url/favicon.ico\">"; ?>
 
     <title>...::: SisCLTI :::...</title>

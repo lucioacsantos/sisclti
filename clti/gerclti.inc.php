@@ -47,19 +47,19 @@ if ($act == 'cad') {
                                     <div class=\"form-group\">
                                         <label for=\"nomeclti\">Nome do CLTI:</label>
                                         <input id=\"nomeclti\" class=\"form-control\" type=\"text\" name=\"nomeclti\"
-                                            value=\"$gerclti->nome\" minlength=\"2\" required=\"true\">
+                                            value=\"$gerclti->nome\" minlength=\"2\" required=\"true\" autocomplete=\"off\">
                                     </div>
 
                                     <div class=\"form-group\">
                                         <label for=\"siglaclti\">Sigla do CLTI:</label>
                                         <input id=\"siglaclti\" class=\"form-control\" type=\"text\" name=\"siglaclti\"
-                                        value=\"$gerclti->sigla\" minlength=\"2\" required=\"true\">
+                                        value=\"$gerclti->sigla\" minlength=\"2\" required=\"true\" autocomplete=\"off\">
                                     </div>
 
                                     <div class=\"form-group\">
                                         <label for=\"indicativoclti\">Indicativo Naval do CLTI:</label>
                                         <input id=\"indicativoclti\" class=\"form-control\" type=\"text\" name=\"indicativoclti\"
-                                        value=\"$gerclti->indicativo\" minlength=\"2\" required=\"true\">
+                                        value=\"$gerclti->indicativo\" minlength=\"2\" required=\"true\" autocomplete=\"off\">
                                     </div>
 
                                     <div class=\"form-group\">
@@ -75,25 +75,25 @@ if ($act == 'cad') {
                                     <div class=\"form-group\">
                                         <label for=\"nomeclti\">Nome do CLTI:</label>
                                         <input id=\"nomeclti\" class=\"form-control\" type=\"text\" name=\"nomeclti\"
-                                            placeholder=\"Nome do CLTI\" minlength=\"2\" required=\"true\">
+                                            placeholder=\"Nome do CLTI\" minlength=\"2\" required=\"true\" autocomplete=\"off\">
                                     </div>
 
                                     <div class=\"form-group\">
                                         <label for=\"siglaclti\">Sigla do CLTI:</label>
                                         <input id=\"siglaclti\" class=\"form-control\" type=\"text\" name=\"siglaclti\"
-                                            placeholder=\"Sigla do CLTI\" minlength=\"2\" required=\"true\">
+                                            placeholder=\"Sigla do CLTI\" minlength=\"2\" required=\"true\" autocomplete=\"off\">
                                     </div>
 
                                     <div class=\"form-group\">
                                         <label for=\"indicativoclti\">Indicativo Naval do CLTI:</label>
                                         <input id=\"indicativoclti\" class=\"form-control\" type=\"text\" name=\"indicativoclti\"
-                                            placeholder=\"Indicativo Naval do CLTI\" minlength=\"2\" required=\"true\">
+                                            placeholder=\"Indicativo Naval do CLTI\" minlength=\"2\" required=\"true\" autocomplete=\"off\">
                                     </div>
 
                                     <div class=\"form-group\">
                                         <label for=\"dataativacao\">Data de Ativação do CLTI:</label>
                                         <input id=\"dataativacao\" class=\"form-control\" type=\"date\" name=\"dataativacao\"
-                                            placeholder=\"Data de Ativação do CLTI\" minlength=\"2\" required=\"true\">
+                                            placeholder=\"Data de Ativação do CLTI\" minlength=\"2\" required=\"true\" autocomplete=\"off\">
                                     </div>";
                             }
                         echo"
