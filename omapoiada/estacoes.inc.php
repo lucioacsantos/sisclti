@@ -58,7 +58,7 @@ if (($row) AND ($act == NULL)) {
     
     if ($omapoiada != ''){
         $et->idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
-        $estacoes = $et->SelectAllETView();
+        $estacoes = $et->SelectIdOMETView();
     }
     else{
         $et->ordena = "idtb_om_apoiadas ASC";

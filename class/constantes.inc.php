@@ -887,7 +887,7 @@ class Estacoes
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT * FROM db_clti.vw_estacoes WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas");
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_estacoes WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas");
         return $row;
     }
     public function SelectMntAbertoET(){
