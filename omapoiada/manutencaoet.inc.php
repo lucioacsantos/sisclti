@@ -69,8 +69,8 @@ if (($manutencaoet) AND ($act == NULL)) {
                         <td>".$value->data_saida."</td>
                         <td>".$value->custo_manutencao."</td>
                         <td>".$value->situacao."</td>
-                        <td><a href=\"?cmd=manutencaoet&act=cad&param=".$value->idtb_manutencao_et."\">Editar</a>
-                            <!--<a href=\"?cmd=necaquisicao&act=cad&param=".$value->idtb_manutencao_et."\">Nec.Aquisição</a>-->
+                        <td><a href=\"?cmd=manutencaoet&act=cad&param=".$value->idtb_manutencao_et."\">Editar</a> - 
+                            <a href=\"?cmd=necaquisicao&act=cad&param=".$value->idtb_manutencao_et."\">Nec.Aquisição</a>
                         </td>
                     </tr>";
     }

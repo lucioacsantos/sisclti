@@ -70,6 +70,7 @@ if (($row) AND ($act == NULL)) {
                 <thead>
                     <tr>
                         <th scope=\"col\">OM Apoiada</th>
+                        <th scope=\"col\">Cód. ET</th>
                         <th scope=\"col\">Fabricante/Modelo</th>
                         <th scope=\"col\">Hardware</th>
                         <th scope=\"col\">Sistema Operacional</th>
@@ -84,6 +85,7 @@ if (($row) AND ($act == NULL)) {
 
         echo"       <tr>
                         <th scope=\"row\">".$value->sigla."</th>
+                        <td>".$value->idtb_estacoes."</td>
                         <td>".$value->fabricante." / ".$value->modelo."</td>
                         <td>".$value->proc_fab." ".$value->proc_modelo." ".$value->clock_proc." GHz -  
                             ".$value->memoria." GB ".$value->tipo_mem." ".$value->modelo_mem." ".$value->clock_mem." GHz - 

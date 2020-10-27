@@ -82,7 +82,7 @@ if ($act == 'acesso') {
   $usr = new Usuario();
   $usr->usuario = $_POST['usuario'];
   $hash = sha1(md5($_POST['senha']));
-  $salt = sha1(md5($_POST['usuario']));
+  $salt = sha1(md5($usr->usuario));
   $senha = $salt.$hash;
   $usr->senha = $senha;
 
@@ -111,7 +111,7 @@ if ($act == 'acesso') {
       <h5>Ocorreu algum erro, tente novamente.</h5>
       <h1 class=\"h3 mb-3 font-weight-normal\">Login de Usuário</h1>
       <label for=\"usuario\" class=\"sr-only\">NIP ou CPF</label>
-      <input type=\"text\" name=\"usuario\" id=\"usuario\" class=\"form-control\" placeholder=\"NIP ou CPF\" required autofocus>
+      <input type=\"text\" name=\"usuario\" id=\"usuario\" class=\"form-control\" placeholder=\"NIP ou CPF\" autocomplete=\"off\" required autofocus>
       <div class=\"help-block with-errors\"></div>
       <label for=\"senha\" class=\"sr-only\">Senha</label>
       <input type=\"password\" name=\"senha\" id=\"senha\" class=\"form-control\" placeholder=\"Senha\" required>
