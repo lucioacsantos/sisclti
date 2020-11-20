@@ -740,6 +740,7 @@ class Conectividade
     public $idtb_om_apoiadas;
     public $fabricante;
     public $modelo;
+    public $qtde_portas;
     public $end_ip;
     public $idtb_om_setores;
     public $data_aquisicao;
@@ -756,9 +757,10 @@ class Conectividade
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "UPDATE db_clti.tb_conectividade SET (idtb_om_apoiadas, fabricante, modelo, end_ip, idtb_om_setores, 
-            data_aquisicao, data_garantia) = ('$this->idtb_om_apoiadas', '$this->fabricante', '$this->modelo', 
-            '$this->end_ip', '$this->idtb_om_setores', '$this->data_aquisicao', '$this->data_garantia') 
+        $sql = "UPDATE db_clti.tb_conectividade SET (idtb_om_apoiadas, fabricante, modelo, qtde_portas, end_ip, 
+            idtb_om_setores, data_aquisicao, data_garantia) = ('$this->idtb_om_apoiadas', '$this->fabricante', 
+            '$this->modelo', '$this->qtde_portas', '$this->end_ip', '$this->idtb_om_setores', '$this->data_aquisicao', 
+            '$this->data_garantia') 
             WHERE idtb_conectividade='$this->idtb_conectividade'";
         $row = $pg->exec($sql);
         return $row;
@@ -767,9 +769,10 @@ class Conectividade
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "INSERT INTO db_clti.tb_conectividade(idtb_om_apoiadas, fabricante, modelo, end_ip, idtb_om_setores, 
-            data_aquisicao, data_garantia) VALUES ('$this->idtb_om_apoiadas', '$this->fabricante', '$this->modelo', 
-            '$this->end_ip', '$this->idtb_om_setores', '$this->data_aquisicao', '$this->data_garantia')";
+        $sql = "INSERT INTO db_clti.tb_conectividade(idtb_om_apoiadas, fabricante, modelo, qtde_portas, end_ip, 
+            idtb_om_setores, data_aquisicao, data_garantia) VALUES ('$this->idtb_om_apoiadas', '$this->fabricante', 
+            '$this->modelo', '$this->qtde_portas', '$this->end_ip', '$this->idtb_om_setores', '$this->data_aquisicao', 
+            '$this->data_garantia')";
         $row = $pg->exec($sql);
         return $row;
     }

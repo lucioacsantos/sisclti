@@ -182,6 +182,12 @@ $versao = $config->SelectVersao();
                     Equipamentos de Conectividade
                   </a>
                 </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=mapainfra\">
+                    <span data-feather=\"share-2\"></span>
+                    Mapeamento da Infraestrutura
+                  </a>
+                </li>
                 <h6 class=\"sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted\">
                     <span>Controle OM Apoiadas</span>
                     <span data-feather=\"plus-circle\"></span>

@@ -296,8 +296,60 @@ elseif ($versao == '1.3'){
 
 elseif ($versao == '1.4'){
 
-	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.4.</div>
+	
+	$pg->exec("ALTER TABLE db_clti.tb_conectividade ADD qtde_portas int NOT NULL;
+		COMMENT ON COLUMN db_clti.tb_conectividade.qtde_portas IS 'Quantidade de portas do ativo de rede';
+		");
+
+	$pg->exec("DROP VIEW db_clti.vw_conectividade");
+
+	$pg->exec("CREATE OR REPLACE VIEW db_clti.vw_conectividade
+	AS SELECT conec.idtb_conectividade,
+		conec.idtb_om_apoiadas,
+		conec.fabricante,
+		conec.modelo,
+		conec.qtde_portas,
+		conec.idtb_om_setores,
+		conec.end_ip,
+		conec.data_aquisicao,
+		conec.data_garantia,
+		om.sigla,
+		setores.sigla_setor,
+		setores.compartimento
+	   FROM db_clti.tb_conectividade conec,
+		db_clti.tb_om_setores setores,
+		db_clti.tb_om_apoiadas om
+	  WHERE conec.idtb_om_apoiadas = om.idtb_om_apoiadas AND conec.idtb_om_setores = setores.idtb_om_setores;");
+	
+	$pg->exec("CREATE TABLE db_clti.tb_mapainfra (
+		idtb_mapainfra serial NOT NULL,
+		idtb_conectividade_orig int NOT NULL,
+		idtb_conectividade_dest int NULL,
+		idtb_servidores_dest int NULL,
+		idtb_estacoes_dest int NULL,
+		porta_orig int NOT NULL,
+		porta_dest int NOT NULL,
+		CONSTRAINT tb_mapainfra_pk PRIMARY KEY (idtb_mapainfra),
+		CONSTRAINT tb_mapainfra_fk_1 FOREIGN KEY (idtb_estacoes_dest) REFERENCES db_clti.tb_estacoes(idtb_estacoes),
+		CONSTRAINT tb_mapainfra_fk_2 FOREIGN KEY (idtb_servidores_dest) REFERENCES db_clti.tb_servidores(idtb_servidores),
+		CONSTRAINT tb_mapainfra_fk_3 FOREIGN KEY (idtb_conectividade_orig) REFERENCES db_clti.tb_conectividade(idtb_conectividade)
+	);
+	COMMENT ON TABLE db_clti.tb_mapainfra IS 'Mapeamentos dos pontos de rede da infraestrutura,';
+	
+	");
+
+	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5' WHERE parametro='VERSAO' ");
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.</div>
 	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
+
+}
+
+elseif ($versao == '1.5'){
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.</div>
+	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
+
 }
 
 else{
