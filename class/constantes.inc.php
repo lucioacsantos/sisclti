@@ -807,6 +807,80 @@ class Conectividade
     }
 }
 
+/* Classe Mapeamento da Infraestrutura  */
+class MapaInfra
+{
+    public $idtb_mapainfra;
+    public $ordena;
+    public $idtb_om_apoiadas;
+    public $idtb_conectividade_orig;
+    public $idtb_conectividade_dest;
+    public $idtb_servidores_dest;
+    public $idtb_estacoes_dest;
+    public $porta_orig;
+    public $porta_dest;
+
+    public function SelectAllMapaTable()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_mapainfra");
+        return $row;
+    }
+    public function UpdateMapaInfra()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "UPDATE db_clti.tb_mapainfra SET (idtb_conectividade_orig, idtb_conectividade_dest, idtb_servidores_dest, 
+            idtb_estacoes_dest, porta_orig, porta_dest) = ('$this->idtb_conectividade_orig',
+            '$this->idtb_conectividade_dest', '$this->idtb_servidores_dest', '$this->idtb_estacoes_dest', 
+            '$this->porta_orig', '$this->porta_dest') 
+            WHERE idtb_mapainfra='$this->idtb_mapainfra'";
+        $row = $pg->exec($sql);
+        return $row;
+    }
+    public function InsertMapaInfra()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "INSERT INTO db_clti.tb_conectividade(idtb_conectividade_orig, idtb_conectividade_dest, idtb_servidores_dest, 
+            idtb_estacoes_dest, porta_orig, porta_dest) VALUES ($this->idtb_conectividade_orig',
+            '$this->idtb_conectividade_dest', '$this->idtb_servidores_dest', '$this->idtb_estacoes_dest', 
+            '$this->porta_orig', '$this->porta_dest')";
+        $row = $pg->exec($sql);
+        return $row;
+    }
+    public function SelectAllMapaView()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_mapainfra");
+        return $row;
+    }
+    public function SelectIdMapaView()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("SELECT * FROM db_clti.vw_mapainfra WHERE idtb_mapainfra = $this->idtb_mapainfa");
+        return $row;
+    }
+    public function SelectAllOMMapaView()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_mapainfra WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas");
+        return $row;
+    }
+    public function CountMapa()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "SELECT COUNT(idtb_mapainfra) FROM db_clti.tb_mapainfra";
+        $row = $pg->exec($sql);
+        return $row;
+    }
+}
+
 /** Classe Estações de Trabalho */
 class Estacoes
 {

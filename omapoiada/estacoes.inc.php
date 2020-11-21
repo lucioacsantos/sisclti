@@ -70,7 +70,7 @@ if (($row) AND ($act == NULL)) {
                 <thead>
                     <tr>
                         <th scope=\"col\">OM Apoiada</th>
-                        <th scope=\"col\">Cód. ET</th>
+                        <th scope=\"col\">Cód.</th>
                         <th scope=\"col\">Fabricante/Modelo</th>
                         <th scope=\"col\">Hardware</th>
                         <th scope=\"col\">Sistema Operacional</th>

@@ -5,6 +5,7 @@ AS SELECT conec.idtb_conectividade,
     conec.idtb_om_apoiadas,
     conec.fabricante,
     conec.modelo,
+    conec.qtde_portas,
     conec.idtb_om_setores,
     conec.end_ip,
     conec.data_aquisicao,
@@ -58,6 +59,26 @@ AS SELECT et.idtb_estacoes,
     db_clti.tb_om_setores setores,
     db_clti.tb_memorias mem
   WHERE et.idtb_proc_modelo = modelo.idtb_proc_modelo AND et.idtb_om_apoiadas = om.idtb_om_apoiadas AND et.idtb_sor = sor.idtb_sor AND modelo.idtb_proc_fab = fab.idtb_proc_fab AND et.idtb_memorias = mem.idtb_memorias AND et.idtb_om_setores = setores.idtb_om_setores;
+
+
+-- db_clti.vw_mapainfra source
+
+CREATE OR REPLACE VIEW db_clti.vw_mapainfra
+AS SELECT mapa.idtb_mapainfra,
+    mapa.idtb_conectividade_orig,
+    mapa.idtb_conectividade_dest,
+    mapa.idtb_servidores_dest,
+    mapa.idtb_estacoes_dest,
+    mapa.porta_orig,
+    mapa.porta_dest,
+    mapa.idtb_om_apoiadas,
+    om.sigla
+   FROM db_clti.tb_mapainfra mapa,
+    db_clti.tb_conectividade conec,
+    db_clti.tb_servidores srv,
+    db_clti.tb_estacoes et,
+    db_clti.tb_om_apoiadas om
+  WHERE mapa.idtb_om_apoiadas = om.idtb_om_apoiadas;
 
 
 -- db_clti.vw_osic source

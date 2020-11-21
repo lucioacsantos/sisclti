@@ -347,9 +347,36 @@ elseif ($versao == '1.4'){
 
 elseif ($versao == '1.5'){
 
-	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.</div>
+	$pg->exec("ALTER TABLE db_clti.tb_mapainfra ADD idtb_om_apoiadas int NOT NULL; ");
+
+	$pg->exec("ALTER TABLE db_clti.tb_mapainfra ADD CONSTRAINT tb_mapainfra_fk_4 FOREIGN KEY (idtb_om_apoiadas) 
+		REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas); ");
+	
+	$pg->exec("ALTER TABLE db_clti.tb_mapainfra ADD CONSTRAINT tb_mapainfra_fk_5 FOREIGN KEY (idtb_conectividade_dest) 
+		REFERENCES db_clti.tb_conectividade(idtb_conectividade); ");
+	
+	$pg->exec("ALTER TABLE db_clti.tb_conectividade ADD nome varchar(50) NULL; ");
+
+	$pg->exec("ALTER TABLE db_clti.tb_conectividade ADD CONSTRAINT tb_conectividade_un UNIQUE (nome); ");
+
+	$pg->exec("ALTER TABLE db_clti.tb_servidores ADD nome varchar(50) NULL; ");
+
+	$pg->exec("ALTER TABLE db_clti.tb_servidores ADD CONSTRAINT tb_servidores_un UNIQUE (nome); ");
+
+	$pg->exec("ALTER TABLE db_clti.tb_estacoes ADD nome varchar(50) NULL; ");
+
+	$pg->exec("ALTER TABLE db_clti.tb_estacoes ADD CONSTRAINT tb_estacoes_un UNIQUE (nome); ");
+
+	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.1' WHERE parametro='VERSAO' ");
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.1.</div>
 	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
 
+}
+
+elseif ($versao == '1.5.1'){
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.1.</div>
+	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
 }
 
 else{

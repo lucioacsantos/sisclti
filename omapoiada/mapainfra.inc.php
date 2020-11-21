@@ -5,61 +5,57 @@
 
 /* Classe de interação com o PostgreSQL */
 require_once "../class/constantes.inc.php";
-$conect = new Conectividade();
-$omap = new OMAPoiadas();
-$ip = new IP();
+$mapainfra = new MapaInfra();
 
 $omapoiada = $_SESSION['id_om_apoiada'];
-$omap->idtb_om_apoiadas = $omapoiada;
-$conectividade = $conect->SelectAllConectView();
+$mapainfra->idtb_om_apoiadas = $omapoiada;
+$conexoes = $mapainfra->SelectAllOMMapaView();
 
 @$act = $_GET['act'];
 
 /* Checa se o tipo de CLTI está cadastrado */
-if (($conectividade == NULL) AND ($act == NULL)) {
-	echo "<h5>Não há equipamentos de conectividade cadastrados,<br />
-		 clique <a href=\"?cmd=conectividade&act=cad\">aqui</a> para fazê-lo.</h5>";
+if (($conexoes == NULL) AND ($act == NULL)) {
+	echo "<h5>Não há mapeamento de infraestrutura cadastrado,<br />
+		 selecione uma das opções acima para fazê-lo.</h5>";
 }
 
 /* Carrega form para cadastro do tipo de CLTI */
 if ($act == 'cad') {
     @$param = $_GET['param'];
     if ($param){
-        $conect->idtb_conectividade = $param;
-        $conectividade = $conect->SelectIdConectView();
+        $mapainfra->idtb_mapainfra = $param;
+        $conexoes = $mapainfra->SelectIdMapaView();
     }
     else{
-        $conectividade = (object)['idtb_conectividade'=>'','idtb_om_apoiadas'=>'','modelo'=>'','end_ip'=>'','data_aquisicao'=>'',
-            'data_garantia'=>'','fabricante'=>'','qtde_portas'=>'','idtb_om_setores'=>'','sigla_setor'=>'',
-            'idtb_om_apoiadas'=>'','sigla'=>'','compartimento'=>'',];
+        $conexoes = (object)['idtb_mapainfra'=>'','idtb_conectividade_orig'=>'','idtb_conectividade_dest'=>'',
+            'idtb_servidores_dest'=>'','idtb_estacoes_dest'=>'','porta_orig'=>'','porta_dest'=>'','idtb_om_apoiadas'=>''];
     }
-    $conect->ordena = "ORDER BY nome_setor ASC";
-    $local = $omap->SelectAllSetoresView();
 
-	include "conectividade-formcad.inc.php";
+	include "mapainfra-formcad.inc.php";
 }
 
 /* Monta quadro com equipamentos de conectividade */
-if (($conectividade) AND ($act == NULL)) {
+if (($conexoes) AND ($act == NULL)) {
 
     $omapoiada = $_SESSION['id_om_apoiada'];
     if ($omapoiada != ''){
-        $conect->idtb_om_apoiadas = $omapoiada;
-        $conectividade = $conect->SelectAllOMConectView();
+        $mapainfra->idtb_om_apoiadas = $omapoiada;
+        $conexoes = $mapainfra->SelectAllOMMapaView();
     }
     else{
-        $conectividade = $conect->SelectAllConectView();
+        $conexoes = $mapainfra->SelectAllMapaView();
     }
 
     echo"<div class=\"table-responsive\">
             <table class=\"table table-hover\">
                 <thead>
                     <tr>
-                        <th scope=\"col\">OM Apoiada</th>
-                        <th scope=\"col\">Fabricante</th>
-                        <th scope=\"col\">Modelo</th>
-                        <th scope=\"col\">Qtde. Portas</th>
-                        <th scope=\"col\">Endereço IP</th>
+                        <th scope=\"col\">Id.Eq.Origem</th>
+                        <th scope=\"col\">Nome</th>
+                        <th scope=\"col\">Porta</th>
+                        <th scope=\"col\">Id.Eq.Destino</th>
+                        <th scope=\"col\">Nome</th>
+                        <th scope=\"col\">Porta</th>
                         <th scope=\"col\">Ações</th>
                     </tr>
                 </thead>";
@@ -100,19 +96,19 @@ if ($act == 'insert') {
         $conect->data_garantia = $_POST['data_garantia'];
 
         /* Opta pelo Método Update */
-        if ($idtb_conectividade){
+        if ($idtb_mapainfra){
 
             $checa_ip = $ip->SearchIP();
             if ($checa_ip){
                 echo "<h5>Endereço IP informado já está em uso, 
                     por favor verifique!</h5>
-                    <meta http-equiv=\"refresh\" content=\"5;url=?cmd=conectividade\">";
+                    <meta http-equiv=\"refresh\" content=\"5;url=?cmd=mapainfra\">";
             }
             else{
                 $row = $conect->UpdateConect();
                 if ($row) {
                     echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=conectividade\">";
+                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=mapainfra\">";
                 }
                 else {
                     echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
@@ -126,13 +122,13 @@ if ($act == 'insert') {
             if ($checa_ip){
                 echo "<h5>Endereço IP informado já está em uso, 
                     por favor verifique!</h5>
-                    <meta http-equiv=\"refresh\" content=\"5;url=?cmd=conectividade\">";
+                    <meta http-equiv=\"refresh\" content=\"5;url=?cmd=mapainfra\">";
             }
             else{
                 $row = $conect->InsertConect();
                 if ($row) {
                     echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=conectividade\">";
+                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=mapainfra\">";
                 }        
                 else {
                     echo "<h5>Ocorreu algum erro, tente novamente.</h5>";

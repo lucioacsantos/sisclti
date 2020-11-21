@@ -56,6 +56,7 @@ if (($conectividade) AND ($act == NULL)) {
                 <thead>
                     <tr>
                         <th scope=\"col\">OM Apoiada</th>
+                        <th scope=\"col\">Cód.</th>
                         <th scope=\"col\">Fabricante</th>
                         <th scope=\"col\">Modelo</th>
                         <th scope=\"col\">Qtde. Portas</th>
@@ -70,6 +71,7 @@ if (($conectividade) AND ($act == NULL)) {
         
         echo"       <tr>
                         <th scope=\"row\">".$value->sigla."</th>
+                        <td>".$value->idtb_conectividade."</td>
                         <td>".$value->fabricante."</td>
                         <td>".$value->modelo."</td>
                         <td>".$value->qtde_portas."</td>
