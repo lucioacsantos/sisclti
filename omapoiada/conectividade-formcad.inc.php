@@ -26,6 +26,13 @@ echo "
                     </div>
 
                     <div class=\"form-group\">
+                        <label for=\"nome\">Nome:</label>
+                        <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
+                              placeholder=\"ex. SL01-RK-03\" style=\"text-transform:uppercase\" autocomplete=\"off\"
+                              value=\"$conectividade->nome\" required=\"true\">
+                    </div>
+
+                    <div class=\"form-group\">
                         <label for=\"qtde_portas\">Qtde. de Portas:</label>
                         <input id=\"qtde_portas\" class=\"form-control\" type=\"number\" name=\"qtde_portas\"
                               placeholder=\"Qtde. Portas\" value=\"$conectividade->qtde_portas\" required=\"true\">

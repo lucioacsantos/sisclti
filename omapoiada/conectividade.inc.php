@@ -29,9 +29,9 @@ if ($act == 'cad') {
         $conectividade = $conect->SelectIdConectView();
     }
     else{
-        $conectividade = (object)['idtb_conectividade'=>'','idtb_om_apoiadas'=>'','modelo'=>'','end_ip'=>'','data_aquisicao'=>'',
-            'data_garantia'=>'','fabricante'=>'','qtde_portas'=>'','idtb_om_setores'=>'','sigla_setor'=>'',
-            'idtb_om_apoiadas'=>'','sigla'=>'','compartimento'=>'',];
+        $conectividade = (object)['idtb_conectividade'=>'','idtb_om_apoiadas'=>'','modelo'=>'','nome'=>'','end_ip'=>'',
+            'data_aquisicao'=>'','data_garantia'=>'','fabricante'=>'','qtde_portas'=>'','idtb_om_setores'=>'',
+            'sigla_setor'=>'','idtb_om_apoiadas'=>'','sigla'=>'','compartimento'=>'',];
     }
     $conect->ordena = "ORDER BY nome_setor ASC";
     $local = $omap->SelectAllSetoresView();
@@ -59,6 +59,7 @@ if (($conectividade) AND ($act == NULL)) {
                         <th scope=\"col\">Cód.</th>
                         <th scope=\"col\">Fabricante</th>
                         <th scope=\"col\">Modelo</th>
+                        <th scope=\"col\">Nome</th>
                         <th scope=\"col\">Qtde. Portas</th>
                         <th scope=\"col\">Endereço IP</th>
                         <th scope=\"col\">Ações</th>
@@ -74,6 +75,7 @@ if (($conectividade) AND ($act == NULL)) {
                         <td>".$value->idtb_conectividade."</td>
                         <td>".$value->fabricante."</td>
                         <td>".$value->modelo."</td>
+                        <td>".$value->nome."</td>
                         <td>".$value->qtde_portas."</td>
                         <td>".$value->end_ip."</td>
                         <td><a href=\"?cmd=conectividade&act=cad&param=".$value->idtb_conectividade."\">Editar</a> - 
@@ -94,6 +96,7 @@ if ($act == 'insert') {
         $conect->idtb_om_apoiadas = $_POST['idtb_om_apoiadas'];
         $conect->fabricante = strtoupper($_POST['fabricante']);
         $conect->modelo = strtoupper($_POST['modelo']);
+        $conect->nome = strtoupper($_POST['nome']);
         $conect->qtde_portas = $_POST['qtde_portas'];
         $conect->end_ip = $_POST['end_ip'];
         $ip->end_ip = $_POST['end_ip'];

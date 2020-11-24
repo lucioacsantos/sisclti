@@ -523,7 +523,7 @@ CREATE TABLE db_clti.tb_mapainfra (
 	idtb_servidores_dest int4 NULL,
 	idtb_estacoes_dest int4 NULL,
 	porta_orig int4 NOT NULL,
-	porta_dest int4 NOT NULL,
+	porta_dest int4 NULL,
 	idtb_om_apoiadas int4 NOT NULL,
 	CONSTRAINT tb_mapainfra_pk PRIMARY KEY (idtb_mapainfra),
 	CONSTRAINT tb_mapainfra_fk_1 FOREIGN KEY (idtb_estacoes_dest) REFERENCES db_clti.tb_estacoes(idtb_estacoes),

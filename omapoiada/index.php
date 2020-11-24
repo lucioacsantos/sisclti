@@ -209,15 +209,19 @@ switch ($cmd) {
       break;
 
       case 'mapainfra':
+        @$param = $_GET['param'];
         echo "
             <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
               <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
-                <h1 class=\"h2\">Mapeamento da Infraestrurura de Rede</h1>
+                <h1 class=\"h2\">Mapeamento da Infraestrutura de Rede</h1>
                 <div class=\"btn-toolbar mb-2 mb-md-0\">
                   <div class=\"btn-group mr-2\">
-                    <a href=\"?cmd=mapainfra&act=et\"><button class=\"btn btn-sm btn-outline-secondary\">Ponto de ET</button></a>
-                    <a href=\"?cmd=mapainfra&act=srv\"><button class=\"btn btn-sm btn-outline-secondary\">Ponto de Servidor</button></a>
-                    <a href=\"?cmd=mapainfra&act=conec\"><button class=\"btn btn-sm btn-outline-secondary\">Cascateamento</button></a>
+                    <a href=\"?cmd=mapainfra&act=et&param=".$param."\"><button class=\"btn btn-sm btn-outline-secondary\">
+                      Estação de Trabalho</button></a>
+                    <a href=\"?cmd=mapainfra&act=srv&param=".$param."\"><button class=\"btn btn-sm btn-outline-secondary\">
+                      Servidor</button></a>
+                    <a href=\"?cmd=mapainfra&act=conec&param=".$param."\"><button class=\"btn btn-sm btn-outline-secondary\">
+                      Eq. Conectividade</button></a>
                   </div>
                   <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
                     <span data-feather=\"calendar\"></span>

@@ -6,21 +6,55 @@
 /* Classe de interação com o PostgreSQL */
 require_once "../class/constantes.inc.php";
 $mapainfra = new MapaInfra();
+$estacoes = new Estacoes();
+$servidores = new Servidores();
+$conect = new Conectividade;
 
 $omapoiada = $_SESSION['id_om_apoiada'];
 $mapainfra->idtb_om_apoiadas = $omapoiada;
+$estacoes->idtb_om_apoiadas = $omapoiada;
 $conexoes = $mapainfra->SelectAllOMMapaView();
+$conectividade = $conect->SelectAllConectView();
+$etom = $estacoes->SelectIdOMETView();
 
 @$act = $_GET['act'];
 
 /* Checa se o tipo de CLTI está cadastrado */
-if (($conexoes == NULL) AND ($act == NULL)) {
-	echo "<h5>Não há mapeamento de infraestrutura cadastrado,<br />
-		 selecione uma das opções acima para fazê-lo.</h5>";
+if (($conectividade == NULL) AND ($act == NULL)) {
+	echo "<h5>Não há equipamentos de conectividade cadastrados,<br />
+        clique <a href=\"?cmd=conectividade&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
 
-/* Carrega form para cadastro do tipo de CLTI */
+/* Carrega form para cadastro */
 if ($act == 'cad') {
+    @$param = $_GET['param'];
+    $conect->idtb_conectividade = $param;
+    $conectividade = $conect->SelectIdConectView();
+    echo "<h5>Configurando ativo ".$conectividade->fabricante." - ".$conectividade->modelo."
+         - ".$conectividade->qtde_portas." Portas,<br>
+        selecione acima a qual tipo de equipamento conectá-lo.</h5>";
+}
+/* Carrega form para cadastro de ET */
+if ($act == 'et') {
+    @$param = $_GET['param'];
+    @$idtb_mapainfra = $_GET['id'];
+    if ($idtb_mapainfra){
+        $mapainfra->idtb_mapainfra = $idtb_mapainfra;
+        $conexoes = $mapainfra->SelectIdMapaView();
+    }
+    elseif ($param){
+        $conexoes = (object)['idtb_mapainfra'=>'','idtb_conectividade_orig'=>$param,'idtb_conectividade_dest'=>'',
+            'idtb_servidores_dest'=>'','idtb_estacoes_dest'=>'','porta_orig'=>'','porta_dest'=>'','idtb_om_apoiadas'=>''];
+    }
+    else{
+        $conexoes = (object)['idtb_mapainfra'=>'','idtb_conectividade_orig'=>'','idtb_conectividade_dest'=>'',
+            'idtb_servidores_dest'=>'','idtb_estacoes_dest'=>'','porta_orig'=>'','porta_dest'=>'','idtb_om_apoiadas'=>''];
+    }
+
+	include "mapainfra-et.inc.php";
+}
+/* Carrega form para cadastro de Servidor */
+if ($act == 'srv') {
     @$param = $_GET['param'];
     if ($param){
         $mapainfra->idtb_mapainfra = $param;
@@ -31,47 +65,65 @@ if ($act == 'cad') {
             'idtb_servidores_dest'=>'','idtb_estacoes_dest'=>'','porta_orig'=>'','porta_dest'=>'','idtb_om_apoiadas'=>''];
     }
 
-	include "mapainfra-formcad.inc.php";
+	include "mapainfra-srv.inc.php";
+}
+/* Carrega form para cadastro de Cascateamento */
+if ($act == 'conec') {
+    @$param = $_GET['param'];
+    if ($param){
+        $mapainfra->idtb_mapainfra = $param;
+        $conexoes = $mapainfra->SelectIdMapaView();
+    }
+    else{
+        $conexoes = (object)['idtb_mapainfra'=>'','idtb_conectividade_orig'=>'','idtb_conectividade_dest'=>'',
+            'idtb_servidores_dest'=>'','idtb_estacoes_dest'=>'','porta_orig'=>'','porta_dest'=>'','idtb_om_apoiadas'=>''];
+    }
+
+	include "mapainfra-conec.inc.php";
 }
 
+
 /* Monta quadro com equipamentos de conectividade */
-if (($conexoes) AND ($act == NULL)) {
+if (($conectividade) AND ($act == NULL)) {
 
     $omapoiada = $_SESSION['id_om_apoiada'];
     if ($omapoiada != ''){
-        $mapainfra->idtb_om_apoiadas = $omapoiada;
-        $conexoes = $mapainfra->SelectAllOMMapaView();
+        $conect->idtb_om_apoiadas = $omapoiada;
+        $conectividade = $conect->SelectAllOMConectView();
     }
     else{
-        $conexoes = $mapainfra->SelectAllMapaView();
+        $conectividade = $conect->SelectAllConectView();
     }
 
     echo"<div class=\"table-responsive\">
             <table class=\"table table-hover\">
                 <thead>
                     <tr>
-                        <th scope=\"col\">Id.Eq.Origem</th>
+                        <th scope=\"col\">OM Apoiada</th>
+                        <th scope=\"col\">Cód.</th>
+                        <th scope=\"col\">Fabricante</th>
+                        <th scope=\"col\">Modelo</th>
                         <th scope=\"col\">Nome</th>
-                        <th scope=\"col\">Porta</th>
-                        <th scope=\"col\">Id.Eq.Destino</th>
-                        <th scope=\"col\">Nome</th>
-                        <th scope=\"col\">Porta</th>
+                        <th scope=\"col\">Qtde. Portas</th>
+                        <th scope=\"col\">Portas Ocupadas</th>
                         <th scope=\"col\">Ações</th>
                     </tr>
                 </thead>";
 
     foreach ($conectividade as $key => $value) {
 
-        #Seleciona Sigla da OM Apoiada
+        $mapainfra->idtb_conectividade_orig = $value->idtb_conectividade;
+        $portas_ocupadas = $mapainfra->CountPortasOcupadas();
         
         echo"       <tr>
                         <th scope=\"row\">".$value->sigla."</th>
+                        <td>".$value->idtb_conectividade."</td>
                         <td>".$value->fabricante."</td>
                         <td>".$value->modelo."</td>
+                        <td>".$value->nome."</td>
                         <td>".$value->qtde_portas."</td>
-                        <td>".$value->end_ip."</td>
-                        <td><a href=\"?cmd=conectividade&act=cad&param=".$value->idtb_conectividade."\">Editar</a> - 
-                            Excluir</td>
+                        <td>".$portas_ocupadas."</td>
+                        <td><a href=\"?cmd=mapainfra&act=cad&param=".$value->idtb_conectividade."\">Cadastrar</td>
                     </tr>";
     }
     echo"

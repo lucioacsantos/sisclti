@@ -31,10 +31,11 @@ if ($act == 'cad') {
         $servidor = $srv->SelectIdSrvView();
     }
     else{
-        $servidor = (object)['idtb_servidores'=>'','idtb_om_apoiadas'=>'','sigla'=>'','modelo'=>'','idtb_proc_modelo'=>'',
-            'clock_proc'=>'','qtde_proc'=>'','memoria'=>'','armazenamento'=>'','idtb_sor'=>'','end_ip'=>'', 'end_mac'=>'',
-            'finalidade'=>'','data_aquisicao'=>'','data_garantia'=>'','fabricante'=>'','idtb_om_setores'=>'','sigla_setor'=>'',
-            'proc_fab'=>'','proc_modelo'=>'','versao'=>'','descricao'=>'','compartimento'=>'',];
+        $servidor = (object)['idtb_servidores'=>'','idtb_om_apoiadas'=>'','sigla'=>'','modelo'=>'','nome'=>'',
+            'idtb_proc_modelo'=>'','clock_proc'=>'','qtde_proc'=>'','memoria'=>'','armazenamento'=>'','idtb_sor'=>'',
+            'end_ip'=>'', 'end_mac'=>'','finalidade'=>'','data_aquisicao'=>'','data_garantia'=>'','fabricante'=>'',
+            'idtb_om_setores'=>'','sigla_setor'=>'','proc_fab'=>'','proc_modelo'=>'','versao'=>'','descricao'=>'',
+            'compartimento'=>'',];
     }
     $sor->ordena = "ORDER BY desenvolvedor,versao ASC";
     $so = $sor->SelectSOAtivo();
@@ -67,6 +68,7 @@ if (($servidor) AND ($act == NULL)) {
                         <th scope=\"col\">OM Apoiada</th>
                         <th scope=\"col\">Cód.</th>
                         <th scope=\"col\">Fabricante/Modelo</th>
+                        <th scope=\"col\">Nome</th>
                         <th scope=\"col\">Hardware</th>
                         <th scope=\"col\">Sistema Operacional</th>
                         <th scope=\"col\">Endereço IP/MAC</th>
@@ -81,6 +83,7 @@ if (($servidor) AND ($act == NULL)) {
                     <th scope=\"row\">".$value->sigla."</th>
                     <td>".$value->idtb_servidores."</td>
                     <td>".$value->fabricante." / ".$value->modelo."</td>
+                    <td>".$value->nome."</td>
                     <td>".$value->proc_fab." - ".$value->proc_modelo." - ".$value->clock_proc." GHz "
                         .$value->memoria." GB/RAM ".$value->armazenamento." GB/HD</td>
                     <td>".$value->descricao." - ".$value->versao."</td>
@@ -113,6 +116,7 @@ if ($act == 'insert') {
         $srv->idtb_om_apoiadas = $_POST['idtb_om_apoiadas'];
         $srv->fabricante = strtoupper($_POST['fabricante']);
         $srv->modelo = strtoupper($_POST['modelo']);
+        $srv->nome = strtoupper($_POST['nome']);
         $srv->idtb_proc_modelo = $_POST['idtb_proc_modelo'];
         $srv->clock_proc = $_POST['clock_proc'];
         $srv->qtde_proc = $_POST['qtde_proc'];

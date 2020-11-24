@@ -26,6 +26,13 @@ echo "
                             </div>
 
                             <div class=\"form-group\">
+                                <label for=\"nome\">Nome:</label>
+                                <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
+                                      placeholder=\"ex. COM3DN-WEB\" style=\"text-transform:uppercase\"
+                                      value=\"$servidor->nome\"  required=\"true\" autocomplete=\"off\">
+                            </div>
+
+                            <div class=\"form-group\">
                                 <label for=\"idtb_proc_modelo\">Processador:</label>
                                 <select id=\"idtb_proc_modelo\" class=\"form-control\" name=\"idtb_proc_modelo\">
                                 <option value=\"$servidor->idtb_proc_modelo\" selected=\"true\">

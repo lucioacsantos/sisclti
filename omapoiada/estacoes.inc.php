@@ -32,7 +32,7 @@ if ($act == 'cad') {
         $estacoes = $et->SelectIdETView();
     }
     else{
-        $estacoes = (object)['idtb_estacoes'=>'','idtb_om_apoiadas'=>'','sigla'=>'','fabricante'=>'','modelo'=>'',
+        $estacoes = (object)['idtb_estacoes'=>'','idtb_om_apoiadas'=>'','sigla'=>'','fabricante'=>'','modelo'=>'','nome'=>'',
             'idtb_proc_modelo'=>'','proc_modelo'=>'','proc_fab'=>'','clock_proc'=>'','idtb_memorias'=>'','tipo_mem'=>'',
             'modelo_mem'=>'','clock_mem'=>'','memoria'=>'','armazenamento'=>'','idtb_om_setores'=>'','sigla_setor'=>'',
             'idtb_sor'=>'','descricao'=>'','versao'=>'','end_ip'=>'','end_mac'=>'','data_aquisicao'=>'NULL',
@@ -72,6 +72,7 @@ if (($row) AND ($act == NULL)) {
                         <th scope=\"col\">OM Apoiada</th>
                         <th scope=\"col\">Cód.</th>
                         <th scope=\"col\">Fabricante/Modelo</th>
+                        <th scope=\"col\">Nome</th>
                         <th scope=\"col\">Hardware</th>
                         <th scope=\"col\">Sistema Operacional</th>
                         <th scope=\"col\">Endereço IP/MAC</th>
@@ -87,6 +88,7 @@ if (($row) AND ($act == NULL)) {
                         <th scope=\"row\">".$value->sigla."</th>
                         <td>".$value->idtb_estacoes."</td>
                         <td>".$value->fabricante." / ".$value->modelo."</td>
+                        <td>".$value->nome."</td>
                         <td>".$value->proc_fab." ".$value->proc_modelo." ".$value->clock_proc." GHz -  
                             ".$value->memoria." GB ".$value->tipo_mem." ".$value->modelo_mem." ".$value->clock_mem." GHz - 
                             ".$value->armazenamento." GB/HD</td>
@@ -124,6 +126,7 @@ if ($act == 'insert') {
         $et->idtb_om_apoiadas = $_POST['idtb_om_apoiadas'];
         $et->fabricante = strtoupper($_POST['fabricante']);
         $et->modelo = strtoupper($_POST['modelo']);
+        $et->nome = strtoupper($_POST['nome']);
         $et->idtb_proc_modelo = $_POST['idtb_proc_modelo'];
         $et->clock_proc = $_POST['clock_proc'];
         $et->idtb_memorias = $_POST['idtb_memorias'];

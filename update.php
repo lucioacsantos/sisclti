@@ -304,18 +304,9 @@ elseif ($versao == '1.4'){
 	$pg->exec("DROP VIEW db_clti.vw_conectividade");
 
 	$pg->exec("CREATE OR REPLACE VIEW db_clti.vw_conectividade
-	AS SELECT conec.idtb_conectividade,
-		conec.idtb_om_apoiadas,
-		conec.fabricante,
-		conec.modelo,
-		conec.qtde_portas,
-		conec.idtb_om_setores,
-		conec.end_ip,
-		conec.data_aquisicao,
-		conec.data_garantia,
-		om.sigla,
-		setores.sigla_setor,
-		setores.compartimento
+	AS SELECT conec.idtb_conectividade, conec.idtb_om_apoiadas, conec.fabricante, conec.modelo,
+		conec.qtde_portas, conec.idtb_om_setores, conec.end_ip, conec.data_aquisicao,
+		conec.data_garantia, om.sigla, setores.sigla_setor, setores.compartimento
 	   FROM db_clti.tb_conectividade conec,
 		db_clti.tb_om_setores setores,
 		db_clti.tb_om_apoiadas om
@@ -337,6 +328,18 @@ elseif ($versao == '1.4'){
 	COMMENT ON TABLE db_clti.tb_mapainfra IS 'Mapeamentos dos pontos de rede da infraestrutura,';
 	
 	");
+
+	$pg->exec("CREATE OR REPLACE VIEW db_clti.vw_mapainfra
+	AS SELECT mapa.idtb_mapainfra, mapa.idtb_conectividade_orig, conec.fabricante, conec.modelo, conec.nome,
+		mapa.idtb_conectividade_dest, mapa.idtb_servidores_dest, mapa.idtb_estacoes_dest, mapa.porta_orig,
+		mapa.porta_dest, mapa.idtb_om_apoiadas, om.sigla
+	   FROM db_clti.tb_mapainfra mapa,
+		db_clti.tb_conectividade conec,
+		db_clti.tb_servidores srv,
+		db_clti.tb_estacoes et,
+		db_clti.tb_om_apoiadas om
+	  WHERE mapa.idtb_om_apoiadas = om.idtb_om_apoiadas;
+	")
 
 	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5' WHERE parametro='VERSAO' ");
 
@@ -366,6 +369,53 @@ elseif ($versao == '1.5'){
 	$pg->exec("ALTER TABLE db_clti.tb_estacoes ADD nome varchar(50) NULL; ");
 
 	$pg->exec("ALTER TABLE db_clti.tb_estacoes ADD CONSTRAINT tb_estacoes_un UNIQUE (nome); ");
+
+	$pg->exec("DROP VIEW db_clti.vw_conectividade");
+
+	$pg->exec("DROP VIEW db_clti.vw_estacoes");
+
+	$pg->exec("DROP VIEW db_clti.vw_servidores");
+
+	$pg->exec("CREATE OR REPLACE VIEW db_clti.vw_conectividade
+	AS SELECT conec.idtb_conectividade, conec.idtb_om_apoiadas, conec.fabricante, conec.modelo,
+		conec.nome, conec.qtde_portas, conec.idtb_om_setores, conec.end_ip, conec.data_aquisicao,
+		conec.data_garantia, om.sigla, setores.sigla_setor, setores.compartimento
+	   FROM db_clti.tb_conectividade conec,
+		db_clti.tb_om_setores setores,
+		db_clti.tb_om_apoiadas om
+	  WHERE conec.idtb_om_apoiadas = om.idtb_om_apoiadas AND conec.idtb_om_setores = setores.idtb_om_setores;
+	");
+
+	$pg->exec("CREATE OR REPLACE VIEW db_clti.vw_estacoes
+	AS SELECT et.idtb_estacoes, et.idtb_om_apoiadas, et.idtb_proc_modelo, et.clock_proc, et.fabricante,
+		et.modelo, et.nome, et.idtb_memorias, et.memoria, mem.tipo AS tipo_mem, mem.modelo AS modelo_mem,
+		mem.clock AS clock_mem, et.armazenamento, et.idtb_sor, et.end_ip, et.end_mac, et.data_aquisicao,
+		et.data_garantia, et.idtb_om_setores, setores.sigla_setor, setores.compartimento, et.req_minimos,
+		et.status, om.sigla, fab.idtb_proc_fab, fab.nome AS proc_fab, modelo.modelo AS proc_modelo,
+		sor.descricao, sor.versao, sor.situacao
+	   FROM db_clti.tb_estacoes et,
+		db_clti.tb_proc_fab fab,
+		db_clti.tb_proc_modelo modelo,
+		db_clti.tb_om_apoiadas om,
+		db_clti.tb_sor sor,
+		db_clti.tb_om_setores setores,
+		db_clti.tb_memorias mem
+	  WHERE et.idtb_proc_modelo = modelo.idtb_proc_modelo AND et.idtb_om_apoiadas = om.idtb_om_apoiadas AND et.idtb_sor = sor.idtb_sor AND modelo.idtb_proc_fab = fab.idtb_proc_fab AND et.idtb_memorias = mem.idtb_memorias AND et.idtb_om_setores = setores.idtb_om_setores;
+	");
+
+	$pg->exec("CREATE OR REPLACE VIEW db_clti.vw_servidores
+	AS SELECT srv.idtb_servidores, srv.idtb_om_apoiadas, srv.fabricante, srv.modelo, srv.nome, srv.idtb_proc_modelo,
+		srv.clock_proc, srv.qtde_proc, srv.memoria, srv.armazenamento, srv.end_ip, srv.end_mac, srv.idtb_sor,
+		srv.finalidade, srv.data_aquisicao, srv.data_garantia, srv.idtb_om_setores, srv.status, om.sigla,
+		fab.idtb_proc_fab, fab.nome AS proc_fab, modelo.modelo AS proc_modelo, sor.descricao, sor.versao,
+		sor.situacao, setores.sigla_setor, setores.compartimento
+	   FROM db_clti.tb_servidores srv,
+		db_clti.tb_proc_fab fab,
+		db_clti.tb_proc_modelo modelo,
+		db_clti.tb_om_apoiadas om,
+		db_clti.tb_om_setores setores,
+		db_clti.tb_sor sor
+	  WHERE srv.idtb_proc_modelo = modelo.idtb_proc_modelo AND srv.idtb_om_apoiadas = om.idtb_om_apoiadas AND srv.idtb_sor = sor.idtb_sor AND modelo.idtb_proc_fab = fab.idtb_proc_fab AND srv.idtb_om_setores = setores.idtb_om_setores;");
 
 	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.1' WHERE parametro='VERSAO' ");
 

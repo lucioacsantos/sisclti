@@ -740,6 +740,7 @@ class Conectividade
     public $idtb_om_apoiadas;
     public $fabricante;
     public $modelo;
+    public $nome;
     public $qtde_portas;
     public $end_ip;
     public $idtb_om_setores;
@@ -757,10 +758,10 @@ class Conectividade
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "UPDATE db_clti.tb_conectividade SET (idtb_om_apoiadas, fabricante, modelo, qtde_portas, end_ip, 
+        $sql = "UPDATE db_clti.tb_conectividade SET (idtb_om_apoiadas, fabricante, modelo, nome, qtde_portas, end_ip, 
             idtb_om_setores, data_aquisicao, data_garantia) = ('$this->idtb_om_apoiadas', '$this->fabricante', 
-            '$this->modelo', '$this->qtde_portas', '$this->end_ip', '$this->idtb_om_setores', '$this->data_aquisicao', 
-            '$this->data_garantia') 
+            '$this->modelo', '$this->nome', '$this->qtde_portas', '$this->end_ip', '$this->idtb_om_setores', 
+            '$this->data_aquisicao', '$this->data_garantia') 
             WHERE idtb_conectividade='$this->idtb_conectividade'";
         $row = $pg->exec($sql);
         return $row;
@@ -769,10 +770,10 @@ class Conectividade
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "INSERT INTO db_clti.tb_conectividade(idtb_om_apoiadas, fabricante, modelo, qtde_portas, end_ip, 
+        $sql = "INSERT INTO db_clti.tb_conectividade(idtb_om_apoiadas, fabricante, modelo, nome, qtde_portas, end_ip, 
             idtb_om_setores, data_aquisicao, data_garantia) VALUES ('$this->idtb_om_apoiadas', '$this->fabricante', 
-            '$this->modelo', '$this->qtde_portas', '$this->end_ip', '$this->idtb_om_setores', '$this->data_aquisicao', 
-            '$this->data_garantia')";
+            '$this->modelo', '$this->nome', '$this->qtde_portas', '$this->end_ip', '$this->idtb_om_setores', 
+            '$this->data_aquisicao', '$this->data_garantia')";
         $row = $pg->exec($sql);
         return $row;
     }
@@ -871,6 +872,15 @@ class MapaInfra
         $row = $pg->getRows("SELECT * FROM db_clti.vw_mapainfra WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas");
         return $row;
     }
+    public function CountPortasOcupadas()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "SELECT COUNT(idtb_mapainfra) FROM db_clti.vw_mapainfra WHERE 
+            idtb_conectividade_orig = $this->idtb_conectividade_orig";
+        $row = $pg->getCol($sql);
+        return $row;
+    }
     public function CountMapa()
     {
         require_once "pgsql.class.php";
@@ -889,6 +899,7 @@ class Estacoes
     public $idtb_om_apoiadas;
     public $fabricante;
     public $modelo;
+    public $nome;
     public $end_ip;
     public $idtb_om_setores;
     public $data_aquisicao;
@@ -921,13 +932,13 @@ class Estacoes
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $sql = "UPDATE db_clti.tb_estacoes SET
-            (idtb_om_apoiadas, fabricante, modelo, end_ip, idtb_om_setores, data_aquisicao, data_garantia,
+            (idtb_om_apoiadas, fabricante, modelo, nome, end_ip, idtb_om_setores, data_aquisicao, data_garantia,
             idtb_proc_modelo, clock_proc, idtb_memorias,memoria, armazenamento, end_mac, idtb_sor,
             req_minimos, status) = 
-            ('$this->idtb_om_apoiadas', '$this->fabricante', '$this->modelo', '$this->end_ip', '$this->idtb_om_setores', 
-            '$this->data_aquisicao', '$this->data_garantia', '$this->idtb_proc_modelo', '$this->clock_proc', 
-            '$this->idtb_memorias', '$this->memoria', '$this->armazenamento', '$this->end_mac', '$this->idtb_sor',
-            '$this->req_minimos', '$this->status') WHERE idtb_estacoes='$this->idtb_estacoes'";
+            ('$this->idtb_om_apoiadas', '$this->fabricante', '$this->modelo', '$this->nome', '$this->end_ip', 
+            '$this->idtb_om_setores', '$this->data_aquisicao', '$this->data_garantia', '$this->idtb_proc_modelo', 
+            '$this->clock_proc', '$this->idtb_memorias', '$this->memoria', '$this->armazenamento', '$this->end_mac', 
+            '$this->idtb_sor','$this->req_minimos', '$this->status') WHERE idtb_estacoes='$this->idtb_estacoes'";
         $row = $pg->exec($sql);
         return $row;
     }
@@ -936,13 +947,13 @@ class Estacoes
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $sql = "INSERT INTO db_clti.tb_estacoes
-            (idtb_om_apoiadas, fabricante, modelo, end_ip, idtb_om_setores, data_aquisicao, data_garantia,
+            (idtb_om_apoiadas, fabricante, modelo, nome, end_ip, idtb_om_setores, data_aquisicao, data_garantia,
             idtb_proc_modelo, clock_proc, idtb_memorias,memoria, armazenamento, end_mac, idtb_sor,
             req_minimos, status) VALUES 
-            ('$this->idtb_om_apoiadas', '$this->fabricante', '$this->modelo', '$this->end_ip', '$this->idtb_om_setores', 
-            '$this->data_aquisicao', '$this->data_garantia', '$this->idtb_proc_modelo', '$this->clock_proc', 
-            '$this->idtb_memorias', '$this->memoria', '$this->armazenamento', '$this->end_mac', '$this->idtb_sor',
-            '$this->req_minimos', '$this->status')";
+            ('$this->idtb_om_apoiadas', '$this->fabricante', '$this->modelo', '$this->nome', '$this->end_ip', 
+            '$this->idtb_om_setores', '$this->data_aquisicao', '$this->data_garantia', '$this->idtb_proc_modelo', 
+            '$this->clock_proc', '$this->idtb_memorias', '$this->memoria', '$this->armazenamento', '$this->end_mac', 
+            '$this->idtb_sor', '$this->req_minimos', '$this->status')";
         $row = $pg->exec($sql);
         return $row;
     }
@@ -1016,6 +1027,7 @@ class Servidores
     public $idtb_om_apoiadas;
     public $fabricante;
     public $modelo;
+    public $nome;
     public $end_ip;
     public $localizacao;
     public $data_aquisicao;
@@ -1044,12 +1056,13 @@ class Servidores
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $sql = "UPDATE db_clti.tb_servidores SET 
-            idtb_om_apoiadas='$this->idtb_om_apoiadas', fabricante='$this->fabricante', modelo='$this->modelo', 
-            idtb_proc_modelo='$this->idtb_proc_modelo', clock_proc='$this->clock_proc', qtde_proc='$this->qtde_proc', 
-            memoria='$this->memoria', armazenamento='$this->armazenamento', end_ip='$this->end_ip', 
-            end_mac='$this->end_mac', idtb_sor='$this->idtb_sor', finalidade='$this->finalidade', 
-            data_aquisicao='$this->data_aquisicao', data_garantia='$this->data_garantia', 
-            idtb_om_setores='$this->idtb_om_setores', status='$this->status'
+            (idtb_om_apoiadas, fabricante, modelo, nome, idtb_proc_modelo, clock_proc, qtde_proc, memoria, 
+            armazenamento, end_ip, end_mac, idtb_sor, finalidade, data_aquisicao, data_garantia, idtb_om_setores, 
+            status) = 
+            ('$this->idtb_om_apoiadas', '$this->fabricante', '$this->modelo', '$this->nome', '$this->idtb_proc_modelo', 
+            '$this->clock_proc','$this->qtde_proc', '$this->memoria', '$this->armazenamento','$this->end_ip', 
+            '$this->end_mac', '$this->idtb_sor', '$this->finalidade','$this->data_aquisicao', 
+            '$this->data_garantia', '$this->idtb_om_setores', '$this->status')
             WHERE idtb_servidores='$this->idtb_servidores'";
         $row = $pg->exec($sql);
         return $row;
@@ -1058,11 +1071,11 @@ class Servidores
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "INSERT INTO db_clti.tb_servidores(
-            idtb_om_apoiadas, fabricante, modelo, idtb_proc_modelo, clock_proc, 
-            qtde_proc, memoria, armazenamento, end_ip, end_mac, idtb_sor, 
-            finalidade, data_aquisicao, data_garantia, idtb_om_setores, status)
-            VALUES ('$this->idtb_om_apoiadas', '$this->fabricante', '$this->modelo', '$this->idtb_proc_modelo', 
+        $sql = "INSERT INTO db_clti.tb_servidores
+            (idtb_om_apoiadas, fabricante, modelo, nome, idtb_proc_modelo, clock_proc, qtde_proc, memoria, 
+            armazenamento, end_ip, end_mac, idtb_sor, finalidade, data_aquisicao, data_garantia, idtb_om_setores, 
+            status) VALUES 
+            ('$this->idtb_om_apoiadas', '$this->fabricante', '$this->modelo', '$this->nome', '$this->idtb_proc_modelo', 
             '$this->clock_proc','$this->qtde_proc', '$this->memoria', '$this->armazenamento','$this->end_ip', 
             '$this->end_mac', '$this->idtb_sor', '$this->finalidade','$this->data_aquisicao', 
             '$this->data_garantia', '$this->idtb_om_setores', '$this->status')";
