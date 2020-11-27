@@ -552,3 +552,5 @@ CREATE TABLE db_clti.tb_nec_aquisicao (
 	CONSTRAINT tb_nec_aquisicao_fk FOREIGN KEY (idtb_manutencao_et) REFERENCES db_clti.tb_manutencao_et(idtb_manutencao_et)
 );
 CREATE INDEX tb_nec_aquisicao_idtb_nec_aquisicao_idx ON db_clti.tb_nec_aquisicao USING btree (idtb_nec_aquisicao);
+
+
