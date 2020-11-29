@@ -6812,12 +6812,6 @@ INSERT INTO db_clti.tb_memorias (tipo,modelo,clock) VALUES
 ,('DDR4','PC4-27700',3466)
 ,('DDR4','PC4-28000',3600)
 ,('DDR4','PC4-32000',4000)
-;INSERT INTO db_clti.tb_om_apoiadas (cod_om,nome,sigla,indicativo,idtb_estado,idtb_cidade) VALUES 
-(83000,'COMANDO DO 3º DISTRITO NAVAL','COM3ºDN','TERDIS',20,3770)
-,(83800,'BASE NAVAL DE NATAL','BNN','BNNATL',20,3770)
-;INSERT INTO db_clti.tb_om_setores (idtb_om_apoiadas,nome_setor,sigla_setor,cod_funcional,compartimento) VALUES 
-(1,'SETOR1','SIGLA1','COD1','COMPART1')
-,(1,'SETOR2','SIGLA2','COD2','COMPART2')
 ;INSERT INTO db_clti.tb_posto_grad (nome,sigla) VALUES 
 ('Almirante-de-Esquadra','AE')
 ,('Vice-Almirante','VA')

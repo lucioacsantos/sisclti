@@ -32,7 +32,7 @@ echo "
 
                     <div class=\"form-group\">
                         <label for=\"porta_orig\">Porta de Origem:</label>
-                        <input id=\"porta_orig\" class=\"form-control\" type=\"number\" name=\"porta_orig\"
+                        <input id=\"porta_orig\" class=\"form-control\" type=\"number\" min=\"1\" name=\"porta_orig\"
                             value=\"$conexoes->porta_orig\" required=\"true\" autocomplete=\"off\">
                     </div>
 

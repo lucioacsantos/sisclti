@@ -295,4 +295,3 @@ AS SELECT setores.idtb_om_setores,
    FROM db_clti.tb_om_setores setores,
     db_clti.tb_om_apoiadas om
   WHERE setores.idtb_om_apoiadas = om.idtb_om_apoiadas;
-  

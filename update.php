@@ -339,7 +339,7 @@ elseif ($versao == '1.4'){
 		db_clti.tb_estacoes et,
 		db_clti.tb_om_apoiadas om
 	  WHERE mapa.idtb_om_apoiadas = om.idtb_om_apoiadas;
-	")
+	");
 
 	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5' WHERE parametro='VERSAO' ");
 

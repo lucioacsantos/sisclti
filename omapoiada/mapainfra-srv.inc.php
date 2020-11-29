@@ -40,14 +40,14 @@ echo "
 
                     <div class=\"form-group\">
                         <label for=\"porta_orig\">Porta de Origem:</label>
-                        <input id=\"porta_orig\" class=\"form-control\" type=\"date\" name=\"porta_orig\"
+                        <input id=\"porta_orig\" class=\"form-control\" type=\"number\" min=\"1\" name=\"porta_orig\"
                             style=\"text-transform:uppercase\" value=\"$conexoes->porta_orig\" 
                             required=\"true\" autocomplete=\"off\">
                     </div>
 
                     <div class=\"form-group\">
                         <label for=\"porta_dest\">Posta de Destino:</label>
-                        <input id=\"porta_dest\" class=\"form-control\" type=\"date\" name=\"porta_dest\"
+                        <input id=\"porta_dest\" class=\"form-control\" type=\"number\" min=\"1\" name=\"porta_dest\"
                             style=\"text-transform:uppercase\"value=\"$conexoes->porta_dest\"
                             required=\"true\" autocomplete=\"off\">
                     </div>
