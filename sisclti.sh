@@ -61,6 +61,7 @@ firewall-cmd --add-service=http --permanent
 firewall-cmd --add-port=443/tcp
 firewall-cmd --add-port=443/tcp --permanent
 sed -i "s/SELINUX=enforcing/SELINUX=disabled/g" /etc/sysconfig/selinux
+setenforce 0
 
 #Solicita senha para o usuário criado do banco de dados para o SisCLTI
 while [ true ]
@@ -110,6 +111,11 @@ sleep 0.5
 cp -ru $PWD/ /var/www/html/sisclti
 #rm -fr $PWD
 
+#Configurações inciciais do sistema
+cp /var/www/html/sisclti/class/config_default.php /var/www/html/sisclti/class/config.php
+sed -i "s/localhost/$URLIP/g" /var/www/html/sisclti/db_clti_dados.sql
+sed -i "s/db_passwd/$BDPWS/g" /var/www/html/sisclti/class/config.php
+
 #Executando configuração do banco de dados PostgreSQL
 echo "Executando configuração do banco de dados PostgreSQL..."
 sleep 0.5
@@ -122,11 +128,6 @@ psql -c "ALTER SCHEMA db_clti OWNER TO sisclti" -d db_clti -U postgres
 psql -f /var/www/html/sisclti/db_clti.sql -d db_clti -U postgres
 psql -f /var/www/html/sisclti/db_clti_dados.sql -d db_clti -U postgres
 psql -f /var/www/html/sisclti/db_clti_views.sql -d db_clti -U postgres
-
-#Configurações inciciais do sistema
-cp /var/www/html/sisclti/class/config_default.php /var/www/html/sisclti/class/config.php
-sed -i "s/localhost/$URLIP/g" /var/www/html/sisclti/db_clti_dados.sql
-sed -i "s/db_passwd/$BDPWS/g" /var/www/html/sisclti/class/config.php
 
 #Configurações seguras do PostgreSQL
 echo "Aplicando configurações seguras do PostgreSQL..."
