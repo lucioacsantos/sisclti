@@ -61,6 +61,7 @@ firewall-cmd --add-service=http --permanent
 firewall-cmd --add-port=443/tcp
 firewall-cmd --add-port=443/tcp --permanent
 sed -i "s/SELINUX=enforcing/SELINUX=disabled/g" /etc/sysconfig/selinux
+sed -i "s/SELINUX=enforcing/SELINUX=disabled/g" /etc/selinux/config
 setenforce 0
 
 #Solicita senha para o usuário criado do banco de dados para o SisCLTI
