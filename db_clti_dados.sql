@@ -6930,8 +6930,6 @@ INSERT INTO db_clti.tb_sor (desenvolvedor,descricao,versao,situacao) VALUES
 ;INSERT INTO db_clti.tb_tipos_clti (norma_atual,data_norma,lotacao_oficiais,lotacao_pracas,tipo_clti) VALUES 
 ('DCTIMARINST 30-06C','2019-04-30',1,1,'1')
 ;
-INSERT INTO db_clti.tb_pessoal_ti (idtb_om_apoiadas,idtb_posto_grad,idtb_corpo_quadro,idtb_especialidade,nip,cpf,nome,nome_guerra,correio_eletronico,status,senha,idtb_funcoes_ti) VALUES 
-(1,8,1,4,'12345678','','ADMINCLTI','ADMINCLTI','adminclti@marinha.mil.br','ATIVO','1f82ea75c5cc526729e2d581aeb3aeccfef4407e256127614ef298fedf9376775a7d7328090f63bf',1)
-;INSERT INTO db_clti.tb_lotacao_clti (idtb_posto_grad,idtb_corpo_quadro,idtb_especialidade,nip,cpf,nome,nome_guerra,status,senha,perfil,correio_eletronico) VALUES 
+INSERT INTO db_clti.tb_lotacao_clti (idtb_posto_grad,idtb_corpo_quadro,idtb_especialidade,nip,cpf,nome,nome_guerra,status,senha,perfil,correio_eletronico) VALUES 
 (16,1,8,'12345678','','ADMINCLTI','ADMINCLTI','ATIVO','1f82ea75c5cc526729e2d581aeb3aeccfef4407e256127614ef298fedf9376775a7d7328090f63bf','TEC_CLTI','adminclti@marinha.mil.br')
 ;

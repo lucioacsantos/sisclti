@@ -122,31 +122,6 @@ COMMENT ON TABLE db_clti.tb_memorias IS 'Tabela contendo Modelos de Memórias RA
 ALTER TABLE db_clti.tb_memorias OWNER TO sisclti;
 GRANT ALL ON TABLE db_clti.tb_memorias TO sisclti;
 
-
--- db_clti.tb_om_setores definition
-
--- Drop table
-
--- DROP TABLE db_clti.tb_om_setores;
-
-CREATE TABLE db_clti.tb_om_setores (
-	idtb_om_setores serial NOT NULL,
-	idtb_om_apoiadas int4 NOT NULL,
-	nome_setor varchar(255) NOT NULL,
-	sigla_setor varchar(255) NOT NULL,
-	cod_funcional varchar(45) NOT NULL,
-	compartimento varchar(255) NOT NULL,
-	CONSTRAINT tb_om_setores_pk PRIMARY KEY (idtb_om_setores)
-);
-CREATE UNIQUE INDEX tb_om_setores_idtb_om_setores_idx ON db_clti.tb_om_setores USING btree (idtb_om_setores);
-COMMENT ON TABLE db_clti.tb_om_setores IS 'Tabela contendo Setores das OM Apoiadas.';
-
--- Permissions
-
-ALTER TABLE db_clti.tb_om_setores OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.tb_om_setores TO sisclti;
-
-
 -- db_clti.tb_pais definition
 
 -- Drop table
@@ -154,7 +129,7 @@ GRANT ALL ON TABLE db_clti.tb_om_setores TO sisclti;
 -- DROP TABLE db_clti.tb_pais;
 
 CREATE TABLE db_clti.tb_pais (
-	id serial NOT NULL DEFAULT nextval('db_clti.tb_pais_id_seq'::regclass),
+	id serial NOT NULL,
 	nome varchar(60) NOT NULL,
 	sigla varchar(10) NOT NULL,
 	CONSTRAINT pais_pkey PRIMARY KEY (id)
@@ -294,6 +269,26 @@ COMMENT ON TABLE db_clti.tb_estado IS 'Tabela contendo Estados.';
 ALTER TABLE db_clti.tb_estado OWNER TO sisclti;
 GRANT ALL ON TABLE db_clti.tb_estado TO sisclti;
 
+-- db_clti.tb_cidade definition
+
+-- Drop table
+
+-- DROP TABLE db_clti.tb_cidade;
+
+CREATE TABLE db_clti.tb_cidade (
+	id serial NOT NULL,
+	nome varchar(120) NOT NULL,
+	estado int4 NOT NULL,
+	CONSTRAINT cidade_pkey PRIMARY KEY (id),
+	CONSTRAINT tb_cidade_estado_fkey FOREIGN KEY (estado) REFERENCES db_clti.tb_estado(id)
+);
+COMMENT ON TABLE db_clti.tb_cidade IS 'Tabela contendo Cidades.';
+
+-- Permissions
+
+ALTER TABLE db_clti.tb_cidade OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_cidade TO sisclti;
+
 
 -- db_clti.tb_lotacao_clti definition
 
@@ -381,27 +376,6 @@ ALTER TABLE db_clti.tb_qualificacao_clti OWNER TO sisclti;
 GRANT ALL ON TABLE db_clti.tb_qualificacao_clti TO sisclti;
 
 
--- db_clti.tb_cidade definition
-
--- Drop table
-
--- DROP TABLE db_clti.tb_cidade;
-
-CREATE TABLE db_clti.tb_cidade (
-	id serial NOT NULL,
-	nome varchar(120) NOT NULL,
-	estado int4 NOT NULL,
-	CONSTRAINT cidade_pkey PRIMARY KEY (id),
-	CONSTRAINT tb_cidade_estado_fkey FOREIGN KEY (estado) REFERENCES db_clti.tb_estado(id)
-);
-COMMENT ON TABLE db_clti.tb_cidade IS 'Tabela contendo Cidades.';
-
--- Permissions
-
-ALTER TABLE db_clti.tb_cidade OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.tb_cidade TO sisclti;
-
-
 -- db_clti.tb_om_apoiadas definition
 
 -- Drop table
@@ -427,6 +401,34 @@ COMMENT ON TABLE db_clti.tb_om_apoiadas IS 'Tabela contendo OM Apoiadas pelo CLT
 
 ALTER TABLE db_clti.tb_om_apoiadas OWNER TO sisclti;
 GRANT ALL ON TABLE db_clti.tb_om_apoiadas TO sisclti;
+
+-- db_clti.tb_om_setores definition
+
+-- Drop table
+
+-- DROP TABLE db_clti.tb_om_setores;
+
+CREATE TABLE db_clti.tb_om_setores (
+	idtb_om_setores serial NOT NULL,
+	idtb_om_apoiadas int4 NOT NULL,
+	nome_setor varchar(255) NOT NULL,
+	sigla_setor varchar(255) NOT NULL,
+	cod_funcional varchar(45) NOT NULL,
+	compartimento varchar(255) NOT NULL,
+	CONSTRAINT tb_om_setores_pk PRIMARY KEY (idtb_om_setores)
+);
+CREATE UNIQUE INDEX tb_om_setores_idtb_om_setores_idx ON db_clti.tb_om_setores USING btree (idtb_om_setores);
+COMMENT ON TABLE db_clti.tb_om_setores IS 'Tabela contendo Setores das OM Apoiadas.';
+
+-- Permissions
+
+ALTER TABLE db_clti.tb_om_setores OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.tb_om_setores TO postgres;
+
+
+-- db_clti.tb_om_setores foreign keys
+
+ALTER TABLE db_clti.tb_om_setores ADD CONSTRAINT tb_om_setores_fk FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas);
 
 
 -- db_clti.tb_osic definition

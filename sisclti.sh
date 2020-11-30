@@ -117,12 +117,11 @@ psql -c "CREATE ROLE sisclti" -U postgres
 psql -c "ALTER ROLE sisclti WITH SUPERUSER INHERIT NOCREATEROLE CREATEDB LOGIN PASSWORD '$BDPWS'" -U postgres
 psql -c "CREATE DATABASE db_clti WITH TEMPLATE=template0 ENCODING='UTF8' LC_COLLATE='pt_BR.UTF-8' LC_CTYPE='pt_BR.UTF-8'" -U postgres
 psql -c "ALTER DATABASE db_clti OWNER TO sisclti" -U postgres
-psql -d db_clti -U postgres
-psql -c "CREATE SCHEMA db_clti" -U postgres
-psql -c "ALTER SCHEMA db_clti OWNER TO sisclti" -U postgres
-psql -f /var/www/html/sisclti/db_clti.sql -U postgres
-psql -f /var/www/html/sisclti/db_clti_dados.sql -U postgres
-psql -f /var/www/html/sisclti/db_clti_views.sql -U postgres
+psql -c "CREATE SCHEMA db_clti" -d db_clti -U postgres
+psql -c "ALTER SCHEMA db_clti OWNER TO sisclti" -d db_clti -U postgres
+psql -f /var/www/html/sisclti/db_clti.sql -d db_clti -U postgres
+psql -f /var/www/html/sisclti/db_clti_dados.sql -d db_clti -U postgres
+psql -f /var/www/html/sisclti/db_clti_views.sql -d db_clti -U postgres
 
 #Configurações inciciais do sistema
 cp /var/www/html/sisclti/class/config_default.php /var/www/html/sisclti/class/config.php
