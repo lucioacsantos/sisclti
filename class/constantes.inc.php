@@ -814,6 +814,7 @@ class MapaInfra
     public $idtb_mapainfra;
     public $ordena;
     public $idtb_om_apoiadas;
+    public $idtb_conectividade;
     public $idtb_conectividade_orig;
     public $idtb_conectividade_dest;
     public $idtb_servidores_dest;
@@ -840,14 +841,23 @@ class MapaInfra
         $row = $pg->exec($sql);
         return $row;
     }
-    public function InsertMapaInfra()
+    public function InsertSRVMapaInfra()
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "INSERT INTO db_clti.tb_conectividade(idtb_conectividade_orig, idtb_conectividade_dest, idtb_servidores_dest, 
-            idtb_estacoes_dest, porta_orig, porta_dest) VALUES ($this->idtb_conectividade_orig',
-            '$this->idtb_conectividade_dest', '$this->idtb_servidores_dest', '$this->idtb_estacoes_dest', 
-            '$this->porta_orig', '$this->porta_dest')";
+        $sql = "INSERT INTO db_clti.tb_mapainfra(idtb_conectividade_orig, idtb_servidores_dest, porta_orig, idtb_om_apoiadas) 
+            VALUES ('$this->idtb_conectividade_orig', '$this->idtb_servidores_dest', '$this->porta_orig',
+            '$this->idtb_om_apoiadas')";
+        $row = $pg->exec($sql);
+        return $row;
+    }
+    public function InsertETMapaInfra()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "INSERT INTO db_clti.tb_mapainfra(idtb_conectividade_orig, idtb_estacoes_dest, porta_orig, idtb_om_apoiadas) 
+            VALUES ('$this->idtb_conectividade_orig','$this->idtb_estacoes_dest', '$this->porta_orig', 
+            '$this->idtb_om_apoiadas')";
         $row = $pg->exec($sql);
         return $row;
     }
@@ -872,12 +882,37 @@ class MapaInfra
         $row = $pg->getRows("SELECT * FROM db_clti.vw_mapainfra WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas");
         return $row;
     }
+    public function ChecaET()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "SELECT * FROM db_clti.tb_mapainfra WHERE idtb_estacoes_dest = $this->idtb_estacoes_dest";
+        $row = $pg->getRow($sql);
+        return $row;
+    }
+    public function ChecaSRV()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "SELECT * FROM db_clti.tb_mapainfra WHERE idtb_servidores_dest = $this->idtb_servidores_dest";
+        $row = $pg->getRow($sql);
+        return $row;
+    }
+    public function ChecaPorta()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "SELECT porta_orig,porta_dest FROM db_clti.tb_mapainfra WHERE 
+            idtb_conectividade_orig = $this->idtb_conectividade OR idtb_conectividade_dest = $this->idtb_conectividade";
+        $row = $pg->getRows($sql);
+        return $row;
+    }
     public function CountPortasOcupadas()
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "SELECT COUNT(idtb_mapainfra) FROM db_clti.vw_mapainfra WHERE 
-            idtb_conectividade_orig = $this->idtb_conectividade_orig";
+        $sql = "SELECT COUNT(idtb_mapainfra) FROM db_clti.tb_mapainfra WHERE 
+            idtb_conectividade_orig = $this->idtb_conectividade OR idtb_conectividade_dest = $this->idtb_conectividade ";
         $row = $pg->getCol($sql);
         return $row;
     }

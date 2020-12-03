@@ -14,7 +14,7 @@ echo "
         <div class=\"row\">
             <main>
                 <div id=\"form-cadastro\">
-                <form id=\"form\" action=\"?cmd=mapainfra&act=insert\" method=\"post\" enctype=\"multipart/form-data\">
+                <form id=\"form\" action=\"?cmd=mapainfra&act=insert_et\" method=\"post\" enctype=\"multipart/form-data\">
                 <fieldset>
                     <legend>Estação de Trabalho - Cadastro</legend>
 
@@ -25,23 +25,15 @@ echo "
                                     ".$etid->nome." - ".$etid->ip."</option>";
                                 foreach ($etom as $key => $value) {
                                     echo"<option value=\"".$value->idtb_estacoes."\">
-                                        ".$value->nome." - ".$value->ip."</option>";
+                                        ".$value->nome." - ".$value->end_ip."</option>";
                                 };
                             echo "</select>
                     </div>
-
-                    <div class=\"form-group\">
-                        <label for=\"porta_orig\">Porta de Origem:</label>
-                        <input id=\"porta_orig\" class=\"form-control\" type=\"number\" min=\"1\" name=\"porta_orig\"
-                            value=\"$conexoes->porta_orig\" required=\"true\" autocomplete=\"off\">
-                    </div>
-
                 </fieldset>
                 <input type=\"hidden\" name=\"idtb_om_apoiadas\" value=\"$omapoiada\">
                 <input type=\"hidden\" name=\"idtb_conectividade_orig\" value=\"$conexoes->idtb_conectividade_orig\">
-                <input type=\"hidden\" name=\"idtb_conectividade_dest\" value=\"$conexoes->idtb_conectividade_dest\">
-                <input type=\"hidden\" name=\"idtb_servidores_dest\" value=\"$conexoes->idtb_servidores_dest\">
-                <input type=\"hidden\" name=\"idtb_conexoes\" value=\"$conexoes->idtb_mapainfra\">
+                <input type=\"hidden\" name=\"porta_orig\" value=\"$conexoes->porta_orig\">
+                <input type=\"hidden\" name=\"idtb_mapainfra\" value=\"$conexoes->idtb_mapainfra\">
                 <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">
             </form>
                 </div>

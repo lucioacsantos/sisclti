@@ -5,7 +5,7 @@ echo "
         <div class=\"row\">
             <main>
                 <div id=\"form-cadastro\">
-                <form id=\"form\" action=\"?cmd=mapainfra&act=insert\" method=\"post\" enctype=\"multipart/form-data\">
+                <form id=\"form\" action=\"?cmd=mapainfra&act=insert_conec\" method=\"post\" enctype=\"multipart/form-data\">
                 <fieldset>
                     <legend>Estação de Trabalho - Cadastro</legend>
 

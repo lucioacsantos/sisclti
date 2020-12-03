@@ -6,6 +6,7 @@
 /* Classe de interação com o PostgreSQL */
 require_once "../class/constantes.inc.php";
 $conect = new Conectividade();
+$mapainfra = new MapaInfra();
 $omap = new OMAPoiadas();
 $ip = new IP();
 
