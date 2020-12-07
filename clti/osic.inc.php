@@ -371,10 +371,10 @@ if ($act == 'insert') {
         $pesti->nip = $nip;
         $cpf = $_POST['cpf'];
         $pesti->cpf = $cpf;
-        $pesti->nome = strtoupper($_POST['nome']);
-        $pesti->nome_guerra = strtoupper($_POST['nomeguerra']);
-        $pesti->correio_eletronico = strtolower($_POST['correio_eletronico']);
-        $pesti->status = strtoupper($_POST['ativo']);
+        $pesti->nome = mb_strtoupper($_POST['nome'],'UTF-8');
+        $pesti->nome_guerra = mb_strtoupper($_POST['nomeguerra'],'UTF-8');
+        $pesti->correio_eletronico = mb_strtoupper($_POST['correio_eletronico'],'UTF-8');
+        $pesti->status = mb_strtoupper($_POST['ativo'],'UTF-8');
         $pesti->idtb_funcoes_ti = '2';
 
         if ($nip == NULL) {

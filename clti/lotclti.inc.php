@@ -380,10 +380,10 @@ if ($act == 'insert') {
         $pesclti->nip = $nip;
         $cpf = $_POST['cpf'];
         $pesclti->cpf = $cpf;
-        $pesclti->nome = strtoupper($_POST['nome']);
-        $pesclti->nome_guerra = strtoupper($_POST['nomeguerra']);
-        $pesclti->correio_eletronico = strtolower($_POST['correio_eletronico']);
-        $pesclti->status = strtoupper($_POST['ativo']);
+        $pesclti->nome = mb_strtoupper($_POST['nome'],'UTF-8');
+        $pesclti->nome_guerra = mb_strtoupper($_POST['nomeguerra'],'UTF-8');
+        $pesclti->correio_eletronico = mb_strtoupper($_POST['correio_eletronico'],'UTF-8');
+        $pesclti->status = mb_strtoupper($_POST['ativo'],'UTF-8');
         $pesclti->perfil = "TEC_CLTI";
 
         if ($nip == NULL) {

@@ -207,11 +207,11 @@ if ($act == 'insert') {
         $idtb_qualificacao_clti = $_POST['idtb_qualificacao_clti'];
         $qti->idtb_qualificacao_clti = $idtb_qualificacao_clti;
         $qti->idtb_lotacao_clti = $_POST['idtb_lotacao_clti'];
-        $qti->instituicao = strtoupper($_POST['instituicao']);
-        $qti->tipo = strtoupper($_POST['tipo']);
-        $qti->nome_curso = strtoupper($_POST['nome_curso']);
-        $qti->meio = strtoupper($_POST['meio']);
-        $qti->situacao = strtoupper($_POST['situacao']);
+        $qti->instituicao = mb_strtoupper($_POST['instituicao'],'UTF-8');
+        $qti->tipo = mb_strtoupper($_POST['tipo'],'UTF-8');
+        $qti->nome_curso = mb_strtoupper($_POST['nome_curso'],'UTF-8');
+        $qti->meio = mb_strtoupper($_POST['meio'],'UTF-8');
+        $qti->situacao = mb_strtoupper($_POST['situacao'],'UTF-8');
         $data_conclusao = $_POST['data_conclusao'];
         $qti->data_conclusao = $data_conclusao;
         $qti->carga_horaria = $_POST['carga_horaria'];

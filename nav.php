@@ -101,10 +101,10 @@ $versao = $config->SelectVersao();
                     Funções de TI
                   </a>
                 </li>
-                <h6 class=\"sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted\">
+                <!--<h6 class=\"sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted\">
                   <span>Ativos de TI</span>
                   <span data-feather=\"plus-circle\"></span>
-                </h6>
+                </h6>-->
                 <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/ativosti/?cmd=sistoperacionais\">
                     <span data-feather=\"globe\"></span>
@@ -123,40 +123,30 @@ $versao = $config->SelectVersao();
                     Memórias
                   </a>
                 </li>
-                <!--<li class=\"nav-item\">
-                  <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=setores\">
-                    <span data-feather=\"layout\"></span>
-                    Setores da OM
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/clti/?cmd=perfilinternet\">
+                    <span data-feather=\"youtube\"></span>
+                    Perfis de Internet
                   </a>
                 </li>
-                <li class=\"nav-item\">
-                  <a class=\"nav-link\" href=\"$url/ativosti/?cmd=servidores\">
-                    <span data-feather=\"server\"></span>
-                    Servidores
-                  </a>
-                </li>
-                <li class=\"nav-item\">
-                  <a class=\"nav-link\" href=\"$url/ativosti/?cmd=estacoes\">
-                    <span data-feather=\"monitor\"></span>
-                    Estações de Trabalho
-                  </a>
-                </li>
-                <li class=\"nav-item\">
-                  <a class=\"nav-link\" href=\"$url/ativosti/?cmd=conectividade\">
-                    <span data-feather=\"command\"></span>
-                    Equipamentos de Conectividade
-                  </a>
-                </li>-->
               </ul>";
               }
               else{
                 echo"
+                <h6 class=\"sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted\">
+                    <span>Dados da OM</span>
+                    <span data-feather=\"plus-circle\"></span>
+                  </h6>
                 <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=setores\">
                     <span data-feather=\"layout\"></span>
                     Setores da OM
                   </a>
                 </li>
+                <h6 class=\"sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted\">
+                    <span>Equipamentos de TI</span>
+                    <span data-feather=\"plus-circle\"></span>
+                  </h6>
                 <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=servidores\">
                     <span data-feather=\"server\"></span>
@@ -172,7 +162,7 @@ $versao = $config->SelectVersao();
                 </li>
                 <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=manutencaoet\">
-                    <span data-feather=\"monitor\"></span>
+                    <span data-feather=\"alert-triangle\"></span>
                     Manutenção de ET
                   </a>
                 </li>
@@ -189,7 +179,7 @@ $versao = $config->SelectVersao();
                   </a>
                 </li>
                 <h6 class=\"sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted\">
-                    <span>Controle OM Apoiadas</span>
+                    <span>Pessoal</span>
                     <span data-feather=\"plus-circle\"></span>
                   </h6>
                 <li class=\"nav-item\">
@@ -202,6 +192,30 @@ $versao = $config->SelectVersao();
                   <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=cursosti\">
                     <span data-feather=\"book-open\"></span>
                     Qualificação na Área de TI
+                  </a>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=pessoalom\">
+                    <span data-feather=\"users\"></span>
+                    Usuários da OM
+                  </a>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=perfisinternet\">
+                    <span data-feather=\"youtube\"></span>
+                    Perfis de Internet
+                  </a>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=funcsigdem\">
+                    <span data-feather=\"archive\"></span>
+                    Funções do SiGDEM
+                  </a>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=controleusb\">
+                    <span data-feather=\"clipboard\"></span>
+                    Dispositivos USB
                   </a>
                 </li>
                 <!--<li class=\"nav-item\">

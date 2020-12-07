@@ -14,6 +14,7 @@ $omapoiada = $_SESSION['id_om_apoiada'];
 $mapainfra->idtb_om_apoiadas = $omapoiada;
 $estacoes->idtb_om_apoiadas = $omapoiada;
 $servidores->idtb_om_apoiadas = $omapoiada;
+$conect->idtb_om_apoiadas = $omapoiada;
 $conexoes = $mapainfra->SelectAllOMMapaView();
 $conectividade = $conect->SelectAllConectView();
 $etom = $estacoes->SelectIdOMETView();
@@ -56,9 +57,14 @@ if ($act == 'cad') {
         unset($portas_livres[0]);
     }
     foreach ($portas_livres as $value){
-        echo"
+        if ($value == 0){
+            continue;
+        }
+        else{
+            echo"
                                 <input type=\"radio\" id=\"porta_orig\" name=\"porta_orig\" value=\"$value\" required=\"true\">
                                     <label for=\"coding\"> $value </label>";
+        }
     }
     echo"
                             </div>
@@ -89,7 +95,7 @@ if ($act == 'et') {
     @$idtb_mapainfra = $_GET['id'];
     if ($idtb_mapainfra){
         $mapainfra->idtb_mapainfra = $idtb_mapainfra;
-        $conexoes = $mapainfra->SelectIdMapaView();
+        $conexoes = $mapainfra->SelectIdMapaInfra();
     }
     elseif ($param){
         $conexoes = (object)['idtb_mapainfra'=>'','idtb_conectividade_orig'=>$param,'idtb_conectividade_dest'=>'',
@@ -125,9 +131,15 @@ if ($act == 'srv') {
 /* Carrega form para cadastro de Cascateamento */
 if ($act == 'conec') {
     @$param = $_GET['param'];
-    if ($param){
-        $mapainfra->idtb_mapainfra = $param;
+    @$porta_orig = $_GET['porta_orig'];
+    @$idtb_mapainfra = $_GET['id'];
+    if ($idtb_mapainfra){
+        $mapainfra->idtb_mapainfra = $idtb_mapainfra;
         $conexoes = $mapainfra->SelectIdMapaView();
+    }
+    elseif ($param){
+        $conexoes = (object)['idtb_mapainfra'=>'','idtb_conectividade_orig'=>$param,'idtb_conectividade_dest'=>'',
+            'idtb_servidores_dest'=>'','idtb_estacoes_dest'=>'','porta_orig'=>$porta_orig,'porta_dest'=>'','idtb_om_apoiadas'=>''];
     }
     else{
         $conexoes = (object)['idtb_mapainfra'=>'','idtb_conectividade_orig'=>'','idtb_conectividade_dest'=>'',
@@ -135,6 +147,61 @@ if ($act == 'conec') {
     }
 
 	include "mapainfra-conec.inc.php";
+}
+if ($act == 'continuar') {
+    $idtb_conectividade_dest = $_POST['idtb_conectividade_dest'];
+    $idtb_conectividade_orig = $_POST['idtb_conectividade_orig'];
+    $porta_orig = $_POST['porta_orig'];
+    $idtb_mapainfra = $_POST['idtb_mapainfra'];
+    $conect->idtb_conectividade = $idtb_conectividade_dest;
+    $conecom = $conect->SelectIdConectView();
+    $mapainfra->idtb_conectividade = $idtb_conectividade_dest;
+    $portas_conectadas = $mapainfra->ChecaPorta();
+    $portas_livres = array(0);
+
+    for ($i=1; $i <= $conecom->qtde_portas; $i++) {
+        $portas_livres[] = $i;
+    }
+    foreach ($portas_conectadas as $key => $value){
+        unset($portas_livres[$value->porta_orig]);
+        unset($portas_livres[$value->porta_dest]);
+        unset($portas_livres[0]);
+    }
+
+    echo "
+	<div class=\"container-fluid\">
+        <div class=\"row\">
+            <main>
+                <div id=\"form-cadastro\">
+                <form id=\"form\" action=\"?cmd=mapainfra&act=insert_conec\" method=\"post\" enctype=\"multipart/form-data\">
+                <fieldset>
+                    <legend>Equipamento de Conectividade - Cadastro</legend>
+                    <div class=\"form-group\">
+                        <label for=\"porta_dest\">Porta de Destino:</label>";
+                    foreach ($portas_livres as $value){
+                        if ($value == 0){
+                            continue;
+                        }
+                        else{
+                            echo"
+                            <input type=\"radio\" id=\"porta_dest\" name=\"porta_dest\" value=\"$value\" required=\"true\">
+                                <label for=\"coding\"> $value </label>";
+                        }
+                    }
+                    echo"
+                    </div>
+                </fieldset>
+                <input type=\"hidden\" name=\"idtb_om_apoiadas\" value=\"$omapoiada\">
+                <input type=\"hidden\" name=\"idtb_conectividade_orig\" value=\"$idtb_conectividade_orig\">
+                <input type=\"hidden\" name=\"idtb_conectividade_dest\" value=\"$idtb_conectividade_dest\">
+                <input type=\"hidden\" name=\"porta_orig\" value=\"$porta_orig\">
+                <input type=\"hidden\" name=\"idtb_mapainfra\" value=\"$idtb_mapainfra\">
+                <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">
+                </form>
+                </div>
+            </main>
+        </div>
+    </div>";
 }
 
 
@@ -191,7 +258,7 @@ if (($conectividade) AND ($act == NULL)) {
 if ($act == 'insert_et') {
     if (isset($_SESSION['status'])){
         $mapainfra->idtb_conectividade_orig = $_POST['idtb_conectividade_orig'];
-        $mapainfra->idtb_servidores_dest = $_POST['idtb_servidores_dest'];
+        $mapainfra->idtb_estacoes_dest = $_POST['idtb_estacoes_dest'];
         $mapainfra->porta_orig = $_POST['porta_orig'];
         $mapainfra->idtb_om_apoiadas = $_POST['idtb_om_apoiadas'];
         $idtb_mapainfra = $_POST['idtb_mapainfra'];
@@ -210,9 +277,9 @@ if ($act == 'insert_et') {
         }
         /* Opta pelo Método Insert */
         else {
-            $checa_et = $mapainfra->ChecaSRV();
+            $checa_et = $mapainfra->ChecaET();
             if ($checa_et){
-                echo "<h5>Servidor já conectado, verifique.</h5>
+                echo "<h5>Estação de Trabalho já conectada, verifique.</h5>
                     <meta http-equiv=\"refresh\" content=\"5;url=?cmd=mapainfra\">";
             }
             else{
@@ -256,13 +323,60 @@ if ($act == 'insert_srv') {
         }
         /* Opta pelo Método Insert */
         else {
-            $checa_et = $mapainfra->ChecaSRV();
-            if ($checa_et){
-                echo "<h5>Estação de Trabalho já conectada, verifique.</h5>
+            $checa_srv = $mapainfra->ChecaSRV();
+            if ($checa_srv){
+                echo "<h5>Servidor já conectado, verifique.</h5>
                     <meta http-equiv=\"refresh\" content=\"5;url=?cmd=mapainfra\">";
             }
             else{
                 $row = $mapainfra->InsertSRVMapaInfra();
+                if ($row) {
+                    echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=mapainfra\">";
+                }        
+                else {
+                    echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                }
+            }
+        }
+    }
+    else{
+        echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;$url\">";
+    }
+}
+
+/* Método INSERT CONECTIVIDADE*/
+if ($act == 'insert_conec') {
+    if (isset($_SESSION['status'])){
+        $mapainfra->idtb_conectividade_orig = $_POST['idtb_conectividade_orig'];
+        $mapainfra->idtb_conectividade_dest = $_POST['idtb_conectividade_dest'];
+        $mapainfra->porta_orig = $_POST['porta_orig'];
+        $mapainfra->porta_dest = $_POST['porta_dest'];
+        $mapainfra->idtb_om_apoiadas = $_POST['idtb_om_apoiadas'];
+        $idtb_mapainfra = $_POST['idtb_mapainfra'];
+        $mapainfra->idtb_mapainfra = $idtb_mapainfra;
+
+        /* Opta pelo Método Update */
+        if ($idtb_mapainfra){
+            $row = $mapainfra->UpdateConecMapaInfra();
+            if ($row) {
+                echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=mapainfra\">";
+            }
+            else {
+                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+            }
+        }
+        /* Opta pelo Método Insert */
+        else {
+            $checa_conec = $mapainfra->ChecaConec();
+            if ($checa_conec){
+                echo "<h5>Equipamento e porta já conectados, verifique.</h5>
+                    <meta http-equiv=\"refresh\" content=\"5;url=?cmd=mapainfra\">";
+            }
+            else{
+                $row = $mapainfra->InsertConecMapaInfra();
                 if ($row) {
                     echo "<h5>Resgistros incluídos no banco de dados.</h5>
                     <meta http-equiv=\"refresh\" content=\"1;url=?cmd=mapainfra\">";

@@ -71,10 +71,10 @@ if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         $idtb_om_setores = $_POST['idtb_om_setores'];
         $om->idtb_om_setores = $idtb_om_setores;
-        $om->nome_setor = strtoupper($_POST['nome_setor']);
-        $om->sigla_setor = strtoupper($_POST['sigla_setor']);
-        $om->cod_funcional = strtoupper($_POST['cod_funcional']);
-        $om->compart = strtoupper($_POST['compart']);
+        $om->nome_setor = mb_strtoupper($_POST['nome_setor'],'UTF-8');
+        $om->sigla_setor = mb_strtoupper($_POST['sigla_setor'],'UTF-8');
+        $om->cod_funcional = mb_strtoupper($_POST['cod_funcional'],'UTF-8');
+        $om->compart = mb_strtoupper($_POST['compart'],'UTF-8');
         $om->idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
 
         /* Opta pelo Método Update */

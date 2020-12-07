@@ -35,7 +35,7 @@ echo "
                 <input type=\"hidden\" name=\"porta_orig\" value=\"$conexoes->porta_orig\">
                 <input type=\"hidden\" name=\"idtb_mapainfra\" value=\"$conexoes->idtb_mapainfra\">
                 <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">
-            </form>
+                </form>
                 </div>
             </main>
         </div>

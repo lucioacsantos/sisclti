@@ -157,6 +157,101 @@ class Config
     }
 }
 
+/** Classe Perfil da Internet */
+class PerfilInternet
+{
+    public $idtb_perfil_internet;
+    public $nome;
+    public $cod;
+
+    /** Seleciona todos os perfis */
+    public function SelectAll(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_perfil_internet ORDER BY nome");
+        return $row;
+    }
+
+    /** Seleciona Perfil pelo ID */
+    public function SelectId(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("SELECT * FROM db_clti.tb_perfil_internet 
+            WHERE idtb_perfil_internet = $this->idtb_perfil_internet");
+        return $row;
+    }
+
+    /** Insere Perfil */
+    public function InsertPerfil(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("INSERT INTO db_clti.tb_perfil_internet (nome,cod) VALUES ('$this->nome','$this->cod') ");
+        return $row;
+    }
+
+    /** Atualiza Perfil */
+    public function UpdatePerfil(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("UPDATE db_clti.tb_perfil_internet SET (nome,cod) = ('$this->nome','$this->cod') 
+            WHERE idtb_perfil_internet = $this->idtb_perfil_internet");
+        return $row;
+    }
+}
+
+/** Classe Funções do SiGDEM */
+class FuncSiGDEM
+{
+    public $idtb_funcoes_sigdem;
+    public $idtb_om_apoiadas;
+    public $descricao;
+    public $sigla;
+    
+    /** Seleciona todas as funções */
+    public function SelectAll(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_funcoes_sigdem ORDER BY descricao");
+        return $row;
+    }
+
+    /** Seleciona todas as funções da OM */
+    public function SelectOMAll(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_funcoes_sigdem WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas 
+            ORDER BY sigla ");
+        return $row;
+    }
+
+    /** Seleciona Função pelo ID */
+    public function SelectId(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("SELECT * FROM db_clti.tb_funcoes_sigdem WHERE idtb_funcoes_sigdem = $this->idtb_funcoes_sigdem");
+        return $row;
+    }
+
+    /** Insere Função */
+    public function InsertFuncao(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("INSERT INTO db_clti.tb_funcoes_sigdem (idtb_om_apoiadas,descricao,sigla) 
+            VALUES ('$this->idtb_om_apoiadas','$this->descricao','$this->sigla') ");
+        return $row;
+    }
+
+    /** Atualiza Função */
+    public function UpdateFuncao(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("UPDATE db_clti.tb_funcoes_sigdem SET (idtb_om_apoiadas,descricao,sigla) 
+            = ('$this->idtb_om_apoiadas','$this->descricao','$this->sigla') 
+            WHERE idtb_funcoes_sigdem = $this->idtb_funcoes_sigdem");
+        return $row;
+    }
+}
+
 /* Classe Usuário */
 class Usuario
 {
@@ -548,6 +643,106 @@ class PessoalTI
     }
 }
 
+/** Classe Pessoal OM */
+class PessoalOM
+{
+    public $idtb_pessoal_om;
+    public $idtb_om_apoiadas;
+    public $idtb_posto_grad;
+    public $idtb_corpo_quadro;
+    public $idtb_especialidade;
+    public $nip;
+    public $cpf;
+    public $nip_cpf;
+    public $usuario;
+    public $nome;
+    public $nome_guerra;
+    public $correio_eletronico;
+    public $status;
+    public $senha;
+    public $sigla;
+    public $ordena;
+
+    public function ChecaNIPCPF()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_om WHERE nip = '$this->usuario' OR cpf = '$this->usuario'");
+        return $row;
+    }
+    public function ChecaCorreio()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("SELECT * FROM db_clti.tb_pessoal_om WHERE correio_eletronico = '$this->correio_eletronico'");
+        return $row;
+    }
+    public function SelectIdPesOM()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_om WHERE idtb_pessoal_om = '$this->idtb_pessoal_om'");
+        return $row;
+    }
+    public function InsertPesOM()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "INSERT INTO db_clti.tb_pessoal_om(idtb_om_apoiadas,idtb_posto_grad,idtb_corpo_quadro,
+            idtb_especialidade,nip,cpf,nome,nome_guerra,correio_eletronico,status)
+            VALUES ('$this->idtb_om_apoiadas','$this->idtb_posto_grad','$this->idtb_corpo_quadro',
+            '$this->idtb_especialidade','$this->nip','$this->cpf','$this->nome','$this->nome_guerra',
+            '$this->correio_eletronico','$this->status')";
+        $row = $pg->exec($sql);
+        return $row;
+    }
+    public function UpdatePesOM()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "UPDATE db_clti.tb_pessoal_om SET (idtb_om_apoiadas,idtb_posto_grad,idtb_corpo_quadro,
+            idtb_especialidade,nip,cpf,nome,nome_guerra,correio_eletronico,status)
+            = ('$this->idtb_om_apoiadas','$this->idtb_posto_grad','$this->idtb_corpo_quadro','$this->idtb_especialidade',
+            '$this->nip','$this->cpf','$this->nome','$this->nome_guerra','$this->correio_eletronico','$this->status') 
+            WHERE idtb_pessoal_ti='$this->idtb_pessoal_ti' ";
+        $row = $pg->exec($sql);
+        return $row;
+    }
+    public function SelectAllPesOM()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_pessoal_om WHERE status='ATIVO' $this->ordena");
+        return $row;
+    }
+    public function SelectIdOMPesOM()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_pessoal_om WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas 
+            AND status='ATIVO' $this->ordena");
+        return $row;
+    }
+    public function CountPesOM()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "SELECT COUNT(idtb_pessoal_om) AS qtde FROM db_clti.vw_pessoal_om GROUP BY idtb_om_apoiadas 
+            HAVING status='ATIVO' ";
+        $row = $pg->exec($sql);
+        return $row;
+    }
+    public function CountIdOMPesOM()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "SELECT COUNT(idtb_pessoal_om) AS qtde FROM db_clti.vw_pessoal_om GROUP BY idtb_om_apoiadas 
+            HAVING idtb_om_apoiadas = $this->idtb_om_apoiadas AND status='ATIVO' ";
+        $row = $pg->exec($sql);
+        return $row;
+    }
+}
+
 /** Classe Pessoal CLTI */
 class PessoalCLTI
 {
@@ -798,6 +993,14 @@ class Conectividade
         $row = $pg->getRows("SELECT * FROM db_clti.vw_conectividade WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas");
         return $row;
     }
+    public function SelectFiltroAllOMConectView()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_conectividade WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas
+            AND idtb_conectividade != $this->idtb_conectividade");
+        return $row;
+    }
     public function CountConect()
     {
         require_once "pgsql.class.php";
@@ -861,6 +1064,17 @@ class MapaInfra
         $row = $pg->exec($sql);
         return $row;
     }
+    public function InsertConecMapaInfra()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "INSERT INTO db_clti.tb_mapainfra(idtb_conectividade_orig, idtb_conectividade_dest, porta_orig, 
+            porta_dest, idtb_om_apoiadas) 
+            VALUES ('$this->idtb_conectividade_orig','$this->idtb_conectividade_dest', '$this->porta_orig', 
+            '$this->porta_dest','$this->idtb_om_apoiadas')";
+        $row = $pg->exec($sql);
+        return $row;
+    }
     public function SelectAllMapaView()
     {
         require_once "pgsql.class.php";
@@ -895,6 +1109,15 @@ class MapaInfra
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $sql = "SELECT * FROM db_clti.tb_mapainfra WHERE idtb_servidores_dest = $this->idtb_servidores_dest";
+        $row = $pg->getRow($sql);
+        return $row;
+    }
+    public function ChecaConec()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "SELECT * FROM db_clti.tb_mapainfra WHERE idtb_conectividade_dest = $this->idtb_conectividade_dest 
+            AND porta_dest = $this->porta_dest";
         $row = $pg->getRow($sql);
         return $row;
     }
@@ -1041,6 +1264,14 @@ class Estacoes
         $sql = "UPDATE db_clti.tb_manutencao_et SET (data_saida,diagnostico,custo_manutencao,
             situacao) = ($this->data_saida,'$this->diagnostico','$this->custo_manutencao','$this->situacao') 
             WHERE idtb_manutencao_et='$this->idtb_manutencao_et'";
+        $row = $pg->exec($sql);
+        return $row;
+    }
+    public function UpdateETManut()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "UPDATE db_clti.tb_estacoes SET status = '$this->status' WHERE idtb_estacoes='$this->idtb_estacoes'";
         $row = $pg->exec($sql);
         return $row;
     }

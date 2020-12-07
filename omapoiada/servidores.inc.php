@@ -114,9 +114,9 @@ if ($act == 'insert') {
         $idtb_servidores = $_POST['idtb_servidores'];
         $srv->idtb_servidores = $idtb_servidores;
         $srv->idtb_om_apoiadas = $_POST['idtb_om_apoiadas'];
-        $srv->fabricante = strtoupper($_POST['fabricante']);
-        $srv->modelo = strtoupper($_POST['modelo']);
-        $srv->nome = strtoupper($_POST['nome']);
+        $srv->fabricante = mb_strtoupper($_POST['fabricante'],'UTF-8');
+        $srv->modelo = mb_strtoupper($_POST['modelo'],'UTF-8');
+        $srv->nome = mb_strtoupper($_POST['nome'],'UTF-8');
         $srv->idtb_proc_modelo = $_POST['idtb_proc_modelo'];
         $srv->clock_proc = $_POST['clock_proc'];
         $srv->qtde_proc = $_POST['qtde_proc'];
@@ -125,9 +125,9 @@ if ($act == 'insert') {
         $srv->end_ip = $_POST['end_ip'];
         $ip->end_ip = $_POST['end_ip'];
         $srv->end_mac = $_POST['end_mac'];
-        $srv->finalidade = strtoupper($_POST['finalidade']);
+        $srv->finalidade = mb_strtoupper($_POST['finalidade'],'UTF-8');
         $srv->idtb_sor = $_POST['idtb_sor'];
-        $srv->idtb_om_setores = strtoupper($_POST['idtb_om_setores']);
+        $srv->idtb_om_setores = mb_strtoupper($_POST['idtb_om_setores'],'UTF-8');
         $srv->data_aquisicao = $_POST['data_aquisicao'];
         $srv->data_garantia = $_POST['data_garantia'];
         $srv->status = $_POST['status'];

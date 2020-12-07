@@ -369,11 +369,11 @@ if ($act == 'insert') {
         $pti->nip = $_POST['nip'];
         $pti->cpf = $_POST['cpf'];
         $cpf = $_POST['cpf'];
-        $pti->nome = strtoupper($_POST['nome']);
-        $pti->nome_guerra = strtoupper($_POST['nomeguerra']);
-        $pti->correio_eletronico = strtolower($_POST['correio_eletronico']);
-        $pti->idtb_funcoes_ti = strtoupper($_POST['funcaoti']);
-        $pti->status = strtoupper($_POST['ativo']);
+        $pti->nome = mb_strtoupper($_POST['nome'],'UTF-8');
+        $pti->nome_guerra = mb_strtoupper($_POST['nomeguerra'],'UTF-8');
+        $pti->correio_eletronico = mb_strtoupper($_POST['correio_eletronico'],'UTF-8');
+        $pti->idtb_funcoes_ti = mb_strtoupper($_POST['funcaoti'],'UTF-8');
+        $pti->status = mb_strtoupper($_POST['ativo'],'UTF-8');
         if ($nip == NULL) {
             $usuario = $cpf;
         }

@@ -90,10 +90,18 @@ if ($act == 'insert') {
         $et->data_entrada = $_POST['data_entrada'];
         $data_saida = $_POST['data_saida'];
         $et->data_saida = $_POST['data_saida'];
-        $et->diagnostico = strtoupper($_POST['diagnostico']);
+        $et->diagnostico = mb_strtoupper($_POST['diagnostico'],'UTF-8');
         $et->custo_manutencao = $_POST['custo_manutencao'];
         $custo_manutencao = $_POST['custo_manutencao'];
-        $et->situacao = strtoupper($_POST['situacao']);
+        $situacao = mb_strtoupper($_POST['situacao'],'UTF-8');
+        $et->situacao = $situacao;
+        if ($situacao == 'EM PRODUÇÃO'){
+            $et->status = "EM PRODUÇÃO";
+        }
+        else{
+            $et->status = "EM MANUTENÇÃO";
+        }
+        
 
         if ($data_saida == NULL) {
             $et->data_saida = 'NULL';
@@ -106,6 +114,7 @@ if ($act == 'insert') {
         if ($idtb_manutencao_et){
             $row = $et->UpdateMntET();
             if ($row) {
+                $row = $et->UpdateETManut();
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
                 <meta http-equiv=\"refresh\" content=\"1;url=?cmd=manutencaoet\">";
             }    
@@ -119,6 +128,7 @@ if ($act == 'insert') {
         else {
             $row = $et->InsertMntET();
             if ($row) {
+                $row = $et->UpdateETManut();
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
                 <meta http-equiv=\"refresh\" content=\"1;url=?cmd=manutencaoet\">";
             }    

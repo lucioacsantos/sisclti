@@ -64,7 +64,55 @@ switch ($cmd) {
       </div>
     </div>";
 
-		break;
+    break;
+  
+    case 'pessoalom':
+      echo "
+          <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
+            <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
+              <h1 class=\"h2\">Gerenciamento - Pessoal da OM</h1>
+              <div class=\"btn-toolbar mb-2 mb-md-0\">
+                <div class=\"btn-group mr-2\">
+                  <a href=\"?cmd=pessoalom\"><button class=\"btn btn-sm btn-outline-secondary\">Pessoal da OM</button></a>
+                  <a href=\"?cmd=pessoalom&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
+                </div>
+                <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
+                  <span data-feather=\"calendar\"></span>
+                  Esta Semana
+                </button>-->
+              </div>
+            </div>";
+      include "pessoalom.inc.php";
+      echo"
+      </main>
+        </div>
+      </div>";
+  
+      break;
+    
+    case 'funcsigdem':
+      echo "
+          <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
+            <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
+              <h1 class=\"h2\">Gerenciamento - Funções do SiGDEM</h1>
+              <div class=\"btn-toolbar mb-2 mb-md-0\">
+                <div class=\"btn-group mr-2\">
+                  <a href=\"?cmd=funcsigdem\"><button class=\"btn btn-sm btn-outline-secondary\">Funções do SiGDEM</button></a>
+                  <a href=\"?cmd=funcsigdem&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
+                </div>
+                <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
+                  <span data-feather=\"calendar\"></span>
+                  Esta Semana
+                </button>-->
+              </div>
+            </div>";
+      include "funcsigdem.inc.php";
+      echo"
+      </main>
+        </div>
+      </div>";
+  
+      break;
 
 	case 'cursosti':
 		echo "

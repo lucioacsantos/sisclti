@@ -139,9 +139,9 @@ if ($act == 'insert') {
         $omap->estado = $_POST['estado'];
         $omap->cidade = $_POST['cidade'];
         $omap->cod_om = $_POST['cod_om'];
-        $omap->nome = strtoupper($_POST['nome']);
-        $omap->sigla = strtoupper($_POST['sigla']);
-        $omap->indicativo = strtoupper($_POST['indicativo']);
+        $omap->nome = mb_strtoupper($_POST['nome'],'UTF-8');
+        $omap->sigla = mb_strtoupper($_POST['sigla'],'UTF-8');
+        $omap->indicativo = mb_strtoupper($_POST['indicativo'],'UTF-8');
         $omap->estado = $omap->SelectUfEstado();
         $omap->cidade = $omap->SelectNomeCidade();
 

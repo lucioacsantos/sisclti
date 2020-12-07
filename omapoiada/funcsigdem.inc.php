@@ -5,55 +5,61 @@
 
 /* Classe de interação com o PostgreSQL */
 require_once "../class/constantes.inc.php";
-$fti = new PessoalTI();
+$funcsigdem = new FuncSiGDEM();
+$om = new OMApoiadas();
+
+$omapoiada = $_SESSION['id_om_apoiada'];
+$om->idtb_om_apoiadas = $omapoiada;
 
 /* Recupera informações */
-$row = $fti->SelectAllFuncoesTI();
+$row = $funcsigdem->SelectAll();
 
 @$act = $_GET['act'];
 
-/* Checa se há SO cadastrado */
+/* Checa Informações */
 if (($row == NULL) AND ($act == NULL)) {
-	echo "<h5>Não há Funções de TI cadastradas,<br />
-		 clique <a href=\"?cmd=funcoesti&act=cad\">aqui</a> para fazê-lo.</h5>";
+	echo "<h5>Não há Funções do SiGDEM cadastradas,<br />
+		 clique <a href=\"?cmd=funcsigdem&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
 
 /* Carrega form para cadastro de Admin */
 if ($act == 'cad') {
     @$param = $_GET['param'];
     if ($param){
-        $fti->idtb_funcoes_ti = $param;
-        $funcoesti = $fti->SelectIdFuncoesTI();
+        $funcsigdem->idtb_funcoes_sigdem = $param;
+        $funcaosigdem = $funcsigdem->SelectId();
     }
     else{
-        $funcoesti = (object)['idtb_funcoes_ti'=>'','descricao'=>'','sigla'=>''];
+        $funcaosigdem = (object)['idtb_funcoes_sigdem'=>'','idtb_om_apoiadas'=>'','descricao'=>'','sigla'=>''];
     }
+
     echo "
 	<div class=\"container-fluid\">
         <div class=\"row\">
             <main>
                 <div id=\"form-cadastro\">
-                    <form id=\"insertso\" role=\"form\" action=\"?cmd=funcoesti&act=insert\" 
+                    <form id=\"funcsigdem\" role=\"form\" action=\"?cmd=funcsigdem&act=insert\" 
                         method=\"post\" enctype=\"multipart/form-data\">
                         <fieldset>
-                            <legend>Funções de TI - Cadastro</legend>
+                        <legend>Função do SiGDEM - Cadastro</legend>
 
                             <div class=\"form-group\">
                                 <label for=\"descricao\">Descrição:</label>
                                 <input id=\"descricao\" class=\"form-control\" type=\"text\" name=\"descricao\"
-                                       placeholder=\"ex. Administrador da Rede Local\" autocomplete=\"off\"
-                                       style=\"text-transform:uppercase\" autofocus=\"true\"
-                                       required=\"true\" value=\"$funcoesti->descricao\">
+                                    placeholder=\"ex. Encarregado do CLTI\" style=\"text-transform:uppercase\" autocomplete=\"off\"
+                                    required=\"true\" autofocus=\"true\" value=\"$funcaosigdem->descricao\">
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"sigla\">Sigla:</label>
                                 <input id=\"sigla\" class=\"form-control\" type=\"text\" name=\"sigla\"
-                                       placeholder=\"ex. ADMIN\" style=\"text-transform:uppercase\" autocomplete=\"off\"
-                                       required=\"true\" value=\"$funcoesti->sigla\">
+                                    placeholder=\"ex. DN-01.6\" style=\"text-transform:uppercase\" autocomplete=\"off\"
+                                    required=\"true\" value=\"$funcaosigdem->sigla\">
                             </div>
-
+                            
                         </fieldset>
-                        <input type=\"hidden\" name=\"idtb_funcoes_ti\" value=\"$funcoesti->idtb_funcoes_ti\">
+                        <input id=\"idtb_funcoes_sigdem\" type=\"hidden\" name=\"idtb_funcoes_sigdem\" 
+                            value=\"$funcaosigdem->idtb_funcoes_sigdem\">
+                        <input type=\"hidden\" name=\"idtb_om_apoiadas\" value=\"$omapoiada\">
                         <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">
                     </form>
                 </div>
@@ -62,60 +68,58 @@ if ($act == 'cad') {
     </div>";
 }
 
-/* Monta quadro de administradores */
+/* Monta quadro */
 if (($row) AND ($act == NULL)) {
-
+    $funcsigdem->idtb_om_apoiadas = $omapoiada;
+    $funcoessigdem = $funcsigdem->SelectOMAll();
     echo"<div class=\"table-responsive\">
             <table class=\"table table-hover\">
                 <thead>
                     <tr>
                         <th scope=\"col\">Descrição</th>
                         <th scope=\"col\">Sigla</th>
-                        <th scope=\"col\">Ações</th>
                     </tr>
                 </thead>";
-    $fti->ordena = "ORDER BY descricao ASC";
-    $funcoesti = $fti->SelectAllFuncoesTI();
-
-    foreach ($funcoesti as $key => $value) {
+    foreach ($funcoessigdem as $key => $value) {
         echo"       <tr>
                         <th scope=\"row\">".$value->descricao."</th>
                         <td>".$value->sigla."</td>
-                        <td><a href=\"?cmd=funcoesti&act=cad&param=".$value->idtb_funcoes_ti."\">Editar</a> - 
-                            Excluir</td>
+                        <td><a href=\"?cmd=funcsigdem&act=cad&param=".$value->idtb_funcoes_sigdem."\">Editar</a></td>
                     </tr>";
-    };
+    }
     echo"
                 </tbody>
             </table>
             </div>";
 }
-
-/* Método INSERT/UPDATE */
+/* Método INSERT */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
-        $idtb_funcoes_ti = $_POST['idtb_funcoes_ti'];
-        $fti->idtb_funcoes_ti = $idtb_funcoes_ti;
-        $fti->descricao = mb_strtoupper($_POST['descricao'],'UTF-8');
-        $fti->sigla = mb_strtoupper($_POST['sigla'],'UTF-8');
-        
-        if ($idtb_funcoes_ti){
-            $row = $fti->UpdateFuncoesTI();    
+        $idtb_funcoes_sigdem = $_POST['idtb_funcoes_sigdem'];
+        $funcsigdem->idtb_funcoes_sigdem = $idtb_funcoes_sigdem;
+        $funcsigdem->idtb_om_apoiadas = $_POST['idtb_om_apoiadas'];
+        $funcsigdem->descricao = mb_strtoupper($_POST['descricao'],'UTF-8');
+        $funcsigdem->sigla = mb_strtoupper($_POST['sigla'],'UTF-8');
+
+        /* Opta pelo Método Update */
+        if ($idtb_funcoes_sigdem){
+            $row = $funcsigdem->UpdateFuncao();
             if ($row) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=funcoesti\">";
+                <meta http-equiv=\"refresh\" content=\"1;?cmd=funcsigdem \">";
             }    
             else {
                 echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
                 echo(pg_result_error($row) . "<br />\n");
             }
-        }
-        else {
-            $row = $fti->InsertFuncoesTI();    
+        }        
+        else{
+            /* Opta pelo Método Insert */
+            $row = $funcsigdem->InsertFuncao();
             if ($row) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=funcoesti\">";
-            }    
+                <meta http-equiv=\"refresh\" content=\"1;?cmd=funcsigdem\">";
+            }
             else {
                 echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
                 echo(pg_result_error($row) . "<br />\n");
@@ -127,5 +131,4 @@ if ($act == 'insert') {
             <meta http-equiv=\"refresh\" content=\"1;$url\">";
     }
 }
-
 ?>

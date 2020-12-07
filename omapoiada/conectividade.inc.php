@@ -95,13 +95,13 @@ if ($act == 'insert') {
         $idtb_conectividade = $_POST['idtb_conectividade'];
         $conect->idtb_conectividade = $idtb_conectividade;
         $conect->idtb_om_apoiadas = $_POST['idtb_om_apoiadas'];
-        $conect->fabricante = strtoupper($_POST['fabricante']);
-        $conect->modelo = strtoupper($_POST['modelo']);
-        $conect->nome = strtoupper($_POST['nome']);
+        $conect->fabricante = mb_strtoupper($_POST['fabricante'],'UTF-8');
+        $conect->modelo = mb_strtoupper($_POST['modelo'],'UTF-8');
+        $conect->nome = mb_strtoupper($_POST['nome'],'UTF-8');
         $conect->qtde_portas = $_POST['qtde_portas'];
         $conect->end_ip = $_POST['end_ip'];
         $ip->end_ip = $_POST['end_ip'];
-        $conect->idtb_om_setores = strtoupper($_POST['idtb_om_setores']);
+        $conect->idtb_om_setores = mb_strtoupper($_POST['idtb_om_setores'],'UTF-8');
         $conect->data_aquisicao = $_POST['data_aquisicao'];
         $conect->data_garantia = $_POST['data_garantia'];
 
