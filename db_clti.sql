@@ -18,8 +18,8 @@ COMMENT ON TABLE db_clti.tb_clti IS 'Tabela contendo Informações do CLTI.';
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_clti OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.tb_clti TO sisclti;
+ALTER TABLE db_clti.tb_clti OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.tb_clti TO postgres;
 
 
 -- db_clti.tb_config definition
@@ -38,8 +38,8 @@ COMMENT ON TABLE db_clti.tb_config IS 'Tabela contendo Configurações do Sistem
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_config OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.tb_config TO sisclti;
+ALTER TABLE db_clti.tb_config OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.tb_config TO postgres;
 
 
 -- db_clti.tb_corpo_quadro definition
@@ -58,8 +58,8 @@ COMMENT ON TABLE db_clti.tb_corpo_quadro IS 'Tabela contendo Corpos e Quadros.';
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_corpo_quadro OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.tb_corpo_quadro TO sisclti;
+ALTER TABLE db_clti.tb_corpo_quadro OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.tb_corpo_quadro TO postgres;
 
 
 -- db_clti.tb_especialidade definition
@@ -78,8 +78,8 @@ COMMENT ON TABLE db_clti.tb_especialidade IS 'Tabela contendo Especialidades.';
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_especialidade OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.tb_especialidade TO sisclti;
+ALTER TABLE db_clti.tb_especialidade OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.tb_especialidade TO postgres;
 
 
 -- db_clti.tb_funcoes_ti definition
@@ -98,8 +98,8 @@ COMMENT ON TABLE db_clti.tb_funcoes_ti IS 'Tabela contendo Funções de TI.';
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_funcoes_ti OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.tb_funcoes_ti TO sisclti;
+ALTER TABLE db_clti.tb_funcoes_ti OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.tb_funcoes_ti TO postgres;
 
 
 -- db_clti.tb_memorias definition
@@ -119,8 +119,9 @@ COMMENT ON TABLE db_clti.tb_memorias IS 'Tabela contendo Modelos de Memórias RA
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_memorias OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.tb_memorias TO sisclti;
+ALTER TABLE db_clti.tb_memorias OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.tb_memorias TO postgres;
+
 
 -- db_clti.tb_pais definition
 
@@ -138,8 +139,27 @@ COMMENT ON TABLE db_clti.tb_pais IS 'Tabela contendo País.';
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_pais OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.tb_pais TO sisclti;
+ALTER TABLE db_clti.tb_pais OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.tb_pais TO postgres;
+
+
+-- db_clti.tb_perfil_internet definition
+
+-- Drop table
+
+-- DROP TABLE db_clti.tb_perfil_internet;
+
+CREATE TABLE db_clti.tb_perfil_internet (
+	idtb_perfil_internet serial NOT NULL,
+	nome varchar(255) NOT NULL,
+	cod varchar(45) NOT NULL,
+	CONSTRAINT tb_perfil_internet_pkey PRIMARY KEY (idtb_perfil_internet)
+);
+
+-- Permissions
+
+ALTER TABLE db_clti.tb_perfil_internet OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_perfil_internet TO sisclti;
 
 
 -- db_clti.tb_posto_grad definition
@@ -158,8 +178,8 @@ COMMENT ON TABLE db_clti.tb_posto_grad IS 'Tabela contendo Postros e Graduaçõe
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_posto_grad OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.tb_posto_grad TO sisclti;
+ALTER TABLE db_clti.tb_posto_grad OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.tb_posto_grad TO postgres;
 
 
 -- db_clti.tb_proc_fab definition
@@ -178,8 +198,8 @@ COMMENT ON TABLE db_clti.tb_proc_fab IS 'Tabela contendo Fabricantes de Processa
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_proc_fab OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.tb_proc_fab TO sisclti;
+ALTER TABLE db_clti.tb_proc_fab OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.tb_proc_fab TO postgres;
 
 
 -- db_clti.tb_registro_log definition
@@ -199,8 +219,8 @@ COMMENT ON TABLE db_clti.tb_registro_log IS 'Tabela contendo Registros de LOG.';
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_registro_log OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.tb_registro_log TO sisclti;
+ALTER TABLE db_clti.tb_registro_log OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.tb_registro_log TO postgres;
 
 
 -- db_clti.tb_sor definition
@@ -221,8 +241,8 @@ COMMENT ON TABLE db_clti.tb_sor IS 'Tabela contendo Sisteamas Operacionais.';
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_sor OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.tb_sor TO sisclti;
+ALTER TABLE db_clti.tb_sor OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.tb_sor TO postgres;
 
 
 -- db_clti.tb_tipos_clti definition
@@ -244,8 +264,27 @@ COMMENT ON TABLE db_clti.tb_tipos_clti IS 'Tabela contendo Tipo do CLTI.';
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_tipos_clti OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.tb_tipos_clti TO sisclti;
+ALTER TABLE db_clti.tb_tipos_clti OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.tb_tipos_clti TO postgres;
+
+
+-- db_clti.tb_uso_usb definition
+
+-- Drop table
+
+-- DROP TABLE db_clti.tb_uso_usb;
+
+CREATE TABLE db_clti.tb_uso_usb (
+	idtb_uso_usb serial NOT NULL,
+	idtb_estacoes int4 NOT NULL,
+	autorizacao varchar(255) NOT NULL,
+	CONSTRAINT tb_uso_usb_pkey PRIMARY KEY (idtb_uso_usb)
+);
+
+-- Permissions
+
+ALTER TABLE db_clti.tb_uso_usb OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_uso_usb TO sisclti;
 
 
 -- db_clti.tb_estado definition
@@ -266,28 +305,8 @@ COMMENT ON TABLE db_clti.tb_estado IS 'Tabela contendo Estados.';
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_estado OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.tb_estado TO sisclti;
-
--- db_clti.tb_cidade definition
-
--- Drop table
-
--- DROP TABLE db_clti.tb_cidade;
-
-CREATE TABLE db_clti.tb_cidade (
-	id serial NOT NULL,
-	nome varchar(120) NOT NULL,
-	estado int4 NOT NULL,
-	CONSTRAINT cidade_pkey PRIMARY KEY (id),
-	CONSTRAINT tb_cidade_estado_fkey FOREIGN KEY (estado) REFERENCES db_clti.tb_estado(id)
-);
-COMMENT ON TABLE db_clti.tb_cidade IS 'Tabela contendo Cidades.';
-
--- Permissions
-
-ALTER TABLE db_clti.tb_cidade OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.tb_cidade TO sisclti;
+ALTER TABLE db_clti.tb_estado OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.tb_estado TO postgres;
 
 
 -- db_clti.tb_lotacao_clti definition
@@ -322,8 +341,8 @@ COMMENT ON TABLE db_clti.tb_lotacao_clti IS 'Tabela contendo Lotação do CLTI.'
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_lotacao_clti OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.tb_lotacao_clti TO sisclti;
+ALTER TABLE db_clti.tb_lotacao_clti OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.tb_lotacao_clti TO postgres;
 
 
 -- db_clti.tb_proc_modelo definition
@@ -344,8 +363,8 @@ COMMENT ON TABLE db_clti.tb_proc_modelo IS 'Tabela contendo Modelos de Processad
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_proc_modelo OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.tb_proc_modelo TO sisclti;
+ALTER TABLE db_clti.tb_proc_modelo OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.tb_proc_modelo TO postgres;
 
 
 -- db_clti.tb_qualificacao_clti definition
@@ -372,8 +391,29 @@ COMMENT ON TABLE db_clti.tb_qualificacao_clti IS 'Tabela contendo Qualificação
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_qualificacao_clti OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.tb_qualificacao_clti TO sisclti;
+ALTER TABLE db_clti.tb_qualificacao_clti OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.tb_qualificacao_clti TO postgres;
+
+
+-- db_clti.tb_cidade definition
+
+-- Drop table
+
+-- DROP TABLE db_clti.tb_cidade;
+
+CREATE TABLE db_clti.tb_cidade (
+	id serial NOT NULL,
+	nome varchar(120) NOT NULL,
+	estado int4 NOT NULL,
+	CONSTRAINT cidade_pkey PRIMARY KEY (id),
+	CONSTRAINT tb_cidade_estado_fkey FOREIGN KEY (estado) REFERENCES db_clti.tb_estado(id)
+);
+COMMENT ON TABLE db_clti.tb_cidade IS 'Tabela contendo Cidades.';
+
+-- Permissions
+
+ALTER TABLE db_clti.tb_cidade OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.tb_cidade TO postgres;
 
 
 -- db_clti.tb_om_apoiadas definition
@@ -399,8 +439,9 @@ COMMENT ON TABLE db_clti.tb_om_apoiadas IS 'Tabela contendo OM Apoiadas pelo CLT
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_om_apoiadas OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.tb_om_apoiadas TO sisclti;
+ALTER TABLE db_clti.tb_om_apoiadas OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.tb_om_apoiadas TO postgres;
+
 
 -- db_clti.tb_om_setores definition
 
@@ -415,7 +456,8 @@ CREATE TABLE db_clti.tb_om_setores (
 	sigla_setor varchar(255) NOT NULL,
 	cod_funcional varchar(45) NOT NULL,
 	compartimento varchar(255) NOT NULL,
-	CONSTRAINT tb_om_setores_pk PRIMARY KEY (idtb_om_setores)
+	CONSTRAINT tb_om_setores_pk PRIMARY KEY (idtb_om_setores),
+	CONSTRAINT tb_om_setores_fk FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas)
 );
 CREATE UNIQUE INDEX tb_om_setores_idtb_om_setores_idx ON db_clti.tb_om_setores USING btree (idtb_om_setores);
 COMMENT ON TABLE db_clti.tb_om_setores IS 'Tabela contendo Setores das OM Apoiadas.';
@@ -424,11 +466,6 @@ COMMENT ON TABLE db_clti.tb_om_setores IS 'Tabela contendo Setores das OM Apoiad
 
 ALTER TABLE db_clti.tb_om_setores OWNER TO postgres;
 GRANT ALL ON TABLE db_clti.tb_om_setores TO postgres;
-
-
--- db_clti.tb_om_setores foreign keys
-
-ALTER TABLE db_clti.tb_om_setores ADD CONSTRAINT tb_om_setores_fk FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas);
 
 
 -- db_clti.tb_osic definition
@@ -461,8 +498,39 @@ COMMENT ON TABLE db_clti.tb_osic IS 'Tabela contendo OSIC das OM.';
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_osic OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.tb_osic TO sisclti;
+ALTER TABLE db_clti.tb_osic OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.tb_osic TO postgres;
+
+
+-- db_clti.tb_pessoal_om definition
+
+-- Drop table
+
+-- DROP TABLE db_clti.tb_pessoal_om;
+
+CREATE TABLE db_clti.tb_pessoal_om (
+	idtb_pessoal_om serial NOT NULL,
+	idtb_om_apoiadas int4 NOT NULL,
+	idtb_posto_grad int4 NOT NULL,
+	idtb_corpo_quadro int4 NOT NULL,
+	idtb_especialidade int4 NOT NULL,
+	nip varchar(8) NOT NULL,
+	cpf varchar(11) NOT NULL,
+	nome varchar(255) NOT NULL,
+	nome_guerra varchar(255) NOT NULL,
+	correio_eletronico varchar(255) NOT NULL,
+	status varchar(255) NOT NULL,
+	CONSTRAINT tb_pessoal_om_pkey PRIMARY KEY (idtb_pessoal_om),
+	CONSTRAINT tb_pessoal_om_idtb_corpo_quadro_fkey FOREIGN KEY (idtb_corpo_quadro) REFERENCES db_clti.tb_corpo_quadro(idtb_corpo_quadro),
+	CONSTRAINT tb_pessoal_om_idtb_especialidade_fkey FOREIGN KEY (idtb_especialidade) REFERENCES db_clti.tb_especialidade(idtb_especialidade),
+	CONSTRAINT tb_pessoal_om_idtb_om_apoiada_fkey FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas),
+	CONSTRAINT tb_pessoal_om_idtb_posto_grad_fkey FOREIGN KEY (idtb_posto_grad) REFERENCES db_clti.tb_posto_grad(idtb_posto_grad)
+);
+
+-- Permissions
+
+ALTER TABLE db_clti.tb_pessoal_om OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_pessoal_om TO sisclti;
 
 
 -- db_clti.tb_pessoal_ti definition
@@ -496,8 +564,8 @@ COMMENT ON TABLE db_clti.tb_pessoal_ti IS 'Tabela contendo Pessoal de TI das OM.
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_pessoal_ti OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.tb_pessoal_ti TO sisclti;
+ALTER TABLE db_clti.tb_pessoal_ti OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.tb_pessoal_ti TO postgres;
 
 
 -- db_clti.tb_qualificacao_ti definition
@@ -524,8 +592,8 @@ COMMENT ON TABLE db_clti.tb_qualificacao_ti IS 'Tabela contendo Qualificação d
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_qualificacao_ti OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.tb_qualificacao_ti TO sisclti;
+ALTER TABLE db_clti.tb_qualificacao_ti OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.tb_qualificacao_ti TO postgres;
 
 
 -- db_clti.tb_servidores definition
@@ -564,8 +632,8 @@ COMMENT ON TABLE db_clti.tb_servidores IS 'Tabela contendo Servidores.';
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_servidores OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.tb_servidores TO sisclti;
+ALTER TABLE db_clti.tb_servidores OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.tb_servidores TO postgres;
 
 
 -- db_clti.tb_conectividade definition
@@ -599,8 +667,8 @@ COMMENT ON COLUMN db_clti.tb_conectividade.qtde_portas IS 'Quantidade de portas 
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_conectividade OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.tb_conectividade TO sisclti;
+ALTER TABLE db_clti.tb_conectividade OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.tb_conectividade TO postgres;
 
 
 -- db_clti.tb_estacoes definition
@@ -640,8 +708,31 @@ COMMENT ON TABLE db_clti.tb_estacoes IS 'Tabela contendo Estações de Trabalho.
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_estacoes OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.tb_estacoes TO sisclti;
+ALTER TABLE db_clti.tb_estacoes OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.tb_estacoes TO postgres;
+
+
+-- db_clti.tb_funcoes_sigdem definition
+
+-- Drop table
+
+-- DROP TABLE db_clti.tb_funcoes_sigdem;
+
+CREATE TABLE db_clti.tb_funcoes_sigdem (
+	idtb_funcoes_sigdem serial NOT NULL,
+	idtb_om_apoiadas int4 NULL,
+	descricao varchar(255) NOT NULL,
+	sigla varchar(45) NOT NULL,
+	idtb_pessoal_om int4 NULL,
+	CONSTRAINT tb_funcoes_sigdem_pkey PRIMARY KEY (idtb_funcoes_sigdem),
+	CONSTRAINT tb_funcoes_sigdem_fk FOREIGN KEY (idtb_pessoal_om) REFERENCES db_clti.tb_pessoal_om(idtb_pessoal_om),
+	CONSTRAINT tb_funcoes_sigdem_idtb_om_apoiadas_fkey FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas)
+);
+
+-- Permissions
+
+ALTER TABLE db_clti.tb_funcoes_sigdem OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_funcoes_sigdem TO sisclti;
 
 
 -- db_clti.tb_manutencao_et definition

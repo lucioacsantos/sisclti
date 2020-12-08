@@ -19,6 +19,11 @@ AS SELECT conec.idtb_conectividade,
     db_clti.tb_om_apoiadas om
   WHERE conec.idtb_om_apoiadas = om.idtb_om_apoiadas AND conec.idtb_om_setores = setores.idtb_om_setores;
 
+-- Permissions
+
+ALTER TABLE db_clti.vw_conectividade OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.vw_conectividade TO sisclti;
+
 
 -- db_clti.vw_estacoes source
 
@@ -62,15 +67,45 @@ AS SELECT et.idtb_estacoes,
     db_clti.tb_memorias mem
   WHERE et.idtb_proc_modelo = modelo.idtb_proc_modelo AND et.idtb_om_apoiadas = om.idtb_om_apoiadas AND et.idtb_sor = sor.idtb_sor AND modelo.idtb_proc_fab = fab.idtb_proc_fab AND et.idtb_memorias = mem.idtb_memorias AND et.idtb_om_setores = setores.idtb_om_setores;
 
+-- Permissions
+
+ALTER TABLE db_clti.vw_estacoes OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.vw_estacoes TO sisclti;
+
+
+-- db_clti.vw_funcoes_sigdem source
+
+CREATE OR REPLACE VIEW db_clti.vw_funcoes_sigdem
+AS SELECT funcsigdem.idtb_funcoes_sigdem,
+    funcsigdem.idtb_om_apoiadas,
+    funcsigdem.descricao,
+    funcsigdem.sigla,
+    funcsigdem.idtb_pessoal_om,
+    posto_grad.sigla AS posto_grad,
+    espec.sigla AS espec,
+    pesom.nome_guerra
+   FROM db_clti.tb_funcoes_sigdem funcsigdem,
+    db_clti.tb_pessoal_om pesom,
+    db_clti.tb_posto_grad posto_grad,
+    db_clti.tb_corpo_quadro corpo_quadro,
+    db_clti.tb_especialidade espec,
+    db_clti.tb_om_apoiadas om
+  WHERE funcsigdem.idtb_om_apoiadas = om.idtb_om_apoiadas AND funcsigdem.idtb_pessoal_om = pesom.idtb_pessoal_om AND pesom.idtb_posto_grad = posto_grad.idtb_posto_grad AND pesom.idtb_corpo_quadro = corpo_quadro.idtb_corpo_quadro AND pesom.idtb_especialidade = espec.idtb_especialidade;
+
+-- Permissions
+
+ALTER TABLE db_clti.vw_funcoes_sigdem OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.vw_funcoes_sigdem TO sisclti;
+
 
 -- db_clti.vw_mapainfra source
 
 CREATE OR REPLACE VIEW db_clti.vw_mapainfra
 AS SELECT mapa.idtb_mapainfra,
     mapa.idtb_conectividade_orig,
-    conec.fabricante,
-    conec.modelo,
-    conec.nome,
+    conec.fabricante AS fab_orig,
+    conec.modelo AS modelo_orig,
+    conec.nome AS nome_orig,
     mapa.idtb_conectividade_dest,
     mapa.idtb_servidores_dest,
     mapa.idtb_estacoes_dest,
@@ -80,10 +115,13 @@ AS SELECT mapa.idtb_mapainfra,
     om.sigla
    FROM db_clti.tb_mapainfra mapa,
     db_clti.tb_conectividade conec,
-    db_clti.tb_servidores srv,
-    db_clti.tb_estacoes et,
     db_clti.tb_om_apoiadas om
-  WHERE mapa.idtb_om_apoiadas = om.idtb_om_apoiadas;
+  WHERE mapa.idtb_conectividade_orig = conec.idtb_conectividade AND mapa.idtb_om_apoiadas = om.idtb_om_apoiadas;
+
+-- Permissions
+
+ALTER TABLE db_clti.vw_mapainfra OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.vw_mapainfra TO sisclti;
 
 
 -- db_clti.vw_osic source
@@ -112,6 +150,11 @@ AS SELECT osic.idtb_osic,
     db_clti.tb_om_apoiadas om
   WHERE osic.idtb_posto_grad = posto.idtb_posto_grad AND osic.idtb_corpo_quadro = corpo.idtb_corpo_quadro AND osic.idtb_especialidade = espec.idtb_especialidade AND osic.idtb_om_apoiadas = om.idtb_om_apoiadas;
 
+-- Permissions
+
+ALTER TABLE db_clti.vw_osic OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.vw_osic TO postgres;
+
 
 -- db_clti.vw_pessoal_clti source
 
@@ -135,6 +178,42 @@ AS SELECT clti.idtb_lotacao_clti,
     db_clti.tb_corpo_quadro corpo,
     db_clti.tb_especialidade espec
   WHERE clti.idtb_posto_grad = posto.idtb_posto_grad AND clti.idtb_corpo_quadro = corpo.idtb_corpo_quadro AND clti.idtb_especialidade = espec.idtb_especialidade;
+
+-- Permissions
+
+ALTER TABLE db_clti.vw_pessoal_clti OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.vw_pessoal_clti TO postgres;
+
+
+-- db_clti.vw_pessoal_om source
+
+CREATE OR REPLACE VIEW db_clti.vw_pessoal_om
+AS SELECT pesom.idtb_pessoal_om,
+    pesom.idtb_posto_grad,
+    posto.sigla AS posto_grad,
+    pesom.idtb_corpo_quadro,
+    corpo.sigla AS corpo_quadro,
+    pesom.idtb_especialidade,
+    espec.sigla AS espec,
+    pesom.idtb_om_apoiadas,
+    om.sigla AS sigla_om,
+    pesom.nip,
+    pesom.cpf,
+    pesom.nome,
+    pesom.nome_guerra,
+    pesom.correio_eletronico,
+    pesom.status
+   FROM db_clti.tb_pessoal_om pesom,
+    db_clti.tb_posto_grad posto,
+    db_clti.tb_corpo_quadro corpo,
+    db_clti.tb_especialidade espec,
+    db_clti.tb_om_apoiadas om
+  WHERE pesom.idtb_posto_grad = posto.idtb_posto_grad AND pesom.idtb_corpo_quadro = corpo.idtb_corpo_quadro AND pesom.idtb_especialidade = espec.idtb_especialidade AND pesom.idtb_om_apoiadas = om.idtb_om_apoiadas;
+
+-- Permissions
+
+ALTER TABLE db_clti.vw_pessoal_om OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.vw_pessoal_om TO sisclti;
 
 
 -- db_clti.vw_pessoal_ti source
@@ -166,6 +245,11 @@ AS SELECT pesti.idtb_pessoal_ti,
     db_clti.tb_funcoes_ti funcao
   WHERE pesti.idtb_posto_grad = posto.idtb_posto_grad AND pesti.idtb_corpo_quadro = corpo.idtb_corpo_quadro AND pesti.idtb_especialidade = espec.idtb_especialidade AND pesti.idtb_om_apoiadas = om.idtb_om_apoiadas AND pesti.idtb_funcoes_ti = funcao.idtb_funcoes_ti;
 
+-- Permissions
+
+ALTER TABLE db_clti.vw_pessoal_ti OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.vw_pessoal_ti TO postgres;
+
 
 -- db_clti.vw_processadores source
 
@@ -177,6 +261,11 @@ AS SELECT fab.idtb_proc_fab,
    FROM db_clti.tb_proc_fab fab,
     db_clti.tb_proc_modelo modelo
   WHERE modelo.idtb_proc_fab = fab.idtb_proc_fab;
+
+-- Permissions
+
+ALTER TABLE db_clti.vw_processadores OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.vw_processadores TO postgres;
 
 
 -- db_clti.vw_qualificacao_clti source
@@ -207,6 +296,11 @@ AS SELECT quali.idtb_qualificacao_clti,
     db_clti.tb_corpo_quadro corpo,
     db_clti.tb_especialidade espec
   WHERE quali.idtb_lotacao_clti = pesti.idtb_lotacao_clti AND pesti.idtb_posto_grad = posto.idtb_posto_grad AND pesti.idtb_corpo_quadro = corpo.idtb_corpo_quadro AND pesti.idtb_especialidade = espec.idtb_especialidade;
+
+-- Permissions
+
+ALTER TABLE db_clti.vw_qualificacao_clti OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.vw_qualificacao_clti TO postgres;
 
 
 -- db_clti.vw_qualificacao_pesti source
@@ -240,6 +334,11 @@ AS SELECT quali.idtb_qualificacao_ti,
     db_clti.tb_especialidade espec,
     db_clti.tb_om_apoiadas om
   WHERE quali.idtb_pessoal_ti = pesti.idtb_pessoal_ti AND pesti.idtb_posto_grad = posto.idtb_posto_grad AND pesti.idtb_corpo_quadro = corpo.idtb_corpo_quadro AND pesti.idtb_especialidade = espec.idtb_especialidade AND pesti.idtb_om_apoiadas = om.idtb_om_apoiadas;
+
+-- Permissions
+
+ALTER TABLE db_clti.vw_qualificacao_pesti OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.vw_qualificacao_pesti TO postgres;
 
 
 -- db_clti.vw_servidores source
@@ -280,6 +379,11 @@ AS SELECT srv.idtb_servidores,
     db_clti.tb_sor sor
   WHERE srv.idtb_proc_modelo = modelo.idtb_proc_modelo AND srv.idtb_om_apoiadas = om.idtb_om_apoiadas AND srv.idtb_sor = sor.idtb_sor AND modelo.idtb_proc_fab = fab.idtb_proc_fab AND srv.idtb_om_setores = setores.idtb_om_setores;
 
+-- Permissions
+
+ALTER TABLE db_clti.vw_servidores OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.vw_servidores TO sisclti;
+
 
 -- db_clti.vw_setores source
 
@@ -295,3 +399,8 @@ AS SELECT setores.idtb_om_setores,
    FROM db_clti.tb_om_setores setores,
     db_clti.tb_om_apoiadas om
   WHERE setores.idtb_om_apoiadas = om.idtb_om_apoiadas;
+
+-- Permissions
+
+ALTER TABLE db_clti.vw_setores OWNER TO postgres;
+GRANT ALL ON TABLE db_clti.vw_setores TO postgres;

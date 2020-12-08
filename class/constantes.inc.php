@@ -206,6 +206,7 @@ class FuncSiGDEM
     public $idtb_om_apoiadas;
     public $descricao;
     public $sigla;
+    public $idtb_pessoal_om;
     
     /** Seleciona todas as funções */
     public function SelectAll(){
@@ -219,7 +220,7 @@ class FuncSiGDEM
     public function SelectOMAll(){
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRows("SELECT * FROM db_clti.tb_funcoes_sigdem WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas 
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_funcoes_sigdem WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas 
             ORDER BY sigla ");
         return $row;
     }
@@ -228,7 +229,7 @@ class FuncSiGDEM
     public function SelectId(){
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT * FROM db_clti.tb_funcoes_sigdem WHERE idtb_funcoes_sigdem = $this->idtb_funcoes_sigdem");
+        $row = $pg->getRow("SELECT * FROM db_clti.vw_funcoes_sigdem WHERE idtb_funcoes_sigdem = $this->idtb_funcoes_sigdem");
         return $row;
     }
 
@@ -236,8 +237,8 @@ class FuncSiGDEM
     public function InsertFuncao(){
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->exec("INSERT INTO db_clti.tb_funcoes_sigdem (idtb_om_apoiadas,descricao,sigla) 
-            VALUES ('$this->idtb_om_apoiadas','$this->descricao','$this->sigla') ");
+        $row = $pg->exec("INSERT INTO db_clti.tb_funcoes_sigdem (idtb_om_apoiadas,descricao,sigla,idtb_pessoal_om) 
+            VALUES ('$this->idtb_om_apoiadas','$this->descricao','$this->sigla','$this->idtb_pessoal_om') ");
         return $row;
     }
 
@@ -245,8 +246,8 @@ class FuncSiGDEM
     public function UpdateFuncao(){
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->exec("UPDATE db_clti.tb_funcoes_sigdem SET (idtb_om_apoiadas,descricao,sigla) 
-            = ('$this->idtb_om_apoiadas','$this->descricao','$this->sigla') 
+        $row = $pg->exec("UPDATE db_clti.tb_funcoes_sigdem SET (idtb_om_apoiadas,descricao,sigla,idtb_pessoal_om) 
+            = ('$this->idtb_om_apoiadas','$this->descricao','$this->sigla','$this->idtb_pessoal_om') 
             WHERE idtb_funcoes_sigdem = $this->idtb_funcoes_sigdem");
         return $row;
     }
@@ -659,7 +660,6 @@ class PessoalOM
     public $nome_guerra;
     public $correio_eletronico;
     public $status;
-    public $senha;
     public $sigla;
     public $ordena;
 
@@ -704,7 +704,7 @@ class PessoalOM
             idtb_especialidade,nip,cpf,nome,nome_guerra,correio_eletronico,status)
             = ('$this->idtb_om_apoiadas','$this->idtb_posto_grad','$this->idtb_corpo_quadro','$this->idtb_especialidade',
             '$this->nip','$this->cpf','$this->nome','$this->nome_guerra','$this->correio_eletronico','$this->status') 
-            WHERE idtb_pessoal_ti='$this->idtb_pessoal_ti' ";
+            WHERE idtb_pessoal_om='$this->idtb_pessoal_om' ";
         $row = $pg->exec($sql);
         return $row;
     }
@@ -1566,6 +1566,60 @@ class Hardware
         $sql = ("INSERT INTO db_clti.tb_memorias(tipo,modelo,clock) 
             VALUES ('$this->tipo','$this->modelo','$this->clock'");
         $row = $pg->exec($sql);
+        return $row;
+    }
+}
+
+/** Classe Dispositivos USB */
+class DispUSB
+{
+    public $idtb_disp_usb;
+    public $idtb_om_apoiadas;
+    public $descricao;
+    public $sigla;
+    public $idtb_pessoal_om;
+    
+    /** Seleciona todas as funções */
+    public function SelectAll(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_funcoes_sigdem ORDER BY descricao");
+        return $row;
+    }
+
+    /** Seleciona todas as funções da OM */
+    public function SelectOMAll(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_funcoes_sigdem WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas 
+            ORDER BY sigla ");
+        return $row;
+    }
+
+    /** Seleciona Função pelo ID */
+    public function SelectId(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("SELECT * FROM db_clti.vw_funcoes_sigdem WHERE idtb_funcoes_sigdem = $this->idtb_funcoes_sigdem");
+        return $row;
+    }
+
+    /** Insere Função */
+    public function InsertFuncao(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("INSERT INTO db_clti.tb_funcoes_sigdem (idtb_om_apoiadas,descricao,sigla,idtb_pessoal_om) 
+            VALUES ('$this->idtb_om_apoiadas','$this->descricao','$this->sigla','$this->idtb_pessoal_om') ");
+        return $row;
+    }
+
+    /** Atualiza Função */
+    public function UpdateFuncao(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("UPDATE db_clti.tb_funcoes_sigdem SET (idtb_om_apoiadas,descricao,sigla,idtb_pessoal_om) 
+            = ('$this->idtb_om_apoiadas','$this->descricao','$this->sigla','$this->idtb_pessoal_om') 
+            WHERE idtb_funcoes_sigdem = $this->idtb_funcoes_sigdem");
         return $row;
     }
 }
