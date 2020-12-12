@@ -1571,19 +1571,18 @@ class Hardware
 }
 
 /** Classe Dispositivos USB */
-class DispUSB
+class ControleUSB
 {
-    public $idtb_disp_usb;
+    public $idtb_controle_usb;
+    public $idtb_estacoes;
     public $idtb_om_apoiadas;
-    public $descricao;
-    public $sigla;
-    public $idtb_pessoal_om;
+    public $autorizacao;
     
     /** Seleciona todas as funções */
     public function SelectAll(){
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRows("SELECT * FROM db_clti.tb_funcoes_sigdem ORDER BY descricao");
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_controle_usb ");
         return $row;
     }
 
@@ -1591,8 +1590,8 @@ class DispUSB
     public function SelectOMAll(){
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRows("SELECT * FROM db_clti.vw_funcoes_sigdem WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas 
-            ORDER BY sigla ");
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_controle_usb WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas 
+            ORDER BY nome ");
         return $row;
     }
 
@@ -1600,26 +1599,26 @@ class DispUSB
     public function SelectId(){
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT * FROM db_clti.vw_funcoes_sigdem WHERE idtb_funcoes_sigdem = $this->idtb_funcoes_sigdem");
+        $row = $pg->getRow("SELECT * FROM db_clti.vw_controle_usb WHERE idtb_controle_usb = $this->idtb_controle_usb");
         return $row;
     }
 
     /** Insere Função */
-    public function InsertFuncao(){
+    public function Insert(){
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->exec("INSERT INTO db_clti.tb_funcoes_sigdem (idtb_om_apoiadas,descricao,sigla,idtb_pessoal_om) 
-            VALUES ('$this->idtb_om_apoiadas','$this->descricao','$this->sigla','$this->idtb_pessoal_om') ");
+        $row = $pg->exec("INSERT INTO db_clti.tb_controle_usb (idtb_estacoes,idtb_om_apoiadas,autorizacao) 
+            VALUES ('$this->idtb_estacoes','$this->idtb_om_apoiadas','$this->autorizacao') ");
         return $row;
     }
 
     /** Atualiza Função */
-    public function UpdateFuncao(){
+    public function Update(){
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->exec("UPDATE db_clti.tb_funcoes_sigdem SET (idtb_om_apoiadas,descricao,sigla,idtb_pessoal_om) 
-            = ('$this->idtb_om_apoiadas','$this->descricao','$this->sigla','$this->idtb_pessoal_om') 
-            WHERE idtb_funcoes_sigdem = $this->idtb_funcoes_sigdem");
+        $row = $pg->exec("UPDATE db_clti.tb_controle_usb SET (idtb_estacoes,idtb_om_apoiadas,autorizacao) 
+            = ('$this->idtb_estacoes','$this->idtb_om_apoiadas','$this->autorizacao') 
+            WHERE idtb_controle_usb = $this->idtb_controle_usb");
         return $row;
     }
 }
