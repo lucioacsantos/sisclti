@@ -652,6 +652,8 @@ class PessoalOM
     public $idtb_posto_grad;
     public $idtb_corpo_quadro;
     public $idtb_especialidade;
+    public $idtb_controle_internet;
+    public $perfis;
     public $nip;
     public $cpf;
     public $nip_cpf;
@@ -738,6 +740,50 @@ class PessoalOM
         $pg = new PgSql();
         $sql = "SELECT COUNT(idtb_pessoal_om) AS qtde FROM db_clti.vw_pessoal_om GROUP BY idtb_om_apoiadas 
             HAVING idtb_om_apoiadas = $this->idtb_om_apoiadas AND status='ATIVO' ";
+        $row = $pg->exec($sql);
+        return $row;
+    }
+    /** Perfis de Internet */
+    public function SelectPerfilAll()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "SELECT * FROM db_clti.vw_controle_internet ORDER BY idtb_om_apoiadas";
+        $row = $pg->getRows($sql);
+        return $row;
+    }
+    public function SelectPerfilOM()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "SELECT * FROM db_clti.vw_controle_internet WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas";
+        $row = $pg->getRows($sql);
+        return $row;
+    }
+    public function SelectPerfilID()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "SELECT * FROM db_clti.vw_controle_internet WHERE idtb_controle_internet = $this->idtb_controle_internet";
+        $row = $pg->getRow($sql);
+        return $row;
+    }
+    public function InsertPerfil()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "INSERT INTO db_clti.tb_controle_internet(idtb_om_apoiadas,idtb_pessoal_om,perfis)
+            VALUES ('$this->idtb_om_apoiadas','$this->idtb_pessoal_om','$this->perfis')";
+        $row = $pg->exec($sql);
+        return $row;
+    }
+    public function UpdatePerfil()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "UPDATE db_clti.tb_controle_internet SET (idtb_om_apoiadas,idtb_pessoal_om,perfis)
+            = ('$this->idtb_om_apoiadas','$this->idtb_pessoal_om','$this->perfis') 
+            WHERE idtb_controle_internet='$this->idtb_controle_internet' ";
         $row = $pg->exec($sql);
         return $row;
     }

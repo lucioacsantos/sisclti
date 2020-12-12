@@ -5,7 +5,7 @@
 
 /* Classe de interação com o PostgreSQL */
 require_once "../class/constantes.inc.php";
-$interent = new PerfilInternet();
+$internet = new PerfilInternet();
 $om = new OMApoiadas();
 $pessom = new PessoalOM();
 
@@ -13,7 +13,7 @@ $omapoiada = $_SESSION['id_om_apoiada'];
 $om->idtb_om_apoiadas = $omapoiada;
 
 /* Recupera informações */
-$row = $interent->SelectAll();
+$row = $pessom->SelectPerfilAll();
 
 @$act = $_GET['act'];
 
@@ -23,14 +23,13 @@ if (($row == NULL) AND ($act == NULL)) {
 		 clique <a href=\"?cmd=perfisinternet&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
 
-/* Carrega form para cadastro de Admin */
+/* Carrega form para cadastro*/
 if ($act == 'cad') {
     @$param = $_GET['param'];
     if ($param){
-        $usb->idtb_controle_usb = $param;
-        $controle = $usb->SelectId();
-        $et->idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
-        $estacoes = $et->SelectIdOMETView();
+        $pessom->idtb_controle_internet = $param;
+        $controle = $pessom->SelectPerfilID();
+        $perfis = $internet->SelectAll();
     }
     else{
         $et->idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
@@ -108,6 +107,18 @@ if ($act == 'insert') {
         $usb->idtb_om_apoiadas = $_POST['idtb_om_apoiadas'];
         $usb->idtb_estacoes = $_POST['idtb_estacoes'];
         $usb->autorizacao = mb_strtoupper($_POST['autorizacao'],'UTF-8');
+
+        $perfis = [];
+        $perfis_checkboxes = array_flip($_POST['perfis']);
+        for ($i = 1; $i <= $max_estates; $i++) {
+            if (isset($estate_checkboxes[$i])) {
+                $estates[] = $i;
+            } else {
+                $estates[] = 0;
+            }
+        }
+
+        $safeestatecheckbox = implode(', ', $estates);
 
         /* Opta pelo Método Update */
         if ($idtb_controle_usb){
