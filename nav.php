@@ -129,6 +129,24 @@ $versao = $config->SelectVersao();
                     Perfis de Internet
                   </a>
                 </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/militar/?cmd=postograd\">
+                    <span data-feather=\"chevrons-down\"></span>
+                    Postos/Graduações
+                  </a>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/militar/?cmd=corpoquadro\">
+                    <span data-feather=\"disc\"></span>
+                    Corpos/Quadros
+                  </a>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/militar/?cmd=especialidade\">
+                    <span data-feather=\"compass\"></span>
+                    Especialidades
+                  </a>
+                </li>
               </ul>";
               }
               else{

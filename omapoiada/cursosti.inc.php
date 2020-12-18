@@ -46,110 +46,110 @@ if ($act == 'cad') {
         $qualiti = $qti->SelectIdQualif();
     }
     else{
-        @$qti->nip_cpf = $_POST['nip_cpf'];
+        @$qti->usuario = $_POST['nip_cpf'];
         $qualiti = $qti->ChecaNIPCPF();
         if ($qualiti){
             $qualiti = (object)['idtb_pessoal_ti'=>$qualiti->idtb_pessoal_ti,'idtb_qualificacao_ti'=>'',
                 'sigla_om'=>$qualiti->sigla_om,'sigla_posto_grad'=>$qualiti->sigla_posto_grad,
                 'nome_guerra'=>$qualiti->nome_guerra,'instituicao'=>'','tipo'=>'','nome_curso'=>'','meio'=>'',
                 'situacao'=>'','data_conclusao'=>NULL,'carga_horaria'=>'','custo'=>''];
-         }
+            
+                echo "
+                <div class=\"container-fluid\">
+                    <div class=\"row\">
+                        <main>
+                            <div id=\"form-cadastro\">
+                                <form id=\"insereusuario\" role=\"form\" action=\"?cmd=cursosti&act=insert\" 
+                                    method=\"post\" enctype=\"multipart/form-data\">
+                                    <fieldset>";
+            
+                                        echo"
+                                        <legend>Qualificação na Área de TI ($qualiti->sigla_posto_grad - $qualiti->nome_guerra - 
+                                            $qualiti->sigla_om)</legend>
+            
+                                        <input id=\"idtb_pessoal_ti\" type=\"hidden\" name=\"idtb_pessoal_ti\" 
+                                            value=\"$qualiti->idtb_pessoal_ti\">
+                                        
+                                        <div class=\"form-group\">
+                                            <label for=\"instituicao\">Instituição de Ensino:</label>
+                                            <input id=\"instituicao\" class=\"form-control\" type=\"text\" name=\"instituicao\"
+                                                placeholder=\"ex. Universidade Federal do RN\" minlength=\"2\" 
+                                                style=\"text-transform:uppercase\" required=\"true\" autofocus=\"true\"
+                                                value=\"$qualiti->instituicao\" autocomplete=\"off\">
+                                        </div>
+            
+                                        <div class=\"form-group\">
+                                            <label for=\"tipo\">Tipo do Curso:</label>
+                                            <select id=\"tipo\" class=\"form-control\" name=\"tipo\">
+                                                <option value=\"$qualiti->tipo\" selected=\"true\">$qualiti->tipo</option>
+                                                <option value=\"GRADUAÇÃO\">GRADUAÇÃO</option>
+                                                <option value=\"BACHARELADO\">BACHARELADO</option>
+                                                <option value=\"POSGRAD\">PÓS GRADUAÇÃO</option>
+                                                <option value=\"MESTRADO\">MESTRADO</option>
+                                                <option value=\"DOUTORADO\">DOUTORADO</option>
+                                                <option value=\"TÉCNICO\">TÉCNICO</option>
+                                                <option value=\"LIVRE\">LIVRE</option>
+                                            </select>
+                                        </div>
+            
+                                        <div class=\"form-group\">
+                                            <label for=\"nome_curso\">Nome do Curso:</label>
+                                            <input id=\"nome_curso\" class=\"form-control\" type=\"text\" name=\"nome_curso\"
+                                                placeholder=\"ex. Análise de Sistemas\" minlength=\"2\" autocomplete=\"off\"
+                                                style=\"text-transform:uppercase\" required=\"true\" value=\"$qualiti->nome_curso\">
+                                        </div>
+            
+                                        <div class=\"form-group\">
+                                            <label for=\"meio\">Modo do Curso:</label>
+                                            <select id=\"meio\" class=\"form-control\" name=\"meio\">
+                                                <option value=\"$qualiti->meio\" selected=\"true\">$qualiti->meio</option>
+                                                <option value=\"PRESENCIAL\">PRESENCIAL</option>
+                                                <option value=\"SEMIPRESENCIAL\">SEMIPRESENCIAL</option>
+                                                <option value=\"EAD\">EAD</option>
+                                            </select>
+                                        </div>
+            
+                                        <div class=\"form-group\">
+                                            <label for=\"situacao\">Situação:</label>
+                                            <select id=\"situacao\" class=\"form-control\" name=\"situacao\">
+                                                <option value=\"$qualiti->situacao\" selected=\"true\">$qualiti->situacao</option>
+                                                <option value=\"CONCLUIÍDO\">CONCLUÍDO</option>
+                                                <option value=\"EM ANDAMENTO\">EM ANDAMENTO</option>
+                                            </select>
+                                        </div>
+            
+                                        <div class=\"form-group\">
+                                            <label for=\"data_conclusao\">Data de Conclusão:</label>
+                                            <input id=\"data_conclusao\" class=\"form-control\" type=\"date\" name=\"data_conclusao\" 
+                                                value=\"$qualiti->data_conclusao\" autocomplete=\"off\">
+                                        </div>
+            
+                                        <div class=\"form-group\">
+                                            <label for=\"carga_horaria\" class=\"control-label\">Carga Horária:</label>
+                                            <input id=\"carga_horaria\" class=\"form-control\" type=\"number\" name=\"carga_horaria\"
+                                                required=\"true\" value=\"$qualiti->carga_horaria\" autocomplete=\"off\">
+                                        </div>
+            
+                                        <div class=\"form-group\">
+                                            <label for=\"custo\" class=\"control-label\">Custo (Obrigatório se custeado pela OM):</label>
+                                            <input id=\"custo\" class=\"form-control\" type=\"number\" name=\"custo\"
+                                                value=\"$qualiti->custo\" autocomplete=\"off\">
+                                        </div>
+                                    </fieldset>
+                                    <input id=\"idtb_qualificacao_ti\" type=\"hidden\" name=\"idtb_qualificacao_ti\" 
+                                        value=\"$qualiti->idtb_qualificacao_ti\">
+                                    <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">
+                                </form>
+                            </div>
+                        </main>
+                    </div>
+                </div>";
+        }
         else{
             echo "<h5>Não foi encontrado pessoal de TI com este NIP/CPF.</h5>
                 <meta http-equiv=\"refresh\" content=\"3;?cmd=cursosti \">";
         }
-    }
-
-    echo "
-	<div class=\"container-fluid\">
-        <div class=\"row\">
-            <main>
-                <div id=\"form-cadastro\">
-                    <form id=\"insereusuario\" role=\"form\" action=\"?cmd=cursosti&act=insert\" 
-                        method=\"post\" enctype=\"multipart/form-data\">
-                        <fieldset>";
-
-                            echo"
-                            <legend>Qualificação na Área de TI ($qualiti->sigla_posto_grad - $qualiti->nome_guerra - 
-                                $qualiti->sigla_om)</legend>
-
-                            <input id=\"idtb_pessoal_ti\" type=\"hidden\" name=\"idtb_pessoal_ti\" 
-                                value=\"$qualiti->idtb_pessoal_ti\">
-                            
-                            <div class=\"form-group\">
-                                <label for=\"instituicao\">Instituição de Ensino:</label>
-                                <input id=\"instituicao\" class=\"form-control\" type=\"text\" name=\"instituicao\"
-                                    placeholder=\"ex. Universidade Federal do RN\" minlength=\"2\" 
-                                    style=\"text-transform:uppercase\" required=\"true\" autofocus=\"true\"
-                                    value=\"$qualiti->instituicao\" autocomplete=\"off\">
-                            </div>
-
-                            <div class=\"form-group\">
-                                <label for=\"tipo\">Tipo do Curso:</label>
-                                <select id=\"tipo\" class=\"form-control\" name=\"tipo\">
-                                    <option value=\"$qualiti->tipo\" selected=\"true\">$qualiti->tipo</option>
-                                    <option value=\"GRADUAÇÃO\">GRADUAÇÃO</option>
-                                    <option value=\"BACHARELADO\">BACHARELADO</option>
-                                    <option value=\"POSGRAD\">PÓS GRADUAÇÃO</option>
-                                    <option value=\"MESTRADO\">MESTRADO</option>
-                                    <option value=\"DOUTORADO\">DOUTORADO</option>
-                                    <option value=\"TÉCNICO\">TÉCNICO</option>
-                                    <option value=\"LIVRE\">LIVRE</option>
-                                </select>
-                            </div>
-
-                            <div class=\"form-group\">
-                                <label for=\"nome_curso\">Nome do Curso:</label>
-                                <input id=\"nome_curso\" class=\"form-control\" type=\"text\" name=\"nome_curso\"
-                                    placeholder=\"ex. Análise de Sistemas\" minlength=\"2\" autocomplete=\"off\"
-                                    style=\"text-transform:uppercase\" required=\"true\" value=\"$qualiti->nome_curso\">
-                            </div>
-
-                            <div class=\"form-group\">
-                                <label for=\"meio\">Modo do Curso:</label>
-                                <select id=\"meio\" class=\"form-control\" name=\"meio\">
-                                    <option value=\"$qualiti->meio\" selected=\"true\">$qualiti->meio</option>
-                                    <option value=\"PRESENCIAL\">PRESENCIAL</option>
-                                    <option value=\"SEMIPRESENCIAL\">SEMIPRESENCIAL</option>
-                                    <option value=\"EAD\">EAD</option>
-                                </select>
-                            </div>
-
-                            <div class=\"form-group\">
-                                <label for=\"situacao\">Situação:</label>
-                                <select id=\"situacao\" class=\"form-control\" name=\"situacao\">
-                                    <option value=\"$qualiti->situacao\" selected=\"true\">$qualiti->situacao</option>
-                                    <option value=\"CONCLUIÍDO\">CONCLUÍDO</option>
-                                    <option value=\"EM ANDAMENTO\">EM ANDAMENTO</option>
-                                </select>
-                            </div>
-
-                            <div class=\"form-group\">
-                                <label for=\"data_conclusao\">Data de Conclusão:</label>
-                                <input id=\"data_conclusao\" class=\"form-control\" type=\"date\" name=\"data_conclusao\" 
-                                    value=\"$qualiti->data_conclusao\" autocomplete=\"off\">
-                            </div>
-
-                            <div class=\"form-group\">
-                                <label for=\"carga_horaria\" class=\"control-label\">Carga Horária:</label>
-                                <input id=\"carga_horaria\" class=\"form-control\" type=\"number\" name=\"carga_horaria\"
-                                    required=\"true\" value=\"$qualiti->carga_horaria\" autocomplete=\"off\">
-                            </div>
-
-                            <div class=\"form-group\">
-                                <label for=\"custo\" class=\"control-label\">Custo (Obrigatório se custeado pela OM):</label>
-                                <input id=\"custo\" class=\"form-control\" type=\"number\" name=\"custo\"
-                                    value=\"$qualiti->custo\" autocomplete=\"off\">
-                            </div>
-                        </fieldset>
-                        <input id=\"idtb_qualificacao_ti\" type=\"hidden\" name=\"idtb_qualificacao_ti\" 
-                            value=\"$qualiti->idtb_qualificacao_ti\">
-                        <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">
-                    </form>
-                </div>
-            </main>
-        </div>
-    </div>";
+    }    
 }
 
 /* Monta quadro */

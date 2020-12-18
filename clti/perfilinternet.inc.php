@@ -26,7 +26,7 @@ if ($act == 'cad') {
         $perfilid = $perfil->SelectId();
     }
     else{
-        $perfilid = (object)['idtb_perfil_internet'=>'','nome'=>'','cod'=>''];
+        $perfilid = (object)['idtb_perfil_internet'=>'','nome'=>'','status'=>''];
     }
 
     echo "
@@ -38,7 +38,6 @@ if ($act == 'cad') {
                         method=\"post\" enctype=\"multipart/form-data\">
                         <fieldset>
                         <legend>Perfil de Internet - Cadastro</legend>
-
                             <div class=\"form-group\">
                                 <label for=\"nome\">Nome do Perfil:</label>
                                 <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
@@ -46,12 +45,13 @@ if ($act == 'cad') {
                                     required=\"true\" autofocus=\"true\" value=\"$perfilid->nome\">
                             </div>
                             <div class=\"form-group\">
-                                <label for=\"cod\">Código do Perfil:</label>
-                                <input id=\"cod\" class=\"form-control\" type=\"text\" name=\"cod\"
-                                    placeholder=\"ex. Perfil 1\" style=\"text-transform:uppercase\" autocomplete=\"off\"
-                                    required=\"true\" value=\"$perfilid->cod\">
-                            </div>
-                            
+                                <label for=\"status\">Código do Perfil:</label>
+                                <select id=\"status\" class=\"form-control\" name=\"status\">
+                                    <option value=\"$perfilid->status\" selected=\"true\">$perfilid->status</option>
+                                    <option value=\"ATIVO\">ATIVO</option>
+                                    <option value=\"INATIVO\">INATIVO</option>
+                                </select>
+                            </div>                            
                         </fieldset>
                         <input id=\"idtb_perfil_internet\" type=\"hidden\" name=\"idtb_perfil_internet\" 
                             value=\"$perfilid->idtb_perfil_internet\">
@@ -72,14 +72,14 @@ if (($row) AND ($act == NULL)) {
                     <tr>
                         <th scope=\"col\">Id</th>
                         <th scope=\"col\">Nome</th>
-                        <th scope=\"col\">Código</th>
+                        <th scope=\"col\">Status</th>
                     </tr>
                 </thead>";
     foreach ($perfis as $key => $value) {
         echo"       <tr>
                         <th scope=\"row\">".$value->idtb_perfil_internet."</th>
                         <td>".$value->nome."</td>
-                        <td>".$value->cod."</td>
+                        <td>".$value->status."</td>
                         <td><a href=\"?cmd=perfilinternet&act=cad&param=".$value->idtb_perfil_internet."\">Editar</a></td>
                     </tr>";
     }
@@ -94,7 +94,7 @@ if ($act == 'insert') {
         $idtb_perfil_internet = $_POST['idtb_perfil_internet'];
         $perfil->idtb_perfil_internet = $idtb_perfil_internet;
         $perfil->nome = mb_strtoupper($_POST['nome'],'UTF-8');
-        $perfil->cod = mb_strtoupper($_POST['cod'],'UTF-8');
+        $perfil->status = mb_strtoupper($_POST['status'],'UTF-8');
 
         /* Opta pelo Método Update */
         if ($idtb_perfil_internet){

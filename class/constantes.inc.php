@@ -162,13 +162,13 @@ class PerfilInternet
 {
     public $idtb_perfil_internet;
     public $nome;
-    public $cod;
+    public $status;
 
     /** Seleciona todos os perfis */
     public function SelectAll(){
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRows("SELECT * FROM db_clti.tb_perfil_internet ORDER BY nome");
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_perfil_internet WHERE status='ATIVO' ");
         return $row;
     }
 
@@ -181,11 +181,19 @@ class PerfilInternet
         return $row;
     }
 
+    /** Conta Perfis Existentes */
+    public function SelectCount(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getCol("SELECT COUNT(idtb_perfil_internet) FROM db_clti.tb_perfil_internet");
+        return $row;
+    }
+
     /** Insere Perfil */
     public function InsertPerfil(){
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->exec("INSERT INTO db_clti.tb_perfil_internet (nome,cod) VALUES ('$this->nome','$this->cod') ");
+        $row = $pg->exec("INSERT INTO db_clti.tb_perfil_internet (nome,status) VALUES ('$this->nome','$this->status') ");
         return $row;
     }
 
@@ -193,7 +201,7 @@ class PerfilInternet
     public function UpdatePerfil(){
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->exec("UPDATE db_clti.tb_perfil_internet SET (nome,cod) = ('$this->nome','$this->cod') 
+        $row = $pg->exec("UPDATE db_clti.tb_perfil_internet SET (nome,status) = ('$this->nome','$this->status') 
             WHERE idtb_perfil_internet = $this->idtb_perfil_internet");
         return $row;
     }
@@ -948,6 +956,8 @@ class Militar
     public $idtb_corpo_quadro;
     public $idtb_posto_grad;
     public $idtb_especialidade;
+    public $nome;
+    public $sigla;
     public $ordena;
 
     public function SelectAllPostoGrad()
@@ -957,6 +967,30 @@ class Militar
         $row = $pg->getRows("SELECT * FROM db_clti.tb_posto_grad ORDER BY idtb_posto_grad DESC");
         return $row;
     }
+    public function SelectIDPostoGrad()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("SELECT * FROM db_clti.tb_posto_grad WHERE idtb_posto_grad = $this->idtb_posto_grad");
+        return $row;
+    }
+    public function InsertPostoGrad()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "INSERT INTO db_clti.tb_posto_grad(nome,sigla) VALUES ('$this->nome','$this->sigla')";
+        $row = $pg->exec($sql);
+        return $row;
+    }
+    public function UpdatePostoGrad()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "UPDATE db_clti.tb_posto_grad SET (nome,sigla) = ('$this->nome','$this->sigla')
+            WHERE idtb_posto_grad = $this->idtb_posto_grad";
+        $row = $pg->exec($sql);
+        return $row;
+    }
     public function SelectAllCorpoQuadro()
     {
         require_once "pgsql.class.php";
@@ -964,11 +998,59 @@ class Militar
         $row = $pg->getRows("SELECT * FROM db_clti.tb_corpo_quadro");
         return $row;
     }
+    public function SelectIDCorpoQuadro()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("SELECT * FROM db_clti.tb_corpo_quadro WHERE idtb_corpo_quadro = $this->idtb_corpo_quadro");
+        return $row;
+    }
+    public function InsertCorpoQuadro()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "INSERT INTO db_clti.tb_corpo_quadro(nome,sigla) VALUES ('$this->nome','$this->sigla')";
+        $row = $pg->exec($sql);
+        return $row;
+    }
+    public function UpdateCorpoQuadro()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "UPDATE db_clti.tb_corpo_quadro SET (nome,sigla) = ('$this->nome','$this->sigla')
+            WHERE idtb_corpo_quadro = $this->idtb_corpo_quadro";
+        $row = $pg->exec($sql);
+        return $row;
+    }
     public function SelectAllEspec()
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getRows("SELECT * FROM db_clti.tb_especialidade ORDER BY nome");
+        return $row;
+    }
+    public function SelectIDEspec()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("SELECT * FROM db_clti.tb_especialidade WHERE idtb_especialidade = $this->idtb_especialidade");
+        return $row;
+    }
+    public function InsertEspec()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "INSERT INTO db_clti.tb_especialidade(nome,sigla) VALUES ('$this->nome','$this->sigla')";
+        $row = $pg->exec($sql);
+        return $row;
+    }
+    public function UpdateEspec()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "UPDATE db_clti.tb_especialidade SET (nome,sigla) = ('$this->nome','$this->sigla')
+            WHERE idtb_especialidade = $this->idtb_especialidade";
+        $row = $pg->exec($sql);
         return $row;
     }
 }
