@@ -52,6 +52,7 @@ CREATE TABLE db_clti.tb_corpo_quadro (
 	idtb_corpo_quadro serial NOT NULL,
 	nome varchar(45) NOT NULL,
 	sigla varchar(45) NOT NULL,
+	exibir varchar(45) NULL,
 	CONSTRAINT tb_corpo_quadro_pkey PRIMARY KEY (idtb_corpo_quadro)
 );
 COMMENT ON TABLE db_clti.tb_corpo_quadro IS 'Tabela contendo Corpos e Quadros.';
@@ -152,7 +153,7 @@ GRANT ALL ON TABLE db_clti.tb_pais TO postgres;
 CREATE TABLE db_clti.tb_perfil_internet (
 	idtb_perfil_internet serial NOT NULL,
 	nome varchar(255) NOT NULL,
-	cod varchar(45) NOT NULL,
+	status varchar(45) NOT NULL,
 	CONSTRAINT tb_perfil_internet_pkey PRIMARY KEY (idtb_perfil_internet)
 );
 
@@ -266,25 +267,6 @@ COMMENT ON TABLE db_clti.tb_tipos_clti IS 'Tabela contendo Tipo do CLTI.';
 
 ALTER TABLE db_clti.tb_tipos_clti OWNER TO postgres;
 GRANT ALL ON TABLE db_clti.tb_tipos_clti TO postgres;
-
-
--- db_clti.tb_uso_usb definition
-
--- Drop table
-
--- DROP TABLE db_clti.tb_uso_usb;
-
-CREATE TABLE db_clti.tb_uso_usb (
-	idtb_uso_usb serial NOT NULL,
-	idtb_estacoes int4 NOT NULL,
-	autorizacao varchar(255) NOT NULL,
-	CONSTRAINT tb_uso_usb_pkey PRIMARY KEY (idtb_uso_usb)
-);
-
--- Permissions
-
-ALTER TABLE db_clti.tb_uso_usb OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.tb_uso_usb TO sisclti;
 
 
 -- db_clti.tb_estado definition
@@ -671,6 +653,28 @@ ALTER TABLE db_clti.tb_conectividade OWNER TO postgres;
 GRANT ALL ON TABLE db_clti.tb_conectividade TO postgres;
 
 
+-- db_clti.tb_controle_internet definition
+
+-- Drop table
+
+-- DROP TABLE db_clti.tb_controle_internet;
+
+CREATE TABLE db_clti.tb_controle_internet (
+	idtb_controle_internet serial NOT NULL,
+	idtb_om_apoiadas int4 NOT NULL,
+	idtb_pessoal_om int4 NOT NULL,
+	perfis varchar(255) NOT NULL,
+	CONSTRAINT tb_controle_internet_pkey PRIMARY KEY (idtb_controle_internet),
+	CONSTRAINT tb_controle_internet_fk FOREIGN KEY (idtb_pessoal_om) REFERENCES db_clti.tb_pessoal_om(idtb_pessoal_om),
+	CONSTRAINT tb_controle_internet_fk1 FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas)
+);
+
+-- Permissions
+
+ALTER TABLE db_clti.tb_controle_internet OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_controle_internet TO sisclti;
+
+
 -- db_clti.tb_estacoes definition
 
 -- Drop table
@@ -817,3 +821,25 @@ COMMENT ON TABLE db_clti.tb_nec_aquisicao IS 'Tabela contendo Necessidades de Aq
 
 ALTER TABLE db_clti.tb_nec_aquisicao OWNER TO sisclti;
 GRANT ALL ON TABLE db_clti.tb_nec_aquisicao TO sisclti;
+
+
+-- db_clti.tb_controle_usb definition
+
+-- Drop table
+
+-- DROP TABLE db_clti.tb_controle_usb;
+
+CREATE TABLE db_clti.tb_controle_usb (
+	idtb_controle_usb serial NOT NULL,
+	idtb_om_apoiadas int4 NOT NULL,
+	idtb_estacoes int4 NOT NULL,
+	autorizacao varchar(255) NOT NULL,
+	CONSTRAINT tb_controle_usb_pkey PRIMARY KEY (idtb_controle_usb),
+	CONSTRAINT tb_controle_usb_fk FOREIGN KEY (idtb_estacoes) REFERENCES db_clti.tb_estacoes(idtb_estacoes),
+	CONSTRAINT tb_controle_usb_fk1 FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas)
+);
+
+-- Permissions
+
+ALTER TABLE db_clti.tb_controle_usb OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_controle_usb TO sisclti;
