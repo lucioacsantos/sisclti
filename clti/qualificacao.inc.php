@@ -46,7 +46,7 @@ if ($act == 'cad') {
         $qualiti = $qti->SelectIdQualif();
     }
     else{
-        @$qti->nip_cpf = $_POST['nip_cpf'];
+        @$qti->usuario = $_POST['nip_cpf'];
         $qualiti = $qti->ChecaNIPCPF();
         if ($qualiti){
             $qualiti = (object)['idtb_lotacao_clti'=>$qualiti->idtb_lotacao_clti,'idtb_qualificacao_clti'=>'',
@@ -184,8 +184,21 @@ if (($row) AND ($act == NULL)) {
             $identificacao = $value->cpf;
         }
 
-        echo"       <tr>
-                        <th scope=\"row\">$value->sigla_posto_grad</th>
+        echo"       <tr>";
+        if (($value->exibir_espec == 'NÃO') AND ($value->exibir_corpo_quadro == 'NÃO')){
+            echo"       <th scope=\"row\">".$value->sigla_posto_grad."</th>";
+        }
+        elseif (($value->exibir_espec == 'NÃO') AND ($value->exibir_corpo_quadro != 'NÃO')){
+            echo"       <th scope=\"row\">".$value->sigla_posto_grad." ".$value->sigla_corpo_quadro."</th>";
+        }
+        elseif (($value->exibir_espec != 'NÃO') AND ($value->exibir_corpo_quadro == 'NÃO')){
+            echo"       <th scope=\"row\">".$value->sigla_posto_grad." ".$value->sigla_espec."</th>";
+        }
+        else {
+            echo"       <th scope=\"row\">".$value->sigla_posto_grad." ".$value->sigla_corpo_quadro." 
+                    ".$value->sigla_espec."</th>";
+        }
+            echo"
                         <td>$identificacao</td>
                         <td>$value->nome_guerra</td>
                         <td>$value->tipo $value->nome_curso</td>
@@ -217,13 +230,15 @@ if ($act == 'insert') {
         $qti->carga_horaria = $_POST['carga_horaria'];
         $qti->custo = $_POST['custo'];
 
-        if ($data_conclusao == NULL) {
-            $qti->data_conclusao = 'NULL';
-        }
-
         /* Opta pelo Método Update */
         if ($idtb_qualificacao_clti){
-            $row = $qti->UpdateQualif();
+            if ($data_conclusao == NULL) {
+                $qti->data_conclusao = 'NULL';
+                $row = $qti->UpdateQualifAnd();
+            }
+            else{
+                $row = $qti->UpdateQualif();
+            }
             if ($row) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
                 <meta http-equiv=\"refresh\" content=\"1;?cmd=qualificacao\">";
@@ -235,7 +250,13 @@ if ($act == 'insert') {
         }
         /* Opta pelo Método Insert */
         else{
-            $row = $qti->InsertQualif();
+            if ($data_conclusao == NULL) {
+                $qti->data_conclusao = 'NULL';
+                $row = $qti->InsertQualifAnd();
+            }
+            else{
+                $row = $qti->InsertQualif();
+            }
             if ($row) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
                 <meta http-equiv=\"refresh\" content=\"1;?cmd=qualificacao\">";

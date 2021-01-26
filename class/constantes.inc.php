@@ -608,7 +608,7 @@ class PessoalTI
         $sql = "INSERT INTO db_clti.tb_qualificacao_ti(idtb_pessoal_ti, instituicao, tipo, nome_curso, 
             meio, situacao, data_conclusao, carga_horaria, custo) VALUES ('$this->idtb_pessoal_ti', 
             '$this->instituicao', '$this->tipo', '$this->nome_curso','$this->meio', '$this->situacao', 
-            '$this->data_conclusao', '$this->carga_horaria', '$this->custo')";
+            $this->data_conclusao, '$this->carga_horaria', '$this->custo')";
         $row = $pg->exec($sql);
         return $row;
     }
@@ -912,6 +912,17 @@ class PessoalCLTI
         $row = $pg->exec($sql);
         return $row;
     }
+    public function InsertQualifAnd()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "INSERT INTO db_clti.tb_qualificacao_clti(idtb_lotacao_clti, instituicao, tipo, nome_curso, 
+            meio, situacao, data_conclusao, carga_horaria, custo) VALUES ('$this->idtb_lotacao_clti', 
+            '$this->instituicao', '$this->tipo', '$this->nome_curso','$this->meio', '$this->situacao', 
+            $this->data_conclusao, '$this->carga_horaria', '$this->custo')";
+        $row = $pg->exec($sql);
+        return $row;
+    }
     public function UpdateQualif()
     {
         require_once "pgsql.class.php";
@@ -919,7 +930,20 @@ class PessoalCLTI
         $sql = "UPDATE db_clti.tb_qualificacao_clti SET (idtb_lotacao_clti, instituicao, tipo, nome_curso, 
             meio, situacao, data_conclusao, carga_horaria, custo) = ('$this->idtb_lotacao_clti', 
             '$this->instituicao', '$this->tipo', '$this->nome_curso','$this->meio', '$this->situacao', 
-            '$this->data_conclusao', '$this->carga_horaria', '$this->custo')";
+            '$this->data_conclusao', '$this->carga_horaria', '$this->custo') 
+            WHERE idtb_qualificacao_clti = $this->idtb_qualificacao_clti";
+        $row = $pg->exec($sql);
+        return $row;
+    }
+    public function UpdateQualifAnd()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "UPDATE db_clti.tb_qualificacao_clti SET (idtb_lotacao_clti, instituicao, tipo, nome_curso, 
+            meio, situacao, data_conclusao, carga_horaria, custo) = ('$this->idtb_lotacao_clti', 
+            '$this->instituicao', '$this->tipo', '$this->nome_curso','$this->meio', '$this->situacao', 
+            $this->data_conclusao, '$this->carga_horaria', '$this->custo') 
+            WHERE idtb_qualificacao_clti = $this->idtb_qualificacao_clti";
         $row = $pg->exec($sql);
         return $row;
     }
@@ -1662,7 +1686,7 @@ class Hardware
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $sql = ("INSERT INTO db_clti.tb_proc_modelo(idtb_proc_fab,modelo) 
-            VALUES ('$this->idtb_proc_fab','$this->modelo'");
+            VALUES ('$this->idtb_proc_fab','$this->modelo')");
         $row = $pg->exec($sql);
         return $row;
     }

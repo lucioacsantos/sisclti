@@ -100,13 +100,13 @@ if ($act == 'cad') {
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"nip\">NIP:</label>
-                                <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" readonly=\"true\"
+                                <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" 
                                     placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$pessom->nip\" 
                                     autocomplete=\"off\">
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"cpf\">CPF (Servidores Civis):</label>
-                                <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" readonly=\"true\"
+                                <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" 
                                     placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$pessom->cpf\" 
                                     autocomplete=\"off\">
                             </div>

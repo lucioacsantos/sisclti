@@ -184,35 +184,28 @@ if ($act == 'insertfab') {
 /* Método INSERT/UPDATE MODELO */
 if ($act == 'insertmodelo') {
     if (isset($_SESSION['status'])){
-        $idtb_proc_modelo = strtoupper($_POST['idtb_proc_modelo']);
-        $hw->idtb_proc_modelo = strtoupper($_POST['idtb_proc_modelo']);
-        $hw->idtb_proc_fab = strtoupper($_POST['idtb_proc_fab']);
+        $idtb_proc_modelo = $_POST['idtb_proc_modelo'];
+        $hw->idtb_proc_modelo = $_POST['idtb_proc_modelo'];
+        $hw->idtb_proc_fab = $_POST['idtb_proc_fab'];
         $hw->modelo = strtoupper($_POST['modelo']);
         
         if ($idtb_proc_modelo){
-
-            $row = $hw->UpdateProcModelo();
-    
+            $row = $hw->UpdateProcModelo();    
             if ($row) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
                 <meta http-equiv=\"refresh\" content=\"1;url=?cmd=processadores\">";
-            }
-    
+            }    
             else {
                 echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
                 echo(pg_result_error($row) . "<br />\n");
             }
         }
-
-        else{
-            
-            $row = $hw->InsertProcModelo();
-    
+        else{            
+            $row = $hw->InsertProcModelo();    
             if ($row) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
                 <meta http-equiv=\"refresh\" content=\"1;url=?cmd=processadores\">";
-            }
-    
+            }    
             else {
                 echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
                 echo(pg_result_error($row) . "<br />\n");
