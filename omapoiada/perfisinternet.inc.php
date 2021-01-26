@@ -151,9 +151,21 @@ if (($row) AND ($act == NULL)) {
                 </thead>";
     foreach ($controle as $key => $value) {
         $array = explode(", ",$value->perfis);
-        echo"       <tr>
-                        <th scope=\"row\">".$value->posto_grad."-".$value->espec."</th>
-                        <td>".$value->nome_guerra."</td>
+        echo"       <tr>";
+        if (($value->exibir_espec == 'NÃO') AND ($value->exibir_corpo_quadro == 'NÃO')){
+            echo"       <th scope=\"row\">".$value->posto_grad."</th>";
+        }
+        elseif (($value->exibir_espec == 'NÃO') AND ($value->exibir_corpo_quadro != 'NÃO')){
+            echo"       <th scope=\"row\">".$value->posto_grad." ".$value->corpo_quadro."</th>";
+        }
+        elseif (($value->exibir_espec != 'NÃO') AND ($value->exibir_corpo_quadro == 'NÃO')){
+            echo"       <th scope=\"row\">".$value->posto_grad." ".$value->espec."</th>";
+        }
+        else {
+            echo"       <th scope=\"row\">".$value->posto_grad." ".$value->corpo_quadro." 
+                            ".$value->espec."</th>";
+        }
+            echo"       <td>".$value->nome_guerra."</td>
                         <td>";
                         foreach ($array as $chave => $valor){
                             if  ($valor != 0){

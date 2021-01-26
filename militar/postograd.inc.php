@@ -14,7 +14,7 @@ $row = $militar->SelectAllPostoGrad();
 
 /* Checa se há SO cadastrado */
 if (($row == NULL) AND ($act == NULL)) {
-	echo "<h5>Postos/Graduações cadastrados,<br />
+	echo "<h5>Não há Postos/Graduações cadastrados,<br />
 		 clique <a href=\"?cmd=postograds&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
 
@@ -33,33 +33,27 @@ if ($act == 'cad') {
         <div class=\"row\">
             <main>
                 <div id=\"form-cadastro\">
-                    <form id=\"memorias\" role=\"form\" action=\"?cmd=memorias&act=insert\" 
+                    <form id=\"postograd\" role=\"form\" action=\"?cmd=postograd&act=insert\" 
                         method=\"post\" enctype=\"multipart/form-data\">
                         <fieldset>
-                            <legend>Memórias - Cadastro</legend>
+                            <legend>Posto/Graduação - Cadastro</legend>
 
                             <div class=\"form-group\">
-                                <label for=\"tipo\">Tipo:</label>
-                                <input id=\"tipo\" class=\"form-control\" type=\"text\" name=\"tipo\"
-                                       placeholder=\"ex. DDR3\" style=\"text-transform:uppercase\" 
-                                       required=\"true\" value=\"$memorias->tipo\" autocomplete=\"off\">
+                                <label for=\"nome\">Posto/Graduação:</label>
+                                <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
+                                       placeholder=\"ex. Terceiro Sargento\" style=\"text-transform:uppercase\" 
+                                       required=\"true\" value=\"$postograd->nome\" autocomplete=\"off\">
                             </div>
 
                             <div class=\"form-group\">
-                                <label for=\"modelo\">Modelo:</label>
-                                <input id=\"modelo\" class=\"form-control\" type=\"text\" name=\"modelo\"
-                                       placeholder=\"ex. PC4200\" style=\"text-transform:uppercase\" 
-                                       required=\"true\" value=\"$memorias->modelo\" autocomplete=\"off\">
-                            </div>
-
-                            <div class=\"form-group\">
-                                <label for=\"clock\">Clock Mhz:</label>
-                                <input id=\"clock\" class=\"form-control\" type=\"number\" name=\"clock\" autocomplete=\"off\"
-                                       placeholder=\"ex. 533\" required=\"true\" value=\"$memorias->clock\">
+                                <label for=\"sigla\">Sigla:</label>
+                                <input id=\"sigla\" class=\"form-control\" type=\"text\" name=\"sigla\"
+                                       placeholder=\"ex. 3ºSG\" style=\"text-transform:uppercase\" 
+                                       required=\"true\" value=\"$postograd->sigla\" autocomplete=\"off\">
                             </div>
 
                         </fieldset>
-                        <input type=\"hidden\" name=\"idtb_memorias\" value=\"$memorias->idtb_memorias\">
+                        <input type=\"hidden\" name=\"idtb_posto_grad\" value=\"$postograd->idtb_posto_grad\">
                         <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">
                     </form>
                 </div>
@@ -75,21 +69,18 @@ if (($row) AND ($act == NULL)) {
             <table class=\"table table-hover\">
                 <thead>
                     <tr>
-                        <th scope=\"col\">Tipo</th>
-                        <th scope=\"col\">Modelo</th>
-                        <th scope=\"col\">Clock</th>
+                        <th scope=\"col\">Posto/Grad.</th>
+                        <th scope=\"col\">Sigla</th>
                         <th scope=\"col\">Ações</th>
                     </tr>
                 </thead>";
 
-    $hw->ordena = "ORDER BY tipo,modelo,clock ASC";
-    $memorias = $hw->SelectAllMem();
-    foreach ($memorias as $key => $value) {
+    $postograd = $militar->SelectAllPostoGrad();
+    foreach ($postograd as $key => $value) {
         echo"       <tr>
-                        <th scope=\"row\">".$value->tipo."</th>
-                        <td>".$value->modelo."</td>
-                        <td>".$value->clock."</td>
-                        <td><a href=\"?cmd=memorias&act=cad&param=".$value->idtb_memorias."\">
+                        <th scope=\"row\">".$value->nome."</th>
+                        <td>".$value->sigla."</td>
+                        <td><a href=\"?cmd=postograd&act=cad&param=".$value->idtb_posto_grad."\">
                                 Editar</a>
                         </td>
                     </tr>";
@@ -103,19 +94,18 @@ if (($row) AND ($act == NULL)) {
 /* Método INSERT/UPDATE Memória */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
-        $idtb_memorias = $_POST['idtb_memorias'];
-        $hw->idtb_memorias = $_POST['idtb_memorias'];
-        $hw->modelo = strtoupper($_POST['modelo']);
-        $hw->tipo = strtoupper($_POST['tipo']);
-        $hw->clock = $_POST['clock'];
+        $idtb_posto_grad = $_POST['idtb_posto_grad'];
+        $militar->idtb_posto_grad = $_POST['idtb_posto_grad'];
+        $militar->nome = mb_strtoupper($_POST['nome'],'UTF-8');
+        $militar->sigla = mb_strtoupper($_POST['sigla'],'UTF-8');
         
-        if ($idtb_memorias){
+        if ($idtb_posto_grad){
             
-            $row = $hw->UpdateMem();
+            $row = $militar->UpdatePostoGrad();
     
             if ($row) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=memorias\">";
+                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=postograd\">";
             }
     
             else {
@@ -126,11 +116,11 @@ if ($act == 'insert') {
 
         else{
             
-            $row = $hw->InsertMem();
+            $row = $militar->InsertPostoGrad();
     
             if ($row) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=memorias\">";
+                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=postograd\">";
             }
     
             else {

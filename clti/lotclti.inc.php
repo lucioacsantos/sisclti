@@ -285,9 +285,9 @@ if (($row) AND ($act == NULL)) {
 
     $pesclti->ordena = "ORDER BY idtb_posto_grad ASC";
     $clti = $pesclti->SelectALL();
-    $lotacao = $config->CountLotacaoCLTI();
     $lotof = $config->CountLotOficiaisCLTI();
     $lotpr = $config->CountLotPracasCLTI();
+    $lotacao = $lotof+$lotpr;
     $efetof = $pesclti->CountOficiais();
     $efetpr = $pesclti->CountPracas();
     $efetfcivis = $pesclti->CountFCivil();

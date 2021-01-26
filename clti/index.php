@@ -89,6 +89,7 @@ if (isset($_SESSION['user_name'])){
                   <div class=\"btn-group mr-2\">
                     <a href=\"?cmd=lotclti\"><button class=\"btn btn-sm btn-outline-secondary\">Efetivo do CLTI</button></a>
                     <a href=\"?cmd=lotclti&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
+                    <a href=\"?cmd=lotclti&act=calcula\"><button class=\"btn btn-sm btn-outline-secondary\">Calcular Lotação</button></a>
                   </div>
                   <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
                     <span data-feather=\"calendar\"></span>
@@ -295,13 +296,13 @@ if (isset($_SESSION['user_name'])){
               <p>Servidores (Total): ".$qtdesrv."</p>
               <p>Estações de Trabalho (Total): ".$qtdeet."</p>
               <p>Equipamentos de Conectividade (Total): ".$qtdeconect."</p>
-              <p>Chamados Totais: xx Chamados</p>
+              <!--<p>Chamados Totais: xx Chamados</p>
               <p>Chamados no Mês Corrente: xx Chamados</p>
               <p>Incidentes de TIC Relatados: xx Incidentes</p>
               <p>Tráfego do Correio Eletrônico (Mês Anterior): xx Mensagens</p>
               <p>Usuários do Correio Eletrônico: xx Usuários</p>
               <p>Tráfego de Dados Estimado de Correio Eletrônico: xx Gigabytes</p>
-              <p>Tráfego de Dados Total Estimado (Backbone CLTI): xx Gigabytes</p>
+              <p>Tráfego de Dados Total Estimado (Backbone CLTI): xx Gigabytes</p>-->
             </main>
           </div>
         </div>";

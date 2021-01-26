@@ -100,8 +100,25 @@ if (($row) AND ($act == NULL)) {
     foreach ($funcoessigdem as $key => $value) {
         echo"       <tr>
                         <th scope=\"row\">".$value->descricao."</th>
-                        <td>".$value->sigla."</td>
-                        <td scope=\"row\">".$value->posto_grad."-".$value->espec."</td>
+                        <td>".$value->sigla."</td>";
+                        if (($value->exibir_espec == 'NÃO') AND ($value->exibir_corpo_quadro == 'NÃO')){
+                            echo"
+                            <th scope=\"row\">".$value->posto_grad."</th>";
+                        }
+                        elseif (($value->exibir_espec == 'NÃO') AND ($value->exibir_corpo_quadro != 'NÃO')){
+                            echo"
+                            <th scope=\"row\">".$value->posto_grad." ".$value->corpo_quadro."</th>";
+                        }
+                        elseif (($value->exibir_espec != 'NÃO') AND ($value->exibir_corpo_quadro == 'NÃO')){
+                            echo"
+                            <th scope=\"row\">".$value->posto_grad." ".$value->espec."</th>";
+                        }
+                        else {
+                            echo"
+                            <th scope=\"row\">".$value->posto_grad." ".$value->corpo_quadro." 
+                                    ".$value->espec."</th>";
+                        }
+                            echo"
                         <td>".$value->nome_guerra."</td>
                         <td><a href=\"?cmd=funcsigdem&act=cad&param=".$value->idtb_funcoes_sigdem."\">Editar</a></td>
                     </tr>";

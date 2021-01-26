@@ -41,7 +41,7 @@ if (isset($_SESSION['user_name'])){
                 <h1 class=\"h2\">Gerenciamento - Tipos de CLTI</h1>
                 <div class=\"btn-toolbar mb-2 mb-md-0\">
                   <div class=\"btn-group mr-2\">
-                    <a href=\"?cmd=postograd\"><button class=\"btn btn-sm btn-outline-secondary\">Gerenciamento do CLTI</button></a>
+                    <a href=\"?cmd=postograd&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
                   </div>
                   <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
                     <span data-feather=\"calendar\"></span>
@@ -64,7 +64,7 @@ if (isset($_SESSION['user_name'])){
                     <h1 class=\"h2\">Gerenciamento - Tipos de CLTI</h1>
                     <div class=\"btn-toolbar mb-2 mb-md-0\">
                       <div class=\"btn-group mr-2\">
-                        <a href=\"?cmd=corpoquadro\"><button class=\"btn btn-sm btn-outline-secondary\">Gerenciamento do CLTI</button></a>
+                        <a href=\"?cmd=corpoquadro&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
                       </div>
                       <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
                         <span data-feather=\"calendar\"></span>
@@ -87,7 +87,7 @@ if (isset($_SESSION['user_name'])){
                     <h1 class=\"h2\">Gerenciamento - Tipos de CLTI</h1>
                     <div class=\"btn-toolbar mb-2 mb-md-0\">
                       <div class=\"btn-group mr-2\">
-                        <a href=\"?cmd=especialidade\"><button class=\"btn btn-sm btn-outline-secondary\">Gerenciamento do CLTI</button></a>
+                        <a href=\"?cmd=especialidade&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
                       </div>
                       <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
                         <span data-feather=\"calendar\"></span>

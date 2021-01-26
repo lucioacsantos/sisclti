@@ -135,7 +135,7 @@ class Config
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "SELECT lotacao_oficiais+lotacao_pracas FROM db_clti.tb_tipos_clti";
+        $sql = "SELECT lotacao_oficiais+lotacao_pracas as lotacao FROM db_clti.tb_tipos_clti";
         $row = $pg->exec($sql);
         return $row;
     }
@@ -927,7 +927,7 @@ class PessoalCLTI
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "SELECT COUNT(nip) AS qtde FROM db_clti.tb_lotacao_clti WHERE idtb_posto_grad < '10' AND nip != '12345678' ";
+        $sql = "SELECT COUNT(nip) FROM db_clti.tb_lotacao_clti WHERE idtb_posto_grad < '10' AND nip != '12345678' ";
         $row = $pg->exec($sql);
         return $row;
     }
@@ -935,7 +935,7 @@ class PessoalCLTI
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "SELECT COUNT(nip) AS qtde FROM db_clti.tb_lotacao_clti WHERE idtb_posto_grad > '9' AND idtb_posto_grad < '21' 
+        $sql = "SELECT COUNT(nip) FROM db_clti.tb_lotacao_clti WHERE idtb_posto_grad > '9' AND idtb_posto_grad < '21' 
             AND nip != '12345678' ";
         $row = $pg->exec($sql);
         return $row;
@@ -944,7 +944,7 @@ class PessoalCLTI
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "SELECT COUNT(nip) AS qtde FROM db_clti.tb_lotacao_clti WHERE idtb_posto_grad = '21' AND nip != '12345678' ";
+        $sql = "SELECT COUNT(nip) FROM db_clti.tb_lotacao_clti WHERE idtb_posto_grad = '21' AND nip != '12345678' ";
         $row = $pg->exec($sql);
         return $row;
     }
@@ -958,13 +958,14 @@ class Militar
     public $idtb_especialidade;
     public $nome;
     public $sigla;
+    public $exibir;
     public $ordena;
 
     public function SelectAllPostoGrad()
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRows("SELECT * FROM db_clti.tb_posto_grad ORDER BY idtb_posto_grad DESC");
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_posto_grad ORDER BY idtb_posto_grad ASC");
         return $row;
     }
     public function SelectIDPostoGrad()
@@ -1009,7 +1010,8 @@ class Militar
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "INSERT INTO db_clti.tb_corpo_quadro(nome,sigla) VALUES ('$this->nome','$this->sigla')";
+        $sql = "INSERT INTO db_clti.tb_corpo_quadro(nome,sigla,exibir) VALUES ('$this->nome','$this->sigla',
+            '$this->exibir')";
         $row = $pg->exec($sql);
         return $row;
     }
@@ -1017,8 +1019,8 @@ class Militar
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "UPDATE db_clti.tb_corpo_quadro SET (nome,sigla) = ('$this->nome','$this->sigla')
-            WHERE idtb_corpo_quadro = $this->idtb_corpo_quadro";
+        $sql = "UPDATE db_clti.tb_corpo_quadro SET (nome,sigla,exibir) = ('$this->nome','$this->sigla',
+            '$this->exibir') WHERE idtb_corpo_quadro = $this->idtb_corpo_quadro";
         $row = $pg->exec($sql);
         return $row;
     }
@@ -1040,7 +1042,8 @@ class Militar
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "INSERT INTO db_clti.tb_especialidade(nome,sigla) VALUES ('$this->nome','$this->sigla')";
+        $sql = "INSERT INTO db_clti.tb_especialidade(nome,sigla,exibir) VALUES ('$this->nome','$this->sigla',
+            '$this->exibir')";
         $row = $pg->exec($sql);
         return $row;
     }
@@ -1048,8 +1051,8 @@ class Militar
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "UPDATE db_clti.tb_especialidade SET (nome,sigla) = ('$this->nome','$this->sigla')
-            WHERE idtb_especialidade = $this->idtb_especialidade";
+        $sql = "UPDATE db_clti.tb_especialidade SET (nome,sigla,exibir) = ('$this->nome','$this->sigla',
+            '$this->exibir') WHERE idtb_especialidade = $this->idtb_especialidade";
         $row = $pg->exec($sql);
         return $row;
     }

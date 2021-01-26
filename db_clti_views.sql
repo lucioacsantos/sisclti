@@ -34,7 +34,9 @@ AS SELECT internet.idtb_controle_internet,
     internet.idtb_pessoal_om,
     pesom.posto_grad,
     pesom.corpo_quadro,
+    pesom.exibir_corpo_quadro,
     pesom.espec,
+    pesom.exibir_espec,
     pesom.nip,
     pesom.nome,
     pesom.nome_guerra,
@@ -127,7 +129,10 @@ AS SELECT funcsigdem.idtb_funcoes_sigdem,
     funcsigdem.sigla,
     funcsigdem.idtb_pessoal_om,
     posto_grad.sigla AS posto_grad,
+    corpo_quadro.sigla AS corpo_quadro,
+    corpo_quadro.exibir AS exibir_corpo_quadro,
     espec.sigla AS espec,
+    espec.exibir AS exibir_espec,
     pesom.nome_guerra
    FROM db_clti.tb_funcoes_sigdem funcsigdem,
     db_clti.tb_pessoal_om pesom,
@@ -177,8 +182,10 @@ AS SELECT osic.idtb_osic,
     posto.sigla AS sigla_posto_grad,
     osic.idtb_corpo_quadro,
     corpo.sigla AS sigla_corpo_quadro,
+    corpo.exibir AS exibir_corpo_quadro,
     osic.idtb_especialidade,
     espec.sigla AS sigla_espec,
+    espec.exibir AS exibir_espec,
     osic.idtb_om_apoiadas,
     om.sigla AS sigla_om,
     osic.nip,
@@ -197,8 +204,8 @@ AS SELECT osic.idtb_osic,
 
 -- Permissions
 
-ALTER TABLE db_clti.vw_osic OWNER TO postgres;
-GRANT ALL ON TABLE db_clti.vw_osic TO postgres;
+ALTER TABLE db_clti.vw_osic OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.vw_osic TO sisclti;
 
 
 -- db_clti.vw_pessoal_clti source
@@ -209,8 +216,10 @@ AS SELECT clti.idtb_lotacao_clti,
     posto.sigla AS sigla_posto_grad,
     clti.idtb_corpo_quadro,
     corpo.sigla AS sigla_corpo_quadro,
+    corpo.exibir AS exibir_corpo_quadro,
     clti.idtb_especialidade,
     espec.sigla AS sigla_espec,
+    espec.exibir AS exibir_espec,
     clti.nip,
     clti.cpf,
     clti.nome,
@@ -226,8 +235,8 @@ AS SELECT clti.idtb_lotacao_clti,
 
 -- Permissions
 
-ALTER TABLE db_clti.vw_pessoal_clti OWNER TO postgres;
-GRANT ALL ON TABLE db_clti.vw_pessoal_clti TO postgres;
+ALTER TABLE db_clti.vw_pessoal_clti OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.vw_pessoal_clti TO sisclti;
 
 
 -- db_clti.vw_pessoal_om source
@@ -238,8 +247,10 @@ AS SELECT pesom.idtb_pessoal_om,
     posto.sigla AS posto_grad,
     pesom.idtb_corpo_quadro,
     corpo.sigla AS corpo_quadro,
+    corpo.exibir AS exibir_corpo_quadro,
     pesom.idtb_especialidade,
     espec.sigla AS espec,
+    espec.exibir AS exibir_espec,
     pesom.idtb_om_apoiadas,
     om.sigla AS sigla_om,
     pesom.nip,
@@ -269,8 +280,10 @@ AS SELECT pesti.idtb_pessoal_ti,
     posto.sigla AS sigla_posto_grad,
     pesti.idtb_corpo_quadro,
     corpo.sigla AS sigla_corpo_quadro,
+    corpo.exibir AS exibir_corpo_quadro,
     pesti.idtb_especialidade,
     espec.sigla AS sigla_espec,
+    espec.exibir AS exibir_espec,
     pesti.idtb_om_apoiadas,
     om.sigla AS sigla_om,
     pesti.nip,
@@ -292,8 +305,8 @@ AS SELECT pesti.idtb_pessoal_ti,
 
 -- Permissions
 
-ALTER TABLE db_clti.vw_pessoal_ti OWNER TO postgres;
-GRANT ALL ON TABLE db_clti.vw_pessoal_ti TO postgres;
+ALTER TABLE db_clti.vw_pessoal_ti OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.vw_pessoal_ti TO sisclti;
 
 
 -- db_clti.vw_processadores source
@@ -322,8 +335,10 @@ AS SELECT quali.idtb_qualificacao_clti,
     posto.sigla AS sigla_posto_grad,
     pesti.idtb_corpo_quadro,
     corpo.sigla AS sigla_corpo_quadro,
+    corpo.exibir AS exibir_corpo_quadro,
     pesti.idtb_especialidade,
     espec.sigla AS sigla_espec,
+    espec.exibir AS exibir_espec,
     pesti.nome_guerra,
     pesti.nip,
     pesti.cpf,
@@ -344,8 +359,8 @@ AS SELECT quali.idtb_qualificacao_clti,
 
 -- Permissions
 
-ALTER TABLE db_clti.vw_qualificacao_clti OWNER TO postgres;
-GRANT ALL ON TABLE db_clti.vw_qualificacao_clti TO postgres;
+ALTER TABLE db_clti.vw_qualificacao_clti OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.vw_qualificacao_clti TO sisclti;
 
 
 -- db_clti.vw_qualificacao_pesti source
@@ -357,8 +372,10 @@ AS SELECT quali.idtb_qualificacao_ti,
     posto.sigla AS sigla_posto_grad,
     pesti.idtb_corpo_quadro,
     corpo.sigla AS sigla_corpo_quadro,
+    corpo.exibir AS exibir_corpo_quadro,
     pesti.idtb_especialidade,
     espec.sigla AS sigla_espec,
+    espec.exibir AS exibir_espec,
     pesti.idtb_om_apoiadas,
     om.sigla AS sigla_om,
     pesti.nome_guerra,
@@ -382,8 +399,8 @@ AS SELECT quali.idtb_qualificacao_ti,
 
 -- Permissions
 
-ALTER TABLE db_clti.vw_qualificacao_pesti OWNER TO postgres;
-GRANT ALL ON TABLE db_clti.vw_qualificacao_pesti TO postgres;
+ALTER TABLE db_clti.vw_qualificacao_pesti OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.vw_qualificacao_pesti TO sisclti;
 
 
 -- db_clti.vw_servidores source

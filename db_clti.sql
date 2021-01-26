@@ -73,6 +73,7 @@ CREATE TABLE db_clti.tb_especialidade (
 	idtb_especialidade serial NOT NULL,
 	nome varchar(45) NOT NULL,
 	sigla varchar(45) NOT NULL,
+	exibir varchar NULL,
 	CONSTRAINT tb_especialidade_pkey PRIMARY KEY (idtb_especialidade)
 );
 COMMENT ON TABLE db_clti.tb_especialidade IS 'Tabela contendo Especialidades.';
@@ -156,6 +157,7 @@ CREATE TABLE db_clti.tb_perfil_internet (
 	status varchar(45) NOT NULL,
 	CONSTRAINT tb_perfil_internet_pkey PRIMARY KEY (idtb_perfil_internet)
 );
+COMMENT ON TABLE db_clti.tb_perfil_internet IS 'Tabela contendo Perfis da Internet';
 
 -- Permissions
 
@@ -508,6 +510,7 @@ CREATE TABLE db_clti.tb_pessoal_om (
 	CONSTRAINT tb_pessoal_om_idtb_om_apoiada_fkey FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas),
 	CONSTRAINT tb_pessoal_om_idtb_posto_grad_fkey FOREIGN KEY (idtb_posto_grad) REFERENCES db_clti.tb_posto_grad(idtb_posto_grad)
 );
+COMMENT ON TABLE db_clti.tb_pessoal_om IS 'Tabela contendo Pessoal (Usuários) da OM';
 
 -- Permissions
 
@@ -668,6 +671,7 @@ CREATE TABLE db_clti.tb_controle_internet (
 	CONSTRAINT tb_controle_internet_fk FOREIGN KEY (idtb_pessoal_om) REFERENCES db_clti.tb_pessoal_om(idtb_pessoal_om),
 	CONSTRAINT tb_controle_internet_fk1 FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas)
 );
+COMMENT ON TABLE db_clti.tb_controle_internet IS 'Tabela contendo Controle dos Perfis de Internet';
 
 -- Permissions
 
@@ -732,6 +736,7 @@ CREATE TABLE db_clti.tb_funcoes_sigdem (
 	CONSTRAINT tb_funcoes_sigdem_fk FOREIGN KEY (idtb_pessoal_om) REFERENCES db_clti.tb_pessoal_om(idtb_pessoal_om),
 	CONSTRAINT tb_funcoes_sigdem_idtb_om_apoiadas_fkey FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas)
 );
+COMMENT ON TABLE db_clti.tb_funcoes_sigdem IS 'Tabela contendo Funções do SiGDEM';
 
 -- Permissions
 
@@ -838,6 +843,7 @@ CREATE TABLE db_clti.tb_controle_usb (
 	CONSTRAINT tb_controle_usb_fk FOREIGN KEY (idtb_estacoes) REFERENCES db_clti.tb_estacoes(idtb_estacoes),
 	CONSTRAINT tb_controle_usb_fk1 FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas)
 );
+COMMENT ON TABLE db_clti.tb_controle_usb IS 'Tabela contendo Controle de Permissões de Uso USB';
 
 -- Permissions
 
