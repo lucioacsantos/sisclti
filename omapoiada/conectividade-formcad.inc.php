@@ -69,8 +69,26 @@ echo "
                         <input id=\"data_garantia\" class=\"form-control\" type=\"date\" name=\"data_garantia\"
                             style=\"text-transform:uppercase\"value=\"$conectividade->data_garantia\"
                             required=\"true\" autocomplete=\"off\">
-                    </div>
-
+                    </div>";
+                    if ($param){
+                        echo"
+                        <div class=\"form-group\">
+                        <label for=\"status\">Situação:</label>
+                        <select id=\"status\" class=\"form-control\" name=\"status\">
+                            <option value=\"$conectividade->status\" selected=\"true\">
+                                $conectividade->status</option>
+                            <option value=\"EM PRODUÇÃO\">EM PRODUÇÃO</option>
+                            <option value=\"EM MANUTENÇÃO\">EM MANUTENÇÃO</option>
+                            <option value=\"CONTINGÊNCIA\">CONTINGÊNCIA</option>
+                            <option value=\"EXCLUÍDO\">EXCLUÍDO</option>
+                        </select>
+                    </div>";
+                    }
+                    else{
+                        echo"<input id=\"status\" type=\"hidden\" name=\"status\" 
+                        value=\"EM PRODUÇÃO\">";
+                    }
+                echo"
                 </fieldset>
                 <input id=\"idtb_conectividade\" type=\"hidden\" name=\"idtb_conectividade\" 
                             value=\"$conectividade->idtb_conectividade\">

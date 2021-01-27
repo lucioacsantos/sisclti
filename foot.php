@@ -72,11 +72,16 @@
     <!-- Configurações dos Gráficos -->
     <?php
       require_once "dashboard/graficos.inc.php";
-      ativos_ti();
-      pessoal_ti();
-      qualificacao_ti();
-      grafico_barras();
-      grafico_barras_om();
+      if ($perfil == 'TEC_CLTI'){
+        ativos_ti();
+        pessoal_ti();
+        qualificacao_ti();
+        //grafico_barras();
+        grafico_barras_om();
+      }
+      else{
+        grafico_barras();
+      }
     ?>
       
     <!-- JavaScript desabilita form submit quando existirem campos inválidos -->

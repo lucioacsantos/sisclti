@@ -223,7 +223,6 @@ class FuncSiGDEM
         $row = $pg->getRows("SELECT * FROM db_clti.tb_funcoes_sigdem ORDER BY descricao");
         return $row;
     }
-
     /** Seleciona todas as funções da OM */
     public function SelectOMAll(){
         require_once "pgsql.class.php";
@@ -232,7 +231,6 @@ class FuncSiGDEM
             ORDER BY sigla ");
         return $row;
     }
-
     /** Seleciona Função pelo ID */
     public function SelectId(){
         require_once "pgsql.class.php";
@@ -240,7 +238,6 @@ class FuncSiGDEM
         $row = $pg->getRow("SELECT * FROM db_clti.vw_funcoes_sigdem WHERE idtb_funcoes_sigdem = $this->idtb_funcoes_sigdem");
         return $row;
     }
-
     /** Insere Função */
     public function InsertFuncao(){
         require_once "pgsql.class.php";
@@ -249,7 +246,6 @@ class FuncSiGDEM
             VALUES ('$this->idtb_om_apoiadas','$this->descricao','$this->sigla','$this->idtb_pessoal_om') ");
         return $row;
     }
-
     /** Atualiza Função */
     public function UpdateFuncao(){
         require_once "pgsql.class.php";
@@ -257,6 +253,16 @@ class FuncSiGDEM
         $row = $pg->exec("UPDATE db_clti.tb_funcoes_sigdem SET (idtb_om_apoiadas,descricao,sigla,idtb_pessoal_om) 
             = ('$this->idtb_om_apoiadas','$this->descricao','$this->sigla','$this->idtb_pessoal_om') 
             WHERE idtb_funcoes_sigdem = $this->idtb_funcoes_sigdem");
+        return $row;
+    }
+    /** Conta Funções pelo ID da OM */
+    public function CountIdOMFuncSiGDEM()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "SELECT COUNT(idtb_funcoes_sigdem) AS qtde FROM db_clti.vw_funcoes_sigdem WHERE 
+            idtb_om_apoiadas = $this->idtb_om_apoiadas";
+        $row = $pg->getCol($sql);
         return $row;
     }
 }
@@ -544,8 +550,7 @@ class PessoalTI
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRows("SELECT * FROM db_clti.vw_pessoal_ti WHERE sigla_funcao!='ADMIN' AND sigla_funcao!='OSIC' 
-            AND status='ATIVO' $this->ordena");
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_pessoal_ti WHERE status='ATIVO' $this->ordena");
         return $row;
     }
     public function SelectAllFuncoesTI()
@@ -629,7 +634,7 @@ class PessoalTI
         $pg = new PgSql();
         $sql = "SELECT COUNT(idtb_pessoal_ti) AS qtde FROM db_clti.vw_pessoal_ti GROUP BY idtb_funcoes_ti 
             HAVING idtb_funcoes_ti=1 ";
-        $row = $pg->exec($sql);
+        $row = $pg->getCol($sql);
         return $row;
     }
     public function CountOSIC()
@@ -638,7 +643,7 @@ class PessoalTI
         $pg = new PgSql();
         $sql = "SELECT COUNT(idtb_pessoal_ti) AS qtde FROM db_clti.vw_pessoal_ti GROUP BY idtb_funcoes_ti 
             HAVING idtb_funcoes_ti=2 ";
-        $row = $pg->exec($sql);
+        $row = $pg->getCol($sql);
         return $row;
     }
     public function CountPesTI()
@@ -647,7 +652,16 @@ class PessoalTI
         $pg = new PgSql();
         $sql = "SELECT COUNT(idtb_pessoal_ti) AS qtde FROM db_clti.vw_pessoal_ti GROUP BY idtb_funcoes_ti 
             HAVING idtb_funcoes_ti!=1 AND idtb_funcoes_ti!=2 ";
-        $row = $pg->exec($sql);
+        $row = $pg->getCol($sql);
+        return $row;
+    }
+    public function CountPesTIOM()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "SELECT COUNT(idtb_pessoal_ti) AS qtde FROM db_clti.vw_pessoal_ti 
+            WHERE idtb_OM_APOIADAS = $this->idtb_om_apoiadas ";
+        $row = $pg->getCol($sql);
         return $row;
     }
 }
@@ -746,9 +760,9 @@ class PessoalOM
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "SELECT COUNT(idtb_pessoal_om) AS qtde FROM db_clti.vw_pessoal_om GROUP BY idtb_om_apoiadas 
-            HAVING idtb_om_apoiadas = $this->idtb_om_apoiadas AND status='ATIVO' ";
-        $row = $pg->exec($sql);
+        $sql = "SELECT COUNT(idtb_pessoal_om) AS qtde FROM db_clti.vw_pessoal_om WHERE status='ATIVO' AND
+            idtb_om_apoiadas = $this->idtb_om_apoiadas";
+        $row = $pg->getCol($sql);
         return $row;
     }
     /** Perfis de Internet */
@@ -1096,6 +1110,7 @@ class Conectividade
     public $idtb_om_setores;
     public $data_aquisicao;
     public $data_garantia;
+    public $status;
 
     public function SelectAllConectTable()
     {
@@ -1109,9 +1124,9 @@ class Conectividade
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $sql = "UPDATE db_clti.tb_conectividade SET (idtb_om_apoiadas, fabricante, modelo, nome, qtde_portas, end_ip, 
-            idtb_om_setores, data_aquisicao, data_garantia) = ('$this->idtb_om_apoiadas', '$this->fabricante', 
+            idtb_om_setores, data_aquisicao, data_garantia, status) = ('$this->idtb_om_apoiadas', '$this->fabricante', 
             '$this->modelo', '$this->nome', '$this->qtde_portas', '$this->end_ip', '$this->idtb_om_setores', 
-            '$this->data_aquisicao', '$this->data_garantia') 
+            '$this->data_aquisicao', '$this->data_garantia', '$this->status') 
             WHERE idtb_conectividade='$this->idtb_conectividade'";
         $row = $pg->exec($sql);
         return $row;
@@ -1121,9 +1136,9 @@ class Conectividade
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $sql = "INSERT INTO db_clti.tb_conectividade(idtb_om_apoiadas, fabricante, modelo, nome, qtde_portas, end_ip, 
-            idtb_om_setores, data_aquisicao, data_garantia) VALUES ('$this->idtb_om_apoiadas', '$this->fabricante', 
+            idtb_om_setores, data_aquisicao, data_garantia, status) VALUES ('$this->idtb_om_apoiadas', '$this->fabricante', 
             '$this->modelo', '$this->nome', '$this->qtde_portas', '$this->end_ip', '$this->idtb_om_setores', 
-            '$this->data_aquisicao', '$this->data_garantia')";
+            '$this->data_aquisicao', '$this->data_garantia', '$this->status')";
         $row = $pg->exec($sql);
         return $row;
     }
@@ -1162,6 +1177,15 @@ class Conectividade
         $pg = new PgSql();
         $sql = "SELECT COUNT(idtb_conectividade) FROM db_clti.tb_conectividade";
         $row = $pg->exec($sql);
+        return $row;
+    }
+    public function CountIdOMConec()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "SELECT COUNT(idtb_conectividade) AS qtde FROM db_clti.vw_conectividade WHERE 
+            idtb_om_apoiadas = $this->idtb_om_apoiadas";
+        $row = $pg->getCol($sql);
         return $row;
     }
 }
@@ -1438,6 +1462,15 @@ class Estacoes
         $row = $pg->exec($sql);
         return $row;
     }
+    public function CountIdOMET()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "SELECT COUNT(idtb_estacoes) AS qtde FROM db_clti.vw_estacoes WHERE status!='RESSALVA' AND
+            idtb_om_apoiadas = $this->idtb_om_apoiadas";
+        $row = $pg->getCol($sql);
+        return $row;
+    }
 }
 
 /** Classe Servidores */
@@ -1530,6 +1563,15 @@ class Servidores
         $pg = new PgSql();
         $sql = "SELECT COUNT(idtb_servidores) FROM db_clti.tb_servidores";
         $row = $pg->exec($sql);
+        return $row;
+    }
+    public function CountIdOMSrv()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "SELECT COUNT(idtb_servidores) AS qtde FROM db_clti.vw_servidores WHERE status='EM PRODUÇÃO' AND
+            idtb_om_apoiadas = $this->idtb_om_apoiadas";
+        $row = $pg->getCol($sql);
         return $row;
     }
 }
@@ -1774,6 +1816,15 @@ class ControleUSB
         $row = $pg->exec("UPDATE db_clti.tb_controle_usb SET (idtb_estacoes,idtb_om_apoiadas,autorizacao) 
             = ('$this->idtb_estacoes','$this->idtb_om_apoiadas','$this->autorizacao') 
             WHERE idtb_controle_usb = $this->idtb_controle_usb");
+        return $row;
+    }
+    public function CountIdOMUSB()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "SELECT COUNT(idtb_controle_usb) AS qtde FROM db_clti.vw_controle_usb WHERE 
+            idtb_om_apoiadas = $this->idtb_om_apoiadas";
+        $row = $pg->getCol($sql);
         return $row;
     }
 }

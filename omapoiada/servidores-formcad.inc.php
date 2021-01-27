@@ -137,6 +137,8 @@ echo "
                                         $servidor->status</option>
                                     <option value=\"EM PRODUÇÃO\">EM PRODUÇÃO</option>
                                     <option value=\"EM MANUTENÇÃO\">EM MANUTENÇÃO</option>
+                                    <option value=\"CONTINGÊNCIA\">CONTINGÊNCIA</option>
+                                    <option value=\"EXCLUÍDO\">EXCLUÍDO</option>
                                 </select>
                             </div>";
                             }

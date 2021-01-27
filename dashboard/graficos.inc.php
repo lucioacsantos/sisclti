@@ -135,32 +135,61 @@ function grafico_barras(){
   /* Classe de interação com o PostgreSQL */
   $path = dirname(__FILE__) . '';
   require_once "$path/../class/pgsql.class.php";
-  $pg = new PgSql();
+  $new = new PessoalTI();
+  $new->idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
+  $qtde_pesti = $new->CountPesTIOM();
 
-  $et = $pg->getRows("SELECT COUNT(idtb_estacoes) AS qtde FROM db_clti.vw_estacoes ");
-  $srv = $pg->getRows("SELECT COUNT(idtb_servidores) AS qtde FROM db_clti.vw_servidores ");
-  $conec = $pg->getRows("SELECT COUNT(idtb_conectividade) AS qtde FROM db_clti.vw_conectividade ");
-  $omapoiadas = $pg->getRows("SELECT * FROM db_clti.tb_om_apoiadas ORDER BY cod_om;");
+  $new = new PessoalOM();
+  $new->idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
+  $qtde_pesom = $new->CountIdOMPesOM();
 
+  $new = new FuncSiGDEM();
+  $new->idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
+  $qtde_sigdem = $new->CountIdOMFuncSiGDEM();
+
+  $new = new Estacoes();
+  $new->idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
+  $qtde_et = $new->CountIdOMET();
+
+  $new = new Conectividade();
+  $new->idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
+  $qtde_conec = $new->CountIdOMConec();
+
+  $new = new Servidores();
+  $new->idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
+  $qtde_srv = $new->CountIdOMSrv();
+
+  $new = new ControleUSB();
+  $new->idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
+  $qtde_usb = $new->CountIdOMUSB();
+  
   echo"
   <script>
   new Chart(document.getElementById(\"grafico_barras\"), {
-    type: 'horizontalBar',
+    type: 'bar',
     data: {
-      labels: [\"Africa\", \"Asia\", \"Europe\", \"Latin America\", \"North America\"],
+      labels: [\"Pessoal de TI\", \"Usuários da OM\", \"Funções do SiGDEM\", \"Estações de Trabalho\", \"Eq. Conectividade\", 
+        \"Servidores\", \"Disp. USB Liberado\"],
       datasets: [
         {
-          label: \"Population (millions)\",
-          backgroundColor: [\"#3e95cd\", \"#8e5ea2\",\"#3cba9f\",\"#e8c3b9\",\"#c45850\"],
-          data: [2478,5267,734,784,433]
+          label: \"Qtde.:\",
+          backgroundColor: [\"#3e95cd\", \"#8e5ea2\",\"#3cba9f\",\"#e8c3b9\",\"#c45850\",\"#ee8434\",\"#6d4c3d\"],
+          data: [".$qtde_pesti.",".$qtde_pesom.",".$qtde_sigdem.",".$qtde_et.",".$qtde_conec.",".$qtde_srv.",".$qtde_usb."]
         }
       ]
     },
     options: {
       legend: { display: false },
+      scales: {
+        yAxes: [{
+            ticks: {
+          beginAtZero: true
+            }
+        }]
+          },
       title: {
         display: true,
-        text: 'Predicted world population (millions) in 2050'
+        text: 'Estatísticas de TI'
       }
     }
   });

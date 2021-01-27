@@ -104,6 +104,7 @@ if ($act == 'insert') {
         $conect->idtb_om_setores = mb_strtoupper($_POST['idtb_om_setores'],'UTF-8');
         $conect->data_aquisicao = $_POST['data_aquisicao'];
         $conect->data_garantia = $_POST['data_garantia'];
+        $conect->status = $_POST['status'];
 
         /* Opta pelo Método Update */
         if ($idtb_conectividade){
