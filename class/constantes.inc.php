@@ -281,7 +281,8 @@ class Usuario
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getRow("SELECT * FROM db_clti.tb_pessoal_ti WHERE nip = '$this->usuario' 
-            AND senha = '$this->senha' OR cpf = '$this->usuario' AND senha = '$this->senha'");
+            AND senha = '$this->senha' OR cpf = '$this->usuario' AND senha = '$this->senha'
+            AND status = 'ATIVO' ");
         return $row;
     }
 
@@ -299,7 +300,8 @@ class Usuario
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getRow("SELECT * FROM db_clti.tb_lotacao_clti WHERE nip = '$this->usuario' 
-            AND senha = '$this->senha' OR cpf = '$this->usuario' AND senha = '$this->senha'");
+            AND senha = '$this->senha' OR cpf = '$this->usuario' AND senha = '$this->senha'
+            AND status = 'ATIVO' ");
         return $row;
     }
 
@@ -505,6 +507,13 @@ class PessoalTI
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_ti WHERE idtb_pessoal_ti = '$this->idtb_pessoal_ti'");
+        return $row;
+    }
+    public function SelectIdOMPesTI()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_pessoal_ti WHERE idtb_om_apoiadas = '$this->idtb_om_apoiadas' $this->ordena");
         return $row;
     }
     public function InsertPesTI()

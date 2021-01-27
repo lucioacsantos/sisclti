@@ -317,8 +317,9 @@ if ($act == 'cad') {
 
 /* Monta quadro de administradores */
 if (($row) AND ($act == NULL)) {
-	$pti->ordena = "ORDER BY idtb_posto_grad DESC";
-    $pessti = $pti->SelectAllPesTI();
+    $pti->ordena = "ORDER BY idtb_posto_grad ASC";
+    $pti->idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
+    $pessti = $pti->SelectIdOMPesTI();
     echo"<div class=\"table-responsive\">
             <table class=\"table table-hover\">
                 <thead>

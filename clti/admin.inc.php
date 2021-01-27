@@ -34,10 +34,11 @@ if ($act == 'cad') {
             'idtb_corpo_quadro'=>'','sigla_corpo_quadro'=>'','idtb_especialidade'=>'','sigla_espec'=>'',
             'correio_eletronico'=>''];
     }
-    $om->ordem = "ORDER BY sigla ASC";
+    $om->ordena = "ORDER BY sigla ASC";
 	$omapoiada = $om->SelectAllOMTable();
     $postograd = $mil->SelectAllPostoGrad();
     $corpoquadro = $mil->SelectAllCorpoQuadro();
+    $mil->ordena = "ORDER BY sigla ASC";
     $especialidade = $mil->SelectAllEspec();
     echo "
 	<div class=\"container-fluid\">
@@ -312,13 +313,14 @@ if ($act == 'cad') {
 /* Monta quadro de administradores */
 if (($row != NULL) AND ($act == NULL)) {
 
-	$pesti->ordem = "ORDER BY idtb_posto_grad DESC";
+	$pesti->ordena = "ORDER BY sigla_om ASC";
     $admin = $pesti->SelectALLAdmin();
 
     echo"<div class=\"table-responsive\">
             <table class=\"table table-hover\">
                 <thead>
                     <tr>
+                        <th scope=\"col\">OM Apoiada</th>
                         <th scope=\"col\">Posto/Grad./Esp.</th>
                         <th scope=\"col\">NIP/CPF</th>
                         <th scope=\"col\">Nome</th>
@@ -336,10 +338,22 @@ if (($row != NULL) AND ($act == NULL)) {
         else{
             $identificacao = $value->cpf;
         }
-
         echo"       <tr>
-                        <th scope=\"row\">".$value->sigla_posto_grad." ".$value->sigla_corpo_quadro." 
-                            ".$value->sigla_espec."</th>
+                        <td>".$value->sigla_om."</td>";
+        if (($value->exibir_espec == 'NÃO') AND ($value->exibir_corpo_quadro == 'NÃO')){
+            echo"       <th scope=\"row\">".$value->sigla_posto_grad."</th>";
+        }
+        elseif (($value->exibir_espec == 'NÃO') AND ($value->exibir_corpo_quadro != 'NÃO')){
+            echo"       <th scope=\"row\">".$value->sigla_posto_grad." ".$value->sigla_corpo_quadro."</th>";
+        }
+        elseif (($value->exibir_espec != 'NÃO') AND ($value->exibir_corpo_quadro == 'NÃO')){
+            echo"       <th scope=\"row\">".$value->sigla_posto_grad." ".$value->sigla_espec."</th>";
+        }
+        else {
+            echo"       <th scope=\"row\">".$value->sigla_posto_grad." ".$value->sigla_corpo_quadro." 
+                            ".$value->sigla_espec."</th>";
+        }
+            echo"
                         <td>".$identificacao."</td>
                         <td>".$value->nome."</td>
                         <td>".$value->nome_guerra."</td>
