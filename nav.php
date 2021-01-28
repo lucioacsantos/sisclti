@@ -36,6 +36,9 @@ $versao = $config->SelectVersao();
         <li class="nav-item text-nowrap">
           <a class="nav-link" href="<?php echo "$url/logout.php"; ?>">Sair</a>
         </li>
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="<?php echo "#"; ?>">Senha</a>
+        </li>
       </ul>
     </nav>
 

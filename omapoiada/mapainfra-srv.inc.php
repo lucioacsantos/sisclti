@@ -16,7 +16,7 @@ echo "
                 <div id=\"form-cadastro\">
                 <form id=\"form\" action=\"?cmd=mapainfra&act=insert_srv\" method=\"post\" enctype=\"multipart/form-data\">
                 <fieldset>
-                    <legend>Estação de Trabalho - Cadastro</legend>
+                    <legend>Servidor - Cadastro</legend>
 
                     <div class=\"form-group\">
                         <label for=\"idtb_servidores_dest\">Servidor de Destino::</label>

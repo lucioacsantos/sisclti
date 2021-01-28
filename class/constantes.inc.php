@@ -693,6 +693,7 @@ class PessoalOM
     public $nome_guerra;
     public $correio_eletronico;
     public $status;
+    public $foradaareati;
     public $sigla;
     public $ordena;
 
@@ -722,10 +723,10 @@ class PessoalOM
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $sql = "INSERT INTO db_clti.tb_pessoal_om(idtb_om_apoiadas,idtb_posto_grad,idtb_corpo_quadro,
-            idtb_especialidade,nip,cpf,nome,nome_guerra,correio_eletronico,status)
+            idtb_especialidade,nip,cpf,nome,nome_guerra,correio_eletronico,foradaareati,status)
             VALUES ('$this->idtb_om_apoiadas','$this->idtb_posto_grad','$this->idtb_corpo_quadro',
             '$this->idtb_especialidade','$this->nip','$this->cpf','$this->nome','$this->nome_guerra',
-            '$this->correio_eletronico','$this->status')";
+            '$this->correio_eletronico','$this->foradaareati','$this->status')";
         $row = $pg->exec($sql);
         return $row;
     }
@@ -734,9 +735,9 @@ class PessoalOM
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $sql = "UPDATE db_clti.tb_pessoal_om SET (idtb_om_apoiadas,idtb_posto_grad,idtb_corpo_quadro,
-            idtb_especialidade,nip,cpf,nome,nome_guerra,correio_eletronico,status)
+            idtb_especialidade,nip,cpf,nome,nome_guerra,correio_eletronico,foradaareati,status)
             = ('$this->idtb_om_apoiadas','$this->idtb_posto_grad','$this->idtb_corpo_quadro','$this->idtb_especialidade',
-            '$this->nip','$this->cpf','$this->nome','$this->nome_guerra','$this->correio_eletronico','$this->status') 
+            '$this->nip','$this->cpf','$this->nome','$this->nome_guerra','$this->correio_eletronico','$this->foradaareati','$this->status') 
             WHERE idtb_pessoal_om='$this->idtb_pessoal_om' ";
         $row = $pg->exec($sql);
         return $row;

@@ -118,6 +118,13 @@ if ($act == 'cad') {
                                     value=\"$pessom->correio_eletronico\">
                             </div>
                             <div class=\"form-group\">
+                                <label for=\"foradaareati\">Fora da Área de TI:</label>
+                                <select id=\"foradaareati\" class=\"form-control\" name=\"foradaareati\">
+                                    <option value=\"$pessom->foradaareati\" selected=\"true\">$pessom->foradaareati</option>
+                                    <option value=\"NÃO\">NÃO</option>
+                                    <option value=\"SIM\">SIM</option>
+                            </div>
+                            <div class=\"form-group\">
                                 <label for=\"ativo\" class=\"control-label\">Situação:</label>
                                 <select id=\"ativo\" class=\"form-control\" name=\"ativo\">
                                     <option value=\"$pessom->status\" selected=\"true\">$pessom->status</option>
@@ -200,13 +207,20 @@ if ($act == 'insert') {
         $pom->nome = mb_strtoupper($_POST['nome'],'UTF-8');
         $pom->nome_guerra = mb_strtoupper($_POST['nomeguerra'],'UTF-8');
         $pom->correio_eletronico = mb_strtoupper($_POST['correio_eletronico'],'UTF-8');
+        $foradaareati = mb_strtoupper($_POST['foradaareati'],'UTF-8');
         $status = mb_strtoupper($_POST['ativo'],'UTF-8');
+        if ($foradaareati == NULL){
+            $pom->foradaareati = "NÃO";
+        }
+        else{
+            $pom->foradaareati = $foradaareati;
+        }
         if ($status == NULL){
             $pom->status = "ATIVO";
         }
         else{
             $pom->status = $status;
-        }        
+        }
         if ($nip == NULL) {
             $usuario = $cpf;
         }
