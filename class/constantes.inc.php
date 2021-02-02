@@ -669,7 +669,7 @@ class PessoalTI
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $sql = "SELECT COUNT(idtb_pessoal_ti) AS qtde FROM db_clti.vw_pessoal_ti 
-            WHERE idtb_OM_APOIADAS = $this->idtb_om_apoiadas ";
+            WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas ";
         $row = $pg->getCol($sql);
         return $row;
     }
@@ -1647,7 +1647,7 @@ class SO
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $sql = ("INSERT INTO db_clti.tb_sor(desenvolvedor,descricao,versao,situacao) 
-            VALUES ('$this->desenvolvedor','$this->descricao','$this->versao','$this->situacao'");
+            VALUES ('$this->desenvolvedor','$this->descricao','$this->versao','$this->situacao')");
         $row = $pg->exec($sql);
         return $row;
     }

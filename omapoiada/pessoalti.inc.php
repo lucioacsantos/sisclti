@@ -74,31 +74,26 @@ if ($act == 'cad') {
                                         hidden=\"required\" value=\"$pessti->correio_eletronico\">
                                     <input id=\"funcaoti\" class=\"form-control\" type=\"text\" name=\"funcaoti\"
                                         hidden=\"required\" value=\"$pessti->idtb_funcoes_ti\" autocomplete=\"off\">
-
                                     <div class=\"form-group\">
                                         <label for=\"nip\">NIP:</label>
                                         <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" readonly=\"true\"
                                             placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$pessti->nip\" autocomplete=\"off\">
                                     </div>
-
                                     <div class=\"form-group\">
                                         <label for=\"cpf\">CPF (Servidores Civis):</label>
                                         <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" readonly=\"true\"
                                             placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$pessti->cpf\" autocomplete=\"off\">
                                     </div>
-
                                     <div class=\"form-group\">
                                         <label for=\"senha\" class=\"control-label\">Trocar Senha:</label>
                                         <input id=\"senha\" class=\"form-control\" type=\"password\" name=\"senha\"
                                             placeholder=\"Senha Segura\" minlength=\"8\" maxlength=\"25\">
                                     </div>
-
                                     <div class=\"form-group\">
                                         <label for=\"confirmasenha\" class=\"control-label\">Confirme a Senha:</label>
                                         <input id=\"confirmasenha\" class=\"form-control\" type=\"password\" name=\"confirmasenha\"
                                             placeholder=\"Confirmação da Senha\" minlength=\"8\" maxlength=\"25\">
                                     </div>
-
                                     <input id=\"ativo\" class=\"form-control\" name=\"ativo\"
                                         value=\"$pessti->status\" hidden=\"true\">";
                                 }
@@ -106,9 +101,7 @@ if ($act == 'cad') {
                                 else{
                                     echo"
                                     <legend>Pessoal de TI - Alteração</legend>
-
                                     <input type=\"hidden\" name=\"idtb_om_apoiadas\" value=\"$idtb_om_apoiadas\">
-
                                     <div class=\"form-group\">
                                         <label for=\"postograd\">Posto/Graduação:</label>
                                         <select id=\"postograd\" class=\"form-control\" name=\"postograd\">
@@ -120,7 +113,6 @@ if ($act == 'cad') {
                                             };
                                         echo "</select>
                                     </div>
-
                                     <div class=\"form-group\">
                                         <label for=\"corpoquadro\">Corpo/Quadro:</label>
                                         <select id=\"corpoquadro\" class=\"form-control\" name=\"corpoquadro\">
@@ -132,7 +124,6 @@ if ($act == 'cad') {
                                             };
                                         echo "</select>
                                     </div>
-
                                     <div class=\"form-group\">
                                         <label for=\"especialidade\">Especialidade:</label>
                                         <select id=\"especialidade\" class=\"form-control\" name=\"especialidade\">
@@ -150,7 +141,6 @@ if ($act == 'cad') {
                                             placeholder=\"Nome Completo\" minlength=\"2\" autocomplete=\"off\"
                                             style=\"text-transform:uppercase\" required=\"true\" value=\"$pessti->nome\">
                                     </div>
-
                                     <div class=\"form-group\">
                                         <label for=\"nomeguerra\">Nome de Guerra:</label>
                                         <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
@@ -162,13 +152,11 @@ if ($act == 'cad') {
                                         <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" readonly=\"true\"
                                             placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$pessti->nip\" autocomplete=\"off\">
                                     </div>
-
                                     <div class=\"form-group\">
                                         <label for=\"cpf\">CPF (Servidores Civis):</label>
                                         <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" readonly=\"true\"
                                             placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$pessti->cpf\" autocomplete=\"off\">
                                     </div>
-
                                     <div class=\"form-group\">
                                         <label for=\"correio_eletronico\">Correio Eletrônico:</label>
                                         <input id=\"correio_eletronico\" class=\"form-control\" type=\"email\" autocomplete=\"off\"
@@ -176,7 +164,6 @@ if ($act == 'cad') {
                                             minlength=\"2\" style=\"text-transform:uppercase\" required=\"true\" 
                                             value=\"$pessti->correio_eletronico\">
                                     </div>
-
                                     <div class=\"form-group\">
                                         <label for=\"funcaoti\">Função de TI:</label>
                                         <select id=\"funcaoti\" class=\"form-control\" name=\"funcaoti\">
@@ -188,7 +175,6 @@ if ($act == 'cad') {
                                             };
                                         echo "</select>
                                     </div>
-
                                     <div class=\"form-group\">
                                         <label for=\"ativo\" class=\"control-label\">Situação:</label>
                                         <select id=\"ativo\" class=\"form-control\" name=\"ativo\">

@@ -21,8 +21,8 @@ AS SELECT conec.idtb_conectividade,
 
 -- Permissions
 
-ALTER TABLE db_clti.vw_conectividade OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.vw_conectividade TO sisclti;
+ALTER TABLE db_clti.vw_conectividade OWNER TO clti_sisclti;
+GRANT ALL ON TABLE db_clti.vw_conectividade TO clti_sisclti;
 
 
 -- db_clti.vw_controle_internet source
@@ -48,8 +48,8 @@ AS SELECT internet.idtb_controle_internet,
 
 -- Permissions
 
-ALTER TABLE db_clti.vw_controle_internet OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.vw_controle_internet TO sisclti;
+ALTER TABLE db_clti.vw_controle_internet OWNER TO clti_sisclti;
+GRANT ALL ON TABLE db_clti.vw_controle_internet TO clti_sisclti;
 
 
 -- db_clti.vw_controle_usb source
@@ -68,8 +68,8 @@ AS SELECT usb.idtb_controle_usb,
 
 -- Permissions
 
-ALTER TABLE db_clti.vw_controle_usb OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.vw_controle_usb TO sisclti;
+ALTER TABLE db_clti.vw_controle_usb OWNER TO clti_sisclti;
+GRANT ALL ON TABLE db_clti.vw_controle_usb TO clti_sisclti;
 
 
 -- db_clti.vw_estacoes source
@@ -116,8 +116,8 @@ AS SELECT et.idtb_estacoes,
 
 -- Permissions
 
-ALTER TABLE db_clti.vw_estacoes OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.vw_estacoes TO sisclti;
+ALTER TABLE db_clti.vw_estacoes OWNER TO clti_sisclti;
+GRANT ALL ON TABLE db_clti.vw_estacoes TO clti_sisclti;
 
 
 -- db_clti.vw_funcoes_sigdem source
@@ -144,8 +144,8 @@ AS SELECT funcsigdem.idtb_funcoes_sigdem,
 
 -- Permissions
 
-ALTER TABLE db_clti.vw_funcoes_sigdem OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.vw_funcoes_sigdem TO sisclti;
+ALTER TABLE db_clti.vw_funcoes_sigdem OWNER TO clti_sisclti;
+GRANT ALL ON TABLE db_clti.vw_funcoes_sigdem TO clti_sisclti;
 
 
 -- db_clti.vw_mapainfra source
@@ -170,8 +170,8 @@ AS SELECT mapa.idtb_mapainfra,
 
 -- Permissions
 
-ALTER TABLE db_clti.vw_mapainfra OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.vw_mapainfra TO sisclti;
+ALTER TABLE db_clti.vw_mapainfra OWNER TO clti_sisclti;
+GRANT ALL ON TABLE db_clti.vw_mapainfra TO clti_sisclti;
 
 
 -- db_clti.vw_osic source
@@ -204,8 +204,8 @@ AS SELECT osic.idtb_osic,
 
 -- Permissions
 
-ALTER TABLE db_clti.vw_osic OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.vw_osic TO sisclti;
+ALTER TABLE db_clti.vw_osic OWNER TO clti_sisclti;
+GRANT ALL ON TABLE db_clti.vw_osic TO clti_sisclti;
 
 
 -- db_clti.vw_pessoal_clti source
@@ -235,8 +235,8 @@ AS SELECT clti.idtb_lotacao_clti,
 
 -- Permissions
 
-ALTER TABLE db_clti.vw_pessoal_clti OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.vw_pessoal_clti TO sisclti;
+ALTER TABLE db_clti.vw_pessoal_clti OWNER TO clti_sisclti;
+GRANT ALL ON TABLE db_clti.vw_pessoal_clti TO clti_sisclti;
 
 
 -- db_clti.vw_pessoal_om source
@@ -268,8 +268,8 @@ AS SELECT pesom.idtb_pessoal_om,
 
 -- Permissions
 
-ALTER TABLE db_clti.vw_pessoal_om OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.vw_pessoal_om TO sisclti;
+ALTER TABLE db_clti.vw_pessoal_om OWNER TO clti_sisclti;
+GRANT ALL ON TABLE db_clti.vw_pessoal_om TO clti_sisclti;
 
 
 -- db_clti.vw_pessoal_ti source
@@ -305,8 +305,8 @@ AS SELECT pesti.idtb_pessoal_ti,
 
 -- Permissions
 
-ALTER TABLE db_clti.vw_pessoal_ti OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.vw_pessoal_ti TO sisclti;
+ALTER TABLE db_clti.vw_pessoal_ti OWNER TO clti_sisclti;
+GRANT ALL ON TABLE db_clti.vw_pessoal_ti TO clti_sisclti;
 
 
 -- db_clti.vw_processadores source
@@ -322,8 +322,8 @@ AS SELECT fab.idtb_proc_fab,
 
 -- Permissions
 
-ALTER TABLE db_clti.vw_processadores OWNER TO postgres;
-GRANT ALL ON TABLE db_clti.vw_processadores TO postgres;
+ALTER TABLE db_clti.vw_processadores OWNER TO clti_sisclti;
+GRANT ALL ON TABLE db_clti.vw_processadores TO clti_sisclti;
 
 
 -- db_clti.vw_qualificacao_clti source
@@ -359,8 +359,8 @@ AS SELECT quali.idtb_qualificacao_clti,
 
 -- Permissions
 
-ALTER TABLE db_clti.vw_qualificacao_clti OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.vw_qualificacao_clti TO sisclti;
+ALTER TABLE db_clti.vw_qualificacao_clti OWNER TO clti_sisclti;
+GRANT ALL ON TABLE db_clti.vw_qualificacao_clti TO clti_sisclti;
 
 
 -- db_clti.vw_qualificacao_pesti source
@@ -399,8 +399,8 @@ AS SELECT quali.idtb_qualificacao_ti,
 
 -- Permissions
 
-ALTER TABLE db_clti.vw_qualificacao_pesti OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.vw_qualificacao_pesti TO sisclti;
+ALTER TABLE db_clti.vw_qualificacao_pesti OWNER TO clti_sisclti;
+GRANT ALL ON TABLE db_clti.vw_qualificacao_pesti TO clti_sisclti;
 
 
 -- db_clti.vw_servidores source
@@ -443,8 +443,8 @@ AS SELECT srv.idtb_servidores,
 
 -- Permissions
 
-ALTER TABLE db_clti.vw_servidores OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.vw_servidores TO sisclti;
+ALTER TABLE db_clti.vw_servidores OWNER TO clti_sisclti;
+GRANT ALL ON TABLE db_clti.vw_servidores TO clti_sisclti;
 
 
 -- db_clti.vw_setores source
@@ -464,5 +464,5 @@ AS SELECT setores.idtb_om_setores,
 
 -- Permissions
 
-ALTER TABLE db_clti.vw_setores OWNER TO postgres;
-GRANT ALL ON TABLE db_clti.vw_setores TO postgres;
+ALTER TABLE db_clti.vw_setores OWNER TO clti_sisclti;
+GRANT ALL ON TABLE db_clti.vw_setores TO clti_sisclti;

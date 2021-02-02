@@ -30,12 +30,14 @@ if ($act == 'cad') {
     if ($param){
         $pom->idtb_pessoal_om = $param;
         $pessom = $pom->SelectIdPesOM();
+        $readyonly = "readonly";
     }
     else{
         $pessom = (object)['idtb_pessoal_om'=>'','nip'=>'','cpf'=>'','nome'=>'','nome_guerra'=>'',
             'idtb_om_apoiadas'=>'','sigla_om'=>'','idtb_posto_grad'=>'8','sigla_posto_grad'=>'Primeiro Tenente',
             'idtb_corpo_quadro'=>'','sigla_corpo_quadro'=>'','idtb_especialidade'=>'','sigla_espec'=>'',
             'correio_eletronico'=>'','idtb_funcoes_sigdem'=>'','sigla'=>''];
+        $readyonly = "";
     }
     $om->ordena = "ORDER BY sigla ASC";
 	$omapoiada = $om->SelectAllOMTable();
@@ -100,13 +102,13 @@ if ($act == 'cad') {
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"nip\">NIP:</label>
-                                <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" 
+                                <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" $readyonly
                                     placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$pessom->nip\" 
                                     autocomplete=\"off\">
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"cpf\">CPF (Servidores Civis):</label>
-                                <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" 
+                                <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" $readyonly
                                     placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$pessom->cpf\" 
                                     autocomplete=\"off\">
                             </div>
@@ -123,6 +125,8 @@ if ($act == 'cad') {
                                     <option value=\"$pessom->foradaareati\" selected=\"true\">$pessom->foradaareati</option>
                                     <option value=\"NÃO\">NÃO</option>
                                     <option value=\"SIM\">SIM</option>
+                                </select>
+                                <div class=\"help-block with-errors\"></div>
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"ativo\" class=\"control-label\">Situação:</label>
@@ -130,6 +134,7 @@ if ($act == 'cad') {
                                     <option value=\"$pessom->status\" selected=\"true\">$pessom->status</option>
                                     <option value=\"ATIVO\">ATIVO</option>
                                     <option value=\"INATIVO\">INATIVO</option>
+                                </select>
                                 <div class=\"help-block with-errors\"></div>
                             </div>
                         </fieldset>

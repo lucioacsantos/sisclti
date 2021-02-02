@@ -72,6 +72,7 @@
     <!-- Configurações dos Gráficos -->
     <?php
       require_once "dashboard/graficos.inc.php";
+      $perfil = $_SESSION['perfil'];
       if ($perfil == 'TEC_CLTI'){
         ativos_ti();
         pessoal_ti();
