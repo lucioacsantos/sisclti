@@ -1838,3 +1838,41 @@ class ControleUSB
         return $row;
     }
 }
+
+class PAD{
+    public $idtb_pad_sic_tic;
+    public $idtb_om_apoiadas;
+    public $ano_base;
+    public $data_assinatura;
+    public $data_revisao;
+    public $status;
+    public $idtb_temas_pad_sic_tic;
+    public $tema;
+    public $justificativa;
+    public $idtb_ade_pad_sic_tic;
+    public $idtb_pessoal_om;
+
+    /** Seleciona PAD */
+    public function SelectPADCorrente(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("SELECT * FROM db_clti.tb_pad_sic_tic WHERE status = 'CORRENTE' 
+            AND idtb_om_apoiadas = $this->idtb_om_apoiadas ");
+        return $row;
+    }
+    public function SelectPADOM(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_pad_sic_tic WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas ");
+        return $row;
+    }
+    /** Insert PAD */
+    public function InsertPAD(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("INSERT INTO db_clti.tb_pad_sic_tic (idtb_om_apoiadas, ano_base, data_assinatura, data_revisao,
+            status) VALUES ($this->idtb_om_apoiadas, $this->ano_base, '$this->data_assinatura', '$this->data_revisao', 
+            '$this->status') ");
+        return $row;
+    }
+}

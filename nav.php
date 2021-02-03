@@ -34,10 +34,17 @@ $versao = $config->SelectVersao();
       </p>
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" href="<?php echo "$url/logout.php"; ?>">Sair</a>
+          <a class="nav-link" href="#">| Alterar Senha |</a>
         </li>
+      </ul>
+      <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" href="<?php echo "#"; ?>">Senha</a>
+          <a class="nav-link" href="#">| Atualizar Dados |</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="<?php echo "$url/logout.php"; ?>">| Sair |</a>
         </li>
       </ul>
     </nav>
@@ -164,6 +171,18 @@ $versao = $config->SelectVersao();
                     Setores da OM
                   </a>
                 </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=padsictic\">
+                    <span data-feather=\"file-text\"></span>
+                    PAD SIC/TIC
+                  </a>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=vat\">
+                    <span data-feather=\"folder\"></span>
+                    Visitas de Apoio Técnico
+                  </a>
+                </li>
                 <h6 class=\"sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted\">
                     <span>Equipamentos de TI</span>
                     <span data-feather=\"plus-circle\"></span>
@@ -185,6 +204,12 @@ $versao = $config->SelectVersao();
                   <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=manutencaoet\">
                     <span data-feather=\"alert-triangle\"></span>
                     Manutenção de ET
+                  </a>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=controleusb\">
+                    <span data-feather=\"clipboard\"></span>
+                    Dispositivos USB
                   </a>
                 </li>
                 <li class=\"nav-item\">
@@ -231,12 +256,6 @@ $versao = $config->SelectVersao();
                   <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=funcsigdem\">
                     <span data-feather=\"archive\"></span>
                     Funções do SiGDEM
-                  </a>
-                </li>
-                <li class=\"nav-item\">
-                  <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=controleusb\">
-                    <span data-feather=\"clipboard\"></span>
-                    Dispositivos USB
                   </a>
                 </li>
                 <!--<li class=\"nav-item\">

@@ -18,8 +18,8 @@ COMMENT ON TABLE db_clti.tb_clti IS 'Tabela contendo Informações do CLTI.';
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_clti OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_clti TO clti_sisclti;
+ALTER TABLE db_clti.tb_clti OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_clti TO sisclti;
 
 
 -- db_clti.tb_config definition
@@ -38,8 +38,8 @@ COMMENT ON TABLE db_clti.tb_config IS 'Tabela contendo Configurações do Sistem
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_config OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_config TO clti_sisclti;
+ALTER TABLE db_clti.tb_config OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_config TO sisclti;
 
 
 -- db_clti.tb_corpo_quadro definition
@@ -59,8 +59,8 @@ COMMENT ON TABLE db_clti.tb_corpo_quadro IS 'Tabela contendo Corpos e Quadros.';
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_corpo_quadro OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_corpo_quadro TO clti_sisclti;
+ALTER TABLE db_clti.tb_corpo_quadro OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_corpo_quadro TO sisclti;
 
 
 -- db_clti.tb_especialidade definition
@@ -80,8 +80,8 @@ COMMENT ON TABLE db_clti.tb_especialidade IS 'Tabela contendo Especialidades.';
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_especialidade OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_especialidade TO clti_sisclti;
+ALTER TABLE db_clti.tb_especialidade OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_especialidade TO sisclti;
 
 
 -- db_clti.tb_funcoes_ti definition
@@ -100,8 +100,8 @@ COMMENT ON TABLE db_clti.tb_funcoes_ti IS 'Tabela contendo Funções de TI.';
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_funcoes_ti OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_funcoes_ti TO clti_sisclti;
+ALTER TABLE db_clti.tb_funcoes_ti OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_funcoes_ti TO sisclti;
 
 
 -- db_clti.tb_memorias definition
@@ -121,8 +121,8 @@ COMMENT ON TABLE db_clti.tb_memorias IS 'Tabela contendo Modelos de Memórias RA
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_memorias OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_memorias TO clti_sisclti;
+ALTER TABLE db_clti.tb_memorias OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_memorias TO sisclti;
 
 
 -- db_clti.tb_pais definition
@@ -141,8 +141,8 @@ COMMENT ON TABLE db_clti.tb_pais IS 'Tabela contendo País.';
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_pais OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_pais TO clti_sisclti;
+ALTER TABLE db_clti.tb_pais OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_pais TO sisclti;
 
 
 -- db_clti.tb_perfil_internet definition
@@ -161,8 +161,8 @@ COMMENT ON TABLE db_clti.tb_perfil_internet IS 'Tabela contendo Perfis da Intern
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_perfil_internet OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_perfil_internet TO clti_sisclti;
+ALTER TABLE db_clti.tb_perfil_internet OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_perfil_internet TO sisclti;
 
 
 -- db_clti.tb_posto_grad definition
@@ -181,8 +181,8 @@ COMMENT ON TABLE db_clti.tb_posto_grad IS 'Tabela contendo Postros e Graduaçõe
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_posto_grad OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_posto_grad TO clti_sisclti;
+ALTER TABLE db_clti.tb_posto_grad OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_posto_grad TO sisclti;
 
 
 -- db_clti.tb_proc_fab definition
@@ -201,8 +201,8 @@ COMMENT ON TABLE db_clti.tb_proc_fab IS 'Tabela contendo Fabricantes de Processa
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_proc_fab OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_proc_fab TO clti_sisclti;
+ALTER TABLE db_clti.tb_proc_fab OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_proc_fab TO sisclti;
 
 
 -- db_clti.tb_registro_log definition
@@ -222,8 +222,8 @@ COMMENT ON TABLE db_clti.tb_registro_log IS 'Tabela contendo Registros de LOG.';
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_registro_log OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_registro_log TO clti_sisclti;
+ALTER TABLE db_clti.tb_registro_log OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_registro_log TO sisclti;
 
 
 -- db_clti.tb_sor definition
@@ -244,8 +244,8 @@ COMMENT ON TABLE db_clti.tb_sor IS 'Tabela contendo Sisteamas Operacionais.';
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_sor OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_sor TO clti_sisclti;
+ALTER TABLE db_clti.tb_sor OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_sor TO sisclti;
 
 
 -- db_clti.tb_tipos_clti definition
@@ -267,8 +267,8 @@ COMMENT ON TABLE db_clti.tb_tipos_clti IS 'Tabela contendo Tipo do CLTI.';
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_tipos_clti OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_tipos_clti TO clti_sisclti;
+ALTER TABLE db_clti.tb_tipos_clti OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_tipos_clti TO sisclti;
 
 
 -- db_clti.tb_estado definition
@@ -289,8 +289,8 @@ COMMENT ON TABLE db_clti.tb_estado IS 'Tabela contendo Estados.';
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_estado OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_estado TO clti_sisclti;
+ALTER TABLE db_clti.tb_estado OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_estado TO sisclti;
 
 
 -- db_clti.tb_lotacao_clti definition
@@ -325,8 +325,8 @@ COMMENT ON TABLE db_clti.tb_lotacao_clti IS 'Tabela contendo Lotação do CLTI.'
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_lotacao_clti OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_lotacao_clti TO clti_sisclti;
+ALTER TABLE db_clti.tb_lotacao_clti OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_lotacao_clti TO sisclti;
 
 
 -- db_clti.tb_proc_modelo definition
@@ -347,8 +347,8 @@ COMMENT ON TABLE db_clti.tb_proc_modelo IS 'Tabela contendo Modelos de Processad
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_proc_modelo OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_proc_modelo TO clti_sisclti;
+ALTER TABLE db_clti.tb_proc_modelo OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_proc_modelo TO sisclti;
 
 
 -- db_clti.tb_qualificacao_clti definition
@@ -375,8 +375,8 @@ COMMENT ON TABLE db_clti.tb_qualificacao_clti IS 'Tabela contendo Qualificação
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_qualificacao_clti OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_qualificacao_clti TO clti_sisclti;
+ALTER TABLE db_clti.tb_qualificacao_clti OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_qualificacao_clti TO sisclti;
 
 
 -- db_clti.tb_cidade definition
@@ -396,8 +396,8 @@ COMMENT ON TABLE db_clti.tb_cidade IS 'Tabela contendo Cidades.';
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_cidade OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_cidade TO clti_sisclti;
+ALTER TABLE db_clti.tb_cidade OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_cidade TO sisclti;
 
 
 -- db_clti.tb_om_apoiadas definition
@@ -423,8 +423,8 @@ COMMENT ON TABLE db_clti.tb_om_apoiadas IS 'Tabela contendo OM Apoiadas pelo CLT
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_om_apoiadas OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_om_apoiadas TO clti_sisclti;
+ALTER TABLE db_clti.tb_om_apoiadas OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_om_apoiadas TO sisclti;
 
 
 -- db_clti.tb_om_setores definition
@@ -448,8 +448,8 @@ COMMENT ON TABLE db_clti.tb_om_setores IS 'Tabela contendo Setores das OM Apoiad
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_om_setores OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_om_setores TO clti_sisclti;
+ALTER TABLE db_clti.tb_om_setores OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_om_setores TO sisclti;
 
 
 -- db_clti.tb_osic definition
@@ -482,8 +482,8 @@ COMMENT ON TABLE db_clti.tb_osic IS 'Tabela contendo OSIC das OM.';
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_osic OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_osic TO clti_sisclti;
+ALTER TABLE db_clti.tb_osic OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_osic TO sisclti;
 
 
 -- db_clti.tb_pessoal_om definition
@@ -514,8 +514,8 @@ COMMENT ON TABLE db_clti.tb_pessoal_om IS 'Tabela contendo Pessoal (Usuários) d
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_pessoal_om OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_pessoal_om TO clti_sisclti;
+ALTER TABLE db_clti.tb_pessoal_om OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_pessoal_om TO sisclti;
 
 
 -- db_clti.tb_pessoal_ti definition
@@ -549,8 +549,8 @@ COMMENT ON TABLE db_clti.tb_pessoal_ti IS 'Tabela contendo Pessoal de TI das OM.
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_pessoal_ti OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_pessoal_ti TO clti_sisclti;
+ALTER TABLE db_clti.tb_pessoal_ti OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_pessoal_ti TO sisclti;
 
 
 -- db_clti.tb_qualificacao_ti definition
@@ -577,8 +577,8 @@ COMMENT ON TABLE db_clti.tb_qualificacao_ti IS 'Tabela contendo Qualificação d
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_qualificacao_ti OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_qualificacao_ti TO clti_sisclti;
+ALTER TABLE db_clti.tb_qualificacao_ti OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_qualificacao_ti TO sisclti;
 
 
 -- db_clti.tb_servidores definition
@@ -617,8 +617,8 @@ COMMENT ON TABLE db_clti.tb_servidores IS 'Tabela contendo Servidores.';
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_servidores OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_servidores TO clti_sisclti;
+ALTER TABLE db_clti.tb_servidores OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_servidores TO sisclti;
 
 
 -- db_clti.tb_conectividade definition
@@ -652,8 +652,8 @@ COMMENT ON COLUMN db_clti.tb_conectividade.qtde_portas IS 'Quantidade de portas 
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_conectividade OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_conectividade TO clti_sisclti;
+ALTER TABLE db_clti.tb_conectividade OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_conectividade TO sisclti;
 
 
 -- db_clti.tb_controle_internet definition
@@ -675,8 +675,8 @@ COMMENT ON TABLE db_clti.tb_controle_internet IS 'Tabela contendo Controle dos P
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_controle_internet OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_controle_internet TO clti_sisclti;
+ALTER TABLE db_clti.tb_controle_internet OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_controle_internet TO sisclti;
 
 
 -- db_clti.tb_estacoes definition
@@ -716,8 +716,8 @@ COMMENT ON TABLE db_clti.tb_estacoes IS 'Tabela contendo Estações de Trabalho.
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_estacoes OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_estacoes TO clti_sisclti;
+ALTER TABLE db_clti.tb_estacoes OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_estacoes TO sisclti;
 
 
 -- db_clti.tb_funcoes_sigdem definition
@@ -740,8 +740,8 @@ COMMENT ON TABLE db_clti.tb_funcoes_sigdem IS 'Tabela contendo Funções do SiGD
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_funcoes_sigdem OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_funcoes_sigdem TO clti_sisclti;
+ALTER TABLE db_clti.tb_funcoes_sigdem OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_funcoes_sigdem TO sisclti;
 
 
 -- db_clti.tb_manutencao_et definition
@@ -768,8 +768,8 @@ COMMENT ON TABLE db_clti.tb_manutencao_et IS 'Tabela contendo Controle de Manute
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_manutencao_et OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_manutencao_et TO clti_sisclti;
+ALTER TABLE db_clti.tb_manutencao_et OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_manutencao_et TO sisclti;
 
 
 -- db_clti.tb_mapainfra definition
@@ -798,8 +798,8 @@ COMMENT ON TABLE db_clti.tb_mapainfra IS 'Mapeamentos dos pontos de rede da infr
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_mapainfra OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_mapainfra TO clti_sisclti;
+ALTER TABLE db_clti.tb_mapainfra OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_mapainfra TO sisclti;
 
 
 -- db_clti.tb_nec_aquisicao definition
@@ -824,8 +824,8 @@ COMMENT ON TABLE db_clti.tb_nec_aquisicao IS 'Tabela contendo Necessidades de Aq
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_nec_aquisicao OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_nec_aquisicao TO clti_sisclti;
+ALTER TABLE db_clti.tb_nec_aquisicao OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_nec_aquisicao TO sisclti;
 
 
 -- db_clti.tb_controle_usb definition
@@ -847,5 +847,5 @@ COMMENT ON TABLE db_clti.tb_controle_usb IS 'Tabela contendo Controle de Permiss
 
 -- Permissions
 
-ALTER TABLE db_clti.tb_controle_usb OWNER TO clti_sisclti;
-GRANT ALL ON TABLE db_clti.tb_controle_usb TO clti_sisclti;
+ALTER TABLE db_clti.tb_controle_usb OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.tb_controle_usb TO sisclti;
