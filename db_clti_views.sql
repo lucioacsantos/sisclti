@@ -25,33 +25,6 @@ ALTER TABLE db_clti.vw_conectividade OWNER TO sisclti;
 GRANT ALL ON TABLE db_clti.vw_conectividade TO sisclti;
 
 
--- db_clti.vw_controle_internet source
-
-CREATE OR REPLACE VIEW db_clti.vw_controle_internet
-AS SELECT internet.idtb_controle_internet,
-    internet.idtb_om_apoiadas,
-    om.sigla,
-    internet.idtb_pessoal_om,
-    pesom.posto_grad,
-    pesom.corpo_quadro,
-    pesom.exibir_corpo_quadro,
-    pesom.espec,
-    pesom.exibir_espec,
-    pesom.nip,
-    pesom.nome,
-    pesom.nome_guerra,
-    internet.perfis
-   FROM db_clti.tb_controle_internet internet,
-    db_clti.vw_pessoal_om pesom,
-    db_clti.tb_om_apoiadas om
-  WHERE internet.idtb_pessoal_om = pesom.idtb_pessoal_om AND internet.idtb_om_apoiadas = om.idtb_om_apoiadas;
-
--- Permissions
-
-ALTER TABLE db_clti.vw_controle_internet OWNER TO sisclti;
-GRANT ALL ON TABLE db_clti.vw_controle_internet TO sisclti;
-
-
 -- db_clti.vw_controle_usb source
 
 CREATE OR REPLACE VIEW db_clti.vw_controle_usb
@@ -466,3 +439,29 @@ AS SELECT setores.idtb_om_setores,
 
 ALTER TABLE db_clti.vw_setores OWNER TO sisclti;
 GRANT ALL ON TABLE db_clti.vw_setores TO sisclti;
+
+-- db_clti.vw_controle_internet source
+
+CREATE OR REPLACE VIEW db_clti.vw_controle_internet
+AS SELECT internet.idtb_controle_internet,
+    internet.idtb_om_apoiadas,
+    om.sigla,
+    internet.idtb_pessoal_om,
+    pesom.posto_grad,
+    pesom.corpo_quadro,
+    pesom.exibir_corpo_quadro,
+    pesom.espec,
+    pesom.exibir_espec,
+    pesom.nip,
+    pesom.nome,
+    pesom.nome_guerra,
+    internet.perfis
+   FROM db_clti.tb_controle_internet internet,
+    db_clti.vw_pessoal_om pesom,
+    db_clti.tb_om_apoiadas om
+  WHERE internet.idtb_pessoal_om = pesom.idtb_pessoal_om AND internet.idtb_om_apoiadas = om.idtb_om_apoiadas;
+
+-- Permissions
+
+ALTER TABLE db_clti.vw_controle_internet OWNER TO sisclti;
+GRANT ALL ON TABLE db_clti.vw_controle_internet TO sisclti;
