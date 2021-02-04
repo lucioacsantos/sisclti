@@ -334,7 +334,6 @@ switch ($cmd) {
         break;
 
   case 'padsictic':
-    @$param = $_GET['param'];
     echo "
         <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
           <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
@@ -343,10 +342,6 @@ switch ($cmd) {
               <div class=\"btn-group mr-2\">
                 <a href=\"?cmd=padsictic&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">
                   Cadastrar PAD SIC/TIC</button></a>
-                <a href=\"?cmd=padsictic&act=cad_temas\"><button class=\"btn btn-sm btn-outline-secondary\">
-                  Cadastrar Temas Previstos</button></a>
-                <a href=\"?cmd=padsictic&act=reg_ade\"><button class=\"btn btn-sm btn-outline-secondary\">
-                  Registrar Adestramento</button></a>
               </div>
               <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
                 <span data-feather=\"calendar\"></span>

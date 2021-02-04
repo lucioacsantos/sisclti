@@ -231,7 +231,22 @@ elseif ($versao == '1.5.4'){
 
 elseif ($versao == '1.5.5'){
 
-	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.5.</div>
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Atualizando Controle de Adestramentos. Aguarde...</div>";
+	$pg->exec("ALTER TABLE db_clti.tb_temas_pad_sic_tic ADD data_ade date NULL;");
+	$pg->exec("ALTER TABLE db_clti.tb_ade_pad_sic_tic RENAME COLUMN idtb_pad_sic_tic TO idtb_temas_pad_sic_tic;");
+	$pg->exec("ALTER TABLE db_clti.tb_ade_pad_sic_tic ADD CONSTRAINT tb_ade_pad_sic_tic_fk FOREIGN KEY (idtb_temas_pad_sic_tic) REFERENCES db_clti.tb_temas_pad_sic_tic(idtb_temas_pad_sic_tic);");
+	$pg->exec("ALTER TABLE db_clti.tb_ade_pad_sic_tic DROP CONSTRAINT tb_ade_pad_sic_tic_fk1;");
+
+
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
+	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.6' WHERE parametro='VERSAO' ");
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.6.</div>
+	<meta http-equiv=\"refresh\" content=\"5\">";
+}
+
+elseif ($versao == '1.5.6'){
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.6.</div>
 	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
 }
 

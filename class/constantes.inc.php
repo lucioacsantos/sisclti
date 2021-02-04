@@ -1856,8 +1856,8 @@ class PAD{
     public function SelectPADCorrente(){
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT * FROM db_clti.tb_pad_sic_tic WHERE status = 'CORRENTE' 
-            AND idtb_om_apoiadas = $this->idtb_om_apoiadas ");
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_pad_sic_tic WHERE status = 'CORRENTE' 
+            AND idtb_om_apoiadas = $this->idtb_om_apoiadas ORDER BY ano_base DESC");
         return $row;
     }
     public function SelectPADOM(){
@@ -1866,13 +1866,58 @@ class PAD{
         $row = $pg->getRows("SELECT * FROM db_clti.tb_pad_sic_tic WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas ");
         return $row;
     }
+    public function SelectTemasIdPAD(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_temas_pad_sic_tic WHERE idtb_pad_sic_tic = $this->idtb_pad_sic_tic ");
+        return $row;
+    }
     /** Insert PAD */
     public function InsertPAD(){
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->exec("INSERT INTO db_clti.tb_pad_sic_tic (idtb_om_apoiadas, ano_base, data_assinatura, data_revisao,
+        $row = $pg->insert("INSERT INTO db_clti.tb_pad_sic_tic (idtb_om_apoiadas, ano_base, data_assinatura, data_revisao,
             status) VALUES ($this->idtb_om_apoiadas, $this->ano_base, '$this->data_assinatura', '$this->data_revisao', 
-            '$this->status') ");
+            '$this->status') ",'idtb_pad_sic_tic');
+        return $row;
+    }
+    public function InsertTemaPadrão(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("INSERT INTO db_clti.tb_temas_pad_sic_tic (idtb_pad_sic_tic, tema, status) 
+            VALUES ($this->idtb_pad_sic_tic, 'Adestramento básico de SIC', 'PREVISTO'),
+            ($this->idtb_pad_sic_tic, 'Conceitos Gerais de SIC', 'PREVISTO'),
+            ($this->idtb_pad_sic_tic, 'ISIC da OM', 'PREVISTO'),
+            ($this->idtb_pad_sic_tic, 'Recursos de SIC', 'PREVISTO'),
+            ($this->idtb_pad_sic_tic, 'Legislação, Normas e Documentos de SIC', 'PREVISTO'),
+            ($this->idtb_pad_sic_tic, 'Ativação dos Planos de Contingência da OM', 'PREVISTO'),
+            ($this->idtb_pad_sic_tic, 'Segurança Orgânica, no que se refere à SIC', 'PREVISTO'),
+            ($this->idtb_pad_sic_tic, 'Normas para a salvaguarda de materiais controlados, dados, informações, 
+                documentos emateriais sigilosos', 'PREVISTO'),
+            ($this->idtb_pad_sic_tic, 'Recursos Criptológicos', 'PREVISTO'),
+            ($this->idtb_pad_sic_tic, 'Engenharia Social', 'PREVISTO'),
+            ($this->idtb_pad_sic_tic, 'Crimes de Informática', 'PREVISTO'); ");
+        return $row;
+    }
+    public function InsertTema(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("INSERT INTO db_clti.tb_temas_pad_sic_tic (idtb_pad_sic_tic, tema, status) 
+            VALUES ($this->idtb_pad_sic_tic, '$this->tema', 'PREVISTO') ");
+        return $row;
+    }
+    public function InsertPresente(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("INSERT INTO db_clti.tb_ade_pad_sic_tic (idtb_temas_pad_sic_tic, idtb_pessoal_om) 
+            VALUES ($this->idtb_temas_pad_sic_tic, $this->idtb_pessoal_om) ");
+        return $row;
+    }
+    public function UpdateDataTema(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("UPDATE db_clti.tb_temas_pad_sic_tic SET (data_ade, status) = 
+            ('$this->data_ade', 'REALIZADO') WHERE idtb_temas_pad_sic_tic = $this->idtb_temas_pad_sic_tic ");
         return $row;
     }
 }
