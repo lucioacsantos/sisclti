@@ -56,15 +56,23 @@ if ((!$row) AND ($act == NULL) OR ($act == 'cad')) {
     </div>
     <p>Os temas a seguir serão incluídos no PAD automaticamente:</p>
     <ul>
-        <li> Adestramento básico de SIC (para o pessoal que tenha recém chegado à OM);</li>
+        <li> Adestramento Básico de SIC;</li>
         <li> Conceitos Gerais de SIC;</li>
-        <li> ISIC da OM;</li>
-        <li> Recursos de SIC;</li>
-        <li> Legislação, Normas e Documentos de SIC;</li>
-        <li> Ativação dos Planos de Contingência da OM (teoria e prática);</li>
-        <li> Segurança Orgânica, no que se refere à SIC;</li>
+        <li> Instruções de Segurança da Informação e Comunicações (ISIC) da OM;</li>
+        <li> Recursos Computacionais Críticos;</li>
+        <li> Normas e Documentos de SIC;</li>
+        <li> Ativação dos Planos de Contingência da OM;</li>
+        <li> Segurança Orgânica referente à SIC;</li>
         <li> Normas para a salvaguarda de materiais controlados, dados, informações, 
-            documentos e materiais sigilosos.</li>
+            documentos e materiais sigilosos;</li>
+        <li> Recursos Criptológicos;</li>
+        <li> Engenharia Social;</li>
+        <li> Crimes de Informática;</li>
+        <li> Uso oficial de mídas e redes sociais pela MB e de uso não oficial de 
+            mídias e redes sociais pelo pessoal da MB;</li>
+        <li> Utilização de dispositivos móveis inteligentes e celulares;</li>
+        <li> Compartilhamento e exclusão segura de arquivos;</li>
+        <li> Portal de Serviços da MB.</li>
     </ul>";
 }
 
@@ -155,6 +163,8 @@ if ($act == 'reg_ade') {
                         <td>
                             <a href=\"?cmd=padsictic&act=reg_presentes&param=".$value->idtb_temas_pad_sic_tic."\">
                                 | Registar Adestramento | </a>
+                            <a href=\"?cmd=padsictic&act=reg_justificativa&param=".$value->idtb_temas_pad_sic_tic."\">
+                                | Justifcar não Atendimento | </a>
                         </td>
                     </tr>";
     }
@@ -163,6 +173,7 @@ if ($act == 'reg_ade') {
             </table>
             </div>";
 }
+
 if ($act == 'reg_presentes') {
     @$param = $_GET['param'];
     @$usuario = $_POST['nip_cpf'];
@@ -203,7 +214,8 @@ if ($act == 'reg_presentes') {
             }
                 echo"       <td>$identificacao</td>
                             <td>$presente->nome_guerra</td>
-                            <td><a href=\"?cmd=padsictic&act=reg_presentes&param=".$param."&presente=".$presente->idtb_pessoal_om."\">Incluir</a></td>
+                            <td><a href=\"?cmd=padsictic&act=reg_presentes&param=".$param."&presente=".$presente->idtb_pessoal_om."\">
+                                Incluir</a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -216,17 +228,24 @@ if ($act == 'reg_presentes') {
     if ($idtb_pessoal_om){
         $pad->idtb_temas_pad_sic_tic = $param;
         $pad->idtb_pessoal_om = $idtb_pessoal_om;
-        $row = $pad->InsertPresente();
+        $row = $pad->VerificaPresente();
         if ($row) {
-            echo "<h5>Resgistros incluídos no banco de dados.</h5>
+            echo "<h5>NIP/CPF já registrado para esse tema.</h5>
             <meta http-equiv=\"refresh\" 
-                content=\"1;?cmd=padsictic&act=reg_presentes&param=".$pad->idtb_temas_pad_sic_tic."\">";
+                content=\"3;?cmd=padsictic&act=reg_presentes&param=".$pad->idtb_temas_pad_sic_tic."\">";
         }
         else {
-            echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-            echo(pg_result_error($row) . "<br />\n");
+            $row = $pad->InsertPresente();
+            if ($row) {
+                echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                <meta http-equiv=\"refresh\" 
+                    content=\"1;?cmd=padsictic&act=reg_presentes&param=".$pad->idtb_temas_pad_sic_tic."\">";
+            }
+            else {
+                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                echo(pg_result_error($row) . "<br />\n");
+            }
         }
-
     }
     else {
     echo "
@@ -247,9 +266,80 @@ if ($act == 'reg_presentes') {
                         <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Localizar\">
                     </form>
                 </div>
+                <br/><a href=\"?cmd=padsictic&act=finalizar_tema&param=".$param."\" 
+                    <button class=\"btn btn-block btn-danger\">Finalizar Tema</button></a>
             </main>
         </div>
     </div>";
+    }
+}
+
+if ($act == 'finalizar_tema') {
+    @$param = $_GET['param'];
+    $pad->idtb_temas_pad_sic_tic = $param;
+    $data = date("Y-m-d");
+    $pad->data_ade = $data;
+    $row = $pad->UpdateDataTema();
+    if ($row) {
+        echo "<h5>Resgistros incluídos no banco de dados.</h5>
+        <meta http-equiv=\"refresh\" 
+            content=\"1;?cmd=padsictic\">";
+    }
+    else {
+        echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+        echo(pg_result_error($row) . "<br />\n");
+    }
+}
+
+if ($act == 'reg_justificativa') {
+    @$param = $_GET['param'];
+    $pad->idtb_temas_pad_sic_tic = $param;
+    $data = date("Y-m-d");
+    $pad->data_ade = $data;
+    @$justificativa = mb_strtoupper($_POST['justificativa'],'UTF-8');
+    $pad->justificativa = $justificativa;
+    if ($justificativa){
+        $row = $pad->UpdateDataTema();
+        if ($row) {
+            $row = $pad->UpdateJustificativa();
+            if ($row){
+                echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                <meta http-equiv=\"refresh\" content=\"1;?cmd=padsictic\">";
+            }
+            else {
+                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                echo(pg_result_error($row) . "<br />\n");
+            }            
+        }
+        else {
+            echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+            echo(pg_result_error($row) . "<br />\n");
+        }
+    }
+    else {
+        echo "
+        <div class=\"container-fluid\">
+            <div class=\"row\">
+                <main>
+                    <div id=\"form-cadastro\">
+                        <form id=\"reg_justificativa\" role=\"form\" 
+                            action=\"?cmd=padsictic&act=reg_justificativa&param=".$param."\" 
+                            method=\"post\" enctype=\"multipart/form-data\">
+                            <fieldset>
+                            <legend>Justificativa do não Atendimento</legend>
+                                <div class=\"form-group\">
+                                    <label for=\"justificativa\">Justificativa:</label>
+                                    <input id=\"justificativa\" class=\"form-control\" type=\"text\" name=\"justificativa\" 
+                                        placeholder=\"Justificativa\" maxlength=\"255\" autofocus=\"true\" required=\"true\" 
+                                        style=\"text-transform:uppercase\" autocomplete=\"off\">
+                                </div>
+                            </fieldset>
+                            <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">
+                        </form>
+                    </div>
+                </main>
+            </div>
+        </div>";
     }
 }
 
@@ -278,9 +368,9 @@ if (($row) AND ($act == NULL)) {
                                 | Inserir Novo Tema | </a> 
                             <a href=\"?cmd=padsictic&act=reg_ade&param=".$value->idtb_pad_sic_tic."\">
                                 | Registar Adestramento | </a> 
-                            <a href=\"?cmd=padsictic&act=cad&param=".$value->idtb_pad_sic_tic."\">
+                            <a href=\"?cmd=padsictic&act=reg_ade&param=".$value->idtb_pad_sic_tic."\">
                                 | Registar Justificativa | </a>
-                            <a href=\"?cmd=padsictic&act=cad&param=".$value->idtb_pad_sic_tic."\">
+                            <a href=\"?cmd=padsictic&act=rel_ade&param=".$value->idtb_pad_sic_tic."\">
                                 | Relatório de Presença | </a>
                         </td>
                     </tr>";

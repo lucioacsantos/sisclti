@@ -1845,6 +1845,7 @@ class PAD{
     public $ano_base;
     public $data_assinatura;
     public $data_revisao;
+    public $data_ade;
     public $status;
     public $idtb_temas_pad_sic_tic;
     public $tema;
@@ -1893,7 +1894,7 @@ class PAD{
             ($this->idtb_pad_sic_tic, 'Ativação dos Planos de Contingência da OM', 'PREVISTO'),
             ($this->idtb_pad_sic_tic, 'Segurança Orgânica, no que se refere à SIC', 'PREVISTO'),
             ($this->idtb_pad_sic_tic, 'Normas para a salvaguarda de materiais controlados, dados, informações, 
-                documentos emateriais sigilosos', 'PREVISTO'),
+                documentos e materiais sigilosos', 'PREVISTO'),
             ($this->idtb_pad_sic_tic, 'Recursos Criptológicos', 'PREVISTO'),
             ($this->idtb_pad_sic_tic, 'Engenharia Social', 'PREVISTO'),
             ($this->idtb_pad_sic_tic, 'Crimes de Informática', 'PREVISTO'); ");
@@ -1904,6 +1905,13 @@ class PAD{
         $pg = new PgSql();
         $row = $pg->exec("INSERT INTO db_clti.tb_temas_pad_sic_tic (idtb_pad_sic_tic, tema, status) 
             VALUES ($this->idtb_pad_sic_tic, '$this->tema', 'PREVISTO') ");
+        return $row;
+    }
+    public function VerificaPresente(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("SELECT * FROM db_clti.tb_ade_pad_sic_tic WHERE idtb_temas_pad_sic_tic = $this->idtb_temas_pad_sic_tic
+            AND idtb_pessoal_om = $this->idtb_pessoal_om ");
         return $row;
     }
     public function InsertPresente(){
@@ -1918,6 +1926,13 @@ class PAD{
         $pg = new PgSql();
         $row = $pg->exec("UPDATE db_clti.tb_temas_pad_sic_tic SET (data_ade, status) = 
             ('$this->data_ade', 'REALIZADO') WHERE idtb_temas_pad_sic_tic = $this->idtb_temas_pad_sic_tic ");
+        return $row;
+    }
+    public function UpdateJustificativa(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("UPDATE db_clti.tb_temas_pad_sic_tic SET (justificativa, status) = 
+            ('$this->justificativa', 'NÃO REALIZADO') WHERE idtb_temas_pad_sic_tic = $this->idtb_temas_pad_sic_tic ");
         return $row;
     }
 }
