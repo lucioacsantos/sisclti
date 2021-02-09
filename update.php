@@ -121,7 +121,7 @@ elseif ($versao == '1.5.2'){
 	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
 	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.3' WHERE parametro='VERSAO' ");
 	
-	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.3.</div>
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.3.</div>
 	<meta http-equiv=\"refresh\" content=\"5\">";
 }
 
@@ -164,7 +164,7 @@ elseif ($versao == '1.5.3'){
 	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
 	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.4' WHERE parametro='VERSAO' ");
 
-	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.4.</div>
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.4.</div>
 	<meta http-equiv=\"refresh\" content=\"5\">";
 }
 
@@ -225,7 +225,7 @@ elseif ($versao == '1.5.4'){
 	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
 	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.5' WHERE parametro='VERSAO' ");
 
-	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.5.</div>
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.5.</div>
 	<meta http-equiv=\"refresh\" content=\"5\">";
 }
 
@@ -241,13 +241,65 @@ elseif ($versao == '1.5.5'){
 	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
 	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.6' WHERE parametro='VERSAO' ");
 
-	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.6.</div>
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.6.</div>
 	<meta http-equiv=\"refresh\" content=\"5\">";
 }
 
 elseif ($versao == '1.5.6'){
-	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.6.</div>
+
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Atualizando controle de aplicativos não padronizados. 
+		Aguarde...</div>";
+	$pg->exec("ALTER TABLE db_clti.tb_nao_padronizados ADD soft_autorizados varchar NULL; ");
+
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
+	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.7' WHERE parametro='VERSAO' ");
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.7.</div>
+	<meta http-equiv=\"refresh\" content=\"5\">";
+
+}
+
+elseif ($versao == '1.5.7'){
+
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Atualizando banco de dados. Aguarde...</div>";
+	$pg->exec("CREATE OR REPLACE VIEW db_clti.vw_permissoes_admin
+		AS SELECT adm.idtb_permissoes_admin,
+			adm.idtb_om_apoiadas,
+			om.sigla,
+			adm.idtb_estacoes,
+			et.nome,
+			adm.autorizacao
+		FROM db_clti.tb_permissoes_admin adm,
+			db_clti.tb_estacoes et,
+			db_clti.tb_om_apoiadas om
+		WHERE adm.idtb_estacoes = et.idtb_estacoes AND adm.idtb_om_apoiadas = om.idtb_om_apoiadas;");
+	
+	$pg->exec("CREATE OR REPLACE VIEW db_clti.vw_nao_padronizados
+		AS SELECT naopad.idtb_nao_padronizados,
+			naopad.idtb_om_apoiadas,
+			om.sigla,
+			naopad.idtb_estacoes,
+			et.nome,
+			naopad.autorizacao,
+			naopad.soft_autorizados
+		FROM db_clti.tb_nao_padronizados naopad,
+			db_clti.tb_estacoes et,
+			db_clti.tb_om_apoiadas om
+		WHERE naopad.idtb_estacoes = et.idtb_estacoes AND naopad.idtb_om_apoiadas = om.idtb_om_apoiadas;");
+
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
+	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.8' WHERE parametro='VERSAO' ");
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.8.</div>
+	<meta http-equiv=\"refresh\" content=\"5\">";
+
+}
+
+elseif ($versao == '1.5.8'){
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.8.</div>
 	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
+
 }
 
 else{

@@ -177,11 +177,11 @@ $versao = $config->SelectVersao();
                     PAD SIC/TIC
                   </a>
                 </li>
-                <li class=\"nav-item\">
+                <!--<li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=vat\">
                     <span data-feather=\"folder\"></span>
                     Visitas de Apoio Técnico
-                  </a>
+                  </a>-->
                 </li>
                 <h6 class=\"sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted\">
                     <span>Equipamentos de TI</span>
@@ -210,6 +210,18 @@ $versao = $config->SelectVersao();
                   <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=controleusb\">
                     <span data-feather=\"clipboard\"></span>
                     Dispositivos USB
+                  </a>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=administrador\">
+                    <span data-feather=\"alert-triangle\"></span>
+                    Permissões de Administrador
+                  </a>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=naopad\">
+                    <span data-feather=\"alert-circle\"></span>
+                    Softwares não Padronizados
                   </a>
                 </li>
                 <li class=\"nav-item\">

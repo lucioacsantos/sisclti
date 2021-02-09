@@ -66,101 +66,149 @@ switch ($cmd) {
 
     break;
   
-    case 'pessoalom':
-      echo "
-          <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
-            <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
-              <h1 class=\"h2\">Gerenciamento - Pessoal da OM</h1>
-              <div class=\"btn-toolbar mb-2 mb-md-0\">
-                <div class=\"btn-group mr-2\">
-                  <a href=\"?cmd=pessoalom\"><button class=\"btn btn-sm btn-outline-secondary\">Pessoal da OM</button></a>
-                  <a href=\"?cmd=pessoalom&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
-                </div>
-                <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
-                  <span data-feather=\"calendar\"></span>
-                  Esta Semana
-                </button>-->
+  case 'pessoalom':
+    echo "
+        <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
+          <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
+            <h1 class=\"h2\">Gerenciamento - Pessoal da OM</h1>
+            <div class=\"btn-toolbar mb-2 mb-md-0\">
+              <div class=\"btn-group mr-2\">
+                <a href=\"?cmd=pessoalom\"><button class=\"btn btn-sm btn-outline-secondary\">Pessoal da OM</button></a>
+                <a href=\"?cmd=pessoalom&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
               </div>
-            </div>";
-      include "pessoalom.inc.php";
-      echo"
-      </main>
-        </div>
-      </div>";
-  
-      break;
-    
-    case 'funcsigdem':
-      echo "
-          <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
-            <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
-              <h1 class=\"h2\">Gerenciamento - Funções do SiGDEM</h1>
-              <div class=\"btn-toolbar mb-2 mb-md-0\">
-                <div class=\"btn-group mr-2\">
-                  <a href=\"?cmd=funcsigdem\"><button class=\"btn btn-sm btn-outline-secondary\">Funções do SiGDEM</button></a>
-                  <a href=\"?cmd=funcsigdem&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
-                </div>
-                <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
-                  <span data-feather=\"calendar\"></span>
-                  Esta Semana
-                </button>-->
-              </div>
-            </div>";
-      include "funcsigdem.inc.php";
-      echo"
-      </main>
-        </div>
-      </div>";
-  
-      break;
-    
-      case 'controleusb':
-        echo "
-            <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
-              <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
-                <h1 class=\"h2\">Liberação do Armazenamento USB</h1>
-                <div class=\"btn-toolbar mb-2 mb-md-0\">
-                  <div class=\"btn-group mr-2\">
-                    <a href=\"?cmd=controleusb\"><button class=\"btn btn-sm btn-outline-secondary\">ET/Usuários Autorizados</button></a>
-                    <a href=\"?cmd=controleusb&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
-                  </div>
-                  <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
-                    <span data-feather=\"calendar\"></span>
-                    Esta Semana
-                  </button>-->
-                </div>
-              </div>";
-        include "controleusb.inc.php";
-        echo"
-        </main>
-          </div>
-        </div>";
-    
-        break;
-  
-        case 'perfisinternet':
-          echo "
-              <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
-                <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
-                  <h1 class=\"h2\">Perfis de Internet</h1>
-                  <div class=\"btn-toolbar mb-2 mb-md-0\">
-                    <div class=\"btn-group mr-2\">
-                      <a href=\"?cmd=perfisinternet\"><button class=\"btn btn-sm btn-outline-secondary\">Perfis de Internet</button></a>
-                      <a href=\"?cmd=perfisinternet&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
-                    </div>
-                    <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
-                      <span data-feather=\"calendar\"></span>
-                      Esta Semana
-                    </button>-->
-                  </div>
-                </div>";
-          include "perfisinternet.inc.php";
-          echo"
-          </main>
+              <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
+                <span data-feather=\"calendar\"></span>
+                Esta Semana
+              </button>-->
             </div>
           </div>";
-      
-          break;
+    include "pessoalom.inc.php";
+    echo"
+    </main>
+      </div>
+    </div>";
+
+    break;
+    
+  case 'funcsigdem':
+    echo "
+        <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
+          <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
+            <h1 class=\"h2\">Gerenciamento - Funções do SiGDEM</h1>
+            <div class=\"btn-toolbar mb-2 mb-md-0\">
+              <div class=\"btn-group mr-2\">
+                <a href=\"?cmd=funcsigdem\"><button class=\"btn btn-sm btn-outline-secondary\">Funções do SiGDEM</button></a>
+                <a href=\"?cmd=funcsigdem&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
+              </div>
+              <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
+                <span data-feather=\"calendar\"></span>
+                Esta Semana
+              </button>-->
+            </div>
+          </div>";
+    include "funcsigdem.inc.php";
+    echo"
+    </main>
+      </div>
+    </div>";
+
+    break;
+    
+  case 'controleusb':
+    echo "
+        <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
+          <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
+            <h1 class=\"h2\">Liberação do Armazenamento USB</h1>
+            <div class=\"btn-toolbar mb-2 mb-md-0\">
+              <div class=\"btn-group mr-2\">
+                <a href=\"?cmd=controleusb\"><button class=\"btn btn-sm btn-outline-secondary\">ET/Usuários Autorizados</button></a>
+                <a href=\"?cmd=controleusb&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
+              </div>
+              <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
+                <span data-feather=\"calendar\"></span>
+                Esta Semana
+              </button>-->
+            </div>
+          </div>";
+    include "controleusb.inc.php";
+    echo"
+    </main>
+      </div>
+    </div>";
+
+    break;
+
+  case 'administrador':
+    echo "
+        <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
+          <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
+            <h1 class=\"h2\">Permissões de Administrador</h1>
+            <div class=\"btn-toolbar mb-2 mb-md-0\">
+              <div class=\"btn-group mr-2\">
+                <a href=\"?cmd=administrador\"><button class=\"btn btn-sm btn-outline-secondary\">ET/Usuários Autorizados</button></a>
+                <a href=\"?cmd=administrador&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
+              </div>
+              <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
+                <span data-feather=\"calendar\"></span>
+                Esta Semana
+              </button>-->
+            </div>
+          </div>";
+    include "administrador.inc.php";
+    echo"
+    </main>
+      </div>
+    </div>";
+
+    break;
+
+  case 'naopad':
+    echo "
+        <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
+          <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
+            <h1 class=\"h2\">Liberação do Armazenamento USB</h1>
+            <div class=\"btn-toolbar mb-2 mb-md-0\">
+              <div class=\"btn-group mr-2\">
+                <a href=\"?cmd=naopad\"><button class=\"btn btn-sm btn-outline-secondary\">ET/Usuários Autorizados</button></a>
+                <a href=\"?cmd=naopad&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
+              </div>
+              <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
+                <span data-feather=\"calendar\"></span>
+                Esta Semana
+              </button>-->
+            </div>
+          </div>";
+    include "naopad.inc.php";
+    echo"
+    </main>
+      </div>
+    </div>";
+
+    break;
+  
+  case 'perfisinternet':
+    echo "
+        <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
+          <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
+            <h1 class=\"h2\">Perfis de Internet</h1>
+            <div class=\"btn-toolbar mb-2 mb-md-0\">
+              <div class=\"btn-group mr-2\">
+                <a href=\"?cmd=perfisinternet\"><button class=\"btn btn-sm btn-outline-secondary\">Perfis de Internet</button></a>
+                <a href=\"?cmd=perfisinternet&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
+              </div>
+              <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
+                <span data-feather=\"calendar\"></span>
+                Esta Semana
+              </button>-->
+            </div>
+          </div>";
+    include "perfisinternet.inc.php";
+    echo"
+    </main>
+      </div>
+    </div>";
+
+    break;
 
 	case 'cursosti':
 		echo "
@@ -186,152 +234,152 @@ switch ($cmd) {
 
     break;
   
-    case 'servidores':
-      echo "
-          <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
-            <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
-              <h1 class=\"h2\">Gerenciamento - Servidores</h1>
-              <div class=\"btn-toolbar mb-2 mb-md-0\">
-                <div class=\"btn-group mr-2\">
-                  <a href=\"?cmd=servidores\"><button class=\"btn btn-sm btn-outline-secondary\">Servidores</button></a>
-                  <a href=\"?cmd=servidores&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro de Servidores</button></a>
-                </div>
-                <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
-                  <span data-feather=\"calendar\"></span>
-                  Esta Semana
-                </button>-->
+  case 'servidores':
+    echo "
+        <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
+          <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
+            <h1 class=\"h2\">Gerenciamento - Servidores</h1>
+            <div class=\"btn-toolbar mb-2 mb-md-0\">
+              <div class=\"btn-group mr-2\">
+                <a href=\"?cmd=servidores\"><button class=\"btn btn-sm btn-outline-secondary\">Servidores</button></a>
+                <a href=\"?cmd=servidores&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro de Servidores</button></a>
               </div>
-            </div>";
-      include "servidores.inc.php";
-      echo"
-      </main>
-        </div>
-      </div>";
-  
-      break;
-  
-    case 'estacoes':
-      echo "
-          <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
-            <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
-              <h1 class=\"h2\">Gerenciamento - Estações de Trabalho</h1>
-              <div class=\"btn-toolbar mb-2 mb-md-0\">
-                <div class=\"btn-group mr-2\">
-                  <a href=\"?cmd=estacoes\"><button class=\"btn btn-sm btn-outline-secondary\">Estações de Trabalho</button></a>
-                  <a href=\"?cmd=estacoes&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro de ET</button></a>
-                </div>
-                <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
-                  <span data-feather=\"calendar\"></span>
-                  Esta Semana
-                </button>-->
-              </div>
-            </div>";
-      include "estacoes.inc.php";
-      echo"
-      </main>
-        </div>
-      </div>";
-  
-      break;
-
-      case 'manutencaoet':
-        echo "
-            <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
-              <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
-                <h1 class=\"h2\">Manutenção - Estações de Trabalho</h1>
-                <div class=\"btn-toolbar mb-2 mb-md-0\">
-                  <div class=\"btn-group mr-2\">
-                  </div>
-                  <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
-                    <span data-feather=\"calendar\"></span>
-                    Esta Semana
-                  </button>-->
-                </div>
-              </div>";
-        include "manutencaoet.inc.php";
-        echo"
-        </main>
-          </div>
-        </div>";
-    
-        break;
-      
-        case 'necaquisicao':
-          echo "
-              <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
-                <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
-                  <h1 class=\"h2\">Manutenção - Estações de Trabalho</h1>
-                  <div class=\"btn-toolbar mb-2 mb-md-0\">
-                    <div class=\"btn-group mr-2\">
-                      <a href=\"?cmd=necaquisicao\"><button class=\"btn btn-sm btn-outline-secondary\">
-                        Nec. de Aquisição</button></a>
-                    </div>
-                    <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
-                      <span data-feather=\"calendar\"></span>
-                      Esta Semana
-                    </button>-->
-                  </div>
-                </div>";
-          include "necaquisicao.inc.php";
-          echo"
-          </main>
+              <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
+                <span data-feather=\"calendar\"></span>
+                Esta Semana
+              </button>-->
             </div>
           </div>";
-      
-          break;
-  
-    case 'conectividade':
-      echo "
-          <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
-            <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
-              <h1 class=\"h2\">Gerenciamento - Equipamentos de Conectividade</h1>
-              <div class=\"btn-toolbar mb-2 mb-md-0\">
-                <div class=\"btn-group mr-2\">
-                  <a href=\"?cmd=conectividade\"><button class=\"btn btn-sm btn-outline-secondary\">Equipamentos de Conectividade</button></a>
-                  <a href=\"?cmd=conectividade&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro de Equipamentos</button></a>
-                </div>
-                <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
-                  <span data-feather=\"calendar\"></span>
-                  Esta Semana
-                </button>-->
-              </div>
-            </div>";
-      include "conectividade.inc.php";
-      echo"
-      </main>
-        </div>
-      </div>";
-  
-      break;
+    include "servidores.inc.php";
+    echo"
+    </main>
+      </div>
+    </div>";
 
-      case 'mapainfra':
-        @$param = $_GET['param'];
-        echo "
-            <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
-              <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
-                <h1 class=\"h2\">Mapeamento da Infraestrutura de Rede</h1>
-                <!--<div class=\"btn-toolbar mb-2 mb-md-0\">
-                  <div class=\"btn-group mr-2\">
-                    <a href=\"?cmd=mapainfra&act=et&param=".$param."\"><button class=\"btn btn-sm btn-outline-secondary\">
-                      Estação de Trabalho</button></a>
-                    <a href=\"?cmd=mapainfra&act=srv&param=".$param."\"><button class=\"btn btn-sm btn-outline-secondary\">
-                      Servidor</button></a>
-                    <a href=\"?cmd=mapainfra&act=conec&param=".$param."\"><button class=\"btn btn-sm btn-outline-secondary\">
-                      Eq. Conectividade</button></a>
-                  </div>-->
-                  <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
-                    <span data-feather=\"calendar\"></span>
-                    Esta Semana
-                  </button>-->
-                <!--</div>-->
-              </div>";
-        include "mapainfra.inc.php";
-        echo"
-        </main>
-          </div>
-        </div>";
-    
-        break;
+    break;
+  
+  case 'estacoes':
+    echo "
+        <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
+          <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
+            <h1 class=\"h2\">Gerenciamento - Estações de Trabalho</h1>
+            <div class=\"btn-toolbar mb-2 mb-md-0\">
+              <div class=\"btn-group mr-2\">
+                <a href=\"?cmd=estacoes\"><button class=\"btn btn-sm btn-outline-secondary\">Estações de Trabalho</button></a>
+                <a href=\"?cmd=estacoes&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro de ET</button></a>
+              </div>
+              <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
+                <span data-feather=\"calendar\"></span>
+                Esta Semana
+              </button>-->
+            </div>
+          </div>";
+    include "estacoes.inc.php";
+    echo"
+    </main>
+      </div>
+    </div>";
+
+    break;
+
+  case 'manutencaoet':
+    echo "
+        <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
+          <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
+            <h1 class=\"h2\">Manutenção - Estações de Trabalho</h1>
+            <div class=\"btn-toolbar mb-2 mb-md-0\">
+              <div class=\"btn-group mr-2\">
+              </div>
+              <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
+                <span data-feather=\"calendar\"></span>
+                Esta Semana
+              </button>-->
+            </div>
+          </div>";
+    include "manutencaoet.inc.php";
+    echo"
+    </main>
+      </div>
+    </div>";
+
+    break;
+      
+  case 'necaquisicao':
+    echo "
+        <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
+          <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
+            <h1 class=\"h2\">Manutenção - Estações de Trabalho</h1>
+            <div class=\"btn-toolbar mb-2 mb-md-0\">
+              <div class=\"btn-group mr-2\">
+                <a href=\"?cmd=necaquisicao\"><button class=\"btn btn-sm btn-outline-secondary\">
+                  Nec. de Aquisição</button></a>
+              </div>
+              <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
+                <span data-feather=\"calendar\"></span>
+                Esta Semana
+              </button>-->
+            </div>
+          </div>";
+    include "necaquisicao.inc.php";
+    echo"
+    </main>
+      </div>
+    </div>";
+
+    break;
+  
+  case 'conectividade':
+    echo "
+        <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
+          <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
+            <h1 class=\"h2\">Gerenciamento - Equipamentos de Conectividade</h1>
+            <div class=\"btn-toolbar mb-2 mb-md-0\">
+              <div class=\"btn-group mr-2\">
+                <a href=\"?cmd=conectividade\"><button class=\"btn btn-sm btn-outline-secondary\">Equipamentos de Conectividade</button></a>
+                <a href=\"?cmd=conectividade&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro de Equipamentos</button></a>
+              </div>
+              <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
+                <span data-feather=\"calendar\"></span>
+                Esta Semana
+              </button>-->
+            </div>
+          </div>";
+    include "conectividade.inc.php";
+    echo"
+    </main>
+      </div>
+    </div>";
+
+    break;
+
+  case 'mapainfra':
+    @$param = $_GET['param'];
+    echo "
+        <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
+          <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
+            <h1 class=\"h2\">Mapeamento da Infraestrutura de Rede</h1>
+            <!--<div class=\"btn-toolbar mb-2 mb-md-0\">
+              <div class=\"btn-group mr-2\">
+                <a href=\"?cmd=mapainfra&act=et&param=".$param."\"><button class=\"btn btn-sm btn-outline-secondary\">
+                  Estação de Trabalho</button></a>
+                <a href=\"?cmd=mapainfra&act=srv&param=".$param."\"><button class=\"btn btn-sm btn-outline-secondary\">
+                  Servidor</button></a>
+                <a href=\"?cmd=mapainfra&act=conec&param=".$param."\"><button class=\"btn btn-sm btn-outline-secondary\">
+                  Eq. Conectividade</button></a>
+              </div>-->
+              <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
+                <span data-feather=\"calendar\"></span>
+                Esta Semana
+              </button>-->
+            <!--</div>-->
+          </div>";
+    include "mapainfra.inc.php";
+    echo"
+    </main>
+      </div>
+    </div>";
+
+    break;
 
   case 'padsictic':
     echo "

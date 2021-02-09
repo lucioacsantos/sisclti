@@ -159,7 +159,7 @@ function grafico_barras(){
   $new->idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
   $qtde_srv = $new->CountIdOMSrv();
 
-  $new = new ControleUSB();
+  $new = new ControlePrivilegios();
   $new->idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
   $qtde_usb = $new->CountIdOMUSB();
   

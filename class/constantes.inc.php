@@ -1777,12 +1777,15 @@ class Hardware
     }
 }
 
-/** Classe Dispositivos USB */
-class ControleUSB
+/** Classe Privilégios da ET */
+class ControlePrivilegios
 {
     public $idtb_controle_usb;
+    public $idtb_permissoes_admin;
+    public $idtb_nao_padronizados;
     public $idtb_estacoes;
     public $idtb_om_apoiadas;
+    public $soft_autorizados;
     public $autorizacao;
     
     /** Seleciona todas as funções */
@@ -1792,8 +1795,34 @@ class ControleUSB
         $row = $pg->getRows("SELECT * FROM db_clti.tb_controle_usb ");
         return $row;
     }
+    public function SelectAllAdm(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_permissoes_admin ");
+        return $row;
+    }
+    public function SelectAllNaoPad(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_nao_padronizados ");
+        return $row;
+    }
 
     /** Seleciona todas as funções da OM */
+    public function SelectAdmOM(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_permissoes_admin WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas 
+            ORDER BY nome ");
+        return $row;
+    }
+    public function SelectNaoPadOM(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_nao_padronizados WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas 
+            ORDER BY nome ");
+        return $row;
+    }
     public function SelectOMAll(){
         require_once "pgsql.class.php";
         $pg = new PgSql();
@@ -1809,6 +1838,20 @@ class ControleUSB
         $row = $pg->getRow("SELECT * FROM db_clti.vw_controle_usb WHERE idtb_controle_usb = $this->idtb_controle_usb");
         return $row;
     }
+    public function SelectIdAdm(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("SELECT * FROM db_clti.vw_permissoes_admin 
+            WHERE idtb_permissoes_admin = $this->idtb_permissoes_admin");
+        return $row;
+    }
+    public function SelectIdNaoPad(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("SELECT * FROM db_clti.vw_nao_padronizados 
+            WHERE idtb_nao_padronizados = $this->idtb_nao_padronizados");
+        return $row;
+    }
 
     /** Insere Função */
     public function Insert(){
@@ -1816,6 +1859,21 @@ class ControleUSB
         $pg = new PgSql();
         $row = $pg->exec("INSERT INTO db_clti.tb_controle_usb (idtb_estacoes,idtb_om_apoiadas,autorizacao) 
             VALUES ('$this->idtb_estacoes','$this->idtb_om_apoiadas','$this->autorizacao') ");
+        return $row;
+    }
+    public function InsertAdmin(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("INSERT INTO db_clti.tb_permissoes_admin (idtb_estacoes,idtb_om_apoiadas,autorizacao) 
+            VALUES ('$this->idtb_estacoes','$this->idtb_om_apoiadas','$this->autorizacao') ");
+        return $row;
+    }
+    public function InsertNaoPad(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("INSERT INTO db_clti.tb_nao_padronizados (idtb_estacoes,idtb_om_apoiadas,autorizacao,
+            soft_autorizados) VALUES ('$this->idtb_estacoes','$this->idtb_om_apoiadas','$this->autorizacao',
+            '$this->soft_autorizados') ");
         return $row;
     }
 
@@ -1828,11 +1886,47 @@ class ControleUSB
             WHERE idtb_controle_usb = $this->idtb_controle_usb");
         return $row;
     }
+    public function UpdateAdmin(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("UPDATE db_clti.tb_permissoes_admin SET (idtb_estacoes,idtb_om_apoiadas,autorizacao) 
+            = ('$this->idtb_estacoes','$this->idtb_om_apoiadas','$this->autorizacao') 
+            WHERE idtb_permissoes_admin = $this->idtb_permissoes_admin");
+        return $row;
+    }
+    public function UpdateNaoPad(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("UPDATE db_clti.tb_nao_padronizados SET (idtb_estacoes,idtb_om_apoiadas,autorizacao,
+            soft_autorizados) = ('$this->idtb_estacoes','$this->idtb_om_apoiadas','$this->autorizacao',
+            '$this->soft_autorizados') WHERE idtb_nao_padronizados = $this->idtb_nao_padronizados");
+        return $row;
+    }
+
+    /** Contagens */
     public function CountIdOMUSB()
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $sql = "SELECT COUNT(idtb_controle_usb) AS qtde FROM db_clti.vw_controle_usb WHERE 
+            idtb_om_apoiadas = $this->idtb_om_apoiadas";
+        $row = $pg->getCol($sql);
+        return $row;
+    }
+    public function CountIdOMAdmin()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "SELECT COUNT(idtb_permissoes_admin) AS qtde FROM db_clti.vw_controle_admin WHERE 
+            idtb_om_apoiadas = $this->idtb_om_apoiadas";
+        $row = $pg->getCol($sql);
+        return $row;
+    }
+    public function CountIdOMNaoPad()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "SELECT COUNT(idtb_nao_padronizados) AS qtde FROM db_clti.vw_nao_padronizados WHERE 
             idtb_om_apoiadas = $this->idtb_om_apoiadas";
         $row = $pg->getCol($sql);
         return $row;
