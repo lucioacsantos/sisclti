@@ -36,7 +36,7 @@ if ($act == 'cad') {
         $pessom = (object)['idtb_pessoal_om'=>'','nip'=>'','cpf'=>'','nome'=>'','nome_guerra'=>'',
             'idtb_om_apoiadas'=>'','sigla_om'=>'','idtb_posto_grad'=>'8','sigla_posto_grad'=>'Primeiro Tenente',
             'idtb_corpo_quadro'=>'','sigla_corpo_quadro'=>'','idtb_especialidade'=>'','sigla_espec'=>'',
-            'correio_eletronico'=>'','idtb_funcoes_sigdem'=>'','sigla'=>''];
+            'correio_eletronico'=>'','idtb_funcoes_sigdem'=>'','sigla'=>'','posto_grad'=>'Primeiro Tenente'];
         $readyonly = "";
     }
     $om->ordena = "ORDER BY sigla ASC";

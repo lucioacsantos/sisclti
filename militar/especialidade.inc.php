@@ -26,7 +26,7 @@ if ($act == 'cad') {
         $especialidade = $militar->SelectIDEspec();
     }
     else{
-        $especialidade = (object)['idtb_especialidade'=>'','nome'=>'', 'sigla'=>''];
+        $especialidade = (object)['idtb_especialidade'=>'','nome'=>'', 'sigla'=>'','exibir'=>''];
     }
     echo "
 	<div class=\"container-fluid\">

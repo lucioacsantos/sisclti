@@ -259,6 +259,12 @@ $versao = $config->SelectVersao();
                   </a>
                 </li>
                 <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=tri_tret\">
+                    <span data-feather=\"users\"></span>
+                    TRI/TRET
+                  </a>
+                </li>
+                <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=perfisinternet\">
                     <span data-feather=\"youtube\"></span>
                     Perfis de Internet
