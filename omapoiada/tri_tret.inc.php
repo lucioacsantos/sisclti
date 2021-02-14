@@ -79,7 +79,7 @@ if ($act == 'cad') {
         echo"       <td>".$identificacao."</td>
                     <td>".$tri_tret->nome."</td>
                     <td>
-                        <a href=\"tri.inc.php&param=".$tri_tret->idtb_pessoal_om."\" target=\"_blanck\">
+                        <a href=\"tri.inc.php?param=".$tri_tret->idtb_pessoal_om."\" target=\"_blanck\">
                             | Emitir TRI |</a>
                     </td>
                 </tr>";
@@ -92,7 +92,8 @@ if ($act == 'cad') {
         <div class=\"row\">
             <main>
                 <div id=\"form-cadastro\">
-                <form id=\"form\" action=\"?cmd=tri_tret&act=tret\" method=\"post\" enctype=\"multipart/form-data\">
+                <form id=\"form\" action=\"tret.inc.php\" method=\"post\" 
+                target=\"_blanck\" enctype=\"multipart/form-data\">
                 <fieldset>
                     <legend>TRET - Selecione uma ET</legend>
                     <div class=\"form-group\">
@@ -104,10 +105,7 @@ if ($act == 'cad') {
                             echo "</select>
                     </div>
                 </fieldset>
-                <input type=\"hidden\" name=\"idtb_om_apoiadas\" value=\"$omapoiada\">
-                <input type=\"hidden\" name=\"idtb_conectividade_orig\" value=\"$conexoes->idtb_conectividade_orig\">
-                <input type=\"hidden\" name=\"porta_orig\" value=\"$conexoes->porta_orig\">
-                <input type=\"hidden\" name=\"idtb_mapainfra\" value=\"$conexoes->idtb_mapainfra\">
+                <input type=\"hidden\" name=\"idtb_pessoal_om\" value=\"$tri_tret->idtb_pessoal_om\">
                 <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Emitir TRET\">
                 </form>
                 </div>

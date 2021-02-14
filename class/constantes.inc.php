@@ -343,7 +343,8 @@ class OMAPoiadas
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT * FROM db_clti.tb_om_apoiadas WHERE idtb_om_apoiadas='$this->idtb_om_apoiadas'");
+        $row = $pg->getRow("SELECT * FROM db_clti.tb_om_apoiadas WHERE idtb_om_apoiadas=$this->idtb_om_apoiadas
+        ");
         return $row;
     }
     public function UpdateOM()
@@ -1851,6 +1852,13 @@ class ControlePrivilegios
         $pg = new PgSql();
         $row = $pg->getRow("SELECT * FROM db_clti.vw_nao_padronizados 
             WHERE idtb_nao_padronizados = $this->idtb_nao_padronizados");
+        return $row;
+    }
+    public function SelectIdETNaoPad(){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("SELECT * FROM db_clti.vw_nao_padronizados 
+            WHERE idtb_estacoes = $this->idtb_estacoes");
         return $row;
     }
 
