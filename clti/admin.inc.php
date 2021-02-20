@@ -359,7 +359,66 @@ if (($row != NULL) AND ($act == NULL)) {
                         <td>".$value->nome_guerra."</td>
                         <td><a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."\">Editar</a> - 
                             <a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."&senha=troca\">Senha</a> - 
-                            Excluir</td>
+                            <a href=\"?cmd=admin&act=desativar&param=".$value->idtb_pessoal_ti."\">Desativar</a></td>
+                    </tr>";
+    }
+    echo"
+                </tbody>
+            </table>
+            </div>";
+}
+
+/* Monta quadro de administradores */
+if ($act == 'inativos') {
+
+	$pesti->ordena = "ORDER BY sigla_om ASC";
+    $admin = $pesti->SelectAdminInativos();
+
+    echo"<div class=\"table-responsive\">
+            <table class=\"table table-hover\">
+                <thead>
+                    <tr>
+                        <th scope=\"col\">OM Apoiada</th>
+                        <th scope=\"col\">Posto/Grad./Esp.</th>
+                        <th scope=\"col\">NIP/CPF</th>
+                        <th scope=\"col\">Nome</th>
+                        <th scope=\"col\">Nome de Guerra</th>
+                        <th scope=\"col\">Ações</th>
+                    </tr>
+                </thead>";
+
+    foreach ($admin as $key => $value) {
+
+        #Seleciona NIP caso seja militar da MB
+        if ($value->nip != NULL) {
+            $identificacao = $value->nip;
+        }
+        else{
+            $identificacao = $value->cpf;
+        }
+        echo"       <tr>
+                        <td>".$value->sigla_om."</td>";
+        if (($value->exibir_espec == 'NÃO') AND ($value->exibir_corpo_quadro == 'NÃO')){
+            echo"       <th scope=\"row\">".$value->sigla_posto_grad."</th>";
+        }
+        elseif (($value->exibir_espec == 'NÃO') AND ($value->exibir_corpo_quadro != 'NÃO')){
+            echo"       <th scope=\"row\">".$value->sigla_posto_grad." ".$value->sigla_corpo_quadro."</th>";
+        }
+        elseif (($value->exibir_espec != 'NÃO') AND ($value->exibir_corpo_quadro == 'NÃO')){
+            echo"       <th scope=\"row\">".$value->sigla_posto_grad." ".$value->sigla_espec."</th>";
+        }
+        else {
+            echo"       <th scope=\"row\">".$value->sigla_posto_grad." ".$value->sigla_corpo_quadro." 
+                            ".$value->sigla_espec."</th>";
+        }
+            echo"
+                        <td>".$identificacao."</td>
+                        <td>".$value->nome."</td>
+                        <td>".$value->nome_guerra."</td>
+                        <td><a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."\">Editar</a> - 
+                            <a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."&senha=troca\">Senha</a> - 
+                            <a href=\"?cmd=admin&act=ativar&param=".$value->idtb_pessoal_ti."\">Reativar</a>
+                        </td>
                     </tr>";
     }
     echo"
@@ -449,6 +508,46 @@ if ($act == 'insert') {
                 }
             }
         }
+    }
+    else{
+        echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;$url\">";
+    }
+}
+
+if ($act == 'ativar') {
+    if (isset($_SESSION['status'])){
+        @$param = $_GET['param'];
+        $pesti->idtb_pessoal_ti = $param;
+        $row = $pesti->PesTIAtivar();
+            if ($row) {
+                echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=admin\">";
+            }
+            else {
+                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                echo(pg_result_error($row) . "<br />\n");
+            }
+    }
+    else{
+        echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;$url\">";
+    }
+}
+
+if ($act == 'desativar') {
+    if (isset($_SESSION['status'])){
+        @$param = $_GET['param'];
+        $pesti->idtb_pessoal_ti = $param;
+        $row = $pesti->PesTIDesativar();
+            if ($row) {
+                echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=admin\">";
+            }
+            else {
+                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                echo(pg_result_error($row) . "<br />\n");
+            }
     }
     else{
         echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>

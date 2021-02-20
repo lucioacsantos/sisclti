@@ -280,9 +280,8 @@ class Usuario
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT * FROM db_clti.tb_pessoal_ti WHERE nip = '$this->usuario' 
-            AND senha = '$this->senha' OR cpf = '$this->usuario' AND senha = '$this->senha'
-            AND status = 'ATIVO' ");
+        $row = $pg->getRow("SELECT * FROM db_clti.tb_pessoal_ti WHERE status = 'ATIVO' AND nip = '$this->usuario' 
+            AND senha = '$this->senha' OR cpf = '$this->usuario' AND senha = '$this->senha' ");
         return $row;
     }
 
@@ -299,9 +298,8 @@ class Usuario
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT * FROM db_clti.tb_lotacao_clti WHERE nip = '$this->usuario' 
-            AND senha = '$this->senha' OR cpf = '$this->usuario' AND senha = '$this->senha'
-            AND status = 'ATIVO' ");
+        $row = $pg->getRow("SELECT * FROM db_clti.tb_lotacao_clti WHERE status = 'ATIVO' AND nip = '$this->usuario' 
+            AND senha = '$this->senha' OR cpf = '$this->usuario' AND senha = '$this->senha' ");
         return $row;
     }
 
@@ -500,7 +498,16 @@ class PessoalTI
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRows("SELECT * FROM db_clti.vw_pessoal_ti WHERE sigla_funcao='ADMIN' AND status='ATIVO' $this->ordena");
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_pessoal_ti WHERE sigla_funcao='ADMIN' AND status='ATIVO' 
+            $this->ordena");
+        return $row;
+    }
+    public function SelectAdminInativos()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_pessoal_ti WHERE sigla_funcao='ADMIN' AND status='INATIVO' 
+            $this->ordena");
         return $row;
     }
     public function SelectIdPesTI()
@@ -554,6 +561,13 @@ class PessoalTI
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getRows("SELECT * FROM db_clti.vw_pessoal_ti WHERE sigla_funcao='OSIC' AND status='ATIVO' $this->ordena");
+        return $row;
+    }
+    public function SelectOSICInativos()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_pessoal_ti WHERE sigla_funcao='OSIC' AND status='INATIVO' $this->ordena");
         return $row;
     }
     public function SelectAllPesTI()
@@ -672,6 +686,22 @@ class PessoalTI
         $sql = "SELECT COUNT(idtb_pessoal_ti) AS qtde FROM db_clti.vw_pessoal_ti 
             WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas ";
         $row = $pg->getCol($sql);
+        return $row;
+    }
+    public function PesTIDesativar()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "UPDATE db_clti.tb_pessoal_ti SET status = 'INATIVO' WHERE idtb_pessoal_ti='$this->idtb_pessoal_ti' ";
+        $row = $pg->exec($sql);
+        return $row;
+    }
+    public function PesTIAtivar()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "UPDATE db_clti.tb_pessoal_ti SET status = 'ATIVO' WHERE idtb_pessoal_ti='$this->idtb_pessoal_ti' ";
+        $row = $pg->exec($sql);
         return $row;
     }
 }
@@ -870,6 +900,13 @@ class PessoalCLTI
         $row = $pg->getRows("SELECT * FROM db_clti.vw_pessoal_clti WHERE status='ATIVO' $this->ordena");
         return $row;
     }
+    public function SelectInativos()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_pessoal_clti WHERE status='INATIVO' $this->ordena");
+        return $row;
+    }
     public function SelectId()
     {
         require_once "pgsql.class.php";
@@ -907,6 +944,22 @@ class PessoalCLTI
         $pg = new PgSql();
         $sql = "UPDATE db_clti.tb_lotacao_clti SET senha= '$this->senha' 
             WHERE idtb_lotacao_clti='$this->idtb_lotacao_clti'";
+        $row = $pg->exec($sql);
+        return $row;
+    }
+    public function PesCLTIDesativar()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "UPDATE db_clti.tb_lotacao_clti SET status = 'INATIVO'  WHERE idtb_lotacao_clti='$this->idtb_lotacao_clti'";
+        $row = $pg->exec($sql);
+        return $row;
+    }
+    public function PesCLTIAtivar()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "UPDATE db_clti.tb_lotacao_clti SET status = 'ATIVO'  WHERE idtb_lotacao_clti='$this->idtb_lotacao_clti'";
         $row = $pg->exec($sql);
         return $row;
     }

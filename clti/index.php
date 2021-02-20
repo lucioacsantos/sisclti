@@ -90,6 +90,7 @@ if (isset($_SESSION['user_name'])){
                     <a href=\"?cmd=lotclti\"><button class=\"btn btn-sm btn-outline-secondary\">Efetivo do CLTI</button></a>
                     <a href=\"?cmd=lotclti&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
                     <a href=\"?cmd=lotclti&act=calcula\"><button class=\"btn btn-sm btn-outline-secondary\">Calcular Lotação</button></a>
+                    <a href=\"?cmd=lotclti&act=inativos\"><button class=\"btn btn-sm btn-outline-secondary\">Inativos</button></a>
                   </div>
                   <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
                     <span data-feather=\"calendar\"></span>
@@ -163,6 +164,7 @@ if (isset($_SESSION['user_name'])){
                     <a href=\"?cmd=osic\"><button class=\"btn btn-sm btn-outline-secondary\">
                       OSIC das OM</button></a>
                     <a href=\"?cmd=osic&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
+                    <a href=\"?cmd=osic&act=inativos\"><button class=\"btn btn-sm btn-outline-secondary\">Inativos</button></a>
                   </div>
                   <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
                     <span data-feather=\"calendar\"></span>
@@ -187,6 +189,7 @@ if (isset($_SESSION['user_name'])){
                   <div class=\"btn-group madminr-2\">
                     <a href=\"?cmd=admin\"><button class=\"btn btn-sm btn-outline-secondary\">Administradores</button></a>
                     <a href=\"?cmd=admin&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
+                    <a href=\"?cmd=admin&act=inativos\"><button class=\"btn btn-sm btn-outline-secondary\">Inativos</button></a>
                   </div>
                   <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
                     <span data-feather=\"calendar\"></span>

@@ -359,7 +359,53 @@ if (($row) AND ($act == NULL)) {
                         <td>".$value->nome_guerra."</td>
                         <td><a href=\"?cmd=lotclti&act=cad&param=".$value->idtb_lotacao_clti."\">Editar</a> - 
                             <a href=\"?cmd=lotclti&act=cad&param=".$value->idtb_lotacao_clti."&senha=troca\">Senha</a> -
-                            Excluir</td>
+                            <a href=\"?cmd=lotclti&act=desativar&param=".$value->idtb_lotacao_clti."\">Desativar</a>
+                        </td>
+                    </tr>";
+    };
+    echo"
+                </tbody>
+            </table>
+            </div>";
+}
+
+if ($act == 'inativos') {
+
+    $pesclti->ordena = "ORDER BY idtb_posto_grad ASC";
+    $clti = $pesclti->SelectInativos();
+
+        echo"<div class=\"table-responsive\">
+            <table class=\"table table-hover\">
+                <thead>
+                    <tr>
+                        <th scope=\"col\">Posto/Grad./Esp.</th>
+                        <th scope=\"col\">NIP/CPF</th>
+                        <th scope=\"col\">Nome</th>
+                        <th scope=\"col\">Nome de Guerra</th>
+                        <th scope=\"col\">Ações</th>
+                    </tr>
+                </thead>";
+
+    foreach ($clti as $key => $value) {
+
+        #Seleciona NIP caso seja militar da MB
+        if ($value->nip != NULL) {
+            $identificacao = $value->nip;
+        }
+        else{
+            $identificacao = $value->cpf;
+        }
+
+        echo"       <tr>
+                        <th scope=\"row\">".$value->sigla_posto_grad." ".$value->sigla_corpo_quadro." 
+                            ".$value->sigla_espec."</th>
+                        <td>".$identificacao."</td>
+                        <td>".$value->nome."</td>
+                        <td>".$value->nome_guerra."</td>
+                        <td><a href=\"?cmd=lotclti&act=cad&param=".$value->idtb_lotacao_clti."\">Editar</a> - 
+                            <a href=\"?cmd=lotclti&act=cad&param=".$value->idtb_lotacao_clti."&senha=troca\">Senha</a> -
+                            <a href=\"?cmd=lotclti&act=ativar&param=".$value->idtb_lotacao_clti."\">Reativar</a>
+                        </td>
                     </tr>";
     };
     echo"
@@ -455,6 +501,46 @@ if ($act == 'insert') {
             <meta http-equiv=\"refresh\" content=\"1;$url\">";
     }
     
+}
+
+if ($act == 'ativar') {
+    if (isset($_SESSION['status'])){
+        @$param = $_GET['param'];
+        $pesclti->idtb_lotacao_clti = $param;
+        $row = $pesclti->PesCLTIAtivar();
+            if ($row) {
+                echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=lotclti\">";
+            }
+            else {
+                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                echo(pg_result_error($row) . "<br />\n");
+            }
+    }
+    else{
+        echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;$url\">";
+    }
+}
+
+if ($act == 'desativar') {
+    if (isset($_SESSION['status'])){
+        @$param = $_GET['param'];
+        $pesclti->idtb_lotacao_clti = $param;
+        $row = $pesclti->PesCLTIDesativar();
+            if ($row) {
+                echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=lotclti\">";
+            }
+            else {
+                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                echo(pg_result_error($row) . "<br />\n");
+            }
+    }
+    else{
+        echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;$url\">";
+    }
 }
 
 ?>
