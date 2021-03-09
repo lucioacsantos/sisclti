@@ -201,91 +201,45 @@ function grafico_barras_om(){
 
   /* Classe de interação com o PostgreSQL */
   $path = dirname(__FILE__) . '';
-  require_once "$path/../class/pgsql.class.php";
-  $pg = new PgSql();
+  require_once "$path/../class/constantes.inc.php";
+  $cont = new Contadores();
 
-  if (isset($_SESSION['id_om_apoiada'])){
-      $omapoiada = $_SESSION['id_om_apoiada'];
-      $et = $pg->getRows("SELECT idtb_om_apoiadas, COUNT(idtb_estacoes) AS qtde FROM db_clti.vw_estacoes 
-          GROUP BY idtb_om_apoiadas HAVING idtb_om_apoiadas='$omapoiada'");
-      $srv = $pg->getRows("SELECT idtb_om_apoiadas, COUNT(idtb_servidores) AS qtde FROM db_clti.vw_servidores 
-          GROUP BY idtb_om_apoiadas HAVING idtb_om_apoiadas='$omapoiada'");
-      $conec = $pg->getRows("SELECT idtb_om_apoiadas, COUNT(idtb_conectividade) AS qtde FROM db_clti.vw_conectividade 
-          GROUP BY idtb_om_apoiadas HAVING idtb_om_apoiadas='$omapoiada'");
-  }
-  else{
-      $et = $pg->getRows("SELECT COUNT(idtb_estacoes) AS qtde FROM db_clti.vw_estacoes ");
-      $srv = $pg->getRows("SELECT COUNT(idtb_servidores) AS qtde FROM db_clti.vw_servidores ");
-      $conec = $pg->getRows("SELECT COUNT(idtb_conectividade) AS qtde FROM db_clti.vw_conectividade ");
-      $omapoiadas = $pg->getRows("SELECT * FROM db_clti.tb_om_apoiadas ORDER BY cod_om;");
-  }
+  $et = $cont->CountTotalET();
+  $srv = $cont->CountTotalSrv();
+  $conec = $cont->CountTotalConect();
+  $pessti = $cont->CountTotalPessTI();
+  $pessom = $cont->CountTotalPessoalOM();
 
   echo"
   <script>
-    var color = Chart.helpers.color;
-    var barChartData = {
-      labels: [";
-        foreach ($omapoiadas as $key => $value){
-            echo "'".$value->sigla."',";
+  new Chart(document.getElementById(\"grafico_barras_om\"), {
+    type: 'bar',
+    data: {
+      labels: [\"Estações\", \"Servidores\", \"Eq.Conectividade\", \"Pessoal de TI\", \"Usuários\"],
+      datasets: [
+        {
+          label: \"Qtde.:\",
+          backgroundColor: [\"#3e95cd\", \"#8e5ea2\",\"#3cba9f\",\"#e8c3b9\",\"#c45850\"],
+          data: [".$et.",".$srv.",".$conec.",".$pessti.",".$pessom."]
         }
-        echo"],
-        datasets: [{
-        label: 'Estações de Trabalho',
-        backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
-        borderColor: window.chartColors.blue,
-        borderWidth: 1,
-        data: [";
-          foreach ($et as $key => $value){
-              print "".$value->qtde.",";
-          }
-          echo "]
-        },{
-        label: 'Servidores',
-        backgroundColor: color(window.chartColors.green).alpha(0.5).rgbString(),
-        borderColor: window.chartColors.green,
-        borderWidth: 1,
-        data: [";
-          foreach ($srv as $key => $value){
-              print "".$value->qtde.",";
-          }
-          echo "]
-        },{
-        label: 'Eq. Conectividade',
-        backgroundColor: color(window.chartColors.yellow).alpha(0.5).rgbString(),
-        borderColor: window.chartColors.yellow,
-        borderWidth: 1,
-        data: [";
-          foreach ($conec as $key => $value){
-              print "".$value->qtde.",";
-          }
-          echo "]
+      ]
+    },
+    options: {
+      legend: { display: false },
+      scales: {
+        yAxes: [{
+            ticks: {
+          beginAtZero: true
+            }
         }]
-    };
-  window.onload = function() {
-    var ctx = document.getElementById('grafico_barras_om').getContext('2d');
-    window.myBar = new Chart(ctx, {
-      type: 'bar',
-      data: barChartData,
-      options: {
-        responsive: true,
-        scales: {
-          yAxes: [{
-              ticks: {
-            beginAtZero: true
-              }
-          }]
-            },
-        legend: {
-          position: 'top',
-        },
-        title: {
-          display: false,
-          text: 'Ativos de TI'
-        }
+          },
+      title: {
+        display: true,
+        text: 'Estatísticas de TI'
       }
-    });
+    }
+  });
 
-  };
   </script>";
 }
 

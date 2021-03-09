@@ -297,7 +297,65 @@ elseif ($versao == '1.5.7'){
 
 elseif ($versao == '1.5.8'){
 
-	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.8.</div>
+	$pg->exec("CREATE TABLE db_clti.tb_soft_padronizados (
+		idtb_soft_padronizados serial NOT NULL,
+		categoria varchar(255) NOT NULL,
+		software varchar(255) NOT NULL,
+		status varchar(255) NOT NULL,
+		CONSTRAINT tb_soft_padronizados_pkey PRIMARY KEY (idtb_soft_padronizados)
+	);
+	COMMENT ON TABLE db_clti.tb_soft_padronizados IS 'Tabela contendo Softwares Padronizados';");
+
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
+	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.9' WHERE parametro='VERSAO' ");
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.9.</div>
+	<meta http-equiv=\"refresh\" content=\"5\">";
+
+}
+
+elseif ($versao == '1.5.9'){
+
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Atualizando banco de dados. Aguarde...</div>";
+	$pg->exec("DROP VIEW db_clti.vw_funcoes_sigdem");
+
+	$pg->exec("CREATE OR REPLACE VIEW db_clti.vw_funcoes_sigdem
+		AS SELECT funcsigdem.idtb_funcoes_sigdem,
+			funcsigdem.idtb_om_apoiadas,
+			om.sigla AS sigla_om,
+			funcsigdem.descricao,
+			funcsigdem.sigla,
+			funcsigdem.idtb_pessoal_om,
+			posto_grad.sigla AS posto_grad,
+			corpo_quadro.sigla AS corpo_quadro,
+			corpo_quadro.exibir AS exibir_corpo_quadro,
+			espec.sigla AS espec,
+			espec.exibir AS exibir_espec,
+			pesom.nome_guerra
+		FROM db_clti.tb_funcoes_sigdem funcsigdem,
+			db_clti.tb_pessoal_om pesom,
+			db_clti.tb_posto_grad posto_grad,
+			db_clti.tb_corpo_quadro corpo_quadro,
+			db_clti.tb_especialidade espec,
+			db_clti.tb_om_apoiadas om
+		WHERE funcsigdem.idtb_om_apoiadas = om.idtb_om_apoiadas AND funcsigdem.idtb_pessoal_om = pesom.idtb_pessoal_om 
+		AND pesom.idtb_posto_grad = posto_grad.idtb_posto_grad AND pesom.idtb_corpo_quadro = corpo_quadro.idtb_corpo_quadro 
+		AND pesom.idtb_especialidade = espec.idtb_especialidade; ");
+	
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
+	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.10' WHERE parametro='VERSAO' ");
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.10.</div>
+	<meta http-equiv=\"refresh\" content=\"5\">";
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.10.</div>
+	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
+
+}
+
+elseif ($versao == '1.5.10'){
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.10.</div>
 	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
 
 }

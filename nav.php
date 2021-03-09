@@ -122,6 +122,12 @@ $versao = $config->SelectVersao();
                   </a>
                 </li>
                 <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/ativosti/?cmd=softpad\">
+                    <span data-feather=\"external-link\"></span>
+                    Softwares Padronizados
+                  </a>
+                </li>
+                <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/ativosti/?cmd=processadores\">
                     <span data-feather=\"cpu\"></span>
                     Processadores

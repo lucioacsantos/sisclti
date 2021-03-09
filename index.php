@@ -6,7 +6,7 @@ ini_set("display_errors",1);
 ini_set("display_startup_erros",1);
 error_reporting(E_ALL);
 
-/* Clasee de interação com o PostgreSQL */
+/* Classe de interação com o PostgreSQL */
 require_once "class/constantes.inc.php";
 $config = new Config();
 $url = $config->SelectURL();

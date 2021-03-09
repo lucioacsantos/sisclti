@@ -282,16 +282,16 @@ if ($act == 'cad') {
    O usuário padrão '12345678' não entra na contagem
 */
 if (($row) AND ($act == NULL)) {
-
+    $efclti = $cont->CountEfetCLTI();
+    $ofclti = $cont->CountEfetOfCLTI();
+    $prclti = $cont->CountEfetPrCLTI();
+    $civclti = $cont->CountEfetCivilCLTI();
+    $qualiclti = $cont->CountQualiCLTI();
     $pesclti->ordena = "ORDER BY idtb_posto_grad ASC";
     $clti = $pesclti->SelectALL();
-    $lotof = $config->CountLotOficiaisCLTI();
-    $lotpr = $config->CountLotPracasCLTI();
+    $lotof = $cont->CountLotOfCLTI();
+    $lotpr = $cont->CountLotPrCLTI();
     $lotacao = $lotof+$lotpr;
-    $efetof = $pesclti->CountOficiais();
-    $efetpr = $pesclti->CountPracas();
-    $efetfcivis = $pesclti->CountFCivil();
-    $efetivo = $efetof+$efetpr+$efetfcivis;
 
     echo"<div class=\"table-responsive\">
         <table class=\"table table-hover\">
@@ -306,22 +306,22 @@ if (($row) AND ($act == NULL)) {
                 <tr>
                     <th scope=\"row\">#</th>
                     <td>".$lotacao."</td>
-                    <td>".$efetivo."</td>
+                    <td>".$efclti."</td>
                 </tr>
                 <tr>
                     <th scope=\"row\">Oficiais</th>
                     <td>".$lotof."</td>
-                    <td>".$efetof."</td>
+                    <td>".$ofclti."</td>
                 </tr>
                 <tr>
                     <th scope=\"row\">Praças</th>
                     <td> ".$lotpr."</td>
-                    <td> ".$efetpr."</td>
+                    <td> ".$prclti."</td>
                 </tr>
                 <tr>
                     <th scope=\"row\">Servidores Civis</th>
                     <td> 0</td>
-                    <td> ".$efetfcivis."</td>
+                    <td> ".$civclti."</td>
                 </tr>
             </tbody>
         </table>
@@ -528,6 +528,43 @@ if ($act == 'desativar') {
         @$param = $_GET['param'];
         $pesclti->idtb_lotacao_clti = $param;
         $row = $pesclti->PesCLTIDesativar();
+            if ($row) {
+                echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=lotclti\">";
+            }
+            else {
+                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                echo(pg_result_error($row) . "<br />\n");
+            }
+    }
+    else{
+        echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;$url\">";
+    }
+}
+
+if ($act == 'calcula') {
+    if (isset($_SESSION['status'])){
+        
+        $qtdeet = $cont->CountTotalET();
+        $config->lotacaooficiais = 2;
+        $config->lotacaopracas = 5;
+
+        if ($qtdeet > 750 && $qtdeet <= 1400){
+            $pracas = ($qtdeet - 750) % 150;
+            $oficiais = ($qtdeet - 750) % 350;
+            $config->lotacaopracas = 5 + $pracas;
+            $config->lotacaooficiais = 2 + $oficiais;
+        }
+        if ($qtdeet > 1400){
+            $pracas = ($qtdeet - 750) % 150;
+            $oficiais_1 = (1400 - 750) % 350;
+            $oficiais_2 = ($qtdeet - 1400) % 1000;
+            $config->lotacaopracas = 5 + $pracas;
+            $config->lotacaooficiais = 2 + $oficiais_1 + $oficiais_2;
+        }
+
+        $row = $config->AtualizaLotacao();
             if ($row) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
                 <meta http-equiv=\"refresh\" content=\"1;url=?cmd=lotclti\">";

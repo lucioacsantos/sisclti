@@ -6,6 +6,7 @@ require_once "../tcpdf/tcpdf.php";
 $omap = new OMAPoiadas();
 $pom = new PessoalOM();
 $et = new Estacoes();
+$soft = new SO();
 $npad = new ControlePrivilegios();
 $idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
 $idtb_pessoal_om = $_POST['idtb_pessoal_om'];
@@ -22,6 +23,12 @@ $omap->estado = $om->idtb_estado;
 $omap->cidade = $om->idtb_cidade;
 $estado = $omap->SelectIdEstado();
 $cidade = $omap->SelectIdCidade();
+
+$soft = $soft->SelectAllSoftAtivos();
+foreach ($soft as $key => $value){
+    $softpad[] = $value->software;
+}
+$softpad = implode(", ",$softpad);
 
 /** Seleciona NIP ou  CPF */
 if ($usuario->nip != NULL) {
@@ -56,8 +63,12 @@ $nome = $usuario->nome;
 $ip = $estacao->end_ip;
 $mac = $estacao->end_mac;
 $nome_et = $estacao->nome;
-$soft = 'SOFT PADRONIZADOS';
-$naopad = $naopad->soft_autorizados;
+if ($naopad){
+    $naopad = $naopad->soft_autorizados;
+}
+else {
+    $naopad = "Nada consta";
+}
 
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
@@ -112,7 +123,7 @@ b) endereço físico de rede: $mac; e<br/>
 c) identificação da máquina: $nome_et.</p>
 
 <p>II – de instalação de programas:<br/>
-    a) Softwares Padronizados: $soft; e<br/>
+    a) Softwares Padronizados: $softpad; e<br/>
     b) Softwares não Padronizados: $naopad.</p>
 
 <p>III – de senha de acesso à máquina (“boot”), inicialmente estabelecida pelo 

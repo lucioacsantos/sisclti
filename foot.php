@@ -74,9 +74,9 @@
       require_once "dashboard/graficos.inc.php";
       $perfil = $_SESSION['perfil'];
       if ($perfil == 'TEC_CLTI'){
-        ativos_ti();
-        pessoal_ti();
-        qualificacao_ti();
+        //ativos_ti();
+        //pessoal_ti();
+        //qualificacao_ti();
         //grafico_barras();
         grafico_barras_om();
       }

@@ -11,6 +11,7 @@ $pesti = new PessoalTI();
 $srv = new Servidores();
 $et = new Estacoes();
 $conect = new Conectividade();
+$cont = new Contadores();
 $qtdeom = $om->CountOMApoiadas();
 $qtdeadmin = $pesti->CountAdmin();
 $qtdeosic = $pesti->CountOSIC();
@@ -274,7 +275,7 @@ if (isset($_SESSION['user_name'])){
       
           break;
       
-      default:
+    default:
 
         echo "
             <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">

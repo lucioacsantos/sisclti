@@ -4,29 +4,32 @@
 **/
 
 /* Clasee de interação com o PostgreSQL */
-require_once "../class/pgsql.class.php";
-$pg = new PgSql();
+require_once "../class/constantes.inc.php";
+$config = new Config();
+$cont = new Contadores();
 
 /* URL Recuperada do Banco de Dados */
-$url = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='URL'");
+$url = $config->SelectURL();
 
 include "../head.php";
 
 include "../nav.php";
 
+include "tabelas.inc.php";
+
 ?>
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <!--<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <?php echo "<h1 class=\"h2\">ATIVOS DE TI - ".$sigla."</h1>"; ?>
+            <?php //echo "<h1 class=\"h2\">ATIVOS DE TI - ".$sigla."</h1>"; ?>
             <div class="btn-toolbar mb-2 mb-md-0">
                 <div class="btn-group mr-2">
-                <!--<button class="btn btn-sm btn-outline-secondary">Enviar</button>
-                <button class="btn btn-sm btn-outline-secondary">Exportar</button>-->
+                <button class="btn btn-sm btn-outline-secondary">Enviar</button>
+                <button class="btn btn-sm btn-outline-secondary">Exportar</button>
                 </div>
-                <!--<button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
                     <span data-feather="calendar"></span>
                     Esta Semana
-                </button>-->
+                </button>
             </div>
         </div>
         <div class="container">
