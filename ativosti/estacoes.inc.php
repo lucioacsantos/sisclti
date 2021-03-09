@@ -11,18 +11,18 @@ $ip = new IP();
 $sor = new SO();
 $hw = new Hardware();
 
-/* Recupera informações do tipo de CLTI */
+/* Recupera informações */
 $row = $et->SelectAllTable();
 
 @$act = $_GET['act'];
 
-/* Checa se o tipo de CLTI está cadastrado */
+/* Verifica se há item cadastrado */
 if (($row == NULL) AND ($act == NULL)) {
 	echo "<h5>Não há estações cadastradas,<br />
 		 clique <a href=\"?cmd=estacoes&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
 
-/* Carrega form para cadastro do tipo de CLTI */
+/* Carrega form para cadastro */
 if ($act == 'cad') {
     @$param = $_GET['param'];
     if ($param){
@@ -102,7 +102,7 @@ if (($row) AND ($act == NULL)) {
             </div>";
 }
 
-/* Método INSERT */
+/* Método INSERT/UPDATE */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         

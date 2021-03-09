@@ -255,7 +255,7 @@ if ($act == 'cad') {
                             <div class=\"form-group\">
                                 <label for=\"nip\">NIP:</label>
                                 <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" autocomplete=\"off\"
-                                       placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$osic->nip\">
+                                       placeholder=\"NIP\" maxlength=\"8\" value=\"$osic->nip\">
                             </div>
 
                             <div class=\"form-group\">
@@ -448,7 +448,10 @@ if ($act == 'insert') {
         $pesti->correio_eletronico = mb_strtoupper($_POST['correio_eletronico'],'UTF-8');
         $pesti->status = mb_strtoupper($_POST['ativo'],'UTF-8');
         $pesti->idtb_funcoes_ti = '2';
-
+        if ($nip == NULL && $cpf == NULL){
+            echo "<h5>NIP e CPF em branco, um dos itens deve ser preenchido!</h5>
+            <meta http-equiv=\"refresh\" content=\"5;url=?cmd=admin\">";
+        }
         if ($nip == NULL) {
             $usuario = $cpf;
         }

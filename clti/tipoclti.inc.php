@@ -76,7 +76,7 @@ if ($row) {
 	echo $act;
 }
 
-/* Método INSERT */
+/* Método INSERT/UPDATE */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         $cfg->publicacao = $_POST['publicacao'];

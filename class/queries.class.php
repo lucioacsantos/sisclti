@@ -3,6 +3,8 @@
 *** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
+/** OBS.: Classe antiga em desuso */
+
 /* Inicializa Sessão */
 session_start();
 

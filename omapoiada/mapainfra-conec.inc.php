@@ -1,5 +1,9 @@
 <?php
+/**
+*** 99242991 | Lúcio ALEXANDRE Correia dos Santos
+**/
 
+/** Form de cadastro */
 $idtb_conectividade = $conexoes->idtb_conectividade_dest;
 $conect->idtb_conectividade = $conexoes->idtb_conectividade_orig;
 $conecom = $conect->SelectFiltroAllOMConectView();

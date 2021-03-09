@@ -12,13 +12,13 @@ $row = $militar->SelectAllPostoGrad();
 
 @$act = $_GET['act'];
 
-/* Checa se há SO cadastrado */
+/* Checa se há item cadastrado */
 if (($row == NULL) AND ($act == NULL)) {
 	echo "<h5>Não há Postos/Graduações cadastrados,<br />
 		 clique <a href=\"?cmd=postograds&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
 
-/* Carrega form para cadastro de Fabricante */
+/* Carrega form para cadastro */
 if ($act == 'cad') {
     @$param = $_GET['param'];
     if ($param){
@@ -62,7 +62,7 @@ if ($act == 'cad') {
     </div>";
 }
 
-/* Monta quadro de memórias */
+/* Monta quadro */
 if (($row) AND ($act == NULL)) {
 
     echo"<div class=\"table-responsive\">
@@ -91,7 +91,7 @@ if (($row) AND ($act == NULL)) {
             </div>";
 }
 
-/* Método INSERT/UPDATE Memória */
+/* Método INSERT/UPDATE */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         $idtb_posto_grad = $_POST['idtb_posto_grad'];

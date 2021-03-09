@@ -100,7 +100,7 @@ if (($row) AND ($act == NULL)) {
             </table>
             </div>";
 }
-/* Método INSERT */
+/* Método INSERT/UPDATE */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         $tb_permissoes_admin = $_POST['tb_permissoes_admin'];

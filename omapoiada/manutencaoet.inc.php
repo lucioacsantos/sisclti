@@ -13,7 +13,7 @@ $manutencaoet = $et->SelectMntAbertoET();
 
 @$act = $_GET['act'];
 
-/* Checa se o tipo de CLTI está cadastrado */
+/* Checa se há item cadastrado */
 if ((!$manutencaoet) AND ($act == NULL)) {
 	echo "<h5>Não há ET em manutenção cadastradas.</h5>";
 }
@@ -59,9 +59,6 @@ if (($manutencaoet) AND ($act == NULL)) {
                 </thead>";
 
     foreach ($manutencaoet as $key => $value) {
-
-        #Seleciona Sigla da OM Apoiada
-        
         echo"       <tr>
                         <th scope=\"row\">".$value->idtb_manutencao_et."</th>
                         <td>".$value->idtb_estacoes."</td>
@@ -80,7 +77,7 @@ if (($manutencaoet) AND ($act == NULL)) {
             </div>";
 }
 
-/* Método INSERT */
+/* Método INSERT/UPDATE */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         $idtb_manutencao_et = $_POST['idtb_manutencao_et'];

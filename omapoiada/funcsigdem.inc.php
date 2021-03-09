@@ -23,7 +23,7 @@ if (($row == NULL) AND ($act == NULL)) {
 		 clique <a href=\"?cmd=funcsigdem&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
 
-/* Carrega form para cadastro de Admin */
+/* Carrega form para cadastro */
 if ($act == 'cad') {
     @$param = $_GET['param'];
     if ($param){
@@ -128,7 +128,7 @@ if (($row) AND ($act == NULL)) {
             </table>
             </div>";
 }
-/* Método INSERT */
+/* Método INSERT/UPDATE */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         $idtb_funcoes_sigdem = $_POST['idtb_funcoes_sigdem'];

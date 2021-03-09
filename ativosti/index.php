@@ -14,7 +14,7 @@ include "../nav.php";
 
 @$cmd = $_GET['cmd'];
 
-/* Montagem do grid html5 conforme módulo solicidade */
+/* Montagem do grid html5 conforme módulo solicitado */
 switch ($cmd) {
 
   case 'sistoperacionais':

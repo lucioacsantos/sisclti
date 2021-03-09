@@ -214,7 +214,7 @@ if (($row) AND ($act == NULL)) {
             </div>";
 }
 
-/* Método INSERT */
+/* Método INSERT/UPDATE */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         $idtb_qualificacao_clti = $_POST['idtb_qualificacao_clti'];

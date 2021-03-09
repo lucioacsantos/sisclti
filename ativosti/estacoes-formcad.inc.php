@@ -1,5 +1,9 @@
 <?php
+/**
+*** 99242991 | Lúcio ALEXANDRE Correia dos Santos
+**/
 
+/** Form para cadastro */
     echo "
 	<div class=\"container-fluid\">
         <div class=\"row\">

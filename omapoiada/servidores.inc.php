@@ -17,7 +17,7 @@ $servidor = $srv->SelectAllSrvTable();
 
 @$act = $_GET['act'];
 
-/* Checa se o tipo de CLTI está cadastrado */
+/* Checa se há item cadastrado */
 if ((!$servidor) AND ($act == NULL)) {
 	echo "<h5>Não há servidores cadastrados,<br />
 		 clique <a href=\"?cmd=servidores&act=cad\">aqui</a> para fazê-lo.</h5>";
@@ -108,7 +108,7 @@ if (($servidor) AND ($act == NULL)) {
             </div>";
 }
 
-/* Método INSERT */
+/* Método INSERT/UPDATE */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         $idtb_servidores = $_POST['idtb_servidores'];

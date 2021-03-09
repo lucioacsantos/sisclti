@@ -21,7 +21,7 @@ if (($row == NULL) AND ($act == NULL)) {
 		 clique <a href=\"?cmd=pessoalti&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
 
-/* Carrega form para cadastro de Admin */
+/* Carrega form para cadastro */
 if ($act == 'cad') {
     @$param = $_GET['param'];
     @$senha = $_GET['senha'];
@@ -301,7 +301,7 @@ if ($act == 'cad') {
     </div>";
 }
 
-/* Monta quadro de administradores */
+/* Monta quadro */
 if (($row) AND ($act == NULL)) {
     $pti->ordena = "ORDER BY idtb_posto_grad ASC";
     $pti->idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
@@ -355,7 +355,7 @@ if (($row) AND ($act == NULL)) {
             </table>
             </div>";
 }
-/* Método INSERT */
+/* Método INSERT/UPDATE */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         $idtb_pessoal_ti = $_POST['idtb_pessoal_ti'];

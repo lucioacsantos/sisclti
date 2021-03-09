@@ -106,6 +106,7 @@ if ($act == 'cad') {
     </div>";
 }
 
+/** Monta quadro */
 if (($row) AND ($act == NULL)) {
    
     echo"<div class=\"table-responsive\">
@@ -116,8 +117,8 @@ if (($row) AND ($act == NULL)) {
                         <th scope=\"col\">Sigla</th>
                         <th scope=\"col\">Indicativo</th>
                         <th scope=\"col\">Data de Ativação</th>
-                        <th scope=\"col\">Efetivo de Oficiais</th>
-                        <th scope=\"col\">Efetivo de Praças</th>
+                        <th scope=\"col\">Lotação de Oficiais</th>
+                        <th scope=\"col\">Lotação de Praças</th>
                         <th scope=\"col\">Ações</th>
                     </tr>
                 </thead>
@@ -136,7 +137,7 @@ if (($row) AND ($act == NULL)) {
             </div>";
 }
 
-/* Método INSERT */
+/* Método INSERT/UPDATE */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
 

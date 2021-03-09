@@ -3,6 +3,8 @@
 *** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
+/** TODO: Modificar para nova classe de interação com o banco */
+
 /* Classe de interação com o PostgreSQL */
 require_once "../class/pgsql.class.php";
 $pg = new PgSql();
@@ -87,7 +89,7 @@ if (($row) AND ($act == NULL)) {
             </div>";
 }
 
-/* Método INSERT */
+/* Método INSERT/UPDATE */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         $idtb_servidores = $_POST['idtb_servidores'];

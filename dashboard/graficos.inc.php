@@ -3,6 +3,8 @@
 *** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
+/** TODO: Disponibilizar novos gráficos */
+
 function ativos_ti(){
 
   /* Classe de interação com o PostgreSQL */
@@ -204,11 +206,11 @@ function grafico_barras_om(){
   require_once "$path/../class/constantes.inc.php";
   $cont = new Contadores();
 
-  $et = $cont->CountTotalET();
-  $srv = $cont->CountTotalSrv();
-  $conec = $cont->CountTotalConect();
-  $pessti = $cont->CountTotalPessTI();
-  $pessom = $cont->CountTotalPessoalOM();
+  $et = $cont->CountTotalET(NULL);
+  $srv = $cont->CountTotalSrv(NULL);
+  $conec = $cont->CountTotalConect(NULL);
+  $pessti = $cont->CountTotalPessTI(NULL);
+  $pessom = $cont->CountTotalPessoalOM(NULL);
 
   echo"
   <script>

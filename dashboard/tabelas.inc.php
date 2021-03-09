@@ -6,19 +6,19 @@
 @$cmd = $_GET['cmd'];
 
 if (isset($_SESSION['user_name'])){
-  $perfil = $_SESSION['perfil']; 
-  if ($perfil == 'TEC_CLTI'){
-      $et = $cont->CountET();
-      $srv = $cont->CountSrv();
-      $conect = $cont->CountConect();
-      $usb = $cont->CountUSBLiberado();
-      $adm = $cont->CountPermAdmin();
-      $naopad = $cont->CountSoftNaoPad();
-      $pessti = $cont->CountPessTI();
-      $qualiti = $cont->CountQualiTI();
-      $pessom = $cont->CountPessoalOM();
-      $perfint = $cont->CountControleInternet();
-      $sigdem = $cont->CountFuncSiGDEM();
+    $perfil = $_SESSION['perfil']; 
+    if ($perfil == 'TEC_CLTI'){
+        $et = $cont->CountET(NULL);
+        $srv = $cont->CountSrv(NULL);
+        $conect = $cont->CountConect(NULL);
+        $usb = $cont->CountUSBLiberado(NULL);
+        $adm = $cont->CountPermAdmin(NULL);
+        $naopad = $cont->CountSoftNaoPad(NULL);
+        $pessti = $cont->CountPessTI(NULL);
+        $qualiti = $cont->CountQualiTI(NULL);
+        $pessom = $cont->CountPessoalOM(NULL);
+        $perfint = $cont->CountControleInternet(NULL);
+        $sigdem = $cont->CountFuncSiGDEM(NULL);
         echo "
             <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
                 <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">

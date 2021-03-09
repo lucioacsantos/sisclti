@@ -12,13 +12,13 @@ $row = $soft->SelectAllSoft();
 
 @$act = $_GET['act'];
 
-/* Checa se há SO cadastrado */
+/* Checa se há item cadastrado */
 if (($row == NULL) AND ($act == NULL)) {
 	echo "<h5>Não há Softwares cadastrados,<br />
 		 clique <a href=\"?cmd=softpad&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
 
-/* Carrega form para cadastro de Admin */
+/* Carrega form para cadastro com objeto do banco ou vazio */
 if ($act == 'cad') {
     @$param = $_GET['param'];
     if ($param){
@@ -70,7 +70,7 @@ if ($act == 'cad') {
     </div>";
 }
 
-/* Monta quadro de administradores */
+/* Monta quadro */
 if (($row) AND ($act == NULL)) {
 
     echo"<div class=\"table-responsive\">

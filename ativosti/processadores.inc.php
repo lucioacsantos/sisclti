@@ -12,7 +12,7 @@ $row = $hw->SelectAllProcModelo();
 
 @$act = $_GET['act'];
 
-/* Checa se há SO cadastrado */
+/* Checa se há item cadastrado */
 if (($row == NULL) AND ($act == NULL)) {
 	echo "<h5>Não há Processadores cadastrados,<br />
 		 clique <a href=\"?cmd=processadores&act=cadfab\">aqui</a> para fazê-lo.</h5>";

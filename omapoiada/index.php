@@ -3,7 +3,7 @@
 *** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
-/* Clasee de interação com o PostgreSQL */
+/* Classe de interação com o PostgreSQL */
 require_once "../class/constantes.inc.php";
 $cfg = new Config();
 
@@ -16,7 +16,7 @@ include "../nav.php";
 
 @$cmd = $_GET['cmd'];
 
-/* Montagem do grid html5 conforme módulo solicidade */
+/* Montagem do grid html5 conforme módulo solicitado */
 switch ($cmd) {
   case 'setores':
 		echo "
@@ -40,7 +40,7 @@ switch ($cmd) {
       </div>
     </div>";
 
-    break;
+  break;
     
 	case 'pessoalti':
 		echo "
@@ -64,7 +64,7 @@ switch ($cmd) {
       </div>
     </div>";
 
-    break;
+  break;
   
   case 'pessoalom':
     echo "
@@ -88,7 +88,7 @@ switch ($cmd) {
       </div>
     </div>";
 
-    break;
+  break;
     
   case 'funcsigdem':
     echo "
@@ -112,7 +112,7 @@ switch ($cmd) {
       </div>
     </div>";
 
-    break;
+  break;
     
   case 'controleusb':
     echo "
@@ -136,7 +136,7 @@ switch ($cmd) {
       </div>
     </div>";
 
-    break;
+  break;
 
   case 'administrador':
     echo "
@@ -160,7 +160,7 @@ switch ($cmd) {
       </div>
     </div>";
 
-    break;
+  break;
 
   case 'naopad':
     echo "
@@ -184,7 +184,7 @@ switch ($cmd) {
       </div>
     </div>";
 
-    break;
+  break;
   
   case 'perfisinternet':
     echo "
@@ -208,7 +208,7 @@ switch ($cmd) {
       </div>
     </div>";
 
-    break;
+  break;
 
 	case 'cursosti':
 		echo "
@@ -232,7 +232,7 @@ switch ($cmd) {
       </div>
     </div>";
 
-    break;
+  break;
   
   case 'servidores':
     echo "
@@ -280,7 +280,7 @@ switch ($cmd) {
       </div>
     </div>";
 
-    break;
+  break;
 
   case 'manutencaoet':
     echo "
@@ -302,7 +302,7 @@ switch ($cmd) {
       </div>
     </div>";
 
-    break;
+  break;
       
   case 'necaquisicao':
     echo "
@@ -326,7 +326,7 @@ switch ($cmd) {
       </div>
     </div>";
 
-    break;
+  break;
   
   case 'conectividade':
     echo "
@@ -350,7 +350,7 @@ switch ($cmd) {
       </div>
     </div>";
 
-    break;
+  break;
 
   case 'mapainfra':
     @$param = $_GET['param'];
@@ -379,7 +379,7 @@ switch ($cmd) {
       </div>
     </div>";
 
-    break;
+  break;
 
   case 'padsictic':
     echo "
@@ -399,7 +399,7 @@ switch ($cmd) {
       </div>
     </div>";
 
-    break;
+  break;
 
   case 'tri_tret':
     echo "
@@ -419,7 +419,18 @@ switch ($cmd) {
       </div>
     </div>";
 
-    break;
+  break;
+
+  case 'quadros':
+    echo "
+        <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">";
+    include "quadros.inc.php";
+    echo"
+    </main>
+      </div>
+    </div>";
+
+  break;
   
   case 'vat':
     @$param = $_GET['param'];
@@ -448,7 +459,7 @@ switch ($cmd) {
       </div>
     </div>";
 
-    break;
+  break;
 	
 	default:
 
@@ -481,7 +492,7 @@ switch ($cmd) {
 		    </main>
       </div>
     </div>";
-		break;
+	break;
 }
 
 include "../foot.php";

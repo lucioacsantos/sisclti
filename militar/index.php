@@ -3,7 +3,7 @@
 *** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
-/* Clasee de interação com o PostgreSQL */
+/* Classe de interação com o PostgreSQL */
 require_once "../class/constantes.inc.php";
 $config = new Config();
 $om = new OMApoiadas();
@@ -32,7 +32,7 @@ if (isset($_SESSION['user_name'])){
   $perfil = $_SESSION['perfil']; 
   if ($perfil == 'TEC_CLTI'){
 
-    /* Montagem do grid html5 conforme módulo solicidade */
+    /* Montagem do grid html5 conforme módulo solicitado */
     switch ($cmd) {
       case 'postograd':
         echo "

@@ -3,6 +3,8 @@
 *** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
+/** TODO: Documentar Classes/Funções */
+
 /* Inicializa Sessão */
 session_start();
 
@@ -29,7 +31,6 @@ class Config
     public $tipoclti;
     public $lotacaooficiais;
     public $lotacaopracas;
-
     public $ordena;
 
     function SelectAll()
@@ -81,7 +82,6 @@ class Config
         $row = $pg->getCol("SELECT sigla FROM db_clti.tb_clti");
         return $row;
     }
-
     function SelectAllCLTI()
     {
         require_once "pgsql.class.php";
@@ -2125,110 +2125,112 @@ class PAD{
 
 /** Classe Contadores */
 class Contadores{
-    public function CountSrv(){
+    public function CountSrv($condicao){
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getRows("SELECT COUNT(idtb_servidores) as cont, sigla,descricao,versao FROM db_clti.vw_servidores 
-            WHERE status ='EM PRODUÇÃO' GROUP BY sigla,descricao,versao");
+            WHERE status ='EM PRODUÇÃO' $condicao GROUP BY sigla,descricao,versao");
         return $row;
     }
-    public function CountTotalSrv(){
+    public function CountTotalSrv($condicao){
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getCol("SELECT COUNT(idtb_servidores) FROM db_clti.vw_servidores WHERE status ='EM PRODUÇÃO'");
+        $row = $pg->getCol("SELECT COUNT(idtb_servidores) FROM db_clti.vw_servidores WHERE status ='EM PRODUÇÃO' $condicao");
         return $row;
     }
-    public function CountET(){
+    public function CountET($condicao){
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getRows("SELECT sigla, COUNT(idtb_estacoes) as cont, descricao,versao,req_minimos 
-            FROM db_clti.vw_estacoes WHERE status ='EM PRODUÇÃO' GROUP BY sigla, req_minimos, descricao, versao ");
+            FROM db_clti.vw_estacoes WHERE status ='EM PRODUÇÃO' $condicao GROUP BY sigla, req_minimos, descricao, versao ");
         return $row;
     }
-    public function CountTotalET(){
+    public function CountTotalET($condicao){
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getCol("SELECT COUNT(idtb_estacoes) FROM db_clti.vw_estacoes WHERE status ='EM PRODUÇÃO' ");
+        $row = $pg->getCol("SELECT COUNT(idtb_estacoes) FROM db_clti.vw_estacoes WHERE status ='EM PRODUÇÃO' $condicao");
         return $row;
     }
-    public function CountConect(){
+    public function CountConect($condicao){
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getRows("SELECT COUNT(idtb_conectividade) as cont, idtb_om_apoiadas, sigla  FROM db_clti.vw_conectividade 
-            WHERE status ='EM PRODUÇÃO' GROUP BY idtb_om_apoiadas,sigla");
+            WHERE status ='EM PRODUÇÃO' $condicao GROUP BY idtb_om_apoiadas,sigla");
         return $row;
     }
-    public function CountTotalConect(){
+    public function CountTotalConect($condicao){
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getCol("SELECT COUNT(idtb_conectividade) FROM db_clti.vw_conectividade WHERE status ='EM PRODUÇÃO' ");
+        $row = $pg->getCol("SELECT COUNT(idtb_conectividade) FROM db_clti.vw_conectividade WHERE status ='EM PRODUÇÃO' 
+            $condicao");
         return $row;
     }
-    public function CountUSBLiberado(){
+    public function CountUSBLiberado($condicao){
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRows("SELECT COUNT(idtb_controle_usb) as cont, sigla  FROM db_clti.vw_controle_usb GROUP BY sigla");
+        $row = $pg->getRows("SELECT COUNT(idtb_controle_usb) as cont, sigla  FROM db_clti.vw_controle_usb 
+            WHERE autorizacao IS NOT NULL $condicao GROUP BY sigla");
         return $row;
     }
-    public function CountPermAdmin(){
+    public function CountPermAdmin($condicao){
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getRows("SELECT COUNT(idtb_permissoes_admin) as cont, sigla  FROM db_clti.vw_permissoes_admin 
-        GROUP BY sigla");
+            WHERE autorizacao IS NOT NULL $condicao GROUP BY sigla");
         return $row;
     }
-    public function CountSoftNaoPad(){
+    public function CountSoftNaoPad($condicao){
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getRows("SELECT COUNT(idtb_nao_padronizados) as cont, sigla  FROM db_clti.vw_nao_padronizados 
-        GROUP BY sigla");
+            WHERE autorizacao IS NOT NULL $condicao GROUP BY sigla");
         return $row;
     }
-    public function CountPessTI(){
+    public function CountPessTI($condicao){
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getRows("SELECT COUNT(idtb_pessoal_ti) as cont, sigla_om  FROM db_clti.vw_pessoal_ti 
-            WHERE status ='ATIVO' GROUP BY sigla_om ");
+            WHERE status ='ATIVO' $condicao GROUP BY sigla_om ");
         return $row;
     }
-    public function CountTotalPessTI(){
+    public function CountTotalPessTI($condicao){
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getCol("SELECT COUNT(idtb_pessoal_ti) FROM db_clti.vw_pessoal_ti WHERE status ='ATIVO' ");
+        $row = $pg->getCol("SELECT COUNT(idtb_pessoal_ti) FROM db_clti.vw_pessoal_ti WHERE status ='ATIVO' $condicao");
         return $row;
     }
-    public function CountQualiTI(){
+    public function CountQualiTI($condicao){
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRows("SELECT COUNT(idtb_qualificacao_ti) as cont, sigla_om 
-            FROM db_clti.vw_qualificacao_pesti GROUP BY sigla_om ");
+        $row = $pg->getRows("SELECT COUNT(idtb_qualificacao_ti) as cont, sigla_om FROM db_clti.vw_qualificacao_pesti 
+            WHERE situacao IS NOT NULL $condicao GROUP BY sigla_om ");
         return $row;
     }
-    public function CountPessoalOM(){
+    public function CountPessoalOM($condicao){
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getRows("SELECT COUNT(idtb_pessoal_om) as cont, sigla_om  FROM db_clti.vw_pessoal_om 
-            WHERE status ='ATIVO' GROUP BY sigla_om ");
+            WHERE status ='ATIVO' $condicao GROUP BY sigla_om ");
         return $row;
     }
-    public function CountTotalPessoalOM(){
+    public function CountTotalPessoalOM($condicao){
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getCol("SELECT COUNT(idtb_pessoal_om) FROM db_clti.vw_pessoal_om WHERE status ='ATIVO' ");
+        $row = $pg->getCol("SELECT COUNT(idtb_pessoal_om) FROM db_clti.vw_pessoal_om WHERE status ='ATIVO' $condicao");
         return $row;
     }
-    public function CountControleInternet(){
+    public function CountControleInternet($condicao){
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRows("SELECT COUNT(idtb_controle_internet) as cont, sigla, perfis 
-            FROM db_clti.vw_controle_internet GROUP BY sigla,perfis ");
+        $row = $pg->getRows("SELECT COUNT(idtb_controle_internet) as cont, sigla, perfis FROM db_clti.vw_controle_internet 
+            WHERE perfis IS NOT NULL $condicao GROUP BY sigla,perfis ");
         return $row;
     }
-    public function CountFuncSiGDEM(){
+    public function CountFuncSiGDEM($condicao){
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getRows("SELECT COUNT(idtb_funcoes_sigdem) as cont, sigla_om FROM db_clti.vw_funcoes_sigdem 
-            GROUP BY sigla_om");
+            WHERE sigla IS NOT NULL $condicao GROUP BY sigla_om");
         return $row;
     }
     public function CountLotOfCLTI(){

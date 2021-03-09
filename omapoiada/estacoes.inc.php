@@ -18,7 +18,7 @@ $row = $et->SelectAllETTable();
 
 @$act = $_GET['act'];
 
-/* Checa se o tipo de CLTI está cadastrado */
+/* Checa se há item cadastrado */
 if (($row == NULL) AND ($act == NULL)) {
 	echo "<h5>Não há estações cadastradas,<br />
 		 clique <a href=\"?cmd=estacoes&act=cad\">aqui</a> para fazê-lo.</h5>";
@@ -117,7 +117,7 @@ if (($row) AND ($act == NULL)) {
             </div>";
 }
 
-/* Método INSERT */
+/* Método INSERT/UPDATE */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         

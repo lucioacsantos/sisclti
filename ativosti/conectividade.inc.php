@@ -20,7 +20,7 @@ if (($row == NULL) AND ($act == NULL)) {
 		 clique <a href=\"?cmd=conectividade&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
 
-/* Carrega form para cadastro */
+/* Carrega form para cadastro com objetos do banco ou vazios */
 if ($act == 'cad') {
     @$param = $_GET['param'];
     if ($param){
@@ -55,9 +55,6 @@ if (($row) AND ($act == NULL)) {
                 </thead>";
 
     foreach ($conectividade as $key => $value) {
-
-        #Seleciona Sigla da OM Apoiada
-        
         echo"       <tr>
                         <th scope=\"row\">".$value->sigla."</th>
                         <td>".$value->fabricante."</td>
@@ -73,7 +70,7 @@ if (($row) AND ($act == NULL)) {
             </div>";
 }
 
-/* Método INSERT */
+/* Comando INSERT */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
 

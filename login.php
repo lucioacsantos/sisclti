@@ -3,7 +3,7 @@
 *** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
-/* Clasee de interação com o PostgreSQL */
+/* Classe de interação com o PostgreSQL */
 require_once "class/constantes.inc.php";
 $config = new Config();
 $url = $config->SelectURL();

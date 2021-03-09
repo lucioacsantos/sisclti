@@ -16,13 +16,13 @@ $conectividade = $conect->SelectAllConectView();
 
 @$act = $_GET['act'];
 
-/* Checa se o tipo de CLTI está cadastrado */
+/* Checa se há item cadastrado */
 if (($conectividade == NULL) AND ($act == NULL)) {
 	echo "<h5>Não há equipamentos de conectividade cadastrados,<br />
 		 clique <a href=\"?cmd=conectividade&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
 
-/* Carrega form para cadastro do tipo de CLTI */
+/* Carrega form para cadastro */
 if ($act == 'cad') {
     @$param = $_GET['param'];
     if ($param){
@@ -68,9 +68,6 @@ if (($conectividade) AND ($act == NULL)) {
                 </thead>";
 
     foreach ($conectividade as $key => $value) {
-
-        #Seleciona Sigla da OM Apoiada
-        
         echo"       <tr>
                         <th scope=\"row\">".$value->sigla."</th>
                         <td>".$value->compartimento."</td>
@@ -89,7 +86,7 @@ if (($conectividade) AND ($act == NULL)) {
             </div>";
 }
 
-/* Método INSERT */
+/* Método INSERT/UPDATE */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         $idtb_conectividade = $_POST['idtb_conectividade'];

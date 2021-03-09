@@ -103,6 +103,7 @@ if ($act == 'insert') {
     
 }
 
+/** Cadastro de temas no PAD */
 if ($act == 'cad_temas') {
     @$param = $_GET['param'];
     @$tema = $_POST['tema'];
@@ -143,6 +144,7 @@ if ($act == 'cad_temas') {
     }    
 }
 
+/** Registro de adestramentos */
 if ($act == 'reg_ade') {
     @$param = $_GET['param'];
     $pad->idtb_pad_sic_tic = $param;
@@ -174,6 +176,7 @@ if ($act == 'reg_ade') {
             </div>";
 }
 
+/** Registro de presentes no adestramento */
 if ($act == 'reg_presentes') {
     @$param = $_GET['param'];
     @$usuario = $_POST['nip_cpf'];
@@ -274,6 +277,7 @@ if ($act == 'reg_presentes') {
     }
 }
 
+/** Finaliza tema ministrado/não ministrado */
 if ($act == 'finalizar_tema') {
     @$param = $_GET['param'];
     $pad->idtb_temas_pad_sic_tic = $param;
@@ -291,6 +295,7 @@ if ($act == 'finalizar_tema') {
     }
 }
 
+/** Registra justificativa do não atendimento */
 if ($act == 'reg_justificativa') {
     @$param = $_GET['param'];
     $pad->idtb_temas_pad_sic_tic = $param;

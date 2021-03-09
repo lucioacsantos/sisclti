@@ -9,7 +9,7 @@ $pesclti = new PessoalCLTI();
 $config = new Config();
 $mil = new Militar();
 
-/* Recupera informações do tipo da Lotação do CLTI */
+/* Recupera informações */
 $row = $pesclti->SelectALL();
 
 @$act = $_GET['act'];
@@ -64,7 +64,7 @@ if ($act == 'cad') {
                                     <div class=\"form-group\">
                                         <label for=\"nip\">NIP:</label>
                                         <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" readonly=\"true\"
-                                            placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$clti->nip\" autocomplete=\"off\">
+                                            placeholder=\"NIP\" maxlength=\"8\" value=\"$clti->nip\" autocomplete=\"off\">
                                     </div>
 
                                     <div class=\"form-group\">
@@ -157,7 +157,7 @@ if ($act == 'cad') {
                                     <div class=\"form-group\">
                                         <label for=\"nip\">NIP:</label>
                                         <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" readonly=\"true\"
-                                            placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$clti->nip\" autocomplete=\"off\">
+                                            placeholder=\"NIP\" maxlength=\"8\" value=\"$clti->nip\" autocomplete=\"off\">
                                     </div>
 
                                     <div class=\"form-group\">
@@ -431,7 +431,10 @@ if ($act == 'insert') {
         $pesclti->correio_eletronico = mb_strtoupper($_POST['correio_eletronico'],'UTF-8');
         $pesclti->status = mb_strtoupper($_POST['ativo'],'UTF-8');
         $pesclti->perfil = "TEC_CLTI";
-
+        if ($nip == NULL && $cpf == NULL){
+            echo "<h5>NIP e CPF em branco, um dos itens deve ser preenchido!</h5>
+            <meta http-equiv=\"refresh\" content=\"5;url=?cmd=admin\">";
+        }
         if ($nip == NULL) {
             $usuario = $cpf;
         }

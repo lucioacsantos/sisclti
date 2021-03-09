@@ -3,12 +3,16 @@
 *** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
+/** Monta o menu lateral */
+
 /* Classe de interação com o PostgreSQL */
 require_once "class/constantes.inc.php";
 $config = new Config();
 $url = $config->SelectURL();
 $sigla = $config->SelectSigla();
 $versao = $config->SelectVersao();
+
+
 
 ?>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
@@ -66,7 +70,7 @@ $versao = $config->SelectVersao();
                 <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/dashboard\">
                     <span data-feather=\"hash\"></span>
-                    Dashboard
+                    Quadros de Situação
                   </a>
                 </li>
                 <li class=\"nav-item\">
@@ -181,6 +185,12 @@ $versao = $config->SelectVersao();
                   <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=padsictic\">
                     <span data-feather=\"file-text\"></span>
                     PAD SIC/TIC
+                  </a>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=quadros\">
+                    <span data-feather=\"file-text\"></span>
+                    Quadros de Situação
                   </a>
                 </li>
                 <!--<li class=\"nav-item\">

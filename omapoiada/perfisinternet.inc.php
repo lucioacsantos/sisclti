@@ -46,7 +46,7 @@ if ($act == NULL) {
     </div>";
 }
 
-/* Carrega form para cadastro de Admin */
+/* Carrega form para cadastro */
 if ($act == 'cad') {
     @$param = $_GET['param'];
 
@@ -184,7 +184,7 @@ if (($row) AND ($act == NULL)) {
             </table>
             </div>";
 }
-/* Método INSERT */
+/* Método INSERT/UPDATE */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         $idtb_controle_internet = $_POST['idtb_controle_internet'];

@@ -3,7 +3,7 @@
 *** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
-/* Clasee de interação com o PostgreSQL */
+/* ClasSe de interação com o PostgreSQL */
 require_once "../class/constantes.inc.php";
 $config = new Config();
 $om = new OMApoiadas();
@@ -33,7 +33,7 @@ if (isset($_SESSION['user_name'])){
   $perfil = $_SESSION['perfil']; 
   if ($perfil == 'TEC_CLTI'){
 
-    /* Montagem do grid html5 conforme módulo solicidade */
+    /* Montagem do grid html5 conforme módulo solicitado */
     switch ($cmd) {
       case 'tipoclti':
         echo "
@@ -56,7 +56,7 @@ if (isset($_SESSION['user_name'])){
           </div>
         </div>";
 
-        break;
+      break;
 
       case 'gerclti':
         echo "
@@ -79,7 +79,7 @@ if (isset($_SESSION['user_name'])){
           </div>
         </div>";
 
-        break;
+      break;
 
       case 'lotclti':
         echo "
@@ -105,33 +105,33 @@ if (isset($_SESSION['user_name'])){
           </div>
         </div>";
 
-        break;
+      break;
 
-        case 'qualificacao':
-          echo "
-              <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
-                <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
-                  <h1 class=\"h2\">Gerenciamento - Lotação do CLTI</h1>
-                  <div class=\"btn-toolbar mb-2 mb-md-0\">
-                    <div class=\"btn-group mr-2\">
-                      <a href=\"?cmd=qualificacao\"><button class=\"btn btn-sm btn-outline-secondary\">Cursos Pessoal do CLTI</button></a>
-                      <a href=\"?cmd=qualificacao&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
-                    </div>
-                    <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
-                      <span data-feather=\"calendar\"></span>
-                      Esta Semana
-                    </button>-->
+      case 'qualificacao':
+        echo "
+            <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
+              <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
+                <h1 class=\"h2\">Gerenciamento - Lotação do CLTI</h1>
+                <div class=\"btn-toolbar mb-2 mb-md-0\">
+                  <div class=\"btn-group mr-2\">
+                    <a href=\"?cmd=qualificacao\"><button class=\"btn btn-sm btn-outline-secondary\">Cursos Pessoal do CLTI</button></a>
+                    <a href=\"?cmd=qualificacao&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
                   </div>
-                </div>";
-          include "qualificacao.inc.php";
-          echo"
-          </main>
-            </div>
-          </div>";
+                  <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
+                    <span data-feather=\"calendar\"></span>
+                    Esta Semana
+                  </button>-->
+                </div>
+              </div>";
+        include "qualificacao.inc.php";
+        echo"
+        </main>
+          </div>
+        </div>";
   
-          break;
+      break;
 
-        case 'omapoiadas':
+      case 'omapoiadas':
         echo "
             <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
               <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
@@ -153,9 +153,9 @@ if (isset($_SESSION['user_name'])){
           </div>
         </div>";
 
-        break;
+      break;
 
-        case 'osic':
+      case 'osic':
         echo "
             <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
               <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
@@ -179,9 +179,9 @@ if (isset($_SESSION['user_name'])){
           </div>
         </div>";
 
-        break;
+      break;
 
-        case 'admin':
+      case 'admin':
         echo "
             <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
               <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
@@ -204,9 +204,9 @@ if (isset($_SESSION['user_name'])){
           </div>
         </div>";
 
-        break;
+      break;
 
-        case 'funcoesti':
+      case 'funcoesti':
           echo "
               <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
                 <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
@@ -228,7 +228,7 @@ if (isset($_SESSION['user_name'])){
             </div>
           </div>";
   
-          break;
+        break;
 
         case 'sistema':
           echo "
@@ -251,7 +251,7 @@ if (isset($_SESSION['user_name'])){
             </div>
           </div>";
       
-          break;
+        break;
 
         case 'perfilinternet':
           echo "
@@ -273,7 +273,7 @@ if (isset($_SESSION['user_name'])){
             </div>
           </div>";
       
-          break;
+        break;
       
     default:
 

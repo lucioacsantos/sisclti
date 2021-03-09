@@ -22,7 +22,7 @@ $srvom = $servidores->SelectIdOMSrvView();
 
 @$act = $_GET['act'];
 
-/* Checa se o tipo de CLTI está cadastrado */
+/* Checa se há item cadastrado */
 if (($conectividade == NULL) AND ($act == NULL)) {
 	echo "<h5>Não há equipamentos de conectividade cadastrados,<br />
         clique <a href=\"?cmd=conectividade&act=cad\">aqui</a> para fazê-lo.</h5>";
@@ -245,7 +245,10 @@ if (($conectividade) AND ($act == NULL)) {
                         <td>".$value->nome."</td>
                         <td>".$value->qtde_portas."</td>
                         <td>".$portas_ocupadas."</td>
-                        <td><a href=\"?cmd=mapainfra&act=cad&param=".$value->idtb_conectividade."\">Cadastrar</td>
+                        <td>
+                            <a href=\"?cmd=mapainfra&act=cad&param=".$value->idtb_conectividade."\">Cadastrar</a> ||
+                            <a href=\"?cmd=mapainfra&act=mod&param=".$value->idtb_conectividade."\">Modificar</a>
+                        </td>
                     </tr>";
     }
     echo"
@@ -254,7 +257,7 @@ if (($conectividade) AND ($act == NULL)) {
             </div>";
 }
 
-/* Método INSERT ET*/
+/* Método INSERT/UPDATE ET */
 if ($act == 'insert_et') {
     if (isset($_SESSION['status'])){
         $mapainfra->idtb_conectividade_orig = $_POST['idtb_conectividade_orig'];
@@ -300,7 +303,7 @@ if ($act == 'insert_et') {
     }
 }
 
-/* Método INSERT SRV*/
+/* Método INSERT/UPDATE SRV */
 if ($act == 'insert_srv') {
     if (isset($_SESSION['status'])){
         $mapainfra->idtb_conectividade_orig = $_POST['idtb_conectividade_orig'];
@@ -346,7 +349,7 @@ if ($act == 'insert_srv') {
     }
 }
 
-/* Método INSERT CONECTIVIDADE*/
+/* Método INSERT/UPDATE CONECTIVIDADE */
 if ($act == 'insert_conec') {
     if (isset($_SESSION['status'])){
         $mapainfra->idtb_conectividade_orig = $_POST['idtb_conectividade_orig'];

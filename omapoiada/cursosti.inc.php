@@ -37,7 +37,7 @@ if ($act == NULL) {
     </div>";
 }
 
-/* Carrega form para cadastro de Admin */
+/* Carrega form para cadastro */
 if ($act == 'cad') {
     @$param = $_GET['param'];
 
@@ -213,7 +213,7 @@ if (($row) AND ($act == NULL)) {
             </div>";
 }
 
-/* Método INSERT */
+/* Método INSERT/UPDATE */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         $idtb_qualificacao_ti = $_POST['idtb_qualificacao_ti'];

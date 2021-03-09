@@ -1,4 +1,7 @@
 <?php
+/**
+*** 99242991 | Lúcio ALEXANDRE Correia dos Santos
+**/
 
 require_once "../class/constantes.inc.php";
 require_once "../tcpdf/tcpdf.php";

@@ -20,7 +20,7 @@ if (($row == NULL) AND ($act == NULL)) {
 		 clique <a href=\"?cmd=admin&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
 
-/* Carrega form para cadastro de Admin */
+/* Carrega form para cadastro de Admin com objeto do banco ou vazio*/
 if ($act == 'cad') {
     @$param = $_GET['param'];
     @$senha = $_GET['senha'];
@@ -67,31 +67,26 @@ if ($act == 'cad') {
                                         hidden=\"required\" value=\"$admin->nome_guerra\">
                                     <input id=\"correio_eletronico\" class=\"form-control\" type=\"text\" 
                                         name=\"correio_eletronico\" hidden=\"required\" value=\"$admin->correio_eletronico\">
-
                                     <div class=\"form-group\">
                                         <label for=\"nip\">NIP:</label>
                                         <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" readonly=\"true\"
                                             placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$admin->nip\" autocomplete=\"off\">
                                     </div>
-
                                     <div class=\"form-group\">
                                         <label for=\"cpf\">CPF (Servidores Civis):</label>
                                         <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" readonly=\"true\"
                                             placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$admin->cpf\" autocomplete=\"off\">
                                     </div>
-
                                     <div class=\"form-group\">
                                         <label for=\"senha\" class=\"control-label\">Trocar Senha:</label>
                                         <input id=\"senha\" class=\"form-control\" type=\"password\" name=\"senha\"
                                             placeholder=\"Senha Segura\" minlength=\"8\" maxlength=\"25\">
                                     </div>
-
                                     <div class=\"form-group\">
                                         <label for=\"confirmasenha\" class=\"control-label\">Confirme a Senha:</label>
                                         <input id=\"confirmasenha\" class=\"form-control\" type=\"password\" name=\"confirmasenha\"
                                             placeholder=\"Confirmação da Senha\" minlength=\"8\" maxlength=\"25\">
                                     </div>
-
                                     <input id=\"ativo\" class=\"form-control\" name=\"ativo\"
                                         value=\"$admin->status\" hidden=\"true\">";
                                 }
@@ -99,7 +94,6 @@ if ($act == 'cad') {
                                 else{
                                     echo"
                                     <legend>Administradores de Rede - Alteração</legend>
-
                                     <div class=\"form-group\">
                                         <label for=\"omapoiada\">OM Apoiada:</label>
                                         <select id=\"omapoiada\" class=\"form-control\" name=\"omapoiada\">
@@ -111,7 +105,6 @@ if ($act == 'cad') {
                                             };
                                         echo "</select>
                                     </div>
-
                                     <div class=\"form-group\">
                                         <label for=\"postograd\">Posto/Graduação:</label>
                                         <select id=\"postograd\" class=\"form-control\" name=\"postograd\">
@@ -123,7 +116,6 @@ if ($act == 'cad') {
                                             };
                                         echo "</select>
                                     </div>
-
                                     <div class=\"form-group\">
                                         <label for=\"corpoquadro\">Corpo/Quadro:</label>
                                         <select id=\"corpoquadro\" class=\"form-control\" name=\"corpoquadro\">
@@ -135,7 +127,6 @@ if ($act == 'cad') {
                                             };
                                         echo "</select>
                                     </div>
-
                                     <div class=\"form-group\">
                                         <label for=\"especialidade\">Especialidade:</label>
                                         <select id=\"especialidade\" class=\"form-control\" name=\"especialidade\">
@@ -147,21 +138,18 @@ if ($act == 'cad') {
                                             };
                                         echo "</select>
                                     </div>
-
                                     <div class=\"form-group\">
                                         <label for=\"nome\">Nome Completo:</label>
                                         <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
                                             placeholder=\"Nome Completo\" minlength=\"2\" autocomplete=\"off\"
                                             style=\"text-transform:uppercase\" required=\"true\" value=\"$admin->nome\">
                                     </div>
-
                                     <div class=\"form-group\">
                                         <label for=\"nomeguerra\">Nome de Guerra:</label>
                                         <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
                                             placeholder=\"Nome de Guerra\" minlength=\"2\" autocomplete=\"off\"
                                             style=\"text-transform:uppercase\" required=\"true\" value=\"$admin->nome_guerra\">
                                     </div>
-
                                     <div class=\"form-group\">
                                         <label for=\"correio_eletronico\">Correio Eletrônico:</label>
                                         <input id=\"correio_eletronico\" class=\"form-control\" type=\"email\" 
@@ -169,24 +157,20 @@ if ($act == 'cad') {
                                             minlength=\"2\" style=\"text-transform:uppercase\" required=\"true\" 
                                             value=\"$admin->correio_eletronico\" autocomplete=\"off\">
                                     </div>
-
                                     <div class=\"form-group\">
                                         <label for=\"nip\">NIP:</label>
                                         <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" readonly=\"true\"
                                             placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$admin->nip\" autocomplete=\"off\">
                                     </div>
-
                                     <div class=\"form-group\">
                                         <label for=\"cpf\">CPF (Servidores Civis):</label>
                                         <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" readonly=\"true\"
                                             placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$admin->cpf\" autocomplete=\"off\">
                                     </div>
-
                                     <input id=\"senha\" class=\"form-control\" type=\"password\" name=\"senha\"
                                             value=\"\" hidden=\"true\">
                                     <input id=\"confirmasenha\" class=\"form-control\" type=\"password\" name=\"confirmasenha\"
                                         value=\"\" hidden=\"true\">
-
                                     <div class=\"form-group\">
                                         <label for=\"ativo\" class=\"control-label\">Situação:</label>
                                         <select id=\"ativo\" class=\"form-control\" name=\"ativo\">
@@ -212,7 +196,6 @@ if ($act == 'cad') {
                                     };
                                 echo "</select>
                             </div>
-
                             <div class=\"form-group\">
                                 <label for=\"postograd\">Posto/Graduação:</label>
                                 <select id=\"postograd\" class=\"form-control\" name=\"postograd\">
@@ -224,7 +207,6 @@ if ($act == 'cad') {
                                     };
                                 echo "</select>
                             </div>
-
                             <div class=\"form-group\">
                                 <label for=\"corpoquadro\">Corpo/Quadro:</label>
                                 <select id=\"corpoquadro\" class=\"form-control\" name=\"corpoquadro\">
@@ -236,7 +218,6 @@ if ($act == 'cad') {
                                     };
                                 echo "</select>
                             </div>
-
                             <div class=\"form-group\">
                                 <label for=\"especialidade\">Especialidade:</label>
                                 <select id=\"especialidade\" class=\"form-control\" name=\"especialidade\">
@@ -248,40 +229,34 @@ if ($act == 'cad') {
                                     };
                                 echo "</select>
                             </div>
-
                             <div class=\"form-group\">
                                 <label for=\"nip\">NIP:</label>
                                 <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" autocomplete=\"off\"
-                                       placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$admin->nip\">
+                                       placeholder=\"NIP\" maxlength=\"8\" value=\"$admin->nip\">
                             </div>
-
                             <div class=\"form-group\">
                                 <label for=\"cpf\">CPF (Servidores Civis):</label>
                                 <input id=\"cpf\" class=\"form-control\" type=\"text\" name=\"cpf\" autocomplete=\"off\"
                                        placeholder=\"CPF (Servidores Civis)\" maxlength=\"11\" value=\"$admin->cpf\">
                             </div>
-
                             <div class=\"form-group\">
                                 <label for=\"nome\">Nome Completo:</label>
                                 <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
                                     placeholder=\"Nome Completo\" minlength=\"2\" autocomplete=\"off\"
                                     style=\"text-transform:uppercase\" required=\"true\" value=\"$admin->nome\">
                             </div>
-
                             <div class=\"form-group\">
                                 <label for=\"nomeguerra\">Nome de Guerra:</label>
                                 <input id=\"nomeguerra\" class=\"form-control\" type=\"text\" name=\"nomeguerra\"
                                     placeholder=\"Nome de Guerra\" minlength=\"2\" autocomplete=\"off\"
                                     style=\"text-transform:uppercase\" required=\"true\" value=\"$admin->nome_guerra\">
                             </div>
-
                             <div class=\"form-group\">
                                 <label for=\"correio_eletronico\">Correio Eletrônico:</label>
                                 <input id=\"correio_eletronico\" class=\"form-control\" type=\"email\" name=\"correio_eletronico\"
                                     placeholder=\"Preferencialmente Zimbra\" minlength=\"2\" autocomplete=\"off\"
                                     style=\"text-transform:uppercase\" required=\"true\" value=\"$admin->correio_eletronico\">
                             </div>
-
                             <div class=\"form-group\">
                                 <label for=\"senha\" class=\"control-label\">Senha:</label>
                                 <input id=\"senha\" class=\"form-control\" type=\"password\" name=\"senha\"
@@ -289,7 +264,6 @@ if ($act == 'cad') {
                                        maxlength=\"25\" required=\"true\">
                                 <div class=\"help-block with-errors\"></div>
                             </div>
-
                             <div class=\"form-group\">
                                 <label for=\"confirmasenha\" class=\"control-label\">Confirme a Senha:</label>
                                 <input id=\"confirmasenha\" class=\"form-control\" type=\"password\" name=\"confirmasenha\"
@@ -368,7 +342,7 @@ if (($row != NULL) AND ($act == NULL)) {
             </div>";
 }
 
-/* Monta quadro de administradores */
+/* Monta quadro de administradores inativos */
 if ($act == 'inativos') {
 
 	$pesti->ordena = "ORDER BY sigla_om ASC";
@@ -445,6 +419,10 @@ if ($act == 'insert') {
         $pesti->correio_eletronico = mb_strtoupper($_POST['correio_eletronico'],'UTF-8');
         $pesti->status = mb_strtoupper($_POST['ativo'],'UTF-8');
         $pesti->idtb_funcoes_ti = '1';
+        if ($nip == NULL && $cpf == NULL){
+            echo "<h5>NIP e CPF em branco, um dos itens deve ser preenchido!</h5>
+            <meta http-equiv=\"refresh\" content=\"5;url=?cmd=admin\">";
+        }
         if ($nip == NULL) {
             $usuario = $cpf;
         }

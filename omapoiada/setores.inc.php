@@ -14,7 +14,7 @@ $setores = $om->SelectAllSetoresView();
 
 @$act = $_GET['act'];
 
-/* Checa se há SO cadastrado */
+/* Checa se há item cadastrado */
 if (($setores == NULL) AND ($act == NULL)) {
 	echo "<h5>Não há setores/seções/divisões cadastrados,<br />
 		 clique <a href=\"?cmd=setores&act=cad\">aqui</a> para fazê-lo.</h5>";
@@ -66,7 +66,7 @@ if (($setores) AND ($act == NULL)) {
             </div>";
 }
 
-/* Método INSERT */
+/* Método INSERT/UPDATE */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         $idtb_om_setores = $_POST['idtb_om_setores'];
