@@ -355,7 +355,26 @@ elseif ($versao == '1.5.9'){
 
 elseif ($versao == '1.5.10'){
 
-	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.10.</div>
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Atualizando banco de dados. Aguarde...</div>";
+	$pg->exec("CREATE TABLE db_clti.tb_dias_troca (
+		idtb_dias_troca serial NOT NULL,
+		id_usuario int4 NOT NULL,
+		dias_troca int4 NOT NULL,
+		CONSTRAINT tb_dias_troca_pkey PRIMARY KEY (idtb_dias_troca)
+	);
+	COMMENT ON TABLE db_clti.tb_dias_troca IS 'Tabela contendo Dias para Troca de Senha';");
+
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
+	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.11' WHERE parametro='VERSAO' ");
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.11.</div>
+	<meta http-equiv=\"refresh\" content=\"5\">";
+
+}
+
+elseif ($versao == '1.5.11'){
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.11.</div>
 	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
 
 }
