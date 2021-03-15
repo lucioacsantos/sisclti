@@ -270,7 +270,6 @@ class Usuario
             AND senha = '$this->senha' OR cpf = '$this->usuario' AND senha = '$this->senha' ");
         return $row;
     }
-
     public function perfilOM()
     {
         require_once "pgsql.class.php";
@@ -278,7 +277,6 @@ class Usuario
         $row = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_ti WHERE idtb_pessoal_ti = $this->iduser");
         return $row;
     }
-
     /* Verificação de Login/Perfil Usuários do CLTI */
     public function LoginCLTI()
     {
@@ -288,7 +286,6 @@ class Usuario
             AND senha = '$this->senha' OR cpf = '$this->usuario' AND senha = '$this->senha' ");
         return $row;
     }
-
     public function perfilCLTI()
     {
         require_once "pgsql.class.php";
@@ -296,16 +293,25 @@ class Usuario
         $row = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_clti WHERE idtb_lotacao_clti = $this->iduser");
         return $row;
     }
-    public function GetVencSenha(){
+    public function GetVencSenha()
+    {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_clti WHERE idtb_lotacao_clti = $this->iduser");
+        $row = $pg->getRow("SELECT * FROM db_clti.tb_dias_troca WHERE id_usuario = $this->iduser");
         return $row;
     }
-    public function SetVencSenha(){
+    public function SetVencSenha()
+    {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_clti WHERE idtb_lotacao_clti = $this->iduser");
+        $row = $pg->exec("UPDATE db_clti.tb_dias_troca SET dias_troca = 60 WHERE id_usuario = $this->iduser");
+        return $row;
+    }
+    public function DiasVenc()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("UPDATE db_clti.tb_dias_troca SET dias_troca = (dias_troca -1)");
         return $row;
     }
 }

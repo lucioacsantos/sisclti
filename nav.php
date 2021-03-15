@@ -38,14 +38,14 @@ $versao = $config->SelectVersao();
       </p>
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">| Alterar Senha |</a>
+          <a class="nav-link" href="<?php echo "$url/troca_senha.php"; ?>">| Alterar Senha |</a>
         </li>
       </ul>
-      <ul class="navbar-nav px-3">
+      <!--<ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
           <a class="nav-link" href="#">| Atualizar Dados |</a>
         </li>
-      </ul>
+      </ul>-->
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
           <a class="nav-link" href="<?php echo "$url/logout.php"; ?>">| Sair |</a>

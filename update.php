@@ -364,6 +364,16 @@ elseif ($versao == '1.5.10'){
 	);
 	COMMENT ON TABLE db_clti.tb_dias_troca IS 'Tabela contendo Dias para Troca de Senha';");
 
+	$row = $pg->getColValues("SELECT idtb_lotacao_clti FROM db_clti.tb_lotacao_clti");
+	foreach ($row as $value){
+		$row = $pg->exec("INSERT INTO db_clti.tb_dias_troca (id_usuario,dias_troca) VALUES ($value,60) ");
+	}
+
+	$row = $pg->getColValues("SELECT idtb_pessoal_ti FROM db_clti.tb_pessoal_ti");
+	foreach ($row as $value){
+		$row = $pg->exec("INSERT INTO db_clti.tb_dias_troca (id_usuario,dias_troca) VALUES ($value,60) ");
+	}
+
 	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
 	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.11' WHERE parametro='VERSAO' ");
 

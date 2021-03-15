@@ -33,66 +33,55 @@ if ($_SESSION['logged_in'] = true){
         }
     }
 }
-    
-
 ?>
 
 <!doctype html>
 <html lang="pt_BR">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Sistema Integrado para Centros Locais de Tecnologia da Informação">
-    <meta name="author" content="99242991 Lúcio ALEXANDRE Correia dos Santos">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
-    <?php echo "<link rel=\"icon\" href=\"$url/favicon.ico\">"; ?>
-
-    <title>...::: SisCLTI :::...</title>
-
-    <?php
-    /* Carrega CSS a partir da $url */
-    echo"
-    <!-- Bootstrap core CSS -->
-    <link href=\"$url/css/bootstrap.min.css\" rel=\"stylesheet\">
-
-    <!-- Stylesheet CSS -->
-    <link href=\"$url/css/signin.css\" rel=\"stylesheet\">";
-
-    ?>
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-
-  </head>
-
-  <body>
-
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="Sistema Integrado para Centros Locais de Tecnologia da Informação">
+        <meta name="author" content="99242991 Lúcio ALEXANDRE Correia dos Santos">
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
+        <?php echo "<link rel=\"icon\" href=\"$url/favicon.ico\">"; ?>
+        <title>...::: SisCLTI :::...</title>
+        <?php
+        /* Carrega CSS a partir da $url */
+        echo"
+        <!-- Bootstrap core CSS -->
+        <link href=\"$url/css/bootstrap.min.css\" rel=\"stylesheet\">
+        <!-- Stylesheet CSS -->
+        <link href=\"$url/css/signin.css\" rel=\"stylesheet\">";
+        ?>
+        <style>
+            .bd-placeholder-img {
+                font-size: 1.125rem;
+                text-anchor: middle;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+            @media (min-width: 768px) {
+                .bd-placeholder-img-lg {
+                    font-size: 3.5rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
 <?php
 @$act = $_GET['act'];
 
 if ($act == NULL){
-  echo "<form class=\"form-signin\" id=\"login\" role=\"form\" action=\"?act=alterar\" 
+  echo "<form class=\"form-signin\" id=\"troca_senha\" role=\"form\" action=\"?act=alterar\" 
                 method=\"post\" enctype=\"multipart/form-data\">
             <h1 class=\"h3 mb-3 font-weight-normal\">Alteração de Senha</h1>
             <label for=\"usuario\" class=\"sr-only\">NIP ou CPF</label>
-            <input type=\"text\" name=\"usuario\" id=\"usuario\" class=\"form-control\" placeholder=\"$nip_cpf\" 
-                required readonly>
+            <input type=\"text\" name=\"usuario\" id=\"usuario\"  value=\"$nip_cpf\"class=\"form-control\" 
+                placeholder=\"$nip_cpf\" readonly>
             <label for=\"senha\" class=\"sr-only\">Senha</label>
             <input type=\"password\" name=\"senha\" id=\"senha\" class=\"form-control\" placeholder=\"Senha\" required>
             <div class=\"help-block with-errors\"></div>
@@ -101,21 +90,22 @@ if ($act == NULL){
                 placeholder=\"Repita a Senha\" required>
             <div class=\"help-block with-errors\"></div>   
             <button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Trocar</button>
-     </form>";
+    </form>";
 }
 
 /* Método Login */
 if ($act == 'alterar') {
-    $usr->usuario = $_POST['usuario'];
+    $nip_cpf = $_POST['usuario'];
     $hash = sha1(md5($_POST['senha']));
-    $salt = sha1(md5($usr->usuario));
+    $salt = sha1(md5($nip_cpf));
     $senha = $salt.$hash;
     if ($_SESSION['perfil'] = 'TEC_CLTI'){
         $clti = new PessoalCLTI();
         $clti->idtb_lotacao_clti = $_SESSION['user_id'];
-        $row = $clti->UpdateSenha;
+        $row = $clti->UpdateSenha();
         if ($row){
-            $pwd = $user->SetVencSenha;
+            $user->iduser = $_SESSION['user_id'];
+            $pwd = $user->SetVencSenha();
             // muda o valor de logged_in para false
             $_SESSION['logged_in'] = false;
             // finaliza a sessão
@@ -131,10 +121,10 @@ if ($act == 'alterar') {
     else{
         $ti = new PessoalTI();
         $ti->idtb_pessoal_ti = $_SESSION['user_id'];
-        $row = $ti->UpdateSenhaPesti;
+        $row = $ti->UpdateSenhaPesti();
         if ($row){
-            $pwd = $user->SetVencSenha;
-            $pwd = $user->SetVencSenha;
+            $user->iduser = $_SESSION['user_id'];
+            $pwd = $user->SetVencSenha();
             // muda o valor de logged_in para false
             $_SESSION['logged_in'] = false;
             // finaliza a sessão
@@ -170,8 +160,7 @@ if ($act == 'alterar') {
 
     <!-- Cidades | Estados -->
     <script src=\"$url/js/cidades-estados-utf8.js\"></script>";
-?>
-
+    ?>
     <!-- Validação com Jquery -->
     <script type="text/javascript">
 		//$.validator.setDefaults( {
@@ -180,7 +169,7 @@ if ($act == 'alterar') {
 			//}
 		//} );
 		$( document ).ready( function () {
-            $( "#insereusuario" ).validate( {
+            $( "#troca_senha" ).validate( {
                 rules: {
                     senha: {
                         required: true,
