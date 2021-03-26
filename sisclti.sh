@@ -34,7 +34,7 @@ echo "Instalando pacotes necessários..."
 sleep 0.5
 yum group install -y "Servidor de Web Básico"
 yum -y install postgresql-server
-yum -y install php php-gd php-dom php-pgsql
+yum -y install php php-gd php-dom php-pgsql php-mbstring
 
 #Inicializando e habilitando os serviços
 echo "Inicializando e habilitando os serviços..."

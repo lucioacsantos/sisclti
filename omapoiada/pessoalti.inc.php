@@ -401,6 +401,9 @@ if ($act == 'insert') {
                 $pti->senha = $salt.$hash;
                 $row = $pti->UpdateSenhaPesti();
                 if ($row) {
+                    $user = new Usuario();
+                    $user->iduser = $idtb_pessoal_ti;
+                    $pwd = $user->SetVencSenha();
                     echo "<h5>Resgistros incluídos no banco de dados.</h5>
                     <meta http-equiv=\"refresh\" content=\"1;?cmd=pessoalti \">";
                 }    
@@ -427,6 +430,9 @@ if ($act == 'insert') {
                 $pti->senha = $salt.$hash;
                 $row = $pti->InsertPesTI();
                 if ($row) {
+                    $user = new Usuario();
+                    $user->iduser = $idtb_pessoal_ti;
+                    $pwd = $user->SetVencSenha();
                     echo "<h5>Resgistros incluídos no banco de dados.</h5>
                     <meta http-equiv=\"refresh\" content=\"1;?cmd=pessoalti\">";
                 }

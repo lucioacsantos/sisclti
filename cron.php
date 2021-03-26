@@ -9,5 +9,6 @@ $usr = new Usuario();
 
 /** -1 Dias para Vencimento de Senha */
 $row = $usr->DiasVenc();
+$row = $usr->DiasVencCLTI();
 
 ?>

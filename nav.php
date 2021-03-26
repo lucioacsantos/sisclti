@@ -216,12 +216,12 @@ $versao = $config->SelectVersao();
                   </a>
                 </li>
                 </li>
-                <li class=\"nav-item\">
+                <!--<li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=manutencaoet\">
                     <span data-feather=\"alert-triangle\"></span>
                     Manutenção de ET
                   </a>
-                </li>
+                </li>-->
                 <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=controleusb\">
                     <span data-feather=\"clipboard\"></span>

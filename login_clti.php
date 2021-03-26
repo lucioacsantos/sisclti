@@ -95,6 +95,7 @@ if ($act == 'acesso') {
 
     $_SESSION['logged_in'] = true;
     $_SESSION['user_id'] = $row->idtb_lotacao_clti;
+    $_SESSION['usuario'] = $usr->usuario;
     $_SESSION['posto_grad'] = $row->sigla_posto_grad;
     $_SESSION['user_name'] = $row->nome_guerra;
     $_SESSION['perfil'] = $row->perfil;

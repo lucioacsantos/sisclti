@@ -348,9 +348,6 @@ elseif ($versao == '1.5.9'){
 	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.10.</div>
 	<meta http-equiv=\"refresh\" content=\"5\">";
 
-	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.10.</div>
-	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
-
 }
 
 elseif ($versao == '1.5.10'){
@@ -363,11 +360,6 @@ elseif ($versao == '1.5.10'){
 		CONSTRAINT tb_dias_troca_pkey PRIMARY KEY (idtb_dias_troca)
 	);
 	COMMENT ON TABLE db_clti.tb_dias_troca IS 'Tabela contendo Dias para Troca de Senha';");
-
-	$row = $pg->getColValues("SELECT idtb_lotacao_clti FROM db_clti.tb_lotacao_clti");
-	foreach ($row as $value){
-		$row = $pg->exec("INSERT INTO db_clti.tb_dias_troca (id_usuario,dias_troca) VALUES ($value,60) ");
-	}
 
 	$row = $pg->getColValues("SELECT idtb_pessoal_ti FROM db_clti.tb_pessoal_ti");
 	foreach ($row as $value){
@@ -384,7 +376,31 @@ elseif ($versao == '1.5.10'){
 
 elseif ($versao == '1.5.11'){
 
-	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.11.</div>
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Atualizando banco de dados. Aguarde...</div>";
+	$pg->exec("CREATE TABLE db_clti.tb_dias_troca_clti (
+		idtb_dias_troca_clti serial NOT NULL,
+		id_usuario int4 NOT NULL,
+		dias_troca int4 NOT NULL,
+		CONSTRAINT tb_dias_troca_clti_pkey PRIMARY KEY (idtb_dias_troca_clti)
+	);
+	COMMENT ON TABLE db_clti.tb_dias_troca IS 'Tabela contendo Dias para Troca de Senha do CLTI';");	
+
+	$row = $pg->getColValues("SELECT idtb_lotacao_clti FROM db_clti.tb_lotacao_clti");
+	foreach ($row as $value){
+		$row = $pg->exec("INSERT INTO db_clti.tb_dias_troca_clti (id_usuario,dias_troca) VALUES ($value,60) ");
+	}
+
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
+	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.12' WHERE parametro='VERSAO' ");
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.12.</div>
+	<meta http-equiv=\"refresh\" content=\"5\">";
+
+}
+
+elseif ($versao == '1.5.12'){
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.12.</div>
 	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
 
 }

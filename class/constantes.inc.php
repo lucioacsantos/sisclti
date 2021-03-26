@@ -304,7 +304,7 @@ class Usuario
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->exec("UPDATE db_clti.tb_dias_troca SET dias_troca = 60 WHERE id_usuario = $this->iduser");
+        $row = $pg->exec("UPDATE db_clti.tb_dias_troca SET dias_troca = '60' WHERE id_usuario = $this->iduser");
         return $row;
     }
     public function DiasVenc()
@@ -312,6 +312,27 @@ class Usuario
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->exec("UPDATE db_clti.tb_dias_troca SET dias_troca = (dias_troca -1)");
+        return $row;
+    }
+    public function GetVencSenhaCLTI()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("SELECT * FROM db_clti.tb_dias_troca_clti WHERE id_usuario = $this->iduser");
+        return $row;
+    }
+    public function SetVencSenhaCLTI()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("UPDATE db_clti.tb_dias_troca_clti SET dias_troca = '60' WHERE id_usuario = $this->iduser");
+        return $row;
+    }
+    public function DiasVencCLTI()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("UPDATE db_clti.tb_dias_troca_clti SET dias_troca = (dias_troca -1)");
         return $row;
     }
 }

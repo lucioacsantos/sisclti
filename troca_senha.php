@@ -8,31 +8,9 @@ require_once "class/constantes.inc.php";
 $config = new Config();
 $user = new Usuario();
 $url = $config->SelectURL();
+$user_id = $_SESSION['user_id'];
+$usuario = $_SESSION['usuario'];
 
-if ($_SESSION['logged_in'] = true){
-    if ($_SESSION['perfil'] = 'TEC_CLTI'){
-        $idtb_lotacao_clti = $_SESSION['user_id'];
-        $user->iduser = $idtb_lotacao_clti;
-        $usuario = $user->perfilCLTI();
-        if ($usuario->nip != NULL){
-            $nip_cpf = $usuario->nip;
-        }
-        else{
-            $nip_cpf = $usuario->cpf;
-        }
-    }
-    else{
-        $idtb_pessoal_ti = $_SESSION['user_id'];
-        $user->iduser = $idtb_pessoal_ti;
-        $usuario = $user->perfilOM();
-        if ($usuario->nip != NULL){
-            $nip_cpf = $usuario->nip;
-        }
-        else{
-            $nip_cpf = $usuario->cpf;
-        }
-    }
-}
 ?>
 
 <!doctype html>
@@ -76,12 +54,12 @@ if ($_SESSION['logged_in'] = true){
 @$act = $_GET['act'];
 
 if ($act == NULL){
-  echo "<form class=\"form-signin\" id=\"troca_senha\" role=\"form\" action=\"?act=alterar\" 
+    echo "<form class=\"form-signin\" id=\"troca_senha\" role=\"form\" action=\"?act=alterar\" 
                 method=\"post\" enctype=\"multipart/form-data\">
             <h1 class=\"h3 mb-3 font-weight-normal\">Alteração de Senha</h1>
             <label for=\"usuario\" class=\"sr-only\">NIP ou CPF</label>
-            <input type=\"text\" name=\"usuario\" id=\"usuario\"  value=\"$nip_cpf\"class=\"form-control\" 
-                placeholder=\"$nip_cpf\" readonly>
+            <input type=\"text\" name=\"usuario\" id=\"usuario\"  value=\"$usuario\"class=\"form-control\" 
+                placeholder=\"$usuario\" readonly>
             <label for=\"senha\" class=\"sr-only\">Senha</label>
             <input type=\"password\" name=\"senha\" id=\"senha\" class=\"form-control\" placeholder=\"Senha\" required>
             <div class=\"help-block with-errors\"></div>
@@ -93,48 +71,73 @@ if ($act == NULL){
     </form>";
 }
 
-/* Método Login */
+/* Método Alterar */
 if ($act == 'alterar') {
     $nip_cpf = $_POST['usuario'];
-    $hash = sha1(md5($_POST['senha']));
-    $salt = sha1(md5($nip_cpf));
-    $senha = $salt.$hash;
-    if ($_SESSION['perfil'] = 'TEC_CLTI'){
-        $clti = new PessoalCLTI();
-        $clti->idtb_lotacao_clti = $_SESSION['user_id'];
-        $row = $clti->UpdateSenha();
+    $senha = $_POST['senha'];
+    $perfil = $_SESSION['perfil'];
+    if ($perfil == 'TEC_CLTI'){
+        $hash = sha1(md5($senha));
+        $salt = sha1(md5($nip_cpf));
+        $senha = $salt.$hash;
+        $user->usuario = $nip_cpf;
+        $user->senha = $senha;
+        $row = $user->LoginCLTI();
         if ($row){
-            $user->iduser = $_SESSION['user_id'];
-            $pwd = $user->SetVencSenha();
-            // muda o valor de logged_in para false
-            $_SESSION['logged_in'] = false;
-            // finaliza a sessão
-            session_destroy();
-            echo "<h5>Senha alterada.</h5>
-            <meta http-equiv=\"refresh\" content=\"5;url=?index.php\">";
+            echo "<h5>Foi informada senha igual a anterior, tente novamente.</h5>
+            <meta http-equiv=\"refresh\" content=\"5;url=index.php\">";
         }
-        else {
-            echo "<h5>Ocorreu algum erro, tente novamente.</h5>
-            <meta http-equiv=\"refresh\" content=\"1;url=?index.php\">";
+        else{
+            $clti = new PessoalCLTI();
+            $clti->idtb_lotacao_clti = $user_id;
+            $clti->senha = $senha;
+            $row = $clti->UpdateSenha();
+            if ($row){
+                $user->iduser = $user_id;
+                $pwd = $user->SetVencSenhaCLTI();
+                // muda o valor de logged_in para false
+                $_SESSION['logged_in'] = false;
+                // finaliza a sessão
+                session_destroy();
+                echo "<h5>Senha alterada.</h5>
+                <meta http-equiv=\"refresh\" content=\"1;url=index.php\">";
+            }
+            else {
+                echo "<h5>Ocorreu algum erro, tente novamente.</h5>
+                <meta http-equiv=\"refresh\" content=\"5;url=index.php\">";
+            }
         }
     }
     else{
-        $ti = new PessoalTI();
-        $ti->idtb_pessoal_ti = $_SESSION['user_id'];
-        $row = $ti->UpdateSenhaPesti();
+        $hash = sha1(md5($senha));
+        $salt = sha1(md5($nip_cpf));
+        $senha = $salt.$hash;
+        $user->usuario = $nip_cpf;
+        $user->senha = $senha;
+        $row = $user->LoginOM();
         if ($row){
-            $user->iduser = $_SESSION['user_id'];
-            $pwd = $user->SetVencSenha();
-            // muda o valor de logged_in para false
-            $_SESSION['logged_in'] = false;
-            // finaliza a sessão
-            session_destroy();
-            echo "<h5>Senha alterada.</h5>
-            <meta http-equiv=\"refresh\" content=\"5;url=?index.php\">";
+            echo "<h5>Foi informada senha igual a anterior, tente novamente.</h5>
+            <meta http-equiv=\"refresh\" content=\"5;url=index.php\">";
         }
-        else {
-            echo "<h5>Ocorreu algum erro, tente novamente.</h5>
-            <meta http-equiv=\"refresh\" content=\"1;url=?index.php\">";
+        else{
+            $ti = new PessoalTI();
+            $ti->idtb_pessoal_ti = $user_id;
+            $ti->senha = $senha;
+            $row = $ti->UpdateSenhaPesti();
+            if ($row){
+                $user->iduser = $user_id;
+                $pwd = $user->SetVencSenha();
+                // muda o valor de logged_in para false
+                $_SESSION['logged_in'] = false;
+                // finaliza a sessão
+                session_destroy();
+                echo "<h5>Senha alterada.</h5>
+                <meta http-equiv=\"refresh\" content=\"1;url=index.php\">";
+            }
+            else {
+                echo "<h5>Ocorreu algum erro, tente novamente.</h5>
+                <meta http-equiv=\"refresh\" content=\"1;url=index.php\">";
+            }
         }
     }
 }
