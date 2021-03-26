@@ -13,7 +13,8 @@ class PgSql
     public  $aff_rows;
     public function __construct()
     {
-        require 'config.php';
+        $path = dirname(__FILE__) . '';
+        require "$path/../config/config.php";
         $this->db = pg_connect("host=$host port=$port dbname=$dbname 
                                 user=$user password=$password");
         if (!$this->db) exit();
