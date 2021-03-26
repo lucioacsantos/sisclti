@@ -113,9 +113,9 @@ cp -ru $PWD/ /var/www/html/sisclti
 #rm -fr $PWD
 
 #Configurações inciciais do sistema
-cp /var/www/html/sisclti/class/config_default.php /var/www/html/sisclti/class/config.php
+cp /var/www/html/sisclti/class/config_default.php /var/www/html/sisclti/config/config.php
 sed -i "s/localhost/$URLIP/g" /var/www/html/sisclti/db_clti_dados.sql
-sed -i "s/db_passwd/$BDPWS/g" /var/www/html/sisclti/class/config.php
+sed -i "s/db_passwd/$BDPWS/g" /var/www/html/sisclti/config/config.php
 
 #Executando configuração do banco de dados PostgreSQL
 echo "Executando configuração do banco de dados PostgreSQL..."

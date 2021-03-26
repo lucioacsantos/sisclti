@@ -57,21 +57,21 @@ echo "Aguarde....";
 sleep 0.2
 clear
 echo "";
-echo " XXXX  XXXXX   XXXX    XXXXX  X";
-echo "X        X    X       X       X";
-echo " XXXX    X     XXXX   X       X";
-echo "     X   X         X  X       X";
-echo " XXXX  XXXXX   XXXX    XXXXX  XXXXXX";
+echo " XXXX   XXXXX   XXXX    XXXXX  X";
+echo "X         X    X       X       X";
+echo " XXXX     X     XXXX   X       X";
+echo "     X    X         X  X       X";
+echo " XXXX   XXXXX   XXXX    XXXXX  XXXXXX";
 echo "";
 echo "Aguarde....";
 sleep 0.2
 clear
 echo "";
-echo " XXXX  XXXXX   XXXX    XXXXX  X      XXXXX";
-echo "X        X    X       X       X        X";
-echo " XXXX    X     XXXX   X       X        X";
-echo "     X   X         X  X       X        X";
-echo " XXXX  XXXXX   XXXX    XXXXX  XXXXXX   X";
+echo " XXXX   XXXXX   XXXX    XXXXX  X       XXXXX";
+echo "X         X    X       X       X         X";
+echo " XXXX     X     XXXX   X       X         X";
+echo "     X    X         X  X       X         X";
+echo " XXXX   XXXXX   XXXX    XXXXX  XXXXXX    X";
 echo "";
 echo "Aguarde....";
 sleep 0.2
