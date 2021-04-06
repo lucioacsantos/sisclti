@@ -8,6 +8,7 @@ require_once "../class/constantes.inc.php";
 $pesclti = new PessoalCLTI();
 $config = new Config();
 $mil = new Militar();
+$usr = new Usuario();
 
 /* Recupera informações */
 $row = $pesclti->SelectALL();
@@ -449,6 +450,8 @@ if ($act == 'insert') {
             if($senha==NULL){
                 $row = $pesclti->Update();
                 if ($row) {
+                    $usr->iduser = $idtb_lotacao_clti;
+                    $pwd = $usr->SetVencSenhaCLTI(5);
                     echo "<h5>Resgistros incluídos no banco de dados.</h5>
                     <meta http-equiv=\"refresh\" content=\"1;url=?cmd=lotclti\">";
                 }
@@ -463,6 +466,8 @@ if ($act == 'insert') {
                 $pesclti->senha = $salt.$hash;
                 $row = $pesclti->UpdateSenha();
                 if ($row) {
+                    $usr->iduser = $idtb_lotacao_clti;
+                    $pwd = $usr->SetVencSenhaCLTI(5);
                     echo "<h5>Resgistros incluídos no banco de dados.</h5>
                     <meta http-equiv=\"refresh\" content=\"1;url=?cmd=lotclti\">";
                 }
@@ -489,7 +494,9 @@ if ($act == 'insert') {
                 $pesclti->senha = $salt.$hash;
                 $row = $pesclti->Insert();
                 if ($row) {
-                    echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                    $usr->iduser = $row;
+                    $pwd = $usr->SetVencSenhaCLTI(5);
+                    echo "<h5>Resgistros incluídos no banco de dados id $row.</h5>
                     <meta http-equiv=\"refresh\" content=\"1;url=?cmd=lotclti\">";
                 }
                 else {

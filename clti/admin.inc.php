@@ -8,6 +8,7 @@ require_once "../class/constantes.inc.php";
 $om = new OMAPoiadas();
 $pesti = new PessoalTI();
 $mil = new Militar();
+$usr = new Usuario();
 
 /* Recupera informações */
 $row = $pesti->SelectALLAdmin();
@@ -436,6 +437,8 @@ if ($act == 'insert') {
             if($senha==NULL){
                 $row = $pesti->UpdatePesTI();
                 if ($row) {
+                    $usr->iduser = $idtb_pessoal_ti;
+                    $pwd = $usr->SetVencSenha(5);
                     echo "<h5>Resgistros incluídos no banco de dados.</h5>
                     <meta http-equiv=\"refresh\" content=\"1;url=?cmd=admin\">";
                 }
@@ -450,6 +453,8 @@ if ($act == 'insert') {
                 $pesti->senha = $salt.$hash;
                 $row = $pesti->UpdateSenhaPesti();
                 if ($row) {
+                    $usr->iduser = $idtb_pessoal_ti;
+                    $pwd = $usr->SetVencSenha(5);
                     echo "<h5>Resgistros incluídos no banco de dados.</h5>
                     <meta http-equiv=\"refresh\" content=\"1;url=?cmd=admin\">";
                 }

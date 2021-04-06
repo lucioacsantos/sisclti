@@ -94,7 +94,7 @@ if ($act == 'alterar') {
             $row = $clti->UpdateSenha();
             if ($row){
                 $user->iduser = $user_id;
-                $pwd = $user->SetVencSenhaCLTI();
+                $pwd = $user->SetVencSenhaCLTI(60);
                 // muda o valor de logged_in para false
                 $_SESSION['logged_in'] = false;
                 // finaliza a sessão
@@ -126,7 +126,7 @@ if ($act == 'alterar') {
             $row = $ti->UpdateSenhaPesti();
             if ($row){
                 $user->iduser = $user_id;
-                $pwd = $user->SetVencSenha();
+                $pwd = $user->SetVencSenha(60);
                 // muda o valor de logged_in para false
                 $_SESSION['logged_in'] = false;
                 // finaliza a sessão

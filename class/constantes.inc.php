@@ -300,11 +300,19 @@ class Usuario
         $row = $pg->getRow("SELECT * FROM db_clti.tb_dias_troca WHERE id_usuario = $this->iduser");
         return $row;
     }
-    public function SetVencSenha()
+    public function SetVencSenha($dias)
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->exec("UPDATE db_clti.tb_dias_troca SET dias_troca = '60' WHERE id_usuario = $this->iduser");
+        $row = $pg->exec("UPDATE db_clti.tb_dias_troca SET dias_troca = $dias WHERE id_usuario = $this->iduser");
+        return $row;
+    }
+    public function InsertVencSenha($dias)
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->insert("INSERT INTO db_clti.tb_dias_troca (dias_troca,id_usuario) VALUES ($dias,$this->iduser)",
+            'idtb_dias_troca');
         return $row;
     }
     public function DiasVenc()
@@ -321,11 +329,19 @@ class Usuario
         $row = $pg->getRow("SELECT * FROM db_clti.tb_dias_troca_clti WHERE id_usuario = $this->iduser");
         return $row;
     }
-    public function SetVencSenhaCLTI()
+    public function SetVencSenhaCLTI($dias)
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->exec("UPDATE db_clti.tb_dias_troca_clti SET dias_troca = '60' WHERE id_usuario = $this->iduser");
+        $row = $pg->exec("UPDATE db_clti.tb_dias_troca_clti SET dias_troca = $dias WHERE id_usuario = $this->iduser");
+        return $row;
+    }
+    public function InsertVencSenhaCLTI($dias)
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->insert("INSERT INTO db_clti.tb_dias_troca (dias_troca,id_usuario) VALUES ($dias,$this->iduser)",
+            'idtb_dias_troca_clti');
         return $row;
     }
     public function DiasVencCLTI()
@@ -948,7 +964,7 @@ class PessoalCLTI
             VALUES ('$this->idtb_posto_grad','$this->idtb_corpo_quadro',
             '$this->idtb_especialidade','$this->nip','$this->cpf','$this->nome','$this->nome_guerra',
             '$this->correio_eletronico','$this->status','$this->senha','$this->perfil')";
-        $row = $pg->exec($sql);
+        $row = $pg->insert($sql,'idtb_lotacao_clti');
         return $row;
     }
     public function Update()
