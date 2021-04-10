@@ -495,7 +495,7 @@ if ($act == 'insert') {
                 $row = $pesclti->Insert();
                 if ($row) {
                     $usr->iduser = $row;
-                    $pwd = $usr->SetVencSenhaCLTI(5);
+                    $pwd = $usr->InsertVencSenhaCLTI(5);
                     echo "<h5>Resgistros incluídos no banco de dados id $row.</h5>
                     <meta http-equiv=\"refresh\" content=\"1;url=?cmd=lotclti\">";
                 }

@@ -297,7 +297,7 @@ class Usuario
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT * FROM db_clti.tb_dias_troca WHERE id_usuario = $this->iduser");
+        $row = $pg->getCol("SELECT dias_troca FROM db_clti.tb_dias_troca WHERE id_usuario = $this->iduser");
         return $row;
     }
     public function SetVencSenha($dias)
@@ -326,7 +326,7 @@ class Usuario
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT * FROM db_clti.tb_dias_troca_clti WHERE id_usuario = $this->iduser");
+        $row = $pg->getCol("SELECT dias_troca FROM db_clti.tb_dias_troca_clti WHERE id_usuario = $this->iduser");
         return $row;
     }
     public function SetVencSenhaCLTI($dias)
@@ -340,7 +340,7 @@ class Usuario
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->insert("INSERT INTO db_clti.tb_dias_troca (dias_troca,id_usuario) VALUES ($dias,$this->iduser)",
+        $row = $pg->insert("INSERT INTO db_clti.tb_dias_troca_clti (dias_troca,id_usuario) VALUES ($dias,$this->iduser)",
             'idtb_dias_troca_clti');
         return $row;
     }

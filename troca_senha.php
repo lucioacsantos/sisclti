@@ -10,6 +10,8 @@ $user = new Usuario();
 $url = $config->SelectURL();
 $user_id = $_SESSION['user_id'];
 $usuario = $_SESSION['usuario'];
+$_SESSION ['msg'] = "";
+$msg = $_SESSION ['msg'];
 
 ?>
 
@@ -54,21 +56,7 @@ $usuario = $_SESSION['usuario'];
 @$act = $_GET['act'];
 
 if ($act == NULL){
-    echo "<form class=\"form-signin\" id=\"troca_senha\" role=\"form\" action=\"?act=alterar\" 
-                method=\"post\" enctype=\"multipart/form-data\">
-            <h1 class=\"h3 mb-3 font-weight-normal\">Alteração de Senha</h1>
-            <label for=\"usuario\" class=\"sr-only\">NIP ou CPF</label>
-            <input type=\"text\" name=\"usuario\" id=\"usuario\"  value=\"$usuario\"class=\"form-control\" 
-                placeholder=\"$usuario\" readonly>
-            <label for=\"senha\" class=\"sr-only\">Senha</label>
-            <input type=\"password\" name=\"senha\" id=\"senha\" class=\"form-control\" placeholder=\"Senha\" required>
-            <div class=\"help-block with-errors\"></div>
-            <label for=\"confirmasenha\" class=\"sr-only\">Repita a Senha</label>
-            <input type=\"password\" name=\"confirmasenha\" id=\"confirmasenha\" class=\"form-control\" 
-                placeholder=\"Repita a Senha\" required>
-            <div class=\"help-block with-errors\"></div>   
-            <button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Trocar</button>
-    </form>";
+    include_once("senha.inc.php");
 }
 
 /* Método Alterar */
@@ -84,8 +72,9 @@ if ($act == 'alterar') {
         $user->senha = $senha;
         $row = $user->LoginCLTI();
         if ($row){
-            echo "<h5>Foi informada senha igual a anterior, tente novamente.</h5>
-            <meta http-equiv=\"refresh\" content=\"5;url=index.php\">";
+            $_SESSION['msg'] = "Foi informada senha igual a anterior, tente novamente.";
+            $msg = $_SESSION['msg'];
+            include_once("senha.inc.php");
         }
         else{
             $clti = new PessoalCLTI();
@@ -116,8 +105,9 @@ if ($act == 'alterar') {
         $user->senha = $senha;
         $row = $user->LoginOM();
         if ($row){
-            echo "<h5>Foi informada senha igual a anterior, tente novamente.</h5>
-            <meta http-equiv=\"refresh\" content=\"5;url=index.php\">";
+            $_SESSION['msg'] = "Foi informada senha igual a anterior, tente novamente.";
+            $msg = $_SESSION['msg'];
+            include_once("senha.inc.php");
         }
         else{
             $ti = new PessoalTI();

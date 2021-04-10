@@ -9,6 +9,8 @@ $config = new Config();
 $url = $config->SelectURL();
 $sigla = $config->SelectSigla();
 $versao = $config->SelectVersao();
+$_SESSION ['msg'] = "";
+$msg = $_SESSION ['msg'];
 
 ?>
 
@@ -62,19 +64,7 @@ $versao = $config->SelectVersao();
 @$act = $_GET['act'];
 
 if ($act == NULL){
-  echo "
-  <form class=\"form-signin\" id=\"login\" role=\"form\" action=\"?act=acesso\" 
-    method=\"post\" enctype=\"multipart/form-data\">
-    <h1 class=\"h3 mb-3 font-weight-normal\">Login de Usuário</h1>
-    <label for=\"usuario\" class=\"sr-only\">NIP ou CPF</label>
-    <input type=\"text\" name=\"usuario\" id=\"usuario\" class=\"form-control\" placeholder=\"NIP ou CPF\" autocomplete=\"off\" required autofocus>
-    <div class=\"help-block with-errors\"></div>
-    <label for=\"senha\" class=\"sr-only\">Senha</label>
-    <input type=\"password\" name=\"senha\" id=\"senha\" class=\"form-control\" placeholder=\"Senha\" required>
-    <div class=\"help-block with-errors\"></div>
-    <button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Entrar</button>
-    <p class=\"mt-5 mb-3 text-muted\"><a href=\"login_clti.php\">Técnicos do CLTI clique aqui.</a></p>
-  </form>";
+  include_once("login.inc.php");
 }
 
 /* Método Login */
@@ -91,35 +81,33 @@ if ($act == 'acesso') {
 	if ($row != NULL) {
 
     $usr->iduser = $row->idtb_pessoal_ti;
+    $venc_senha = $usr->GetVencSenha();
     $row = $usr->perfilOM();
-
-    $_SESSION['logged_in'] = true;
-    $_SESSION['user_id'] = $row->idtb_pessoal_ti;
-    $_SESSION['usuario'] = $usr->usuario;
-    $_SESSION['posto_grad'] = $row->sigla_posto_grad;
-    $_SESSION['user_name'] = $row->nome_guerra;
-    $_SESSION['perfil'] = $row->sigla_funcao;
-    $_SESSION['status'] = $row->status;
-    $_SESSION['id_om_apoiada'] = $row->idtb_om_apoiadas;
-    $_SESSION['om_apoiada'] = $row->sigla_om;
-    
-    header('Location: index.php');
+    if ($venc_senha < 1){
+      $_SESSION ['msg'] = "Sua senha venceu! Entre em contato com o CLTI!";
+      $msg = $_SESSION ['msg'];
+      $_SESSION['logged_in'] = false;
+      include_once("login.inc.php");
+    }
+    else{
+      $_SESSION['logged_in'] = true;
+      $_SESSION['user_id'] = $row->idtb_pessoal_ti;
+      $_SESSION['venc_senha'] = $usr->GetVencSenha();
+      $_SESSION['usuario'] = $usr->usuario;
+      $_SESSION['posto_grad'] = $row->sigla_posto_grad;
+      $_SESSION['user_name'] = $row->nome_guerra;
+      $_SESSION['perfil'] = $row->sigla_funcao;
+      $_SESSION['status'] = $row->status;
+      $_SESSION['id_om_apoiada'] = $row->idtb_om_apoiadas;
+      $_SESSION['om_apoiada'] = $row->sigla_om;
+      
+      header('Location: index.php');
+    }
 	}
 	else {
-    echo "
-    <form class=\"form-signin\" id=\"login\" role=\"form\" action=\"?act=acesso\" 
-      method=\"post\" enctype=\"multipart/form-data\">
-      <h5>Ocorreu algum erro, tente novamente.</h5>
-      <h1 class=\"h3 mb-3 font-weight-normal\">Login de Usuário</h1>
-      <label for=\"usuario\" class=\"sr-only\">NIP ou CPF</label>
-      <input type=\"text\" name=\"usuario\" id=\"usuario\" class=\"form-control\" placeholder=\"NIP ou CPF\" autocomplete=\"off\" required autofocus>
-      <div class=\"help-block with-errors\"></div>
-      <label for=\"senha\" class=\"sr-only\">Senha</label>
-      <input type=\"password\" name=\"senha\" id=\"senha\" class=\"form-control\" placeholder=\"Senha\" required>
-      <div class=\"help-block with-errors\"></div>
-      <button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Entrar</button>
-      <p class=\"mt-5 mb-3 text-muted\"><a href=\"login_clti.php\">Técnicos do CLTI clique aqui.</a></p>
-    </form>";
+    $_SESSION ['msg'] = "Usuário ou senha incorretos!";
+    $msg = $_SESSION ['msg'];
+    include_once("login.inc.php");
 	}
 }
 

@@ -23,7 +23,8 @@ $versao = $config->SelectVersao();
       <p class="navbar-brand">
         <?php 
           if (isset($_SESSION['user_name'])){
-            echo "".$_SESSION['posto_grad']." - ".$_SESSION['user_name']." - ".$_SESSION['perfil']."";
+            echo "".$_SESSION['posto_grad']." - ".$_SESSION['user_name']." - ".$_SESSION['perfil']." 
+              - Validade da senha: ".$_SESSION['venc_senha']." dias.";
             $perfil = $_SESSION['perfil'];
           }
           else{
