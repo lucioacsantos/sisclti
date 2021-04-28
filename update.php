@@ -10,13 +10,13 @@ $pg = new PgSql();
 $url = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='URL'");
 
 /* Verifica Sessão de Login Ativa */
-if (!isLoggedIn()){
+/*if (!isLoggedIn()){
     header("Location: login_clti.php");
 }
 
 if (isset($_SESSION['user_name'])){
 	$perfil = $_SESSION['perfil']; 
-	if ($perfil == 'TEC_CLTI'){
+	if ($perfil == 'TEC_CLTI'){*/
 
 echo"
 
@@ -410,7 +410,7 @@ else{
 }
 
 /** Encerrando Verifica Sessão de Login Ativa */
-	}
-}
+/*	}
+}*/
 
 ?>

@@ -574,7 +574,7 @@ class PessoalTI
             VALUES ('$this->idtb_om_apoiadas','$this->idtb_posto_grad','$this->idtb_corpo_quadro',
             '$this->idtb_especialidade','$this->nip','$this->cpf','$this->nome','$this->nome_guerra',
             '$this->correio_eletronico','$this->status','$this->senha','$this->idtb_funcoes_ti')";
-        $row = $pg->exec($sql);
+        $row = $pg->insert($sql, 'idtb_pessoal_ti');
         return $row;
     }
     public function UpdatePesTI()
@@ -2333,5 +2333,30 @@ class Contadores{
         $pg = new PgSql();
         $row = $pg->getCol("SELECT COUNT(idtb_qualificacao_clti) as cont  FROM db_clti.vw_qualificacao_clti");
         return $row;
+    }
+}
+
+/** Classe Monitoramento */
+class Monitoramento
+{
+    public $end_ip;
+    
+    public function SelectSrv()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT nome,end_ip FROM db_clti.tb_servidores WHERE status = 'EM PRODUÇÃO'");
+        return $row;
+    }
+    public function PingSrv($ip)
+    {
+        $comando = "/bin/ping -c 1 " . $ip;
+        $saida = shell_exec($comando);
+        return $saida;
+    }
+    public function PortaSrv($ip,$porta)
+    {
+        $saida = @fsockopen($ip, $porta, $errno, $errstr, 1);
+        return $saida;
     }
 }

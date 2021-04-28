@@ -437,8 +437,6 @@ if ($act == 'insert') {
             if($senha==NULL){
                 $row = $pesti->UpdatePesTI();
                 if ($row) {
-                    $usr->iduser = $idtb_pessoal_ti;
-                    $pwd = $usr->SetVencSenha(5);
                     echo "<h5>Resgistros incluídos no banco de dados.</h5>
                     <meta http-equiv=\"refresh\" content=\"1;url=?cmd=admin\">";
                 }
@@ -482,6 +480,8 @@ if ($act == 'insert') {
                 $pesti->senha = $salt.$hash;
                 $row = $pesti->InsertPesTI();
                 if ($row) {
+                    $usr->iduser = $row;
+                    $pwd = $usr->SetVencSenha(5);
                     echo "<h5>Resgistros incluídos no banco de dados.</h5>
                     <meta http-equiv=\"refresh\" content=\"1;url=?cmd=admin\">";
                 }
