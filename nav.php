@@ -75,6 +75,12 @@ $versao = $config->SelectVersao();
                   </a>
                 </li>
                 <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/clti/?cmd=relservico\">
+                    <span data-feather=\"check-square\"></span>
+                    Rel. Serviço
+                  </a>
+                </li>
+                <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/clti/?cmd=monitoramento\">
                     <span data-feather=\"grid\"></span>
                     Monitoramento

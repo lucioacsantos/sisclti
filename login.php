@@ -83,13 +83,14 @@ if ($act == 'acesso') {
     $usr->iduser = $row->idtb_pessoal_ti;
     $venc_senha = $usr->GetVencSenha();
     $row = $usr->perfilOM();
-    if ($venc_senha < 1){
+    /** Verificar falhas de login do usuário comum */
+    /*if ($venc_senha < 1){
       $_SESSION ['msg'] = "Sua senha venceu! Entre em contato com o CLTI!";
       $msg = $_SESSION ['msg'];
       $_SESSION['logged_in'] = false;
       include_once("login.inc.php");
     }
-    else{
+    else{*/
       $_SESSION['logged_in'] = true;
       $_SESSION['user_id'] = $row->idtb_pessoal_ti;
       $_SESSION['venc_senha'] = $usr->GetVencSenha();
@@ -102,7 +103,7 @@ if ($act == 'acesso') {
       $_SESSION['om_apoiada'] = $row->sigla_om;
       
       header('Location: index.php');
-    }
+    //}
 	}
 	else {
     $_SESSION ['msg'] = "Usuário ou senha incorretos!";

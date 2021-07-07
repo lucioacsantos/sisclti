@@ -2360,3 +2360,17 @@ class Monitoramento
         return $saida;
     }
 }
+
+/** Classe Relatórios de Serviço */
+class RelServico
+{
+    public $num_relatorio;
+    public $num_ocorrencia;
+
+    public function NovoRelatorio(data)
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        
+    }
+}
