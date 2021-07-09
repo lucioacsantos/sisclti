@@ -2367,7 +2367,7 @@ class RelServico
     public $num_relatorio;
     public $num_ocorrencia;
 
-    public function NovoRelatorio(data)
+    public function NovoRelatorio($data)
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();

@@ -311,7 +311,7 @@ if (isset($_SESSION['user_name'])){
                     </div>
                   </div>
                 </div>";
-          include "reservico.inc.php";
+          include "relservico.inc.php";
           echo"
           </main>
             </div>
