@@ -408,17 +408,23 @@ elseif ($versao == '1.5.12'){
 		num_rel int4 NOT NULL,
 		data_entra_servico date NOT NULL,
 		data_sai_servico date NOT NULL,
-		CONSTRAINT tb_rel_servico_pkey PRIMARY KEY (idtb_rel_servico)
+		cel_funcional varchar(255),
+		sit_servidores varchar(255),
+		sit_backup varchar(255),
+		status varchar(255),
+		CONSTRAINT tb_rel_servico_pkey PRIMARY KEY (idtb_rel_servico),
+		CONSTRAINT tb_rel_servico_unique UNIQUE (num_rel)
 	);
 	COMMENT ON TABLE db_clti.tb_rel_servico IS 'Tabela contendo Relatórios de Serviço do CLTI';");
 
-	$pg->exec("CREATE TABLE db_clti.tb_ocorrencias (
-		idtb_ocorrencias serial NOT NULL,
+	$pg->exec("CREATE TABLE db_clti.tb_rel_servico_ocorrencias (
+		idtb_rel_servico_ocorrencias serial NOT NULL,
 		num_rel int4 NOT NULL,
 		ocorrencia text NOT NULL,
-		CONSTRAINT tb_ocorrencias_pkey PRIMARY KEY (idtb_ocorrencias)
+		CONSTRAINT tb_rel_servico_ocorrencias_pkey PRIMARY KEY (idtb_rel_servico_ocorrencias),
+		CONSTRAINT tb_rel_servico_ocorrencias_fk1 FOREIGN KEY (num_rel) REFERENCES db_clti.tb_rel_servico(num_rel)
 	);
-	COMMENT ON TABLE db_clti.tb_ocorrencias IS 'Tabela contendo Ocorrências do Serviço do CLTI';");
+	COMMENT ON TABLE db_clti.tb_rel_servico_ocorrencias IS 'Tabela contendo Ocorrências do Serviço do CLTI';");
 
 	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
 	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.13' WHERE parametro='VERSAO' ");
@@ -430,7 +436,28 @@ elseif ($versao == '1.5.12'){
 
 elseif ($versao == '1.5.13'){
 
-	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.13.</div>
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Atualizando banco de dados. Aguarde...</div>";
+
+	$pg->exec("CREATE TABLE db_clti.tb_numerador (
+		idtb_numerador serial NOT NULL,
+		parametro varchar(255) NOT NULL,
+		prox_num int4 NOT NULL,
+		CONSTRAINT tb_numerador_pkey PRIMARY KEY (idtb_numerador)
+	);
+	COMMENT ON TABLE db_clti.tb_rel_servico_ocorrencias IS 'Tabela contendo Números de Documentos';");
+
+	$pg->exec("INSERT INTO db_clti.tb_numerador (parametro,prox_num) VALUES ('RelServico',1);");
+
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
+	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.14' WHERE parametro='VERSAO' ");
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.14.</div>
+	<meta http-equiv=\"refresh\" content=\"5\">";
+}
+
+elseif ($versao == '1.5.14'){
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.14.</div>
 	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
 
 }

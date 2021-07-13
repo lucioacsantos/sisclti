@@ -11,4 +11,9 @@ $usr = new Usuario();
 $row = $usr->DiasVenc();
 $row = $usr->DiasVencCLTI();
 
+/** Gera Relatório de Serviço Diário */
+
+
+
+
 ?>

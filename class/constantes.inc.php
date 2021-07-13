@@ -2367,10 +2367,17 @@ class RelServico
     public $num_relatorio;
     public $num_ocorrencia;
 
-    public function NovoRelatorio($data)
+    public function NumRel()
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        
+        $row = $pg->getCol("SELECT prox_num FROM db_clti.tb_numerador WHERE parametro = 'RelServico'");
+        return $row;
+    }
+
+    public function NovoRelatorio($data)
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();        
     }
 }
