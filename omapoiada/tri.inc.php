@@ -165,6 +165,8 @@ EOD;
 
 $pdf->Write(0, $txt, '', 0, 'C', true, 0, false, false, 0);
 
+ob_clean();
+
 $pdf->Output('tri.pdf', 'I');
 
 ?>

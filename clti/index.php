@@ -305,9 +305,11 @@ if (isset($_SESSION['user_name'])){
                   <div class=\"btn-toolbar mb-2 mb-md-0\">
                     <div class=\"btn-group mr-2\">
                       <a href=\"?cmd=relservico\"><button class=\"btn btn-sm btn-outline-secondary\">
-                        Relatórios</button></a>
+                        Em Andamento</button></a>
                       <a href=\"?cmd=relservico&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">
                         Novo Relatório</button></a>
+                      <a href=\"?cmd=relservico&act=finalizados\"><button class=\"btn btn-sm btn-outline-secondary\">
+                        Finalizados</button></a>
                     </div>
                   </div>
                 </div>";

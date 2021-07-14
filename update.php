@@ -44,7 +44,7 @@ echo"
   </head>
 
   <body>
-  <div class=\"alert alert-primary\" role=\"alert\">Executando atualização...</div>";
+  <div class=\"alert alert-primary\" role=\"alert\">Verificando atualizações...</div>";
 
 $versao = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='VERSAO' ");
 
@@ -457,7 +457,70 @@ elseif ($versao == '1.5.13'){
 
 elseif ($versao == '1.5.14'){
 
-	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.14.</div>
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Atualizando banco de dados. Aguarde...</div>";
+
+	$pg->exec("DROP TABLE db_clti.tb_rel_servico CASCADE");
+	$pg->exec("DROP TABLE db_clti.tb_rel_servico_ocorrencias CASCADE");
+
+	$pg->exec("CREATE TABLE db_clti.tb_rel_servico (
+		idtb_rel_servico serial NOT NULL,
+		sup_sai_servico int4 NOT NULL,
+		sup_entra_servico int4 NOT NULL,
+		num_rel int4 NOT NULL,
+		data_entra_servico date NOT NULL,
+		data_sai_servico date NOT NULL,
+		cel_funcional varchar(255),
+		sit_servidores varchar(255),
+		sit_backup varchar(255),
+		status varchar(255),
+		CONSTRAINT tb_rel_servico_pkey PRIMARY KEY (idtb_rel_servico),
+		CONSTRAINT tb_rel_servico_unique UNIQUE (num_rel),
+		CONSTRAINT tb_rel_servico_fkey1 FOREIGN KEY (sup_sai_servico) REFERENCES db_clti.tb_lotacao_clti(idtb_lotacao_clti),
+		CONSTRAINT tb_rel_servico_fkey2 FOREIGN KEY (sup_entra_servico) REFERENCES db_clti.tb_lotacao_clti(idtb_lotacao_clti)
+	);
+	COMMENT ON TABLE db_clti.tb_rel_servico IS 'Tabela contendo Relatórios de Serviço do CLTI';");
+
+	$pg->exec("CREATE TABLE db_clti.tb_rel_servico_ocorrencias (
+		idtb_rel_servico_ocorrencias serial NOT NULL,
+		num_rel int4 NOT NULL,
+		ocorrencia text NOT NULL,
+		CONSTRAINT tb_rel_servico_ocorrencias_pkey PRIMARY KEY (idtb_rel_servico_ocorrencias),
+		CONSTRAINT tb_rel_servico_ocorrencias_fk1 FOREIGN KEY (num_rel) REFERENCES db_clti.tb_rel_servico(num_rel)
+	);
+	COMMENT ON TABLE db_clti.tb_rel_servico_ocorrencias IS 'Tabela contendo Ocorrências do Serviço do CLTI';");
+
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
+	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.15' WHERE parametro='VERSAO' ");
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.15.</div>
+	<meta http-equiv=\"refresh\" content=\"5\">";
+
+}
+
+elseif ($versao == '1.5.15'){
+
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Atualizando banco de dados. Aguarde...</div>";
+
+	$pg->exec("ALTER TABLE db_clti.tb_lotacao_clti ADD idtb_funcoes_clti int4 NULL;");
+
+	$pg->exec("CREATE TABLE db_clti.tb_funcoes_clti (
+		idtb_funcoes_clti serial NOT NULL,
+		sigla varchar(255) NOT NULL,
+		descricao varchar(255) NOT NULL,
+		CONSTRAINT tb_funcoes_clti_pkey PRIMARY KEY (idtb_funcoes_clti)
+	);
+	COMMENT ON TABLE db_clti.tb_funcoes_clti IS 'Tabela contendo Funções do CLTI';");
+
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
+	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.16' WHERE parametro='VERSAO' ");
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.16.</div>
+	<meta http-equiv=\"refresh\" content=\"5\">";
+}
+
+elseif ($versao == '1.5.16'){
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.16.</div>
 	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
 
 }

@@ -2364,7 +2364,15 @@ class Monitoramento
 /** Classe Relatórios de Serviço */
 class RelServico
 {
-    public $num_relatorio;
+    public $idtb_rel_servico;
+    public $sup_sai_servico;
+    public $sup_entra_servico;
+    public $num_rel;
+    public $data_entra_servico;
+    public $data_sai_servico;
+    public $cel_funcional;
+    public $sit_backup;
+    public $status;
     public $num_ocorrencia;
 
     public function NumRel()
@@ -2372,6 +2380,44 @@ class RelServico
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getCol("SELECT prox_num FROM db_clti.tb_numerador WHERE parametro = 'RelServico'");
+        return $row;
+    }
+
+    public function SelectId()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("SELECT * FROM db_clti.tb_rel_servico WHERE idtb_rel_servico = $this->idtb_rel_servico");
+        return $row;
+    }
+
+    public function SelectEmAndamento()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_rel_servico WHERE status = 'Em andamento'");
+        return $row;
+    }
+
+    public function Insert()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "INSERT INTO db_clti.tb_rel_servico (sup_sai_servico, sup_entra_servico, num_rel, data_entra_servico, 
+            data_sai_servico, cel_funcional, sit_servidores, sit_backup, status) VALUES ($this->sup_sai_servico, $this->sup_entra_servico, $this->num_rel, 
+            '$this->data_entra_servico', '$this->data_sai_servico', '$this->cel_funcional', '$this->sit_servidores', '$this->sit_backup', '$this->status')";
+        $row = $pg->insert($sql, 'idtb_rel_servico');
+        return $row;
+    }
+
+    public function Update()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("UPDATE db_clti.tb_rel_servico SET (sup_sai_servico, sup_entra_servico, num_rel, data_entra_servico, 
+            data_sai_servico, cel_funcional, sit_servidores, sit_backup, status) = ($this->sup_sai_servico, $this->sup_entra_servico, $this->num_rel, 
+            '$this->data_entra_servico', '$this->data_sai_servico', '$this->cel_funcional', '$this->sit_servidores', '$this->sit_backup', '$this->status') 
+            WHERE idtb_rel_servico = $this->idtb_rel_servico");
         return $row;
     }
 
