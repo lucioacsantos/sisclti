@@ -502,7 +502,8 @@ elseif ($versao == '1.5.15'){
 	echo "<div class=\"alert alert-primary\" role=\"alert\">Atualizando banco de dados. Aguarde...</div>";
 
 	$pg->exec("ALTER TABLE db_clti.tb_lotacao_clti ADD idtb_funcoes_clti int4 NULL;");
-
+	$pg->exec("ALTER TABLE db_clti.tb_rel_servico_ocorrencias ADD status varchar(255) NULL;");
+	
 	$pg->exec("CREATE TABLE db_clti.tb_funcoes_clti (
 		idtb_funcoes_clti serial NOT NULL,
 		sigla varchar(255) NOT NULL,

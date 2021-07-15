@@ -555,14 +555,14 @@ class PessoalTI
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_ti WHERE idtb_pessoal_ti = '$this->idtb_pessoal_ti'");
+        $row = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_ti WHERE idtb_pessoal_ti = '$this->idtb_pessoal_ti' AND status = 'ATIVO'");
         return $row;
     }
     public function SelectIdOMPesTI()
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRows("SELECT * FROM db_clti.vw_pessoal_ti WHERE idtb_om_apoiadas = '$this->idtb_om_apoiadas' $this->ordena");
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_pessoal_ti WHERE idtb_om_apoiadas = '$this->idtb_om_apoiadas' AND status = 'ATIVO' $this->ordena");
         return $row;
     }
     public function InsertPesTI()
@@ -2373,7 +2373,8 @@ class RelServico
     public $cel_funcional;
     public $sit_backup;
     public $status;
-    public $num_ocorrencia;
+    public $idtb_rel_servico_ocorrencias;
+    public $ocorrencia;
 
     public function NumRel()
     {
@@ -2382,7 +2383,6 @@ class RelServico
         $row = $pg->getCol("SELECT prox_num FROM db_clti.tb_numerador WHERE parametro = 'RelServico'");
         return $row;
     }
-
     public function SelectId()
     {
         require_once "pgsql.class.php";
@@ -2390,7 +2390,6 @@ class RelServico
         $row = $pg->getRow("SELECT * FROM db_clti.tb_rel_servico WHERE idtb_rel_servico = $this->idtb_rel_servico");
         return $row;
     }
-
     public function SelectEmAndamento()
     {
         require_once "pgsql.class.php";
@@ -2398,7 +2397,13 @@ class RelServico
         $row = $pg->getRows("SELECT * FROM db_clti.tb_rel_servico WHERE status = 'Em andamento'");
         return $row;
     }
-
+    public function SelectEncerrados()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_rel_servico WHERE status = 'Encerrado'");
+        return $row;
+    }
     public function Insert()
     {
         require_once "pgsql.class.php";
@@ -2406,10 +2411,10 @@ class RelServico
         $sql = "INSERT INTO db_clti.tb_rel_servico (sup_sai_servico, sup_entra_servico, num_rel, data_entra_servico, 
             data_sai_servico, cel_funcional, sit_servidores, sit_backup, status) VALUES ($this->sup_sai_servico, $this->sup_entra_servico, $this->num_rel, 
             '$this->data_entra_servico', '$this->data_sai_servico', '$this->cel_funcional', '$this->sit_servidores', '$this->sit_backup', '$this->status')";
-        $row = $pg->insert($sql, 'idtb_rel_servico');
-        return $row;
+        $row1 = $pg->insert($sql, 'idtb_rel_servico');
+        $row2 = $pg->exec("UPDATE db_clti.tb_numerador SET prox_num = prox_num +1 WHERE parametro = 'RelServico' ");
+        return array($row1,$row2);
     }
-
     public function Update()
     {
         require_once "pgsql.class.php";
@@ -2420,10 +2425,50 @@ class RelServico
             WHERE idtb_rel_servico = $this->idtb_rel_servico");
         return $row;
     }
-
-    public function NovoRelatorio($data)
+    public function SelectOcorrenciaId()
     {
         require_once "pgsql.class.php";
-        $pg = new PgSql();        
+        $pg = new PgSql();
+        $row = $pg->getRow("SELECT * FROM db_clti.tb_rel_servico_ocorrencias WHERE idtb_rel_servico_ocorrencias = $this->idtb_rel_servico_ocorrencias ");
+        return $row;
+    }
+    public function SelectOcorrenciaNumRel()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_rel_servico_ocorrencias WHERE num_rel = $this->num_rel ");
+        return $row;
+    }
+    public function SelectOcorrenciaAndamento()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_rel_servico_ocorrencias WHERE status = 'Em andamento' ");
+        return $row;
+    }
+    public function InsertOcorrencia()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->insert("INSERT INTO db_clti.tb_rel_servico_ocorrencias (num_rel,ocorrencia,status) VALUES
+            ($this->num_rel,'$this->ocorrencia','Em andamento')",'idtb_rel_servico_ocorrencias');
+        return $row;
+    }
+    public function UpdateOcorrencia()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("UPDATE db_clti.tb_rel_servico_ocorrencias SET (num_rel,ocorrencia,status) = 
+            ($this->num_rel,'$this->ocorrencia','$this->status') WHERE idtb_rel_servico_ocorrencias = $this->idtb_rel_servico_ocorrencias ");
+        return $row;
+    }
+    public function AtualizaStatus()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row1 = $pg->exec("UPDATE db_clti.tb_rel_servico SET status = '$this->status' WHERE idtb_rel_servico = $this->idtb_rel_servico ");
+        $row2 = $pg->exec("UPDATE db_clti.tb_rel_servico_ocorrencias SET status = '$this->status' WHERE 
+            num_rel = $this->num_rel ");
+        return array($row1,$row2);
     }
 }

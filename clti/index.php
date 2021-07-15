@@ -304,12 +304,14 @@ if (isset($_SESSION['user_name'])){
                   <h1 class=\"h2\">Relatório de Serviço</h1>
                   <div class=\"btn-toolbar mb-2 mb-md-0\">
                     <div class=\"btn-group mr-2\">
-                      <a href=\"?cmd=relservico\"><button class=\"btn btn-sm btn-outline-secondary\">
-                        Em Andamento</button></a>
                       <a href=\"?cmd=relservico&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">
                         Novo Relatório</button></a>
+                      <a href=\"?cmd=relservico\"><button class=\"btn btn-sm btn-outline-secondary\">
+                        Em Andamento</button></a>
+                      <a href=\"?cmd=relservico&act=encerrados\"><button class=\"btn btn-sm btn-outline-secondary\">
+                        Encerrados pelo Supervisor</button></a>
                       <a href=\"?cmd=relservico&act=finalizados\"><button class=\"btn btn-sm btn-outline-secondary\">
-                        Finalizados</button></a>
+                        Finalizados pelo Encarregado</button></a>
                     </div>
                   </div>
                 </div>";
