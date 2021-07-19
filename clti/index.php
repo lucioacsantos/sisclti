@@ -311,7 +311,7 @@ if (isset($_SESSION['user_name'])){
                       <a href=\"?cmd=relservico&act=encerrados\"><button class=\"btn btn-sm btn-outline-secondary\">
                         Encerrados pelo Supervisor</button></a>
                       <a href=\"?cmd=relservico&act=finalizados\"><button class=\"btn btn-sm btn-outline-secondary\">
-                        Finalizados pelo Encarregado</button></a>
+                        Aprovados pelo Encarregado</button></a>
                     </div>
                   </div>
                 </div>";

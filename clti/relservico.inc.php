@@ -148,6 +148,7 @@ if ($act == 'encerrados') {
                         <th scope=\"col\">Para o dia:</th>
                         <th scope=\"col\">Sup. que sai:</th>
                         <th scope=\"col\">Sup. que entra:</th>
+                        <th scope=\"col\">Situação</th>
                         <th scope=\"col\">Ações</th>
                     </tr>
                 </thead>";
@@ -164,8 +165,12 @@ if ($act == 'encerrados') {
                         <td>".$value->data_entra_servico."</td>
                         <td>".$value->data_sai_servico."</td>
                         <td>".$sup_sai->sigla_posto_grad." - ".$sup_sai->nome_guerra."</td>
-                        <td>".$sup_entra->sigla_posto_grad." - ".$sup_entra->nome_guerra."</td>
-                        <td><a href=\"?cmd=relservico&act=ocorrencias&param=".$value->num_rel."\">Ocorrências</a></td>
+                        <td>".$sup_entra->sigla_posto_grad." - ".$sup_entra->nome_guerra."</td>";
+                        if ($value->sup_entra == $_SESSION['user_id']){
+                            echo "<td><a href=\"?cmd=relservico&act=regciencia&param=".$value->num_rel."\">
+                                Registrar ciência</a></td>";
+                        }
+                        echo"<td><a href=\"?cmd=relservico&act=ocorrencias&param=".$value->num_rel."\">Ocorrências</a></td>
                     </tr>";
     };
     echo"
@@ -381,6 +386,30 @@ if ($act == 'encerrar') {
     if (isset($_SESSION['status'])){
         $rel_svc->idtb_rel_servico = $_GET['param'];
         $rel_svc->status = 'Encerrado';
+        $num_rel = $rel_svc->SelectId();
+        $rel_svc->num_rel = $num_rel->num_rel;
+
+        $row = $rel_svc->AtualizaStatus();
+        if ($row) {
+            echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=relservico\">";
+        }    
+        else {
+            echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+            echo(pg_result_error($row) . "<br />\n");
+        }
+    }
+    else{
+        echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;$url\">";
+    }
+}
+
+/** Finalizar Relatório */
+if ($act == 'regciencia') {
+    if (isset($_SESSION['status'])){
+        $rel_svc->idtb_rel_servico = $_GET['param'];
+        $rel_svc->status = 'SUPERVISOR QUE ENTRA CIENTE';
         $num_rel = $rel_svc->SelectId();
         $rel_svc->num_rel = $num_rel->num_rel;
 
