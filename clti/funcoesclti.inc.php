@@ -5,7 +5,7 @@
 
 /* Classe de interação com o PostgreSQL */
 require_once "../class/constantes.inc.php";
-$fti = new PessoalTI();
+$fti = new PessoalCLTI();
 
 /* Recupera informações */
 $row = $fti->SelectAllFuncoesTI();

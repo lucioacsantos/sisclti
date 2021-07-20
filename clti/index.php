@@ -310,6 +310,8 @@ if (isset($_SESSION['user_name'])){
                         Em Andamento</button></a>
                       <a href=\"?cmd=relservico&act=encerrados\"><button class=\"btn btn-sm btn-outline-secondary\">
                         Encerrados pelo Supervisor</button></a>
+                      <a href=\"?cmd=relservico&act=agaprov\"><button class=\"btn btn-sm btn-outline-secondary\">
+                        Aguardando aprovação</button></a>
                       <a href=\"?cmd=relservico&act=finalizados\"><button class=\"btn btn-sm btn-outline-secondary\">
                         Aprovados pelo Encarregado</button></a>
                     </div>

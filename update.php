@@ -521,7 +521,40 @@ elseif ($versao == '1.5.15'){
 
 elseif ($versao == '1.5.16'){
 
-	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.16.</div>
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Atualizando banco de dados. Aguarde...</div>";
+
+	$pg->exec("ALTER TABLE db_clti.tb_funcoes_clti ADD requerida varchar(3) NULL;");
+
+	$pg->exec("INSERT INTO db_clti.tb_funcoes_clti (sigla,descricao,requerida) VALUES 
+		('Enc.CLTI','Encarregado do CLTI','Sim'),
+		('Aprov.Rel.Sv','Aprovação de Relatórios de Serviço','Sim'),
+		('Sup.Sv.','Supervisor de Serviço','Sim') ");
+
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
+	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.17' WHERE parametro='VERSAO' ");
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.17.</div>
+	<meta http-equiv=\"refresh\" content=\"5\">";
+
+}
+
+elseif ($versao == '1.5.17'){
+
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Atualizando banco de dados. Aguarde...</div>";
+
+	$pg->exec("ALTER TABLE db_clti.tb_lotacao_clti ADD tarefa varchar(25) NULL;");
+
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
+	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.18' WHERE parametro='VERSAO' ");
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.18.</div>
+	<meta http-equiv=\"refresh\" content=\"5\">";
+
+}
+
+elseif ($versao == '1.5.18'){
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.18.</div>
 	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
 
 }

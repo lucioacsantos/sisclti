@@ -955,6 +955,13 @@ class PessoalCLTI
         $row = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_clti WHERE idtb_lotacao_clti = '$this->idtb_lotacao_clti'");
         return $row;
     }
+    public function SelectTarefa()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getCol("SELECT tarefa FROM db_clti.tb_lotacao_clti WHERE idtb_lotacao_clti = '$this->idtb_lotacao_clti'");
+        return $row;
+    }
     public function Insert()
     {
         require_once "pgsql.class.php";
@@ -1088,6 +1095,14 @@ class PessoalCLTI
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $sql = "SELECT COUNT(nip) FROM db_clti.tb_lotacao_clti WHERE idtb_posto_grad = '21' AND nip != '12345678' ";
+        $row = $pg->exec($sql);
+        return $row;
+    }
+    public function AprovRel($idtb_lotacao_clti,$tarefa)
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "UPDATE db_clti.tb_lotacao_clti SET tarefa = '$tarefa' WHERE idtb_lotacao_clti = $idtb_lotacao_clti";
         $row = $pg->exec($sql);
         return $row;
     }
@@ -2402,6 +2417,13 @@ class RelServico
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getRows("SELECT * FROM db_clti.tb_rel_servico WHERE status = 'Encerrado'");
+        return $row;
+    }
+    public function SelectSupCiente()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_rel_servico WHERE status = 'Sup. que entra ciente'");
         return $row;
     }
     public function Insert()

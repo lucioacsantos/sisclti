@@ -10,6 +10,7 @@ $rel_svc = new RelServico();
 $pess_clti = new PessoalCLTI();
 
 $pess_clti->idtb_lotacao_clti = $_SESSION['user_id'];
+$aprovrel = $pess_clti->SelectTarefa();
 $svc_sai = $pess_clti->SelectId();
 $svc_entra = $pess_clti->SelectALL();
 $num_rel = $rel_svc->NumRel();
@@ -166,11 +167,61 @@ if ($act == 'encerrados') {
                         <td>".$value->data_sai_servico."</td>
                         <td>".$sup_sai->sigla_posto_grad." - ".$sup_sai->nome_guerra."</td>
                         <td>".$sup_entra->sigla_posto_grad." - ".$sup_entra->nome_guerra."</td>";
-                        if ($value->sup_entra == $_SESSION['user_id']){
+                        if ($value->sup_entra_servico == $_SESSION['user_id']){
                             echo "<td><a href=\"?cmd=relservico&act=regciencia&param=".$value->num_rel."\">
                                 Registrar ciência</a></td>";
+                        }else{
+                            echo "<td>".$value->status."</td>";
                         }
                         echo"<td><a href=\"?cmd=relservico&act=ocorrencias&param=".$value->num_rel."\">Ocorrências</a></td>
+                    </tr>";
+    };
+    echo"
+                </tbody>
+            </table>
+            </div>";
+}
+
+/* Monta quadro de Relatórios Aguardando Aprovação do Encarregado */
+if ($act == 'agaprov') {
+
+    echo"<div class=\"table-responsive\">
+            <table class=\"table table-hover\">
+                <thead>
+                    <tr>
+                        <th scope=\"col\">Número</th>
+                        <th scope=\"col\">Serviço do dia:</th>
+                        <th scope=\"col\">Para o dia:</th>
+                        <th scope=\"col\">Sup. que sai:</th>
+                        <th scope=\"col\">Sup. que entra:</th>
+                        <th scope=\"col\">Situação</th>
+                        <th scope=\"col\">Ações</th>
+                    </tr>
+                </thead>";
+
+    $rel_encerrados = $rel_svc->SelectSupCiente();
+
+    foreach ($rel_encerrados as $key => $value) {
+        $pess_clti->idtb_lotacao_clti = $value->sup_sai_servico;
+        $sup_sai = $pess_clti->SelectId();
+        $pess_clti->idtb_lotacao_clti = $value->sup_entra_servico;
+        $sup_entra = $pess_clti->SelectId();
+        echo"       <tr>
+                        <th scope=\"row\">".$value->num_rel."</th>
+                        <td>".$value->data_entra_servico."</td>
+                        <td>".$value->data_sai_servico."</td>
+                        <td>".$sup_sai->sigla_posto_grad." - ".$sup_sai->nome_guerra."</td>
+                        <td>".$sup_entra->sigla_posto_grad." - ".$sup_entra->nome_guerra."</td>
+                        <td>".$value->status."</td>
+                        <td><a href=\"?cmd=relservico&act=ocorrencias&param=".$value->num_rel."\">Ocorrências</a>";
+                        if ($aprovrel == 'Aprov.Rel.Sv'){
+                            echo " - <a href=\"?cmd=relservico&act=aprovrel&param=".$value->num_rel."\">
+                                Aprovar Relatório</a></td>";
+                        }
+                        else{
+                            echo "</td>";
+                        }
+                    echo"    
                     </tr>";
     };
     echo"
@@ -405,11 +456,35 @@ if ($act == 'encerrar') {
     }
 }
 
-/** Finalizar Relatório */
+/** Supervisor que entra registrar ciência */
 if ($act == 'regciencia') {
     if (isset($_SESSION['status'])){
         $rel_svc->idtb_rel_servico = $_GET['param'];
-        $rel_svc->status = 'SUPERVISOR QUE ENTRA CIENTE';
+        $rel_svc->status = 'Sup. que entra ciente';
+        $num_rel = $rel_svc->SelectId();
+        $rel_svc->num_rel = $num_rel->num_rel;
+
+        $row = $rel_svc->AtualizaStatus();
+        if ($row) {
+            echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=relservico\">";
+        }    
+        else {
+            echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+            echo(pg_result_error($row) . "<br />\n");
+        }
+    }
+    else{
+        echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;$url\">";
+    }
+}
+
+/** Oficial Aprovar Relatório */
+if ($act == 'aprovrel') {
+    if (isset($_SESSION['status'])){
+        $rel_svc->idtb_rel_servico = $_GET['param'];
+        $rel_svc->status = 'Relatório aprovado';
         $num_rel = $rel_svc->SelectId();
         $rel_svc->num_rel = $num_rel->num_rel;
 

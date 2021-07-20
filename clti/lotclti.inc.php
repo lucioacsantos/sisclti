@@ -360,7 +360,8 @@ if (($row) AND ($act == NULL)) {
                         <td>".$value->nome_guerra."</td>
                         <td><a href=\"?cmd=lotclti&act=cad&param=".$value->idtb_lotacao_clti."\">Editar</a> - 
                             <a href=\"?cmd=lotclti&act=cad&param=".$value->idtb_lotacao_clti."&senha=troca\">Senha</a> -
-                            <a href=\"?cmd=lotclti&act=desativar&param=".$value->idtb_lotacao_clti."\">Desativar</a>
+                            <a href=\"?cmd=lotclti&act=desativar&param=".$value->idtb_lotacao_clti."\">Desativar</a> - 
+                            <a href=\"?cmd=lotclti&act=aprovrelsv&param=".$value->idtb_lotacao_clti."\">Aprov.Rel.Sv.</a>
                         </td>
                     </tr>";
     };
@@ -509,6 +510,19 @@ if ($act == 'insert') {
             <meta http-equiv=\"refresh\" content=\"1;$url\">";
     }
     
+}
+
+if ($act == 'aprovrelsv'){
+    $param = $_GET['param'];
+    $row = $pesclti->AprovRel($param,'Aprov.Rel.Sv');
+    if ($row) {
+        echo "<h5>Resgistros incluídos no banco de dados.</h5>
+        <meta http-equiv=\"refresh\" content=\"1;url=?cmd=lotclti\">";
+    }
+    else {
+        echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+        echo(pg_result_error($row) . "<br />\n");
+    }
 }
 
 if ($act == 'ativar') {
