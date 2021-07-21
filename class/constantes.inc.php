@@ -2405,6 +2405,13 @@ class RelServico
         $row = $pg->getRow("SELECT * FROM db_clti.tb_rel_servico WHERE idtb_rel_servico = $this->idtb_rel_servico");
         return $row;
     }
+    public function SelectAprovados()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_rel_servico WHERE status = 'Relatório aprovado'");
+        return $row;
+    }
     public function SelectEmAndamento()
     {
         require_once "pgsql.class.php";
@@ -2492,5 +2499,13 @@ class RelServico
         $row2 = $pg->exec("UPDATE db_clti.tb_rel_servico_ocorrencias SET status = '$this->status' WHERE 
             num_rel = $this->num_rel ");
         return array($row1,$row2);
+    }
+    public function RegLog($idtb_lotacao_clti,$num_rel,$cod_aut,$data_hora)
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->insert("INSERT INTO db_clti.tb_rel_servico_log (idtb_lotacao_clti,num_rel,cod_aut,data_hora)
+            VALUES ($idtb_lotacao_clti,$num_rel,'$cod_aut','$data_hora')",'idtb_lotacao_clti');
+        return $row;
     }
 }

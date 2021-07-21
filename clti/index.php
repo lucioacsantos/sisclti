@@ -312,7 +312,7 @@ if (isset($_SESSION['user_name'])){
                         Encerrados pelo Supervisor</button></a>
                       <a href=\"?cmd=relservico&act=agaprov\"><button class=\"btn btn-sm btn-outline-secondary\">
                         Aguardando aprovação</button></a>
-                      <a href=\"?cmd=relservico&act=finalizados\"><button class=\"btn btn-sm btn-outline-secondary\">
+                      <a href=\"?cmd=relservico&act=aprovados\"><button class=\"btn btn-sm btn-outline-secondary\">
                         Aprovados pelo Encarregado</button></a>
                     </div>
                   </div>

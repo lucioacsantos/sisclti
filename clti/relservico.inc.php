@@ -137,6 +137,45 @@ if ($act == NULL) {
             </div>";
 }
 
+/* Monta quadro de Relatórios Aprovados */
+if ($act == 'aprovados') {
+
+    echo"<div class=\"table-responsive\">
+            <table class=\"table table-hover\">
+                <thead>
+                    <tr>
+                        <th scope=\"col\">Número</th>
+                        <th scope=\"col\">Serviço do dia:</th>
+                        <th scope=\"col\">Para o dia:</th>
+                        <th scope=\"col\">Sup. que sai:</th>
+                        <th scope=\"col\">Sup. que entra:</th>
+                        <th scope=\"col\">Situação</th>
+                    </tr>
+                </thead>";
+
+    $rel_aprovados = $rel_svc->SelectAprovados();
+
+    foreach ($rel_aprovados as $key => $value) {
+        $pess_clti->idtb_lotacao_clti = $value->sup_sai_servico;
+        $sup_sai = $pess_clti->SelectId();
+        $pess_clti->idtb_lotacao_clti = $value->sup_entra_servico;
+        $sup_entra = $pess_clti->SelectId();
+        echo"       <tr>
+                        <th scope=\"row\">".$value->num_rel."</th>
+                        <td>".$value->data_entra_servico."</td>
+                        <td>".$value->data_sai_servico."</td>
+                        <td>".$sup_sai->sigla_posto_grad." - ".$sup_sai->nome_guerra."</td>
+                        <td>".$sup_entra->sigla_posto_grad." - ".$sup_entra->nome_guerra."</td>
+                        <td>".$value->status."</td>
+                        <td><a href=\"?cmd=relservico&act=ocorrencias&param=".$value->num_rel."\">Ocorrências</a></td>
+                    </tr>";
+    };
+    echo"
+                </tbody>
+            </table>
+            </div>";
+}
+
 /* Monta quadro de Relatórios Encerrados */
 if ($act == 'encerrados') {
 
@@ -378,7 +417,7 @@ if ($act == 'ocorrencias') {
                         <th scope=\"row\">".$value->num_rel."</th>
                         <td>".$value->ocorrencia."</td>
                         <td>".$value->status."</td>";
-                    if ($value->status == 'Encerrado'){
+                    if ($value->status == 'Relatório aprovado'){
                         echo "<td></td>";
                     }
                     else{
@@ -487,11 +526,19 @@ if ($act == 'aprovrel') {
         $rel_svc->status = 'Relatório aprovado';
         $num_rel = $rel_svc->SelectId();
         $rel_svc->num_rel = $num_rel->num_rel;
-
+        $data_hora = date("Y-m-d H:i:s");
+        $cod_aut = md5($data_hora);
         $row = $rel_svc->AtualizaStatus();
         if ($row) {
-            echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=relservico\">";
+            $row = $rel_svc->RegLog($_SESSION['user_id'],$num_rel->num_rel,$cod_aut,$data_hora);
+            if ($row){
+                echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                    <meta http-equiv=\"refresh\" content=\"1;url=?cmd=relservico\">";
+            }
+            else {
+                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                echo(pg_result_error($row) . "<br />\n");
+            }
         }    
         else {
             echo "<h5>Ocorreu algum erro, tente novamente.</h5>";

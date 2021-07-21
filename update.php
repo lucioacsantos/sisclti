@@ -554,7 +554,30 @@ elseif ($versao == '1.5.17'){
 
 elseif ($versao == '1.5.18'){
 
-	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.18.</div>
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Atualizando banco de dados. Aguarde...</div>";
+
+	$pg->exec("CREATE TABLE db_clti.tb_rel_servico_log (
+		idtb_rel_servico_log serial NOT NULL,
+		idtb_lotacao_clti int4 NOT NULL,
+		num_rel int4 NOT NULL,
+		cod_aut varchar(256) NOT NULL,
+		data_hora timestamp NOT NULL,
+		CONSTRAINT tb_rel_servico_log_pkey PRIMARY KEY (idtb_rel_servico_log),
+		CONSTRAINT tb_rel_servico_log_fk1 FOREIGN KEY (num_rel) REFERENCES db_clti.tb_rel_servico(num_rel)
+	);
+	COMMENT ON TABLE db_clti.tb_rel_servico_log IS 'Tabela contendo Log de Aprovação do Relatório de Serviço';");
+
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
+	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.19' WHERE parametro='VERSAO' ");
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.19.</div>
+	<meta http-equiv=\"refresh\" content=\"5\">";
+
+}
+
+elseif ($versao == '1.5.19'){
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.19.</div>
 	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
 
 }
