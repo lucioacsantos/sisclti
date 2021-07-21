@@ -360,8 +360,7 @@ if (($row) AND ($act == NULL)) {
                         <td>".$value->nome_guerra."</td>
                         <td><a href=\"?cmd=lotclti&act=cad&param=".$value->idtb_lotacao_clti."\">Editar</a> - 
                             <a href=\"?cmd=lotclti&act=cad&param=".$value->idtb_lotacao_clti."&senha=troca\">Senha</a> -
-                            <a href=\"?cmd=lotclti&act=desativar&param=".$value->idtb_lotacao_clti."\">Desativar</a> - 
-                            <a href=\"?cmd=lotclti&act=aprovrelsv&param=".$value->idtb_lotacao_clti."\">Aprov.Rel.Sv.</a>
+                            <a href=\"?cmd=lotclti&act=desativar&param=".$value->idtb_lotacao_clti."\">Desativar</a>
                         </td>
                     </tr>";
     };
@@ -513,15 +512,44 @@ if ($act == 'insert') {
 }
 
 if ($act == 'aprovrelsv'){
-    $param = $_GET['param'];
-    $row = $pesclti->AprovRel($param,'Aprov.Rel.Sv');
-    if ($row) {
-        echo "<h5>Resgistros incluídos no banco de dados.</h5>
-        <meta http-equiv=\"refresh\" content=\"1;url=?cmd=lotclti\">";
+    @$param = $_POST['aprovrel'];
+    if ($param){
+        $row = $pesclti->AprovRel($param,'Aprov.Rel.Sv');
+        if ($row) {
+            echo "<h5>Resgistros incluídos no banco de dados.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;url=?cmd=lotclti\">";
+        }
+        else {
+            echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+            echo(pg_result_error($row) . "<br />\n");
+        }
     }
     else {
-        echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-        echo(pg_result_error($row) . "<br />\n");
+        $pesclti->ordena = 'ORDER BY idtb_posto_grad ASC';
+        $clti = $pesclti->SelectALL();
+        echo"
+        <div class=\"container-fluid\">
+            <div class=\"row\">
+                <main>
+                    <div id=\"form-cadastro\">
+                        <form id=\"aprovrel\" action=\"?cmd=lotclti&act=aprovrelsv\" method=\"post\" enctype=\"multipart/form-data\">
+                            <fieldset>
+                                <div class=\"form-group\">
+                                    <label for=\"aprovrel\">Selecione o aprovador:</label>
+                                    <select id=\"aprovrel\" class=\"form-control\" name=\"aprovrel\">";
+                                        foreach ($clti as $key => $value) {
+                                            echo"<option value=\"".$value->idtb_lotacao_clti."\">
+                                                ".$value->sigla_posto_grad." - ".$value->nome_guerra."</option>";
+                                        };
+                                    echo "</select>
+                                </div>
+                                <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">
+                            </fildset>
+                        </form>
+                    </div>
+                </main>
+            </div>
+        </div>";
     }
 }
 

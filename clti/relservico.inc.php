@@ -119,17 +119,43 @@ if ($act == NULL) {
         $sup_sai = $pess_clti->SelectId();
         $pess_clti->idtb_lotacao_clti = $value->sup_entra_servico;
         $sup_entra = $pess_clti->SelectId();
+        $rel_svc->num_rel = $value->num_rel;
+        $ocorrencias = $rel_svc->SelectOcorrenciaNumRel();
         echo"       <tr>
                         <th scope=\"row\">".$value->num_rel."</th>
-                        <td>".$value->data_entra_servico."</td>
-                        <td>".$value->data_sai_servico."</td>
+                        <td>".implode("/",array_reverse(explode("-",$value->data_entra_servico)))."</td>
+                        <td>".implode("/",array_reverse(explode("-",$value->data_sai_servico)))."</td>
                         <td>".$sup_sai->sigla_posto_grad." - ".$sup_sai->nome_guerra."</td>
                         <td>".$sup_entra->sigla_posto_grad." - ".$sup_entra->nome_guerra."</td>
                         <td><a href=\"?cmd=relservico&act=cad&param=".$value->idtb_rel_servico."\">Editar</a> - 
                             <a href=\"?cmd=relservico&act=reg_ocorrencia&param=".$value->idtb_rel_servico."\">Registrar ocorrência</a> - 
                             <a href=\"?cmd=relservico&act=ocorrencias&param=".$value->num_rel."\">Ocorrências</a> - 
                             <a href=\"?cmd=relservico&act=encerrar&param=".$value->idtb_rel_servico."\">Encerrar relatório</a></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <th scope=\"row\">Ocorrências Registradas</th>
                     </tr>";
+            if ($ocorrencias){
+                foreach ($ocorrencias as $key => $value) {
+                    echo"       <tr>
+                                    <td>".$value->idtb_rel_servico_ocorrencias."</td>
+                                    <td>".$value->ocorrencia."</td>";
+                                if ($value->status == 'Relatório aprovado'){
+                                    echo "<td></td>";
+                                }
+                                else{
+                                    echo"<td><a href=\"?cmd=relservico&act=reg_ocorrencia&param2=".$value->idtb_rel_servico_ocorrencias."\">Editar</a></td>";
+                                }
+                                echo"</tr>";
+                };
+            }
+            else{
+                echo"<tr>
+                        <td></td>
+                        <td>Não foram registradas ocorrências</td>
+                    </tr>";
+            }
     };
     echo"
                 </tbody>
@@ -160,16 +186,42 @@ if ($act == 'aprovados') {
         $sup_sai = $pess_clti->SelectId();
         $pess_clti->idtb_lotacao_clti = $value->sup_entra_servico;
         $sup_entra = $pess_clti->SelectId();
+        $rel_svc->num_rel = $value->num_rel;
+        $ocorrencias = $rel_svc->SelectOcorrenciaNumRel();
         echo"       <tr>
                         <th scope=\"row\">".$value->num_rel."</th>
-                        <td>".$value->data_entra_servico."</td>
-                        <td>".$value->data_sai_servico."</td>
+                        <td>".implode("/",array_reverse(explode("-",$value->data_entra_servico)))."</td>
+                        <td>".implode("/",array_reverse(explode("-",$value->data_sai_servico)))."</td>
                         <td>".$sup_sai->sigla_posto_grad." - ".$sup_sai->nome_guerra."</td>
                         <td>".$sup_entra->sigla_posto_grad." - ".$sup_entra->nome_guerra."</td>
                         <td>".$value->status."</td>
-                        <td><a href=\"?cmd=relservico&act=ocorrencias&param=".$value->num_rel."\">Ocorrências</a></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <th scope=\"row\">Ocorrências Registradas</th>
                     </tr>";
+            if ($ocorrencias){
+                foreach ($ocorrencias as $key => $value) {
+                    echo"       <tr>
+                                    <td>".$value->idtb_rel_servico_ocorrencias."</td>
+                                    <td>".$value->ocorrencia."</td>";
+                                if ($value->status == 'Relatório aprovado'){
+                                    echo "<td></td>";
+                                }
+                                else{
+                                    echo"<td><a href=\"?cmd=relservico&act=reg_ocorrencia&param2=".$value->idtb_rel_servico_ocorrencias."\">Editar</a></td>";
+                                }
+                                echo"</tr>";
+                };
+            }
+            else{
+                echo"<tr>
+                        <td></td>
+                        <td>Não foram registradas ocorrências</td>
+                    </tr>";
+            }            
     };
+    
     echo"
                 </tbody>
             </table>
@@ -200,10 +252,12 @@ if ($act == 'encerrados') {
         $sup_sai = $pess_clti->SelectId();
         $pess_clti->idtb_lotacao_clti = $value->sup_entra_servico;
         $sup_entra = $pess_clti->SelectId();
+        $rel_svc->num_rel = $value->num_rel;
+        $ocorrencias = $rel_svc->SelectOcorrenciaNumRel();
         echo"       <tr>
                         <th scope=\"row\">".$value->num_rel."</th>
-                        <td>".$value->data_entra_servico."</td>
-                        <td>".$value->data_sai_servico."</td>
+                        <td>".implode("/",array_reverse(explode("-",$value->data_entra_servico)))."</td>
+                        <td>".implode("/",array_reverse(explode("-",$value->data_sai_servico)))."</td>
                         <td>".$sup_sai->sigla_posto_grad." - ".$sup_sai->nome_guerra."</td>
                         <td>".$sup_entra->sigla_posto_grad." - ".$sup_entra->nome_guerra."</td>";
                         if ($value->sup_entra_servico == $_SESSION['user_id']){
@@ -213,7 +267,31 @@ if ($act == 'encerrados') {
                             echo "<td>".$value->status."</td>";
                         }
                         echo"<td><a href=\"?cmd=relservico&act=ocorrencias&param=".$value->num_rel."\">Ocorrências</a></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <th scope=\"row\">Ocorrências Registradas</th>
                     </tr>";
+            if ($ocorrencias){
+                foreach ($ocorrencias as $key => $value) {
+                    echo"       <tr>
+                                    <td>".$value->idtb_rel_servico_ocorrencias."</td>
+                                    <td>".$value->ocorrencia."</td>";
+                                if ($value->status == 'Relatório aprovado'){
+                                    echo "<td></td>";
+                                }
+                                else{
+                                    echo"<td><a href=\"?cmd=relservico&act=reg_ocorrencia&param2=".$value->idtb_rel_servico_ocorrencias."\">Editar</a></td>";
+                                }
+                                echo"</tr>";
+                };
+            }
+            else{
+                echo"<tr>
+                        <td></td>
+                        <td>Não foram registradas ocorrências</td>
+                    </tr>";
+            }
     };
     echo"
                 </tbody>
@@ -238,17 +316,19 @@ if ($act == 'agaprov') {
                     </tr>
                 </thead>";
 
-    $rel_encerrados = $rel_svc->SelectSupCiente();
+    $rel_agaprov = $rel_svc->SelectSupCiente();
 
-    foreach ($rel_encerrados as $key => $value) {
+    foreach ($rel_agaprov as $key => $value) {
         $pess_clti->idtb_lotacao_clti = $value->sup_sai_servico;
         $sup_sai = $pess_clti->SelectId();
         $pess_clti->idtb_lotacao_clti = $value->sup_entra_servico;
         $sup_entra = $pess_clti->SelectId();
+        $rel_svc->num_rel = $value->num_rel;
+        $ocorrencias = $rel_svc->SelectOcorrenciaNumRel();
         echo"       <tr>
                         <th scope=\"row\">".$value->num_rel."</th>
-                        <td>".$value->data_entra_servico."</td>
-                        <td>".$value->data_sai_servico."</td>
+                        <td>".implode("/",array_reverse(explode("-",$value->data_entra_servico)))."</td>
+                        <td>".implode("/",array_reverse(explode("-",$value->data_sai_servico)))."</td>
                         <td>".$sup_sai->sigla_posto_grad." - ".$sup_sai->nome_guerra."</td>
                         <td>".$sup_entra->sigla_posto_grad." - ".$sup_entra->nome_guerra."</td>
                         <td>".$value->status."</td>
@@ -261,7 +341,31 @@ if ($act == 'agaprov') {
                             echo "</td>";
                         }
                     echo"    
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <th scope=\"row\">Ocorrências Registradas</th>
                     </tr>";
+            if ($ocorrencias){
+                foreach ($ocorrencias as $key => $value) {
+                    echo"       <tr>
+                                    <td>".$value->idtb_rel_servico_ocorrencias."</td>
+                                    <td>".$value->ocorrencia."</td>";
+                                if ($value->status == 'Relatório aprovado'){
+                                    echo "<td></td>";
+                                }
+                                else{
+                                    echo"<td><a href=\"?cmd=relservico&act=reg_ocorrencia&param2=".$value->idtb_rel_servico_ocorrencias."\">Editar</a></td>";
+                                }
+                                echo"</tr>";
+                };
+            }
+            else{
+                echo"<tr>
+                        <td></td>
+                        <td>Não foram registradas ocorrências</td>
+                    </tr>";
+            }
     };
     echo"
                 </tbody>
@@ -319,8 +423,8 @@ if ($act == 'insert') {
                     $sup_entra = $pess_clti->SelectId();
                     echo"   <tr>
                                 <th scope=\"row\">".$value->num_rel."</th>
-                                <td>".$value->data_entra_servico."</td>
-                                <td>".$value->data_sai_servico."</td>
+                                <td>".implode("/",array_reverse(explode("-",$value->data_entra_servico)))."</td>
+                                <td>".implode("/",array_reverse(explode("-",$value->data_sai_servico)))."</td>
                                 <td>".$sup_sai->sigla_posto_grad." - ".$sup_sai->nome_guerra."</td>
                                 <td>".$sup_entra->sigla_posto_grad." - ".$sup_sai->nome_guerra."</td>
                             </tr>";
@@ -396,14 +500,12 @@ if ($act == 'reg_ocorrencia') {
 
 /* Monta quadro de Ocorrências em Andamento */
 if ($act == 'ocorrencias') {
-
     echo"<div class=\"table-responsive\">
             <table class=\"table table-hover\">
                 <thead>
                     <tr>
                         <th scope=\"col\">Número do Relatório</th>
                         <th scope=\"col\">Ocorrência:</th>
-                        <th scope=\"col\">Situação:</th>
                         <th scope=\"col\">Ações</th>
                     </tr>
                 </thead>";
@@ -415,8 +517,7 @@ if ($act == 'ocorrencias') {
     foreach ($ocorrencias as $key => $value) {
         echo"       <tr>
                         <th scope=\"row\">".$value->num_rel."</th>
-                        <td>".$value->ocorrencia."</td>
-                        <td>".$value->status."</td>";
+                        <td>".$value->ocorrencia."</td>";
                     if ($value->status == 'Relatório aprovado'){
                         echo "<td></td>";
                     }

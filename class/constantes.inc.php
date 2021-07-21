@@ -2409,28 +2409,28 @@ class RelServico
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRows("SELECT * FROM db_clti.tb_rel_servico WHERE status = 'Relatório aprovado'");
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_rel_servico WHERE status = 'Relatório aprovado' ORDER BY idtb_rel_servico ASC");
         return $row;
     }
     public function SelectEmAndamento()
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRows("SELECT * FROM db_clti.tb_rel_servico WHERE status = 'Em andamento'");
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_rel_servico WHERE status = 'Em andamento' ORDER BY idtb_rel_servico ASC");
         return $row;
     }
     public function SelectEncerrados()
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRows("SELECT * FROM db_clti.tb_rel_servico WHERE status = 'Encerrado'");
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_rel_servico WHERE status = 'Encerrado' ORDER BY idtb_rel_servico ASC");
         return $row;
     }
     public function SelectSupCiente()
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRows("SELECT * FROM db_clti.tb_rel_servico WHERE status = 'Sup. que entra ciente'");
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_rel_servico WHERE status = 'Sup. que entra ciente' ORDER BY idtb_rel_servico ASC");
         return $row;
     }
     public function Insert()
