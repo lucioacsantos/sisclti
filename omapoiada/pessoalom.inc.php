@@ -151,6 +151,7 @@ if ($act == 'cad') {
 if (($row) AND ($act == NULL)) {
     $pom->ordena = "ORDER BY idtb_posto_grad DESC";
     $pom->idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
+    $pom->ordena = "ORDER BY idtb_posto_grad ASC";
     $pessom = $pom->SelectIdOMPesOM();
     echo"<div class=\"table-responsive\">
             <table class=\"table table-hover\">

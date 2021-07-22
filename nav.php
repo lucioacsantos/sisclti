@@ -69,6 +69,12 @@ $versao = $config->SelectVersao();
               if ($perfil == 'TEC_CLTI'){
                 echo"
                 <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/clti\">
+                    <span data-feather=\"settings\"></span>
+                    Configurações do Sistema
+                  </a>
+                </li>
+                <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/dashboard\">
                     <span data-feather=\"hash\"></span>
                     Quadros de Situação
@@ -84,12 +90,6 @@ $versao = $config->SelectVersao();
                   <a class=\"nav-link\" href=\"$url/clti/?cmd=monitoramento\">
                     <span data-feather=\"grid\"></span>
                     Monitoramento
-                  </a>
-                </li>
-                <li class=\"nav-item\">
-                  <a class=\"nav-link\" href=\"$url/clti\">
-                    <span data-feather=\"settings\"></span>
-                    Configurações do Sistema
                   </a>
                 </li>
                 <li class=\"nav-item\">

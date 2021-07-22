@@ -352,9 +352,21 @@ if (($row) AND ($act == NULL)) {
             $identificacao = $value->cpf;
         }
 
-        echo"       <tr>
-                        <th scope=\"row\">".$value->sigla_posto_grad." ".$value->sigla_corpo_quadro." 
-                            ".$value->sigla_espec."</th>
+        echo"       <tr>";
+                        if (($value->exibir_espec == 'NÃO') AND ($value->exibir_corpo_quadro == 'NÃO')){
+                            echo"       <th scope=\"row\">".$value->sigla_posto_grad."</th>";
+                        }
+                        elseif (($value->exibir_espec == 'NÃO') AND ($value->exibir_corpo_quadro != 'NÃO')){
+                            echo"       <th scope=\"row\">".$value->sigla_posto_grad." ".$value->sigla_corpo_quadro."</th>";
+                        }
+                        elseif (($value->exibir_espec != 'NÃO') AND ($value->exibir_corpo_quadro == 'NÃO')){
+                            echo"       <th scope=\"row\">".$value->sigla_posto_grad." ".$value->sigla_espec."</th>";
+                        }
+                        else {
+                            echo"       <th scope=\"row\">".$value->sigla_posto_grad." ".$value->sigla_corpo_quadro." 
+                                            ".$value->sigla_espec."</th>";
+                        }
+                        echo"
                         <td>".$identificacao."</td>
                         <td>".$value->nome."</td>
                         <td>".$value->nome_guerra."</td>
