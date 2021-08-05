@@ -259,11 +259,11 @@ $versao = $config->SelectVersao();
                     Equipamentos de Conectividade
                   </a>
                 </li>
-                <li class=\"nav-item\">
+                <!--<li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=mapainfra\">
                     <span data-feather=\"share-2\"></span>
                     Mapeamento da Infraestrutura
-                  </a>
+                  </a>-->
                 </li>
                 <h6 class=\"sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted\">
                     <span>Pessoal</span>
@@ -293,12 +293,12 @@ $versao = $config->SelectVersao();
                     TRI/TRET
                   </a>
                 </li>
-                <li class=\"nav-item\">
+                <!--<li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=perfisinternet\">
                     <span data-feather=\"youtube\"></span>
                     Perfis de Internet
                   </a>
-                </li>
+                </li>-->
                 <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/omapoiada/?cmd=funcsigdem\">
                     <span data-feather=\"archive\"></span>
