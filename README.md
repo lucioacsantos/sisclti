@@ -1,7 +1,7 @@
 # sisclti
 SisCLTI
 
-Sistema para Centros Locais de Tecnologia da Informação da MB
+Sistema de Gestão de TIC para Centros Locais de Tecnologia da Informação da MB
 
 Linguagens: PHP 5.4+ | HTML5 | JavaScript | CSS3
 
