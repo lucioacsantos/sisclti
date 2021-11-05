@@ -678,7 +678,7 @@ class PessoalTI
         $sql = "INSERT INTO db_clti.tb_qualificacao_ti(idtb_pessoal_ti, instituicao, tipo, nome_curso, 
             meio, situacao, data_conclusao, carga_horaria, custo) VALUES ('$this->idtb_pessoal_ti', 
             '$this->instituicao', '$this->tipo', '$this->nome_curso','$this->meio', '$this->situacao', 
-            $this->data_conclusao, '$this->carga_horaria', '$this->custo')";
+            '$this->data_conclusao', '$this->carga_horaria', '$this->custo')";
         $row = $pg->exec($sql);
         return $row;
     }
