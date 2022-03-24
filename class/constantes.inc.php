@@ -2451,7 +2451,7 @@ class RelServico
         $row = $pg->exec("UPDATE db_clti.tb_rel_servico SET (sup_sai_servico, sup_entra_servico, num_rel, data_entra_servico, 
             data_sai_servico, cel_funcional, sit_servidores, sit_backup, status) = ($this->sup_sai_servico, $this->sup_entra_servico, $this->num_rel, 
             '$this->data_entra_servico', '$this->data_sai_servico', '$this->cel_funcional', '$this->sit_servidores', '$this->sit_backup', '$this->status') 
-            WHERE idtb_rel_servico = $this->idtb_rel_servico");
+            WHERE num_rel = $this->num_rel");
         return $row;
     }
     public function SelectOcorrenciaId()
@@ -2495,7 +2495,7 @@ class RelServico
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row1 = $pg->exec("UPDATE db_clti.tb_rel_servico SET status = '$this->status' WHERE idtb_rel_servico = $this->idtb_rel_servico ");
+        $row1 = $pg->exec("UPDATE db_clti.tb_rel_servico SET status = '$this->status' WHERE num_rel = $this->num_rel ");
         $row2 = $pg->exec("UPDATE db_clti.tb_rel_servico_ocorrencias SET status = '$this->status' WHERE 
             num_rel = $this->num_rel ");
         return array($row1,$row2);

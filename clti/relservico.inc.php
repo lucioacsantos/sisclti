@@ -127,10 +127,10 @@ if ($act == NULL) {
                         <td>".implode("/",array_reverse(explode("-",$value->data_sai_servico)))."</td>
                         <td>".$sup_sai->sigla_posto_grad." - ".$sup_sai->nome_guerra."</td>
                         <td>".$sup_entra->sigla_posto_grad." - ".$sup_entra->nome_guerra."</td>
-                        <td><a href=\"?cmd=relservico&act=cad&param=".$value->idtb_rel_servico."\">Editar</a> - 
-                            <a href=\"?cmd=relservico&act=reg_ocorrencia&param=".$value->idtb_rel_servico."\">Registrar ocorrência</a> - 
+                        <td><a href=\"?cmd=relservico&act=cad&param=".$value->num_rel."\">Editar</a> - 
+                            <a href=\"?cmd=relservico&act=reg_ocorrencia&param=".$value->num_rel."\">Registrar ocorrência</a> - 
                             <a href=\"?cmd=relservico&act=ocorrencias&param=".$value->num_rel."\">Ocorrências</a> - 
-                            <a href=\"?cmd=relservico&act=encerrar&param=".$value->idtb_rel_servico."\">Encerrar relatório</a></td>
+                            <a href=\"?cmd=relservico&act=encerrar&param=".$value->num_rel."\">Encerrar relatório</a></td>
                     </tr>
                     <tr>
                         <td></td>
@@ -599,10 +599,10 @@ if ($act == 'encerrar') {
 /** Supervisor que entra registrar ciência */
 if ($act == 'regciencia') {
     if (isset($_SESSION['status'])){
-        $rel_svc->idtb_rel_servico = $_GET['param'];
+        $rel_svc->num_rel = $_GET['param'];
         $rel_svc->status = 'Sup. que entra ciente';
-        $num_rel = $rel_svc->SelectId();
-        $rel_svc->num_rel = $num_rel->num_rel;
+        #$num_rel = $rel_svc->SelectId();
+        #$rel_svc->num_rel = $num_rel->num_rel;
 
         $row = $rel_svc->AtualizaStatus();
         if ($row) {
