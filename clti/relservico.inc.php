@@ -575,10 +575,10 @@ if ($act == 'insert_ocorrencia') {
 /** Finalizar Relatório */
 if ($act == 'encerrar') {
     if (isset($_SESSION['status'])){
-        $rel_svc->idtb_rel_servico = $_GET['param'];
+        $rel_svc->num_rel = $_GET['param'];
         $rel_svc->status = 'Encerrado';
-        $num_rel = $rel_svc->SelectId();
-        $rel_svc->num_rel = $num_rel->num_rel;
+        #$num_rel = $rel_svc->SelectId();
+        #$rel_svc->num_rel = $num_rel->num_rel;
 
         $row = $rel_svc->AtualizaStatus();
         if ($row) {
