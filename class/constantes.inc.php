@@ -369,6 +369,7 @@ class OMAPoiadas
     public $cod_funcional;
     public $compart;
     public $ordena;
+    public $ip_gw;
 
     /** OM */
     public function SelectAllOMTable()
@@ -486,6 +487,21 @@ class OMAPoiadas
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getCol("SELECT id FROM db_clti.tb_cidade WHERE nome='$this->cidade'");
+        return $row;
+    }
+    public function InsertGw()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("INSERT INTO db_clti.tb_gw_om (ip_gw) VALUES ($this->ip_gw) ");
+        return $row;
+    }
+    public function UpdateGw()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("UPDATE db_clti.tb_gw_om  SET (ip_gw) = ($this->ip_gw) 
+            WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas");
         return $row;
     }
 }
@@ -2363,9 +2379,9 @@ class Monitoramento
         $row = $pg->getRows("SELECT nome,end_ip FROM db_clti.tb_servidores WHERE status = 'EM PRODUÇÃO'");
         return $row;
     }
-    public function PingSrv($ip)
+    public function PingAtivo()
     {
-        $comando = "/bin/ping -c 1 " . $ip;
+        $comando = "/bin/ping -c 1 " . $this->end_ip;
         $saida = shell_exec($comando);
         return $saida;
     }

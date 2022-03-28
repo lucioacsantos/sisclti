@@ -580,7 +580,49 @@ elseif ($versao == '1.5.19'){
 	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.19.</div>
 	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
 
+	/**echo "<div class=\"alert alert-primary\" role=\"alert\">Atualizando banco de dados. Aguarde...</div>";
+
+	$pg->exec("CREATE TABLE db_clti.tb_rel_sv_v2 (
+		idtb_rel_servico serial NOT NULL,
+		sup_sai_servico int4 NOT NULL,
+		sup_entra_servico int4 NOT NULL,
+		num_rel int4 NOT NULL,
+		data_entra_servico date NOT NULL,
+		data_sai_servico date NOT NULL,
+		cel_funcional varchar(255),
+		sit_servidores varchar(255),
+		sit_backup varchar(255),
+		status varchar(255),
+		CONSTRAINT tb_rel_sv_v2_pkey PRIMARY KEY (idtb_rel_servico),
+		CONSTRAINT tb_rel_sv_v2_unique UNIQUE (num_rel),
+		CONSTRAINT tb_rel_sv_v2_fkey1 FOREIGN KEY (sup_sai_servico) REFERENCES db_clti.tb_lotacao_clti(idtb_lotacao_clti),
+		CONSTRAINT tb_rel_sv_v2_fkey2 FOREIGN KEY (sup_entra_servico) REFERENCES db_clti.tb_lotacao_clti(idtb_lotacao_clti)
+	);
+	COMMENT ON TABLE db_clti.tb_rel_sv_v2 IS 'Tabela contendo Relatórios de Serviço do CLTI Versão 2';");
+
+	$pg->exec("CREATE TABLE db_clti.tb_rel_sv_v2_ocorrencias (
+		idtb_rel_servico_ocorrencias serial NOT NULL,
+		num_rel int4 NOT NULL,
+		ocorrencia text NOT NULL,
+		CONSTRAINT tb_rel_sv_v2_ocorrencias_pkey PRIMARY KEY (idtb_rel_servico_ocorrencias),
+		CONSTRAINT tb_rel_sv_v2_ocorrencias_fk1 FOREIGN KEY (num_rel) REFERENCES db_clti.tb_rel_servico(num_rel)
+	);
+	COMMENT ON TABLE db_clti.tb_rel_sv_v2_ocorrencias IS 'Tabela contendo Ocorrências do Serviço do CLTI';");
+
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
+	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.20' WHERE parametro='VERSAO' ");
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.20.</div>
+	<meta http-equiv=\"refresh\" content=\"5\">";*/
+
 }
+
+/**elseif ($versao == '1.5.20'){
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.20.</div>
+	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
+
+}*/
 
 else{
 	echo "<div class=\"alert alert-primary\" role=\"alert\">Verifique sua instalação!</div>";

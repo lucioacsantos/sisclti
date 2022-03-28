@@ -8,12 +8,8 @@ require_once "../class/constantes.inc.php";
 $config = new Config();
 $ativos = new Monitoramento();
 
-
 /* Recupera informações de Servidores */
 $srv = $ativos->SelectSrv();
-
-/** Gateway das OM Apoiadas */
-
 
 foreach ($srv as $key => $value){
     $row = $ativos->PingAtivo($value->end_ip);
