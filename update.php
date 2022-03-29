@@ -609,6 +609,17 @@ elseif ($versao == '1.5.19'){
 	);
 	COMMENT ON TABLE db_clti.tb_rel_sv_v2_ocorrencias IS 'Tabela contendo Ocorrências do Serviço do CLTI';");
 
+	$pg->exec("CREATE TABLE db_clti.tb_gw_om (
+		idtb_gw_om serial NOT NULL,
+		idtb_om_apoiadas int4 NOT NULL,
+		ip_gw varchar(15) NOT NULL,
+		status varchar(255),
+		qtde_vrf int4,
+		CONSTRAINT tb_gw_om_pkey PRIMARY KEY (idtb_rel_servico_ocorrencias),
+		CONSTRAINT tb_gw_om_fk1 FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas)
+	);
+	COMMENT ON TABLE db_clti.tb_gw_om IS 'Tabela contendo status do Gateway das OM Apoiadas';");
+
 	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
 	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.20' WHERE parametro='VERSAO' ");
 
