@@ -2370,13 +2370,28 @@ class Contadores{
 /** Classe Monitoramento */
 class Monitoramento
 {
+    public $idtb_gw_om;
     public $end_ip;
-    
+        
     public function SelectSrv()
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getRows("SELECT nome,end_ip FROM db_clti.tb_servidores WHERE status = 'EM PRODUÇÃO'");
+        return $row;
+    }
+    public function SelectGw()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("SELECT nome,end_ip FROM db_clti.tb_gw_om WHERE status = 'ATIVO' ");
+        return $row;
+    }
+    public function SelectGwId()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("SELECT nome,end_ip FROM db_clti.tb_gw_om WHERE idtb_gw_om = $this->idtb_gw_om ");
         return $row;
     }
     public function PingAtivo()
