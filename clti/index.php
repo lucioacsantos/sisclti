@@ -93,6 +93,7 @@ if (isset($_SESSION['user_name'])){
                     <a href=\"?cmd=lotclti&act=calcula\"><button class=\"btn btn-sm btn-outline-secondary\">Calcular Lotação</button></a>
                     <a href=\"?cmd=lotclti&act=inativos\"><button class=\"btn btn-sm btn-outline-secondary\">Inativos</button></a>
                     <a href=\"?cmd=lotclti&act=aprovrelsv\"><button class=\"btn btn-sm btn-outline-secondary\">Aprovador Rel. Serviço</button></a>
+                    <a href=\"?cmd=lotclti&act=servico\"><button class=\"btn btn-sm btn-outline-secondary\">Escala de Serviço</button></a>
                   </div>
                   <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
                     <span data-feather=\"calendar\"></span>

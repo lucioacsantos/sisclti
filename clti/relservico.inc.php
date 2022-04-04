@@ -12,7 +12,8 @@ $pess_clti = new PessoalCLTI();
 $pess_clti->idtb_lotacao_clti = $_SESSION['user_id'];
 $aprovrel = $pess_clti->SelectTarefa();
 $svc_sai = $pess_clti->SelectId();
-$svc_entra = $pess_clti->SelectALL();
+$svc_entra = $pess_clti->SelectEscalaSV();
+$pess_clti->ordena = 'ORDER BY idtb_posto_grad ASC';
 $num_rel = $rel_svc->NumRel();
 
 @$act = $_GET['act'];

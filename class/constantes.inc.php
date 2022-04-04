@@ -957,6 +957,13 @@ class PessoalCLTI
         $row = $pg->getRows("SELECT * FROM db_clti.vw_pessoal_clti WHERE status='ATIVO' $this->ordena");
         return $row;
     }
+    public function SelectEscalaSV()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_pessoal_clti WHERE status='ATIVO' AND tarefa = 'Escala de Serviço' $this->ordena");
+        return $row;
+    }
     public function SelectInativos()
     {
         require_once "pgsql.class.php";
@@ -1114,7 +1121,7 @@ class PessoalCLTI
         $row = $pg->exec($sql);
         return $row;
     }
-    public function AprovRel($idtb_lotacao_clti,$tarefa)
+    public function AddTarefa($idtb_lotacao_clti,$tarefa)
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
@@ -1122,6 +1129,7 @@ class PessoalCLTI
         $row = $pg->exec($sql);
         return $row;
     }
+
 }
 
 /** Classe Militar */
