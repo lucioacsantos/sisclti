@@ -620,11 +620,42 @@ elseif ($versao == '1.5.19'){
 	);
 	COMMENT ON TABLE db_clti.tb_gw_om IS 'Tabela contendo status do Gateway das OM Apoiadas';");
 
+	$pg->exec("DROP VIEW db_clti.vw_pessoal_clti");
+
+	$pg->exec("CREATE OR REPLACE VIEW db_clti.vw_pessoal_clti
+		AS SELECT clti.idtb_lotacao_clti,
+			clti.idtb_posto_grad,
+			posto.sigla AS sigla_posto_grad,
+			clti.idtb_corpo_quadro,
+			corpo.sigla AS sigla_corpo_quadro,
+			corpo.exibir AS exibir_corpo_quadro,
+			clti.idtb_especialidade,
+			espec.sigla AS sigla_espec,
+			espec.exibir AS exibir_espec,
+			clti.nip,
+			clti.cpf,
+			clti.nome,
+			clti.nome_guerra,
+			clti.correio_eletronico,
+			clti.perfil,
+			clti.tarefa,
+			clti.status
+		FROM db_clti.tb_lotacao_clti clti,
+			db_clti.tb_posto_grad posto,
+			db_clti.tb_corpo_quadro corpo,
+			db_clti.tb_especialidade espec
+		WHERE clti.idtb_posto_grad = posto.idtb_posto_grad AND clti.idtb_corpo_quadro = corpo.idtb_corpo_quadro 
+			AND clti.idtb_especialidade = espec.idtb_especialidade;");
+
 	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
 	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.20' WHERE parametro='VERSAO' ");
 
 	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.20.</div>
-	<meta http-equiv=\"refresh\" content=\"5\">";*/
+	<meta http-equiv=\"refresh\" content=\"5\">";
+	
+	
+	
+	*/
 
 }
 

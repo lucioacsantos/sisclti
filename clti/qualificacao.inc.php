@@ -157,7 +157,7 @@ if ($act == 'cad') {
 /* Monta quadro */
 if (($row) AND ($act == NULL)) {
 
-    $ordena = "ORDER BY idtb_posto_grad, tipo, nome_curso, data_conclusao ASC";
+    $qti->ordena = "ORDER BY idtb_posto_grad, tipo, nome_curso, data_conclusao ASC LIMIT 30";
     $qualiti = $qti->SelectAllQualif();
 
     echo"<div class=\"table-responsive\">
