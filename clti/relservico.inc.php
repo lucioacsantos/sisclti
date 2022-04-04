@@ -456,14 +456,14 @@ if ($act == 'insert') {
 /** Form Registrar Ocorrência */
 if ($act == 'reg_ocorrencia') {
     if (isset($_SESSION['status'])){
-        @$idtb_rel_servico = $_GET['param'];
+        @$num_rel = $_GET['param'];
         @$idtb_rel_servico_ocorrencias = $_GET['param2'];
         if ($idtb_rel_servico_ocorrencias){
             $rel_svc->idtb_rel_servico_ocorrencias = $idtb_rel_servico_ocorrencias;
             $ocorrencia = $rel_svc->SelectOcorrenciaId();
         }
         else {
-            $rel_svc->idtb_rel_servico = $idtb_rel_servico;
+            $rel_svc->num_rel = $num_rel;
             $ocorrencia = $rel_svc->SelectId();
         }
         

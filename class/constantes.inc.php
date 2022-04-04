@@ -2418,7 +2418,7 @@ class RelServico
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT * FROM db_clti.tb_rel_servico WHERE idtb_rel_servico = $this->idtb_rel_servico");
+        $row = $pg->getRow("SELECT * FROM db_clti.tb_rel_servico WHERE num_rel = $this->num_rel");
         return $row;
     }
     public function SelectAprovados()
