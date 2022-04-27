@@ -17,14 +17,19 @@ $versao = $config->SelectVersao();
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Sistema Integrado para Centros Locais de Tecnologia da Informação">
+    <meta name="description" content="Sistema de Gestão de TI">
     <meta name="author" content="99242991 Lúcio ALEXANDRE Correia dos Santos">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <?php echo "<link rel=\"icon\" href=\"$url/favicon.ico\">"; ?>
+    <?php echo "
+      <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"$url/img/apple-touch-icon.png\">
+      <link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"$url/img/favicon-32x32.png\">
+      <link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"$url/img/favicon-16x16.png\">
+      <link rel=\"manifest\" href=\"$url/img/site.webmanifest\">";
+    ?>
 
-    <title>...::: SisCLTI :::...</title>
+    <title>...::: SiGTI :::...</title>
 
     <?php
     /* Carrega CSS a partir da $url */
