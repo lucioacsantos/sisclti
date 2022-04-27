@@ -17,7 +17,7 @@ $versao = $config->SelectVersao();
 ?>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
       <p class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
-        <?php echo "".$sigla." - SisCLTI v".$versao.""; ?>
+        <?php echo "".$sigla." - SiGTI v".$versao.""; ?>
       </p>
       <!--<input class="form-control form-control-dark w-100" type="text" placeholder="Pesquisa" aria-label="Pesquisa">-->
       <p class="navbar-brand">

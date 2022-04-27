@@ -40,7 +40,7 @@ if ($act == NULL) {
 /* Carrega form para cadastro */
 if ($act == 'cad') {
     @$param = $_GET['param'];
-
+    $row = NULL;
     if ($param){
         $qti->idtb_qualificacao_clti = $param;
         $qualiti = $qti->SelectIdQualif();
@@ -121,7 +121,7 @@ if ($act == 'cad') {
                                 <label for=\"situacao\">Situação:</label>
                                 <select id=\"situacao\" class=\"form-control\" name=\"situacao\">
                                     <option value=\"$qualiti->situacao\" selected=\"true\">$qualiti->situacao</option>
-                                    <option value=\"CONCLUIÍDO\">CONCLUÍDO</option>
+                                    <option value=\"CONCLUÍDO\">CONCLUÍDO</option>
                                     <option value=\"EM ANDAMENTO\">EM ANDAMENTO</option>
                                 </select>
                             </div>
@@ -155,10 +155,24 @@ if ($act == 'cad') {
 }
 
 /* Monta quadro */
-if (($row) AND ($act == NULL)) {
-
-    $qti->ordena = "ORDER BY idtb_posto_grad, tipo, nome_curso, data_conclusao ASC LIMIT 30";
-    $qualiti = $qti->SelectAllQualif();
+if ($row) {
+    
+    # Prepara dados conforme solicitação Concluídos/Em andamento
+    if ($act == NULL){ 
+        $qti->ordena = "ORDER BY idtb_qualificacao_clti";
+        $qualiti = $qti->SelectAllQualif(); 
+    }
+    elseif ($act == 'concluidos') {         
+        $qti->condicao = "WHERE situacao = 'CONCLUÍDO'";
+        $qti->ordena = "ORDER BY data_conclusao DESC";
+        $qualiti = $qti->SelectQualifCondicoes(); 
+    }
+    else { 
+        $qti->filtro_data = "";
+        $qti->condicao = "WHERE situacao = 'EM ANDAMENTO'";
+        $qti->ordena = "ORDER BY idtb_qualificacao_clti";
+        $qualiti = $qti->SelectQualifCondicoes(); 
+    }
 
     echo"<div class=\"table-responsive\">
             <table class=\"table table-hover\">
@@ -169,7 +183,7 @@ if (($row) AND ($act == NULL)) {
                         <th scope=\"col\">Nome de Guerra</th>
                         <th scope=\"col\">Curso</th>
                         <th scope=\"col\">Situação</th>
-			<th scope=\"col\">Conclusão</th>
+			            <th scope=\"col\">Conclusão</th>
                         <th scope=\"col\">Ações</th>
                     </tr>
                 </thead>";
@@ -178,10 +192,10 @@ if (($row) AND ($act == NULL)) {
 
         #Seleciona NIP caso seja militar da MB
         if ($value->nip != NULL) {
-            $identificacao = $value->nip;
+            $identificacao = $qti->FormatNIP($value->nip);
         }
         else{
-            $identificacao = $value->cpf;
+            $identificacao = $qti->FormatCPF($value->cpf);
         }
 
         echo"       <tr>";
@@ -203,7 +217,7 @@ if (($row) AND ($act == NULL)) {
                         <td>$value->nome_guerra</td>
                         <td>$value->tipo $value->nome_curso</td>
                         <td>$value->situacao</td>
-			            <td>$value->data_conclusao</td>
+                        <td>$value->data_conclusao</td>
                         <td><a href=\"?cmd=qualificacao&act=cad&param=".$value->idtb_qualificacao_clti."\">Editar</a> - 
                             Excluir</td>
                     </tr>";

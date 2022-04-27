@@ -935,7 +935,18 @@ class PessoalCLTI
     public $meio;
     public $situacao;
     public $ordena;
+    public $condicao;
 
+    function FormatCPF($value)
+    {
+        $cpf = preg_replace("/\D/", '', $value);
+        return preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "\$1.\$2.\$3-\$4", $cpf);
+    }
+    function FormatNIP($value)
+    {
+        $nip = preg_replace("/\D/", '', $value);
+        return preg_replace("/(\d{2})(\d{4})(\d{2})/", "\$1.\$2.\$3", $nip);
+    }
     public function ChecaNIPCPF()
     {
         require_once "pgsql.class.php";
@@ -1039,6 +1050,13 @@ class PessoalCLTI
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getRows("SELECT * FROM db_clti.vw_qualificacao_clti $this->ordena");
+        return $row;
+    }
+    public function SelectQualifCondicoes()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_qualificacao_clti $this->condicao $this->ordena");
         return $row;
     }
     public function SelectIdQualif()

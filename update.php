@@ -580,7 +580,11 @@ elseif ($versao == '1.5.19'){
 	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.19.</div>
 	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
 
-	/**echo "<div class=\"alert alert-primary\" role=\"alert\">Atualizando banco de dados. Aguarde...</div>";
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Atualizando banco de dados. Aguarde...</div>";
+
+	/*$pg->exec("DROP TABLE db_clti.tb_rel_sv_v2 CASCADE");
+	$pg->exec("DROP TABLE db_clti.tb_rel_sv_v2_ocorrencias");
+	$pg->exec("DROP TABLE db_clti.tb_gw_om");*/
 
 	$pg->exec("CREATE TABLE db_clti.tb_rel_sv_v2 (
 		idtb_rel_servico serial NOT NULL,
@@ -605,7 +609,7 @@ elseif ($versao == '1.5.19'){
 		num_rel int4 NOT NULL,
 		ocorrencia text NOT NULL,
 		CONSTRAINT tb_rel_sv_v2_ocorrencias_pkey PRIMARY KEY (idtb_rel_servico_ocorrencias),
-		CONSTRAINT tb_rel_sv_v2_ocorrencias_fk1 FOREIGN KEY (num_rel) REFERENCES db_clti.tb_rel_servico(num_rel)
+		CONSTRAINT tb_rel_sv_v2_ocorrencias_fk1 FOREIGN KEY (num_rel) REFERENCES db_clti.tb_rel_sv_v2(num_rel)
 	);
 	COMMENT ON TABLE db_clti.tb_rel_sv_v2_ocorrencias IS 'Tabela contendo Ocorrências do Serviço do CLTI';");
 
@@ -615,7 +619,7 @@ elseif ($versao == '1.5.19'){
 		ip_gw varchar(15) NOT NULL,
 		status varchar(255),
 		qtde_vrf int4,
-		CONSTRAINT tb_gw_om_pkey PRIMARY KEY (idtb_rel_servico_ocorrencias),
+		CONSTRAINT tb_gw_om_pkey PRIMARY KEY (idtb_gw_om),
 		CONSTRAINT tb_gw_om_fk1 FOREIGN KEY (idtb_om_apoiadas) REFERENCES db_clti.tb_om_apoiadas(idtb_om_apoiadas)
 	);
 	COMMENT ON TABLE db_clti.tb_gw_om IS 'Tabela contendo status do Gateway das OM Apoiadas';");
@@ -646,32 +650,92 @@ elseif ($versao == '1.5.19'){
 			db_clti.tb_especialidade espec
 		WHERE clti.idtb_posto_grad = posto.idtb_posto_grad AND clti.idtb_corpo_quadro = corpo.idtb_corpo_quadro 
 			AND clti.idtb_especialidade = espec.idtb_especialidade;");
+	
+	$pg->exec("DROP VIEW db_clti.vw_qualificacao_clti");
+
+	$pg->exec("CREATE OR REPLACE VIEW db_clti.vw_qualificacao_clti
+		AS SELECT quali.idtb_qualificacao_clti,
+			quali.idtb_lotacao_clti,
+			pesti.idtb_posto_grad,
+			posto.sigla AS sigla_posto_grad,
+			pesti.idtb_corpo_quadro,
+			corpo.sigla AS sigla_corpo_quadro,
+			corpo.exibir AS exibir_corpo_quadro,
+			pesti.idtb_especialidade,
+			espec.sigla AS sigla_espec,
+			espec.exibir AS exibir_espec,
+			pesti.nome_guerra,
+			pesti.nip,
+			pesti.cpf,
+			quali.instituicao,
+			quali.tipo,
+			quali.nome_curso,
+			quali.meio,
+			quali.situacao,
+			quali.data_conclusao,
+			quali.carga_horaria,
+			quali.custo
+		FROM db_clti.tb_qualificacao_clti quali,
+			db_clti.tb_lotacao_clti pesti,
+			db_clti.tb_posto_grad posto,
+			db_clti.tb_corpo_quadro corpo,
+			db_clti.tb_especialidade espec
+		WHERE quali.idtb_lotacao_clti = pesti.idtb_lotacao_clti AND pesti.idtb_posto_grad = posto.idtb_posto_grad 
+			AND pesti.idtb_corpo_quadro = corpo.idtb_corpo_quadro AND pesti.idtb_especialidade = espec.idtb_especialidade 
+			AND pesti.status = 'ATIVO';");
+
+	$pg->exec("DROP VIEW db_clti.vw_qualificacao_pesti");
+
+	$pg->exec("CREATE OR REPLACE VIEW db_clti.vw_qualificacao_pesti
+		AS SELECT quali.idtb_qualificacao_ti,
+			quali.idtb_pessoal_ti,
+			pesti.idtb_posto_grad,
+			posto.sigla AS sigla_posto_grad,
+			pesti.idtb_corpo_quadro,
+			corpo.sigla AS sigla_corpo_quadro,
+			corpo.exibir AS exibir_corpo_quadro,
+			pesti.idtb_especialidade,
+			espec.sigla AS sigla_espec,
+			espec.exibir AS exibir_espec,
+			pesti.idtb_om_apoiadas,
+			om.sigla AS sigla_om,
+			pesti.nome_guerra,
+			pesti.nip,
+			pesti.cpf,
+			quali.instituicao,
+			quali.tipo,
+			quali.nome_curso,
+			quali.meio,
+			quali.situacao,
+			quali.data_conclusao,
+			quali.carga_horaria,
+			quali.custo
+		FROM db_clti.tb_qualificacao_ti quali,
+			db_clti.tb_pessoal_ti pesti,
+			db_clti.tb_posto_grad posto,
+			db_clti.tb_corpo_quadro corpo,
+			db_clti.tb_especialidade espec,
+			db_clti.tb_om_apoiadas om
+		WHERE quali.idtb_pessoal_ti = pesti.idtb_pessoal_ti AND pesti.idtb_posto_grad = posto.idtb_posto_grad 
+			AND pesti.idtb_corpo_quadro = corpo.idtb_corpo_quadro AND pesti.idtb_especialidade = espec.idtb_especialidade 
+			AND pesti.idtb_om_apoiadas = om.idtb_om_apoiadas and pesti.status = 'ATIVO';");
 
 	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
 	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.20' WHERE parametro='VERSAO' ");
 
 	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.20.</div>
 	<meta http-equiv=\"refresh\" content=\"5\">";
-	
-	
-	
-	*/
-
 }
 
-/**elseif ($versao == '1.5.20'){
+elseif ($versao == '1.5.20'){
 
 	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.20.</div>
 	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
 
-}*/
+}
 
 else{
 	echo "<div class=\"alert alert-primary\" role=\"alert\">Verifique sua instalação!</div>";
 }
-
-/** Encerrando Verifica Sessão de Login Ativa */
-/*	}
-}*/
 
 ?>

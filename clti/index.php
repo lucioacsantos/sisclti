@@ -117,12 +117,10 @@ if (isset($_SESSION['user_name'])){
                 <div class=\"btn-toolbar mb-2 mb-md-0\">
                   <div class=\"btn-group mr-2\">
                     <a href=\"?cmd=qualificacao\"><button class=\"btn btn-sm btn-outline-secondary\">Cursos Pessoal do CLTI</button></a>
+                    <a href=\"?cmd=qualificacao&act=concluidos\"><button class=\"btn btn-sm btn-outline-secondary\">Concluídos</button></a>
+                    <a href=\"?cmd=qualificacao&act=andamento\"><button class=\"btn btn-sm btn-outline-secondary\">Em Andamento</button></a>
                     <a href=\"?cmd=qualificacao&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
                   </div>
-                  <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
-                    <span data-feather=\"calendar\"></span>
-                    Esta Semana
-                  </button>-->
                 </div>
               </div>";
         include "qualificacao.inc.php";
