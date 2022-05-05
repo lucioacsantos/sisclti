@@ -21,7 +21,8 @@ $msg = $_SESSION ['msg'];
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Sistema de Gestão de TI">
-    <meta name="author" content="99242991 Lúcio ALEXANDRE Correia dos Santos">
+    <meta name="author" content="99242991 Lúcio ALEXANDRE Correia dos Santos lucio.alexandre@marinha.mil.br">
+    <meta name="generator" content="LucioACSantos">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
@@ -75,12 +76,24 @@ if ($act == NULL){
 
 /* Método Login */
 if ($act == 'acesso') {
+  
+  include_once("class/queries.inc.php");
+  $acesso = new Principal();
   $usr = new Usuario();
-  $usr->usuario = $_POST['usuario'];
-  $hash = sha1(md5($_POST['senha']));
-  $salt = sha1(md5($usr->usuario));
-  $senha = $salt.$hash;
-  $usr->senha = $senha;
+  
+  $usuario = $_POST['usuario'];
+  $usr->usuario = $usuario;
+  $acesso->var1 = $_POST['usuario'];
+  $acesso->var2 = $_POST['senha'];
+  $var = $acesso->Executa();
+  if ($var){
+    $usr->senha = $var->var5;
+  }
+  else{
+    $_SESSION ['msg'] = "Ocorreu algum erro!";
+    $msg = $_SESSION ['msg'];
+    include_once("login.inc.php");
+  }
 
   $row = $usr->LoginCLTI();
     

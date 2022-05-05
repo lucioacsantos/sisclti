@@ -18,7 +18,8 @@ $versao = $config->SelectVersao();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Sistema de Gestão de TI">
-    <meta name="author" content="99242991 Lúcio ALEXANDRE Correia dos Santos">
+    <meta name="author" content="99242991 Lúcio ALEXANDRE Correia dos Santos lucio.alexandre@marinha.mil.br">
+    <meta name="generator" content="LucioACSantos">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
