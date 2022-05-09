@@ -22,10 +22,9 @@ $num_rel = $rel_svc->NumRel();
 if ($act == 'cad') {
     @$param = $_GET['param'];
     if ($param){
-        $rel_svc->idtb_rel_servico = $param;
+        $rel_svc->num_rel = $param;
         $svc_atual = $pess_clti->SelectId();
         $relatorio = $rel_svc->SelectId();
-        $num_rel = $relatorio->num_rel;
     }
     else{
         $relatorio = (object)['idtb_rel_servico'=>'','sup_sai_servico'=>'','sup_entra_servico'=>'','data_entra_servico'=>'',
@@ -41,7 +40,7 @@ if ($act == 'cad') {
                 <div id=\"form-cadastro\">
                     <form id=\"insertom\" action=\"?cmd=relservico&act=insert\" method=\"post\" enctype=\"multipart/form-data\">
                         <fieldset>
-                            <legend>Relatório de Serviço Nº $num_rel - Supervisor de Serviço: $svc_sai->sigla_posto_grad $svc_sai->nome_guerra</legend>
+                            <legend>Relatório de Serviço Nº $relatorio->num_rel - Supervisor de Serviço: $svc_sai->sigla_posto_grad $svc_sai->nome_guerra</legend>
                             <div class=\"form-group\">
                                 <label for=\"data_entra_servico\">Serviço do dia:</label>
                                 <input id=\"data_entra_servico\" class=\"form-control\" name=\"data_entra_servico\" type=\"date\" 
@@ -87,7 +86,7 @@ if ($act == 'cad') {
                         </fieldset>
                         <input id=\"sup_sai_servico\" name=\"sup_sai_servico\" value=\"$svc_sai->idtb_lotacao_clti\" type=\"hidden\">
                         <input id=\"idtb_rel_servico\" name=\"idtb_rel_servico\" value=\"$relatorio->idtb_rel_servico\" type=\"hidden\">
-                        <input id=\"num_rel\" name=\"num_rel\" value=\"$num_rel\" type=\"hidden\">
+                        <input id=\"num_rel\" name=\"num_rel\" value=\"$relatorio->num_rel\" type=\"hidden\">
                         <input id=\"status\" name=\"status\" value=\"Em andamento\" type=\"hidden\">
                         <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">
                     </form>
