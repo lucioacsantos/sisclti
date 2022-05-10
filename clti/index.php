@@ -19,6 +19,20 @@ $qtdepesti = $pesti->CountPesTI();
 $qtdesrv = $srv->CountSrv();
 $qtdeet = $et->CountET();
 $qtdeconect = $conect->CountConect();
+$email_admin = '';
+$email_osic = '';
+
+foreach ($pesti->SelectEmailAdmin() as $key => $value){
+  $email_admin = $email_admin." ".$value->correio_eletronico;
+
+}
+
+foreach ($pesti->SelectEmailOSIC() as $key => $value){
+  $email_osic = $email_osic." ".$value->correio_eletronico;
+
+}
+
+
 
 /* URL Recuperada do Banco de Dados */
 $url = $config->SelectURL();
@@ -44,10 +58,6 @@ if (isset($_SESSION['user_name'])){
                   <div class=\"btn-group mr-2\">
                     <a href=\"?cmd=gerclti\"><button class=\"btn btn-sm btn-outline-secondary\">Gerenciamento do CLTI</button></a>
                   </div>
-                  <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
-                    <span data-feather=\"calendar\"></span>
-                    Esta Semana
-                  </button>-->
                 </div>
               </div>";
         include "tipoclti.inc.php";
@@ -67,10 +77,6 @@ if (isset($_SESSION['user_name'])){
                   <div class=\"btn-group mr-2\">
                     <a href=\"?cmd=gerclti\"><button class=\"btn btn-sm btn-outline-secondary\">Dados do CLTI</button></a>
                   </div>
-                  <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
-                    <span data-feather=\"calendar\"></span>
-                    Esta Semana
-                  </button>-->
                 </div>
               </div>";
         include "gerclti.inc.php";
@@ -95,10 +101,6 @@ if (isset($_SESSION['user_name'])){
                     <a href=\"?cmd=lotclti&act=aprovrelsv\"><button class=\"btn btn-sm btn-outline-secondary\">Aprovador Rel. Serviço</button></a>
                     <a href=\"?cmd=lotclti&act=servico\"><button class=\"btn btn-sm btn-outline-secondary\">Escala de Serviço</button></a>
                   </div>
-                  <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
-                    <span data-feather=\"calendar\"></span>
-                    Esta Semana
-                  </button>-->
                 </div>
               </div>";
         include "lotclti.inc.php";
@@ -141,10 +143,6 @@ if (isset($_SESSION['user_name'])){
                     <a href=\"?cmd=omapoiadas\"><button class=\"btn btn-sm btn-outline-secondary\">OM Apoiadas</button></a>
                     <a href=\"?cmd=omapoiadas&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Nova OM</button></a>
                   </div>
-                  <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
-                    <span data-feather=\"calendar\"></span>
-                    Esta Semana
-                  </button>-->
                 </div>
               </div>";
         include "omapoiadas.inc.php";
@@ -162,15 +160,13 @@ if (isset($_SESSION['user_name'])){
                 <h1 class=\"h2\">Gerenciamento - OSIC das OM Apoiadas</h1>
                 <div class=\"btn-toolbar mb-2 mb-md-0\">
                   <div class=\"btn-group mr-2\">
+                    <a onClick=\"javascript:window.open('mailto:".$email_osic."', 'mail');event.preventDefault()\" 
+                      href=\"mailto:".$email_osic."\"><button class=\"btn btn-sm btn-outline-secondary\">E-mail</button></a>
                     <a href=\"?cmd=osic\"><button class=\"btn btn-sm btn-outline-secondary\">
                       OSIC das OM</button></a>
                     <a href=\"?cmd=osic&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
                     <a href=\"?cmd=osic&act=inativos\"><button class=\"btn btn-sm btn-outline-secondary\">Inativos</button></a>
                   </div>
-                  <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
-                    <span data-feather=\"calendar\"></span>
-                    Esta Semana
-                  </button>-->
                 </div>
               </div>";
         include "osic.inc.php";
@@ -188,14 +184,12 @@ if (isset($_SESSION['user_name'])){
                 <h1 class=\"h2\">Gerenciamento - Admin das OM Apoiadas</h1>
                 <div class=\"btn-toolbar mb-2 mb-md-0\">
                   <div class=\"btn-group madminr-2\">
+                    <a onClick=\"javascript:window.open('mailto:".$email_admin."', 'mail');event.preventDefault()\" 
+                      href=\"mailto:".$email_admin."\"><button class=\"btn btn-sm btn-outline-secondary\">E-mail</button></a>
                     <a href=\"?cmd=admin\"><button class=\"btn btn-sm btn-outline-secondary\">Administradores</button></a>
                     <a href=\"?cmd=admin&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
                     <a href=\"?cmd=admin&act=inativos\"><button class=\"btn btn-sm btn-outline-secondary\">Inativos</button></a>
                   </div>
-                  <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
-                    <span data-feather=\"calendar\"></span>
-                    Esta Semana
-                  </button>-->
                 </div>
               </div>";
         include "admin.inc.php";
@@ -216,10 +210,6 @@ if (isset($_SESSION['user_name'])){
                       <a href=\"?cmd=funcoesti\"><button class=\"btn btn-sm btn-outline-secondary\">Funções de TI</button></a>
                       <a href=\"?cmd=funcoesti&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
                     </div>
-                    <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
-                      <span data-feather=\"calendar\"></span>
-                      Esta Semana
-                    </button>-->
                   </div>
                 </div>";
           include "funcoesti.inc.php";
@@ -239,10 +229,6 @@ if (isset($_SESSION['user_name'])){
                     <div class=\"btn-group madminr-2\">
                       <a href=\"?cmd=sistema\"><button class=\"btn btn-sm btn-outline-secondary\">Configurações</button></a>
                     </div>
-                    <!--<button class=\"btn btn-sm btn-outline-secondary dropdown-toggle\">
-                      <span data-feather=\"calendar\"></span>
-                      Esta Semana
-                    </button>-->
                   </div>
                 </div>";
           include "sistema.inc.php";

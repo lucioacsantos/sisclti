@@ -7,34 +7,37 @@
 require_once "class/constantes.inc.php";
 $config = new Config();
 $url = $config->SelectURL();
+$tags = $config->SelectTags();
 $sigla = $config->SelectSigla();
 $versao = $config->SelectVersao();
+$_SESSION ['msg'] = "";
+$msg = $_SESSION ['msg'];
 
 ?>
 
 <!doctype html>
 <html lang="pt_BR">
   <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Sistema de Gestão de TI">
-    <meta name="author" content="99242991 Lúcio ALEXANDRE Correia dos Santos lucio.alexandre@marinha.mil.br">
-    <meta name="generator" content="LucioACSantos">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
-    <?php echo "
-      <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"$url/img/apple-touch-icon.png\">
-      <link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"$url/img/favicon-32x32.png\">
-      <link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"$url/img/favicon-16x16.png\">
-      <link rel=\"manifest\" href=\"$url/img/site.webmanifest\">";
-    ?>
+  <?php
+  foreach ($tags as $key => $value){
+    echo "
+    <meta name=\"$value->parametro\" content=\"$value->valor\">";
+  }
+  echo "
+    <meta http-equiv=\"Cache-Control\" content=\"no-cache, no-store, must-revalidate\" />
+    <meta http-equiv=\"Pragma\" content=\"no-cache\" />
+    <meta http-equiv=\"Expires\" content=\"0\" />
 
-    <title>...::: SiGTI :::...</title>
+    <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"$url/img/apple-touch-icon.png\">
+    <link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"$url/img/favicon-32x32.png\">
+    <link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"$url/img/favicon-16x16.png\">
+    <link rel=\"manifest\" href=\"$url/img/site.webmanifest\">
 
-    <?php
-    /* Carrega CSS a partir da $url */
-    echo"
+    <title>...::: ".$config->SelectTitulo()." :::...</title>
+
     <!-- Bootstrap core CSS -->
     <link href=\"$url/css/bootstrap.min.css\" rel=\"stylesheet\">
 
@@ -45,9 +48,9 @@ $versao = $config->SelectVersao();
     <link href=\"$url/css/form-validation.css\" rel=\"stylesheet\">
 
     <!-- Stylesheet CSS -->
-    <link href=\"$url/css/stylesheet.css\" rel=\"stylesheet\">";
-
-    ?>
+    <link href=\"$url/css/stylesheet.css\" rel=\"stylesheet\">
+    ";
+  ?>
 
   </head>
 

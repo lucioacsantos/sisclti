@@ -298,7 +298,7 @@ if (($row != NULL) AND ($act == NULL)) {
                         <th scope=\"col\">OM Apoiada</th>
                         <th scope=\"col\">Posto/Grad./Esp.</th>
                         <th scope=\"col\">NIP/CPF</th>
-                        <th scope=\"col\">Nome</th>
+                        <th scope=\"col\">Nome (Enviar e-mail)</th>
                         <th scope=\"col\">Nome de Guerra</th>
                         <th scope=\"col\">Ações</th>
                     </tr>
@@ -330,7 +330,8 @@ if (($row != NULL) AND ($act == NULL)) {
         }
             echo"
                         <td>".$identificacao."</td>
-                        <td>".$value->nome."</td>
+                        <td><a onClick=\"javascript:window.open('mailto:".$value->correio_eletronico."', 'mail');event.preventDefault()\" 
+                            href=\"mailto:".$value->correio_eletronico."\">".$value->nome."</a></td>
                         <td>".$value->nome_guerra."</td>
                         <td><a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."\">Editar</a> - 
                             <a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."&senha=troca\">Senha</a> - 

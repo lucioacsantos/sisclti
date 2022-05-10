@@ -36,18 +36,18 @@ if ($act == 'cad') {
                     <form id=\"corpoquadro\" role=\"form\" action=\"?cmd=corpoquadro&act=insert\" 
                         method=\"post\" enctype=\"multipart/form-data\">
                         <fieldset>
-                            <legend>Posto/Graduação - Cadastro</legend>
+                            <legend>Corpos/Quadros - Cadastro</legend>
 
                             <div class=\"form-group\">
                                 <label for=\"nome\">Corpo/Quadro:</label>
                                 <input id=\"nome\" class=\"form-control\" type=\"text\" name=\"nome\"
-                                       placeholder=\"ex. Terceiro Sargento\" style=\"text-transform:uppercase\" 
+                                       placeholder=\"ex. EN\" style=\"text-transform:uppercase\" 
                                        required=\"true\" value=\"$corpoquadro->nome\" autocomplete=\"off\">
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"sigla\">Sigla:</label>
                                 <input id=\"sigla\" class=\"form-control\" type=\"text\" name=\"sigla\"
-                                       placeholder=\"ex. 3ºSG\" style=\"text-transform:uppercase\" 
+                                       placeholder=\"ex. EN\" style=\"text-transform:uppercase\" 
                                        required=\"true\" value=\"$corpoquadro->sigla\" autocomplete=\"off\">
                             </div>
                             <div class=\"form-group\">

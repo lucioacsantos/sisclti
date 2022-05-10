@@ -37,7 +37,8 @@ class Config
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRows("SELECT * FROM db_clti.tb_config");
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_config WHERE parametro='VERSAO' OR parametro='CIDADE' OR parametro='ESTADO' OR parametro='CIDADE' 
+            OR parametro='URL' OR parametro='TITULO' ORDER BY idtb_config ");
         return $row;
     }
     function SelectURL()
@@ -45,6 +46,20 @@ class Config
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='URL'");
+        return $row;
+    }
+    function SelectTitulo()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='TITULO'");
+        return $row;
+    }
+    function SelectTags()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_config WHERE parametro='author' OR parametro='description' OR parametro='generator' ");
         return $row;
     }
     function SelectVersao()
@@ -559,6 +574,13 @@ class PessoalTI
             $this->ordena");
         return $row;
     }
+    public function SelectEmailAdmin()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT correio_eletronico FROM db_clti.vw_pessoal_ti WHERE sigla_funcao='ADMIN' AND status='ATIVO' $this->ordena");
+        return $row;
+    }
     public function SelectAdminInativos()
     {
         require_once "pgsql.class.php";
@@ -618,6 +640,13 @@ class PessoalTI
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getRows("SELECT * FROM db_clti.vw_pessoal_ti WHERE sigla_funcao='OSIC' AND status='ATIVO' $this->ordena");
+        return $row;
+    }
+    public function SelectEmailOSIC()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT correio_eletronico FROM db_clti.vw_pessoal_ti WHERE sigla_funcao='OSIC' AND status='ATIVO' $this->ordena");
         return $row;
     }
     public function SelectOSICInativos()

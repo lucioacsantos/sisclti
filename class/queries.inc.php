@@ -2,20 +2,14 @@
 
 class Principal
 {
-    private $key = '49e69f7a5b79724cf7a3637db8f5b1cfc1ea7c480cdd480f87ee011d198aabbf';
-    private $ivalue = '2757389a64f797de';
     private $encryptMethod = "AES-256-CBC";
-    private $output = "NmNwOHRIM1lUNmNFQ2xUV1p0Q3g4QTgyekhNRGpWcTRaMkpGaW04dmFQUThYSi9SVUl
-    oNTFBNzF1enlIc2c0TFpENjI2UDZrbDVDbUZnTkVNeTYzYjgxakZ4b1lQT0FSejJFdHhtWDIwNDhEUC9OSTJISn
-    JLdWlzdmVsZ1pyYkk";
-
     private $key1;
     private $key2;
     private $key3;
+    private $key4;
 
     public $var1;
     public $var2;
-
 
     function Executa()
     {
@@ -46,8 +40,18 @@ class Principal
     {
         require_once "constantes.inc.php";
         $config = new Config();
-        $url = $config->SelectURL();
-        $tags = get_meta_tags($url);
+        $tags = $config->SelectTags();
+        $tags = $tags[0];
+        /*foreach ($keys as $key => $value){
+            $this->key1 = $value->author;
+            $this->key2 = $value->generator;
+            $this->key4 = $value->description;
+        }*/
+        $this->key1 =  hash('sha256', ($this->key1));
+        $this->key2 = substr(hash('sha256', ($this->key2)), 0, 16);
+        /*$url = $config->SelectURL();
+        $tags = get_meta_tags($url);*/
+
         return $tags;
     }
 }

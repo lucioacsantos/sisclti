@@ -2,8 +2,8 @@
 echo "
 <form class=\"form-signin\" id=\"login\" role=\"form\" action=\"?act=acesso\" 
   method=\"post\" enctype=\"multipart/form-data\">
-  <h5>$msg</h5>
   <h1 class=\"h3 mb-3 font-weight-normal\">Login de Usuário</h1>
+  <h5>$msg</h5>
   <label for=\"usuario\" class=\"sr-only\">NIP ou CPF</label>
   <input type=\"text\" name=\"usuario\" id=\"usuario\" class=\"form-control\" placeholder=\"NIP ou CPF\" autocomplete=\"off\" required autofocus>
   <div class=\"help-block with-errors\"></div>
