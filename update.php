@@ -577,9 +577,6 @@ elseif ($versao == '1.5.18'){
 
 elseif ($versao == '1.5.19'){
 
-	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.19.</div>
-	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
-
 	echo "<div class=\"alert alert-primary\" role=\"alert\">Atualizando banco de dados. Aguarde...</div>";
 
 	/*$pg->exec("DROP TABLE db_clti.tb_rel_sv_v2 CASCADE");
@@ -720,6 +717,12 @@ elseif ($versao == '1.5.19'){
 			AND pesti.idtb_corpo_quadro = corpo.idtb_corpo_quadro AND pesti.idtb_especialidade = espec.idtb_especialidade 
 			AND pesti.idtb_om_apoiadas = om.idtb_om_apoiadas and pesti.status = 'ATIVO';");
 
+	$pg->exec("INSERT INTO db_clti.tb_config (parametro,valor) VALUES 
+		('author','99242991 Lúcio ALEXANDRE Correia dos Santos lucio.alexandre@marinha.mil.br'),
+		('description','Sistema de Gestão de TI'),
+		('TITULO','SiGTI'),
+		('generator','LucioACSantos') ");
+	
 	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
 	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.20' WHERE parametro='VERSAO' ");
 

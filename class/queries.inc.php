@@ -40,18 +40,12 @@ class Principal
     {
         require_once "constantes.inc.php";
         $config = new Config();
-        $tags = $config->SelectTags();
-        $tags = $tags[0];
-        /*foreach ($keys as $key => $value){
-            $this->key1 = $value->author;
-            $this->key2 = $value->generator;
-            $this->key4 = $value->description;
-        }*/
-        $this->key1 =  hash('sha256', ($this->key1));
-        $this->key2 = substr(hash('sha256', ($this->key2)), 0, 16);
+        $tags = array();
+        foreach ($config->SelectTags() as $key => $value){
+            $tags[$value->parametro] = $value->valor;
+        }
         /*$url = $config->SelectURL();
         $tags = get_meta_tags($url);*/
-
         return $tags;
     }
 }
