@@ -37,7 +37,7 @@ class Config
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRows("SELECT * FROM db_clti.tb_config WHERE parametro='VERSAO' OR parametro='CIDADE' OR parametro='ESTADO' OR parametro='CIDADE' 
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_config WHERE parametro='CIDADE' OR parametro='ESTADO' OR parametro='CIDADE' 
             OR parametro='URL' OR parametro='TITULO' ORDER BY idtb_config ");
         return $row;
     }
@@ -1592,6 +1592,13 @@ class Estacoes
         $row = $pg->getRows("SELECT * FROM db_clti.vw_estacoes");
         return $row;
     }
+    public function SelectNomeETView()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_estacoes WHERE nome = '$this->nome' ");
+        return $row;
+    }
     public function SelectIdETView()
     {
         require_once "pgsql.class.php";
@@ -1733,6 +1740,13 @@ class Servidores
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getRows("SELECT * FROM db_clti.vw_servidores");
+        return $row;
+    }
+    public function SelectNomeSrvView()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_servidores WHERE nome = '$this->nome' ");
         return $row;
     }
     public function SelectIdSrvView()

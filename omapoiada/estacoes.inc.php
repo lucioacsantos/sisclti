@@ -156,8 +156,14 @@ if ($act == 'insert') {
         /* Opta pelo Método Insert */
         else{
             $checa_ip = $ip->SearchIP();
+            $checa_nome = $et->SelectNomeETView();
             if ($checa_ip){
-                echo "<h5>Endereço IP informado já está em uso, 
+                echo "<h5>Endereço IP in formado já está em uso, 
+                        por favor verifique!</h5>
+                    <meta http-equiv=\"refresh\" content=\"5;url=?cmd=estacoes\">";
+            }
+            elseif ($checa_nome){
+                echo "<h5>Nome informado já está em uso, 
                         por favor verifique!</h5>
                     <meta http-equiv=\"refresh\" content=\"5;url=?cmd=estacoes\">";
             }

@@ -148,8 +148,14 @@ if ($act == 'insert') {
         /* Opta pelo Método Insert */
         else{
             $checa_ip = $ip->SearchIP();
+            $checa_nome = $srv->SelectNomeSrvView();
             if ($checa_ip){
                 echo "<h5>Endereço IP informado já está em uso, 
+                    por favor verifique!</h5>
+                    <meta http-equiv=\"refresh\" content=\"5;url=?cmd=servidores\">";
+            }
+            elseif ($checa_nome){
+                echo "<h5>Nome informado já está em uso, 
                     por favor verifique!</h5>
                     <meta http-equiv=\"refresh\" content=\"5;url=?cmd=servidores\">";
             }
