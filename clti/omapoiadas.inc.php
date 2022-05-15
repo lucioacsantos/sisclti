@@ -3,6 +3,28 @@
 *** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
+/** Leitura de parâmetros */
+$oa = $cmd = $param = $act = $senha = NULL;
+if (isset($_GET['oa'])){
+  $oa = $_GET['oa'];
+}
+
+if (isset($_GET['cmd'])){
+  $cmd = $_GET['cmd'];
+}
+
+if (isset($_GET['act'])){
+  $act = $_GET['act'];
+}
+
+if (isset($_GET['param'])){
+  $param = $_GET['param'];
+}
+
+if (isset($_GET['senha'])){
+    $senha = $_GET['senha'];
+}
+
 /* Classe de interação com o PostgreSQL */
 require_once "../class/constantes.inc.php";
 $omap = new OMAPoiadas();
@@ -10,8 +32,6 @@ $cfg = new Config();
 
 /* Recupera informações */
 $row = $omap->SelectAllOMTable();
-
-@$act = $_GET['act'];
 
 /* Checa se há OM cadastradas */
 if (($row == NULL) AND ($act == NULL)) {
@@ -21,7 +41,6 @@ if (($row == NULL) AND ($act == NULL)) {
 
 /* Carrega form para cadastro de OM */
 if ($act == 'cad') {
-    @$param = $_GET['param'];
     if ($param){
         $omap->idtb_om_apoiadas = $param;
         $om = $omap->SelectIdOMTable();

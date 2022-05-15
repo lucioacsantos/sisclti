@@ -579,10 +579,6 @@ elseif ($versao == '1.5.19'){
 
 	echo "<div class=\"alert alert-primary\" role=\"alert\">Atualizando banco de dados. Aguarde...</div>";
 
-	/*$pg->exec("DROP TABLE db_clti.tb_rel_sv_v2 CASCADE");
-	$pg->exec("DROP TABLE db_clti.tb_rel_sv_v2_ocorrencias");
-	$pg->exec("DROP TABLE db_clti.tb_gw_om");*/
-
 	$pg->exec("CREATE TABLE db_clti.tb_rel_sv_v2 (
 		idtb_rel_servico serial NOT NULL,
 		sup_sai_servico int4 NOT NULL,
@@ -731,8 +727,27 @@ elseif ($versao == '1.5.19'){
 }
 
 elseif ($versao == '1.5.20'){
+	$pg->exec("CREATE TABLE db_clti.tb_det_serv (
+		idtb_det_serv serial NOT NULL,
+		sup_servico int4 NOT NULL,
+		data_entra_servico date NOT NULL,
+		data_sai_servico date NOT NULL,
+		status varchar(255)
+		CONSTRAINT tb_det_serv_pkey PRIMARY KEY (idtb_det_serv),
+		CONSTRAINT tb_det_serv_fkey1 FOREIGN KEY (sup_servico) REFERENCES db_clti.tb_lotacao_clti(idtb_lotacao_clti)
+	);
+	COMMENT ON TABLE db_clti.tb_rel_sv_v2 IS 'Tabela contendo Detalhe de Serviço do CLTI Versão 2';");
 
-	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.20.</div>
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
+	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.21' WHERE parametro='VERSAO' ");
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.21.</div>
+	<meta http-equiv=\"refresh\" content=\"5\">";
+}
+
+elseif ($versao == '1.5.21'){
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.21.</div>
 	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
 
 }

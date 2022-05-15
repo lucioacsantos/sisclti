@@ -2490,6 +2490,8 @@ class RelServico
     public $status;
     public $idtb_rel_servico_ocorrencias;
     public $ocorrencia;
+    public $idtb_det_serv;
+    public $sup_servico;
 
     public function NumRel()
     {
@@ -2606,6 +2608,36 @@ class RelServico
         $pg = new PgSql();
         $row = $pg->insert("INSERT INTO db_clti.tb_rel_servico_log (idtb_lotacao_clti,num_rel,cod_aut,data_hora)
             VALUES ($idtb_lotacao_clti,$num_rel,'$cod_aut','$data_hora')",'idtb_lotacao_clti');
+        return $row;
+    }
+    public function SelectDetSv()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("SELECT * FROM db_clti.tb_det_serv WHERE status = 'PROGRAMADO' ");
+        return $row;
+    }
+    public function SelectIdDetSv()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("SELECT * FROM db_clti.tb_det_serv WHERE idtb_det_serv = $idtb_det_serv ");
+        return $row;
+    }
+    public function InsertDetSv()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->insert("INSERT INTO db_clti.tb_det_serv (sup_servico,data_entra_servico,data_sai_servico,status)
+            VALUES ($sup_servico,$data_entra_servico,$data_sai_servico,$status) ");
+        return $row;
+    }
+    public function UpdateDetSv()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("UPDATE db_clti.tb_det_serv_sv SET (sup_servico,data_entra_servico,data_sai_servico,status)
+            = ($sup_servico,$data_entra_servico,$data_sai_servico,$status) WHERE idtb_det_serv = $idtb_det_serv ");
         return $row;
     }
 }

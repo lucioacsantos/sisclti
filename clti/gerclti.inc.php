@@ -3,14 +3,34 @@
 *** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
+/** Leitura de parâmetros */
+$oa = $cmd = $param = $act = $senha = NULL;
+if (isset($_GET['oa'])){
+  $oa = $_GET['oa'];
+}
+
+if (isset($_GET['cmd'])){
+  $cmd = $_GET['cmd'];
+}
+
+if (isset($_GET['act'])){
+  $act = $_GET['act'];
+}
+
+if (isset($_GET['param'])){
+  $param = $_GET['param'];
+}
+
+if (isset($_GET['senha'])){
+    $senha = $_GET['senha'];
+}
+
 /* Clasee de interação com o PostgreSQL */
 require_once "../class/constantes.inc.php";
 $config = new Config();
 
 /* Recupera informações do CLTI */
 $row = $config->SelectAllCLTI();
-
-@$act = $_GET['act'];
 
 /* Checa se há cadastro do CLTI */
 if (($row == '0') AND ($act == NULL)) {
@@ -19,8 +39,6 @@ if (($row == '0') AND ($act == NULL)) {
 
 /* Carregar form para cadastro do CLTI */
 if ($act == 'cad') {
-    @$param = $_GET['param'];
-
     if ($param){
         $config->idtb_clti = $param;
         $gerclti = $config->SelectIdCLTI();

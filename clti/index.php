@@ -218,98 +218,122 @@ if (isset($_SESSION['user_name'])){
             </div>
           </div>";
   
-        break;
+      break;
 
-        case 'sistema':
-          echo "
-              <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
-                <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
-                  <h1 class=\"h2\">Gerenciamento - Parâmetros de Configuração</h1>
-                  <div class=\"btn-toolbar mb-2 mb-md-0\">
-                    <div class=\"btn-group madminr-2\">
-                      <a href=\"?cmd=sistema\"><button class=\"btn btn-sm btn-outline-secondary\">Configurações</button></a>
-                    </div>
+      case 'sistema':
+        echo "
+            <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
+              <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
+                <h1 class=\"h2\">Gerenciamento - Parâmetros de Configuração</h1>
+                <div class=\"btn-toolbar mb-2 mb-md-0\">
+                  <div class=\"btn-group madminr-2\">
+                    <a href=\"?cmd=sistema\"><button class=\"btn btn-sm btn-outline-secondary\">Configurações</button></a>
                   </div>
-                </div>";
-          include "sistema.inc.php";
-          echo"
-          </main>
-            </div>
-          </div>";
-      
-        break;
+                </div>
+              </div>";
+        include "sistema.inc.php";
+        echo"
+        </main>
+          </div>
+        </div>";
+    
+      break;
 
-        case 'perfilinternet':
-          echo "
-              <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
-                <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
-                  <h1 class=\"h2\">Perfis de Internet</h1>
-                  <div class=\"btn-toolbar mb-2 mb-md-0\">
-                    <div class=\"btn-group mr-2\">
-                      <a href=\"?cmd=perfilinternet\"><button class=\"btn btn-sm btn-outline-secondary\">
-                        Perfis</button></a>
-                      <a href=\"?cmd=perfilinternet&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">
-                        Cadastro</button></a>
-                    </div>
+      case 'perfilinternet':
+        echo "
+            <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
+              <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
+                <h1 class=\"h2\">Perfis de Internet</h1>
+                <div class=\"btn-toolbar mb-2 mb-md-0\">
+                  <div class=\"btn-group mr-2\">
+                    <a href=\"?cmd=perfilinternet\"><button class=\"btn btn-sm btn-outline-secondary\">
+                      Perfis</button></a>
+                    <a href=\"?cmd=perfilinternet&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">
+                      Cadastro</button></a>
                   </div>
-                </div>";
-          include "perfilinternet.inc.php";
-          echo"
-          </main>
-            </div>
-          </div>";
-      
-        break;
+                </div>
+              </div>";
+        include "perfilinternet.inc.php";
+        echo"
+        </main>
+          </div>
+        </div>";
+    
+      break;
 
-        case 'monitoramento':
-          echo "
-              <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
-                <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
-                  <h1 class=\"h2\">Monitoramento</h1>
-                  <div class=\"btn-toolbar mb-2 mb-md-0\">
-                    <div class=\"btn-group mr-2\">
-                      <a href=\"?cmd=monitoramento\"><button class=\"btn btn-sm btn-outline-secondary\">
-                        Perfis</button></a>
-                      <a href=\"?cmd=monitoramento&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">
-                        Cadastro</button></a>
-                    </div>
+      case 'monitoramento':
+        echo "
+            <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
+              <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
+                <h1 class=\"h2\">Monitoramento</h1>
+                <div class=\"btn-toolbar mb-2 mb-md-0\">
+                  <div class=\"btn-group mr-2\">
+                    <a href=\"?cmd=monitoramento\"><button class=\"btn btn-sm btn-outline-secondary\">
+                      Perfis</button></a>
+                    <a href=\"?cmd=monitoramento&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">
+                      Cadastro</button></a>
                   </div>
-                </div>";
-          include "monitoramento.inc.php";
-          echo"
-          </main>
-            </div>
-          </div>";
-      
-        break;
+                </div>
+              </div>";
+        include "monitoramento.inc.php";
+        echo"
+        </main>
+          </div>
+        </div>";
+    
+      break;
 
-        case 'relservico':
-          echo "
-              <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
-                <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
-                  <h1 class=\"h2\">Relatório de Serviço</h1>
-                  <div class=\"btn-toolbar mb-2 mb-md-0\">
-                    <div class=\"btn-group mr-2\">
-                      <a href=\"?cmd=relservico&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">
-                        Novo Relatório</button></a>
-                      <a href=\"?cmd=relservico\"><button class=\"btn btn-sm btn-outline-secondary\">
-                        Em Andamento</button></a>
-                      <a href=\"?cmd=relservico&act=encerrados\"><button class=\"btn btn-sm btn-outline-secondary\">
-                        Encerrados pelo Supervisor</button></a>
-                      <a href=\"?cmd=relservico&act=agaprov\"><button class=\"btn btn-sm btn-outline-secondary\">
-                        Aguardando aprovação</button></a>
-                      <a href=\"?cmd=relservico&act=aprovados\"><button class=\"btn btn-sm btn-outline-secondary\">
-                        Aprovados pelo Encarregado</button></a>
-                    </div>
+      case 'detsv':
+        echo "
+            <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
+              <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
+                <h1 class=\"h2\">Detalhe de Serviço</h1>
+                <div class=\"btn-toolbar mb-2 mb-md-0\">
+                  <div class=\"btn-group mr-2\">
+                    <a href=\"?cmd=detsv\"><button class=\"btn btn-sm btn-outline-secondary\">
+                      Detalhe de Serviço</button></a>
+                    <a href=\"?cmd=detsv&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">
+                      Cadastro</button></a>
                   </div>
-                </div>";
-          include "relservico.inc.php";
-          echo"
-          </main>
-            </div>
-          </div>";
-      
-        break;
+                </div>
+              </div>";
+        include "detsv.inc.php";
+        echo"
+        </main>
+          </div>
+        </div>";
+    
+      break;
+
+      case 'relservico':
+        echo "
+            <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
+              <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
+                <h1 class=\"h2\">Relatório de Serviço</h1>
+                <div class=\"btn-toolbar mb-2 mb-md-0\">
+                  <div class=\"btn-group mr-2\">
+                    <a href=\"?cmd=detsv\"><button class=\"btn btn-sm btn-outline-secondary\">
+                      Detalhe de Serv.</button></a>
+                    <a href=\"?cmd=relservico&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">
+                      Novo Relatório</button></a>
+                    <a href=\"?cmd=relservico\"><button class=\"btn btn-sm btn-outline-secondary\">
+                      Em Andamento</button></a>
+                    <a href=\"?cmd=relservico&act=encerrados\"><button class=\"btn btn-sm btn-outline-secondary\">
+                      Encerrados</button></a>
+                    <a href=\"?cmd=relservico&act=agaprov\"><button class=\"btn btn-sm btn-outline-secondary\">
+                      Ag. aprovação</button></a>
+                    <a href=\"?cmd=relservico&act=aprovados\"><button class=\"btn btn-sm btn-outline-secondary\">
+                      Aprovados</button></a>
+                  </div>
+                </div>
+              </div>";
+        include "relservico.inc.php";
+        echo"
+        </main>
+          </div>
+        </div>";
+    
+      break;
       
     default:
 

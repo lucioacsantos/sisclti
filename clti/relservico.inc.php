@@ -3,6 +3,28 @@
 *** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
+/** Leitura de parâmetros */
+$oa = $cmd = $param = $act = $senha = NULL;
+if (isset($_GET['oa'])){
+  $oa = $_GET['oa'];
+}
+
+if (isset($_GET['cmd'])){
+  $cmd = $_GET['cmd'];
+}
+
+if (isset($_GET['act'])){
+  $act = $_GET['act'];
+}
+
+if (isset($_GET['param'])){
+  $param = $_GET['param'];
+}
+
+if (isset($_GET['senha'])){
+    $senha = $_GET['senha'];
+}
+
 /* Classe de interação com o PostgreSQL */
 require_once "../class/constantes.inc.php";
 
@@ -16,11 +38,8 @@ $svc_entra = $pess_clti->SelectEscalaSV();
 $pess_clti->ordena = 'ORDER BY idtb_posto_grad ASC';
 $num_rel = $rel_svc->NumRel();
 
-@$act = $_GET['act'];
-
 /* Carrega form para Novo Relatório */
 if ($act == 'cad') {
-    @$param = $_GET['param'];
     if ($param){
         $rel_svc->num_rel = $param;
         $svc_atual = $pess_clti->SelectId();
