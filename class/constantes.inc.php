@@ -2614,14 +2614,14 @@ class RelServico
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->exec("SELECT * FROM db_clti.tb_det_serv WHERE status = 'PROGRAMADO' ");
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_det_serv WHERE status = 'PROGRAMADO' ");
         return $row;
     }
     public function SelectIdDetSv()
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->exec("SELECT * FROM db_clti.tb_det_serv WHERE idtb_det_serv = $idtb_det_serv ");
+        $row = $pg->getRow("SELECT * FROM db_clti.tb_det_serv WHERE idtb_det_serv = $idtb_det_serv ");
         return $row;
     }
     public function InsertDetSv()

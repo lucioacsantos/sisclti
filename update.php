@@ -729,12 +729,12 @@ elseif ($versao == '1.5.19'){
 elseif ($versao == '1.5.20'){
 	$pg->exec("CREATE TABLE db_clti.tb_det_serv (
 		idtb_det_serv serial NOT NULL,
-		sup_servico int4 NOT NULL,
+		idtb_lotacao_clti int4 NOT NULL,
 		data_entra_servico date NOT NULL,
 		data_sai_servico date NOT NULL,
-		status varchar(255)
+		status varchar(255),
 		CONSTRAINT tb_det_serv_pkey PRIMARY KEY (idtb_det_serv),
-		CONSTRAINT tb_det_serv_fkey1 FOREIGN KEY (sup_servico) REFERENCES db_clti.tb_lotacao_clti(idtb_lotacao_clti)
+		CONSTRAINT tb_det_serv_fkey1 FOREIGN KEY (idtb_lotacao_clti) REFERENCES db_clti.tb_lotacao_clti(idtb_lotacao_clti)
 	);
 	COMMENT ON TABLE db_clti.tb_rel_sv_v2 IS 'Tabela contendo Detalhe de Serviço do CLTI Versão 2';");
 
