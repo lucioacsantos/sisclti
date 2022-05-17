@@ -42,11 +42,11 @@ $versao = $config->SelectVersao();
           <a class="nav-link" href="<?php echo "$url/troca_senha.php"; ?>">| Alterar Senha |</a>
         </li>
       </ul>
-      <!--<ul class="navbar-nav px-3">
+      <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">| Atualizar Dados |</a>
+          <a class="nav-link" href="<?php echo "$url/manuais/PT_XXX_CLTI-3DN_SISCLTI.pdf"; ?>" target="_blanck">| Manual |</a>
         </li>
-      </ul>-->
+      </ul>
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
           <a class="nav-link" href="<?php echo "$url/logout.php"; ?>">| Sair |</a>

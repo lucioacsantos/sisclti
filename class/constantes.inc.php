@@ -2503,6 +2503,13 @@ class RelServico
         $row = $pg->getCol("SELECT prox_num FROM db_clti.tb_numerador WHERE parametro = 'RelServico'");
         return $row;
     }
+    public function NewRel()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("UPDATE db_clti.tb_det_serv SET status = 'ENCERRADO' WHERE data_sai_servico = '$this->data' ");
+        return $row;
+    }
     public function SelectId()
     {
         require_once "pgsql.class.php";

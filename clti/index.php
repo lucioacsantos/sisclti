@@ -314,8 +314,8 @@ if (isset($_SESSION['user_name'])){
                   <div class=\"btn-group mr-2\">
                     <a href=\"?cmd=detsv\"><button class=\"btn btn-sm btn-outline-secondary\">
                       Detalhe de Serv.</button></a>
-                    <a href=\"?cmd=relservico&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">
-                      Novo Relatório</button></a>
+                    <!--<a href=\"?cmd=relservico&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">
+                      Novo Relatório</button></a>-->
                     <a href=\"?cmd=relservico\"><button class=\"btn btn-sm btn-outline-secondary\">
                       Em Andamento</button></a>
                     <a href=\"?cmd=relservico&act=encerrados\"><button class=\"btn btn-sm btn-outline-secondary\">

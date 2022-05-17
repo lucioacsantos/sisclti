@@ -31,6 +31,7 @@ $rel_sv->sit_backup = "Executado normalmente";
 $rel_sv->status = "Em andamento";
 
 $rel_sv->Insert();
+$rel_sv->NewRel();
 
 echo "Supervisor que sai: ".$sup_sai->idtb_lotacao_clti."\n";
 echo "Supervisor que entra: ".$sup_entra->idtb_lotacao_clti."\n";
