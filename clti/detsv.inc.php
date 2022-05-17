@@ -31,20 +31,18 @@ $pesclti = new PessoalCLTI();
 $relsv = new RelServico();
 
 /* Recupera informações */
-/*$pesclti->ordena = 'ORDER BY data_entra_servico ASC';
-$row = $pesclti->SelectALL();*/
+$relsv->ordena = 'ORDER BY data_entra_servico ASC';
+$row = $relsv->SelectDetSv();
 $pesclti->ordena = 'ORDER BY idtb_posto_grad ASC';
 $svc_entra = $pesclti->SelectEscalaSV();
 
 /* Carrega form para Novo Relatório */
 if ($act == 'cad') {
-    @$param = $_GET['param'];
     if ($param){
         $relsv->idtb_det_serv = $param;
         $servico = $relsv->SelectIdDetSv();
         $pesclti->idtb_lotacao_clti = $servico->idtb_lotacao_clti;
         $svc_atual = $pesclti->SelectId();
-
     }
     else{
         $servico = (object)['idtb_det_serv'=>'','idtb_lotacao_clti'=>'','data_entra_servico'=>'',
@@ -101,8 +99,8 @@ if (($row) AND ($act == NULL)) {
                     <tr>
                         <th scope=\"col\">Posto/Grad.</th>
                         <th scope=\"col\">Nome de Guerra</th>
-                        <th scope=\"col\">Entra de Serviço</th>
-                        <th scope=\"col\">Sai de Serviço</th>
+                        <th scope=\"col\">Serviço de:</th>
+                        <th scope=\"col\">Para:</th>
                         <th scope=\"col\">Ações</th>
                     </tr>
                 </thead>";
@@ -113,14 +111,11 @@ if (($row) AND ($act == NULL)) {
         echo"       <tr>";
         $pesclti->idtb_lotacao_clti = $value->idtb_lotacao_clti;
         $svc_atual = $pesclti->SelectId();
-        foreach ($svc_atual as $chave => $valor){
-            echo"       <th scope=\"row\">".$valor->posto_grad."</th>
-                        <th scope=\"row\">".$valor->nome_guerra."</th>";
-        }
-        echo"           <th scope=\"row\">".$value->data_entra_servico."</th>
-                        <th scope=\"row\">".$value->data_sai_servico."</th>
-                        <td><a href=\"?cmd=detsv&act=cad&param=".$value->idtb_det_serv."\">Editar</a> - 
-                            Excluir</td>
+        echo"           <th scope=\"row\">".$svc_atual->sigla_posto_grad."</th>
+                        <th scope=\"row\">".$svc_atual->nome_guerra."</th>
+                        <th scope=\"row\">".date('d-m-Y',strtotime($value->data_entra_servico))."</th>
+                        <th scope=\"row\">".date('d-m-Y',strtotime($value->data_sai_servico))."</th>
+                        <td><a href=\"?cmd=detsv&act=cad&param=".$value->idtb_det_serv."\">Editar</a></td>
                     </tr>";
     };
     echo"
@@ -135,15 +130,17 @@ if ($act == 'insert') {
         //idtb_det_serv sup_servico data_entra_servico data_sai_servico status
 
         $idtb_det_serv = $_POST['idtb_det_serv'];
-        $fti->idtb_funcoes_ti = $idtb_funcoes_ti;
-        $fti->descricao = mb_strtoupper($_POST['descricao'],'UTF-8');
-        $fti->sigla = mb_strtoupper($_POST['sigla'],'UTF-8');
+        $relsv->idtb_det_serv = $idtb_det_serv;
+        $relsv->idtb_lotacao_clti = $_POST['idtb_lotacao_clti'];
+        $relsv->data_entra_servico = $_POST['data_entra_servico'];
+        $relsv->data_sai_servico = $_POST['data_sai_servico'];
+        $relsv->status = $_POST['status'];
         
         if ($idtb_det_serv){
-            $row = $fti->UpdateFuncoesTI();    
+            $row = $relsv->UpdateDetSv();    
             if ($row) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=funcoesti\">";
+                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=detsv\">";
             }    
             else {
                 echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
@@ -151,10 +148,10 @@ if ($act == 'insert') {
             }
         }
         else {
-            $row = $fti->InsertFuncoesTI();    
+            $row = $relsv->InsertDetSv();
             if ($row) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=funcoesti\">";
+                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=detsv\">";
             }    
             else {
                 echo "<h5>Ocorreu algum erro, tente novamente.</h5>";

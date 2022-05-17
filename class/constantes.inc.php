@@ -2480,6 +2480,7 @@ class Monitoramento
 class RelServico
 {
     public $idtb_rel_servico;
+    public $idtb_lotacao_clti;
     public $sup_sai_servico;
     public $sup_entra_servico;
     public $num_rel;
@@ -2492,6 +2493,8 @@ class RelServico
     public $ocorrencia;
     public $idtb_det_serv;
     public $sup_servico;
+    public $condicao;
+    public $data;
 
     public function NumRel()
     {
@@ -2621,23 +2624,32 @@ class RelServico
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT * FROM db_clti.tb_det_serv WHERE idtb_det_serv = $idtb_det_serv ");
+        $row = $pg->getRow("SELECT * FROM db_clti.tb_det_serv WHERE idtb_det_serv = $this->idtb_det_serv ");
+        return $row;
+    }
+    public function SelectDataDetSv()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("SELECT * FROM db_clti.tb_det_serv WHERE $this->condicao = '$this->data' ");
         return $row;
     }
     public function InsertDetSv()
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->insert("INSERT INTO db_clti.tb_det_serv (sup_servico,data_entra_servico,data_sai_servico,status)
-            VALUES ($sup_servico,$data_entra_servico,$data_sai_servico,$status) ");
+        $row = $pg->insert("INSERT INTO db_clti.tb_det_serv (idtb_lotacao_clti,data_entra_servico,data_sai_servico,status)
+            VALUES ($this->idtb_lotacao_clti,'$this->data_entra_servico','$this->data_sai_servico','$this->status') ", 
+            $id='idtb_lotacao_clti');
         return $row;
     }
     public function UpdateDetSv()
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->exec("UPDATE db_clti.tb_det_serv_sv SET (sup_servico,data_entra_servico,data_sai_servico,status)
-            = ($sup_servico,$data_entra_servico,$data_sai_servico,$status) WHERE idtb_det_serv = $idtb_det_serv ");
+        $row = $pg->exec("UPDATE db_clti.tb_det_serv SET (idtb_lotacao_clti,data_entra_servico,data_sai_servico,status)
+            = ($this->idtb_lotacao_clti,'$this->data_entra_servico','$this->data_sai_servico','$this->status') 
+            WHERE idtb_det_serv = $this->idtb_det_serv ");
         return $row;
     }
 }

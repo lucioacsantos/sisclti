@@ -143,8 +143,8 @@ if ($act == NULL) {
         $ocorrencias = $rel_svc->SelectOcorrenciaNumRel();
         echo"       <tr>
                         <th scope=\"row\">".$value->num_rel."</th>
-                        <td>".implode("/",array_reverse(explode("-",$value->data_entra_servico)))."</td>
-                        <td>".implode("/",array_reverse(explode("-",$value->data_sai_servico)))."</td>
+                        <td>".date('d-m-Y',strtotime($value->data_entra_servico))."</td>
+                        <td>".date('d-m-Y',strtotime($value->data_sai_servico))."</td>
                         <td>".$sup_sai->sigla_posto_grad." - ".$sup_sai->nome_guerra."</td>
                         <td>".$sup_entra->sigla_posto_grad." - ".$sup_entra->nome_guerra."</td>
                         <td><a href=\"?cmd=relservico&act=cad&param=".$value->num_rel."\">Editar</a> - 

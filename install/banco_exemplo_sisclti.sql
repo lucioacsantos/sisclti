@@ -11,14 +11,14 @@ SET client_min_messages = warning;
 SET search_path = db_clti, pg_catalog;
 
 --
--- Data for Name: tb_pais; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_pais; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_pais VALUES (1, 'Brasil', 'BR');
 
 
 --
--- Data for Name: tb_estado; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_estado; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_estado VALUES (1, 'Acre', 'AC', 1);
@@ -51,7 +51,7 @@ INSERT INTO tb_estado VALUES (27, 'Tocantins', 'TO', 1);
 
 
 --
--- Data for Name: tb_cidade; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_cidade; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_cidade VALUES (1, 'Afonso Cláudio', 8);
@@ -5621,7 +5621,7 @@ INSERT INTO tb_cidade VALUES (5564, 'Xambioá', 27);
 
 
 --
--- Data for Name: tb_corpo_quadro; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_corpo_quadro; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_corpo_quadro VALUES (4, 'CPA', 'CPA', 'NÃO');
@@ -5649,7 +5649,7 @@ INSERT INTO tb_corpo_quadro VALUES (1, 'CFN', 'FN', 'SIM');
 
 
 --
--- Data for Name: tb_especialidade; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_especialidade; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_especialidade VALUES (25, 'TÉCNICO', 'T', 'SIM');
@@ -5687,7 +5687,7 @@ INSERT INTO tb_especialidade VALUES (32, 'ENGENHEIRO NAVAL', 'EN', 'SIM');
 
 
 --
--- Data for Name: tb_om_apoiadas; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_om_apoiadas; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_om_apoiadas VALUES (2, 83401, 'ESTAÇÃO RADIOGONIOMÉTRICA DA MARINHA EM NATAL', 'ERMN', 'ERMNAT', 20, 3302);
@@ -5721,7 +5721,7 @@ INSERT INTO tb_om_apoiadas VALUES (1, 83000, 'COMANDO DO 3º DISTRITO NAVAL', 'C
 
 
 --
--- Data for Name: tb_pad_sic_tic; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_pad_sic_tic; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_pad_sic_tic VALUES (1, 1, 2021, '2021-02-04', '2021-02-04', 'CORRENTE');
@@ -5729,7 +5729,7 @@ INSERT INTO tb_pad_sic_tic VALUES (2, 3, 2021, '2020-01-08', '2020-01-09', 'CORR
 
 
 --
--- Data for Name: tb_posto_grad; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_posto_grad; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_posto_grad VALUES (1, 'Almirante-de-Esquadra', 'AE');
@@ -5756,7 +5756,7 @@ INSERT INTO tb_posto_grad VALUES (15, 'TERCEIRO-SARGENTO', '3ºSG');
 
 
 --
--- Data for Name: tb_pessoal_om; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_pessoal_om; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_pessoal_om VALUES (1, 1, 16, 1, 8, '99242991', '', 'LÚCIO ALEXANDRE CORREIA DOS SANTOS', 'ALEXANDRE', 'LUCIO.ALEXANDRE@MARINHA.MIL.BR', 'ATIVO', 'NÃO');
@@ -5775,7 +5775,7 @@ INSERT INTO tb_pessoal_om VALUES (13, 1, 16, 13, 8, '16130189', '', 'BRENDO JACK
 
 
 --
--- Data for Name: tb_temas_pad_sic_tic; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_temas_pad_sic_tic; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_temas_pad_sic_tic VALUES (1, 1, 'Adestramento básico de SIC', 'PREVISTO', NULL, NULL);
@@ -5805,42 +5805,42 @@ INSERT INTO tb_temas_pad_sic_tic VALUES (22, 2, 'Crimes de Informática', 'PREVI
 
 
 --
--- Data for Name: tb_ade_pad_sic_tic; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_ade_pad_sic_tic; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_ade_pad_sic_tic VALUES (1, 1, 1);
 
 
 --
--- Name: tb_ade_pad_sic_tic_idtb_ade_pad_sic_tic_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_ade_pad_sic_tic_idtb_ade_pad_sic_tic_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_ade_pad_sic_tic_idtb_ade_pad_sic_tic_seq', 1, true);
 
 
 --
--- Name: tb_cidade_id_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_cidade_id_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_cidade_id_seq', 5564, true);
 
 
 --
--- Data for Name: tb_clti; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_clti; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_clti VALUES (1, 2, 5, 'CLTI COM3ºDN', 'CLTI-3ºDN', 'CLTINA', '2012-04-30');
 
 
 --
--- Name: tb_clti_idtb_clti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_clti_idtb_clti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_clti_idtb_clti_seq', 1, true);
 
 
 --
--- Data for Name: tb_om_setores; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_om_setores; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_om_setores VALUES (2, 1, 'CENTRO LOCAL DE TECNOLOGIA DA INFORMAÇÃO', 'CLTI', 'DN-01.6.1', 'DIVISÃO DE INFRAESTRUTURA');
@@ -5918,21 +5918,21 @@ INSERT INTO tb_om_setores VALUES (72, 2, 'CUIDADO', 'SQL INJECTION', '00111', 'F
 
 
 --
--- Data for Name: tb_conectividade; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_conectividade; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_conectividade VALUES (1, 1, 'HP', 'HP1410-24G', '', '2018-12-25', '2019-12-25', 4, 24, 'SW-01', NULL);
 
 
 --
--- Name: tb_conectividade_idtb_conectividade_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_conectividade_idtb_conectividade_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_conectividade_idtb_conectividade_seq', 1, true);
 
 
 --
--- Data for Name: tb_config; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_config; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_config VALUES (2, 'ESTADO', 'RN');
@@ -5942,28 +5942,28 @@ INSERT INTO tb_config VALUES (4, 'VERSAO', '1.5.19');
 
 
 --
--- Name: tb_config_idtb_config_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_config_idtb_config_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_config_idtb_config_seq', 4, true);
 
 
 --
--- Data for Name: tb_controle_internet; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_controle_internet; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_controle_internet VALUES (1, 1, 1, '1, 2, 3, 4, 5, 6', NULL);
 
 
 --
--- Name: tb_controle_internet_idtb_controle_internet_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_controle_internet_idtb_controle_internet_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_controle_internet_idtb_controle_internet_seq', 1, true);
 
 
 --
--- Data for Name: tb_memorias; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_memorias; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_memorias VALUES (1, 'DDR', 'PC-1600', 200);
@@ -6003,7 +6003,7 @@ INSERT INTO tb_memorias VALUES (34, 'DDR4', 'PC4-32000', 4000);
 
 
 --
--- Data for Name: tb_proc_fab; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_proc_fab; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_proc_fab VALUES (1, 'INTEL');
@@ -6012,7 +6012,7 @@ INSERT INTO tb_proc_fab VALUES (3, '');
 
 
 --
--- Data for Name: tb_proc_modelo; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_proc_modelo; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_proc_modelo VALUES (1, 1, 'CELERON');
@@ -6076,7 +6076,7 @@ INSERT INTO tb_proc_modelo VALUES (58, 1, 'XEON E5-2620');
 
 
 --
--- Data for Name: tb_sor; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_sor; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_sor VALUES (1, 'MICROSOFT', 'WINDOWS', 'XP', 'DESCONTINUADO');
@@ -6108,7 +6108,7 @@ INSERT INTO tb_sor VALUES (26, 'MCAFEE', 'WEBGATEWAY', '7', 'ATIVO');
 
 
 --
--- Data for Name: tb_estacoes; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_estacoes; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_estacoes VALUES (3, 1, 47, 3.20000005, 'ARQUIMEDES', 'CORPORATIVO - A', '8', '1000', 14, '172.23.119.115', '00-e0-4c-8d-40-1e', '2020-06-01', '2021-06-01', 'SIM', 'EM PRODUÇÃO', 30, 4, 'COM3DN-0163');
@@ -6132,7 +6132,7 @@ INSERT INTO tb_estacoes VALUES (18, 1, 11, 3.0999999, 'HP', 'COMPAC B200', '8', 
 
 
 --
--- Data for Name: tb_controle_usb; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_controle_usb; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_controle_usb VALUES (2, 1, 7, 'OS XX/2021', NULL);
@@ -6149,21 +6149,21 @@ INSERT INTO tb_controle_usb VALUES (1, 1, 1, 'OS XX/2021', NULL);
 
 
 --
--- Name: tb_controle_usb_idtb_controle_usb_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_controle_usb_idtb_controle_usb_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_controle_usb_idtb_controle_usb_seq', 11, true);
 
 
 --
--- Name: tb_corpo_quadro_idtb_corpo_quadro_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_corpo_quadro_idtb_corpo_quadro_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_corpo_quadro_idtb_corpo_quadro_seq', 22, true);
 
 
 --
--- Data for Name: tb_dias_troca; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_dias_troca; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_dias_troca VALUES (2, 2, -682);
@@ -6256,7 +6256,7 @@ INSERT INTO tb_dias_troca VALUES (87, 81, -682);
 
 
 --
--- Data for Name: tb_dias_troca_clti; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_dias_troca_clti; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_dias_troca_clti VALUES (1, 2, -650);
@@ -6278,42 +6278,42 @@ INSERT INTO tb_dias_troca_clti VALUES (14, 14, 48);
 
 
 --
--- Name: tb_dias_troca_clti_idtb_dias_troca_clti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_dias_troca_clti_idtb_dias_troca_clti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_dias_troca_clti_idtb_dias_troca_clti_seq', 16, true);
 
 
 --
--- Name: tb_dias_troca_idtb_dias_troca_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_dias_troca_idtb_dias_troca_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_dias_troca_idtb_dias_troca_seq', 87, true);
 
 
 --
--- Name: tb_especialidade_idtb_especialidade_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_especialidade_idtb_especialidade_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_especialidade_idtb_especialidade_seq', 32, true);
 
 
 --
--- Name: tb_estacoes_idtb_estacoes_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_estacoes_idtb_estacoes_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_estacoes_idtb_estacoes_seq', 18, true);
 
 
 --
--- Name: tb_estado_id_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_estado_id_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_estado_id_seq', 27, true);
 
 
 --
--- Data for Name: tb_funcoes_clti; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_funcoes_clti; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_funcoes_clti VALUES (1, 'Enc.CLTI', 'Encarregado do CLTI', 'Sim');
@@ -6322,14 +6322,14 @@ INSERT INTO tb_funcoes_clti VALUES (3, 'Sup.Sv.', 'Supervisor de Serviço', 'Sim
 
 
 --
--- Name: tb_funcoes_clti_idtb_funcoes_clti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_funcoes_clti_idtb_funcoes_clti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_funcoes_clti_idtb_funcoes_clti_seq', 3, true);
 
 
 --
--- Data for Name: tb_funcoes_sigdem; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_funcoes_sigdem; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_funcoes_sigdem VALUES (2, 1, 'ENCARREGADO DO CLTI', 'DN-01.6', 2, NULL);
@@ -6347,14 +6347,14 @@ INSERT INTO tb_funcoes_sigdem VALUES (10, 1, 'AUXILIAR DA DIVISÃO DE SEGURANÇA
 
 
 --
--- Name: tb_funcoes_sigdem_idtb_funcoes_sigdem_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_funcoes_sigdem_idtb_funcoes_sigdem_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_funcoes_sigdem_idtb_funcoes_sigdem_seq', 12, true);
 
 
 --
--- Data for Name: tb_funcoes_ti; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_funcoes_ti; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_funcoes_ti VALUES (1, 'ADMINISTRADOR DA REDE LOCAL', 'ADMIN');
@@ -6365,14 +6365,14 @@ INSERT INTO tb_funcoes_ti VALUES (5, 'ADMINISTRADOR DE SISTEMAS DO CLTI', 'ADMIN
 
 
 --
--- Name: tb_funcoes_ti_idtb_funcoes_ti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_funcoes_ti_idtb_funcoes_ti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_funcoes_ti_idtb_funcoes_ti_seq', 5, true);
 
 
 --
--- Data for Name: tb_lotacao_clti; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_lotacao_clti; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_lotacao_clti VALUES (5, 16, 5, 10, '19091761', '', 'VALDINEI DA SILVA SANTOS', 'VALDINEI', 'ATIVO', '2c31c32296b543348c7afa9df39b91c4fd56a2b5e4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4', 'TEC_CLTI', 'VALDINEI.SANTOS@MARINHA.MIL.BR', NULL, NULL);
@@ -6394,14 +6394,14 @@ INSERT INTO tb_lotacao_clti VALUES (14, 15, 5, 10, '12136999', '', 'LAIS SOUZA E
 
 
 --
--- Name: tb_lotacao_clti_idtb_lotacao_clti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_lotacao_clti_idtb_lotacao_clti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_lotacao_clti_idtb_lotacao_clti_seq', 16, true);
 
 
 --
--- Data for Name: tb_manutencao_et; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_manutencao_et; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_manutencao_et VALUES (2, 17, 1, '2021-09-24', NULL, 'TROCA DE MEMÓRIA                                                                                                                                                                                                                                              ', 0, 'EM PRODUÇÃO');
@@ -6410,14 +6410,14 @@ INSERT INTO tb_manutencao_et VALUES (3, 17, 1, '2021-09-24', NULL, 'NÃO LIGA   
 
 
 --
--- Name: tb_manutencao_et_idtb_manutencao_et_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_manutencao_et_idtb_manutencao_et_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_manutencao_et_idtb_manutencao_et_seq', 3, true);
 
 
 --
--- Data for Name: tb_servidores; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_servidores; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_servidores VALUES (1, 1, 'HP', 'PROLIANT DL360 GEN9', 48, 2.20000005, 2, 128, 2300, '172.23.116.10', '14:02:ec:96:78:1c', 25, 'SIGDEM/CORREIO NOTES', '2018-12-25', '2019-12-25', 'EM PRODUÇÃO', 5, 'BNN1');
@@ -6430,7 +6430,7 @@ INSERT INTO tb_servidores VALUES (7, 1, 'IBM', 'SYSTEM X3500 M4', 58, 2, 2, 16, 
 
 
 --
--- Data for Name: tb_mapainfra; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_mapainfra; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_mapainfra VALUES (1, 1, NULL, NULL, 1, 23, NULL, 1);
@@ -6438,103 +6438,103 @@ INSERT INTO tb_mapainfra VALUES (2, 1, NULL, NULL, 3, 20, NULL, 1);
 
 
 --
--- Name: tb_mapainfra_idtb_mapainfra_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_mapainfra_idtb_mapainfra_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_mapainfra_idtb_mapainfra_seq', 2, true);
 
 
 --
--- Name: tb_memorias_idtb_memorias_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_memorias_idtb_memorias_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_memorias_idtb_memorias_seq', 34, true);
 
 
 --
--- Data for Name: tb_nao_padronizados; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_nao_padronizados; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_nao_padronizados VALUES (1, 1, 3, 'OS XX/2021', 'KFIND, VMWARE, VIRTUALBOX');
 
 
 --
--- Name: tb_nao_padronizados_idtb_nao_padronizados_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_nao_padronizados_idtb_nao_padronizados_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_nao_padronizados_idtb_nao_padronizados_seq', 1, true);
 
 
 --
--- Data for Name: tb_nec_aquisicao; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_nec_aquisicao; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 
 
 --
--- Name: tb_nec_aquisicao_idtb_nec_aquisicao_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_nec_aquisicao_idtb_nec_aquisicao_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_nec_aquisicao_idtb_nec_aquisicao_seq', 1, false);
 
 
 --
--- Data for Name: tb_numerador; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_numerador; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_numerador VALUES (1, 'RelServico', 184);
 
 
 --
--- Name: tb_numerador_idtb_numerador_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_numerador_idtb_numerador_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_numerador_idtb_numerador_seq', 1, true);
 
 
 --
--- Name: tb_om_apoiadas_idtb_om_apoiadas_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_om_apoiadas_idtb_om_apoiadas_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_om_apoiadas_idtb_om_apoiadas_seq', 28, true);
 
 
 --
--- Name: tb_om_setores_idtb_om_setores_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_om_setores_idtb_om_setores_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_om_setores_idtb_om_setores_seq', 72, true);
 
 
 --
--- Data for Name: tb_osic; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_osic; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 
 
 --
--- Name: tb_osic_idtb_osic_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_osic_idtb_osic_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_osic_idtb_osic_seq', 1, false);
 
 
 --
--- Name: tb_pad_sic_tic_idtb_pad_sic_tic_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_pad_sic_tic_idtb_pad_sic_tic_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_pad_sic_tic_idtb_pad_sic_tic_seq', 2, true);
 
 
 --
--- Name: tb_pais_id_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_pais_id_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_pais_id_seq', 1, true);
 
 
 --
--- Data for Name: tb_perfil_internet; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_perfil_internet; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_perfil_internet VALUES (2, 'ARMAZENAMENTO', 'ATIVO');
@@ -6546,14 +6546,14 @@ INSERT INTO tb_perfil_internet VALUES (6, 'REDES SOCIAIS', 'ATIVO');
 
 
 --
--- Name: tb_perfil_internet_idtb_perfil_internet_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_perfil_internet_idtb_perfil_internet_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_perfil_internet_idtb_perfil_internet_seq', 6, true);
 
 
 --
--- Data for Name: tb_permissoes_admin; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_permissoes_admin; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_permissoes_admin VALUES (1, 1, 1, 'OS Nº XX/2021');
@@ -6571,21 +6571,21 @@ INSERT INTO tb_permissoes_admin VALUES (12, 1, 12, 'OS XX/2021');
 
 
 --
--- Name: tb_permissoes_admin_idtb_permissoes_admin_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_permissoes_admin_idtb_permissoes_admin_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_permissoes_admin_idtb_permissoes_admin_seq', 12, true);
 
 
 --
--- Name: tb_pessoal_om_idtb_pessoal_om_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_pessoal_om_idtb_pessoal_om_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_pessoal_om_idtb_pessoal_om_seq', 13, true);
 
 
 --
--- Data for Name: tb_pessoal_ti; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_pessoal_ti; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_pessoal_ti VALUES (2, 2, 14, 5, 3, '02117517', '', 'PEDRO FRANCYS FREIRE COIMBRA', 'COIMBRA', 'PEDRO.FRANCYS@MARINHA.MIL.BR', 'ATIVO', '44b011aaef071f8d87dd9a89b60476e4f37059df4000150ac0db7d2d141a07b120c716b40d920d76', 1);
@@ -6688,35 +6688,35 @@ INSERT INTO tb_pessoal_ti VALUES (78, 4, 8, 9, 12, '11012234', '', 'MATHEUS MOND
 
 
 --
--- Name: tb_pessoal_ti_idtb_pessoal_ti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_pessoal_ti_idtb_pessoal_ti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_pessoal_ti_idtb_pessoal_ti_seq', 97, true);
 
 
 --
--- Name: tb_posto_grad_idtb_posto_grad_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_posto_grad_idtb_posto_grad_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_posto_grad_idtb_posto_grad_seq', 21, true);
 
 
 --
--- Name: tb_proc_fab_idtb_proc_fab_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_proc_fab_idtb_proc_fab_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_proc_fab_idtb_proc_fab_seq', 3, true);
 
 
 --
--- Name: tb_proc_modelo_idtb_proc_modelo_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_proc_modelo_idtb_proc_modelo_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_proc_modelo_idtb_proc_modelo_seq', 58, true);
 
 
 --
--- Data for Name: tb_qualificacao_clti; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_qualificacao_clti; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_qualificacao_clti VALUES (1, 'NR-35-TRABALHO EM ALTURA', 'SERVIÇOS TÉCNICOS DE ENGENHARIA LTDA', '2020-12-08', 8, 'LIVRE', '$150.00', 'PRESENCIAL', 'CONCLUIÍDO', 4);
@@ -6765,14 +6765,14 @@ INSERT INTO tb_qualificacao_clti VALUES (35, 'CYBERSECURITY ESSENTIALS', 'ESCOM-
 
 
 --
--- Name: tb_qualificacao_clti_idtb_qualificacao_clti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_qualificacao_clti_idtb_qualificacao_clti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_qualificacao_clti_idtb_qualificacao_clti_seq', 43, true);
 
 
 --
--- Data for Name: tb_qualificacao_ti; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_qualificacao_ti; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_qualificacao_ti VALUES (1, 'ANÁLISE E DESENVOLVIMENTO DE SISTEMAS', 'UNIVERSIDADE ESTÁCIO DE SÁ', '2021-08-05', 2700, 'GRADUAÇÃO', '$0.00', 'EAD', 'CONCLUIÍDO', 1);
@@ -6782,27 +6782,27 @@ INSERT INTO tb_qualificacao_ti VALUES (4, 'SISTEMAS DE INFORMAÇÃO', 'UNIVERSID
 
 
 --
--- Name: tb_qualificacao_ti_idtb_qualificacao_ti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_qualificacao_ti_idtb_qualificacao_ti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_qualificacao_ti_idtb_qualificacao_ti_seq', 4, true);
 
 
 --
--- Data for Name: tb_registro_log; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_registro_log; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 
 
 --
--- Name: tb_registro_log_idtb_registro_log_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_registro_log_idtb_registro_log_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_registro_log_idtb_registro_log_seq', 1, false);
 
 
 --
--- Data for Name: tb_rel_servico; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_rel_servico; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_rel_servico VALUES (26, 8, 5, 26, '2021-08-18', '2021-08-19', 'Funcionando normalmente', 'Operando normalmente', 'Executado normalmente', 'Sup. que entra ciente');
@@ -6991,14 +6991,14 @@ INSERT INTO tb_rel_servico VALUES (179, 6, 14, 178, '2022-03-28', '2022-03-29', 
 
 
 --
--- Name: tb_rel_servico_idtb_rel_servico_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_rel_servico_idtb_rel_servico_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_rel_servico_idtb_rel_servico_seq', 184, true);
 
 
 --
--- Data for Name: tb_rel_servico_log; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_rel_servico_log; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_rel_servico_log VALUES (1, 2, 2, '1de5f0702b51bf1b64b4a1bc2c7b8208', '2021-07-21 09:56:35');
@@ -7011,14 +7011,14 @@ INSERT INTO tb_rel_servico_log VALUES (7, 2, 7, '2bd8e23014df8cfd417ac8161137501
 
 
 --
--- Name: tb_rel_servico_log_idtb_rel_servico_log_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_rel_servico_log_idtb_rel_servico_log_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_rel_servico_log_idtb_rel_servico_log_seq', 7, true);
 
 
 --
--- Data for Name: tb_rel_servico_ocorrencias; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_rel_servico_ocorrencias; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_rel_servico_ocorrencias VALUES (1, 8, 'Houve queda de energia na BNNa as 09:13 da manha do dia 23/07/2021, voltando após 15min.
@@ -7269,21 +7269,21 @@ INSERT INTO tb_rel_servico_ocorrencias VALUES (104, 181, '
 
 
 --
--- Name: tb_rel_servico_ocorrencias_idtb_rel_servico_ocorrencias_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_rel_servico_ocorrencias_idtb_rel_servico_ocorrencias_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_rel_servico_ocorrencias_idtb_rel_servico_ocorrencias_seq', 106, true);
 
 
 --
--- Name: tb_servidores_idtb_servidores_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_servidores_idtb_servidores_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_servidores_idtb_servidores_seq', 7, true);
 
 
 --
--- Data for Name: tb_soft_padronizados; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_soft_padronizados; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_soft_padronizados VALUES (1, 'SUITE DE SEGURANÇA', 'KASPERSKY', 'ATIVO');
@@ -7300,35 +7300,35 @@ INSERT INTO tb_soft_padronizados VALUES (11, 'ASSINATURA DIGITAL', 'ORION', 'ATI
 
 
 --
--- Name: tb_soft_padronizados_idtb_soft_padronizados_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_soft_padronizados_idtb_soft_padronizados_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_soft_padronizados_idtb_soft_padronizados_seq', 11, true);
 
 
 --
--- Name: tb_sor_idtb_sor_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_sor_idtb_sor_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_sor_idtb_sor_seq', 26, true);
 
 
 --
--- Name: tb_temas_pad_sic_tic_idtb_temas_pad_sic_tic_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_temas_pad_sic_tic_idtb_temas_pad_sic_tic_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_temas_pad_sic_tic_idtb_temas_pad_sic_tic_seq', 22, true);
 
 
 --
--- Data for Name: tb_tipos_clti; Type: TABLE DATA; Schema: db_clti; Owner: clti_sisclti
+-- Data for Name: tb_tipos_clti; Type: TABLE DATA; Schema: db_clti; Owner: sisclti
 --
 
 INSERT INTO tb_tipos_clti VALUES (1, 'DCTIMARINST 30-06C', '2019-04-30', 1, 1, '1');
 
 
 --
--- Name: tb_tipos_clti_idtb_tipos_clti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: clti_sisclti
+-- Name: tb_tipos_clti_idtb_tipos_clti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: sisclti
 --
 
 SELECT pg_catalog.setval('tb_tipos_clti_idtb_tipos_clti_seq', 1, true);

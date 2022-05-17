@@ -736,7 +736,7 @@ elseif ($versao == '1.5.20'){
 		CONSTRAINT tb_det_serv_pkey PRIMARY KEY (idtb_det_serv),
 		CONSTRAINT tb_det_serv_fkey1 FOREIGN KEY (idtb_lotacao_clti) REFERENCES db_clti.tb_lotacao_clti(idtb_lotacao_clti)
 	);
-	COMMENT ON TABLE db_clti.tb_rel_sv_v2 IS 'Tabela contendo Detalhe de Serviço do CLTI Versão 2';");
+	COMMENT ON TABLE db_clti.tb_det_serv IS 'Tabela contendo Detalhe de Serviço do CLTI Versão 2';");
 
 	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
 	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.21' WHERE parametro='VERSAO' ");
