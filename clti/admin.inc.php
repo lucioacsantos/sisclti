@@ -519,7 +519,6 @@ if ($act == 'insert') {
 
 if ($act == 'ativar') {
     if (isset($_SESSION['status'])){
-        @$param = $_GET['param'];
         $pesti->idtb_pessoal_ti = $param;
         $row = $pesti->PesTIAtivar();
             if ($row) {
@@ -539,7 +538,6 @@ if ($act == 'ativar') {
 
 if ($act == 'desativar') {
     if (isset($_SESSION['status'])){
-        @$param = $_GET['param'];
         $pesti->idtb_pessoal_ti = $param;
         $row = $pesti->PesTIDesativar();
             if ($row) {

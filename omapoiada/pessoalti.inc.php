@@ -3,8 +3,32 @@
 *** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
+/** Leitura de parâmetros */
+$oa = $cmd = $param = $act = $senha = NULL;
+if (isset($_GET['oa'])){
+  $oa = $_GET['oa'];
+}
+
+if (isset($_GET['cmd'])){
+  $cmd = $_GET['cmd'];
+}
+
+if (isset($_GET['act'])){
+  $act = $_GET['act'];
+}
+
+if (isset($_GET['param'])){
+  $param = $_GET['param'];
+}
+
+if (isset($_GET['senha'])){
+    $senha = $_GET['senha'];
+}
+
 /* Classe de interação com o PostgreSQL */
 require_once "../class/constantes.inc.php";
+include_once("../class/queries.inc.php");
+$acesso = new Principal();
 $om = new OMAPoiadas();
 $pti = new PessoalTI();
 $config = new Config();
@@ -12,8 +36,6 @@ $mil = new Militar();
 
 /* Recupera informações dos Admin */
 $row = $pti->SelectAllPesTI();
-
-@$act = $_GET['act'];
 
 /* Checa Informações */
 if (($row == NULL) AND ($act == NULL)) {
@@ -23,8 +45,6 @@ if (($row == NULL) AND ($act == NULL)) {
 
 /* Carrega form para cadastro */
 if ($act == 'cad') {
-    @$param = $_GET['param'];
-    @$senha = $_GET['senha'];
     if ($param){
         $pti->idtb_pessoal_ti = $param;
         $pessti = $pti->SelectIdPesTI();
@@ -347,7 +367,7 @@ if (($row) AND ($act == NULL)) {
                         <td>".$value->sigla_funcao."</td>
                         <td><a href=\"?cmd=pessoalti&act=cad&param=".$value->idtb_pessoal_ti."\">Editar</a> - 
                             <a href=\"?cmd=pessoalti&act=cad&param=".$value->idtb_pessoal_ti."&senha=troca\">Senha</a> - 
-                            Excluir</td>
+                            <a href=\"?cmd=pessoalti&act=desativar&param=".$value->idtb_pessoal_ti."\">Desativar</a></td>
                     </tr>";
     }
     echo"
@@ -355,6 +375,66 @@ if (($row) AND ($act == NULL)) {
             </table>
             </div>";
 }
+
+/* Monta quadro de administradores inativos */
+if ($act == 'inativos') {
+
+	$pesti->ordena = "ORDER BY sigla_om ASC";
+    $admin = $pesti->SelectAdminInativos();
+
+    echo"<div class=\"table-responsive\">
+            <table class=\"table table-hover\">
+                <thead>
+                    <tr>
+                        <th scope=\"col\">OM Apoiada</th>
+                        <th scope=\"col\">Posto/Grad./Esp.</th>
+                        <th scope=\"col\">NIP/CPF</th>
+                        <th scope=\"col\">Nome</th>
+                        <th scope=\"col\">Nome de Guerra</th>
+                        <th scope=\"col\">Ações</th>
+                    </tr>
+                </thead>";
+
+    foreach ($admin as $key => $value) {
+
+        #Seleciona NIP caso seja militar da MB
+        if ($value->nip != NULL) {
+            $identificacao = $value->nip;
+        }
+        else{
+            $identificacao = $value->cpf;
+        }
+        echo"       <tr>
+                        <td>".$value->sigla_om."</td>";
+        if (($value->exibir_espec == 'NÃO') AND ($value->exibir_corpo_quadro == 'NÃO')){
+            echo"       <th scope=\"row\">".$value->sigla_posto_grad."</th>";
+        }
+        elseif (($value->exibir_espec == 'NÃO') AND ($value->exibir_corpo_quadro != 'NÃO')){
+            echo"       <th scope=\"row\">".$value->sigla_posto_grad." ".$value->sigla_corpo_quadro."</th>";
+        }
+        elseif (($value->exibir_espec != 'NÃO') AND ($value->exibir_corpo_quadro == 'NÃO')){
+            echo"       <th scope=\"row\">".$value->sigla_posto_grad." ".$value->sigla_espec."</th>";
+        }
+        else {
+            echo"       <th scope=\"row\">".$value->sigla_posto_grad." ".$value->sigla_corpo_quadro." 
+                            ".$value->sigla_espec."</th>";
+        }
+            echo"
+                        <td>".$identificacao."</td>
+                        <td>".$value->nome."</td>
+                        <td>".$value->nome_guerra."</td>
+                        <td><a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."\">Editar</a> - 
+                            <a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."&senha=troca\">Senha</a> - 
+                            <a href=\"?cmd=admin&act=ativar&param=".$value->idtb_pessoal_ti."\">Reativar</a>
+                        </td>
+                    </tr>";
+    }
+    echo"
+                </tbody>
+            </table>
+            </div>";
+}
+
 /* Método INSERT/UPDATE */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
@@ -383,7 +463,9 @@ if ($act == 'insert') {
 
         /* Opta pelo Método Update */
         if ($idtb_pessoal_ti){
-            @$senha = $_POST['senha'];
+            if (isset($_POST['senha'])){
+                $senha = $_POST['senha'];
+            }            
             if($senha==NULL){
                 $row = $pti->UpdatePesTI();
                 if ($row) {
@@ -396,13 +478,16 @@ if ($act == 'insert') {
                 }
             }
             else{
-                $hash = sha1(md5($senha));
-                $salt = sha1(md5($usuario));
-                $pti->senha = $salt.$hash;
+                $acesso->var1 = $usuario;
+                $acesso->var2 = $senha;
+                $var = $acesso->Executa();
+                if ($var){
+                    $pti->senha = $var->var5;
+                }
                 $row = $pti->UpdateSenhaPesti();
                 if ($row) {
                     $user = new Usuario();
-                    $user->iduser = $idtb_pessoal_ti;
+                    $user->iduser = $row;
                     $pwd = $user->SetVencSenha(5);
                     echo "<h5>Resgistros incluídos no banco de dados.</h5>
                     <meta http-equiv=\"refresh\" content=\"1;?cmd=pessoalti \">";
@@ -425,13 +510,16 @@ if ($act == 'insert') {
             }
             else {
                 $senha = $_POST['senha'];
-                $hash = sha1(md5($senha));
-                $salt = sha1(md5($usuario));
-                $pti->senha = $salt.$hash;
+                $acesso->var1 = $usuario;
+                $acesso->var2 = $senha;
+                $var = $acesso->Executa();
+                if ($var){
+                    $pti->senha = $var->var5;
+                }
                 $row = $pti->InsertPesTI();
                 if ($row) {
                     $user = new Usuario();
-                    $user->iduser = $idtb_pessoal_ti;
+                    $user->iduser = $row;
                     $pwd = $user->SetVencSenha(5);
                     echo "<h5>Resgistros incluídos no banco de dados.</h5>
                     <meta http-equiv=\"refresh\" content=\"1;?cmd=pessoalti\">";
@@ -448,4 +536,43 @@ if ($act == 'insert') {
             <meta http-equiv=\"refresh\" content=\"1;$url\">";
     }
 }
+
+if ($act == 'ativar') {
+    if (isset($_SESSION['status'])){
+        $pesti->idtb_pessoal_ti = $param;
+        $row = $pesti->PesTIAtivar();
+            if ($row) {
+                echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=admin\">";
+            }
+            else {
+                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                echo(pg_result_error($row) . "<br />\n");
+            }
+    }
+    else{
+        echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;$url\">";
+    }
+}
+
+if ($act == 'desativar') {
+    if (isset($_SESSION['status'])){
+        $pesti->idtb_pessoal_ti = $param;
+        $row = $pesti->PesTIDesativar();
+            if ($row) {
+                echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=admin\">";
+            }
+            else {
+                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                echo(pg_result_error($row) . "<br />\n");
+            }
+    }
+    else{
+        echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;$url\">";
+    }
+}
+
 ?>

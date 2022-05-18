@@ -44,7 +44,7 @@ $versao = $config->SelectVersao();
       </ul>
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" href="<?php echo "$url/manuais/PT_XXX_CLTI-3DN_SISCLTI.pdf"; ?>" target="_blanck">| Manual |</a>
+          <a class="nav-link" href="<?php echo "$url/manuais/PT_023_CLTI-3DN_SISCLTI.pdf"; ?>" target="_blanck">| Manual |</a>
         </li>
       </ul>
       <ul class="navbar-nav px-3">

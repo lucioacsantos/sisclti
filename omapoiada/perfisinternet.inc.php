@@ -3,6 +3,32 @@
 *** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
+/** Leitura de parâmetros */
+$oa = $cmd = $param = $act = $senha = NULL;
+if (isset($_GET['oa'])){
+  $oa = $_GET['oa'];
+}
+
+if (isset($_GET['cmd'])){
+  $cmd = $_GET['cmd'];
+}
+
+if (isset($_GET['act'])){
+  $act = $_GET['act'];
+}
+
+if (isset($_GET['param'])){
+  $param = $_GET['param'];
+}
+
+if (isset($_GET['senha'])){
+    $senha = $_GET['senha'];
+}
+
+if (isset($_POST['nip_cpf'])){
+    $pessom->usuario = $_POST['nip_cpf'];
+}
+
 /* Classe de interação com o PostgreSQL */
 require_once "../class/constantes.inc.php";
 $internet = new PerfilInternet();
@@ -17,8 +43,6 @@ $qtde_perfis = $internet->SelectCount();
 
 /* Recupera informações */
 $row = $pessom->SelectPerfilAll();
-
-@$act = $_GET['act'];
 
 /* Formulário para NIP/CPF */
 if ($act == NULL) {
@@ -48,8 +72,6 @@ if ($act == NULL) {
 
 /* Carrega form para cadastro */
 if ($act == 'cad') {
-    @$param = $_GET['param'];
-
     if ($param){
         $pessom->idtb_controle_internet = $param;
         $usuario = $pessom->SelectPerfilID();
@@ -87,7 +109,6 @@ if ($act == 'cad') {
                 </div>";
     }
     else{
-        @$pessom->usuario = $_POST['nip_cpf'];
         $usuario = $pessom->ChecaNIPCPF();
         if ($usuario){
             $usuario = (object)['idtb_pessoal_om'=>$usuario->idtb_pessoal_om,'idtb_controle_internet'=>'',

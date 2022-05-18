@@ -3,6 +3,43 @@
 *** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
+/** Leitura de parâmetros */
+$oa = $cmd = $param = $act = $senha = NULL;
+if (isset($_GET['oa'])){
+  $oa = $_GET['oa'];
+}
+
+if (isset($_GET['cmd'])){
+  $cmd = $_GET['cmd'];
+}
+
+if (isset($_GET['act'])){
+  $act = $_GET['act'];
+}
+
+if (isset($_GET['param'])){
+  $param = $_GET['param'];
+}
+
+if (isset($_GET['senha'])){
+    $senha = $_GET['senha'];
+}
+
+if (isset($_POST['tema'])){
+    $tema = $_POST['tema'];
+}
+
+if (isset($_POST['nip_cpf'])){
+    $usuario = $_POST['nip_cpf'];
+}
+if (isset($_GET['presente'])){
+    $idtb_pessoal_om = $_GET['presente'];
+}
+
+if (isset($_POST['justificativa'])){
+    $justificativa = mb_strtoupper($_POST['justificativa'],'UTF-8');
+}
+
 /* Classe de interação com o PostgreSQL */
 require_once "../class/constantes.inc.php";
 $pad = new PAD();
@@ -11,8 +48,6 @@ $pesom = new PessoalOM();
 /* Recupera informações dos PAD Ativos */
 $pad->idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
 $row = $pad->SelectPADCorrente();
-
-@$act = $_GET['act'];
 
 /* Formulário para Cadastro */
 if ((!$row) AND ($act == NULL) OR ($act == 'cad')) {
@@ -105,8 +140,6 @@ if ($act == 'insert') {
 
 /** Cadastro de temas no PAD */
 if ($act == 'cad_temas') {
-    @$param = $_GET['param'];
-    @$tema = $_POST['tema'];
     $pad->tema = $tema;
     $pad->idtb_pad_sic_tic = $param;
     if ($tema){
@@ -146,7 +179,6 @@ if ($act == 'cad_temas') {
 
 /** Registro de adestramentos */
 if ($act == 'reg_ade') {
-    @$param = $_GET['param'];
     $pad->idtb_pad_sic_tic = $param;
     $row = $pad->SelectTemasIdPAD();
     echo"<div class=\"table-responsive\">
@@ -178,9 +210,7 @@ if ($act == 'reg_ade') {
 
 /** Registro de presentes no adestramento */
 if ($act == 'reg_presentes') {
-    @$param = $_GET['param'];
-    @$usuario = $_POST['nip_cpf'];
-    @$idtb_pessoal_om = $_GET['presente'];
+    
     if ($usuario){
         $pesom->usuario = $usuario;
         $presente = $pesom->ChecaNIPCPF();
@@ -279,7 +309,6 @@ if ($act == 'reg_presentes') {
 
 /** Finaliza tema ministrado/não ministrado */
 if ($act == 'finalizar_tema') {
-    @$param = $_GET['param'];
     $pad->idtb_temas_pad_sic_tic = $param;
     $data = date("Y-m-d");
     $pad->data_ade = $data;
@@ -297,11 +326,9 @@ if ($act == 'finalizar_tema') {
 
 /** Registra justificativa do não atendimento */
 if ($act == 'reg_justificativa') {
-    @$param = $_GET['param'];
     $pad->idtb_temas_pad_sic_tic = $param;
     $data = date("Y-m-d");
     $pad->data_ade = $data;
-    @$justificativa = mb_strtoupper($_POST['justificativa'],'UTF-8');
     $pad->justificativa = $justificativa;
     if ($justificativa){
         $row = $pad->UpdateDataTema();

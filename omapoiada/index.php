@@ -3,6 +3,28 @@
 *** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
+/** Leitura de parâmetros */
+$oa = $cmd = $param = $act = $senha = NULL;
+if (isset($_GET['oa'])){
+  $oa = $_GET['oa'];
+}
+
+if (isset($_GET['cmd'])){
+  $cmd = $_GET['cmd'];
+}
+
+if (isset($_GET['act'])){
+  $act = $_GET['act'];
+}
+
+if (isset($_GET['param'])){
+  $param = $_GET['param'];
+}
+
+if (isset($_GET['senha'])){
+    $senha = $_GET['senha'];
+}
+
 /* Classe de interação com o PostgreSQL */
 require_once "../class/constantes.inc.php";
 $cfg = new Config();
@@ -13,8 +35,6 @@ $url = $cfg->SelectURL();
 include "../head.php";
 
 include "../nav.php";
-
-@$cmd = $_GET['cmd'];
 
 /* Montagem do grid html5 conforme módulo solicitado */
 switch ($cmd) {

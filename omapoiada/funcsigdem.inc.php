@@ -3,6 +3,28 @@
 *** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
+/** Leitura de parâmetros */
+$oa = $cmd = $param = $act = $senha = NULL;
+if (isset($_GET['oa'])){
+  $oa = $_GET['oa'];
+}
+
+if (isset($_GET['cmd'])){
+  $cmd = $_GET['cmd'];
+}
+
+if (isset($_GET['act'])){
+  $act = $_GET['act'];
+}
+
+if (isset($_GET['param'])){
+  $param = $_GET['param'];
+}
+
+if (isset($_GET['senha'])){
+    $senha = $_GET['senha'];
+}
+
 /* Classe de interação com o PostgreSQL */
 require_once "../class/constantes.inc.php";
 $funcsigdem = new FuncSiGDEM();
@@ -15,8 +37,6 @@ $om->idtb_om_apoiadas = $omapoiada;
 /* Recupera informações */
 $row = $funcsigdem->SelectAll();
 
-@$act = $_GET['act'];
-
 /* Checa Informações */
 if (($row == NULL) AND ($act == NULL)) {
 	echo "<h5>Não há Funções do SiGDEM cadastradas,<br />
@@ -25,7 +45,6 @@ if (($row == NULL) AND ($act == NULL)) {
 
 /* Carrega form para cadastro */
 if ($act == 'cad') {
-    @$param = $_GET['param'];
     if ($param){
         $funcsigdem->idtb_funcoes_sigdem = $param;
         $funcaosigdem = $funcsigdem->SelectId();
