@@ -746,8 +746,20 @@ elseif ($versao == '1.5.20'){
 }
 
 elseif ($versao == '1.5.21'){
+	$pg->exec("ALTER TABLE db_clti.tb_pessoal_ti ADD COLUMN secret varchar (16) DEFAULT 'Não ativado' NOT NULL");
 
-	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.21.</div>
+	$pg->exec("ALTER TABLE db_clti.tb_lotacao_clti ADD COLUMN secret varchar (16) DEFAULT 'Não ativado' NOT NULL");
+
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
+	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.22' WHERE parametro='VERSAO' ");
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.22.</div>
+	<meta http-equiv=\"refresh\" content=\"5\">";
+}
+
+elseif ($versao == '1.5.22'){
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.22.</div>
 	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
 
 }

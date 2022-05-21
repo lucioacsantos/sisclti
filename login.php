@@ -3,9 +3,15 @@
 *** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
+$act = NULL;
+if (isset($_GET['act'])){
+  $act = $_GET['act'];
+}
+
 /* Classe de interação com o PostgreSQL */
 require_once "class/constantes.inc.php";
 $config = new Config();
+$usr = new Usuario();
 $url = $config->SelectURL();
 $tags = $config->SelectTags();
 $sigla = $config->SelectSigla();
@@ -68,7 +74,6 @@ $msg = $_SESSION ['msg'];
   <body>
 
 <?php
-@$act = $_GET['act'];
 
 if ($act == NULL){
   include_once("login.inc.php");
@@ -79,7 +84,6 @@ if ($act == 'acesso') {
   
   include_once("class/queries.inc.php");
   $acesso = new Principal();
-  $usr = new Usuario();
   
   $usuario = $_POST['usuario'];
   $usr->usuario = $usuario;
@@ -96,12 +100,10 @@ if ($act == 'acesso') {
   }
 
   $row = $usr->LoginOM();
-    
-	if ($row != NULL) {
 
-    $usr->iduser = $row->idtb_pessoal_ti;
-    $venc_senha = $usr->GetVencSenha();
-    $row = $usr->perfilOM();
+	if ($row) {
+
+    include_once("auth.inc.php");
     /** Verificar falhas de login do usuário comum */
     /*if ($venc_senha < 1){
       $_SESSION ['msg'] = "Sua senha venceu! Entre em contato com o CLTI!";
@@ -110,18 +112,7 @@ if ($act == 'acesso') {
       include_once("login.inc.php");
     }
     else{*/
-      $_SESSION['logged_in'] = true;
-      $_SESSION['user_id'] = $row->idtb_pessoal_ti;
-      $_SESSION['venc_senha'] = $usr->GetVencSenha();
-      $_SESSION['usuario'] = $usr->usuario;
-      $_SESSION['posto_grad'] = $row->sigla_posto_grad;
-      $_SESSION['user_name'] = $row->nome_guerra;
-      $_SESSION['perfil'] = $row->sigla_funcao;
-      $_SESSION['status'] = $row->status;
-      $_SESSION['id_om_apoiada'] = $row->idtb_om_apoiadas;
-      $_SESSION['om_apoiada'] = $row->sigla_om;
       
-      header('Location: index.php');
     //}
 	}
 	else {
@@ -129,6 +120,37 @@ if ($act == 'acesso') {
     $msg = $_SESSION ['msg'];
     include_once("login.inc.php");
 	}
+}
+
+if ($act == 'auth'){
+  require_once "class/authenticator.inc.php";
+  $authenticator = new GoogleAuthenticator();
+  $codigo = $_POST['codigo'];
+  $iduser = $_POST['iduser'];
+  $usr->iduser = $iduser;
+  $venc_senha = $usr->GetVencSenha();
+  $row = $usr->perfilOM();
+  $secret = $usr->getSecret();
+  $checkResult = $authenticator->verifyCode($secret, $codigo, 2);    // 2 = 2*30sec clock tolerance
+
+  if ($checkResult) {
+    $_SESSION['logged_in'] = true;
+    $_SESSION['user_id'] = $row->idtb_pessoal_ti;
+    $_SESSION['venc_senha'] = $usr->GetVencSenha();
+    $_SESSION['usuario'] = $usr->usuario;
+    $_SESSION['posto_grad'] = $row->sigla_posto_grad;
+    $_SESSION['user_name'] = $row->nome_guerra;
+    $_SESSION['perfil'] = $row->sigla_funcao;
+    $_SESSION['status'] = $row->status;
+    $_SESSION['id_om_apoiada'] = $row->idtb_om_apoiadas;
+    $_SESSION['om_apoiada'] = $row->sigla_om;
+    
+    header('Location: index.php');
+  } else {
+    $_SESSION ['msg'] = "Ocorreu algum erro!";
+    $msg = $_SESSION ['msg'];
+    include_once("login.inc.php");
+  }
 }
 
 ?>

@@ -285,6 +285,13 @@ class Usuario
             AND senha = '$this->senha' OR cpf = '$this->usuario' AND senha = '$this->senha' ");
         return $row;
     }
+    public function getSecret()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getCol("SELECT secret FROM db_clti.tb_pessoal_ti WHERE idtb_pessoal_ti = $this->iduser ");
+        return $row;
+    }
     public function perfilOM()
     {
         require_once "pgsql.class.php";
@@ -551,7 +558,18 @@ class PessoalTI
     public $meio;
     public $situacao;
     public $ordena;
+    public $secret;
 
+    function FormatCPF($value)
+    {
+        $cpf = preg_replace("/\D/", '', $value);
+        return preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "\$1.\$2.\$3-\$4", $cpf);
+    }
+    function FormatNIP($value)
+    {
+        $nip = preg_replace("/\D/", '', $value);
+        return preg_replace("/(\d{2})(\d{4})(\d{2})/", "\$1.\$2.\$3", $nip);
+    }
     public function ChecaNIPCPF()
     {
         require_once "pgsql.class.php";
@@ -774,6 +792,14 @@ class PessoalTI
         $row = $pg->getCol($sql);
         return $row;
     }
+    public function PesTIQRCode()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "UPDATE db_clti.tb_pessoal_ti SET secret = '$this->secret' WHERE idtb_pessoal_ti='$this->idtb_pessoal_ti' ";
+        $row = $pg->exec($sql);
+        return $row;
+    }
     public function PesTIDesativar()
     {
         require_once "pgsql.class.php";
@@ -814,6 +840,16 @@ class PessoalOM
     public $sigla;
     public $ordena;
 
+    function FormatCPF($value)
+    {
+        $cpf = preg_replace("/\D/", '', $value);
+        return preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "\$1.\$2.\$3-\$4", $cpf);
+    }
+    function FormatNIP($value)
+    {
+        $nip = preg_replace("/\D/", '', $value);
+        return preg_replace("/(\d{2})(\d{4})(\d{2})/", "\$1.\$2.\$3", $nip);
+    }
     public function ChecaNIPCPF()
     {
         require_once "pgsql.class.php";

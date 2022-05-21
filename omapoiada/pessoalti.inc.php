@@ -341,10 +341,10 @@ if (($row) AND ($act == NULL)) {
     foreach ($pessti as $key => $value) {
         #Seleciona NIP caso seja militar da MB
         if ($value->nip != NULL) {
-            $identificacao = $value->nip;
+            $identificacao = $pti->FormatNIP($value->nip);
         }
         else{
-            $identificacao = $value->cpf;
+            $identificacao = $pti->FormatCPF($value->cpf);
         }
         echo"       <tr>";
         if (($value->exibir_espec == 'NÃO') AND ($value->exibir_corpo_quadro == 'NÃO')){
@@ -365,7 +365,8 @@ if (($row) AND ($act == NULL)) {
                         <td>".$value->nome."</td>
                         <td>".$value->nome_guerra."</td>
                         <td>".$value->sigla_funcao."</td>
-                        <td><a href=\"?cmd=pessoalti&act=cad&param=".$value->idtb_pessoal_ti."\">Editar</a> - 
+                        <td><a href=\"?cmd=pessoalti&act=qrcode&param=".$value->idtb_pessoal_ti."\">QR Code</a> - 
+                            <a href=\"?cmd=pessoalti&act=cad&param=".$value->idtb_pessoal_ti."\">Editar</a> - 
                             <a href=\"?cmd=pessoalti&act=cad&param=".$value->idtb_pessoal_ti."&senha=troca\">Senha</a> - 
                             <a href=\"?cmd=pessoalti&act=desativar&param=".$value->idtb_pessoal_ti."\">Desativar</a></td>
                     </tr>";
@@ -399,10 +400,10 @@ if ($act == 'inativos') {
 
         #Seleciona NIP caso seja militar da MB
         if ($value->nip != NULL) {
-            $identificacao = $value->nip;
+            $identificacao = $pti->FormatNIP($value->nip);
         }
         else{
-            $identificacao = $value->cpf;
+            $identificacao = $pti->FormatCPF($value->cpf);
         }
         echo"       <tr>
                         <td>".$value->sigla_om."</td>";
@@ -530,6 +531,46 @@ if ($act == 'insert') {
                 }
             }
         }
+    }
+    else{
+        echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;$url\">";
+    }
+}
+
+if ($act == 'qrcode') {
+    if (isset($_SESSION['status'])){        
+        require_once "../class/authenticator.inc.php";
+        require_once "../phpqrcode/qrlib.php";
+
+        $authenticator = new GoogleAuthenticator();
+        $secret = $authenticator->createSecret();
+
+        $pti->idtb_pessoal_ti = $param;
+        $pti->secret = $secret;
+        $usuario = $pti->SelectIdPesTI();
+                
+        $sistema = 'SiGTI';
+        $usuario= $usuario->nip;
+
+        $data = "otpauth://totp/$usuario?secret=$secret&issuer=$sistema";
+        $file = "../tmp/qrcode.png";
+
+        QRcode::png($data,$file);
+
+        echo "<img src=\"tmp/qr1.png\" alt=\"QR Code\" />";
+        $row = $pti->PesTIQRCode();
+            if ($row) {
+                echo "\n\n
+                <img src=\"../tmp/qrcode.png\" alt=\"QR Code\" />\n\n
+                <h4>Use o QR Code acima no Authenticator.</h3>\n\n
+                <h3>Guarde esta chave em local seguro: $secret </h3>";
+                #unlink($file);
+            }
+            else {
+                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                echo(pg_result_error($row) . "<br />\n");
+            }
     }
     else{
         echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
