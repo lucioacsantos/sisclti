@@ -8,6 +8,14 @@ require_once "class/constantes.inc.php";
 $usr = new Usuario();
 $rel_sv = new RelServico();
 
+/** Remove QR Code Temporários */
+$dir = "tmp";
+$files = glob($dir.'/*');   
+foreach($files as $file) {
+    if(is_file($file)) 
+        unlink($file); 
+}
+
 /** Subtrai 1 Dia do Vencimento de Senha */
 $row = $usr->DiasVenc();
 $row = $usr->DiasVencCLTI();
@@ -32,6 +40,8 @@ $rel_sv->status = "Em andamento";
 
 $rel_sv->Insert();
 $rel_sv->NewRel();
+
+
 
 echo "Supervisor que sai: ".$sup_sai->idtb_lotacao_clti."\n";
 echo "Supervisor que entra: ".$sup_entra->idtb_lotacao_clti."\n";

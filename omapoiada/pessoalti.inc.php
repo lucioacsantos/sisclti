@@ -554,15 +554,14 @@ if ($act == 'qrcode') {
         $usuario= $usuario->nip;
 
         $data = "otpauth://totp/$usuario?secret=$secret&issuer=$sistema";
-        $file = "../tmp/qrcode.png";
+        $file = "../tmp/$secret.png";
 
         QRcode::png($data,$file);
 
-        echo "<img src=\"tmp/qr1.png\" alt=\"QR Code\" />";
         $row = $pti->PesTIQRCode();
             if ($row) {
                 echo "\n\n
-                <img src=\"../tmp/qrcode.png\" alt=\"QR Code\" />\n\n
+                <img src=\"../tmp/$secret.png\" alt=\"QR Code\" />\n\n
                 <h4>Use o QR Code acima no Authenticator.</h3>\n\n
                 <h3>Guarde esta chave em local seguro: $secret </h3>";
                 #unlink($file);

@@ -102,8 +102,34 @@ if ($act == 'acesso') {
   $row = $usr->LoginOM();
 
 	if ($row) {
+    if ($row->secret == 'Não ativado'){
+      $usr->iduser = $row->idtb_pessoal_ti;
+      $venc_senha = $usr->GetVencSenha();
+      $row = $usr->perfilOM();
 
-    include_once("auth.inc.php");
+      if ($row) {
+        $_SESSION['logged_in'] = true;
+        $_SESSION['user_id'] = $row->idtb_pessoal_ti;
+        $_SESSION['venc_senha'] = $usr->GetVencSenha();
+        $_SESSION['usuario'] = $usr->usuario;
+        $_SESSION['posto_grad'] = $row->sigla_posto_grad;
+        $_SESSION['user_name'] = $row->nome_guerra;
+        $_SESSION['perfil'] = $row->sigla_funcao;
+        $_SESSION['status'] = $row->status;
+        $_SESSION['id_om_apoiada'] = $row->idtb_om_apoiadas;
+        $_SESSION['om_apoiada'] = $row->sigla_om;
+        
+        header('Location: index.php');
+      } else {
+        $_SESSION ['msg'] = "Ocorreu algum erro!";
+        $msg = $_SESSION ['msg'];
+        include_once("login.inc.php");
+      }
+    }
+    else {
+      include_once("auth.inc.php");
+    }
+    
     /** Verificar falhas de login do usuário comum */
     /*if ($venc_senha < 1){
       $_SESSION ['msg'] = "Sua senha venceu! Entre em contato com o CLTI!";
