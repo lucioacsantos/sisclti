@@ -758,8 +758,26 @@ elseif ($versao == '1.5.21'){
 }
 
 elseif ($versao == '1.5.22'){
+	$pg->exec("CREATE TABLE db_clti.tb_acesso_suspeito (
+		idtb_acesso_suspeito serial NOT NULL,
+		end_ip int4 NOT NULL,
+		data_acesso date NOT NULL,
+		data_hora time NOT NULL,
+		status varchar(255),
+		CONSTRAINT tb_acesso_suspeito_pkey PRIMARY KEY (idtb_acesso_suspeito)
+	);
+	COMMENT ON TABLE db_clti.tb_det_serv IS 'Tabela contendo Acessos Suspeitos ao Sistema';");
 
-	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.22.</div>
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
+	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.23' WHERE parametro='VERSAO' ");
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.23.</div>
+	<meta http-equiv=\"refresh\" content=\"5\">";
+}
+
+elseif ($versao == '1.5.23'){
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.23.</div>
 	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
 
 }

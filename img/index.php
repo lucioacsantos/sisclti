@@ -1,7 +1,7 @@
 <?php
 
 /* Classe de interação com o PostgreSQL */
-require_once "class/constantes.inc.php";
+require_once "../class/constantes.inc.php";
 $config = new Config();
 $url = $config->SelectURL();
 

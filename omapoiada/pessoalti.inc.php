@@ -365,7 +365,7 @@ if (($row) AND ($act == NULL)) {
                         <td>".$value->nome."</td>
                         <td>".$value->nome_guerra."</td>
                         <td>".$value->sigla_funcao."</td>
-                        <td><a href=\"?cmd=pessoalti&act=qrcode&param=".$value->idtb_pessoal_ti."\">QR Code</a> - 
+                        <td><a href=\"?cmd=pessoalti&act=qrcode&param=".$value->idtb_pessoal_ti."\">2FA</a> - 
                             <a href=\"?cmd=pessoalti&act=cad&param=".$value->idtb_pessoal_ti."\">Editar</a> - 
                             <a href=\"?cmd=pessoalti&act=cad&param=".$value->idtb_pessoal_ti."&senha=troca\">Senha</a> - 
                             <a href=\"?cmd=pessoalti&act=desativar&param=".$value->idtb_pessoal_ti."\">Desativar</a></td>
@@ -551,7 +551,15 @@ if ($act == 'qrcode') {
         $usuario = $pti->SelectIdPesTI();
                 
         $sistema = 'SiGTI';
-        $usuario= $usuario->nip;
+        $nip = $usuario->nip;
+        $cpf = $usuario->cpf;
+        if ($nip){
+            $usuario= $usuario->nip;
+        }
+        elseif ($cpf){
+            $usuario= $usuario->cpf;
+        }
+        
 
         $data = "otpauth://totp/$usuario?secret=$secret&issuer=$sistema";
         $file = "../tmp/$secret.png";

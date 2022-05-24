@@ -41,6 +41,7 @@ class Config
             OR parametro='URL' OR parametro='TITULO' ORDER BY idtb_config ");
         return $row;
     }
+    /** Seleciona a URL a partir do banco para uso no html */
     function SelectURL()
     {
         require_once "pgsql.class.php";
@@ -290,6 +291,13 @@ class Usuario
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getCol("SELECT secret FROM db_clti.tb_pessoal_ti WHERE idtb_pessoal_ti = $this->iduser ");
+        return $row;
+    }
+    public function getSecretCLTI()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getCol("SELECT secret FROM db_clti.tb_lotacao_clti WHERE idtb_lotacao_clti = $this->iduser ");
         return $row;
     }
     public function perfilOM()
@@ -1017,6 +1025,14 @@ class PessoalCLTI
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_clti WHERE nip = '$this->usuario' OR cpf = '$this->usuario'");
+        return $row;
+    }
+    public function PesCLTIQRCode()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "UPDATE db_clti.tb_lotacao_clti SET secret = '$this->secret' WHERE idtb_lotacao_clti='$this->idtb_lotacao_clti' ";
+        $row = $pg->exec($sql);
         return $row;
     }
     public function ChecaCorreio()

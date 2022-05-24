@@ -119,11 +119,11 @@ if ($act == 'cad') {
                                     <div class=\"form-group\">
                                         <label for=\"postograd\">Posto/Graduação:</label>
                                         <select id=\"postograd\" class=\"form-control\" name=\"postograd\">
-                                            <option value=\"$clti->idtb_posto_grad\" selected=\"true\">
-                                                $clti->sigla_posto_grad</option>";
+                                            <opescltion value=\"$clti->idtb_posto_grad\" selected=\"true\">
+                                                $clti->sigla_posto_grad</opescltion>";
                                             foreach ($postograd as $key => $value) {
-                                                echo"<option value=\"".$value->idtb_posto_grad."\">
-                                                    ".$value->nome."</option>";
+                                                echo"<opescltion value=\"".$value->idtb_posto_grad."\">
+                                                    ".$value->nome."</opescltion>";
                                             };
                                         echo "</select>
                                     </div>
@@ -131,11 +131,11 @@ if ($act == 'cad') {
                                     <div class=\"form-group\">
                                         <label for=\"corpoquadro\">Corpo/Quadro:</label>
                                         <select id=\"corpoquadro\" class=\"form-control\" name=\"corpoquadro\">
-                                            <option value=\"$clti->idtb_corpo_quadro\" selected=\"true\">
-                                                $clti->sigla_corpo_quadro</option>";
+                                            <opescltion value=\"$clti->idtb_corpo_quadro\" selected=\"true\">
+                                                $clti->sigla_corpo_quadro</opescltion>";
                                             foreach ($corpoquadro as $key => $value) {
-                                                echo"<option value=\"".$value->idtb_corpo_quadro."\">
-                                                    ".$value->nome."</option>";
+                                                echo"<opescltion value=\"".$value->idtb_corpo_quadro."\">
+                                                    ".$value->nome."</opescltion>";
                                             };
                                         echo "</select>
                                     </div>
@@ -143,11 +143,11 @@ if ($act == 'cad') {
                                     <div class=\"form-group\">
                                         <label for=\"especialidade\">Especialidade:</label>
                                         <select id=\"especialidade\" class=\"form-control\" name=\"especialidade\">
-                                            <option value=\"$clti->idtb_especialidade\" selected=\"true\">
-                                                $clti->sigla_espec</option>";
+                                            <opescltion value=\"$clti->idtb_especialidade\" selected=\"true\">
+                                                $clti->sigla_espec</opescltion>";
                                             foreach ($especialidade as $key => $value) {
-                                                echo"<option value=\"".$value->idtb_especialidade."\">
-                                                    ".$value->nome."</option>";
+                                                echo"<opescltion value=\"".$value->idtb_especialidade."\">
+                                                    ".$value->nome."</opescltion>";
                                             };
                                         echo "</select>
                                     </div>
@@ -188,9 +188,9 @@ if ($act == 'cad') {
                                     <div class=\"form-group\">
                                         <label for=\"ativo\" class=\"control-label\">Situação:</label>
                                         <select id=\"ativo\" class=\"form-control\" name=\"ativo\">
-                                            <option value=\"$clti->status\" selected=\"true\">$clti->status</option>
-                                            <option value=\"ATIVO\">ATIVO</option>
-                                            <option value=\"INATIVO\">INATIVO</option>
+                                            <opescltion value=\"$clti->status\" selected=\"true\">$clti->status</opescltion>
+                                            <opescltion value=\"ATIVO\">ATIVO</opescltion>
+                                            <opescltion value=\"INATIVO\">INATIVO</opescltion>
                                     </div>
                                     <input id=\"senha\" type=\"hidden\" name=\"senha\" value=\"\">";
                                 }
@@ -202,11 +202,11 @@ if ($act == 'cad') {
                             <div class=\"form-group\">
                                 <label for=\"postograd\">Posto/Graduação:</label>
                                 <select id=\"postograd\" class=\"form-control\" name=\"postograd\">
-                                    <option value=\"$clti->idtb_posto_grad\" selected=\"true\">
-                                        $clti->sigla_posto_grad</option>";
+                                    <opescltion value=\"$clti->idtb_posto_grad\" selected=\"true\">
+                                        $clti->sigla_posto_grad</opescltion>";
                                     foreach ($postograd as $key => $value) {
-                                        echo"<option value=\"".$value->idtb_posto_grad."\">
-                                            ".$value->nome."</option>";
+                                        echo"<opescltion value=\"".$value->idtb_posto_grad."\">
+                                            ".$value->nome."</opescltion>";
                                     };
                                 echo "</select>
                             </div>
@@ -214,11 +214,11 @@ if ($act == 'cad') {
                             <div class=\"form-group\">
                                 <label for=\"corpoquadro\">Corpo/Quadro:</label>
                                 <select id=\"corpoquadro\" class=\"form-control\" name=\"corpoquadro\">
-                                    <option value=\"$clti->idtb_corpo_quadro\" selected=\"true\">
-                                        $clti->sigla_corpo_quadro</option>";
+                                    <opescltion value=\"$clti->idtb_corpo_quadro\" selected=\"true\">
+                                        $clti->sigla_corpo_quadro</opescltion>";
                                     foreach ($corpoquadro as $key => $value) {
-                                        echo"<option value=\"".$value->idtb_corpo_quadro."\">
-                                            ".$value->nome."</option>";
+                                        echo"<opescltion value=\"".$value->idtb_corpo_quadro."\">
+                                            ".$value->nome."</opescltion>";
                                     };
                                 echo "</select>
                             </div>
@@ -226,11 +226,11 @@ if ($act == 'cad') {
                             <div class=\"form-group\">
                                 <label for=\"especialidade\">Especialidade:</label>
                                 <select id=\"especialidade\" class=\"form-control\" name=\"especialidade\">
-                                    <option value=\"$clti->idtb_especialidade\" selected=\"true\">
-                                        $clti->sigla_espec</option>";
+                                    <opescltion value=\"$clti->idtb_especialidade\" selected=\"true\">
+                                        $clti->sigla_espec</opescltion>";
                                     foreach ($especialidade as $key => $value) {
-                                        echo"<option value=\"".$value->idtb_especialidade."\">
-                                            ".$value->nome."</option>";
+                                        echo"<opescltion value=\"".$value->idtb_especialidade."\">
+                                            ".$value->nome."</opescltion>";
                                     };
                                 echo "</select>
                             </div>
@@ -388,7 +388,8 @@ if (($row) AND ($act == NULL)) {
                         <td>".$identificacao."</td>
                         <td>".$value->nome."</td>
                         <td>".$value->nome_guerra."</td>
-                        <td><a href=\"?cmd=lotclti&act=cad&param=".$value->idtb_lotacao_clti."\">Editar</a> - 
+                        <td><a href=\"?cmd=lotclti&act=qrcode&param=".$value->idtb_lotacao_clti."\">2FA</a> -
+                            <a href=\"?cmd=lotclti&act=cad&param=".$value->idtb_lotacao_clti."\">Editar</a> - 
                             <a href=\"?cmd=lotclti&act=cad&param=".$value->idtb_lotacao_clti."&senha=troca\">Senha</a> -
                             <a href=\"?cmd=lotclti&act=desativar&param=".$value->idtb_lotacao_clti."\">Desativar</a>
                         </td>
@@ -568,8 +569,8 @@ if ($act == 'aprovrelsv'){
                                     <label for=\"aprovrel\">Selecione o aprovador:</label>
                                     <select id=\"aprovrel\" class=\"form-control\" name=\"aprovrel\">";
                                         foreach ($clti as $key => $value) {
-                                            echo"<option value=\"".$value->idtb_lotacao_clti."\">
-                                                ".$value->sigla_posto_grad." - ".$value->nome_guerra."</option>";
+                                            echo"<opescltion value=\"".$value->idtb_lotacao_clti."\">
+                                                ".$value->sigla_posto_grad." - ".$value->nome_guerra."</opescltion>";
                                         };
                                     echo "</select>
                                 </div>
@@ -610,8 +611,8 @@ if ($act == 'servico'){
                                     <label for=\"servico\">Selecione o Militar:</label>
                                     <select id=\"servico\" class=\"form-control\" name=\"servico\">";
                                         foreach ($clti as $key => $value) {
-                                            echo"<option value=\"".$value->idtb_lotacao_clti."\">
-                                                ".$value->sigla_posto_grad." - ".$value->nome_guerra."</option>";
+                                            echo"<opescltion value=\"".$value->idtb_lotacao_clti."\">
+                                                ".$value->sigla_posto_grad." - ".$value->nome_guerra."</opescltion>";
                                         };
                                     echo "</select>
                                 </div>
@@ -622,6 +623,52 @@ if ($act == 'servico'){
                 </main>
             </div>
         </div>";
+    }
+}
+
+if ($act == 'qrcode') {
+    if (isset($_SESSION['status'])){        
+        require_once "../class/authenticator.inc.php";
+        require_once "../phpqrcode/qrlib.php";
+
+        $authenticator = new GoogleAuthenticator();
+        $secret = $authenticator->createSecret();
+
+        $pesclti->idtb_lotacao_clti = $param;
+        $pesclti->secret = $secret;
+        $usuario = $pesclti->SelectId();
+                
+        $sistema = 'SiGTI';
+        $nip = $usuario->nip;
+        $cpf = $usuario->cpf;
+        if ($nip){
+            $usuario= $usuario->nip;
+        }
+        elseif ($cpf){
+            $usuario= $usuario->cpf;
+        }
+
+        $data = "otpauth://totp/$usuario?secret=$secret&issuer=$sistema";
+        $file = "../tmp/$secret.png";
+
+        QRcode::png($data,$file);
+
+        $row = $pesclti->PesCLTIQRCode();
+            if ($row) {
+                echo "\n\n
+                <img src=\"../tmp/$secret.png\" alt=\"QR Code\" />\n\n
+                <h4>Use o QR Code acima no Authenticator.</h3>\n\n
+                <h3>Guarde esta chave em local seguro: $secret </h3>";
+                #unlink($file);
+            }
+            else {
+                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+                echo(pg_result_error($row) . "<br />\n");
+            }
+    }
+    else{
+        echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;$url\">";
     }
 }
 
