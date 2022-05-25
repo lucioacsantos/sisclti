@@ -10,37 +10,59 @@
  * */
 class Seguranca
 {
-    public $idtb_clti;
-    public $idtb_config;
-    public $valor;
-    public $nome;
-    public $sigla;
-    public $indicativo;
-    public $data_ativacao;
-    public $publicacao;
-    public $datapublicacao;
-    public $tipoclti;
-    public $lotacaooficiais;
-    public $lotacaopracas;
-    public $ordena;
+    public $end_ip;
+    public $data_acesso;
+    public $hora_acesso;
+    private $AcessoSuspeito = "Acesso suspeito";
+    private $AcessoSuspeitoReincidente = "Acesso suspeito reincidente";
+    private $AcessoSuspeitoBloqueado = "Bloqueado";
 
     /** 
-     * Função para recuperar a URL do sistema a partir do banco
-     * Utilizado na construção do html
+     * Registra/Atualiza dados do endereço IP suspeito
      */
     function RegAcessoSuspeito()
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='URL'");
+        $row = $this->SelectAcessoSuspeito();
+        if ($row){
+            if ($row->contador < 3){
+                $row = $pg->exec("UPDATE db_clti.tb_acesso_suspeito SET (data_acesso,hora_acesso,contador,status) 
+                    = ('$this->data_acesso','$this->hora_acesso',contador +1,'$this->AcessoSuspeitoReincidente') WHERE end_ip = '$this->end_ip'");
+            }
+            else{
+                $row = $pg->exec("UPDATE db_clti.tb_acesso_suspeito SET (data_acesso,hora_acesso,contador,status) 
+                = ('$this->data_acesso','$this->hora_acesso',contador +1,'$this->AcessoSuspeitoBloqueado') WHERE end_ip = '$this->end_ip'");
+            }            
+        }
+        else {
+            $row = $pg->insert("INSERT INTO db_clti.tb_acesso_suspeito (end_ip,data_acesso,hora_acesso,contador,status) 
+                VALUES ('$this->end_ip','$this->data_acesso','$this->hora_acesso',1,'$this->AcessoSuspeito') ","idtb_acesso_suspeito");
+        }
         return $row;
     }
-    function GetMACAdd()
+    /** 
+     * Verifica se endereço IP suspeito já está registrado
+     */
+    function SelectAcessoSuspeito()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("SELECT * FROM db_clti.tb_acesso_suspeito WHERE end_ip = '$this->end_ip'");
+        return $row;
+    }
+    /** 
+     * Obtém endereço IP suspeito
+     */
+    function GetIP()
     {
         ob_start();
-        system('getmac');
-        $Content = ob_get_contents();
-        ob_clean();
-        return substr($Content, strpos($Content,'\\')-20, 17);
+        $ipaddress = getenv('HTTP_CLIENT_IP')?:
+            getenv('HTTP_X_FORWARDED_FOR')?:
+            getenv('HTTP_X_FORWARDED')?:
+            getenv('HTTP_FORWARDED_FOR')?:
+            getenv('HTTP_FORWARDED')?:
+            getenv('REMOTE_ADDR');
+        return $ipaddress;
     }
 }

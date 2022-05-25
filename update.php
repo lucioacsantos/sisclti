@@ -760,9 +760,10 @@ elseif ($versao == '1.5.21'){
 elseif ($versao == '1.5.22'){
 	$pg->exec("CREATE TABLE db_clti.tb_acesso_suspeito (
 		idtb_acesso_suspeito serial NOT NULL,
-		end_ip int4 NOT NULL,
+		end_ip varchar(15) NOT NULL,
 		data_acesso date NOT NULL,
-		data_hora time NOT NULL,
+		hora_acesso time NOT NULL,
+		contador int4 NOT NULL,
 		status varchar(255),
 		CONSTRAINT tb_acesso_suspeito_pkey PRIMARY KEY (idtb_acesso_suspeito)
 	);
