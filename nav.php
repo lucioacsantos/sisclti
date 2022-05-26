@@ -23,8 +23,7 @@ $versao = $config->SelectVersao();
       <p class="navbar-brand">
         <?php 
           if (isset($_SESSION['user_name'])){
-            echo "".$_SESSION['posto_grad']." - ".$_SESSION['user_name']." - ".$_SESSION['perfil']." 
-              - Validade da senha: ".$_SESSION['venc_senha']." dias.";
+            echo "".$_SESSION['posto_grad']." - ".$_SESSION['user_name']." - ".$_SESSION['perfil']." ";
             $perfil = $_SESSION['perfil'];
           }
           else{
@@ -87,11 +86,17 @@ $versao = $config->SelectVersao();
                   </a>
                 </li>
                 <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/clti/?cmd=seguranca\">
+                    <span data-feather=\"shield\"></span>
+                    Segurança
+                  </a>
+                </li>
+                <!--<li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/monitoramento/?cmd=monitoramento\">
                     <span data-feather=\"grid\"></span>
                     Monitoramento
                   </a>
-                </li>
+                </li>-->
                 <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/clti/?cmd=omapoiadas\">
                     <span data-feather=\"anchor\"></span>

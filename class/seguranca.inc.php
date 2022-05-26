@@ -47,8 +47,11 @@ class Seguranca
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->exec("UPDATE db_clti.tb_acesso_suspeito SET (data_acesso,hora_acesso,contador,status) 
-            = ('$this->data_acesso','$this->hora_acesso',0,'$this->AcessoComSucesso') WHERE end_ip = '$this->end_ip'");
+        $row = $pg->getRow("SELECT * FROM db_clti.tb_acesso_suspeito WHERE end_ip = '$this->end_ip'");
+        if ($row){
+            $row = $pg->exec("UPDATE db_clti.tb_acesso_suspeito SET (data_acesso,hora_acesso,contador,status) 
+                = ('$this->data_acesso','$this->hora_acesso',0,'$this->AcessoComSucesso') WHERE end_ip = '$this->end_ip'");
+        }        
         return $row;
     }
     /** 
