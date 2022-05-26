@@ -277,6 +277,23 @@ class Usuario
     public $iduser;
     public $ordena;
 
+    /** Muda status de usuário para bloqueado por tentativas de acesso */
+    public function BloqueioOM()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("UPDATE db_clti.tb_pessoal_ti SET status = 'BLOQUEADO' WHERE nip = '$this->usuario' 
+            OR cpf = '$this->usuario'");
+        return $row;
+    }
+    public function BloqueioCLTI()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("UPDATE db_clti.tb_lotacao_clti SET status = 'BLOQUEADO' WHERE nip = '$this->usuario' 
+            OR cpf = '$this->usuario' ");
+        return $row;
+    }
     /* Verificação de Login/Perfil Usuários da OM */
     public function LoginOM()
     {
@@ -613,6 +630,13 @@ class PessoalTI
         $pg = new PgSql();
         $row = $pg->getRows("SELECT * FROM db_clti.vw_pessoal_ti WHERE sigla_funcao='ADMIN' AND status='INATIVO' 
             $this->ordena");
+        return $row;
+    }
+    public function SelectPesTIBloqueados()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_pessoal_ti WHERE status='BLOQUEADO' $this->ordena");
         return $row;
     }
     public function SelectIdPesTI()

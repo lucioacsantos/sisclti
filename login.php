@@ -3,6 +3,19 @@
 *** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
+/** Verificação de segurança */
+require_once "class/seguranca.inc.php";
+$seg = new Seguranca();
+$seg->end_ip = $seg->GetIP();
+$bloqueado = $seg->ChecaBloqueado();
+
+if ($bloqueado){
+    require_once "class/acesso_suspeito.inc.php";
+    $msg = "Acesso bloqueado, contate o suporte!"; 
+    Mensagens($msg);
+    die();
+}
+
 $act = NULL;
 if (isset($_GET['act'])){
   $act = $_GET['act'];
@@ -108,6 +121,7 @@ if ($act == 'acesso') {
       $row = $usr->perfilOM();
 
       if ($row) {
+        $seg->ZeraContador();
         $_SESSION['logged_in'] = true;
         $_SESSION['user_id'] = $row->idtb_pessoal_ti;
         $_SESSION['venc_senha'] = $usr->GetVencSenha();
@@ -142,9 +156,10 @@ if ($act == 'acesso') {
     //}
 	}
 	else {
-    $_SESSION ['msg'] = "Usuário ou senha incorretos!";
-    $msg = $_SESSION ['msg'];
-    include_once("login.inc.php");
+    include "class/acesso_suspeito.inc.php"; 
+    $msg = AcessoSuspeito("Usuário ou senha incorretos, por favor aguarde!"); 
+    Mensagens($msg);
+    $usr->BloqueioOM();
 	}
 }
 
@@ -160,6 +175,7 @@ if ($act == 'auth'){
   $checkResult = $authenticator->verifyCode($secret, $codigo, 2);    // 2 = 2*30sec clock tolerance
 
   if ($checkResult) {
+    $seg->ZeraContador();
     $_SESSION['logged_in'] = true;
     $_SESSION['user_id'] = $row->idtb_pessoal_ti;
     $_SESSION['venc_senha'] = $usr->GetVencSenha();
@@ -173,9 +189,8 @@ if ($act == 'auth'){
     
     header('Location: index.php');
   } else {
-    $_SESSION ['msg'] = "Ocorreu algum erro!";
-    $msg = $_SESSION ['msg'];
-    include_once("login.inc.php");
+    $msg = AcessoSuspeito("Erro na autenticação em dois fatores, por favor aguarde!"); 
+    Mensagens($msg);
   }
 }
 

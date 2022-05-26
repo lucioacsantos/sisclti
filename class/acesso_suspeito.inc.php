@@ -9,29 +9,31 @@ $sigla = $config->SelectSigla();
 $versao = $config->SelectVersao();
 
 /** Registra acesso suspeito */
-function AcessoSuspeito()
+function AcessoSuspeito($msg)
 {
   require_once "seguranca.inc.php";
   $seg = new Seguranca();
   $seg->end_ip = $seg->GetIP();
   $seg->data_acesso = date("Y-m-d");
-  $seg->hora_acesso = date("h:i:s");
+  $seg->hora_acesso = date("H:i:s");
   $seg->status = "Acesso suspeito";
   $seg->RegAcessoSuspeito();
-  $msg = "Ocorreu algum erro, por favor aguarde!";
   return $msg;
 }
 
 /** Apresenta mensagens do sistema */
 function Mensagens($msg)
 {
+  require_once "constantes.inc.php";
+  $config = new Config();
+  $url = $config->SelectURL();
   echo"
       <div class=\"container\">
           <div class=\"text-center\">
               <p><h3>$msg</h3></p>
           </div>
           <div class=\"text-center\">
-              <img src=\"../img/loading.gif\" class=\"img-fluid\" height=\"64px\" width=\"64px\" />
+              <img src=\"$url/img/loading.gif\" class=\"img-fluid\" height=\"64px\" width=\"64px\" />
           </div>
       </div>";
 }
@@ -53,7 +55,7 @@ echo"
     <meta http-equiv=\"Pragma\" content=\"no-cache\" />
     <meta http-equiv=\"Expires\" content=\"0\" />
 
-    <!--<meta http-equiv=\"refresh\" content=\"5;url=$url\">-->
+    <meta http-equiv=\"refresh\" content=\"3;url=$url\">
 
     <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"$url/img/apple-touch-icon.png\">
     <link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"$url/img/favicon-32x32.png\">

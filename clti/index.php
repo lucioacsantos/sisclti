@@ -189,6 +189,7 @@ if (isset($_SESSION['user_name'])){
                     <a href=\"?cmd=admin\"><button class=\"btn btn-sm btn-outline-secondary\">Administradores</button></a>
                     <a href=\"?cmd=admin&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
                     <a href=\"?cmd=admin&act=inativos\"><button class=\"btn btn-sm btn-outline-secondary\">Inativos</button></a>
+                    <a href=\"?cmd=admin&act=bloqueados\"><button class=\"btn btn-sm btn-outline-secondary\">Bloqueados</button></a>
                   </div>
                 </div>
               </div>";

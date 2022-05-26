@@ -3,6 +3,19 @@
 *** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
+/** Verificação de segurança */
+require_once "class/seguranca.inc.php";
+$seg = new Seguranca();
+$seg->end_ip = $seg->GetIP();
+$bloqueado = $seg->ChecaBloqueado();
+
+if ($bloqueado){
+    require_once "class/acesso_suspeito.inc.php";
+    $msg = "Acesso bloqueado, contate o suporte!"; 
+    Mensagens($msg);
+    die();
+}
+
 /* Classe de interação com o PostgreSQL */
 require_once "class/constantes.inc.php";
 $config = new Config();
@@ -126,9 +139,12 @@ if ($act == 'acesso') {
     }
 	}
 	else {
-    $_SESSION ['msg'] = "Usuário ou senha incorretos!";
+    include "class/acesso_suspeito.inc.php"; 
+    $msg = AcessoSuspeito("Usuário ou senha incorretos, por favor aguarde!"); 
+    Mensagens($msg);
+    /*$_SESSION ['msg'] = "Usuário ou senha incorretos!";
     $msg = $_SESSION ['msg'];
-    include_once ("login_clti.inc.php");
+    include_once ("login_clti.inc.php");*/
 	}
 }
 
@@ -155,9 +171,12 @@ if ($act == 'auth'){
     
     header('Location: index.php');
   } else {
-    $_SESSION ['msg'] = "Ocorreu algum erro!";
+    include "class/acesso_suspeito.inc.php"; 
+    $msg = AcessoSuspeito("Erro na autenticação em dois fatores, por favor aguarde!"); 
+    Mensagens($msg);
+    /*$_SESSION ['msg'] = "Ocorreu algum erro!";
     $msg = $_SESSION ['msg'];
-    include_once("login.inc.php");
+    include_once("login.inc.php");*/
   }
 }
 

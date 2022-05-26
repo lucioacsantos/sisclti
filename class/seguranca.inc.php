@@ -16,6 +16,7 @@ class Seguranca
     private $AcessoSuspeito = "Acesso suspeito";
     private $AcessoSuspeitoReincidente = "Acesso suspeito reincidente";
     private $AcessoSuspeitoBloqueado = "Bloqueado";
+    private $AcessoComSucesso = "Acesso com sucesso";
 
     /** 
      * Registra/Atualiza dados do endereço IP suspeito
@@ -26,7 +27,7 @@ class Seguranca
         $pg = new PgSql();
         $row = $this->SelectAcessoSuspeito();
         if ($row){
-            if ($row->contador < 3){
+            if ($row->contador < 5){
                 $row = $pg->exec("UPDATE db_clti.tb_acesso_suspeito SET (data_acesso,hora_acesso,contador,status) 
                     = ('$this->data_acesso','$this->hora_acesso',contador +1,'$this->AcessoSuspeitoReincidente') WHERE end_ip = '$this->end_ip'");
             }
@@ -41,6 +42,15 @@ class Seguranca
         }
         return $row;
     }
+    /** Zera contador de acessos suspeitos */
+    function ZeraContador()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("UPDATE db_clti.tb_acesso_suspeito SET (data_acesso,hora_acesso,contador,status) 
+            = ('$this->data_acesso','$this->hora_acesso',0,'$this->AcessoComSucesso') WHERE end_ip = '$this->end_ip'");
+        return $row;
+    }
     /** 
      * Verifica se endereço IP suspeito já está registrado
      */
@@ -49,6 +59,15 @@ class Seguranca
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getRow("SELECT * FROM db_clti.tb_acesso_suspeito WHERE end_ip = '$this->end_ip'");
+        return $row;
+    }
+    /** Verifica status Bloqueado do IP acessando o sistema */
+    function ChecaBloqueado()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("SELECT * FROM db_clti.tb_acesso_suspeito WHERE end_ip = '$this->end_ip'
+            AND status = 'Bloqueado'");
         return $row;
     }
     /** 

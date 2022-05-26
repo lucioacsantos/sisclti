@@ -421,6 +421,65 @@ if ($act == 'inativos') {
             </div>";
 }
 
+/* Monta quadro de administradores bloqueados */
+if ($act == 'bloqueados') {
+
+	$pesti->ordena = "ORDER BY sigla_om ASC";
+    $admin = $pesti->SelectPesTIBloqueados();
+
+    echo"<div class=\"table-responsive\">
+            <table class=\"table table-hover\">
+                <thead>
+                    <tr>
+                        <th scope=\"col\">OM Apoiada</th>
+                        <th scope=\"col\">Posto/Grad./Esp.</th>
+                        <th scope=\"col\">NIP/CPF</th>
+                        <th scope=\"col\">Nome</th>
+                        <th scope=\"col\">Nome de Guerra</th>
+                        <th scope=\"col\">Ações</th>
+                    </tr>
+                </thead>";
+
+    foreach ($admin as $key => $value) {
+
+        #Seleciona NIP caso seja militar da MB
+        if ($value->nip != NULL) {
+            $identificacao = $value->nip;
+        }
+        else{
+            $identificacao = $value->cpf;
+        }
+        echo"       <tr>
+                        <td>".$value->sigla_om."</td>";
+        if (($value->exibir_espec == 'NÃO') AND ($value->exibir_corpo_quadro == 'NÃO')){
+            echo"       <th scope=\"row\">".$value->sigla_posto_grad."</th>";
+        }
+        elseif (($value->exibir_espec == 'NÃO') AND ($value->exibir_corpo_quadro != 'NÃO')){
+            echo"       <th scope=\"row\">".$value->sigla_posto_grad." ".$value->sigla_corpo_quadro."</th>";
+        }
+        elseif (($value->exibir_espec != 'NÃO') AND ($value->exibir_corpo_quadro == 'NÃO')){
+            echo"       <th scope=\"row\">".$value->sigla_posto_grad." ".$value->sigla_espec."</th>";
+        }
+        else {
+            echo"       <th scope=\"row\">".$value->sigla_posto_grad." ".$value->sigla_corpo_quadro." 
+                            ".$value->sigla_espec."</th>";
+        }
+            echo"
+                        <td>".$identificacao."</td>
+                        <td>".$value->nome."</td>
+                        <td>".$value->nome_guerra."</td>
+                        <td><a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."\">Editar</a> - 
+                            <a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."&senha=troca\">Senha</a> - 
+                            <a href=\"?cmd=admin&act=ativar&param=".$value->idtb_pessoal_ti."\">Reativar</a>
+                        </td>
+                    </tr>";
+    }
+    echo"
+                </tbody>
+            </table>
+            </div>";
+}
+
 /* Método INSERT */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
