@@ -4,7 +4,7 @@
 **/
 
 /** Leitura de parâmetros */
-$oa = $cmd = $param = $act = $senha = NULL;
+$oa = $cmd = $param = $param2 = $act = $senha = NULL;
 if (isset($_GET['oa'])){
   $oa = $_GET['oa'];
 }
@@ -20,6 +20,10 @@ if (isset($_GET['act'])){
 if (isset($_GET['param'])){
   $param = $_GET['param'];
 }
+
+if (isset($_GET['param2'])){
+    $param = $_GET['param2'];
+  }
 
 if (isset($_GET['senha'])){
     $senha = $_GET['senha'];
@@ -476,8 +480,8 @@ if ($act == 'insert') {
 /** Form Registrar Ocorrência */
 if ($act == 'reg_ocorrencia') {
     if (isset($_SESSION['status'])){
-        @$num_rel = $_GET['param'];
-        @$idtb_rel_servico_ocorrencias = $_GET['param2'];
+        $num_rel = $param;
+        $idtb_rel_servico_ocorrencias = $param2;
         if ($idtb_rel_servico_ocorrencias){
             $rel_svc->idtb_rel_servico_ocorrencias = $idtb_rel_servico_ocorrencias;
             $ocorrencia = $rel_svc->SelectOcorrenciaId();
@@ -530,7 +534,7 @@ if ($act == 'ocorrencias') {
                     </tr>
                 </thead>";
 
-    $num_rel = $_GET['param'];
+    $num_rel = $param;
     $rel_svc->num_rel = $num_rel;
     $ocorrencias = $rel_svc->SelectOcorrenciaNumRel();
 
@@ -595,7 +599,7 @@ if ($act == 'insert_ocorrencia') {
 /** Finalizar Relatório */
 if ($act == 'encerrar') {
     if (isset($_SESSION['status'])){
-        $rel_svc->num_rel = $_GET['param'];
+        $rel_svc->num_rel = $param;
         $rel_svc->status = 'Encerrado';
         #$num_rel = $rel_svc->SelectId();
         #$rel_svc->num_rel = $num_rel->num_rel;
@@ -619,7 +623,7 @@ if ($act == 'encerrar') {
 /** Supervisor que entra registrar ciência */
 if ($act == 'regciencia') {
     if (isset($_SESSION['status'])){
-        $rel_svc->num_rel = $_GET['param'];
+        $rel_svc->num_rel = $param;
         $rel_svc->status = 'Sup. que entra ciente';
         #$num_rel = $rel_svc->SelectId();
         #$rel_svc->num_rel = $num_rel->num_rel;
@@ -643,7 +647,7 @@ if ($act == 'regciencia') {
 /** Oficial Aprovar Relatório */
 if ($act == 'aprovrel') {
     if (isset($_SESSION['status'])){
-        $rel_svc->idtb_rel_servico = $_GET['param'];
+        $rel_svc->idtb_rel_servico = $param;
         $rel_svc->status = 'Relatório aprovado';
         $num_rel = $rel_svc->SelectId();
         $rel_svc->num_rel = $num_rel->num_rel;
@@ -671,5 +675,52 @@ if ($act == 'aprovrel') {
             <meta http-equiv=\"refresh\" content=\"1;$url\">";
     }
 }
+
+/** Form Anexar Arquivo */
+if ($act == 'anexar_arquivo') {
+    if (isset($_SESSION['status'])){
+        $num_rel = $param;
+        $idtb_rel_servico_ocorrencias = $param2;
+        if ($idtb_rel_servico_ocorrencias){
+            $rel_svc->idtb_rel_servico_ocorrencias = $idtb_rel_servico_ocorrencias;
+            $ocorrencia = $rel_svc->SelectOcorrenciaId();
+        }
+        else {
+            $rel_svc->num_rel = $num_rel;
+            $ocorrencia = $rel_svc->SelectId();
+        }
+        
+        echo "
+        <div class=\"container-fluid\">
+            <div class=\"row\">
+                <main>
+                    <div id=\"form-cadastro\">
+                        <form id=\"insertom\" action=\"?cmd=relservico&act=insert_ocorrencia\" method=\"post\" enctype=\"multipart/form-data\">
+                            <fieldset>
+                                <legend>Relatório de Serviço nº $ocorrencia->num_rel - Registro de Ocorrências</legend>
+                                <div class=\"form-group\">
+                                    <label for=\"num_rel\">Número do Relatório:</label>
+                                    <input id=\"num_rel\" class=\"form-control\" name=\"num_rel\" value=\"$ocorrencia->num_rel\" readonly>
+                                </div>
+                                <div class=\"form-group\">
+                                    <label for=\"ocorrencia\">Ocorrência:</label>
+                                </div>
+                                <div class=\"form-group\">
+                                    <textarea id=\"ocorrencia\" name=\"ocorrencia\" rows=\"10\" cols=\"60\">".@$ocorrencia->ocorrencia."</textarea>
+                                </div>
+                            </fieldset>
+                            <input id=\"status\" name=\"status\" value=\"$ocorrencia->status\" type=\"hidden\">
+                            <input id=\"idtb_rel_servico_ocorrencias\" name=\"idtb_rel_servico_ocorrencias\" value=\"$idtb_rel_servico_ocorrencias\" 
+                                type=\"hidden\">
+                            <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">
+                        </form>
+                    </div>
+                </main>
+            </div>
+        </div>";
+    }
+}
+
+
 
 ?>

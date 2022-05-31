@@ -777,8 +777,38 @@ elseif ($versao == '1.5.22'){
 }
 
 elseif ($versao == '1.5.23'){
+	$pg->exec("CREATE TABLE db_clti.tb_range_ip (
+		idtb_range_ip serial NOT NULL,
+		idtb_om_apoiadas int4 NOT NULL,
+		sub_rede varchar(15) NOT NULL,
+		mascara int4 NOT NULL,
+		CONSTRAINT tb_range_ip_pkey PRIMARY KEY (idtb_range_ip)
+	);
+	COMMENT ON TABLE db_clti.tb_det_serv IS 'Faixas de IP das OM Apoiadas';");
 
-	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.23.</div>
+	$pg->exec("CREATE TABLE db_clti.tb_rel_servico_anexos (
+		idtb_rel_servico_anexos serial NOT NULL,
+		idtb_rel_servico int4 NOT NULL,
+		0 varchar(15) NOT NULL,
+		mascara int4 NOT NULL,
+		CONSTRAINT tb_range_ip_pkey PRIMARY KEY (idtb_range_ip)
+	);
+	COMMENT ON TABLE db_clti.tb_det_serv IS 'Faixas de IP das OM Apoiadas';");
+
+	$pg->exec("ALTER TABLE db_clti.tb_pessoal_ti ADD COLUMN ip_acesso varchar (15) DEFAULT '0.0.0.0' NOT NULL");
+
+	$pg->exec("ALTER TABLE db_clti.tb_lotacao_clti ADD COLUMN ip_acesso varchar (15) DEFAULT '0.0.0.0' NOT NULL");
+
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
+	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.24' WHERE parametro='VERSAO' ");
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.24.</div>
+	<meta http-equiv=\"refresh\" content=\"5\">";
+}
+
+elseif ($versao == '1.5.24'){
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.24.</div>
 	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
 
 }

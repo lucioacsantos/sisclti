@@ -2572,6 +2572,7 @@ class RelServico
     public $condicao;
     public $data;
 
+    /** Seleciona Próximo Número do Relatório de Serviço */
     public function NumRel()
     {
         require_once "pgsql.class.php";
@@ -2579,6 +2580,7 @@ class RelServico
         $row = $pg->getCol("SELECT prox_num FROM db_clti.tb_numerador WHERE parametro = 'RelServico'");
         return $row;
     }
+    /** Registra Novo Relatório de Serviço */
     public function NewRel()
     {
         require_once "pgsql.class.php";
@@ -2586,6 +2588,7 @@ class RelServico
         $row = $pg->exec("UPDATE db_clti.tb_det_serv SET status = 'ENCERRADO' WHERE data_sai_servico = '$this->data' ");
         return $row;
     }
+    /** Seleciona Relatório de Serviço pelo ID */
     public function SelectId()
     {
         require_once "pgsql.class.php";
@@ -2593,6 +2596,7 @@ class RelServico
         $row = $pg->getRow("SELECT * FROM db_clti.tb_rel_servico WHERE num_rel = $this->num_rel");
         return $row;
     }
+    /** Seleciona Relatórios Aprovados */
     public function SelectAprovados()
     {
         require_once "pgsql.class.php";
@@ -2600,6 +2604,7 @@ class RelServico
         $row = $pg->getRows("SELECT * FROM db_clti.tb_rel_servico WHERE status = 'Relatório aprovado' ORDER BY idtb_rel_servico ASC");
         return $row;
     }
+    /** Seleciona Relatórios Em Andamento */
     public function SelectEmAndamento()
     {
         require_once "pgsql.class.php";
@@ -2607,6 +2612,7 @@ class RelServico
         $row = $pg->getRows("SELECT * FROM db_clti.tb_rel_servico WHERE status = 'Em andamento' ORDER BY idtb_rel_servico ASC");
         return $row;
     }
+    /** Seleciona Relatórios Encerrados */
     public function SelectEncerrados()
     {
         require_once "pgsql.class.php";
@@ -2614,6 +2620,7 @@ class RelServico
         $row = $pg->getRows("SELECT * FROM db_clti.tb_rel_servico WHERE status = 'Encerrado' ORDER BY idtb_rel_servico ASC");
         return $row;
     }
+    /** Seleciona Relatórios com Ciente do Supervisor */
     public function SelectSupCiente()
     {
         require_once "pgsql.class.php";
@@ -2621,6 +2628,7 @@ class RelServico
         $row = $pg->getRows("SELECT * FROM db_clti.tb_rel_servico WHERE status = 'Sup. que entra ciente' ORDER BY idtb_rel_servico ASC");
         return $row;
     }
+    /** Insere Novo Relatório de Serviço */
     public function Insert()
     {
         require_once "pgsql.class.php";
@@ -2632,6 +2640,7 @@ class RelServico
         $row2 = $pg->exec("UPDATE db_clti.tb_numerador SET prox_num = prox_num +1 WHERE parametro = 'RelServico' ");
         return array($row1,$row2);
     }
+    /** Atualiza Relatório de Serviço */
     public function Update()
     {
         require_once "pgsql.class.php";
@@ -2642,6 +2651,7 @@ class RelServico
             WHERE num_rel = $this->num_rel");
         return $row;
     }
+    /** Seleciona Ocorrência pelo ID */
     public function SelectOcorrenciaId()
     {
         require_once "pgsql.class.php";
@@ -2649,6 +2659,7 @@ class RelServico
         $row = $pg->getRow("SELECT * FROM db_clti.tb_rel_servico_ocorrencias WHERE idtb_rel_servico_ocorrencias = $this->idtb_rel_servico_ocorrencias ");
         return $row;
     }
+    /** Seleciona Ocorrência pelo Número do Relatório */
     public function SelectOcorrenciaNumRel()
     {
         require_once "pgsql.class.php";
@@ -2656,6 +2667,7 @@ class RelServico
         $row = $pg->getRows("SELECT * FROM db_clti.tb_rel_servico_ocorrencias WHERE num_rel = $this->num_rel ");
         return $row;
     }
+    /** Seleciona Ocorrências de Relatório em Andamento */
     public function SelectOcorrenciaAndamento()
     {
         require_once "pgsql.class.php";
