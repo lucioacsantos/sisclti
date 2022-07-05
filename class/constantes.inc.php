@@ -2571,6 +2571,7 @@ class RelServico
     public $sup_servico;
     public $condicao;
     public $data;
+    public $ordena;
 
     /** Seleciona Próximo Número do Relatório de Serviço */
     public function NumRel()
@@ -2712,7 +2713,7 @@ class RelServico
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRows("SELECT * FROM db_clti.tb_det_serv WHERE status = 'PROGRAMADO' ");
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_det_serv WHERE status = 'PROGRAMADO' $this->ordena ");
         return $row;
     }
     public function SelectIdDetSv()
