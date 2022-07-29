@@ -121,6 +121,8 @@ if ($act == 'acesso') {
       $row = $usr->perfilOM();
 
       if ($row) {
+        $seg->data_acesso = date("Y-m-d");
+        $seg->hora_acesso = date("H:i:s");
         $seg->ZeraContador();
         $_SESSION['logged_in'] = true;
         $_SESSION['user_id'] = $row->idtb_pessoal_ti;

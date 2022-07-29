@@ -1661,11 +1661,18 @@ class Estacoes
         $row = $pg->exec($sql);
         return $row;
     }
+    public function DeleteET()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("DELETE FROM db_clti.tb_estacoes WHERE idtb_estacoes='$this->idtb_estacoes' CASCADE ");
+        return $row;
+    }
     public function SelectAllETView()
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRows("SELECT * FROM db_clti.vw_estacoes");
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_estacoes ");
         return $row;
     }
     public function SelectNomeETView()

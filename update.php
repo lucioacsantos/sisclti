@@ -767,7 +767,7 @@ elseif ($versao == '1.5.22'){
 		status varchar(255),
 		CONSTRAINT tb_acesso_suspeito_pkey PRIMARY KEY (idtb_acesso_suspeito)
 	);
-	COMMENT ON TABLE db_clti.tb_det_serv IS 'Tabela contendo Acessos Suspeitos ao Sistema';");
+	COMMENT ON TABLE db_clti.tb_acesso_suspeito IS 'Tabela contendo Acessos Suspeitos ao Sistema';");
 
 	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
 	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.23' WHERE parametro='VERSAO' ");
@@ -784,16 +784,7 @@ elseif ($versao == '1.5.23'){
 		mascara int4 NOT NULL,
 		CONSTRAINT tb_range_ip_pkey PRIMARY KEY (idtb_range_ip)
 	);
-	COMMENT ON TABLE db_clti.tb_det_serv IS 'Faixas de IP das OM Apoiadas';");
-
-	$pg->exec("CREATE TABLE db_clti.tb_rel_servico_anexos (
-		idtb_rel_servico_anexos serial NOT NULL,
-		idtb_rel_servico int4 NOT NULL,
-		0 varchar(15) NOT NULL,
-		mascara int4 NOT NULL,
-		CONSTRAINT tb_range_ip_pkey PRIMARY KEY (idtb_range_ip)
-	);
-	COMMENT ON TABLE db_clti.tb_det_serv IS 'Faixas de IP das OM Apoiadas';");
+	COMMENT ON TABLE db_clti.tb_range_ip IS 'Faixas de IP das OM Apoiadas';");
 
 	$pg->exec("ALTER TABLE db_clti.tb_pessoal_ti ADD COLUMN ip_acesso varchar (15) DEFAULT '0.0.0.0' NOT NULL");
 

@@ -71,12 +71,71 @@ if ($act == 'cad') {
     include "estacoes-formcad.inc.php";
 }
 
+/* Carrega form para Exclusão Estações de Trabalho */
+if ($act == 'del') {
+    if ($param){
+        $et->idtb_estacoes = $param;
+        $estacoes = $et->SelectIdETView();
+    }
+    
+    echo"<div class=\"table-responsive\">
+            <table class=\"table table-hover\">
+                <thead>
+                    <tr>
+                        <th scope=\"col\">OM Apoiada</th>
+                        <th scope=\"col\">Cód.</th>
+                        <th scope=\"col\">Fabricante/Modelo</th>
+                        <th scope=\"col\">Nome</th>
+                        <th scope=\"col\">Hardware</th>
+                        <th scope=\"col\">Sistema Operacional</th>
+                        <th scope=\"col\">Endereço IP/MAC</th>
+                        <th scope=\"col\">Req. Mínimos</th>
+                        <th scope=\"col\">Situação</th>
+                        <th scope=\"col\">Ações</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <th scope=\"row\">".$estacoes->sigla."</th>
+                    <td>".$estacoes->idtb_estacoes."</td>
+                    <td>".$estacoes->fabricante." / ".$estacoes->modelo."</td>
+                    <td>".$estacoes->nome."</td>
+                    <td>".$estacoes->proc_fab." ".$estacoes->proc_modelo." ".$estacoes->clock_proc." GHz -  
+                        ".$estacoes->memoria." GB ".$estacoes->tipo_mem." ".$estacoes->modelo_mem." ".$estacoes->clock_mem." GHz - 
+                        ".$estacoes->armazenamento." GB/HD</td>
+                    <td>".$estacoes->descricao." - ".$estacoes->versao."</td>
+                    <td>".$estacoes->end_ip." / ".$estacoes->end_mac."</td>
+                    <td>".$estacoes->req_minimos."</td>
+                    <td>";
+                    if ($estacoes->status == "EM PRODUÇÃO"){
+                        echo "<span data-feather=\"check-circle\"></span></td>";
+                    }
+                    if ($estacoes->status == "EM MANUTENÇÃO"){
+                        echo "<span data-feather=\"activity\"></span></td>";
+                    }
+                    if ($estacoes->status == "SEM ATIVIDADE"){
+                        echo "<span data-feather=\"alert-triangle\"></span></td>";
+                    }
+                echo  "<td>
+                        <a href=\"?cmd=manutencaoet&act=conf_del&param=".$estacoes->idtb_estacoes."\">Confirmar Exclusão</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>";
+}
+
+/** Excluir Definitivamente Estação de Trabalho */
+if ($act == 'del') {
+    $et->idtb_estacoes = $param;
+    $estacoes = $et->DeleteET();
+}
+
 /* Monta quadro com Estações de Trabalho */
 if (($row) AND ($act == NULL)) {
-
     
     if ($omapoiada != ''){
         $et->idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
+        $et->ordena = "ORDER BY nome ASC";
         $estacoes = $et->SelectIdOMETView();
     }
     else{
@@ -127,6 +186,7 @@ if (($row) AND ($act == NULL)) {
                  echo  "<td>
                             <a href=\"?cmd=estacoes&act=cad&param=".$value->idtb_estacoes."\">Editar</a> - 
                             <a href=\"?cmd=manutencaoet&act=cad&param=".$value->idtb_estacoes."\">Manutenção</a>
+                            <a href=\"?cmd=estacoes&act=del&param=".$value->idtb_estacoes."\">Exclusão</a>
                         </td>
                     </tr>";
     }
