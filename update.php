@@ -50,7 +50,7 @@ $versao = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='VERS
 
 if ($versao == '1.5.1'){
 
-	echo "<div class=\"alert alert-primary\" role=\"alert\">Atualizando Eq. Conectividade. Aguarde...</div>";
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Atualizando Banco de Dados. Aguarde...</div>";
 	$pg->exec("ALTER TABLE db_clti.tb_conectividade ADD status varchar NULL;");
 	$pg->exec("DROP VIEW db_clti.vw_conectividade;");
 	$pg->exec("CREATE OR REPLACE VIEW db_clti.vw_conectividade
@@ -727,6 +727,9 @@ elseif ($versao == '1.5.19'){
 }
 
 elseif ($versao == '1.5.20'){
+
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Atualizando Banco de Dados. Aguarde...</div>";
+
 	$pg->exec("CREATE TABLE db_clti.tb_det_serv (
 		idtb_det_serv serial NOT NULL,
 		idtb_lotacao_clti int4 NOT NULL,
@@ -746,6 +749,9 @@ elseif ($versao == '1.5.20'){
 }
 
 elseif ($versao == '1.5.21'){
+
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Atualizando Banco de Dados. Aguarde...</div>";
+
 	$pg->exec("ALTER TABLE db_clti.tb_pessoal_ti ADD COLUMN secret varchar (16) DEFAULT 'Não ativado' NOT NULL");
 
 	$pg->exec("ALTER TABLE db_clti.tb_lotacao_clti ADD COLUMN secret varchar (16) DEFAULT 'Não ativado' NOT NULL");
@@ -758,6 +764,9 @@ elseif ($versao == '1.5.21'){
 }
 
 elseif ($versao == '1.5.22'){
+
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Atualizando Banco de Dados. Aguarde...</div>";
+
 	$pg->exec("CREATE TABLE db_clti.tb_acesso_suspeito (
 		idtb_acesso_suspeito serial NOT NULL,
 		end_ip varchar(15) NOT NULL,
@@ -777,6 +786,9 @@ elseif ($versao == '1.5.22'){
 }
 
 elseif ($versao == '1.5.23'){
+
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Atualizando Banco de Dados. Aguarde...</div>";
+
 	$pg->exec("CREATE TABLE db_clti.tb_range_ip (
 		idtb_range_ip serial NOT NULL,
 		idtb_om_apoiadas int4 NOT NULL,
@@ -799,7 +811,72 @@ elseif ($versao == '1.5.23'){
 
 elseif ($versao == '1.5.24'){
 
-	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.24.</div>
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Atualizando Banco de Dados. Aguarde...</div>";
+
+	$pg->exec("CREATE TABLE db_clti.tb_estacoes_excluidas (
+		idtb_estacoes_excluidas serial NOT NULL,
+		idtb_om_apoiadas int4 NOT NULL,
+		fabricante varchar(255) NOT NULL,
+		modelo varchar(255) NOT NULL,
+		nome varchar(255) NOT NULL,
+		end_ip varchar(255) NOT NULL,
+		end_mac varchar(255) NOT NULL,
+		data_del date NOT NULL,
+		hora_del time NOT NULL,
+		CONSTRAINT tb_estacoes_excluidas_pkey PRIMARY KEY (idtb_estacoes_excluidas)
+	);
+	COMMENT ON TABLE db_clti.tb_estacoes_excluidas IS 'Estações de trabalho excluídas';");
+
+	$pg->exec("CREATE TABLE db_clti.tb_conect_excluidos (
+		idtb_conect_excluidos serial4 NOT NULL,
+		idtb_om_apoiadas int4 NOT NULL,
+		fabricante varchar(255) NOT NULL,
+		modelo varchar(255) NOT NULL,
+		end_ip varchar(255) NULL,
+		data_del date NOT NULL,
+		hora_del time NOT NULL,
+		CONSTRAINT tb_conect_excluidos_pkey PRIMARY KEY (idtb_conect_excluidos)
+	);
+	COMMENT ON TABLE db_clti.tb_conect_excluidos IS 'Estações de trabalho excluídas';");
+	
+	$pg->exec("CREATE TABLE db_clti.tb_servidores_excluidos (
+		idtb_servidores_excluidos serial4 NOT NULL,
+		idtb_om_apoiadas int4 NOT NULL,
+		fabricante varchar(255) NOT NULL,
+		modelo varchar(255) NOT NULL,
+		end_ip varchar(255) NULL,
+		end_mac varchar(255) NULL,
+		data_del date NULL,
+		hora_del time NULL,
+		CONSTRAINT tb_servidores_excluidos_pkey PRIMARY KEY (idtb_servidores_excluidos)
+	);
+	COMMENT ON TABLE db_clti.tb_servidores_excluidos IS 'Servidores excluídos'; ");
+
+	$pg->exec("CREATE TABLE db_clti.tb_pessoal_excluido (
+		idtb_pessoal_excluido serial4 NOT NULL,
+		idtb_om_apoiadas int4 NOT NULL,
+		nip varchar(8) NOT NULL,
+		cpf varchar(11) NOT NULL,
+		nome varchar(255) NOT NULL,
+		nome_guerra varchar(255) NOT NULL,
+		funcao varchar(255) NOT NULL,
+		data_del date NOT NULL,
+		hora_del time NOT NULL,
+		CONSTRAINT tb_pessoal_excluido_pkey PRIMARY KEY (idtb_pessoal_excluido)
+	);
+	COMMENT ON TABLE db_clti.tb_pessoal_excluido IS 'Pessoal de TI excluído'; ");
+	
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
+	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.25' WHERE parametro='VERSAO' ");
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.25.</div>
+	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
+
+}
+
+elseif ($versao == '1.5.25'){
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.25.</div>
 	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
 
 }

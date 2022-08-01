@@ -79,6 +79,8 @@ if ($act == 'del') {
     }
     
     echo"<div class=\"table-responsive\">
+        <div class=\"alert alert-danger\" role=\"alert\">Atenção, todos os registros desta Estção
+            de Trabalho, bem como dados relacionados, serão excluídos!</div>
             <table class=\"table table-hover\">
                 <thead>
                     <tr>
@@ -116,7 +118,7 @@ if ($act == 'del') {
                         echo "<span data-feather=\"alert-triangle\"></span></td>";
                     }
                 echo  "<td>
-                        <a href=\"?cmd=manutencaoet&act=conf_del&param=".$estacoes->idtb_estacoes."\">Confirmar Exclusão</a>
+                        <a href=\"?cmd=estacoes&act=conf_del&param=".$estacoes->idtb_estacoes."\">Confirmar Exclusão</a>
                     </td>
                 </tr>
                 </tbody>
@@ -125,9 +127,18 @@ if ($act == 'del') {
 }
 
 /** Excluir Definitivamente Estação de Trabalho */
-if ($act == 'del') {
+if ($act == 'conf_del') {
     $et->idtb_estacoes = $param;
+    $et->data_del = date('d-m-Y');
+    $et->hora_del = date('H:i');
     $estacoes = $et->DeleteET();
+    if ($estacoes) {
+        echo "<h5>Resgistros excluídos do banco de dados.</h5>
+        <meta http-equiv=\"refresh\" content=\"1;url=?cmd=estacoes\">";
+    }
+    else {
+        echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+    }
 }
 
 /* Monta quadro com Estações de Trabalho */

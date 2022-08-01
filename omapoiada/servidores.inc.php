@@ -68,6 +68,70 @@ if ($act == 'cad') {
     include "servidores-formcad.inc.php";
 }
 
+/** Excluir Definitivamente Estação de Trabalho */
+if ($act == 'conf_del') {
+    $srv->idtb_servidores = $param;
+    $srv->data_del = date('d-m-Y');
+    $srv->hora_del = date('H:i');
+    $servidores = $srv->DeleteSRV();
+    if ($servidores) {
+        echo "<h5>Resgistros excluídos do banco de dados.</h5>
+        <meta http-equiv=\"refresh\" content=\"1;url=?cmd=servidores\">";
+    }
+    else {
+        echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+    }
+}
+
+/** Monta quadro de servidor para exclusão */
+if ($act == 'del'){
+    $srv->idtb_servidores = $param;
+    $servidores = $srv->SelectIdSrvView();
+
+    echo"<div class=\"table-responsive\">
+        <div class=\"alert alert-danger\" role=\"alert\">Atenção, todos os registros deste Servidor,
+            bem como dados relacionados, serão excluídos!</div>
+            <table class=\"table table-hover\">
+                <thead>
+                    <tr>
+                        <th scope=\"col\">OM Apoiada</th>
+                        <th scope=\"col\">Cód.</th>
+                        <th scope=\"col\">Fabricante/Modelo</th>
+                        <th scope=\"col\">Nome</th>
+                        <th scope=\"col\">Hardware</th>
+                        <th scope=\"col\">Sistema Operacional</th>
+                        <th scope=\"col\">Endereço IP/MAC</th>
+                        <th scope=\"col\">Situação</th>
+                        <th scope=\"col\">Ações</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <th scope=\"row\">".$servidores->sigla."</th>
+                        <td>".$servidores->idtb_servidores."</td>
+                        <td>".$servidores->fabricante." / ".$servidores->modelo."</td>
+                        <td>".$servidores->nome."</td>
+                        <td>".$servidores->proc_fab." - ".$servidores->proc_modelo." - ".$servidores->clock_proc." GHz "
+                            .$servidores->memoria." GB/RAM ".$servidores->armazenamento." GB/HD</td>
+                        <td>".$servidores->descricao." - ".$servidores->versao."</td>
+                        <td>".$servidores->end_ip." / ".$servidores->end_mac."</td>
+                        <td>";
+                        if ($servidores->status == "EM PRODUÇÃO"){
+                            echo "<span data-feather=\"check-circle\"></span></td>";
+                        }
+                        if ($servidores->status == "EM MANUTENÇÃO"){
+                            echo "<span data-feather=\"activity\"></span></td>";
+                        }
+                        if ($servidores->status == "SEM ATIVIDADE"){
+                            echo "<span data-feather=\"alert-triangle\"></span></td>";
+                        }
+                echo  "<td><a href=\"?cmd=servidores&act=conf_del&param=".$servidores->idtb_servidores."\">Confirmar Exclusão</a>
+                        </td>
+                </tr>
+            </tbody>
+            </table>
+            </div>";
+}
+
 /* Monta quadro com servidores */
 if (($servidor) AND ($act == NULL)) {
     if ($omapoiada != ''){
@@ -117,7 +181,8 @@ if (($servidor) AND ($act == NULL)) {
                         echo "<span data-feather=\"alert-triangle\"></span></td>";
                     }
             echo  "<td><a href=\"?cmd=servidores&act=cad&param=".$value->idtb_servidores."\">Editar</a> - 
-                    Excluir</td>
+                        <a href=\"?cmd=servidores&act=del&param=".$value->idtb_servidores."\">Exclusão</a>
+                    </td>
                 </tr>";
             }
             echo"

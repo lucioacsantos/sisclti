@@ -1623,7 +1623,10 @@ class Estacoes
     public $custo_manutencao;
     public $situacao;
     public $status;
+    public $data_del;
+    public $hora_del;
 
+    /** Seleciona todas as ET na tb_estacoes */
     public function SelectAllETTable()
     {
         require_once "pgsql.class.php";
@@ -1631,6 +1634,7 @@ class Estacoes
         $row = $pg->getRows("SELECT * FROM db_clti.tb_estacoes");
         return $row;
     }
+    /** Modifica uma ET na tb_estacoes */
     public function UpdateET()
     {
         require_once "pgsql.class.php";
@@ -1646,6 +1650,7 @@ class Estacoes
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Insere uma ET na tb_estacoes */
     public function InsertET()
     {
         require_once "pgsql.class.php";
@@ -1661,13 +1666,35 @@ class Estacoes
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Seleciona a ET pelo ID e insere as informações na tb_estacoes_excluidas
+     * removendo da tb_estacoes e demais referências*/
     public function DeleteET()
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->exec("DELETE FROM db_clti.tb_estacoes WHERE idtb_estacoes='$this->idtb_estacoes' CASCADE ");
+        $row = $pg->getRow("SELECT idtb_om_apoiadas,fabricante,modelo,nome,end_ip,end_mac  
+            FROM db_clti.tb_estacoes WHERE idtb_estacoes='$this->idtb_estacoes' ");
+
+        $row = $pg->exec("INSERT INTO db_clti.tb_estacoes_excluidas (idtb_om_apoiadas,fabricante,
+            modelo,nome,end_ip,end_mac,data_del,hora_del) VALUES ($row->idtb_om_apoiadas,
+            '$row->fabricante','$row->modelo','$row->nome','$row->end_ip','$row->end_mac',
+            '$this->data_del','$this->hora_del')");
+        
+        $mnt = $pg->getColValues("SELECT idtb_manutencao_et FROM db_clti.tb_manutencao_et 
+            WHERE idtb_estacoes = $this->idtb_estacoes ");
+        
+        foreach ($mnt AS $key=>$value){
+            $pg->exec("DELETE FROM db_clti.tb_nec_aquisicao WHERE idtb_manutencao_et = $value");
+        }
+        
+        $pg->exec("DELETE FROM db_clti.tb_manutencao_et WHERE idtb_estacoes = '$this->idtb_estacoes'");
+        $pg->exec("DELETE FROM db_clti.tb_controle_usb WHERE idtb_estacoes = '$this->idtb_estacoes'");
+        $pg->exec("DELETE FROM db_clti.tb_permissoes_admin WHERE idtb_estacoes = '$this->idtb_estacoes'");
+        $pg->exec("DELETE FROM db_clti.tb_nao_padronizados WHERE idtb_estacoes = '$this->idtb_estacoes'");
+        $pg->exec("DELETE FROM db_clti.tb_estacoes WHERE idtb_estacoes = '$this->idtb_estacoes'");
         return $row;
     }
+    /** Seleciona todas as ET na vw_estacoes */
     public function SelectAllETView()
     {
         require_once "pgsql.class.php";
@@ -1675,6 +1702,7 @@ class Estacoes
         $row = $pg->getRows("SELECT * FROM db_clti.vw_estacoes ");
         return $row;
     }
+    /** Selectiona ET pelo nome na vw_estacoes */
     public function SelectNomeETView()
     {
         require_once "pgsql.class.php";
@@ -1682,6 +1710,7 @@ class Estacoes
         $row = $pg->getRows("SELECT * FROM db_clti.vw_estacoes WHERE nome = '$this->nome' ");
         return $row;
     }
+    /** Seleciona ET pelo ID na vw_estacoes */
     public function SelectIdETView()
     {
         require_once "pgsql.class.php";
@@ -1689,6 +1718,7 @@ class Estacoes
         $row = $pg->getRow("SELECT * FROM db_clti.vw_estacoes WHERE idtb_estacoes = $this->idtb_estacoes");
         return $row;
     }
+    /** Seleciona uma ET a partir do ID da OM na vw_estacoes */
     public function SelectIdOMETView()
     {
         require_once "pgsql.class.php";
@@ -1779,6 +1809,8 @@ class Servidores
     public $idtb_sor;
     public $idtb_om_setores;
     public $status;
+    public $data_del;
+    public $hora_del;
 
     public function SelectAllSrvTable()
     {
@@ -1816,6 +1848,24 @@ class Servidores
             '$this->end_mac', '$this->idtb_sor', '$this->finalidade','$this->data_aquisicao', 
             '$this->data_garantia', '$this->idtb_om_setores', '$this->status')";
         $row = $pg->exec($sql);
+        return $row;
+    }
+    /** Seleciona o Servidor pelo ID e insere as informações na tb_servidores_excluidos
+     * removendo da tb_servidores e demais referências*/
+    public function DeleteSRV()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("SELECT idtb_om_apoiadas,fabricante,modelo,nome,end_ip,end_mac  
+            FROM db_clti.tb_servidores WHERE idtb_servidores='$this->idtb_servidores' ");
+
+        $row = $pg->exec("INSERT INTO db_clti.tb_servidores_excluidos (idtb_om_apoiadas,fabricante,
+            modelo,end_ip,end_mac,data_del,hora_del) VALUES ($row->idtb_om_apoiadas,
+            '$row->fabricante','$row->modelo','$row->end_ip','$row->end_mac',
+            '$this->data_del','$this->hora_del')");
+        
+        $pg->exec("DELETE FROM db_clti.tb_servidores WHERE idtb_servidores = '$this->idtb_servidores'");
+
         return $row;
     }
     public function SelectAllSrvView()
