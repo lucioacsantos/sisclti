@@ -59,6 +59,62 @@ if ($act == 'cad') {
 	include "conectividade-formcad.inc.php";
 }
 
+/* Monta quadro com equipamento de conectividade para exclusão */
+if ($act == 'del') {
+
+    $conect->idtb_conectividade = $param;
+    $conect->idtb_om_apoiadas = $omapoiada;
+    $conectividade = $conect->SelectIdConectView();
+
+    echo"<div class=\"table-responsive\">
+        <div class=\"alert alert-danger\" role=\"alert\">Atenção, todos os registros deste Equipamento,
+            bem como dados relacionados, serão excluídos!</div>
+            <table class=\"table table-hover\">
+                <thead>
+                    <tr>
+                        <th scope=\"col\">OM Apoiada</th>
+                        <th scope=\"col\">Localização</th>
+                        <th scope=\"col\">Fabricante</th>
+                        <th scope=\"col\">Modelo</th>
+                        <th scope=\"col\">Nome</th>
+                        <th scope=\"col\">Qtde. Portas</th>
+                        <th scope=\"col\">Endereço IP</th>
+                        <th scope=\"col\">Ações</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <th scope=\"row\">".$conectividade->sigla."</th>
+                        <td>".$conectividade->compartimento."</td>
+                        <td>".$conectividade->fabricante."</td>
+                        <td>".$conectividade->modelo."</td>
+                        <td>".$conectividade->nome."</td>
+                        <td>".$conectividade->qtde_portas."</td>
+                        <td>".$conectividade->end_ip."</td>
+                        <td><a href=\"?cmd=conectividade&act=conf_del&param=".$conectividade->idtb_conectividade."\">
+                            Confirmar Exclusão</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>";
+}
+
+/** Excluir Definitivamente Equipamento de Conectividade */
+if ($act == 'conf_del') {
+    $conect->idtb_estacoes = $param;
+    $conect->idtb_om_apoiadas = $omapoiada;
+    $conect->data_del = date('d-m-Y');
+    $conect->hora_del = date('H:i');
+    $conectividade = $conect->DeleteConect();
+    if ($estacoes) {
+        echo "<h5>Resgistros excluídos do banco de dados.</h5>
+        <meta http-equiv=\"refresh\" content=\"1;url=?cmd=conectividade\">";
+    }
+    else {
+        echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+    }
+}
+
 /* Monta quadro com equipamentos de conectividade */
 if (($conectividade) AND ($act == NULL)) {
 
@@ -96,7 +152,8 @@ if (($conectividade) AND ($act == NULL)) {
                         <td>".$value->qtde_portas."</td>
                         <td>".$value->end_ip."</td>
                         <td><a href=\"?cmd=conectividade&act=cad&param=".$value->idtb_conectividade."\">Editar</a> - 
-                            Excluir</td>
+                            <a href=\"?cmd=conectividade&act=del&param=".$value->idtb_conectividade."\">Excluir</a>
+                        </td>
                     </tr>";
     }
     echo"

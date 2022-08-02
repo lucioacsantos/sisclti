@@ -75,11 +75,12 @@ if ($act == 'cad') {
 if ($act == 'del') {
     if ($param){
         $et->idtb_estacoes = $param;
+        $et->idtb_om_apoiadas = $omapoiada;
         $estacoes = $et->SelectIdETView();
     }
     
     echo"<div class=\"table-responsive\">
-        <div class=\"alert alert-danger\" role=\"alert\">Atenção, todos os registros desta Estção
+        <div class=\"alert alert-danger\" role=\"alert\">Atenção, todos os registros desta Estação
             de Trabalho, bem como dados relacionados, serão excluídos!</div>
             <table class=\"table table-hover\">
                 <thead>
@@ -197,7 +198,7 @@ if (($row) AND ($act == NULL)) {
                  echo  "<td>
                             <a href=\"?cmd=estacoes&act=cad&param=".$value->idtb_estacoes."\">Editar</a> - 
                             <a href=\"?cmd=manutencaoet&act=cad&param=".$value->idtb_estacoes."\">Manutenção</a>
-                            <a href=\"?cmd=estacoes&act=del&param=".$value->idtb_estacoes."\">Exclusão</a>
+                            <a href=\"?cmd=estacoes&act=del&param=".$value->idtb_estacoes."\">Excluir</a>
                         </td>
                     </tr>";
     }

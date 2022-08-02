@@ -392,6 +392,7 @@ if (($row) AND ($act == NULL)) {
                             <a href=\"?cmd=lotclti&act=cad&param=".$value->idtb_lotacao_clti."\">Editar</a> - 
                             <a href=\"?cmd=lotclti&act=cad&param=".$value->idtb_lotacao_clti."&senha=troca\">Senha</a> -
                             <a href=\"?cmd=lotclti&act=desativar&param=".$value->idtb_lotacao_clti."\">Desativar</a>
+                            <a href=\"?cmd=lotclti&act=del&param=".$value->idtb_lotacao_clti."\">Excluir</a>
                         </td>
                     </tr>";
     };

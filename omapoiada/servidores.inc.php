@@ -47,6 +47,7 @@ if ((!$servidor) AND ($act == NULL)) {
 if ($act == 'cad') {
     if ($param){
         $srv->idtb_servidores = $param;
+        $srv->idtb_om_apoiadas = $omapoiada;
         $servidor = $srv->SelectIdSrvView();
     }
     else{
@@ -71,6 +72,7 @@ if ($act == 'cad') {
 /** Excluir Definitivamente Estação de Trabalho */
 if ($act == 'conf_del') {
     $srv->idtb_servidores = $param;
+    $srv->idtb_om_apoiadas = $omapoiada;
     $srv->data_del = date('d-m-Y');
     $srv->hora_del = date('H:i');
     $servidores = $srv->DeleteSRV();
@@ -86,6 +88,7 @@ if ($act == 'conf_del') {
 /** Monta quadro de servidor para exclusão */
 if ($act == 'del'){
     $srv->idtb_servidores = $param;
+    $srv->idtb_om_apoiadas = $omapoiada;
     $servidores = $srv->SelectIdSrvView();
 
     echo"<div class=\"table-responsive\">
@@ -181,14 +184,14 @@ if (($servidor) AND ($act == NULL)) {
                         echo "<span data-feather=\"alert-triangle\"></span></td>";
                     }
             echo  "<td><a href=\"?cmd=servidores&act=cad&param=".$value->idtb_servidores."\">Editar</a> - 
-                        <a href=\"?cmd=servidores&act=del&param=".$value->idtb_servidores."\">Exclusão</a>
+                        <a href=\"?cmd=servidores&act=del&param=".$value->idtb_servidores."\">Excluir</a>
                     </td>
                 </tr>";
             }
             echo"
-            </tbody>
+                </tbody>
             </table>
-            </div>";
+        </div>";
 }
 
 /* Método INSERT/UPDATE */

@@ -900,7 +900,8 @@ class PessoalOM
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_om WHERE idtb_pessoal_om = '$this->idtb_pessoal_om'");
+        $row = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_om WHERE idtb_pessoal_om = '$this->idtb_pessoal_om'
+            AND idtb_om_apoiadas = $this->idtb_om_apoiadas ");
         return $row;
     }
     public function InsertPesOM()
@@ -924,6 +925,15 @@ class PessoalOM
             = ('$this->idtb_om_apoiadas','$this->idtb_posto_grad','$this->idtb_corpo_quadro','$this->idtb_especialidade',
             '$this->nip','$this->cpf','$this->nome','$this->nome_guerra','$this->correio_eletronico','$this->foradaareati','$this->status') 
             WHERE idtb_pessoal_om='$this->idtb_pessoal_om' ";
+        $row = $pg->exec($sql);
+        return $row;
+    }
+    public function DeletePesOM()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "DELETE FROM db_clti.tb_pessoal_om WHERE idtb_pessoal_om='$this->idtb_pessoal_om' 
+            AND idtb_om_apoiadas = $this->idtb_om_apoiadas  ";
         $row = $pg->exec($sql);
         return $row;
     }
@@ -1378,6 +1388,8 @@ class Conectividade
     public $data_aquisicao;
     public $data_garantia;
     public $status;
+    public $hora_del;
+    public $data_del;
 
     public function SelectAllConectTable()
     {
@@ -1409,6 +1421,22 @@ class Conectividade
         $row = $pg->exec($sql);
         return $row;
     }
+    public function DeleteConect()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRow("SELECT idtb_om_apoiadas,fabricante,modelo,end_ip FROM db_clti.tb_conectividade 
+            WHERE idtb_conectividade = '$this->idtb_conectividade' AND idtb_om_apoiadas = $this->idtb_om_apoiadas ");
+
+        $row = $pg->exec("INSERT INTO db_clti.tb_conectividade_excluidos (idtb_om_apoiadas,fabricante,
+            modelo,end_ip,data_del,hora_del) VALUES ($row->idtb_om_apoiadas,'$row->fabricante','$row->modelo',
+            '$row->end_ip','$this->data_del','$this->hora_del')");
+        
+        $pg->exec("DELETE FROM db_clti.tb_conectividade WHERE idtb_conectividade = '$this->idtb_conectividade' 
+            AND idtb_om_apoiadas = $this->idtb_om_apoiadas ");
+
+        return $row;
+    }
     public function SelectAllConectView()
     {
         require_once "pgsql.class.php";
@@ -1420,7 +1448,8 @@ class Conectividade
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT * FROM db_clti.vw_conectividade WHERE idtb_conectividade = $this->idtb_conectividade");
+        $row = $pg->getRow("SELECT * FROM db_clti.vw_conectividade WHERE idtb_conectividade = $this->idtb_conectividade 
+            AND idtb_om_apoiadas = $this->idtb_om_apoiadas ");
         return $row;
     }
     public function SelectAllOMConectView()
@@ -1672,8 +1701,8 @@ class Estacoes
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT idtb_om_apoiadas,fabricante,modelo,nome,end_ip,end_mac  
-            FROM db_clti.tb_estacoes WHERE idtb_estacoes='$this->idtb_estacoes' ");
+        $row = $pg->getRow("SELECT idtb_om_apoiadas,fabricante,modelo,nome,end_ip,end_mac FROM db_clti.tb_estacoes 
+            WHERE idtb_estacoes='$this->idtb_estacoes' AND idtb_om_apoiadas = $this->idtb_om_apoiadas ");
 
         $row = $pg->exec("INSERT INTO db_clti.tb_estacoes_excluidas (idtb_om_apoiadas,fabricante,
             modelo,nome,end_ip,end_mac,data_del,hora_del) VALUES ($row->idtb_om_apoiadas,
@@ -1715,7 +1744,8 @@ class Estacoes
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT * FROM db_clti.vw_estacoes WHERE idtb_estacoes = $this->idtb_estacoes");
+        $row = $pg->getRow("SELECT * FROM db_clti.vw_estacoes WHERE idtb_estacoes = $this->idtb_estacoes
+            AND idtb_om_apoiadas = $this->idtb_om_apoiadas ");
         return $row;
     }
     /** Seleciona uma ET a partir do ID da OM na vw_estacoes */
@@ -1724,7 +1754,7 @@ class Estacoes
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getRows("SELECT * FROM db_clti.vw_estacoes WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas
-            $this->ordena ");
+            AND idtb_om_apoiadas = $this->idtb_om_apoiadas $this->ordena ");
         return $row;
     }
     public function SelectMntAbertoET(){
@@ -1856,15 +1886,16 @@ class Servidores
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT idtb_om_apoiadas,fabricante,modelo,nome,end_ip,end_mac  
-            FROM db_clti.tb_servidores WHERE idtb_servidores='$this->idtb_servidores' ");
+        $row = $pg->getRow("SELECT idtb_om_apoiadas,fabricante,modelo,nome,end_ip,end_mac FROM db_clti.tb_servidores 
+            WHERE idtb_servidores='$this->idtb_servidores' AND idtb_om_apoiadas = $this->idtb_om_apoiadas ");
 
         $row = $pg->exec("INSERT INTO db_clti.tb_servidores_excluidos (idtb_om_apoiadas,fabricante,
             modelo,end_ip,end_mac,data_del,hora_del) VALUES ($row->idtb_om_apoiadas,
             '$row->fabricante','$row->modelo','$row->end_ip','$row->end_mac',
             '$this->data_del','$this->hora_del')");
         
-        $pg->exec("DELETE FROM db_clti.tb_servidores WHERE idtb_servidores = '$this->idtb_servidores'");
+        $pg->exec("DELETE FROM db_clti.tb_servidores WHERE idtb_servidores = '$this->idtb_servidores' 
+            AND idtb_om_apoiadas = $this->idtb_om_apoiadas");
 
         return $row;
     }
@@ -1886,7 +1917,8 @@ class Servidores
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT * FROM db_clti.vw_servidores WHERE idtb_servidores = $this->idtb_servidores");
+        $row = $pg->getRow("SELECT * FROM db_clti.vw_servidores WHERE idtb_servidores = $this->idtb_servidores 
+            AND idtb_om_apoiadas = $this->idtb_om_apoiadas ");
         return $row;
     }
     public function SelectIdOMSrvView()

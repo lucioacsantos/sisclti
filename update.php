@@ -827,17 +827,17 @@ elseif ($versao == '1.5.24'){
 	);
 	COMMENT ON TABLE db_clti.tb_estacoes_excluidas IS 'Estações de trabalho excluídas';");
 
-	$pg->exec("CREATE TABLE db_clti.tb_conect_excluidos (
-		idtb_conect_excluidos serial4 NOT NULL,
+	$pg->exec("CREATE TABLE db_clti.tb_conectividade_excluidos (
+		idtb_conectividade_excluidos serial4 NOT NULL,
 		idtb_om_apoiadas int4 NOT NULL,
 		fabricante varchar(255) NOT NULL,
 		modelo varchar(255) NOT NULL,
 		end_ip varchar(255) NULL,
 		data_del date NOT NULL,
 		hora_del time NOT NULL,
-		CONSTRAINT tb_conect_excluidos_pkey PRIMARY KEY (idtb_conect_excluidos)
+		CONSTRAINT tb_conectividade_excluidos_pkey PRIMARY KEY (idtb_conectividade_excluidos)
 	);
-	COMMENT ON TABLE db_clti.tb_conect_excluidos IS 'Estações de trabalho excluídas';");
+	COMMENT ON TABLE db_clti.tb_conectividade_excluidos IS 'Equipamentos de conectividade excluídos';");
 	
 	$pg->exec("CREATE TABLE db_clti.tb_servidores_excluidos (
 		idtb_servidores_excluidos serial4 NOT NULL,

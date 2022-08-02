@@ -208,7 +208,9 @@ if (($row) AND ($act == NULL)) {
             echo"       <td>".$identificacao."</td>
                         <td>".$value->nome_guerra."</td>
                         <td>".$value->correio_eletronico."</td>
-                        <td><a href=\"?cmd=pessoalom&act=cad&param=".$value->idtb_pessoal_om."\">Editar</a></td>
+                        <td><a href=\"?cmd=pessoalom&act=cad&param=".$value->idtb_pessoal_om."\">Editar</a>
+                            <a href=\"?cmd=pessoalom&act=del&param=".$value->idtb_pessoal_om."\">Excluir</a>
+                        </td>
                     </tr>";
     }
     echo"
@@ -216,6 +218,75 @@ if (($row) AND ($act == NULL)) {
             </table>
             </div>";
 }
+
+/* Monta quadro para exclusão */
+if ($act == 'del') {
+
+    $pom->idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
+    $pom->idtb_pessoal_om = $param;
+    $pessom = $pom->SelectIdPesOM();
+    echo"<div class=\"table-responsive\">
+        <div class=\"alert alert-danger\" role=\"alert\">Atenção, todos os registros deste Usuário,
+            bem como dados relacionados, serão excluídos!</div>
+            <table class=\"table table-hover\">
+                <thead>
+                    <tr>
+                        <th scope=\"col\">Posto/Grad./Esp.</th>
+                        <th scope=\"col\">NIP/CPF</th>
+                        <th scope=\"col\">Nome de Guerra</th>
+                        <th scope=\"col\">Correio Eletrônico</th>
+                        <th scope=\"col\">Ações</th>
+                    </tr>
+                </thead>";
+        #Seleciona NIP caso seja militar da MB
+        if ($pessom->nip != NULL) {
+            $identificacao = $pessom->nip;
+        }
+        else{
+            $identificacao = $pessom->cpf;
+        }
+        echo"       <tr>";
+        if (($pessom->exibir_espec == 'NÃO') AND ($pessom->exibir_corpo_quadro == 'NÃO')){
+            echo"       <th scope=\"row\">".$pessom->posto_grad."</th>";
+        }
+        elseif (($pessom->exibir_espec == 'NÃO') AND ($pessom->exibir_corpo_quadro != 'NÃO')){
+            echo"       <th scope=\"row\">".$pessom->posto_grad." ".$pessom->corpo_quadro."</th>";
+        }
+        elseif (($pessom->exibir_espec != 'NÃO') AND ($pessom->exibir_corpo_quadro == 'NÃO')){
+            echo"       <th scope=\"row\">".$pessom->posto_grad." ".$pessom->espec."</th>";
+        }
+        else {
+            echo"       <th scope=\"row\">".$pessom->posto_grad." ".$pessom->corpo_quadro." 
+                            ".$pessom->espec."</th>";
+        }
+            echo"       <td>".$identificacao."</td>
+                        <td>".$pessom->nome_guerra."</td>
+                        <td>".$pessom->correio_eletronico."</td>
+                        <td>
+                            <a href=\"?cmd=pessoalom&act=conf_del&param=".$pessom->idtb_pessoal_om."\">Confirma Exclusão</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>";
+}
+
+/** Confirma exclusão */
+if ($act == 'conf_del') {
+    $pom->idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
+    $pom->idtb_pessoal_om = $param;
+    $spomrv->data_del = date('d-m-Y');
+    $spomrv->hora_del = date('H:i');
+    $pessom = $pom->DeletePesOM();
+    if ($pessom) {
+        echo "<h5>Resgistros excluídos do banco de dados.</h5>
+        <meta http-equiv=\"refresh\" content=\"1;url=?cmd=pessoalom\">";
+    }
+    else {
+        echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+    }
+}
+
 /* Método INSERT/UPDATE */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){

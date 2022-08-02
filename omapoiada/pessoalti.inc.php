@@ -427,6 +427,7 @@ if ($act == 'inativos') {
                         <td><a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."\">Editar</a> - 
                             <a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."&senha=troca\">Senha</a> - 
                             <a href=\"?cmd=admin&act=ativar&param=".$value->idtb_pessoal_ti."\">Reativar</a>
+                            <a href=\"?cmd=admin&act=del&param=".$value->idtb_pessoal_ti."\">Excluir</a>
                         </td>
                     </tr>";
     }
