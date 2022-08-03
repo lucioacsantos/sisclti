@@ -368,7 +368,7 @@ if (($row) AND ($act == NULL)) {
                         <td><a href=\"?cmd=pessoalti&act=qrcode&param=".$value->idtb_pessoal_ti."\">2FA</a> - 
                             <a href=\"?cmd=pessoalti&act=cad&param=".$value->idtb_pessoal_ti."\">Editar</a> - 
                             <a href=\"?cmd=pessoalti&act=cad&param=".$value->idtb_pessoal_ti."&senha=troca\">Senha</a> - 
-                            <a href=\"?cmd=pessoalti&act=desativar&param=".$value->idtb_pessoal_ti."\">Desativar</a></td>
+                            <a href=\"?cmd=pessoalti&act=del&param=".$value->idtb_pessoal_ti."\">Excluir</a>
                     </tr>";
     }
     echo"
@@ -378,10 +378,11 @@ if (($row) AND ($act == NULL)) {
 }
 
 /* Monta quadro de administradores inativos */
-if ($act == 'inativos') {
+if ($act == 'del') {
 
-	$pesti->ordena = "ORDER BY sigla_om ASC";
-    $admin = $pesti->SelectAdminInativos();
+	$pti->idtb_pessoal_ti = $param;
+    $pti->idtb_om_apoiadas = $omapoiada;
+    $pessti = $pti->SelectIdPesTI();
 
     echo"<div class=\"table-responsive\">
             <table class=\"table table-hover\">
@@ -396,42 +397,35 @@ if ($act == 'inativos') {
                     </tr>
                 </thead>";
 
-    foreach ($admin as $key => $value) {
-
         #Seleciona NIP caso seja militar da MB
-        if ($value->nip != NULL) {
-            $identificacao = $pti->FormatNIP($value->nip);
+        if ($pessti->nip != NULL) {
+            $identificacao = $pti->FormatNIP($pessti->nip);
         }
         else{
-            $identificacao = $pti->FormatCPF($value->cpf);
+            $identificacao = $pti->FormatCPF($pessti->cpf);
         }
         echo"       <tr>
-                        <td>".$value->sigla_om."</td>";
-        if (($value->exibir_espec == 'NÃO') AND ($value->exibir_corpo_quadro == 'NÃO')){
-            echo"       <th scope=\"row\">".$value->sigla_posto_grad."</th>";
+                        <td>".$pessti->sigla_om."</td>";
+        if (($pessti->exibir_espec == 'NÃO') AND ($pessti->exibir_corpo_quadro == 'NÃO')){
+            echo"       <th scope=\"row\">".$pessti->sigla_posto_grad."</th>";
         }
-        elseif (($value->exibir_espec == 'NÃO') AND ($value->exibir_corpo_quadro != 'NÃO')){
-            echo"       <th scope=\"row\">".$value->sigla_posto_grad." ".$value->sigla_corpo_quadro."</th>";
+        elseif (($pessti->exibir_espec == 'NÃO') AND ($pessti->exibir_corpo_quadro != 'NÃO')){
+            echo"       <th scope=\"row\">".$pessti->sigla_posto_grad." ".$pessti->sigla_corpo_quadro."</th>";
         }
-        elseif (($value->exibir_espec != 'NÃO') AND ($value->exibir_corpo_quadro == 'NÃO')){
-            echo"       <th scope=\"row\">".$value->sigla_posto_grad." ".$value->sigla_espec."</th>";
+        elseif (($pessti->exibir_espec != 'NÃO') AND ($pessti->exibir_corpo_quadro == 'NÃO')){
+            echo"       <th scope=\"row\">".$pessti->sigla_posto_grad." ".$pessti->sigla_espec."</th>";
         }
         else {
-            echo"       <th scope=\"row\">".$value->sigla_posto_grad." ".$value->sigla_corpo_quadro." 
-                            ".$value->sigla_espec."</th>";
+            echo"       <th scope=\"row\">".$pessti->sigla_posto_grad." ".$pessti->sigla_corpo_quadro." 
+                            ".$pessti->sigla_espec."</th>";
         }
             echo"
                         <td>".$identificacao."</td>
-                        <td>".$value->nome."</td>
-                        <td>".$value->nome_guerra."</td>
-                        <td><a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."\">Editar</a> - 
-                            <a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."&senha=troca\">Senha</a> - 
-                            <a href=\"?cmd=admin&act=ativar&param=".$value->idtb_pessoal_ti."\">Reativar</a>
-                            <a href=\"?cmd=admin&act=del&param=".$value->idtb_pessoal_ti."\">Excluir</a>
+                        <td>".$pessti->nome."</td>
+                        <td>".$pessti->nome_guerra."</td>
+                        <td><a href=\"?cmd=admin&act=conf_del&param=".$pessti->idtb_pessoal_ti."\">Confirmar Exclusão</a>
                         </td>
-                    </tr>";
-    }
-    echo"
+                    </tr>
                 </tbody>
             </table>
             </div>";

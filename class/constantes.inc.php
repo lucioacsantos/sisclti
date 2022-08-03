@@ -849,6 +849,15 @@ class PessoalTI
         $row = $pg->exec($sql);
         return $row;
     }
+    public function DeletePesTI()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("DELETE FROM db_clti.tb_qualificacao_ti WHERE idtb_pessoal_ti='$this->idtb_pessoal_ti' ");
+        $row = $pg->exec("DELETE FROM db_clti.tb_pessoal_ti WHERE idtb_pessoal_ti='$this->idtb_pessoal_ti' 
+            AND idtb_om_apoiadas  = $this->idtb_om_apoiadas");
+        return $row;
+    }
 }
 
 /** Classe Pessoal OM */
