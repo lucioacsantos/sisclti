@@ -186,10 +186,10 @@ if (($row) AND ($act == NULL)) {
     foreach ($pessom as $key => $value) {
         #Seleciona NIP caso seja militar da MB
         if ($value->nip != NULL) {
-            $identificacao = $value->nip;
+            $identificacao = $pom->FormatNIP($value->nip);
         }
         else{
-            $identificacao = $value->cpf;
+            $identificacao = $pom->FormatCPF($value->cpf);
         }
         echo"       <tr>";
         if (($value->exibir_espec == 'NÃO') AND ($value->exibir_corpo_quadro == 'NÃO')){
@@ -240,10 +240,10 @@ if ($act == 'del') {
                 </thead>";
         #Seleciona NIP caso seja militar da MB
         if ($pessom->nip != NULL) {
-            $identificacao = $pessom->nip;
+            $identificacao = $pom->FormatNIP($pessom->nip);
         }
         else{
-            $identificacao = $pessom->cpf;
+            $identificacao = $pom->FormatCPF($pessom->cpf);
         }
         echo"       <tr>";
         if (($pessom->exibir_espec == 'NÃO') AND ($pessom->exibir_corpo_quadro == 'NÃO')){

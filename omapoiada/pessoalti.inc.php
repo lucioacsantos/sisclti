@@ -377,7 +377,7 @@ if (($row) AND ($act == NULL)) {
             </div>";
 }
 
-/* Monta quadro de administradores inativos */
+/* Monta quadro de Pessoal de TI para exclusão */
 if ($act == 'del') {
 
 	$pti->idtb_pessoal_ti = $param;

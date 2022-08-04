@@ -116,6 +116,12 @@ $versao = $config->SelectVersao();
                   </a>
                 </li>
                 <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/clti/?cmd=qualificacaoom\">
+                    <span data-feather=\"book-open\"></span>
+                    Qualificação OM
+                  </a>
+                </li>
+                <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/clti/?cmd=osic\">
                     <span data-feather=\"users\"></span>
                     OSIC
@@ -125,6 +131,12 @@ $versao = $config->SelectVersao();
                   <a class=\"nav-link\" href=\"$url/clti/?cmd=admin\">
                     <span data-feather=\"users\"></span>
                     Admin
+                  </a>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/clti/?cmd=pessoalti\">
+                    <span data-feather=\"users\"></span>
+                    Pessoal de TI
                   </a>
                 </li>
                 <li class=\"nav-item\">

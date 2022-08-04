@@ -355,10 +355,10 @@ if (($row) AND ($act == NULL)) {
 
         #Seleciona NIP caso seja militar da MB
         if ($value->nip != NULL) {
-            $identificacao = $value->nip;
+            $identificacao = $pesti->FormatNIP($value->nip);
         }
         else{
-            $identificacao = $value->cpf;
+            $identificacao = $pesti->FormatCPF($value->cpf);
         }
         echo"       <tr>
                         <td>".$value->sigla_om."</td>";
@@ -414,10 +414,10 @@ if ($act == 'inativos') {
 
         #Seleciona NIP caso seja militar da MB
         if ($value->nip != NULL) {
-            $identificacao = $value->nip;
+            $identificacao = $pesti->FormatNIP($value->nip);
         }
         else{
-            $identificacao = $value->cpf;
+            $identificacao = $pesti->FormatCPF($value->cpf);
         }
         echo"       <tr>
                         <td>".$value->sigla_om."</td>";

@@ -11,6 +11,7 @@ $pom = new PessoalOM();
 $idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
 $idtb_pessoal_om = $_GET['param'];
 $pom->idtb_pessoal_om = $idtb_pessoal_om;
+$pom->idtb_om_apoiadas = $idtb_om_apoiadas;
 $usuario = $pom->SelectIdPesOM();
 $omap->idtb_om_apoiadas = $idtb_om_apoiadas;
 $om = $omap->SelectIdOMTable();
@@ -21,10 +22,10 @@ $cidade = $omap->SelectIdCidade();
 
 /** Seleciona NIP ou  CPF */
 if ($usuario->nip != NULL) {
-    $nip_cpf = $usuario->nip;
+    $nip_cpf = $pom->FormatNIP($usuario->nip);
 }
 else{
-    $nip_cpf = $usuario->cpf;
+    $nip_cpf = $pom->FormatCPF($usuario->cpf);
 }
 
 /** Monta Posto/Grad/Esp */

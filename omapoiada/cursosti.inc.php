@@ -197,10 +197,10 @@ if (($row) AND ($act == NULL)) {
 
         #Seleciona NIP caso seja militar da MB
         if ($value->nip != NULL) {
-            $identificacao = $value->nip;
+            $identificacao = $qti->FormatNIP($value->nip);
         }
         else{
-            $identificacao = $value->cpf;
+            $identificacao = $qti->FormatCPF($value->cpf);
         }
 
         echo"       <tr>";

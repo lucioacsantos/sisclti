@@ -77,10 +77,10 @@ if ($act == 'cad') {
                 </tr>
             </thead>";
     if ($tri_tret->nip != NULL) {
-        $identificacao = $tri_tret->nip;
+        $identificacao = $pessom->FormatNIP($tri_tret->nip);
     }
     else{
-        $identificacao = $tri_tret->cpf;
+        $identificacao = $pessom->FormatCPF($tri_tret->cpf);
     }
     echo"       <tr>";
     if (($tri_tret->exibir_espec == 'NÃO') AND ($tri_tret->exibir_corpo_quadro == 'NÃO')){
@@ -135,44 +135,4 @@ if ($act == 'cad') {
     
 }
 
-/* Método INSERT */
-if ($act == 'insert') {
-    if (isset($_SESSION['status'])){
-        $idtb_nao_padronizados = $_POST['idtb_nao_padronizados'];
-        $naopad->idtb_nao_padronizados = $idtb_nao_padronizados;
-        $naopad->idtb_om_apoiadas = $_POST['idtb_om_apoiadas'];
-        $naopad->idtb_estacoes = $_POST['idtb_estacoes'];
-        $naopad->autorizacao = mb_strtoupper($_POST['autorizacao'],'UTF-8');
-        $naopad->soft_autorizados = mb_strtoupper($_POST['soft_autorizados'],'UTF-8');
-
-        /* Opta pelo Método Update */
-        if ($idtb_nao_padronizados){
-            $row = $naopad->UpdateNaoPad();
-            if ($row) {
-                echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                <meta http-equiv=\"refresh\" content=\"1;?cmd=naopad \">";
-            }    
-            else {
-                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                echo(pg_result_error($row) . "<br />\n");
-            }
-        }        
-        else{
-            /* Opta pelo Método Insert */
-            $row = $naopad->InsertNaoPad();
-            if ($row) {
-                echo "<h5>Resgistros incluídos no banco de dados.</h5>
-                <meta http-equiv=\"refresh\" content=\"1;?cmd=naopad\">";
-            }
-            else {
-                echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
-                echo(pg_result_error($row) . "<br />\n");
-            }
-        }
-    }
-    else{
-        echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
-            <meta http-equiv=\"refresh\" content=\"1;$url\">";
-    }
-}
 ?>
