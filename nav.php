@@ -67,22 +67,14 @@ $versao = $config->SelectVersao();
               <?php
               if ($perfil == 'TEC_CLTI'){
                 echo"
+                <h6 class=\"sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted\">
+                  <span>Sistema</span>
+                  <span data-feather=\"plus-circle\"></span>
+                </h6>
                 <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/clti\">
                     <span data-feather=\"settings\"></span>
-                    Configurações do Sistema
-                  </a>
-                </li>
-                <li class=\"nav-item\">
-                  <a class=\"nav-link\" href=\"$url/dashboard\">
-                    <span data-feather=\"hash\"></span>
-                    Quadros de Situação
-                  </a>
-                </li>
-                <li class=\"nav-item\">
-                  <a class=\"nav-link\" href=\"$url/clti/?cmd=relservico\">
-                    <span data-feather=\"check-square\"></span>
-                    Rel. Serviço
+                    Configurações
                   </a>
                 </li>
                 <li class=\"nav-item\">
@@ -97,10 +89,14 @@ $versao = $config->SelectVersao();
                     Monitoramento
                   </a>
                 </li>-->
+                <h6 class=\"sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted\">
+                  <span>Módulos do CLTI</span>
+                  <span data-feather=\"plus-circle\"></span>
+                </h6>
                 <li class=\"nav-item\">
-                  <a class=\"nav-link\" href=\"$url/clti/?cmd=omapoiadas\">
-                    <span data-feather=\"anchor\"></span>
-                    OM Apoiadas
+                  <a class=\"nav-link\" href=\"$url/clti/?cmd=relservico\">
+                    <span data-feather=\"check-square\"></span>
+                    Rel. Serviço
                   </a>
                 </li>
                 <li class=\"nav-item\">
@@ -115,12 +111,28 @@ $versao = $config->SelectVersao();
                     Qualificação CLTI
                   </a>
                 </li>
+                <h6 class=\"sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted\">
+                  <span>Informações das OM</span>
+                  <span data-feather=\"plus-circle\"></span>
+                </h6>
                 <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/dashboard\">
+                    <span data-feather=\"hash\"></span>
+                    Relatórios
+                  </a>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/clti/?cmd=omapoiadas\">
+                    <span data-feather=\"anchor\"></span>
+                    OM Apoiadas
+                  </a>
+                </li>                
+                <!--<li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/clti/?cmd=qualificacaoom\">
                     <span data-feather=\"book-open\"></span>
                     Qualificação OM
                   </a>
-                </li>
+                </li>-->
                 <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/clti/?cmd=osic\">
                     <span data-feather=\"users\"></span>
@@ -133,22 +145,22 @@ $versao = $config->SelectVersao();
                     Admin
                   </a>
                 </li>
-                <li class=\"nav-item\">
+                <!--<li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/clti/?cmd=pessoalti\">
                     <span data-feather=\"users\"></span>
                     Pessoal de TI
                   </a>
-                </li>
+                </li>-->
                 <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/clti/?cmd=funcoesti\">
                     <span data-feather=\"crosshair\"></span>
                     Funções de TI
                   </a>
                 </li>
-                <!--<h6 class=\"sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted\">
-                  <span>Ativos de TI</span>
+                <h6 class=\"sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted\">
+                  <span>Módulos de Configuração</span>
                   <span data-feather=\"plus-circle\"></span>
-                </h6>-->
+                </h6>
                 <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/ativosti/?cmd=sistoperacionais\">
                     <span data-feather=\"globe\"></span>

@@ -140,14 +140,56 @@ if (($row) AND ($act == NULL)) {
                         <td>".$value->nome."</td>
                         <td>".$value->sigla."</td>
                         <td>".$value->indicativo."</td>
-                        <td><a href=\"?cmd=omapoiadas&act=cad&param=".$value->idtb_om_apoiadas."\">Editar</a> - 
-                            Excluir</td>
+                        <td>
+                            <a href=\"?cmd=omapoiadas&act=cad&param=".$value->idtb_om_apoiadas."\">Editar</a>
+                            <a href=\"?cmd=omapoiadas&act=del&param=".$value->idtb_om_apoiadas."\">Excluir</a>
+                        </td>
                     </tr>";
     };
     echo"
                 </tbody>
             </table>
             </div>";
+}
+
+/* Monta quadro de OM para exclusão*/
+if ($act == 'del') {
+
+    echo"<div class=\"table-responsive\">
+            <table class=\"table table-hover\">
+                <thead>
+                    <tr>
+                        <th scope=\"col\">Código</th>
+                        <th scope=\"col\">Nome</th>
+                        <th scope=\"col\">Sigla</th>
+                        <th scope=\"col\">Ind. Naval</th>
+                        <th scope=\"col\">Ações</th>
+                    </tr>
+                </thead>";
+
+    $omap->idtb_om_apoiadas = $param;
+    $om = $omap->SelectIdOMTable();
+
+            echo"       <tr>
+                        <th scope=\"row\">".$value->cod_om."</th>
+                        <td>".$value->nome."</td>
+                        <td>".$value->sigla."</td>
+                        <td>".$value->indicativo."</td>
+                        <td>
+                            <a href=\"?cmd=omapoiadas&act=conf_del&param=".$value->idtb_om_apoiadas."\">Conformar Exclusão</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>";
+}
+
+/** Exclusão da OM */
+if ($act == 'conf_del'){
+    
+    $omap->idtb_om_apoiadas = $param;
+    
+
 }
 
 /* Método INSERT / UPDATE */

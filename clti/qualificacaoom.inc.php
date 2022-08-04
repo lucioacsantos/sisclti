@@ -45,7 +45,6 @@ if ($act == NULL) {
                         <th scope=\"col\">OM</th>
                         <th scope=\"col\">Curso</th>
                         <th scope=\"col\">Situação</th>
-                        <th scope=\"col\">Ações</th>
                     </tr>
                 </thead>";
 

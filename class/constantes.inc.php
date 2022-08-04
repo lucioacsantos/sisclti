@@ -644,7 +644,7 @@ class PessoalTI
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_ti WHERE idtb_pessoal_ti = '$this->idtb_pessoal_ti' AND status = 'ATIVO' 
-            AND idtb_om_apoiadas = $this->idtb_om_apoiadas ");
+            AND idtb_om_apoiadas = '$this->idtb_om_apoiadas' ");
         return $row;
     }
     public function SelectIdOMPesTI()
@@ -853,7 +853,8 @@ class PessoalTI
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->exec("DELETE FROM db_clti.tb_qualificacao_ti WHERE idtb_pessoal_ti='$this->idtb_pessoal_ti' ");
+        $row = $pg->exec("DELETE FROM db_clti.tb_qualificacao_ti WHERE idtb_pessoal_ti IN (SELECT idtb_pessoal_ti FROM db_clti.tb_pessoal_ti WHERE 
+            idtb_pessoal_ti='$this->idtb_pessoal_ti' AND idtb_om_apoiadas  = $this->idtb_om_apoiadas) ");
         $row = $pg->exec("DELETE FROM db_clti.tb_pessoal_ti WHERE idtb_pessoal_ti='$this->idtb_pessoal_ti' 
             AND idtb_om_apoiadas  = $this->idtb_om_apoiadas");
         return $row;
@@ -942,9 +943,9 @@ class PessoalOM
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "DELETE FROM db_clti.tb_pessoal_om WHERE idtb_pessoal_om='$this->idtb_pessoal_om' 
-            AND idtb_om_apoiadas = $this->idtb_om_apoiadas  ";
-        $row = $pg->exec($sql);
+        $pg->exec("DELETE FROM db_clti.tb_funcoes_sigdem WHERE idtb_pessoal_om = $this->idtb_pessoal_om");
+        $row = $pg->exec("DELETE FROM db_clti.tb_pessoal_om WHERE idtb_pessoal_om='$this->idtb_pessoal_om' 
+            AND idtb_om_apoiadas = $this->idtb_om_apoiadas");
         return $row;
     }
     public function SelectAllPesOM()

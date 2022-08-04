@@ -47,6 +47,7 @@ if (($row == NULL) AND ($act == NULL)) {
 if ($act == 'cad') {
     if ($param){
         $pti->idtb_pessoal_ti = $param;
+        $pti->idtb_om_apoiadas = $oa;
         $pessti = $pti->SelectIdPesTI();
     }
     else{
@@ -367,11 +368,14 @@ if (($row) AND ($act == NULL)) {
                         <td>".$value->sigla_funcao."</td>
                         <td><a href=\"?cmd=pessoalti&act=qrcode&param=".$value->idtb_pessoal_ti."\">2FA</a> - 
                             <a href=\"?cmd=pessoalti&act=cad&param=".$value->idtb_pessoal_ti."\">Editar</a> - 
-                            <a href=\"?cmd=pessoalti&act=cad&param=".$value->idtb_pessoal_ti."&senha=troca\">Senha</a> - 
-                            <a href=\"?cmd=pessoalti&act=del&param=".$value->idtb_pessoal_ti."\">Excluir</a>
+                            <a href=\"?cmd=pessoalti&act=cad&param=".$value->idtb_pessoal_ti."&oa=".$value->idtb_om_apoiadas."&senha=troca\">Senha</a> ";
+                        if (($value->sigla_funcao != 'OSIC') && ($value->sigla_funcao != 'ADMIN')){
+                            echo " - <a href=\"?cmd=pessoalti&act=del&param=".$value->idtb_pessoal_ti."&oa=".$value->idtb_om_apoiadas."\">Excluir</a>";
+                        }
+                    echo"        
                     </tr>";
     }
-    echo"
+            echo"
                 </tbody>
             </table>
             </div>";
@@ -381,10 +385,12 @@ if (($row) AND ($act == NULL)) {
 if ($act == 'del') {
 
 	$pti->idtb_pessoal_ti = $param;
-    $pti->idtb_om_apoiadas = $omapoiada;
+    $pti->idtb_om_apoiadas = $oa;
     $pessti = $pti->SelectIdPesTI();
 
     echo"<div class=\"table-responsive\">
+        <div class=\"alert alert-danger\" role=\"alert\">Atenção, todos os registros deste Usuário,
+            bem como dados relacionados, serão excluídos!</div>
             <table class=\"table table-hover\">
                 <thead>
                     <tr>
@@ -423,12 +429,26 @@ if ($act == 'del') {
                         <td>".$identificacao."</td>
                         <td>".$pessti->nome."</td>
                         <td>".$pessti->nome_guerra."</td>
-                        <td><a href=\"?cmd=admin&act=conf_del&param=".$pessti->idtb_pessoal_ti."\">Confirmar Exclusão</a>
+                        <td><a href=\"?cmd=pessoalti&act=conf_del&param=".$pessti->idtb_pessoal_ti."&oa=".$pessti->idtb_om_apoiadas."\">Confirmar Exclusão</a>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            </div>";
+        </div>";
+}
+
+/** Excluir Definitivamente Pessoal de TI */
+if ($act == 'conf_del') {
+    $pti->idtb_om_apoiadas = $oa;
+    $pti->idtb_pessoal_ti = $param;
+    $row = $pti->DeletePesTI();
+    if ($row) {
+        echo "<h5>Resgistros excluídos do banco de dados.</h5>
+        <meta http-equiv=\"refresh\" content=\"1;url=?cmd=pessoalti\">";
+    }
+    else {
+        echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+    }
 }
 
 /* Método INSERT/UPDATE */

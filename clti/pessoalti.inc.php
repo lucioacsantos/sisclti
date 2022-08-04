@@ -85,8 +85,7 @@ if (($row) AND ($act == NULL)) {
         }
             echo"
                         <td>".$identificacao."</td>
-                        <td><a onClick=\"javascript:window.open('mailto:".$value->correio_eletronico."', 'mail');event.preventDefault()\" 
-                            href=\"mailto:".$value->correio_eletronico."\">".$value->nome."</a></td>
+                        <td>".$value->nome."</td>
                         <td>".$value->nome_guerra."</td>
                         <td>".$value->sigla_funcao."</td>
                     </tr>";

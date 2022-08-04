@@ -150,7 +150,7 @@ if (isset($_SESSION['user_name'])){
                     echo"
                     </tbody>
                 </table>
-                <h4>Pessoal de TI</h4>
+                <h4><a href=\"$url/clti/?cmd=pessoalti\">Pessoal de TI</a></h4>
                 <table class=\"table table-bordered\">
                     <thead>
                         <tr>
@@ -169,7 +169,7 @@ if (isset($_SESSION['user_name'])){
                     echo"
                     </tbody>
                 </table>
-                <h4>Qualificação do Pessoal de TI</h4>
+                <h4><a href=\"$url/clti/?cmd=qualificacaoom\">Qualificação do Pessoal de TI</a></h4>
                 <table class=\"table table-bordered\">
                     <thead>
                         <tr>

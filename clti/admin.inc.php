@@ -45,6 +45,7 @@ if (($row == NULL) AND ($act == NULL)) {
 if ($act == 'cad') {
     if ($param){
         $pesti->idtb_pessoal_ti = $param;
+        $pesti->idtb_om_apoiadas = $oa;
         $admin = $pesti->SelectIdPesTI();
     }
     else{
@@ -352,7 +353,7 @@ if (($row != NULL) AND ($act == NULL)) {
                             href=\"mailto:".$value->correio_eletronico."\">".$value->nome."</a></td>
                         <td>".$value->nome_guerra."</td>
                         <td><a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."\">Editar</a> - 
-                            <a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."&senha=troca\">Senha</a> - 
+                            <a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."&oa=".$value->idtb_om_apoiadas."&senha=troca\">Senha</a> - 
                             <a href=\"?cmd=admin&act=desativar&param=".$value->idtb_pessoal_ti."\">Desativar</a></td>
                     </tr>";
     }

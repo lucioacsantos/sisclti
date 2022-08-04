@@ -227,7 +227,7 @@ if ($act == 'del') {
     $pessom = $pom->SelectIdPesOM();
     echo"<div class=\"table-responsive\">
         <div class=\"alert alert-danger\" role=\"alert\">Atenção, todos os registros deste Usuário,
-            bem como dados relacionados, serão excluídos!</div>
+            bem como a FUNÇÃO DO SIGDEM e demais dados relacionados, serão excluídos!</div>
             <table class=\"table table-hover\">
                 <thead>
                     <tr>
@@ -275,8 +275,6 @@ if ($act == 'del') {
 if ($act == 'conf_del') {
     $pom->idtb_om_apoiadas = $_SESSION['id_om_apoiada'];
     $pom->idtb_pessoal_om = $param;
-    $spomrv->data_del = date('d-m-Y');
-    $spomrv->hora_del = date('H:i');
     $pessom = $pom->DeletePesOM();
     if ($pessom) {
         echo "<h5>Resgistros excluídos do banco de dados.</h5>
