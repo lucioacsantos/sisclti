@@ -208,7 +208,7 @@ if (($row) AND ($act == NULL)) {
             echo"       <td>".$identificacao."</td>
                         <td>".$value->nome_guerra."</td>
                         <td>".$value->correio_eletronico."</td>
-                        <td><a href=\"?cmd=pessoalom&act=cad&param=".$value->idtb_pessoal_om."\">Editar</a>
+                        <td><a href=\"?cmd=pessoalom&act=cad&param=".$value->idtb_pessoal_om."\">Editar</a> - 
                             <a href=\"?cmd=pessoalom&act=del&param=".$value->idtb_pessoal_om."\">Excluir</a>
                         </td>
                     </tr>";
@@ -263,7 +263,7 @@ if ($act == 'del') {
                         <td>".$pessom->nome_guerra."</td>
                         <td>".$pessom->correio_eletronico."</td>
                         <td>
-                            <a href=\"?cmd=pessoalom&act=conf_del&param=".$pessom->idtb_pessoal_om."\">Confirma Exclusão</a>
+                            <a href=\"?cmd=pessoalom&act=conf_del&param=".$pessom->idtb_pessoal_om."&oa=".$pessom->idtb_om_apoiadas."\">Confirma Exclusão</a>
                         </td>
                     </tr>
                 </tbody>

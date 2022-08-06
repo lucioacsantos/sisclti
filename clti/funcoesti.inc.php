@@ -100,8 +100,9 @@ if (($row) AND ($act == NULL)) {
         echo"       <tr>
                         <th scope=\"row\">".$value->descricao."</th>
                         <td>".$value->sigla."</td>
-                        <td><a href=\"?cmd=funcoesti&act=cad&param=".$value->idtb_funcoes_ti."\">Editar</a> - 
-                            Excluir</td>
+                        <td>
+                            <a href=\"?cmd=funcoesti&act=cad&param=".$value->idtb_funcoes_ti."\">Editar</a>
+                        </td>
                     </tr>";
     };
     echo"

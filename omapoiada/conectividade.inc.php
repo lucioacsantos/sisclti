@@ -90,8 +90,8 @@ if ($act == 'del') {
                         <td>".$conectividade->nome."</td>
                         <td>".$conectividade->qtde_portas."</td>
                         <td>".$conectividade->end_ip."</td>
-                        <td><a href=\"?cmd=conectividade&act=conf_del&param=".$conectividade->idtb_conectividade."\">
-                            Confirmar Exclusão</a>
+                        <td><a href=\"?cmd=conectividade&act=conf_del&param=".$conectividade->idtb_conectividade."
+                            $oa=".$conectividade->idtb_om_apoiadas."\">Confirmar Exclusão</a>
                         </td>
                     </tr>
                 </tbody>
@@ -102,7 +102,7 @@ if ($act == 'del') {
 /** Excluir Definitivamente Equipamento de Conectividade */
 if ($act == 'conf_del') {
     $conect->idtb_estacoes = $param;
-    $conect->idtb_om_apoiadas = $omapoiada;
+    $conect->idtb_om_apoiadas = $oa;
     $conect->data_del = date('d-m-Y');
     $conect->hora_del = date('H:i');
     $conectividade = $conect->DeleteConect();

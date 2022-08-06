@@ -142,7 +142,6 @@ if (($row) AND ($act == NULL)) {
                         <td>".$value->indicativo."</td>
                         <td>
                             <a href=\"?cmd=omapoiadas&act=cad&param=".$value->idtb_om_apoiadas."\">Editar</a>
-                            <a href=\"?cmd=omapoiadas&act=del&param=".$value->idtb_om_apoiadas."\">Excluir</a>
                         </td>
                     </tr>";
     };
@@ -176,7 +175,7 @@ if ($act == 'del') {
                         <td>".$value->sigla."</td>
                         <td>".$value->indicativo."</td>
                         <td>
-                            <a href=\"?cmd=omapoiadas&act=conf_del&param=".$value->idtb_om_apoiadas."\">Conformar Exclusão</a>
+                            <a href=\"?cmd=omapoiadas&act=conf_del&param=".$value->idtb_om_apoiadas."\">Confirmar Exclusão</a>
                         </td>
                     </tr>
                 </tbody>

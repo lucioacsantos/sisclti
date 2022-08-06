@@ -75,8 +75,9 @@ if (($setores) AND ($act == NULL)) {
                         <td>".$value->nome_setor."</td>
                         <td>".$value->sigla_setor."</td>
                         <td>".$value->compartimento."</td>
-                        <td><a href=\"?cmd=setores&act=cad&param=".$value->idtb_om_setores."\">Editar</a> - 
-                            Excluir</td>
+                        <td>
+                            <a href=\"?cmd=setores&act=cad&param=".$value->idtb_om_setores."\">Editar</a>
+                        </td>
                     </tr>";
     };
     echo"

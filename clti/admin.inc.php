@@ -479,7 +479,7 @@ if ($act == 'bloqueados') {
             </div>";
 }
 
-/* Método INSERT */
+/* Método INSERT/UPDATE */
 if ($act == 'insert') {
     if (isset($_SESSION['status'])){
         $idtb_pessoal_ti = $_POST['idtb_admin'];

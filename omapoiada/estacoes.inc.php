@@ -119,7 +119,7 @@ if ($act == 'del') {
                         echo "<span data-feather=\"alert-triangle\"></span></td>";
                     }
                 echo  "<td>
-                        <a href=\"?cmd=estacoes&act=conf_del&param=".$estacoes->idtb_estacoes."\">Confirmar Exclusão</a>
+                        <a href=\"?cmd=estacoes&act=conf_del&param=".$estacoes->idtb_estacoes."&oa=".$estacoes->idtb_om_apoiadas."\">Confirmar Exclusão</a>
                     </td>
                 </tr>
                 </tbody>
@@ -130,6 +130,7 @@ if ($act == 'del') {
 /** Excluir Definitivamente Estação de Trabalho */
 if ($act == 'conf_del') {
     $et->idtb_estacoes = $param;
+    $et->idtb_om_apoiadas = $oa;
     $et->data_del = date('d-m-Y');
     $et->hora_del = date('H:i');
     $estacoes = $et->DeleteET();

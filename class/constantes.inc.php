@@ -697,6 +697,7 @@ class PessoalTI
             AND status = 'ATIVO' AND idtb_om_apoiadas = '$this->idtb_om_apoiadas' ");
         return $row;
     }
+    /** Seleciona pessoal de TI pelo ID da OM */
     public function SelectIdOMPesTI()
     {
         require_once "pgsql.class.php";
@@ -705,6 +706,7 @@ class PessoalTI
             AND status = 'ATIVO' $this->ordena");
         return $row;
     }
+    /** Inserir pessoal de TI */
     public function InsertPesTI()
     {
         require_once "pgsql.class.php";
@@ -717,6 +719,7 @@ class PessoalTI
         $row = $pg->insert($sql, 'idtb_pessoal_ti');
         return $row;
     }
+    /** Atualizar pessoal de TI */
     public function UpdatePesTI()
     {
         require_once "pgsql.class.php";
@@ -729,6 +732,7 @@ class PessoalTI
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Atualizar senha do pessoal de TI */
     public function UpdateSenhaPesti()
     {
         require_once "pgsql.class.php";
@@ -737,6 +741,7 @@ class PessoalTI
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Seleciona todos os OSIC */
     public function SelectAllOSIC()
     {
         require_once "pgsql.class.php";
@@ -744,6 +749,7 @@ class PessoalTI
         $row = $pg->getRows("SELECT * FROM db_clti.vw_pessoal_ti WHERE sigla_funcao='OSIC' AND status='ATIVO' $this->ordena");
         return $row;
     }
+    /** Seleciona e-mail dos OSIC */
     public function SelectEmailOSIC()
     {
         require_once "pgsql.class.php";
@@ -752,6 +758,7 @@ class PessoalTI
             AND status='ATIVO' $this->ordena");
         return $row;
     }
+    /** Seleciona OSIC instivos */
     public function SelectOSICInativos()
     {
         require_once "pgsql.class.php";
@@ -759,6 +766,7 @@ class PessoalTI
         $row = $pg->getRows("SELECT * FROM db_clti.vw_pessoal_ti WHERE sigla_funcao='OSIC' AND status='INATIVO' $this->ordena");
         return $row;
     }
+    /** Seleciona todo pessoal de TI */
     public function SelectAllPesTI()
     {
         require_once "pgsql.class.php";
@@ -766,6 +774,7 @@ class PessoalTI
         $row = $pg->getRows("SELECT * FROM db_clti.vw_pessoal_ti WHERE status='ATIVO' $this->ordena");
         return $row;
     }
+    /** Seleciona todas as funções de TI */
     public function SelectAllFuncoesTI()
     {
         require_once "pgsql.class.php";
@@ -773,6 +782,7 @@ class PessoalTI
         $row = $pg->getRows("SELECT * FROM db_clti.tb_funcoes_ti");
         return $row;
     }
+    /** Seleciona funções de TI excedo ADMIN/OSIC */
     public function SelectOutrasFuncoesTI()
     {
         require_once "pgsql.class.php";
@@ -780,6 +790,7 @@ class PessoalTI
         $row = $pg->getRows("SELECT * FROM db_clti.tb_funcoes_ti WHERE sigla != 'ADMIN' AND sigla != 'OSIC' ");
         return $row;
     }
+    /** Seleciona função TI pelo ID */
     public function SelectIdFuncoesTI()
     {
         require_once "pgsql.class.php";
@@ -787,6 +798,7 @@ class PessoalTI
         $row = $pg->getRow("SELECT * FROM db_clti.tb_funcoes_ti WHERE idtb_funcoes_ti='$this->idtb_funcoes_ti'");
         return $row;
     }
+    /** Atualiza funções TI */
     public function UpdateFuncoesTI()
     {
         require_once "pgsql.class.php";
@@ -796,6 +808,7 @@ class PessoalTI
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Insere funções TI */
     public function InsertFuncoesTI()
     {
         require_once "pgsql.class.php";
@@ -804,6 +817,7 @@ class PessoalTI
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Seleciona qualificação do pessoal TI */
     public function SelectAllQualif()
     {
         require_once "pgsql.class.php";
@@ -811,6 +825,7 @@ class PessoalTI
         $row = $pg->getRows("SELECT * FROM db_clti.vw_qualificacao_pesti $this->ordena");
         return $row;
     }
+    /** Seleciona qualificação pelo ID */
     public function SelectIdQualif()
     {
         require_once "pgsql.class.php";
@@ -819,6 +834,7 @@ class PessoalTI
             WHERE idtb_qualificacao_ti='$this->idtb_qualificacao_ti'");
         return $row;
     }
+    /** Insere qualificação */
     public function InsertQualif()
     {
         require_once "pgsql.class.php";
@@ -830,6 +846,7 @@ class PessoalTI
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Atualiza qualificação */
     public function UpdateQualif()
     {
         require_once "pgsql.class.php";
@@ -841,6 +858,7 @@ class PessoalTI
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Conta Admin */
     public function CountAdmin()
     {
         require_once "pgsql.class.php";
@@ -850,6 +868,7 @@ class PessoalTI
         $row = $pg->getCol($sql);
         return $row;
     }
+    /** Conta OSIC */
     public function CountOSIC()
     {
         require_once "pgsql.class.php";
@@ -859,6 +878,7 @@ class PessoalTI
         $row = $pg->getCol($sql);
         return $row;
     }
+    /** Conta pessoal TI exceto ADMIN/OSIC*/
     public function CountPesTI()
     {
         require_once "pgsql.class.php";
@@ -868,6 +888,7 @@ class PessoalTI
         $row = $pg->getCol($sql);
         return $row;
     }
+    /** Conta pessoal TI da OM */
     public function CountPesTIOM()
     {
         require_once "pgsql.class.php";
@@ -877,6 +898,7 @@ class PessoalTI
         $row = $pg->getCol($sql);
         return $row;
     }
+    /** Chave secreta para QRCODE 2FA */
     public function PesTIQRCode()
     {
         require_once "pgsql.class.php";
@@ -885,6 +907,7 @@ class PessoalTI
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Desativar pessoal TI */
     public function PesTIDesativar()
     {
         require_once "pgsql.class.php";
@@ -893,6 +916,7 @@ class PessoalTI
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Ativar pessoal TI */
     public function PesTIAtivar()
     {
         require_once "pgsql.class.php";
@@ -901,6 +925,7 @@ class PessoalTI
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Excluir pessoal TI */
     public function DeletePesTI()
     {
         require_once "pgsql.class.php";
@@ -935,16 +960,19 @@ class PessoalOM
     public $sigla;
     public $ordena;
 
+    /** Formata CPF para apresentção */
     function FormatCPF($value)
     {
         $cpf = preg_replace("/\D/", '', $value);
         return preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "\$1.\$2.\$3-\$4", $cpf);
     }
+    /** Formata NIP para apresentção */
     function FormatNIP($value)
     {
         $nip = preg_replace("/\D/", '', $value);
         return preg_replace("/(\d{2})(\d{4})(\d{2})/", "\$1.\$2.\$3", $nip);
     }
+    /** Checa NIP/CPF duplicado */
     public function ChecaNIPCPF()
     {
         require_once "pgsql.class.php";
@@ -952,6 +980,7 @@ class PessoalOM
         $row = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_om WHERE nip = '$this->usuario' OR cpf = '$this->usuario'");
         return $row;
     }
+    /** Checa e-mail duplicado */
     public function ChecaCorreio()
     {
         require_once "pgsql.class.php";
@@ -959,6 +988,7 @@ class PessoalOM
         $row = $pg->getRow("SELECT * FROM db_clti.tb_pessoal_om WHERE correio_eletronico = '$this->correio_eletronico'");
         return $row;
     }
+    /** Seleciona pessoal da OM pelo ID */
     public function SelectIdPesOM()
     {
         require_once "pgsql.class.php";
@@ -967,6 +997,7 @@ class PessoalOM
             AND idtb_om_apoiadas = $this->idtb_om_apoiadas ");
         return $row;
     }
+    /** Insere pessoal da OM */
     public function InsertPesOM()
     {
         require_once "pgsql.class.php";
@@ -979,6 +1010,7 @@ class PessoalOM
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Atualiza pessoal da OM */
     public function UpdatePesOM()
     {
         require_once "pgsql.class.php";
@@ -991,6 +1023,7 @@ class PessoalOM
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Excluir pessoal da OM */
     public function DeletePesOM()
     {
         require_once "pgsql.class.php";
@@ -1000,6 +1033,7 @@ class PessoalOM
             AND idtb_om_apoiadas = $this->idtb_om_apoiadas");
         return $row;
     }
+    /** Seleciona todo pessoal da OM */
     public function SelectAllPesOM()
     {
         require_once "pgsql.class.php";
@@ -1007,6 +1041,7 @@ class PessoalOM
         $row = $pg->getRows("SELECT * FROM db_clti.vw_pessoal_om WHERE status='ATIVO' $this->ordena");
         return $row;
     }
+    /** Seleciona pessoal da OM pelo ID */
     public function SelectIdOMPesOM()
     {
         require_once "pgsql.class.php";
@@ -1015,6 +1050,7 @@ class PessoalOM
             AND status='ATIVO' $this->ordena");
         return $row;
     }
+    /** Conta pessoal das OM */
     public function CountPesOM()
     {
         require_once "pgsql.class.php";
@@ -1024,6 +1060,7 @@ class PessoalOM
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Conta pessoal de cada OM */
     public function CountIdOMPesOM()
     {
         require_once "pgsql.class.php";
@@ -1033,7 +1070,7 @@ class PessoalOM
         $row = $pg->getCol($sql);
         return $row;
     }
-    /** Perfis de Internet */
+    /** Seleciona Perfis de Internet */
     public function SelectPerfilAll()
     {
         require_once "pgsql.class.php";
@@ -1042,6 +1079,7 @@ class PessoalOM
         $row = $pg->getRows($sql);
         return $row;
     }
+    /** Seleciona Perfis por OM */
     public function SelectPerfilOM()
     {
         require_once "pgsql.class.php";
@@ -1050,6 +1088,7 @@ class PessoalOM
         $row = $pg->getRows($sql);
         return $row;
     }
+    /** Seleciona perfil pelo ID */
     public function SelectPerfilID()
     {
         require_once "pgsql.class.php";
@@ -1058,6 +1097,7 @@ class PessoalOM
         $row = $pg->getRow($sql);
         return $row;
     }
+    /** Insere perfil de internet */
     public function InsertPerfil()
     {
         require_once "pgsql.class.php";
@@ -1067,6 +1107,7 @@ class PessoalOM
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Atualiza perfil de internet */
     public function UpdatePerfil()
     {
         require_once "pgsql.class.php";
@@ -1107,16 +1148,19 @@ class PessoalCLTI
     public $ordena;
     public $condicao;
 
+    /** Format CPF para apresentação */
     function FormatCPF($value)
     {
         $cpf = preg_replace("/\D/", '', $value);
         return preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "\$1.\$2.\$3-\$4", $cpf);
     }
+    /** Format NIP para apresentação */
     function FormatNIP($value)
     {
         $nip = preg_replace("/\D/", '', $value);
         return preg_replace("/(\d{2})(\d{4})(\d{2})/", "\$1.\$2.\$3", $nip);
     }
+    /** Verifica NIP/CPF duplicados */
     public function ChecaNIPCPF()
     {
         require_once "pgsql.class.php";
@@ -1124,6 +1168,7 @@ class PessoalCLTI
         $row = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_clti WHERE nip = '$this->usuario' OR cpf = '$this->usuario'");
         return $row;
     }
+    /** Seleciona chave para QRCODE 2FA */
     public function PesCLTIQRCode()
     {
         require_once "pgsql.class.php";
@@ -1132,6 +1177,7 @@ class PessoalCLTI
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Verifica e-mail duplicado */
     public function ChecaCorreio()
     {
         require_once "pgsql.class.php";
@@ -1139,6 +1185,7 @@ class PessoalCLTI
         $row = $pg->getRow("SELECT * FROM db_clti.tb_lotacao_clti WHERE correio_eletronico = '$this->correio_eletronico'");
         return $row;
     }
+    /** Seleciona todo pessoal do CLTI */
     public function SelectALL()
     {
         require_once "pgsql.class.php";
@@ -1146,6 +1193,7 @@ class PessoalCLTI
         $row = $pg->getRows("SELECT * FROM db_clti.vw_pessoal_clti WHERE status='ATIVO' $this->ordena");
         return $row;
     }
+    /** Seleciona pessoal que concorre à escala do CLTI */
     public function SelectEscalaSV()
     {
         require_once "pgsql.class.php";
@@ -1153,6 +1201,7 @@ class PessoalCLTI
         $row = $pg->getRows("SELECT * FROM db_clti.vw_pessoal_clti WHERE status='ATIVO' AND tarefa = 'Escala de Serviço' $this->ordena");
         return $row;
     }
+    /** Seleciona pessoal do CLTI inativo */
     public function SelectInativos()
     {
         require_once "pgsql.class.php";
@@ -1160,6 +1209,7 @@ class PessoalCLTI
         $row = $pg->getRows("SELECT * FROM db_clti.vw_pessoal_clti WHERE status='INATIVO' $this->ordena");
         return $row;
     }
+    /** Seleciona pessoal do CLTI pelo ID */
     public function SelectId()
     {
         require_once "pgsql.class.php";
@@ -1167,6 +1217,7 @@ class PessoalCLTI
         $row = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_clti WHERE idtb_lotacao_clti = '$this->idtb_lotacao_clti'");
         return $row;
     }
+    /** Seleciona tarefa do pessoal do CLTI */
     public function SelectTarefa()
     {
         require_once "pgsql.class.php";
@@ -1174,6 +1225,7 @@ class PessoalCLTI
         $row = $pg->getCol("SELECT tarefa FROM db_clti.tb_lotacao_clti WHERE idtb_lotacao_clti = '$this->idtb_lotacao_clti'");
         return $row;
     }
+    /** Insere pessoal do CLTI */
     public function Insert()
     {
         require_once "pgsql.class.php";
@@ -1186,6 +1238,7 @@ class PessoalCLTI
         $row = $pg->insert($sql,'idtb_lotacao_clti');
         return $row;
     }
+    /** Atualiza pessoal do CLTI */
     public function Update()
     {
         require_once "pgsql.class.php";
@@ -1198,6 +1251,7 @@ class PessoalCLTI
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Atualiza senha do pessoal do CLTI */
     public function UpdateSenha()
     {
         require_once "pgsql.class.php";
@@ -1207,6 +1261,7 @@ class PessoalCLTI
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Desativa pessoal do CLTI */
     public function PesCLTIDesativar()
     {
         require_once "pgsql.class.php";
@@ -1215,6 +1270,7 @@ class PessoalCLTI
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Ativa pessoal do CLTI */
     public function PesCLTIAtivar()
     {
         require_once "pgsql.class.php";
@@ -1223,6 +1279,7 @@ class PessoalCLTI
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Seleciona qualificação do CLTI */
     public function SelectAllQualif()
     {
         require_once "pgsql.class.php";
@@ -1230,6 +1287,7 @@ class PessoalCLTI
         $row = $pg->getRows("SELECT * FROM db_clti.vw_qualificacao_clti $this->ordena");
         return $row;
     }
+    /** Seleciona qualificação do CLTI com condições extras */
     public function SelectQualifCondicoes()
     {
         require_once "pgsql.class.php";
@@ -1237,6 +1295,7 @@ class PessoalCLTI
         $row = $pg->getRows("SELECT * FROM db_clti.vw_qualificacao_clti $this->condicao $this->ordena");
         return $row;
     }
+    /** Seleciona qualificação do CLTI pelo ID */
     public function SelectIdQualif()
     {
         require_once "pgsql.class.php";
@@ -1246,6 +1305,7 @@ class PessoalCLTI
             OR cpf='$this->idtb_qualificacao_clti'");
         return $row;
     }
+    /** Insere qualificação do CLTI */
     public function InsertQualif()
     {
         require_once "pgsql.class.php";
@@ -1257,6 +1317,7 @@ class PessoalCLTI
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Insere qualificação do CLTI */
     public function InsertQualifAnd()
     {
         require_once "pgsql.class.php";
@@ -1268,6 +1329,7 @@ class PessoalCLTI
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Atualiza qualificação do CLTI */
     public function UpdateQualif()
     {
         require_once "pgsql.class.php";
@@ -1280,6 +1342,7 @@ class PessoalCLTI
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Atualiza qualificação do CLTI */
     public function UpdateQualifAnd()
     {
         require_once "pgsql.class.php";
@@ -1292,6 +1355,7 @@ class PessoalCLTI
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Contagem de oficiais */
     public function CountOficiais()
     {
         require_once "pgsql.class.php";
@@ -1300,6 +1364,7 @@ class PessoalCLTI
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Contagem de praças */
     public function CountPracas()
     {
         require_once "pgsql.class.php";
@@ -1309,6 +1374,7 @@ class PessoalCLTI
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Contagem de civis */
     public function CountFCivil()
     {
         require_once "pgsql.class.php";
@@ -1317,6 +1383,7 @@ class PessoalCLTI
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Adiciona tarefas */
     public function AddTarefa($idtb_lotacao_clti,$tarefa)
     {
         require_once "pgsql.class.php";

@@ -101,8 +101,9 @@ if (($row) AND ($act == NULL)) {
                         <td>".$value->descricao."</td>
                         <td>".$value->versao."</td>
                         <td>".$value->situacao."</td>
-                        <td><a href=\"?cmd=sistoperacionais&act=cad&param=".$value->idtb_sor."\">Editar</a> - 
-                            Excluir</td>
+                        <td>
+                            <a href=\"?cmd=sistoperacionais&act=cad&param=".$value->idtb_sor."\">Editar</a>
+                        </td>
                     </tr>";
     };
     echo"
