@@ -1,2 +1,4 @@
+# Ignorar config/config.php
 config/config.php
+# Ignorar diretório tmp/
 tmp/
