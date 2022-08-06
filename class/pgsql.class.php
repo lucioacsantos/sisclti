@@ -23,8 +23,7 @@ class PgSql
     {
         pg_close($this->db);
     }
-    // SELECT
-    // Retorna uma linha como objeto
+    /** Retorna uma linha como objeto */
     public function getRow($sql)
     {
         $result = pg_query($this->db, $sql);
@@ -32,8 +31,7 @@ class PgSql
         if (pg_last_error()) exit(pg_last_error());
         return $row;
     }
-    // SELECT
-    // Retorna array com várias linhas
+    /** Retorna array com várias linhas */
     public function getRows($sql)
     {
         $result = pg_query($this->db, $sql);
@@ -45,8 +43,7 @@ class PgSql
         }
         return $rows;
     }
-    // SELECT
-    // Retorna valor de uma coluna como string
+    /** Retorna valor de uma coluna como string */
     public function getCol($sql)
     {
         $result = pg_query($this->db, $sql);
@@ -54,8 +51,7 @@ class PgSql
         if (pg_last_error()) exit(pg_last_error());
         return $col;
     }
-    // SELECT
-    // Retorna array com todos os valores da coluna
+    /** Retorna array com todos os valores da coluna */
     public function getColValues($sql)
     {
         $result = pg_query($this->db, $sql);
@@ -63,8 +59,7 @@ class PgSql
         if (pg_last_error()) exit(pg_last_error());
         return $arr;
     }
-    // INSERT
-    // Retorna último id $id
+    /** Retorna último id $id */
     public function insert($sql, $id='id')
     {
         $sql .= ' RETURNING '.$id;
@@ -74,7 +69,7 @@ class PgSql
         return $this->last_id;
     }
     // UPDATE, DELETE e CREATE TABLE
-    // Retorna número de linhas afetadas
+    /** Retorna número de linhas afetadas */
     public function exec($sql)
     {
         $result = pg_query($this->db, $sql);

@@ -41,7 +41,7 @@ if (($row == NULL) AND ($act == NULL)) {
 		 clique <a href=\"?cmd=admin&act=cad\">aqui</a> para fazê-lo.</h5>";
 }
 
-/* Carrega form para cadastro de Admin com objeto do banco ou vazio*/
+/* Carrega form para cadastro/atleração de Admin com objeto do banco ou vazio*/
 if ($act == 'cad') {
     if ($param){
         $pesti->idtb_pessoal_ti = $param;
@@ -68,7 +68,7 @@ if ($act == 'cad') {
                     <form id=\"insereusuario\" role=\"form\" action=\"?cmd=admin&act=insert\" 
                         method=\"post\" enctype=\"multipart/form-data\">
                         <fieldset>";
-                            #Prepara formulário para atualização de dados
+                            /** Prepara formulário para troca de senhas */
                             if ($param){
                                 if ($senha){
                                     echo"
@@ -110,7 +110,7 @@ if ($act == 'cad') {
                                     <input id=\"ativo\" class=\"form-control\" name=\"ativo\"
                                         value=\"$admin->status\" hidden=\"true\">";
                                 }
-                                #Em caso de alteração de outros dados
+                                /** Em caso de alteração de outros dados */
                                 else{
                                     echo"
                                     <legend>Administradores de Rede - Alteração</legend>
@@ -123,7 +123,7 @@ if ($act == 'cad') {
                                                 echo"<option value=\"".$value->idtb_om_apoiadas."\">
                                                     ".$value->sigla."</option>";
                                             };
-                                        echo "</select>
+                                    echo"</select>
                                     </div>
                                     <div class=\"form-group\">
                                         <label for=\"postograd\">Posto/Graduação:</label>
@@ -134,7 +134,7 @@ if ($act == 'cad') {
                                                 echo"<option value=\"".$value->idtb_posto_grad."\">
                                                     ".$value->nome."</option>";
                                             };
-                                        echo "</select>
+                                    echo"</select>
                                     </div>
                                     <div class=\"form-group\">
                                         <label for=\"corpoquadro\">Corpo/Quadro:</label>
@@ -145,7 +145,7 @@ if ($act == 'cad') {
                                                 echo"<option value=\"".$value->idtb_corpo_quadro."\">
                                                     ".$value->nome."</option>";
                                             };
-                                        echo "</select>
+                                    echo"</select>
                                     </div>
                                     <div class=\"form-group\">
                                         <label for=\"especialidade\">Especialidade:</label>
@@ -156,7 +156,7 @@ if ($act == 'cad') {
                                                 echo"<option value=\"".$value->idtb_especialidade."\">
                                                     ".$value->nome."</option>";
                                             };
-                                        echo "</select>
+                                    echo"</select>
                                     </div>
                                     <div class=\"form-group\">
                                         <label for=\"nome\">Nome Completo:</label>
@@ -201,7 +201,7 @@ if ($act == 'cad') {
                                     </div>";
                                 }
                             }
-                            #Prepara formulário para inclusão
+                            /** Prepara formulário para inclusão */
                             else{
                             echo"
                             <legend>Administradores de Rede - Cadastro</legend>
@@ -214,7 +214,7 @@ if ($act == 'cad') {
                                         echo"<option value=\"".$value->idtb_om_apoiadas."\">
                                             ".$value->sigla."</option>";
                                     };
-                                echo "</select>
+                            echo"</select>
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"postograd\">Posto/Graduação:</label>
@@ -225,7 +225,7 @@ if ($act == 'cad') {
                                         echo"<option value=\"".$value->idtb_posto_grad."\">
                                             ".$value->nome."</option>";
                                     };
-                                echo "</select>
+                            echo"</select>
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"corpoquadro\">Corpo/Quadro:</label>
@@ -236,7 +236,7 @@ if ($act == 'cad') {
                                         echo"<option value=\"".$value->idtb_corpo_quadro."\">
                                             ".$value->nome."</option>";
                                     };
-                                echo "</select>
+                            echo"</select>
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"especialidade\">Especialidade:</label>
@@ -247,7 +247,7 @@ if ($act == 'cad') {
                                         echo"<option value=\"".$value->idtb_especialidade."\">
                                             ".$value->nome."</option>";
                                     };
-                                echo "</select>
+                            echo"</select>
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"nip\">NIP:</label>
@@ -325,12 +325,12 @@ if (($row != NULL) AND ($act == NULL)) {
 
     foreach ($admin as $key => $value) {
 
-        #Seleciona NIP caso seja militar da MB
+        /** Seleciona NIP caso seja militar da MB */
         if ($value->nip != NULL) {
-            $identificacao = $value->nip;
+            $identificacao = $pesti->FormatNIP($value->nip);
         }
         else{
-            $identificacao = $value->cpf;
+            $identificacao = $pesti->FormatCPF($value->cpf);
         }
         echo"       <tr>
                         <td>".$value->sigla_om."</td>";
@@ -352,9 +352,9 @@ if (($row != NULL) AND ($act == NULL)) {
                         <td><a onClick=\"javascript:window.open('mailto:".$value->correio_eletronico."', 'mail');event.preventDefault()\" 
                             href=\"mailto:".$value->correio_eletronico."\">".$value->nome."</a></td>
                         <td>".$value->nome_guerra."</td>
-                        <td><a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."\">Editar</a> - 
+                        <td><a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."&oa=".$value->idtb_om_apoiadas."\">Editar</a> - 
                             <a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."&oa=".$value->idtb_om_apoiadas."&senha=troca\">Senha</a> - 
-                            <a href=\"?cmd=admin&act=desativar&param=".$value->idtb_pessoal_ti."\">Desativar</a></td>
+                            <a href=\"?cmd=admin&act=desativar&param=".$value->idtb_pessoal_ti."&oa=".$value->idtb_om_apoiadas."\">Desativar</a></td>
                     </tr>";
     }
     echo"
@@ -384,7 +384,7 @@ if ($act == 'inativos') {
 
     foreach ($admin as $key => $value) {
 
-        #Seleciona NIP caso seja militar da MB
+        /** Seleciona NIP caso seja militar da MB */
         if ($value->nip != NULL) {
             $identificacao = $value->nip;
         }
@@ -411,8 +411,7 @@ if ($act == 'inativos') {
                         <td>".$value->nome."</td>
                         <td>".$value->nome_guerra."</td>
                         <td><a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."\">Editar</a> - 
-                            <a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."&senha=troca\">Senha</a> - 
-                            <a href=\"?cmd=admin&act=ativar&param=".$value->idtb_pessoal_ti."\">Reativar</a>
+                            <a href=\"?cmd=admin&act=ativar&param=".$value->idtb_pessoal_ti."&oa=".$value->idtb_om_apoiadas."\">Reativar</a>
                         </td>
                     </tr>";
     }
@@ -443,7 +442,7 @@ if ($act == 'bloqueados') {
 
     foreach ($admin as $key => $value) {
 
-        #Seleciona NIP caso seja militar da MB
+        /** Seleciona NIP caso seja militar da MB */
         if ($value->nip != NULL) {
             $identificacao = $value->nip;
         }
@@ -470,8 +469,7 @@ if ($act == 'bloqueados') {
                         <td>".$value->nome."</td>
                         <td>".$value->nome_guerra."</td>
                         <td><a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."\">Editar</a> - 
-                            <a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."&senha=troca\">Senha</a> - 
-                            <a href=\"?cmd=admin&act=ativar&param=".$value->idtb_pessoal_ti."\">Reativar</a>
+                            <a href=\"?cmd=admin&act=ativar&param=".$value->idtb_pessoal_ti."&oa=".$value->idtb_om_apoiadas."\">Reativar</a>
                         </td>
                     </tr>";
     }
@@ -577,9 +575,11 @@ if ($act == 'insert') {
     }
 }
 
+/** Reativar Usuário */
 if ($act == 'ativar') {
     if (isset($_SESSION['status'])){
         $pesti->idtb_pessoal_ti = $param;
+        $pesti->idtb_om_apoiadas = $oa;
         $row = $pesti->PesTIAtivar();
             if ($row) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
@@ -596,6 +596,7 @@ if ($act == 'ativar') {
     }
 }
 
+/** Desativar Usuário */
 if ($act == 'desativar') {
     if (isset($_SESSION['status'])){
         $pesti->idtb_pessoal_ti = $param;

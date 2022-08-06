@@ -4,8 +4,8 @@
 **/
 	$host = "localhost";
 	$port = "5432";
-	$dbname = "sigti";
-	$user = "sigti";
+	$dbname = "db_clti";
+	$user = "sisclti";
 	$password = "db_passwd";
 	
 ?>
