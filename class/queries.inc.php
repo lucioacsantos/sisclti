@@ -11,6 +11,7 @@ class Principal
     public $var1;
     public $var2;
 
+    /** Criptografa e retorna dados */
     function Executa()
     {
         $this->Prepara();
@@ -18,6 +19,7 @@ class Principal
         $var6 = (object)['var5'=>$var5,'var3'=>$var3];
         return $var6;
     }
+    /** Checa criptografia */
     function Verifica()
     {
         $this->key = $this->key1;
@@ -27,6 +29,7 @@ class Principal
             $this->key, 0, $this->ivalue);
         return $return;
     }
+    /** Prepara criptografia */
     function Prepara()
     {
         $keys = $this->Autor();
@@ -36,6 +39,7 @@ class Principal
         aY2ZXaHozLzRPYjlSR1RvMEU4ZXB2cXFTaCtOVnJGdW5RaWlmWW80d1NEQ0paK0VsNk11a
         VNwcGV1NzBwRkdCbWw4S3l6UUljL0RwWVlJTW9ZUGFjd0Y';
     }
+    /** Recupera meta tags */
     function Autor()
     {
         require_once "constantes.inc.php";
@@ -44,8 +48,6 @@ class Principal
         foreach ($config->SelectTags() as $key => $value){
             $tags[$value->parametro] = $value->valor;
         }
-        /*$url = $config->SelectURL();
-        $tags = get_meta_tags($url);*/
         return $tags;
     }
 }

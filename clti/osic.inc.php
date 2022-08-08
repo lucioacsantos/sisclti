@@ -380,9 +380,10 @@ if (($row) AND ($act == NULL)) {
                         <td><a onClick=\"javascript:window.open('mailto:".$value->correio_eletronico."', 'mail');event.preventDefault()\" 
                             href=\"mailto:".$value->correio_eletronico."\">".$value->nome."</a></td>
                         <td>".$value->nome_guerra."</td>
-                        <td><a href=\"?cmd=osic&act=cad&param=".$value->idtb_pessoal_ti."\">Editar</a> - 
+                        <td>
+                            <a href=\"?cmd=osic&act=cad&param=".$value->idtb_pessoal_ti."\">Editar</a> - 
                             <a href=\"?cmd=osic&act=cad&param=".$value->idtb_pessoal_ti."&senha=troca\">Senha</a> - 
-                            <a href=\"?cmd=osic&act=desativar&param=".$value->idtb_pessoal_ti."\">Desativar</a>
+                            <a href=\"?cmd=osic&act=del&param=".$value->idtb_pessoal_ti."&oa=".$value->idtb_om_apoiadas."\">Excluir</a>
                         </td>
                     </tr>";
     }
@@ -390,6 +391,76 @@ if (($row) AND ($act == NULL)) {
                 </tbody>
             </table>
             </div>";
+}
+
+/* Monta quadro de Pessoal de TI para exclusão */
+if ($act == 'del') {
+
+	$pesti->idtb_pessoal_ti = $param;
+    $pesti->idtb_om_apoiadas = $oa;
+    $pessti = $pesti->SelectIdPesTI();
+
+    echo"<div class=\"table-responsive\">
+        <div class=\"alert alert-danger\" role=\"alert\">Atenção, todos os registros deste Usuário,
+            bem como dados relacionados, serão excluídos!</div>
+            <table class=\"table table-hover\">
+                <thead>
+                    <tr>
+                        <th scope=\"col\">OM Apoiada</th>
+                        <th scope=\"col\">Posto/Grad./Esp.</th>
+                        <th scope=\"col\">NIP/CPF</th>
+                        <th scope=\"col\">Nome</th>
+                        <th scope=\"col\">Nome de Guerra</th>
+                        <th scope=\"col\">Ações</th>
+                    </tr>
+                </thead>";
+
+        #Seleciona NIP caso seja militar da MB
+        if ($pessti->nip != NULL) {
+            $identificacao = $pesti->FormatNIP($pessti->nip);
+        }
+        else{
+            $identificacao = $pesti->FormatCPF($pessti->cpf);
+        }
+        echo"       <tr>
+                        <td>".$pessti->sigla_om."</td>";
+        if (($pessti->exibir_espec == 'NÃO') AND ($pessti->exibir_corpo_quadro == 'NÃO')){
+            echo"       <th scope=\"row\">".$pessti->sigla_posto_grad."</th>";
+        }
+        elseif (($pessti->exibir_espec == 'NÃO') AND ($pessti->exibir_corpo_quadro != 'NÃO')){
+            echo"       <th scope=\"row\">".$pessti->sigla_posto_grad." ".$pessti->sigla_corpo_quadro."</th>";
+        }
+        elseif (($pessti->exibir_espec != 'NÃO') AND ($pessti->exibir_corpo_quadro == 'NÃO')){
+            echo"       <th scope=\"row\">".$pessti->sigla_posto_grad." ".$pessti->sigla_espec."</th>";
+        }
+        else {
+            echo"       <th scope=\"row\">".$pessti->sigla_posto_grad." ".$pessti->sigla_corpo_quadro." 
+                            ".$pessti->sigla_espec."</th>";
+        }
+            echo"
+                        <td>".$identificacao."</td>
+                        <td>".$pessti->nome."</td>
+                        <td>".$pessti->nome_guerra."</td>
+                        <td><a href=\"?cmd=osic&act=conf_del&param=".$pessti->idtb_pessoal_ti."&oa=".$pessti->idtb_om_apoiadas."\">Confirmar Exclusão</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>";
+}
+
+/** Excluir Definitivamente Pessoal de TI */
+if ($act == 'conf_del') {
+    $pesti->idtb_om_apoiadas = $oa;
+    $pesti->idtb_pessoal_ti = $param;
+    $row = $pesti->DeletePesTI();
+    if ($row) {
+        echo "<h5>Resgistros excluídos do banco de dados.</h5>
+        <meta http-equiv=\"refresh\" content=\"1;url=?cmd=osic\">";
+    }
+    else {
+        echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+    }
 }
 
 if ($act == 'inativos') {

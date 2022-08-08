@@ -185,7 +185,7 @@ class PerfilInternet
     public function SelectAll(){
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRows("SELECT * FROM db_clti.tb_perfil_internet WHERE status='ATIVO' ");
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_perfil_internet WHERE status='ATIVO' $this->ordena ");
         return $row;
     }
     /** Seleciona Perfil pelo ID */
@@ -293,8 +293,10 @@ class Usuario
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("UPDATE db_clti.tb_pessoal_ti SET status = 'BLOQUEADO' WHERE nip = '$this->usuario' 
-            OR cpf = '$this->usuario'");
+        $row = $pg->getCol("SELECT cont_erro FROM db_clti.tb_pessoal_ti WHERE nip = '$this->usuario' OR cpf = '$this->usuario'");
+        if ($row > '5'){
+            $row = $pg->exec("UPDATE db_clti.tb_pessoal_ti SET status = 'BLOQUEADO' WHERE nip = '$this->usuario' OR cpf = '$this->usuario'");
+        }        
         return $row;
     }
     /** Muda status de usuário do CLTI para bloqueado por tentativas de acesso */
@@ -302,8 +304,10 @@ class Usuario
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("UPDATE db_clti.tb_lotacao_clti SET status = 'BLOQUEADO' WHERE nip = '$this->usuario' 
-            OR cpf = '$this->usuario' ");
+        $row = $pg->getCol("SELECT cont_erro FROM db_clti.tb_lotacao_clti WHERE nip = '$this->usuario' OR cpf = '$this->usuario' ");
+        if ($row > '5'){
+            $row = $pg->exec("UPDATE db_clti.tb_lotacao_clti SET status = 'BLOQUEADO' WHERE nip = '$this->usuario' OR cpf = '$this->usuario' ");
+        }
         return $row;
     }
     /* Verificação de Login/Perfil Usuários da OM */

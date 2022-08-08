@@ -27,24 +27,14 @@ if (isset($_GET['senha'])){
 
 /* Classe de interação com o PostgreSQL */
 require_once "../class/constantes.inc.php";
-$om = new OMAPoiadas();
-$pesti = new PessoalTI();
-$mil = new Militar();
 $usr = new Usuario();
+$pti = new PessoalTI();
 
-/* Recupera informações dos OSIC */
-$row = $pesti->SelectAllPesTI();
+/* Monta quadro de administradores bloqueados */
+if ($act == 'bloqueados') {
 
-/* Checa se há OSIC cadastrado */
-if (($row == NULL) AND ($act == NULL)) {
-    echo "<h5>Não há Pessoal de TI cadastrado.</h5>";
-}
-
-/* Monta quadro do Pessoal de TI */
-if (($row) AND ($act == NULL)) {
-
-	$pesti->ordena = "ORDER BY sigla_om,idtb_posto_grad ASC";
-    $osic = $pesti->SelectAllPesTI();
+	$pti->ordena = "ORDER BY sigla_om ASC";
+    $pessti = $pti->SelectPesTIBloqueados();
 
     echo"<div class=\"table-responsive\">
             <table class=\"table table-hover\">
@@ -55,18 +45,18 @@ if (($row) AND ($act == NULL)) {
                         <th scope=\"col\">NIP/CPF</th>
                         <th scope=\"col\">Nome</th>
                         <th scope=\"col\">Nome de Guerra</th>
-                        <th scope=\"col\">Função</th>
+                        <th scope=\"col\">Ações</th>
                     </tr>
                 </thead>";
 
-    foreach ($osic as $key => $value) {        
+    foreach ($pessti as $key => $value) {
 
-        #Seleciona NIP caso seja militar da MB
+        /** Seleciona NIP caso seja militar da MB */
         if ($value->nip != NULL) {
-            $identificacao = $pesti->FormatNIP($value->nip);
+            $identificacao = $value->nip;
         }
         else{
-            $identificacao = $pesti->FormatCPF($value->cpf);
+            $identificacao = $value->cpf;
         }
         echo"       <tr>
                         <td>".$value->sigla_om."</td>";
@@ -87,7 +77,9 @@ if (($row) AND ($act == NULL)) {
                         <td>".$identificacao."</td>
                         <td>".$value->nome."</td>
                         <td>".$value->nome_guerra."</td>
-                        <td>".$value->sigla_funcao."</td>
+                        <td><a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."\">Editar</a> - 
+                            <a href=\"?cmd=admin&act=ativar&param=".$value->idtb_pessoal_ti."&oa=".$value->idtb_om_apoiadas."\">Reativar</a>
+                        </td>
                     </tr>";
     }
     echo"
@@ -95,4 +87,3 @@ if (($row) AND ($act == NULL)) {
             </table>
             </div>";
 }
-?>

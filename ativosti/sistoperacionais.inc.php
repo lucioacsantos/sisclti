@@ -92,9 +92,8 @@ if (($row) AND ($act == NULL)) {
                     </tr>
                 </thead>";
 
-    $ordena = "ORDER BY desenvolvedor,versao ASC";
+    $so->ordena = "ORDER BY situacao,desenvolvedor,versao ";
     $sor = $so->SelectAllSO();
-    echo "<p>Sistemas Operacionais: </p>";
     foreach ($sor as $key => $value) {
         echo"       <tr>
                         <th scope=\"row\">".$value->desenvolvedor."</th>

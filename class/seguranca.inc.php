@@ -42,7 +42,9 @@ class Seguranca
         }
         return $row;
     }
-    /** Zera contador de acessos suspeitos */
+    /** 
+     * Zera contador de acessos suspeitos 
+     */
     function ZeraContador()
     {
         require_once "pgsql.class.php";
@@ -64,7 +66,9 @@ class Seguranca
         $row = $pg->getRow("SELECT * FROM db_clti.tb_acesso_suspeito WHERE end_ip = '$this->end_ip'");
         return $row;
     }
-    /** Verifica status Bloqueado do IP acessando o sistema */
+    /** 
+     * Verifica status Bloqueado do IP acessando o sistema 
+     */
     function ChecaBloqueado()
     {
         require_once "pgsql.class.php";

@@ -800,7 +800,11 @@ elseif ($versao == '1.5.23'){
 
 	$pg->exec("ALTER TABLE db_clti.tb_pessoal_ti ADD COLUMN ip_acesso varchar (15) DEFAULT '0.0.0.0' NOT NULL");
 
+	$pg->exec("ALTER TABLE db_clti.tb_pessoal_ti ADD COLUMN cont_erro int4 DEFAULT '0' NOT NULL");
+
 	$pg->exec("ALTER TABLE db_clti.tb_lotacao_clti ADD COLUMN ip_acesso varchar (15) DEFAULT '0.0.0.0' NOT NULL");
+
+	$pg->exec("ALTER TABLE db_clti.tb_lotacao_clti ADD COLUMN cont_erro int4 DEFAULT '0' NOT NULL");
 
 	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
 	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.24' WHERE parametro='VERSAO' ");

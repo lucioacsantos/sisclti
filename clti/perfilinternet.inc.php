@@ -84,6 +84,7 @@ if ($act == 'cad') {
 
 /* Monta quadro */
 if (($row) AND ($act == NULL)) {
+    $perfil->ordena = "ORDER BY nome ASC";
     $perfis = $perfil->SelectAll();
     echo"<div class=\"table-responsive\">
             <table class=\"table table-hover\">
