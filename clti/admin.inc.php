@@ -5,6 +5,8 @@
 
 /** Leitura de parâmetros */
 $oa = $cmd = $param = $act = $senha = NULL;
+$status = 'ATIVO';
+
 if (isset($_GET['oa'])){
   $oa = $_GET['oa'];
 }
@@ -21,8 +23,12 @@ if (isset($_GET['param'])){
   $param = $_GET['param'];
 }
 
+if (isset($_GET['status'])){
+    $status = $_GET['status'];
+  }
+
 if (isset($_GET['senha'])){
-    $senha = $_GET['senha'];
+  $senha = $_GET['senha'];
 }
 
 /* Classe de interação com o PostgreSQL */
@@ -46,7 +52,7 @@ if ($act == 'cad') {
     if ($param){
         $pesti->idtb_pessoal_ti = $param;
         $pesti->idtb_om_apoiadas = $oa;
-        $admin = $pesti->SelectIdPesTI();
+        $admin = $pesti->SelectIdPesTI($status);
     }
     else{
         $admin = (object)['idtb_pessoal_ti'=>'','nip'=>'','cpf'=>'','nome'=>'','nome_guerra'=>'',
@@ -370,7 +376,7 @@ if ($act == 'del') {
 
 	$pesti->idtb_pessoal_ti = $param;
     $pesti->idtb_om_apoiadas = $oa;
-    $pessti = $pesti->SelectIdPesTI();
+    $pessti = $pesti->SelectIdPesTI($status);
 
     echo"<div class=\"table-responsive\">
         <div class=\"alert alert-danger\" role=\"alert\">Atenção, todos os registros deste Usuário,
@@ -482,8 +488,9 @@ if ($act == 'inativos') {
                         <td>".$identificacao."</td>
                         <td>".$value->nome."</td>
                         <td>".$value->nome_guerra."</td>
-                        <td><a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."\">Editar</a> - 
-                            <a href=\"?cmd=admin&act=ativar&param=".$value->idtb_pessoal_ti."&oa=".$value->idtb_om_apoiadas."\">Reativar</a>
+                        <td>
+                            <a href=\"?cmd=admin&act=ativar&param=".$value->idtb_pessoal_ti."&oa=".$value->idtb_om_apoiadas."\">Reativar</a> - 
+                            <a href=\"?cmd=admin&act=del&param=".$value->idtb_pessoal_ti."&oa=".$value->idtb_om_apoiadas."&status=".$value->status."\">Excluir</a>
                         </td>
                     </tr>";
     }

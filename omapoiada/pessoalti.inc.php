@@ -5,6 +5,8 @@
 
 /** Leitura de parâmetros */
 $oa = $cmd = $param = $act = $senha = NULL;
+$status = 'ATIVO';
+
 if (isset($_GET['oa'])){
   $oa = $_GET['oa'];
 }
@@ -21,8 +23,12 @@ if (isset($_GET['param'])){
   $param = $_GET['param'];
 }
 
+if (isset($_GET['status'])){
+    $param = $_GET['status'];
+  }
+
 if (isset($_GET['senha'])){
-    $senha = $_GET['senha'];
+  $senha = $_GET['senha'];
 }
 
 /* Classe de interação com o PostgreSQL */
@@ -48,7 +54,7 @@ if ($act == 'cad') {
     if ($param){
         $pti->idtb_pessoal_ti = $param;
         $pti->idtb_om_apoiadas = $oa;
-        $pessti = $pti->SelectIdPesTI();
+        $pessti = $pti->SelectIdPesTI($status);
     }
     else{
         $pessti = (object)['idtb_pessoal_ti'=>'','nip'=>'','cpf'=>'','nome'=>'','nome_guerra'=>'',
@@ -386,7 +392,7 @@ if ($act == 'del') {
 
 	$pti->idtb_pessoal_ti = $param;
     $pti->idtb_om_apoiadas = $oa;
-    $pessti = $pti->SelectIdPesTI();
+    $pessti = $pti->SelectIdPesTI($status);
 
     echo"<div class=\"table-responsive\">
         <div class=\"alert alert-danger\" role=\"alert\">Atenção, todos os registros deste Usuário,
@@ -563,7 +569,7 @@ if ($act == 'qrcode') {
 
         $pti->idtb_pessoal_ti = $param;
         $pti->secret = $secret;
-        $usuario = $pti->SelectIdPesTI();
+        $usuario = $pti->SelectIdPesTI($status);
                 
         $sistema = 'SiGTI';
         $nip = $usuario->nip;

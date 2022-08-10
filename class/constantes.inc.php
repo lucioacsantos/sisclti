@@ -693,12 +693,12 @@ class PessoalTI
         return $row;
     }
     /** Seleciona pessoal de TI pelo ID */
-    public function SelectIdPesTI()
+    public function SelectIdPesTI($status = 'ATIVO')
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getRow("SELECT * FROM db_clti.vw_pessoal_ti WHERE idtb_pessoal_ti = '$this->idtb_pessoal_ti' 
-            AND status = 'ATIVO' AND idtb_om_apoiadas = '$this->idtb_om_apoiadas' ");
+            AND status = '$status' AND idtb_om_apoiadas = '$this->idtb_om_apoiadas' ");
         return $row;
     }
     /** Seleciona pessoal de TI pelo ID da OM */
