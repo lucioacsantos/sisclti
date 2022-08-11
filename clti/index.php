@@ -184,7 +184,6 @@ if (isset($_SESSION['user_name'])){
                     <a href=\"?cmd=osic\"><button class=\"btn btn-sm btn-outline-secondary\">
                       OSIC das OM</button></a>
                     <a href=\"?cmd=osic&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
-                    <a href=\"?cmd=osic&act=inativos\"><button class=\"btn btn-sm btn-outline-secondary\">Inativos</button></a>
                   </div>
                 </div>
               </div>";
@@ -207,8 +206,6 @@ if (isset($_SESSION['user_name'])){
                       href=\"mailto:".$email_admin."\"><button class=\"btn btn-sm btn-outline-secondary\">E-mail</button></a>
                     <a href=\"?cmd=admin\"><button class=\"btn btn-sm btn-outline-secondary\">Administradores</button></a>
                     <a href=\"?cmd=admin&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">Cadastro</button></a>
-                    <a href=\"?cmd=admin&act=inativos\"><button class=\"btn btn-sm btn-outline-secondary\">Inativos</button></a>
-                    <a href=\"?cmd=admin&act=bloqueados\"><button class=\"btn btn-sm btn-outline-secondary\">Bloqueados</button></a>
                   </div>
                 </div>
               </div>";

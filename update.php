@@ -6,6 +6,7 @@
 /* Classe de interação com o PostgreSQL */
 require_once "class/pgsql.class.php";
 require_once "class/constantes.inc.php";
+require_once "class/authenticator.inc.php";
 $pg = new PgSql();
 $url = $pg->getCol("SELECT valor FROM db_clti.tb_config WHERE parametro='URL'");
 
@@ -880,10 +881,23 @@ elseif ($versao == '1.5.24'){
 
 elseif ($versao == '1.5.25'){
 
-	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.5.25.</div>
+	$pg->exec("ALTER TABLE db_clti.tb_om_apoiadas ADD COLUMN chave_acesso varchar (16) DEFAULT '000000' NOT NULL");
+
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
+	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.26' WHERE parametro='VERSAO' ");
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.6.</div>
 	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
 
 }
+
+elseif ($versao == '1.6'){
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.6.</div>
+	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
+
+}
+
 
 else{
 	echo "<div class=\"alert alert-primary\" role=\"alert\">Verifique sua instalação!</div>";

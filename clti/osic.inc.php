@@ -24,8 +24,8 @@ if (isset($_GET['param'])){
 }
 
 if (isset($_GET['status'])){
-    $param = $_GET['status'];
-  }
+    $status = $_GET['status'];
+}
 
 if (isset($_GET['senha'])){
   $senha = $_GET['senha'];

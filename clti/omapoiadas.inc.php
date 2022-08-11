@@ -141,7 +141,8 @@ if (($row) AND ($act == NULL)) {
                         <td>".$value->sigla."</td>
                         <td>".$value->indicativo."</td>
                         <td>
-                            <a href=\"?cmd=omapoiadas&act=cad&param=".$value->idtb_om_apoiadas."\">Editar</a>
+                            <a href=\"?cmd=omapoiadas&act=cad&param=".$value->idtb_om_apoiadas."\">Editar</a> - 
+                            <a href=\"?cmd=omapoiadas&act=chave_acesso&param=".$value->idtb_om_apoiadas."\">Chave de acesso</a>
                         </td>
                     </tr>";
     };
@@ -151,44 +152,23 @@ if (($row) AND ($act == NULL)) {
             </div>";
 }
 
-/* Monta quadro de OM para exclusão*/
-if ($act == 'del') {
+/* Registra chave de acesso da OM */
+if ($act == 'chave_acesso') {
 
-    echo"<div class=\"table-responsive\">
-            <table class=\"table table-hover\">
-                <thead>
-                    <tr>
-                        <th scope=\"col\">Código</th>
-                        <th scope=\"col\">Nome</th>
-                        <th scope=\"col\">Sigla</th>
-                        <th scope=\"col\">Ind. Naval</th>
-                        <th scope=\"col\">Ações</th>
-                    </tr>
-                </thead>";
+    require_once "../class/authenticator.inc.php";
 
-    $omap->idtb_om_apoiadas = $param;
-    $om = $omap->SelectIdOMTable();
-
-            echo"       <tr>
-                        <th scope=\"row\">".$value->cod_om."</th>
-                        <td>".$value->nome."</td>
-                        <td>".$value->sigla."</td>
-                        <td>".$value->indicativo."</td>
-                        <td>
-                            <a href=\"?cmd=omapoiadas&act=conf_del&param=".$value->idtb_om_apoiadas."\">Confirmar Exclusão</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>";
-}
-
-/** Exclusão da OM */
-if ($act == 'conf_del'){
+    $authenticator = new GoogleAuthenticator();
+    $secret = $authenticator->createSecret();
+    $om->idtb_om_apoiadas = $param;
+    $row = $omap->ChaveAcessoOM($secret);
+    if ($row) {
+        echo "<h5>Chave de acesso $secret registrada no banco de dados.</h5>";
+    }    
+    else {
+        echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+        echo(pg_result_error($row) . "<br />\n");
+    }
     
-    $omap->idtb_om_apoiadas = $param;
-    
-
 }
 
 /* Método INSERT / UPDATE */

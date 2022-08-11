@@ -474,6 +474,15 @@ class OMAPoiadas
         $row = $pg->exec($sql);
         return $row;
     }
+    /** Registra Chave de Acesso */
+    public function ChaveAcessoOM($chave_acesso)
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "UPDATE db_clti.tb_om_apoiadas SET (chave_acesso) = ('$chave_acesso') WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas";
+        $row = $pg->exec($sql);
+        return $row;
+    }
     /** Insere OM */
     public function InsertOM()
     {
