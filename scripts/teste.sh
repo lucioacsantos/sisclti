@@ -43,7 +43,7 @@ echo "Modelo:                   `sudo dmidecode -t processor | grep Version | cu
 echo "Clock:                    `dmidecode -t processor | grep "Current Speed" | cut -d: -f2`"
 echo ""
 echo "Memória total:            `free --giga | grep 'Mem.:' | awk '{print $2}'`"
-echo "Velocidade:               `dmidecode -t memory | grep "Configured Memory Speed" | grep -v "Unknown" | cut -d" " -f4 | head -1`"
+echo "Velocidade:               `dmidecode -t memory | grep MT/s | head -1 | cut -d" " -f2`"
 echo ""
 echo "Fabricante:               `sudo dmidecode | grep "Vendor" | grep -v "Unknown" | cut -d: -f2`"
 echo "Modelo:                   `dmidecode -t system | grep "Product Name" | cut -d: -f2`"
