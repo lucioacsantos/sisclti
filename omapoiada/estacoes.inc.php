@@ -48,6 +48,7 @@ if (($row == NULL) AND ($act == NULL)) {
 if ($act == 'cad') {
     if ($param){
         $et->idtb_estacoes = $param;
+        $et->idtb_om_apoiadas = $omapoiada;
         $estacoes = $et->SelectIdETView();
     }
     else{
@@ -197,7 +198,7 @@ if (($row) AND ($act == NULL)) {
                             echo "<span data-feather=\"alert-triangle\"></span></td>";
                         }
                  echo  "<td>
-                            <a href=\"?cmd=estacoes&act=cad&param=".$value->idtb_estacoes."\">Editar</a> - 
+                            <a href=\"?cmd=estacoes&act=cad&param=".$value->idtb_estacoes."&oa=".$value->idtb_om_apoiadas."\">Editar</a> - 
                             <a href=\"?cmd=manutencaoet&act=cad&param=".$value->idtb_estacoes."\">Manutenção</a>
                             <a href=\"?cmd=estacoes&act=del&param=".$value->idtb_estacoes."\">Excluir</a>
                         </td>

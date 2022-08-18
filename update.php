@@ -881,9 +881,25 @@ elseif ($versao == '1.5.24'){
 
 elseif ($versao == '1.5.25'){
 
+	echo "<div class=\"alert alert-primary\" role=\"alert\">Atualizando o sistema. Aguarde...</div>";
+
 	$pg->exec("ALTER TABLE db_clti.tb_om_apoiadas ADD COLUMN chave_acesso varchar (16) DEFAULT '000000' NOT NULL");
 
+	$pg->exec("CREATE TABLE db_clti.tb_agenda_administrativa (
+		idtb_agenda_administrativa serial4 NOT NULL,
+		assunto varchar(255) NOT NULL,
+		setor_resp varchar(255) NOT NULL,
+		om_apoiadas varchar(255) NOT NULL,
+		destino varchar(255) NOT NULL,
+		prazo date NOT NULL,
+		situacao varchar(255) NOT NULL,
+		observacoes varchar(255) NOT NULL,
+		CONSTRAINT tb_agenda_administrativa_pkey PRIMARY KEY (idtb_agenda_administrativa)
+	);
+	COMMENT ON TABLE db_clti.tb_agenda_administrativa IS 'Agenda Administrativa do CLTI'; ");
+
 	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
+
 	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.26' WHERE parametro='VERSAO' ");
 
 	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.6.</div>

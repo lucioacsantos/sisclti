@@ -373,7 +373,7 @@ if (($row) AND ($act == NULL)) {
                         <td>".$value->nome_guerra."</td>
                         <td>".$value->sigla_funcao."</td>
                         <td><a href=\"?cmd=pessoalti&act=qrcode&param=".$value->idtb_pessoal_ti."\">2FA</a> - 
-                            <a href=\"?cmd=pessoalti&act=cad&param=".$value->idtb_pessoal_ti."\">Editar</a> - 
+                            <a href=\"?cmd=pessoalti&act=cad&param=".$value->idtb_pessoal_ti."&oa=".$value->idtb_om_apoiadas."\">Editar</a> - 
                             <a href=\"?cmd=pessoalti&act=cad&param=".$value->idtb_pessoal_ti."&oa=".$value->idtb_om_apoiadas."&senha=troca\">Senha</a> ";
                         if (($value->sigla_funcao != 'OSIC') && ($value->sigla_funcao != 'ADMIN')){
                             echo " - <a href=\"?cmd=pessoalti&act=del&param=".$value->idtb_pessoal_ti."&oa=".$value->idtb_om_apoiadas."\">Excluir</a>";

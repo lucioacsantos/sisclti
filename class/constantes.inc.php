@@ -463,6 +463,14 @@ class OMAPoiadas
         ");
         return $row;
     }
+    /** Seleciona OM pelo Código */
+    public function SelectCodOMTable()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getCol("SELECT idtb_om_apoiadas FROM db_clti.tb_om_apoiadas WHERE cod_om=$this->cod_om ");
+        return $row;
+    }
     /** Atualiza OM */
     public function UpdateOM()
     {

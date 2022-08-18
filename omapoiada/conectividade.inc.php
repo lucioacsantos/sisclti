@@ -46,6 +46,7 @@ if (($conectividade == NULL) AND ($act == NULL)) {
 if ($act == 'cad') {
     if ($param){
         $conect->idtb_conectividade = $param;
+        $conect->idtb_om_apoiadas = $omapoiada;
         $conectividade = $conect->SelectIdConectView();
     }
     else{
@@ -151,7 +152,7 @@ if (($conectividade) AND ($act == NULL)) {
                         <td>".$value->nome."</td>
                         <td>".$value->qtde_portas."</td>
                         <td>".$value->end_ip."</td>
-                        <td><a href=\"?cmd=conectividade&act=cad&param=".$value->idtb_conectividade."\">Editar</a> - 
+                        <td><a href=\"?cmd=conectividade&act=cad&param=".$value->idtb_conectividade."&oa=".$value->idtb_om_apoiadas."\">Editar</a> - 
                             <a href=\"?cmd=conectividade&act=del&param=".$value->idtb_conectividade."\">Excluir</a>
                         </td>
                     </tr>";
