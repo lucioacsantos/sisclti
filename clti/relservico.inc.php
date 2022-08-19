@@ -151,13 +151,27 @@ if ($act == NULL) {
                         <td>".date('d-m-Y',strtotime($value->data_sai_servico))."</td>
                         <td>".$sup_sai->sigla_posto_grad." - ".$sup_sai->nome_guerra."</td>
                         <td>".$sup_entra->sigla_posto_grad." - ".$sup_entra->nome_guerra."</td>
-                        <td><a href=\"?cmd=relservico&act=cad&param=".$value->num_rel."\">Editar</a> - 
-                            <a href=\"?cmd=relservico&act=reg_ocorrencia&param=".$value->num_rel."\">Registrar ocorrência</a> - 
-                            <a href=\"?cmd=relservico&act=ocorrencias&param=".$value->num_rel."\">Ocorrências</a> - 
-                            <a href=\"?cmd=relservico&act=encerrar&param=".$value->num_rel."\">Encerrar relatório</a></td>
+                        <td><a href=\"?cmd=relservico&act=cad&param=".$value->num_rel."\">Editar</a><br/>
+                            <a href=\"?cmd=relservico&act=reg_ocorrencia&param=".$value->num_rel."\">Registrar ocorrência</a><br/>
+                            <a href=\"?cmd=relservico&act=ocorrencias&param=".$value->num_rel."\">Ocorrências</a><br/>
+                            <a href=\"?cmd=relservico&act=encerrar&param=".$value->num_rel."\">Encerrar relatório</a>
+                        </td>
                     </tr>
                     <tr>
-                        <td></td>
+                        <th scope=\"row\">Serviços</th>
+                        <th scope=\"row\">Situação do Tel. Funcional</th>
+                        <th scope=\"row\">Situação dos Servidores</th>
+                        <th scope=\"row\">Situação do Backup</th>
+                        <th scope=\"row\">Mídia do Backup</th>
+                    </tr>
+                        <th scope=\"row\"></th>
+                        <td>$value->cel_funcional</td>
+                        <td>$value->sit_servidores</td>
+                        <td>$value->sit_backup</td>
+                        <td>LTO 13</td>
+                    <tr>
+                    </tr>
+                    <tr>
                         <th scope=\"row\">Ocorrências Registradas</th>
                     </tr>";
             if ($ocorrencias){
@@ -290,7 +304,10 @@ if ($act == 'encerrados') {
                         }else{
                             echo "<td>".$value->status."</td>";
                         }
-                        echo"<td><a href=\"?cmd=relservico&act=ocorrencias&param=".$value->num_rel."\">Ocorrências</a></td>
+                        echo"<td>
+                                <a href=\"?cmd=relservico&act=ocorrencias&param=".$value->num_rel."\">Ocorrências</a> - 
+                                <a href=\"?cmd=relservico&act=reabrir&param=".$value->num_rel."\">Reabrir</a>
+                            </td>
                     </tr>
                     <tr>
                         <td></td>
@@ -625,6 +642,30 @@ if ($act == 'regciencia') {
     if (isset($_SESSION['status'])){
         $rel_svc->num_rel = $param;
         $rel_svc->status = 'Sup. que entra ciente';
+        #$num_rel = $rel_svc->SelectId();
+        #$rel_svc->num_rel = $num_rel->num_rel;
+
+        $row = $rel_svc->AtualizaStatus();
+        if ($row) {
+            echo "<h5>Resgistros incluídos no banco de dados.</h5>
+                <meta http-equiv=\"refresh\" content=\"1;url=?cmd=relservico\">";
+        }    
+        else {
+            echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+            echo(pg_result_error($row) . "<br />\n");
+        }
+    }
+    else{
+        echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;$url\">";
+    }
+}
+
+/** Supervisor que entra registrar ciência */
+if ($act == 'reabrir') {
+    if (isset($_SESSION['status'])){
+        $rel_svc->num_rel = $param;
+        $rel_svc->status = 'Em andamento';
         #$num_rel = $rel_svc->SelectId();
         #$rel_svc->num_rel = $num_rel->num_rel;
 

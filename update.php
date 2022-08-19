@@ -885,6 +885,10 @@ elseif ($versao == '1.5.25'){
 
 	$pg->exec("ALTER TABLE db_clti.tb_om_apoiadas ADD COLUMN chave_acesso varchar (16) DEFAULT '000000' NOT NULL");
 
+	$pg->exec("ALTER TABLE db_clti.tb_rel_servico ADD COLUMN num_midia_bakcup int4 DEFAULT 1 NOT NULL");
+
+	$pg->exec("INSERT INTO db_clti.tb_numerador (parametro,prox_num) VALUES ('NumMidiaBk',1)");
+
 	$pg->exec("CREATE TABLE db_clti.tb_agenda_administrativa (
 		idtb_agenda_administrativa serial4 NOT NULL,
 		assunto varchar(255) NOT NULL,
@@ -897,6 +901,15 @@ elseif ($versao == '1.5.25'){
 		CONSTRAINT tb_agenda_administrativa_pkey PRIMARY KEY (idtb_agenda_administrativa)
 	);
 	COMMENT ON TABLE db_clti.tb_agenda_administrativa IS 'Agenda Administrativa do CLTI'; ");
+
+	$pg->exec("CREATE TABLE db_clti.tb_midias_backup (
+		idtb_midias_backup serial4 NOT NULL,
+		tipo varchar(255) NOT NULL,
+		numero int4 NOT NULL,
+		capacidade int4 NOT NULL,
+		CONSTRAINT tb_midias_backup_pkey PRIMARY KEY (idtb_midias_backup)
+	);
+	COMMENT ON TABLE db_clti.tb_midias_backup IS 'Mídias de armazenamento de backup'; ");
 
 	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
 
@@ -914,9 +927,10 @@ elseif ($versao == '1.6'){
 
 }
 
-
 else{
+
 	echo "<div class=\"alert alert-primary\" role=\"alert\">Verifique sua instalação!</div>";
+
 }
 
 ?>

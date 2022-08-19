@@ -39,7 +39,7 @@ function hardware(){
 function chaveAcesso(){
 	read -p 'Digite o código da OM: ' cod_om
 	echo ""
-	#read -p 'Digite a chave de acesso: ' chave
+	read -p 'Digite a chave de acesso: ' chave
 }
 
 function idSetor(){

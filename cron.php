@@ -37,6 +37,7 @@ $rel_sv->cel_funcional = "Funcionando normalmente";
 $rel_sv->sit_servidores = "Operando normalmente";
 $rel_sv->sit_backup = "Executado normalmente";
 $rel_sv->status = "Em andamento";
+$rel_sv->num_midia_bakcup = $rel_sv->NumMidiaBk();
 
 $rel_sv->Insert();
 $rel_sv->NewRel();
