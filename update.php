@@ -911,9 +911,17 @@ elseif ($versao == '1.5.25'){
 	);
 	COMMENT ON TABLE db_clti.tb_midias_backup IS 'Mídias de armazenamento de backup'; ");
 
+	$pg->exec("CREATE TABLE db_clti.tb_tipos_midias_backup (
+		idtb_tipos_midias_backup serial4 NOT NULL,
+		descricao varchar(255) NOT NULL,
+		sigla varchar(255) NOT NULL,
+		CONSTRAINT tb_tipos_midias_backup_pkey PRIMARY KEY (idtb_tipos_midias_backup)
+	);
+	COMMENT ON TABLE db_clti.tb_tipos_midias_backup IS 'Tipos de mídias de armazenamento de backup'; ");
+
 	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
 
-	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.26' WHERE parametro='VERSAO' ");
+	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.6' WHERE parametro='VERSAO' ");
 
 	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.6.</div>
 	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";

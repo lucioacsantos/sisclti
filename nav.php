@@ -111,6 +111,12 @@ $versao = $config->SelectVersao();
                     Qualificação CLTI
                   </a>
                 </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/clti/?cmd=midiabackup\">
+                    <span data-feather=\"aperture\"></span>
+                    Plano de Backup
+                  </a>
+                </li>
                 <h6 class=\"sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted\">
                   <span>Informações das OM</span>
                   <span data-feather=\"plus-circle\"></span>
