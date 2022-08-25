@@ -3008,13 +3008,14 @@ class Backup
     public $tipo;
     public $numero;
     public $capacidade;
+    public $situacao;
 
     /** Seleciona todos os Tipos de Mídias de Backup */
     public function SelectTipos()
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRows("SELECT * FROM db_clti.tb_tipos_midias_backup ORDER BY sigla ");
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_tipos_midias_backup ORDER BY descricao ");
         return $row;
     }
     /** Seleciona todas as Mídias de Backup */
@@ -3022,7 +3023,7 @@ class Backup
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRows("SELECT * FROM db_clti.tb_midias_backup ORDER BY idtb_midias_backup ");
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_midias_backup ORDER BY tipo,numero ASC ");
         return $row;
     }
     /** Seleciona Mídias de Backup pelo ID */
@@ -3046,7 +3047,7 @@ class Backup
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "INSERT INTO db_clti.tb_midias_backup (tipo,numero,capacidade) VALUES ('$this->tipo','$this->numero','$this->capacidade')";
+        $sql = "INSERT INTO db_clti.tb_midias_backup (tipo,numero,capacidade,situacao) VALUES ('$this->tipo','$this->numero','$this->capacidade','$this->situacao')";
         $row = $pg->insert($sql,'idtb_midias_backup');
         return $row;
     }
@@ -3055,7 +3056,7 @@ class Backup
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "UPDATE db_clti.tb_midias_backup SET (tipo,numero,capacidade) = ('$this->tipo','$this->numero','$this->capacidade')
+        $sql = "UPDATE db_clti.tb_midias_backup SET (tipo,numero,capacidade,situacao) = ('$this->tipo','$this->numero','$this->capacidade','$this->situacao')
             WHERE idtb_midias_backup=$this->idtb_midias_backup ";
         $row = $pg->exec($sql);
         return $row;
@@ -3065,8 +3066,8 @@ class Backup
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "INSERT INTO db_clti.tb_tipos_midias_backup (descricao,sigla) VALUES ('$this->descricao','$this->sigal')";
-        $row = $pg->insert($sql,'idtb_midias_backup');
+        $sql = "INSERT INTO db_clti.tb_tipos_midias_backup (descricao,sigla) VALUES ('$this->descricao','$this->sigla')";
+        $row = $pg->insert($sql,'idtb_tipos_midias_backup');
         return $row;
     }
     /** Atualiza Tipo de Mídia de Backup */

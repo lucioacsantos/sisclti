@@ -875,7 +875,7 @@ elseif ($versao == '1.5.24'){
 	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.5.25' WHERE parametro='VERSAO' ");
 
 	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.5.25.</div>
-	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
+	<meta http-equiv=\"refresh\" content=\"5\">";
 
 }
 
@@ -902,11 +902,33 @@ elseif ($versao == '1.5.25'){
 	);
 	COMMENT ON TABLE db_clti.tb_agenda_administrativa IS 'Agenda Administrativa do CLTI'; ");
 
+	$pg->exec("CREATE TABLE db_clti.tb_inspecoes_visitas (
+		idtb_inspecoes_visitas serial4 NOT NULL,
+		tipo varchar(255) NOT NULL,
+		om_apoiadas varchar(255) NOT NULL,
+		data_agendada date NOT NULL,
+		situacao varchar(255) NOT NULL,
+		observacoes varchar(255) NOT NULL,
+		CONSTRAINT tb_inspecoes_visitas_pkey PRIMARY KEY (idtb_inspecoes_visitas)
+	);
+	COMMENT ON TABLE db_clti.tb_inspecoes_visitas IS 'Agenda de Inspeções e Visitas do CLTI'; ");
+
+	$pg->exec("CREATE TABLE db_clti.tb_acomp_inspecoes_visitas (
+		idtb_acomp_inspecoes_visitas serial4 NOT NULL,
+		idtb_inspecoes_visitas int4 NOT NULL,
+		data_acompanhamento date NOT NULL,
+		situacao varchar(255) NOT NULL,
+		observacoes varchar(255) NOT NULL,
+		CONSTRAINT tb_acomp_inspecoes_visitas_pkey PRIMARY KEY (idtb_acomp_inspecoes_visitas)
+	);
+	COMMENT ON TABLE db_clti.tb_inspecoes_visitas IS 'Acompanhamento de Inspeções e Visitas do CLTI'; ");
+
 	$pg->exec("CREATE TABLE db_clti.tb_midias_backup (
 		idtb_midias_backup serial4 NOT NULL,
 		tipo varchar(255) NOT NULL,
 		numero int4 NOT NULL,
 		capacidade int4 NOT NULL,
+		situacao varchar(255) NOT NULL,
 		CONSTRAINT tb_midias_backup_pkey PRIMARY KEY (idtb_midias_backup)
 	);
 	COMMENT ON TABLE db_clti.tb_midias_backup IS 'Mídias de armazenamento de backup'; ");
@@ -924,7 +946,7 @@ elseif ($versao == '1.5.25'){
 	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.6' WHERE parametro='VERSAO' ");
 
 	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.6.</div>
-	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
+	<meta http-equiv=\"refresh\" content=\"5\">";
 
 }
 

@@ -114,7 +114,7 @@ $versao = $config->SelectVersao();
                 <li class=\"nav-item\">
                   <a class=\"nav-link\" href=\"$url/clti/?cmd=midiabackup\">
                     <span data-feather=\"aperture\"></span>
-                    Plano de Backup
+                    Gerência de Backup
                   </a>
                 </li>
                 <h6 class=\"sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted\">

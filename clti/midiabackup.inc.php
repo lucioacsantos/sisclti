@@ -39,7 +39,7 @@ if ($act == 'cad_midia') {
         $midia = $bkp->SelectMidiaId();
     }
     else{
-        $midia = (object)['idtb_midias_backup'=>'','tipo'=>'','numero'=>'','capacidade'=>''];
+        $midia = (object)['idtb_midias_backup'=>'','tipo'=>'','numero'=>'','capacidade'=>'','situacao'=>'DISPONÍVEL'];
     }
     $tipos = $bkp->SelectTipos();
     echo "
@@ -55,21 +55,26 @@ if ($act == 'cad_midia') {
                                 <select id=\"tipo\" class=\"form-control\" name=\"tipo\">
                                     <option value=\"$midia->tipo\" selected=\"true\">
                                         $midia->tipo</option>";
-                                    foreach ($tipo as $key => $value) {
+                                    foreach ($tipos as $key => $value) {
                                         echo"<option value=\"".$value->sigla."\">
-                                            ".$value->descricao."</option>";
+                                            ".$value->sigla."</option>";
                                     };
                                 echo "</select>
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"capacidade\">Capacidade (GB):</label>
                                 <input id=\"capacidade\" class=\"form-control\" type=\"text\" name=\"capacidade\" autocomplete=\"off\"
-                                       placeholder=\"Em GB\" maxlength=\"15\" value=\"$midia->capacidade\">
+                                    style=\"text-transform:uppercase\" placeholder=\"Em GB\" maxlength=\"15\" value=\"$midia->capacidade\">
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"numero\">Número da Mídia:</label>
                                 <input id=\"numero\" class=\"form-control\" type=\"number\" name=\"numero\" autocomplete=\"off\"
-                                       placeholder=\"Nº\" maxlength=\"11\" value=\"$midia->numero\">
+                                    style=\"text-transform:uppercase\" placeholder=\"Nº\" maxlength=\"11\" value=\"$midia->numero\">
+                            </div>
+                            <div class=\"form-group\">
+                                <label for=\"situacao\">Situação:</label>
+                                <input id=\"situacao\" class=\"form-control\" type=\"text\" name=\"situacao\" autocomplete=\"off\"
+                                    style=\"text-transform:uppercase\" placeholder=\"LTO5\" maxlength=\"50\" value=\"$midia->situacao\">
                             </div>
                         </fieldset>
                         <input id=\"idtb_midias_backup\" type=\"hidden\" name=\"idtb_midias_backup\" value=\"$midia->idtb_midias_backup\">
@@ -82,7 +87,7 @@ if ($act == 'cad_midia') {
 }
 
 /** Carrega form para cadastro/alteração de tipos de mídia de backup */
-if ($act == 'cad_tipos') {
+if ($act == 'cad_tipo') {
     if ($param){
         $bkp->idtb_tipos_midias_backup = $param;
         $tipos = $bkp->SelectTipoId();
@@ -101,13 +106,13 @@ if ($act == 'cad_tipos') {
                             <div class=\"form-group\">
                                 <label for=\"descricao\">Descrição:</label>
                                 <input id=\"descricao\" class=\"form-control\" type=\"text\" name=\"descricao\" autocomplete=\"off\"
-                                       placeholder=\"Em GB\" maxlength=\"255\" value=\"$midia->descricao\">
+                                    style=\"text-transform:uppercase\" placeholder=\"FITA LTO 5\" maxlength=\"255\" value=\"$midia->descricao\">
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"sigla\">Sigla:</label>
                                 <input id=\"sigla\" class=\"form-control\" type=\"text\" name=\"sigla\" autocomplete=\"off\"
-                                       placeholder=\"Nº\" maxlength=\"50\" value=\"$midia->sigla\">
-                            </div>
+                                    style=\"text-transform:uppercase\" placeholder=\"LTO5\" maxlength=\"50\" value=\"$midia->sigla\">
+                            </div>                            
                         </fieldset>
                         <input id=\"idtb_tipos_midias_backup\" type=\"hidden\" name=\"idtb_tipos_midias_backup\" value=\"$midia->idtb_tipos_midias_backup\">
                         <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">
@@ -118,16 +123,63 @@ if ($act == 'cad_tipos') {
     </div>";
 }
 
+/** Exibe relação de tipos de mídias de backup */
+if (($row) && ($act == 'tipos_midia')) {
+    $midia = $bkp->SelectTipos();
+    echo"<div class=\"table-responsive\">
+            <table class=\"table table-hover\">
+                <thead>
+                    <div class=\"btn-toolbar mb-2 mb-md-0\">
+                        <div class=\"btn-group mr-2\">
+                            <a href=\"?cmd=midiabackup&act=tipos_midia\"><button class=\"btn btn-sm btn-outline-secondary\">
+                                Tipos de Mídia</button></a>
+                            <a href=\"?cmd=midiabackup&act=cad_tipo\"><button class=\"btn btn-sm btn-outline-secondary\">
+                                Cadastro de Tipos de Mídia</button></a>
+                        </div>
+                    </div>
+                    <tr>
+                        <th scope=\"col\">Descrição</th>
+                        <th scope=\"col\">Sigla</th>
+                        <th scope=\"col\">Ações</th>
+                    </tr>
+                </thead>";
+
+    foreach ($midia as $key => $value){
+        
+        echo"       <tr>
+                        <th scope=\"row\">".$value->descricao."</th>
+                        <td>".$value->sigla."</td>
+                        <td>
+                            <!--<a href=\"?cmd=midiabackup&act=cad_midia&param=".$value->idtb_midias_backup."\">Editar</a> - 
+                            <a href=\"?cmd=midiabackup&act=del&param=".$value->idtb_midias_backup."\">Excluir</a>-->
+                        </td>
+                    </tr>";
+    }
+    echo"
+                </tbody>
+            </table>
+            </div>";
+}
+
 /** Exibe relação de mídias de backup */
-if ($row) {
+if (($row) && ($act == NULL)) {
     $midia = $bkp->SelectMidias();
     echo"<div class=\"table-responsive\">
             <table class=\"table table-hover\">
                 <thead>
+                <div class=\"btn-toolbar mb-2 mb-md-0\">
+                    <div class=\"btn-group mr-2\">
+                        <a href=\"?cmd=midiabackup\"><button class=\"btn btn-sm btn-outline-secondary\">
+                            Mídias de Backup</button></a>
+                        <a href=\"?cmd=midiabackup&act=cad_midia\"><button class=\"btn btn-sm btn-outline-secondary\">
+                            Cadastro de de Mídia</button></a>
+                    </div>
+                </div>
                     <tr>
                         <th scope=\"col\">Tipo</th>
                         <th scope=\"col\">Nº</th>
-                        <th scope=\"col\">Capacidade</th>
+                        <th scope=\"col\">Capacidade (GB)</th>
+                        <th scope=\"col\">Situação</th>
                         <th scope=\"col\">Ações</th>
                     </tr>
                 </thead>";
@@ -138,8 +190,9 @@ if ($row) {
                         <th scope=\"row\">".$value->tipo."</th>
                         <td>".$value->numero."</td>
                         <td>".$value->capacidade."</td>
+                        <td>".$value->situacao."</td>
                         <td>
-                            <a href=\"?cmd=midiabackup&act=cad&param=".$value->idtb_midias_backup."\">Editar</a> - 
+                            <a href=\"?cmd=midiabackup&act=cad_midia&param=".$value->idtb_midias_backup."\">Editar</a> - 
                             <a href=\"?cmd=midiabackup&act=del&param=".$value->idtb_midias_backup."\">Excluir</a>
                         </td>
                     </tr>";
@@ -149,21 +202,19 @@ if ($row) {
             </table>
             </div>";
 }
-else{
-    echo "<h5>Não há mídias de backup cadastradas.</h5>";
-}
 
 /* Método INSERT/UPDATE Mídia de Backup */
 if ($act == 'insert_midia') {
     if (isset($_SESSION['status'])){
         $idtb_midias_backup = $_POST['idtb_midias_backup'];
         $bkp->idtb_midias_backup = $idtb_midias_backup;
-        $bkp->tipo = $_POST['tipo'];
+        $bkp->tipo = mb_strtoupper($_POST['tipo']);
         $bkp->capacidade = $_POST['capacidade'];
         $bkp->numero = $_POST['numero'];
+        $bkp->situacao = mb_strtoupper($_POST['situacao']);
 
         /** Opta pelo UPDATE */
-        if ($idtb_tipos_midias_backup){
+        if ($idtb_midias_backup){
             $row = $bkp->UpdateMidia();
             if ($row) {
                 echo "<h5>Resgistros incluídos no banco de dados.</h5>
@@ -196,8 +247,8 @@ if ($act == 'insert_tipo') {
     if (isset($_SESSION['status'])){
         $idtb_tipos_midias_backup = $_POST['idtb_tipos_midias_backup'];
         $bkp->idtb_tipos_midias_backup = $idtb_tipos_midias_backup;
-        $bkp->descricao = $_POST['descricao'];
-        $bkp->sigla = $_POST['sigla'];
+        $bkp->descricao = mb_strtoupper($_POST['descricao']);
+        $bkp->sigla = mb_strtoupper($_POST['sigla']);
 
         /** Opta pelo UPDATE */
         if ($idtb_tipos_midias_backup){
