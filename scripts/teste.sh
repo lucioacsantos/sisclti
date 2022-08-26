@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#apt update && apt install net-tools curl -y
+
 function interfacesRede(){
 	interfacesRede=`ifconfig | cut -d" " -f1 | cut -d":" -f1 | grep -v "lo"`  > /dev/null
 	numero=1

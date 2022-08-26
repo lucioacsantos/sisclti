@@ -69,7 +69,7 @@ else {
 
   print_r($data);
   print "\n\nDados processados...\n\n";
-  print "Verifique/Corrija os dados de arquisição e garantia da ET no SiGTI!\n\n";
+  print "Verifique/Corrija os dados de aquisição e garantia da ET no SiGTI!\n\n";
 
 }
 
