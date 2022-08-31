@@ -2827,7 +2827,7 @@ class RelServico
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getCol("SELECT prox_num FROM db_clti.tb_numerador WHERE parametro = 'NumMidiaBk'");
+        $row = $pg->getCol("SELECT numero FROM db_clti.tb_midias_backup WHERE situacao = 'DISPONÍVEL' LIMIT 1 ");
         return $row;
     }
     /** Registra Novo Relatório de Serviço */
@@ -2884,12 +2884,12 @@ class RelServico
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $sql = "INSERT INTO db_clti.tb_rel_servico (sup_sai_servico, sup_entra_servico, num_rel, data_entra_servico, 
-            data_sai_servico, cel_funcional, sit_servidores, sit_backup, status, num_midia_backup) VALUES ($this->sup_sai_servico, $this->sup_entra_servico, 
+            data_sai_servico, cel_funcional, sit_servidores, sit_backup, status, num_midia_bakcup) VALUES ($this->sup_sai_servico, $this->sup_entra_servico, 
             $this->num_rel, '$this->data_entra_servico', '$this->data_sai_servico', '$this->cel_funcional', '$this->sit_servidores', '$this->sit_backup', 
-            '$this->status','$this->num_midia_bakcup')";
+            '$this->status', $this->num_midia_bakcup)";
         $row1 = $pg->insert($sql, 'idtb_rel_servico');
         $row2 = $pg->exec("UPDATE db_clti.tb_numerador SET prox_num = prox_num +1 WHERE parametro = 'RelServico' ");
-        $row2 = $pg->exec("UPDATE db_clti.tb_numerador SET prox_num = prox_num +1 WHERE parametro = 'NumMidiaBackup' ");
+        $row2 = $pg->exec("UPDATE db_clti.tb_midias_backup SET situacao = 'ÚLTIMO BACKUP EM: $this->data_entra_servico' WHERE numero = '$this->num_midia_bakcup' ");
         return array($row1,$row2);
     }
     /** Atualiza Relatório de Serviço */

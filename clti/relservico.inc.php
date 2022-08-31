@@ -168,7 +168,7 @@ if ($act == NULL) {
                         <td>$value->cel_funcional</td>
                         <td>$value->sit_servidores</td>
                         <td>$value->sit_backup</td>
-                        <td>LTO 13</td>
+                        <td>$value->num_midia_bakcup</td>
                     <tr>
                     </tr>
                     <tr>

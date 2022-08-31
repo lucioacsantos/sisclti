@@ -106,15 +106,15 @@ if ($act == 'cad_tipo') {
                             <div class=\"form-group\">
                                 <label for=\"descricao\">Descrição:</label>
                                 <input id=\"descricao\" class=\"form-control\" type=\"text\" name=\"descricao\" autocomplete=\"off\"
-                                    style=\"text-transform:uppercase\" placeholder=\"FITA LTO 5\" maxlength=\"255\" value=\"$midia->descricao\">
+                                    style=\"text-transform:uppercase\" placeholder=\"FITA LTO 5\" maxlength=\"255\" value=\"$tipos->descricao\">
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"sigla\">Sigla:</label>
                                 <input id=\"sigla\" class=\"form-control\" type=\"text\" name=\"sigla\" autocomplete=\"off\"
-                                    style=\"text-transform:uppercase\" placeholder=\"LTO5\" maxlength=\"50\" value=\"$midia->sigla\">
+                                    style=\"text-transform:uppercase\" placeholder=\"LTO5\" maxlength=\"50\" value=\"$tipos->sigla\">
                             </div>                            
                         </fieldset>
-                        <input id=\"idtb_tipos_midias_backup\" type=\"hidden\" name=\"idtb_tipos_midias_backup\" value=\"$midia->idtb_tipos_midias_backup\">
+                        <input id=\"idtb_tipos_midias_backup\" type=\"hidden\" name=\"idtb_tipos_midias_backup\" value=\"$tipos->idtb_tipos_midias_backup\">
                         <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">
                     </form>
                 </div>
@@ -124,19 +124,11 @@ if ($act == 'cad_tipo') {
 }
 
 /** Exibe relação de tipos de mídias de backup */
-if (($row) && ($act == 'tipos_midia')) {
+if ($act == 'tipos_midia') {
     $midia = $bkp->SelectTipos();
     echo"<div class=\"table-responsive\">
             <table class=\"table table-hover\">
                 <thead>
-                    <div class=\"btn-toolbar mb-2 mb-md-0\">
-                        <div class=\"btn-group mr-2\">
-                            <a href=\"?cmd=midiabackup&act=tipos_midia\"><button class=\"btn btn-sm btn-outline-secondary\">
-                                Tipos de Mídia</button></a>
-                            <a href=\"?cmd=midiabackup&act=cad_tipo\"><button class=\"btn btn-sm btn-outline-secondary\">
-                                Cadastro de Tipos de Mídia</button></a>
-                        </div>
-                    </div>
                     <tr>
                         <th scope=\"col\">Descrição</th>
                         <th scope=\"col\">Sigla</th>
@@ -150,8 +142,8 @@ if (($row) && ($act == 'tipos_midia')) {
                         <th scope=\"row\">".$value->descricao."</th>
                         <td>".$value->sigla."</td>
                         <td>
-                            <!--<a href=\"?cmd=midiabackup&act=cad_midia&param=".$value->idtb_midias_backup."\">Editar</a> - 
-                            <a href=\"?cmd=midiabackup&act=del&param=".$value->idtb_midias_backup."\">Excluir</a>-->
+                            <!--<a href=\"?cmd=midiabackup&act=cad_midia&param=".$value->idtb_tipos_midias_backup."\">Editar</a> - 
+                            <a href=\"?cmd=midiabackup&act=del&param=".$value->idtb_tipos_midias_backup."\">Excluir</a>-->
                         </td>
                     </tr>";
     }
@@ -162,19 +154,11 @@ if (($row) && ($act == 'tipos_midia')) {
 }
 
 /** Exibe relação de mídias de backup */
-if (($row) && ($act == NULL)) {
+if ($act == NULL) {
     $midia = $bkp->SelectMidias();
     echo"<div class=\"table-responsive\">
             <table class=\"table table-hover\">
                 <thead>
-                <div class=\"btn-toolbar mb-2 mb-md-0\">
-                    <div class=\"btn-group mr-2\">
-                        <a href=\"?cmd=midiabackup\"><button class=\"btn btn-sm btn-outline-secondary\">
-                            Mídias de Backup</button></a>
-                        <a href=\"?cmd=midiabackup&act=cad_midia\"><button class=\"btn btn-sm btn-outline-secondary\">
-                            Cadastro de de Mídia</button></a>
-                    </div>
-                </div>
                     <tr>
                         <th scope=\"col\">Tipo</th>
                         <th scope=\"col\">Nº</th>
@@ -192,8 +176,8 @@ if (($row) && ($act == NULL)) {
                         <td>".$value->capacidade."</td>
                         <td>".$value->situacao."</td>
                         <td>
-                            <a href=\"?cmd=midiabackup&act=cad_midia&param=".$value->idtb_midias_backup."\">Editar</a> - 
-                            <a href=\"?cmd=midiabackup&act=del&param=".$value->idtb_midias_backup."\">Excluir</a>
+                            <!--<a href=\"?cmd=midiabackup&act=cad_midia&param=".$value->idtb_midias_backup."\">Editar</a> - 
+                            <a href=\"?cmd=midiabackup&act=del&param=".$value->idtb_midias_backup."\">Excluir</a>-->
                         </td>
                     </tr>";
     }

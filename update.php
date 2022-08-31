@@ -929,7 +929,8 @@ elseif ($versao == '1.5.25'){
 		numero int4 NOT NULL,
 		capacidade int4 NOT NULL,
 		situacao varchar(255) NOT NULL,
-		CONSTRAINT tb_midias_backup_pkey PRIMARY KEY (idtb_midias_backup)
+		CONSTRAINT tb_midias_backup_pkey PRIMARY KEY (idtb_midias_backup),
+		CONSTRAINT tb_midias_backup_key1 UNIQUE (numero)
 	);
 	COMMENT ON TABLE db_clti.tb_midias_backup IS 'Mídias de armazenamento de backup'; ");
 

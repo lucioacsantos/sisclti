@@ -398,10 +398,14 @@ if (isset($_SESSION['user_name'])){
                 <h1 class=\"h2\">Gerência de Backup</h1>
                 <div class=\"btn-toolbar mb-2 mb-md-0\">
                   <div class=\"btn-group mr-2\">
-                    <a href=\"?cmd=midiabackup&act\"><button class=\"btn btn-sm btn-outline-secondary\">
+                    <a href=\"?cmd=midiabackup\"><button class=\"btn btn-sm btn-outline-secondary\">
                       Mídias de Backup</button></a>
+                    <a href=\"?cmd=midiabackup&act=cad_midia\"><button class=\"btn btn-sm btn-outline-secondary\">
+                      Cad. Mídias</button></a>
                     <a href=\"?cmd=midiabackup&act=tipos_midia\"><button class=\"btn btn-sm btn-outline-secondary\">
                       Tipos de Mídia</button></a>
+                    <a href=\"?cmd=midiabackup&act=cad_tipo\"><button class=\"btn btn-sm btn-outline-secondary\">
+                      Cad. Tipo</button></a>
                   </div>
                 </div>
               </div>";
