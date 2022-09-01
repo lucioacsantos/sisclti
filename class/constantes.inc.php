@@ -435,6 +435,7 @@ class OMAPoiadas
     public $estado;
     public $cidade;
     public $cod_om;
+    public $chave_acesso;
     public $nome;
     public $sigla;
     public $indicativo;
@@ -468,7 +469,7 @@ class OMAPoiadas
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getCol("SELECT idtb_om_apoiadas FROM db_clti.tb_om_apoiadas WHERE cod_om=$this->cod_om ");
+        $row = $pg->getCol("SELECT idtb_om_apoiadas FROM db_clti.tb_om_apoiadas WHERE cod_om=$this->cod_om AND chave_acesso = '$this->chave_acesso' ");
         return $row;
     }
     /** Atualiza OM */
@@ -487,7 +488,7 @@ class OMAPoiadas
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "UPDATE db_clti.tb_om_apoiadas SET (chave_acesso) = ('$chave_acesso') WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas";
+        $sql = "UPDATE db_clti.tb_om_apoiadas SET chave_acesso = '$chave_acesso' WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas";
         $row = $pg->exec($sql);
         return $row;
     }

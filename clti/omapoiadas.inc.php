@@ -159,7 +159,7 @@ if ($act == 'chave_acesso') {
 
     $authenticator = new GoogleAuthenticator();
     $secret = $authenticator->createSecret();
-    $om->idtb_om_apoiadas = $param;
+    $omap->idtb_om_apoiadas = $param;
     $row = $omap->ChaveAcessoOM($secret);
     if ($row) {
         echo "<h5>Chave de acesso $secret registrada no banco de dados.</h5>";
