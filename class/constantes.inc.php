@@ -2150,6 +2150,14 @@ class SO
         $row = $pg->getRows("SELECT * FROM db_clti.tb_sor WHERE situacao = 'ATIVO'");
         return $row;
     }
+    public function SearchSO()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getCol("SELECT idtb_sor FROM db_clti.tb_sor WHERE descricao LIKE '%$this->descricao%' AND versao LIKE '%$this->versao%' 
+            AND situacao = 'ATIVO' ");
+        return $row;
+    }
     public function UpdateSO()
     {
         require_once "pgsql.class.php";
@@ -2221,6 +2229,7 @@ class Hardware
     public $tipo;
     public $clock;
     public $ordena;
+    public $search;
     
     /** Processadores */
     public function SelectAllProcFab()
@@ -2263,6 +2272,13 @@ class Hardware
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getRow("SELECT * FROM db_clti.vw_processadores WHERE idtb_proc_modelo='$this->idtb_proc_modelo'");
+        return $row;
+    }
+    public function SearchProc()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getCol("SELECT idtb_proc_modelo FROM db_clti.vw_processadores WHERE modelo LIKE '%$this->search1 LIMIT 1");
         return $row;
     }
     public function UpdateProcFab()
@@ -2312,6 +2328,13 @@ class Hardware
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $row = $pg->getRow("SELECT * FROM db_clti.tb_memorias WHERE idtb_memorias='$this->idtb_memorias'");
+        return $row;
+    }
+    public function SearchdMem()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getCol("SELECT idtb_memorias FROM db_clti.tb_memorias WHERE tipo = '$this->tipo' AND clock = '$this->clock' ");
         return $row;
     }
     public function UpdateMem()
