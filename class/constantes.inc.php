@@ -1807,6 +1807,12 @@ class Estacoes
     public $data_del;
     public $hora_del;
 
+    /** Verifica formato da data dia/mês/ano */
+    public function validaData($date, $format = 'd/m/Y')
+    {
+        $d = DateTime::createFromFormat($format, $date);
+        return $d && $d->format($format) == $date;
+    }
     /** Seleciona todas as ET na tb_estacoes */
     public function SelectAllETTable()
     {
@@ -1872,6 +1878,7 @@ class Estacoes
         $pg->exec("DELETE FROM db_clti.tb_controle_usb WHERE idtb_estacoes = '$this->idtb_estacoes'");
         $pg->exec("DELETE FROM db_clti.tb_permissoes_admin WHERE idtb_estacoes = '$this->idtb_estacoes'");
         $pg->exec("DELETE FROM db_clti.tb_nao_padronizados WHERE idtb_estacoes = '$this->idtb_estacoes'");
+        $pg->exec("DELETE FROM db_clti.tb_mapainfra WHERE idtb_estacoes_dest = '$this->idtb_estacoes'");
         $pg->exec("DELETE FROM db_clti.tb_estacoes WHERE idtb_estacoes = '$this->idtb_estacoes'");
         return $row;
     }
@@ -2154,8 +2161,7 @@ class SO
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getCol("SELECT idtb_sor FROM db_clti.tb_sor WHERE descricao LIKE '%$this->descricao%' AND versao LIKE '%$this->versao%' 
-            AND situacao = 'ATIVO' ");
+        $row = $pg->getCol("SELECT idtb_sor FROM db_clti.tb_sor WHERE descricao LIKE '%$this->descricao%' AND versao LIKE '%$this->versao%' ");
         return $row;
     }
     public function UpdateSO()
@@ -2278,7 +2284,14 @@ class Hardware
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getCol("SELECT idtb_proc_modelo FROM db_clti.vw_processadores WHERE modelo LIKE '%$this->search1 LIMIT 1");
+        $row = $pg->getCol("SELECT idtb_proc_modelo FROM db_clti.vw_processadores WHERE modelo LIKE '%$this->search%' LIMIT 1");
+        return $row;
+    }
+    public function SearchFab()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getCol("SELECT idtb_proc_fab FROM db_clti.tb_proc_fab WHERE nome LIKE '%$this->search%' LIMIT 1");
         return $row;
     }
     public function UpdateProcFab()
@@ -2293,7 +2306,7 @@ class Hardware
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = ("INSERT INTO db_clti.tb_proc_fab(nome) VALUES ('$this->nome'");
+        $sql = ("INSERT INTO db_clti.tb_proc_fab(nome) VALUES ('$this->nome')");
         $row = $pg->exec($sql);
         return $row;
     }
@@ -2312,7 +2325,7 @@ class Hardware
         $pg = new PgSql();
         $sql = ("INSERT INTO db_clti.tb_proc_modelo(idtb_proc_fab,modelo) 
             VALUES ('$this->idtb_proc_fab','$this->modelo')");
-        $row = $pg->exec($sql);
+        $row = $pg->insert($sql, 'idtb_proc_modelo');
         return $row;
     }
     /** Memórias */
@@ -2354,6 +2367,11 @@ class Hardware
             VALUES ('$this->tipo','$this->modelo','$this->clock'");
         $row = $pg->exec($sql);
         return $row;
+    }
+    public function ClockMem($clock)
+    {
+        $mem = (floor($clock / 100 * 8)) * 100;
+        return $mem;
     }
 }
 

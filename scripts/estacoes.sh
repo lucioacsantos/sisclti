@@ -1,11 +1,11 @@
 #!/bin/bash
 
-#apt update && apt install net-tools curl -y
+apt update && apt install net-tools curl -y
 
 function interfacesRede(){
-	interfacesRede=`ifconfig | cut -d" " -f1 | cut -d":" -f1 | grep -v "lo" | grep -v "vmnet"`  > /dev/null
+	interfaces=`ifconfig | cut -d" " -f1 | cut -d":" -f1 | grep -v "lo" | grep -v "vmnet"`  > /dev/null
 	numero=1
-	for interfacesNome in $interfacesRede
+	for interfacesNome in $interfaces
 	do
 		end_ip=`ifconfig $interfacesNome | grep 'inet ' | awk '{print $2}'` > /dev/null
 		end_mac=`ifconfig $interfacesNome | grep "ether" | cut -d" " -f10 ` > /dev/null
@@ -29,19 +29,20 @@ function discos(){
 }
 
 function hardware(){
-	distro=`cat /etc/*issue | cut -d" " -f1` > /dev/null
-	versao=`cat /etc/*issue | cut -d" " -f2` > /dev/null
-	proc_fab=`dmidecode -t processor | grep Version | cut -d: -f2 | cut -d" " -f2` > /dev/null
+	distro=`cat /etc/*release | grep DISTRIB_ID | cut -d= -f2` > /dev/null
+	versao=`cat /etc/*release | grep DISTRIB_RELEASE | cut -d= -f2` > /dev/null
+	proc_fab=`sudo dmidecode -t processor | grep Version | cut -d: -f2 | cut -d" " -f2 | cut -d"(" -f1` > /dev/null
 	proc_modelo=`sudo dmidecode -t processor | grep Version | cut -d: -f2 | cut -d" " -f4` > /dev/null
+	proc_familia=`sudo dmidecode -t processor | grep Version | cut -d: -f2 | cut -d" " -f3` > /dev/null
 	clock=`dmidecode -t processor | grep "Current Speed" | cut -d: -f2 | cut -d" " -f2` > /dev/null
 	cores=`dmidecode -t processor | grep "Core Count:" | cut -d: -f2` > /dev/null
 	threads=`dmidecode -t processor | grep "Core Count:" | cut -d: -f2` > /dev/null
 	memoria=`free --giga | grep 'Mem.:' | awk '{print $2}'` > /dev/null
-	tipo_memoria=`dmidecode -t memory | grep Type: | grep -v Error | head -1 | cut -d" " -f2` > /dev/null
+	tipo_memoria=`dmidecode -t memory | grep Type: | grep -v Error | grep -v Unknown | head -1 | cut -d" " -f2` > /dev/null
 	velocidade=`dmidecode -t memory | grep MT/s | head -1 | cut -d" " -f2` > /dev/null
 	fabricante=`sudo dmidecode | grep "Vendor" | grep -v "Unknown" | cut -d: -f2` > /dev/null
 	modelo=`dmidecode -t system | grep "Product Name" | cut -d: -f2` > /dev/null
-	data_release=`dmidecode -t bios | grep "Release Date" | cut -d: -f2` > /dev/null
+	data_release=`dmidecode -t bios | grep "Release Date" | cut -d" " -f3 | cut -d: -f2` > /dev/null
 }
 
 function chaveAcesso(){
@@ -55,13 +56,11 @@ function idSetor(){
 	echo ""
 }
 
-
 clear
 chaveAcesso
 hardware > /dev/null
 interfacesRede > /dev/null
 discos > /dev/null
-clear
 
 curl -sS -X POST -H "Content-Type: application/json" \
 	-d '{
@@ -79,9 +78,7 @@ then
   exit 1
 else
   idSetor
-  clear
 fi
-
 
 curl -sS -X POST -H "Content-Type: application/json" \
 	-d '{
@@ -97,6 +94,7 @@ curl -sS -X POST -H "Content-Type: application/json" \
 		"versao": "'"$versao"'",
 		"proc_fab": "'"$proc_fab"'",
 		"proc_modelo": "'"$proc_modelo"'",
+		"proc_familia": "'"$proc_familia"'",
 		"clock": "'"$clock"'",
 		"cores": "'"$cores"'",
 		"threads": "'"$threads"'",
@@ -107,19 +105,10 @@ curl -sS -X POST -H "Content-Type: application/json" \
 		"end_mac": "'"$end_mac"'",
 		"hd": "'"$hd"'"
 		}' \
-	http://172.23.119.35/sisclti/scripts/submit.inc.php > tmp.txt
+	http://172.23.119.35/sisclti/scripts/submit.inc.php >> tmp.txt
 
-# network=`lshw -c network -json`
-
-# curl -sS -X POST -H "Content-Type: application/json" \
-# 	-d '{
-# 		"network": "'"$network"'",
-# 		}' \
-# 	http://172.23.119.35/sisclti/scripts/submit.inc.php > tmp.txt
-
-
+clear
 cat tmp.txt
-
-rm -f teste.sh tmp.txt
+rm -f estacoes.sh tmp.txt
 
 #Chave teste 3DN = LVQPSQO6QSXENHRR
