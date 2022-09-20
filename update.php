@@ -885,6 +885,10 @@ elseif ($versao == '1.5.25'){
 
 	$pg->exec("ALTER TABLE db_clti.tb_om_apoiadas ADD COLUMN chave_acesso varchar (16) DEFAULT '000000' NOT NULL");
 
+	$pg->exec("ALTER TABLE db_clti.tb_pessoal_ti ADD COLUMN tel_contato varchar (16) DEFAULT '000000' ");
+
+	$pg->exec("ALTER TABLE db_clti.tb_pessoal_ti ADD COLUMN retelma varchar (16) DEFAULT '000000' ");
+
 	$pg->exec("ALTER TABLE db_clti.tb_rel_servico ADD COLUMN num_midia_bakcup int4 DEFAULT 1 NOT NULL");
 
 	$pg->exec("INSERT INTO db_clti.tb_numerador (parametro,prox_num) VALUES ('NumMidiaBk',1)");
@@ -941,6 +945,17 @@ elseif ($versao == '1.5.25'){
 		CONSTRAINT tb_tipos_midias_backup_pkey PRIMARY KEY (idtb_tipos_midias_backup)
 	);
 	COMMENT ON TABLE db_clti.tb_tipos_midias_backup IS 'Tipos de mídias de armazenamento de backup'; ");
+
+	$pg->exec("CREATE TABLE db_clti.tb_origem_backup (
+		idttb_origem_backup serial4 NOT NULL,
+		idtb_servidores int4 NOT NULL,
+		dados_backup varchar(255) NOT NULL,
+		freq_backup varchar (50) NOT NULL,
+		tipo_backup varchar (50) NOT NULL,
+		dest_backup varchar (50) NOT NULL,
+		CONSTRAINT tb_origem_backup_pkey PRIMARY KEY (idtb_origem_backup)
+	);
+	COMMENT ON TABLE db_clti.tb_origem_backup IS 'Tabela contendo informações do backup'; ");
 
 	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
 

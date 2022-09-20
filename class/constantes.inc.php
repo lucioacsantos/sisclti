@@ -631,6 +631,8 @@ class PessoalTI
     public $nome;
     public $nome_guerra;
     public $correio_eletronico;
+    public $tel_contato;
+    public $retelma;
     public $status;
     public $senha;
     public $idtb_funcoes_ti;
@@ -734,10 +736,10 @@ class PessoalTI
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $sql = "INSERT INTO db_clti.tb_pessoal_ti(idtb_om_apoiadas,idtb_posto_grad,idtb_corpo_quadro,
-            idtb_especialidade,nip,cpf,nome,nome_guerra,correio_eletronico,status,senha,idtb_funcoes_ti)
+            idtb_especialidade,nip,cpf,nome,nome_guerra,correio_eletronico,status,senha,idtb_funcoes_ti,tel_contato,retelma)
             VALUES ('$this->idtb_om_apoiadas','$this->idtb_posto_grad','$this->idtb_corpo_quadro',
             '$this->idtb_especialidade','$this->nip','$this->cpf','$this->nome','$this->nome_guerra',
-            '$this->correio_eletronico','$this->status','$this->senha','$this->idtb_funcoes_ti')";
+            '$this->correio_eletronico','$this->status','$this->senha','$this->idtb_funcoes_ti','$this->tel_contato','$this->retelma')";
         $row = $pg->insert($sql, 'idtb_pessoal_ti');
         return $row;
     }
@@ -747,10 +749,10 @@ class PessoalTI
         require_once "pgsql.class.php";
         $pg = new PgSql();
         $sql = "UPDATE db_clti.tb_pessoal_ti SET (idtb_om_apoiadas,idtb_posto_grad,idtb_corpo_quadro,
-            idtb_especialidade,nip,cpf,nome,nome_guerra,correio_eletronico,status,idtb_funcoes_ti)
+            idtb_especialidade,nip,cpf,nome,nome_guerra,correio_eletronico,status,idtb_funcoes_ti,tel_contato,retelma)
             = ('$this->idtb_om_apoiadas','$this->idtb_posto_grad','$this->idtb_corpo_quadro','$this->idtb_especialidade',
             '$this->nip','$this->cpf','$this->nome','$this->nome_guerra','$this->correio_eletronico','$this->status',
-            '$this->idtb_funcoes_ti') WHERE idtb_pessoal_ti='$this->idtb_pessoal_ti' ";
+            '$this->idtb_funcoes_ti','$this->tel_contato','$this->retelma') WHERE idtb_pessoal_ti='$this->idtb_pessoal_ti' ";
         $row = $pg->exec($sql);
         return $row;
     }

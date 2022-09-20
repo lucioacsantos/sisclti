@@ -380,6 +380,8 @@ if (isset($_SESSION['user_name'])){
                   <div class=\"btn-group mr-2\">
                     <a href=\"?cmd=seguranca&act=bloqueados\"><button class=\"btn btn-sm btn-outline-secondary\">
                       Usuários Bloqueados</button></a>
+                    <a href=\"?cmd=seguranca&act=ZeraContador\"><button class=\"btn btn-sm btn-outline-secondary\">
+                      Reset Contadores</button></a>
                   </div>
                 </div>
               </div>";

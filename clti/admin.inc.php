@@ -184,6 +184,18 @@ if ($act == 'cad') {
                                             value=\"$admin->correio_eletronico\" autocomplete=\"off\">
                                     </div>
                                     <div class=\"form-group\">
+                                        <label for=\"tel_contato\">Telefone de Contato:</label>
+                                        <input id=\"tel_contato\" class=\"form-control\" type=\"email\" name=\"tel_contato\"
+                                            placeholder=\"(xx) xxxxx-xxxx\" minlength=\"2\" autocomplete=\"off\"
+                                            style=\"text-transform:uppercase\" required=\"true\" value=\"$admin->tel_contato\">
+                                    </div>
+                                    <div class=\"form-group\">
+                                        <label for=\"retelma\">RETELMA:</label>
+                                        <input id=\"retelma\" class=\"form-control\" type=\"email\" name=\"retelma\"
+                                            placeholder=\"xxxx-xxxx\" minlength=\"2\" autocomplete=\"off\"
+                                            style=\"text-transform:uppercase\" required=\"true\" value=\"$admin->retelma\">
+                                    </div>
+                                    <div class=\"form-group\">
                                         <label for=\"nip\">NIP:</label>
                                         <input id=\"nip\" class=\"form-control\" type=\"text\" name=\"nip\" readonly=\"true\"
                                             placeholder=\"NIP\" maxlength=\"8\" required=\"true\" value=\"$admin->nip\" autocomplete=\"off\">
@@ -284,6 +296,18 @@ if ($act == 'cad') {
                                     style=\"text-transform:uppercase\" required=\"true\" value=\"$admin->correio_eletronico\">
                             </div>
                             <div class=\"form-group\">
+                                <label for=\"tel_contato\">Telefone de Contato:</label>
+                                <input id=\"tel_contato\" class=\"form-control\" type=\"email\" name=\"tel_contato\"
+                                    placeholder=\"(xx) xxxxx-xxxx\" minlength=\"2\" autocomplete=\"off\"
+                                    style=\"text-transform:uppercase\" required=\"true\" value=\"$admin->tel_contato\">
+                            </div>
+                            <div class=\"form-group\">
+                                <label for=\"retelma\">RETELMA:</label>
+                                <input id=\"retelma\" class=\"form-control\" type=\"email\" name=\"retelma\"
+                                    placeholder=\"xxxx-xxxx\" minlength=\"2\" autocomplete=\"off\"
+                                    style=\"text-transform:uppercase\" required=\"true\" value=\"$admin->retelma\">
+                            </div>
+                            <div class=\"form-group\">
                                 <label for=\"senha\" class=\"control-label\">Senha:</label>
                                 <input id=\"senha\" class=\"form-control\" type=\"password\" name=\"senha\"
                                        placeholder=\"Senha Segura\" minlength=\"8\" 
@@ -325,6 +349,8 @@ if (($row != NULL) AND ($act == NULL)) {
                         <th scope=\"col\">NIP/CPF</th>
                         <th scope=\"col\">Nome (Enviar e-mail)</th>
                         <th scope=\"col\">Nome de Guerra</th>
+                        <th scope=\"col\">Tel.Contato</th>
+                        <th scope=\"col\">RETELMA</th>
                         <th scope=\"col\">Ações</th>
                     </tr>
                 </thead>";
@@ -358,6 +384,8 @@ if (($row != NULL) AND ($act == NULL)) {
                         <td><a onClick=\"javascript:window.open('mailto:".$value->correio_eletronico."', 'mail');event.preventDefault()\" 
                             href=\"mailto:".$value->correio_eletronico."\">".$value->nome."</a></td>
                         <td>".$value->nome_guerra."</td>
+                        <td>".$value->tel_contato."</td>
+                        <td>".$value->retelma."</td>
                         <td>
                             <a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."&oa=".$value->idtb_om_apoiadas."\">Editar</a> - 
                             <a href=\"?cmd=admin&act=cad&param=".$value->idtb_pessoal_ti."&oa=".$value->idtb_om_apoiadas."&senha=troca\">Senha</a> - 
@@ -574,6 +602,8 @@ if ($act == 'insert') {
         $pesti->nome = mb_strtoupper($_POST['nome'],'UTF-8');
         $pesti->nome_guerra = mb_strtoupper($_POST['nomeguerra'],'UTF-8');
         $pesti->correio_eletronico = mb_strtoupper($_POST['correio_eletronico'],'UTF-8');
+        $pesti->tel_contato = $_POST['tel_contato'];
+        $pesti->retelma = $_POST['retelma'];
         $pesti->status = mb_strtoupper($_POST['ativo'],'UTF-8');
         $pesti->idtb_funcoes_ti = '1';
         if ($nip == NULL && $cpf == NULL){

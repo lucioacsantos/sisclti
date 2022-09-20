@@ -27,6 +27,8 @@ if (isset($_GET['senha'])){
 
 /* Classe de interação com o PostgreSQL */
 require_once "../class/constantes.inc.php";
+require_once "../class/seguranca.inc.php";
+$seg = new Seguranca();
 $usr = new Usuario();
 $pti = new PessoalTI();
 
@@ -86,4 +88,17 @@ if ($act == 'bloqueados') {
                 </tbody>
             </table>
             </div>";
+}
+
+if ($act == 'ZeraContador') {
+    $seg->data_acesso = date("Y-m-d");
+    $seg->hora_acesso = date("H:i:s");
+    $reset = $seg->ZeraTodosContadores();
+    if ($reset){
+        echo "<h5>Resgistros incluídos no banco de dados.</h5>
+        <meta http-equiv=\"refresh\" content=\"1;url=?cmd=seguranca\">";
+    }
+    else{
+        echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+    }
 }

@@ -67,33 +67,20 @@ if ($act == "cad_et"){
 
     # Valida/Formata data
     $date = $data['data'];
-    // $data_valida = $et->validaData($date);
-    // $et->data_aquisicao = $data_valida;
-    // $et->data_garantia = $data_valida;
-    
+        
     $data_valida = $et->validaData($date);
     if ($data_valida){
-      $et->data_aquisicao = $date;
-      $et->data_garantia = $date;
+      $et->data_aquisicao = trim($date);
+      $et->data_garantia = trim($date);
     }
     else{
       $date = explode("/",$date);
       $arr = array("$date[1]","$date[0]","$date[2]");
       $date = implode("/", $arr);
-      $et->data_aquisicao = $date;
-      $et->data_garantia = $date;
+      $et->data_aquisicao = trim($date);
+      $et->data_garantia = trim($date);
     }
-    // if ($data_valida){
-    //   $et->data_aquisicao = $date;
-    //   $et->data_garantia = $date; 
-    // }
-    // else{
-    //   $date = $data['data'];
-    //   $data_valida = $et->formatarData($date);
-    //   $et->data_aquisicao = $data_valida;
-    //   $et->data_garantia = $data_valida; 
-    // }
-    
+        
     # Seleciona Sistema Operacional
     $et->idtb_sor = $sor->SearchSO();
 

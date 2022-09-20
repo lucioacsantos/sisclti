@@ -43,7 +43,7 @@ class Seguranca
         return $row;
     }
     /** 
-     * Zera contador de acessos suspeitos 
+     * Zera contador de acessos suspeitos por IP
      */
     function ZeraContador()
     {
@@ -54,6 +54,17 @@ class Seguranca
             $row = $pg->exec("UPDATE db_clti.tb_acesso_suspeito SET (data_acesso,hora_acesso,contador,status) 
                 = ('$this->data_acesso','$this->hora_acesso',0,'$this->AcessoComSucesso') WHERE end_ip = '$this->end_ip'");
         }        
+        return $row;
+    }
+    /** 
+     * Zera todos os contadores de acesso suspeitos
+     */
+    function ZeraTodosContadores()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("UPDATE db_clti.tb_acesso_suspeito SET (data_acesso,hora_acesso,contador,status)
+            = ('$this->data_acesso','$this->hora_acesso',0,'$this->AcessoComSucesso') ");
         return $row;
     }
     /** 
