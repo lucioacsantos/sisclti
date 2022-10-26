@@ -947,7 +947,7 @@ elseif ($versao == '1.5.25'){
 	COMMENT ON TABLE db_clti.tb_tipos_midias_backup IS 'Tipos de mídias de armazenamento de backup'; ");
 
 	$pg->exec("CREATE TABLE db_clti.tb_origem_backup (
-		idttb_origem_backup serial4 NOT NULL,
+		idtb_origem_backup serial4 NOT NULL,
 		idtb_servidores int4 NOT NULL,
 		dados_backup varchar(255) NOT NULL,
 		freq_backup varchar (50) NOT NULL,
@@ -956,6 +956,42 @@ elseif ($versao == '1.5.25'){
 		CONSTRAINT tb_origem_backup_pkey PRIMARY KEY (idtb_origem_backup)
 	);
 	COMMENT ON TABLE db_clti.tb_origem_backup IS 'Tabela contendo informações do backup'; ");
+
+	$pg->exec("DROP VIEW db_clti.vw_pessoal_ti");
+
+	$pg->exec("
+	CREATE OR REPLACE VIEW db_clti.vw_pessoal_ti
+	AS SELECT pesti.idtb_pessoal_ti,
+		pesti.idtb_posto_grad,
+		posto.sigla AS sigla_posto_grad,
+		pesti.idtb_corpo_quadro,
+		corpo.sigla AS sigla_corpo_quadro,
+		corpo.exibir AS exibir_corpo_quadro,
+		pesti.idtb_especialidade,
+		espec.sigla AS sigla_espec,
+		espec.exibir AS exibir_espec,
+		pesti.idtb_om_apoiadas,
+		om.sigla AS sigla_om,
+		pesti.nip,
+		pesti.cpf,
+		pesti.nome,
+		pesti.nome_guerra,
+		pesti.correio_eletronico,
+		pesti.tel_contato,
+		pesti.retelma,
+		pesti.idtb_funcoes_ti,
+		funcao.descricao AS desc_funcao,
+		funcao.sigla AS sigla_funcao,
+		pesti.status
+	FROM db_clti.tb_pessoal_ti pesti,
+		db_clti.tb_posto_grad posto,
+		db_clti.tb_corpo_quadro corpo,
+		db_clti.tb_especialidade espec,
+		db_clti.tb_om_apoiadas om,
+		db_clti.tb_funcoes_ti funcao
+	WHERE pesti.idtb_posto_grad = posto.idtb_posto_grad AND pesti.idtb_corpo_quadro = corpo.idtb_corpo_quadro 
+	AND pesti.idtb_especialidade = espec.idtb_especialidade AND pesti.idtb_om_apoiadas = om.idtb_om_apoiadas 
+	AND pesti.idtb_funcoes_ti = funcao.idtb_funcoes_ti;");
 
 	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
 

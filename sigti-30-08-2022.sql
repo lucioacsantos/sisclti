@@ -8915,11 +8915,11 @@ SELECT pg_catalog.setval('tb_conectividade_idtb_conectividade_seq', 1, true);
 COPY tb_config (idtb_config, parametro, valor) FROM stdin;
 2	ESTADO	RN
 3	CIDADE	Natal
-1	URL	http://172.23.119.35/sisclti
+1	URL	http://localhost/sisclti
 5	author	99242991 Lúcio ALEXANDRE Correia dos Santos lucio.alexandre@marinha.mil.br
 6	generator	LucioACSantos
 7	description	Sistema de Gestão de TI
-8	TITULO	SiGTI
+8	TITULO	sisclti
 4	VERSAO	1.5.25
 \.
 
@@ -12354,7 +12354,7 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 REVOKE ALL ON TABLE tb_cidade FROM PUBLIC;
 REVOKE ALL ON TABLE tb_cidade FROM postgres;
 GRANT ALL ON TABLE tb_cidade TO postgres;
-GRANT ALL ON TABLE tb_cidade TO sigti;
+GRANT ALL ON TABLE tb_cidade TO sisclti;
 
 
 --
@@ -12366,7 +12366,7 @@ GRANT ALL ON TABLE tb_cidade TO sigti;
 REVOKE ALL ON TABLE tb_clti FROM PUBLIC;
 REVOKE ALL ON TABLE tb_clti FROM postgres;
 GRANT ALL ON TABLE tb_clti TO postgres;
-GRANT ALL ON TABLE tb_clti TO sigti;
+GRANT ALL ON TABLE tb_clti TO sisclti;
 
 
 --
@@ -12378,7 +12378,7 @@ GRANT ALL ON TABLE tb_clti TO sigti;
 REVOKE ALL ON TABLE tb_conectividade FROM PUBLIC;
 REVOKE ALL ON TABLE tb_conectividade FROM postgres;
 GRANT ALL ON TABLE tb_conectividade TO postgres;
-GRANT ALL ON TABLE tb_conectividade TO sigti;
+GRANT ALL ON TABLE tb_conectividade TO sisclti;
 
 
 --
@@ -12390,7 +12390,7 @@ GRANT ALL ON TABLE tb_conectividade TO sigti;
 REVOKE ALL ON TABLE tb_config FROM PUBLIC;
 REVOKE ALL ON TABLE tb_config FROM postgres;
 GRANT ALL ON TABLE tb_config TO postgres;
-GRANT ALL ON TABLE tb_config TO sigti;
+GRANT ALL ON TABLE tb_config TO sisclti;
 
 
 --
@@ -12402,7 +12402,7 @@ GRANT ALL ON TABLE tb_config TO sigti;
 REVOKE ALL ON TABLE tb_controle_internet FROM PUBLIC;
 REVOKE ALL ON TABLE tb_controle_internet FROM postgres;
 GRANT ALL ON TABLE tb_controle_internet TO postgres;
-GRANT ALL ON TABLE tb_controle_internet TO sigti;
+GRANT ALL ON TABLE tb_controle_internet TO sisclti;
 
 
 --
@@ -12414,7 +12414,7 @@ GRANT ALL ON TABLE tb_controle_internet TO sigti;
 REVOKE ALL ON TABLE tb_controle_usb FROM PUBLIC;
 REVOKE ALL ON TABLE tb_controle_usb FROM postgres;
 GRANT ALL ON TABLE tb_controle_usb TO postgres;
-GRANT ALL ON TABLE tb_controle_usb TO sigti;
+GRANT ALL ON TABLE tb_controle_usb TO sisclti;
 
 
 --
@@ -12426,7 +12426,7 @@ GRANT ALL ON TABLE tb_controle_usb TO sigti;
 REVOKE ALL ON TABLE tb_corpo_quadro FROM PUBLIC;
 REVOKE ALL ON TABLE tb_corpo_quadro FROM postgres;
 GRANT ALL ON TABLE tb_corpo_quadro TO postgres;
-GRANT ALL ON TABLE tb_corpo_quadro TO sigti;
+GRANT ALL ON TABLE tb_corpo_quadro TO sisclti;
 
 
 --
@@ -12438,7 +12438,7 @@ GRANT ALL ON TABLE tb_corpo_quadro TO sigti;
 REVOKE ALL ON TABLE tb_especialidade FROM PUBLIC;
 REVOKE ALL ON TABLE tb_especialidade FROM postgres;
 GRANT ALL ON TABLE tb_especialidade TO postgres;
-GRANT ALL ON TABLE tb_especialidade TO sigti;
+GRANT ALL ON TABLE tb_especialidade TO sisclti;
 
 
 --
@@ -12450,7 +12450,7 @@ GRANT ALL ON TABLE tb_especialidade TO sigti;
 REVOKE ALL ON TABLE tb_estacoes FROM PUBLIC;
 REVOKE ALL ON TABLE tb_estacoes FROM postgres;
 GRANT ALL ON TABLE tb_estacoes TO postgres;
-GRANT ALL ON TABLE tb_estacoes TO sigti;
+GRANT ALL ON TABLE tb_estacoes TO sisclti;
 
 
 --
@@ -12462,7 +12462,7 @@ GRANT ALL ON TABLE tb_estacoes TO sigti;
 REVOKE ALL ON TABLE tb_estado FROM PUBLIC;
 REVOKE ALL ON TABLE tb_estado FROM postgres;
 GRANT ALL ON TABLE tb_estado TO postgres;
-GRANT ALL ON TABLE tb_estado TO sigti;
+GRANT ALL ON TABLE tb_estado TO sisclti;
 
 
 --
@@ -12474,7 +12474,7 @@ GRANT ALL ON TABLE tb_estado TO sigti;
 REVOKE ALL ON TABLE tb_funcoes_sigdem FROM PUBLIC;
 REVOKE ALL ON TABLE tb_funcoes_sigdem FROM postgres;
 GRANT ALL ON TABLE tb_funcoes_sigdem TO postgres;
-GRANT ALL ON TABLE tb_funcoes_sigdem TO sigti;
+GRANT ALL ON TABLE tb_funcoes_sigdem TO sisclti;
 
 
 --
@@ -12486,7 +12486,7 @@ GRANT ALL ON TABLE tb_funcoes_sigdem TO sigti;
 REVOKE ALL ON TABLE tb_funcoes_ti FROM PUBLIC;
 REVOKE ALL ON TABLE tb_funcoes_ti FROM postgres;
 GRANT ALL ON TABLE tb_funcoes_ti TO postgres;
-GRANT ALL ON TABLE tb_funcoes_ti TO sigti;
+GRANT ALL ON TABLE tb_funcoes_ti TO sisclti;
 
 
 --
@@ -12498,7 +12498,7 @@ GRANT ALL ON TABLE tb_funcoes_ti TO sigti;
 REVOKE ALL ON TABLE tb_lotacao_clti FROM PUBLIC;
 REVOKE ALL ON TABLE tb_lotacao_clti FROM postgres;
 GRANT ALL ON TABLE tb_lotacao_clti TO postgres;
-GRANT ALL ON TABLE tb_lotacao_clti TO sigti;
+GRANT ALL ON TABLE tb_lotacao_clti TO sisclti;
 
 
 --
@@ -12510,7 +12510,7 @@ GRANT ALL ON TABLE tb_lotacao_clti TO sigti;
 REVOKE ALL ON TABLE tb_manutencao_et FROM PUBLIC;
 REVOKE ALL ON TABLE tb_manutencao_et FROM postgres;
 GRANT ALL ON TABLE tb_manutencao_et TO postgres;
-GRANT ALL ON TABLE tb_manutencao_et TO sigti;
+GRANT ALL ON TABLE tb_manutencao_et TO sisclti;
 
 
 --
@@ -12522,7 +12522,7 @@ GRANT ALL ON TABLE tb_manutencao_et TO sigti;
 REVOKE ALL ON TABLE tb_mapainfra FROM PUBLIC;
 REVOKE ALL ON TABLE tb_mapainfra FROM postgres;
 GRANT ALL ON TABLE tb_mapainfra TO postgres;
-GRANT ALL ON TABLE tb_mapainfra TO sigti;
+GRANT ALL ON TABLE tb_mapainfra TO sisclti;
 
 
 --
@@ -12534,7 +12534,7 @@ GRANT ALL ON TABLE tb_mapainfra TO sigti;
 REVOKE ALL ON TABLE tb_memorias FROM PUBLIC;
 REVOKE ALL ON TABLE tb_memorias FROM postgres;
 GRANT ALL ON TABLE tb_memorias TO postgres;
-GRANT ALL ON TABLE tb_memorias TO sigti;
+GRANT ALL ON TABLE tb_memorias TO sisclti;
 
 
 --
@@ -12546,7 +12546,7 @@ GRANT ALL ON TABLE tb_memorias TO sigti;
 REVOKE ALL ON TABLE tb_nec_aquisicao FROM PUBLIC;
 REVOKE ALL ON TABLE tb_nec_aquisicao FROM postgres;
 GRANT ALL ON TABLE tb_nec_aquisicao TO postgres;
-GRANT ALL ON TABLE tb_nec_aquisicao TO sigti;
+GRANT ALL ON TABLE tb_nec_aquisicao TO sisclti;
 
 
 --
@@ -12558,7 +12558,7 @@ GRANT ALL ON TABLE tb_nec_aquisicao TO sigti;
 REVOKE ALL ON TABLE tb_om_apoiadas FROM PUBLIC;
 REVOKE ALL ON TABLE tb_om_apoiadas FROM postgres;
 GRANT ALL ON TABLE tb_om_apoiadas TO postgres;
-GRANT ALL ON TABLE tb_om_apoiadas TO sigti;
+GRANT ALL ON TABLE tb_om_apoiadas TO sisclti;
 
 
 --
@@ -12570,7 +12570,7 @@ GRANT ALL ON TABLE tb_om_apoiadas TO sigti;
 REVOKE ALL ON TABLE tb_om_setores FROM PUBLIC;
 REVOKE ALL ON TABLE tb_om_setores FROM postgres;
 GRANT ALL ON TABLE tb_om_setores TO postgres;
-GRANT ALL ON TABLE tb_om_setores TO sigti;
+GRANT ALL ON TABLE tb_om_setores TO sisclti;
 
 
 --
@@ -12582,7 +12582,7 @@ GRANT ALL ON TABLE tb_om_setores TO sigti;
 REVOKE ALL ON TABLE tb_osic FROM PUBLIC;
 REVOKE ALL ON TABLE tb_osic FROM postgres;
 GRANT ALL ON TABLE tb_osic TO postgres;
-GRANT ALL ON TABLE tb_osic TO sigti;
+GRANT ALL ON TABLE tb_osic TO sisclti;
 
 
 --
@@ -12594,7 +12594,7 @@ GRANT ALL ON TABLE tb_osic TO sigti;
 REVOKE ALL ON TABLE tb_pais FROM PUBLIC;
 REVOKE ALL ON TABLE tb_pais FROM postgres;
 GRANT ALL ON TABLE tb_pais TO postgres;
-GRANT ALL ON TABLE tb_pais TO sigti;
+GRANT ALL ON TABLE tb_pais TO sisclti;
 
 
 --
@@ -12606,7 +12606,7 @@ GRANT ALL ON TABLE tb_pais TO sigti;
 REVOKE ALL ON TABLE tb_perfil_internet FROM PUBLIC;
 REVOKE ALL ON TABLE tb_perfil_internet FROM postgres;
 GRANT ALL ON TABLE tb_perfil_internet TO postgres;
-GRANT ALL ON TABLE tb_perfil_internet TO sigti;
+GRANT ALL ON TABLE tb_perfil_internet TO sisclti;
 
 
 --
@@ -12618,7 +12618,7 @@ GRANT ALL ON TABLE tb_perfil_internet TO sigti;
 REVOKE ALL ON TABLE tb_pessoal_om FROM PUBLIC;
 REVOKE ALL ON TABLE tb_pessoal_om FROM postgres;
 GRANT ALL ON TABLE tb_pessoal_om TO postgres;
-GRANT ALL ON TABLE tb_pessoal_om TO sigti;
+GRANT ALL ON TABLE tb_pessoal_om TO sisclti;
 
 
 --
@@ -12630,7 +12630,7 @@ GRANT ALL ON TABLE tb_pessoal_om TO sigti;
 REVOKE ALL ON TABLE tb_pessoal_ti FROM PUBLIC;
 REVOKE ALL ON TABLE tb_pessoal_ti FROM postgres;
 GRANT ALL ON TABLE tb_pessoal_ti TO postgres;
-GRANT ALL ON TABLE tb_pessoal_ti TO sigti;
+GRANT ALL ON TABLE tb_pessoal_ti TO sisclti;
 
 
 --
@@ -12642,7 +12642,7 @@ GRANT ALL ON TABLE tb_pessoal_ti TO sigti;
 REVOKE ALL ON TABLE tb_posto_grad FROM PUBLIC;
 REVOKE ALL ON TABLE tb_posto_grad FROM postgres;
 GRANT ALL ON TABLE tb_posto_grad TO postgres;
-GRANT ALL ON TABLE tb_posto_grad TO sigti;
+GRANT ALL ON TABLE tb_posto_grad TO sisclti;
 
 
 --
@@ -12654,7 +12654,7 @@ GRANT ALL ON TABLE tb_posto_grad TO sigti;
 REVOKE ALL ON TABLE tb_proc_fab FROM PUBLIC;
 REVOKE ALL ON TABLE tb_proc_fab FROM postgres;
 GRANT ALL ON TABLE tb_proc_fab TO postgres;
-GRANT ALL ON TABLE tb_proc_fab TO sigti;
+GRANT ALL ON TABLE tb_proc_fab TO sisclti;
 
 
 --
@@ -12666,7 +12666,7 @@ GRANT ALL ON TABLE tb_proc_fab TO sigti;
 REVOKE ALL ON TABLE tb_proc_modelo FROM PUBLIC;
 REVOKE ALL ON TABLE tb_proc_modelo FROM postgres;
 GRANT ALL ON TABLE tb_proc_modelo TO postgres;
-GRANT ALL ON TABLE tb_proc_modelo TO sigti;
+GRANT ALL ON TABLE tb_proc_modelo TO sisclti;
 
 
 --
@@ -12678,7 +12678,7 @@ GRANT ALL ON TABLE tb_proc_modelo TO sigti;
 REVOKE ALL ON TABLE tb_qualificacao_clti FROM PUBLIC;
 REVOKE ALL ON TABLE tb_qualificacao_clti FROM postgres;
 GRANT ALL ON TABLE tb_qualificacao_clti TO postgres;
-GRANT ALL ON TABLE tb_qualificacao_clti TO sigti;
+GRANT ALL ON TABLE tb_qualificacao_clti TO sisclti;
 
 
 --
@@ -12690,7 +12690,7 @@ GRANT ALL ON TABLE tb_qualificacao_clti TO sigti;
 REVOKE ALL ON TABLE tb_qualificacao_ti FROM PUBLIC;
 REVOKE ALL ON TABLE tb_qualificacao_ti FROM postgres;
 GRANT ALL ON TABLE tb_qualificacao_ti TO postgres;
-GRANT ALL ON TABLE tb_qualificacao_ti TO sigti;
+GRANT ALL ON TABLE tb_qualificacao_ti TO sisclti;
 
 
 --
@@ -12702,7 +12702,7 @@ GRANT ALL ON TABLE tb_qualificacao_ti TO sigti;
 REVOKE ALL ON TABLE tb_registro_log FROM PUBLIC;
 REVOKE ALL ON TABLE tb_registro_log FROM postgres;
 GRANT ALL ON TABLE tb_registro_log TO postgres;
-GRANT ALL ON TABLE tb_registro_log TO sigti;
+GRANT ALL ON TABLE tb_registro_log TO sisclti;
 
 
 --
@@ -12714,7 +12714,7 @@ GRANT ALL ON TABLE tb_registro_log TO sigti;
 REVOKE ALL ON TABLE tb_servidores FROM PUBLIC;
 REVOKE ALL ON TABLE tb_servidores FROM postgres;
 GRANT ALL ON TABLE tb_servidores TO postgres;
-GRANT ALL ON TABLE tb_servidores TO sigti;
+GRANT ALL ON TABLE tb_servidores TO sisclti;
 
 
 --
@@ -12726,7 +12726,7 @@ GRANT ALL ON TABLE tb_servidores TO sigti;
 REVOKE ALL ON TABLE tb_sor FROM PUBLIC;
 REVOKE ALL ON TABLE tb_sor FROM postgres;
 GRANT ALL ON TABLE tb_sor TO postgres;
-GRANT ALL ON TABLE tb_sor TO sigti;
+GRANT ALL ON TABLE tb_sor TO sisclti;
 
 
 --
@@ -12738,7 +12738,7 @@ GRANT ALL ON TABLE tb_sor TO sigti;
 REVOKE ALL ON TABLE tb_tipos_clti FROM PUBLIC;
 REVOKE ALL ON TABLE tb_tipos_clti FROM postgres;
 GRANT ALL ON TABLE tb_tipos_clti TO postgres;
-GRANT ALL ON TABLE tb_tipos_clti TO sigti;
+GRANT ALL ON TABLE tb_tipos_clti TO sisclti;
 
 
 --
@@ -12750,7 +12750,7 @@ GRANT ALL ON TABLE tb_tipos_clti TO sigti;
 REVOKE ALL ON TABLE vw_controle_usb FROM PUBLIC;
 REVOKE ALL ON TABLE vw_controle_usb FROM postgres;
 GRANT ALL ON TABLE vw_controle_usb TO postgres;
-GRANT ALL ON TABLE vw_controle_usb TO sigti;
+GRANT ALL ON TABLE vw_controle_usb TO sisclti;
 
 
 --
@@ -12762,7 +12762,7 @@ GRANT ALL ON TABLE vw_controle_usb TO sigti;
 REVOKE ALL ON TABLE vw_estacoes FROM PUBLIC;
 REVOKE ALL ON TABLE vw_estacoes FROM postgres;
 GRANT ALL ON TABLE vw_estacoes TO postgres;
-GRANT ALL ON TABLE vw_estacoes TO sigti;
+GRANT ALL ON TABLE vw_estacoes TO sisclti;
 
 
 --
@@ -12774,7 +12774,7 @@ GRANT ALL ON TABLE vw_estacoes TO sigti;
 REVOKE ALL ON TABLE vw_mapainfra FROM PUBLIC;
 REVOKE ALL ON TABLE vw_mapainfra FROM postgres;
 GRANT ALL ON TABLE vw_mapainfra TO postgres;
-GRANT ALL ON TABLE vw_mapainfra TO sigti;
+GRANT ALL ON TABLE vw_mapainfra TO sisclti;
 
 
 --
@@ -12786,7 +12786,7 @@ GRANT ALL ON TABLE vw_mapainfra TO sigti;
 REVOKE ALL ON TABLE vw_osic FROM PUBLIC;
 REVOKE ALL ON TABLE vw_osic FROM postgres;
 GRANT ALL ON TABLE vw_osic TO postgres;
-GRANT ALL ON TABLE vw_osic TO sigti;
+GRANT ALL ON TABLE vw_osic TO sisclti;
 
 
 --
@@ -12798,7 +12798,7 @@ GRANT ALL ON TABLE vw_osic TO sigti;
 REVOKE ALL ON TABLE vw_pessoal_ti FROM PUBLIC;
 REVOKE ALL ON TABLE vw_pessoal_ti FROM postgres;
 GRANT ALL ON TABLE vw_pessoal_ti TO postgres;
-GRANT ALL ON TABLE vw_pessoal_ti TO sigti;
+GRANT ALL ON TABLE vw_pessoal_ti TO sisclti;
 
 
 --
@@ -12810,7 +12810,7 @@ GRANT ALL ON TABLE vw_pessoal_ti TO sigti;
 REVOKE ALL ON TABLE vw_processadores FROM PUBLIC;
 REVOKE ALL ON TABLE vw_processadores FROM postgres;
 GRANT ALL ON TABLE vw_processadores TO postgres;
-GRANT ALL ON TABLE vw_processadores TO sigti;
+GRANT ALL ON TABLE vw_processadores TO sisclti;
 
 
 --
@@ -12822,7 +12822,7 @@ GRANT ALL ON TABLE vw_processadores TO sigti;
 REVOKE ALL ON TABLE vw_servidores FROM PUBLIC;
 REVOKE ALL ON TABLE vw_servidores FROM postgres;
 GRANT ALL ON TABLE vw_servidores TO postgres;
-GRANT ALL ON TABLE vw_servidores TO sigti;
+GRANT ALL ON TABLE vw_servidores TO sisclti;
 
 
 --
@@ -12834,7 +12834,7 @@ GRANT ALL ON TABLE vw_servidores TO sigti;
 REVOKE ALL ON TABLE vw_setores FROM PUBLIC;
 REVOKE ALL ON TABLE vw_setores FROM postgres;
 GRANT ALL ON TABLE vw_setores TO postgres;
-GRANT ALL ON TABLE vw_setores TO sigti;
+GRANT ALL ON TABLE vw_setores TO sisclti;
 
 
 -- Completed on 2022-08-30 00:15:02 -03

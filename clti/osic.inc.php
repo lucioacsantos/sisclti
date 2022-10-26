@@ -194,13 +194,13 @@ if ($act == 'cad') {
                                         <label for=\"tel_contato\">Telefone de Contato:</label>
                                         <input id=\"tel_contato\" class=\"form-control\" type=\"email\" name=\"tel_contato\"
                                             placeholder=\"(xx) xxxxx-xxxx\" minlength=\"2\" autocomplete=\"off\"
-                                            style=\"text-transform:uppercase\" required=\"true\" value=\"$admin->tel_contato\">
+                                            style=\"text-transform:uppercase\" required=\"true\" value=\"$osic->tel_contato\">
                                     </div>
                                     <div class=\"form-group\">
                                         <label for=\"retelma\">RETELMA:</label>
                                         <input id=\"retelma\" class=\"form-control\" type=\"email\" name=\"retelma\"
                                             placeholder=\"xxxx-xxxx\" minlength=\"2\" autocomplete=\"off\"
-                                            style=\"text-transform:uppercase\" required=\"true\" value=\"$admin->retelma\">
+                                            style=\"text-transform:uppercase\" required=\"true\" value=\"$osic->retelma\">
                                     </div>
                                     <div class=\"form-group\">
                                         <label for=\"nip\">NIP:</label>
@@ -305,14 +305,24 @@ if ($act == 'cad') {
                                     placeholder=\"Nome de Guerra\" minlength=\"2\" autocomplete=\"off\"
                                     style=\"text-transform:uppercase\" required=\"true\" value=\"$osic->nome_guerra\">
                             </div>
-
                             <div class=\"form-group\">
                                 <label for=\"correio_eletronico\">Correio Eletrônico:</label>
                                 <input id=\"correio_eletronico\" class=\"form-control\" type=\"email\" name=\"correio_eletronico\"
                                     placeholder=\"Preferencialmente Zimbra\" minlength=\"2\" autocomplete=\"off\"
                                     style=\"text-transform:uppercase\" required=\"true\" value=\"$osic->correio_eletronico\">
                             </div>
-
+                            <div class=\"form-group\">
+                                <label for=\"tel_contato\">Telefone de Contato:</label>
+                                <input id=\"tel_contato\" class=\"form-control\" type=\"email\" name=\"tel_contato\"
+                                    placeholder=\"(xx) xxxxx-xxxx\" minlength=\"2\" autocomplete=\"off\"
+                                    style=\"text-transform:uppercase\" required=\"true\" value=\"$osic->tel_contato\">
+                            </div>
+                            <div class=\"form-group\">
+                                <label for=\"retelma\">RETELMA:</label>
+                                <input id=\"retelma\" class=\"form-control\" type=\"email\" name=\"retelma\"
+                                    placeholder=\"xxxx-xxxx\" minlength=\"2\" autocomplete=\"off\"
+                                    style=\"text-transform:uppercase\" required=\"true\" value=\"$osic->retelma\">
+                            </div>
                             <div class=\"form-group\">
                                 <label for=\"senha\" class=\"control-label\">Senha:</label>
                                 <input id=\"senha\" class=\"form-control\" type=\"password\" name=\"senha\"
