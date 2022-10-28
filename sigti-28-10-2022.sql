@@ -4,7 +4,7 @@
 
 -- Dumped from database version 9.2.24
 -- Dumped by pg_dump version 9.2.24
--- Started on 2022-08-30 00:15:01 -03
+-- Started on 2022-10-28 00:15:01 -03
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
@@ -3228,10 +3228,24 @@ ALTER TABLE ONLY tb_tipos_clti ALTER COLUMN idtb_tipos_clti SET DEFAULT nextval(
 --
 
 COPY tb_acesso_suspeito (idtb_acesso_suspeito, end_ip, data_acesso, hora_acesso, contador, status) FROM stdin;
-3	172.23.119.61	2022-08-12	12:44:58	1	Acesso suspeito
-2	172.23.119.150	2022-08-12	12:46:43	4	Acesso suspeito reincidente
-1	172.23.119.13	2022-08-18	13:40:25	3	Acesso suspeito reincidente
-4	172.23.119.139	2022-08-24	13:15:10	1	Acesso suspeito
+9	172.23.119.35	2022-10-26	18:36:31	0	Acesso com sucesso
+16	172.23.32.50	2022-10-26	18:45:13	0	Acesso com sucesso
+7	172.23.8.72	2022-10-25	17:02:53	0	Acesso com sucesso
+14	10.15.177.19	2022-10-25	17:02:53	0	Acesso com sucesso
+12	172.23.119.115	2022-10-25	17:02:53	0	Acesso com sucesso
+15	10.9.17.1	2022-10-25	17:02:53	0	Acesso com sucesso
+6	172.23.119.27	2022-10-25	17:02:53	0	Acesso com sucesso
+10	172.23.119.113	2022-10-25	17:02:53	0	Acesso com sucesso
+1	172.23.119.13	2022-10-25	17:02:53	0	Acesso com sucesso
+11	172.23.20.239	2022-10-25	17:02:53	0	Acesso com sucesso
+18	172.23.12.26	2022-10-25	17:02:53	0	Acesso com sucesso
+5	172.23.119.120	2022-10-25	17:02:53	0	Acesso com sucesso
+4	172.23.119.139	2022-10-25	17:02:53	0	Acesso com sucesso
+17	172.23.35.139	2022-10-25	17:02:53	0	Acesso com sucesso
+3	172.23.119.61	2022-10-25	17:02:53	0	Acesso com sucesso
+2	172.23.119.150	2022-10-25	17:02:53	0	Acesso com sucesso
+8	172.23.119.184	2022-10-25	17:02:53	0	Acesso com sucesso
+13	172.23.119.38	2022-10-25	17:02:53	0	Acesso com sucesso
 \.
 
 
@@ -3241,7 +3255,7 @@ COPY tb_acesso_suspeito (idtb_acesso_suspeito, end_ip, data_acesso, hora_acesso,
 -- Name: tb_acesso_suspeito_idtb_acesso_suspeito_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
 
-SELECT pg_catalog.setval('tb_acesso_suspeito_idtb_acesso_suspeito_seq', 4, true);
+SELECT pg_catalog.setval('tb_acesso_suspeito_idtb_acesso_suspeito_seq', 18, true);
 
 
 --
@@ -8915,11 +8929,11 @@ SELECT pg_catalog.setval('tb_conectividade_idtb_conectividade_seq', 1, true);
 COPY tb_config (idtb_config, parametro, valor) FROM stdin;
 2	ESTADO	RN
 3	CIDADE	Natal
-1	URL	http://localhost/sisclti
+1	URL	http://172.23.119.35/sisclti
 5	author	99242991 Lúcio ALEXANDRE Correia dos Santos lucio.alexandre@marinha.mil.br
 6	generator	LucioACSantos
 7	description	Sistema de Gestão de TI
-8	TITULO	sisclti
+8	TITULO	SiGTI
 4	VERSAO	1.5.25
 \.
 
@@ -8962,7 +8976,6 @@ SELECT pg_catalog.setval('tb_controle_internet_idtb_controle_internet_seq', 1, t
 COPY tb_controle_usb (idtb_controle_usb, idtb_om_apoiadas, idtb_estacoes, autorizacao, status) FROM stdin;
 2	1	7	OS XX/2021	\N
 3	1	11	OS XX/2021	\N
-4	1	4	OS XX/2021	\N
 5	1	6	OS XX/2021	\N
 6	1	5	OS XX/2021	\N
 7	1	10	OS XX/2021	\N
@@ -9064,6 +9077,9 @@ COPY tb_det_serv (idtb_det_serv, idtb_lotacao_clti, data_entra_servico, data_sai
 30	14	2022-06-27	2022-06-28	ENCERRADO
 31	9	2022-06-28	2022-06-29	ENCERRADO
 32	4	2022-06-29	2022-06-30	ENCERRADO
+77	3	2022-08-31	2022-09-01	ENCERRADO
+78	14	2022-09-01	2022-09-02	ENCERRADO
+79	17	2022-09-02	2022-09-05	ENCERRADO
 66	3	2022-08-16	2022-08-17	ENCERRADO
 67	17	2022-08-17	2022-08-18	ENCERRADO
 33	3	2022-06-30	2022-07-01	ENCERRADO
@@ -9074,13 +9090,16 @@ COPY tb_det_serv (idtb_det_serv, idtb_lotacao_clti, data_entra_servico, data_sai
 68	3	2022-08-18	2022-08-19	ENCERRADO
 69	12	2022-08-19	2022-08-22	ENCERRADO
 70	3	2022-08-22	2022-08-23	ENCERRADO
+80	9	2022-09-05	2022-09-06	ENCERRADO
 39	4	2022-07-08	2022-07-11	ENCERRADO
 40	9	2022-07-11	2022-07-12	ENCERRADO
 41	4	2022-07-12	2022-07-13	ENCERRADO
 42	3	2022-07-13	2022-07-14	ENCERRADO
 43	6	2022-07-14	2022-07-15	ENCERRADO
 44	3	2022-07-15	2022-07-18	ENCERRADO
-77	3	2022-08-31	2022-09-01	PROGRAMADO
+93	3	2022-09-22	2022-09-23	ENCERRADO
+94	9	2022-09-23	2022-09-26	ENCERRADO
+95	14	2022-09-26	2022-09-27	ENCERRADO
 71	3	2022-08-23	2022-08-24	ENCERRADO
 37	6	2022-07-06	2022-07-07	ENCERRADO
 72	12	2022-08-24	2022-08-25	ENCERRADO
@@ -9092,6 +9111,7 @@ COPY tb_det_serv (idtb_det_serv, idtb_lotacao_clti, data_entra_servico, data_sai
 46	9	2022-07-19	2022-07-20	ENCERRADO
 47	4	2022-07-20	2022-07-21	ENCERRADO
 48	3	2022-07-21	2022-07-22	ENCERRADO
+96	9	2022-09-27	2022-09-28	ENCERRADO
 49	14	2022-07-22	2022-07-25	ENCERRADO
 50	17	2022-07-25	2022-07-26	ENCERRADO
 51	4	2022-07-26	2022-07-27	ENCERRADO
@@ -9102,6 +9122,8 @@ COPY tb_det_serv (idtb_det_serv, idtb_lotacao_clti, data_entra_servico, data_sai
 56	17	2022-08-02	2022-08-03	ENCERRADO
 57	9	2022-08-03	2022-08-04	ENCERRADO
 58	3	2022-08-04	2022-08-05	ENCERRADO
+97	3	2022-09-28	2022-09-29	ENCERRADO
+81	14	2022-09-06	2022-09-07	ENCERRADO
 59	9	2022-08-05	2022-08-08	ENCERRADO
 60	17	2022-08-08	2022-08-09	ENCERRADO
 61	9	2022-08-09	2022-08-10	ENCERRADO
@@ -9109,6 +9131,40 @@ COPY tb_det_serv (idtb_det_serv, idtb_lotacao_clti, data_entra_servico, data_sai
 63	17	2022-08-11	2022-08-12	ENCERRADO
 64	3	2022-08-12	2022-08-15	ENCERRADO
 65	9	2022-08-15	2022-08-16	ENCERRADO
+82	3	2022-09-07	2022-09-08	ENCERRADO
+83	17	2022-09-08	2022-09-09	ENCERRADO
+84	3	2022-09-09	2022-09-12	ENCERRADO
+85	9	2022-09-12	2022-09-13	ENCERRADO
+86	14	2022-09-13	2022-09-14	ENCERRADO
+87	9	2022-09-14	2022-09-15	ENCERRADO
+88	17	2022-09-15	2022-09-16	ENCERRADO
+89	12	2022-09-16	2022-09-19	ENCERRADO
+90	3	2022-09-19	2022-09-20	ENCERRADO
+91	14	2022-09-20	2022-09-21	ENCERRADO
+92	9	2022-09-21	2022-09-22	ENCERRADO
+98	12	2022-09-29	2022-09-30	ENCERRADO
+106	3	2022-10-11	2022-10-12	ENCERRADO
+101	14	2022-10-06	2022-10-07	ENCERRADO
+104	17	2022-10-07	2022-10-10	ENCERRADO
+100	9	2022-10-03	2022-10-04	ENCERRADO
+99	14	2022-09-30	2022-10-03	ENCERRADO
+118	17	2022-10-27	2022-10-28	PROGRAMADO
+119	14	2022-10-28	2022-10-31	PROGRAMADO
+120	3	2022-10-31	2022-11-01	PROGRAMADO
+102	3	2022-10-04	2022-10-05	ENCERRADO
+103	12	2022-10-05	2022-10-06	ENCERRADO
+105	12	2022-10-10	2022-10-11	ENCERRADO
+107	12	2022-10-12	2022-10-13	ENCERRADO
+108	14	2022-10-13	2022-10-14	ENCERRADO
+110	17	2022-10-17	2022-10-18	ENCERRADO
+115	17	2022-10-24	2022-10-25	ENCERRADO
+109	12	2022-10-14	2022-10-17	ENCERRADO
+111	3	2022-10-18	2022-10-19	ENCERRADO
+112	12	2022-10-19	2022-10-20	ENCERRADO
+113	14	2022-10-20	2022-10-21	ENCERRADO
+114	3	2022-10-21	2022-10-24	ENCERRADO
+116	3	2022-10-25	2022-10-26	ENCERRADO
+117	12	2022-10-26	2022-10-27	ENCERRADO
 \.
 
 
@@ -9118,7 +9174,7 @@ COPY tb_det_serv (idtb_det_serv, idtb_lotacao_clti, data_entra_servico, data_sai
 -- Name: tb_det_serv_idtb_det_serv_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
 
-SELECT pg_catalog.setval('tb_det_serv_idtb_det_serv_seq', 77, true);
+SELECT pg_catalog.setval('tb_det_serv_idtb_det_serv_seq', 120, true);
 
 
 --
@@ -9128,93 +9184,93 @@ SELECT pg_catalog.setval('tb_det_serv_idtb_det_serv_seq', 77, true);
 --
 
 COPY tb_dias_troca (idtb_dias_troca, id_usuario, dias_troca) FROM stdin;
-86	80	-35
-24	28	-35
-61	61	-35
-25	29	20
-2	2	-875
-3	3	-875
-4	4	-875
-28	34	-29
-5	5	-875
-1	1	-659
-7	1	-659
-6	6	-875
-8	2	-875
-9	3	-875
-84	78	-630
-60	60	-630
-10	8	-875
-11	10	-875
-12	11	-875
-13	12	-875
-14	13	-875
-15	15	-875
-16	16	-875
-17	22	-875
-18	24	-875
-19	25	-875
-20	33	-875
-21	26	-875
-23	27	-875
-26	32	-875
-27	35	-875
-29	36	-875
-30	21	-875
-31	4	-875
-32	23	-875
-33	6	-875
-34	7	-875
-35	30	-875
-36	9	-875
-37	19	-875
-38	37	-875
-39	18	-875
-40	20	-875
-41	17	-875
-42	31	-875
-43	41	-875
-44	43	-875
-45	47	-875
-46	48	-875
-47	49	-875
-48	5	-875
-49	50	-875
-50	51	-875
-51	52	-875
-52	53	-875
-53	54	-875
-54	55	-875
-55	56	-875
-56	57	-875
-57	58	-875
-58	39	-875
-62	62	-875
-63	63	-875
-64	64	-875
-65	65	-875
-66	46	-875
-67	66	-875
-68	67	-875
-69	68	-875
-70	69	-875
-71	70	-875
-72	44	-875
-73	71	-875
-74	72	-875
-75	38	-875
-76	45	-875
-77	40	-875
-78	42	-875
-79	73	-875
-80	74	-875
-81	75	-875
-82	76	-875
-83	77	-875
-85	79	-875
-87	81	-875
-59	59	-36
-22	14	52
+25	29	-49
+86	80	-96
+24	28	-96
+61	61	-96
+2	2	-936
+3	3	-936
+4	4	-936
+28	34	-90
+5	5	-936
+1	1	-720
+7	1	-720
+6	6	-936
+8	2	-936
+9	3	-936
+84	78	-691
+60	60	-691
+10	8	-936
+11	10	-936
+12	11	-936
+13	12	-936
+14	13	-936
+15	15	-936
+16	16	-936
+17	22	-936
+18	24	-936
+19	25	-936
+20	33	-936
+21	26	-936
+23	27	-936
+26	32	-936
+27	35	-936
+29	36	-936
+30	21	-936
+31	4	-936
+32	23	-936
+33	6	-936
+34	7	-936
+35	30	-936
+36	9	-936
+37	19	-936
+38	37	-936
+39	18	-936
+40	20	-936
+41	17	-936
+42	31	-936
+43	41	-936
+44	43	-936
+45	47	-936
+46	48	-936
+47	49	-936
+48	5	-936
+49	50	-936
+50	51	-936
+51	52	-936
+52	53	-936
+53	54	-936
+54	55	-936
+55	56	-936
+56	57	-936
+57	58	-936
+58	39	-936
+62	62	-936
+63	63	-936
+64	64	-936
+65	65	-936
+66	46	-936
+67	66	-936
+68	67	-936
+69	68	-936
+70	69	-936
+71	70	-936
+72	44	-936
+73	71	-936
+74	72	-936
+75	38	-936
+76	45	-936
+77	40	-936
+78	42	-936
+79	73	-936
+80	74	-936
+81	75	-936
+82	76	-936
+83	77	-936
+85	79	-936
+87	81	-936
+59	59	-97
+22	14	-9
 \.
 
 
@@ -9225,23 +9281,23 @@ COPY tb_dias_troca (idtb_dias_troca, id_usuario, dias_troca) FROM stdin;
 --
 
 COPY tb_dias_troca_clti (idtb_dias_troca_clti, id_usuario, dias_troca) FROM stdin;
-12	12	-170
-1	2	-843
-3	4	-843
-4	5	-843
-8	1	-843
-9	9	-704
-10	10	-700
-11	11	-700
-13	13	-700
-7	8	-426
-5	6	-284
-15	15	-264
-2	3	-197
-16	16	-99
-14	14	-44
-6	7	-98
-17	17	42
+12	12	-231
+1	2	-904
+3	4	-904
+4	5	-904
+8	1	-904
+9	9	-765
+11	11	-761
+13	13	-761
+7	8	-487
+5	6	-345
+2	3	-258
+16	16	-160
+14	14	-105
+6	7	-159
+17	17	-19
+10	10	-49
+15	15	-40
 \.
 
 
@@ -9303,6 +9359,7 @@ COPY tb_especialidade (idtb_especialidade, nome, sigla, exibir) FROM stdin;
 31	TELECOMUNICAÇÕES	TC	SIM
 32	ENGENHEIRO NAVAL	EN	SIM
 33	HIGIENE DENTAL	HD	SIM
+34	MANOBRAS E REPAROS	MR	SIM
 \.
 
 
@@ -9312,7 +9369,7 @@ COPY tb_especialidade (idtb_especialidade, nome, sigla, exibir) FROM stdin;
 -- Name: tb_especialidade_idtb_especialidade_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
 
-SELECT pg_catalog.setval('tb_especialidade_idtb_especialidade_seq', 33, true);
+SELECT pg_catalog.setval('tb_especialidade_idtb_especialidade_seq', 34, true);
 
 
 --
@@ -9324,8 +9381,6 @@ SELECT pg_catalog.setval('tb_especialidade_idtb_especialidade_seq', 33, true);
 COPY tb_estacoes (idtb_estacoes, idtb_om_apoiadas, idtb_proc_modelo, clock_proc, fabricante, modelo, memoria, armazenamento, idtb_sor, end_ip, end_mac, data_aquisicao, data_garantia, req_minimos, status, idtb_memorias, idtb_om_setores, nome) FROM stdin;
 1	1	47	3.20000005	ARQUIMEDES	CORPORATIVO - A	8	1000	15	172.23.119.135	b4:2e:99:f3:65:cd	2020-07-06	2021-06-06	SIM	EM PRODUÇÃO	30	4	COM3DN-0163.1
 3	1	47	3.20000005	ARQUIMEDES	CORPORATIVO - A	8	1000	14	172.23.119.115	00-e0-4c-8d-40-1e	2020-06-01	2021-06-01	SIM	EM PRODUÇÃO	30	4	COM3DN-0163
-20	1	59	2.0999999	LENOVO	G400S	6	1024	15	172.23.119.35	64:1c:67:62:83:17	2014-05-10	2015-05-10	NÃO	EM PRODUÇÃO	19	4	COM3DN-01632
-4	1	54	3.4000001	LENOVO	2122ABP	8	500	15	172.23.119.119	d4:3d:7e:fc:fd:c7	2018-01-01	2019-12-31	NÃO	EM MANUTENÇÃO	19	2	COM3DN-01614
 8	1	53	3.79999995	SPACEBR	IPMH61R2	8	1000	14	172.23.119.13	00:1a:3f:71:e4:50	2012-04-01	2013-04-03	SIM	EM PRODUÇÃO	18	3	COM3DN-01622
 9	1	56	3.0999999	ARQUIMEDES	CORPORATIVO - B	16	1000	14	172.23.119.84	7c-05-07-bf-a0-8b	2015-01-01	2016-01-01	SIM	EM PRODUÇÃO	18	3	COM3DN-01621
 10	1	53	3	SPACEBR	IPMH61R2	4	1000	14	172.23.119.120	38:60:77:27:53:4A	2012-03-01	2013-03-01	SIM	EM PRODUÇÃO	18	2	COM3DN-0161
@@ -9337,11 +9392,10 @@ COPY tb_estacoes (idtb_estacoes, idtb_om_apoiadas, idtb_proc_modelo, clock_proc,
 6	1	53	3.79999995	SPACEBR	IPMH61R2	8	2000	14	172.23.119.135	38:60:77:27:50:d6	2012-01-01	2013-01-01	SIM	EM PRODUÇÃO	18	2	COM3DN-01633
 11	1	56	3.0999999	ARQUIMEDIS	ARQUIMEDES CORPORATIVO-B	8	1000	15	172.23.119.61	7C:05:07:BF:a1:28	2018-01-02	2019-01-02	SIM	EM PRODUÇÃO	18	2	COM3DN-01613
 7	1	53	3.79999995	SPACEBR	IPMH61R2	8	1000	15	172.23.119.26	38:60:77:27:50:D5	2012-04-30	2013-04-30	SIM	EM PRODUÇÃO	18	2	COM3DN-01612
-2	1	47	3.20000005	ARQUIMEDES	CORPORATIVO - A	8	1000	15	172.23.119.33	00:e0:4c:9e:bc:7c	2020-06-01	2021-06-01	SIM	EM PRODUÇÃO	30	4	COM3DN-01631
 18	1	11	3.0999999	HP	COMPAC B200	8	1000	15	172.23.34.116	80:C1:6E:8C:20:72	2011-11-10	2012-10-10	SIM	EM PRODUÇÃO	18	11	COM3DN-8528
-17	1	1	2.20000005	SPACE BR	D1800B-ITX	4	153	13	172.23.119.245	D0:50:99:79:19:DA	2014-11-04	2015-11-04	NÃO	EM MANUTENÇÃO	15	2	COM3DN-MONITORAMENTO
 13	1	11	2.70000005	HEWLETT-PACKARD	ALL-IN-ONE	4	1000	5	172.23.32.3	6C:3B:E5:E8:15:8A	2013-04-14	2014-04-14	SIM	EM PRODUÇÃO	19	3	COM3DN-01
 21	18	11	3.20000005	POSITIVO	POS-PIQ57BQ	8	320	14	172.23.12.251	E0:69:95:3B:1A:4B	2021-01-01	2021-01-01	SIM	EM PRODUÇÃO	19	80	SSN3-213
+2	1	47	3.20000005	ARQUIMEDES	CORPORATIVO - A	8	1000	27	172.23.119.35	00:e0:4c:9e:bc:7c	2020-06-01	2021-06-01	SIM	EM PRODUÇÃO	30	4	COM3DN-01632
 \.
 
 
@@ -9352,6 +9406,10 @@ COPY tb_estacoes (idtb_estacoes, idtb_om_apoiadas, idtb_proc_modelo, clock_proc,
 --
 
 COPY tb_estacoes_excluidas (idtb_estacoes_excluidas, idtb_om_apoiadas, fabricante, modelo, nome, end_ip, end_mac, data_del, hora_del) FROM stdin;
+1	1	SPACE BR	D1800B-ITX	COM3DN-MONITORAMENTO	172.23.119.245	D0:50:99:79:19:DA	2022-09-22	18:10:00
+2	1	LENOVO	2122ABP	COM3DN-01614	172.23.119.119	d4:3d:7e:fc:fd:c7	2022-09-22	18:10:00
+3	1	LENOVO	G400S	COM3DN-01632	172.23.119.35	64:1c:67:62:83:17	2022-09-22	18:11:00
+4	1	TESTE	TESTE	TESTE	192.168.1.1	fffffffffffffffffff	2022-10-26	19:20:00
 \.
 
 
@@ -9361,7 +9419,7 @@ COPY tb_estacoes_excluidas (idtb_estacoes_excluidas, idtb_om_apoiadas, fabricant
 -- Name: tb_estacoes_excluidas_idtb_estacoes_excluidas_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
 
-SELECT pg_catalog.setval('tb_estacoes_excluidas_idtb_estacoes_excluidas_seq', 1, false);
+SELECT pg_catalog.setval('tb_estacoes_excluidas_idtb_estacoes_excluidas_seq', 4, true);
 
 
 --
@@ -9370,7 +9428,7 @@ SELECT pg_catalog.setval('tb_estacoes_excluidas_idtb_estacoes_excluidas_seq', 1,
 -- Name: tb_estacoes_idtb_estacoes_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
 
-SELECT pg_catalog.setval('tb_estacoes_idtb_estacoes_seq', 21, true);
+SELECT pg_catalog.setval('tb_estacoes_idtb_estacoes_seq', 22, true);
 
 
 --
@@ -9455,11 +9513,9 @@ COPY tb_funcoes_sigdem (idtb_funcoes_sigdem, idtb_om_apoiadas, descricao, sigla,
 6	1	AUXILIAR DA DIVISÃO DE INFRAESTRUTURA DO CLTI	DN-01.6.1.3	10	\N
 7	1	AUXILIAR DA DIVISÃO DE INFRAESTRUTURA DO CLTI	DN-01.6.1.4	11	\N
 8	1	AUXILIAR DA DIVISÃO DE INFRAESTRUTURA DO CLTI	DN-01.6.1.5	12	\N
-1	1	AUXILIAR DA DIVISÃO DE SISTEMAS DO CLTI	DN-01.6.3.2	1	\N
 11	1	SUPERVISOR DA DIVISÃO DE SISTEMAS DO CLTI	DN-01.6.3.1	7	\N
 12	1	ENCARREGADO DA DIVISÃO DE SISTEMAS DO CLTI	DN-01.6.3	3	\N
 9	1	SUPERVISOR DA DIVISÃO DE SEGURANÇA DAS INFORMAÇÕES DIGITAIS DO CLTI	DN-01.6.2.1	5	\N
-10	1	AUXILIAR DA DIVISÃO DE SEGURANÇA DAS INFORMAÇÕES DIGITAIS DO CLTI	DN-01.6.2.2	9	\N
 \.
 
 
@@ -9523,22 +9579,22 @@ SELECT pg_catalog.setval('tb_gw_om_idtb_gw_om_seq', 1, false);
 
 COPY tb_lotacao_clti (idtb_lotacao_clti, idtb_posto_grad, idtb_corpo_quadro, idtb_especialidade, nip, cpf, nome, nome_guerra, status, senha, perfil, correio_eletronico, idtb_funcoes_clti, tarefa, secret, ip_acesso, cont_erro) FROM stdin;
 1	16	1	8	12345678		ADMINCLTI	ADMINCLTI	INATIVO	1f82ea75c5cc526729e2d581aeb3aeccfef4407e256127614ef298fedf9376775a7d7328090f63bf	TEC_CLTI	adminclti@marinha.mil.br	\N	\N	Não ativado	0.0.0.0	0
-10	8	13	32	18151299		FRANKELENE PINHEIRO DE SOUZA	FRANKELENE	ATIVO	4ffec1b96b5dcc0d22e44e16b7522383b92d9729e4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	FRANKELENE@MARINHA.MIL.BR	\N	Aprov.Rel.Sv	Não ativado	0.0.0.0	0
-2	8	13	25	17098602		CARLOS AUGUSTO RODRIGUES DIAS	CARLOS AUGUSTO	ATIVO	508017483633ee899396415ae9a71749412e0232e4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	C.DIAS@MARINHA.MIL.BR	\N	Aprov.Rel.Sv	Não ativado	0.0.0.0	0
-15	9	13	25	21371628		ADERSON JAMIER SANTOS REIS	JAMIER REIS	ATIVO	9a458afd5d42d869fb816bfd6014008a41eca3d4e4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	JAMIER.REIS@MARINHA.MIL.BR	\N	\N	Não ativado	0.0.0.0	0
 13	12	4	2	96114843		FRANCINALDO JOSÉ DE LACERDA	LACERDA	ATIVO	0dcba5a0c94800984c4d9a27132c31a03e465e47e4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	FRANCINALDO.LACERDA@MARINHA.MIL.BR	\N	\N	Não ativado	0.0.0.0	0
 11	6	11	25	00038008		LEONARDO AZEVEDO EDUARDO	EDUARDO	ATIVO	bc1771562b74fe5c7f7d0ca6e58c488072e37c47e4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	LEONARDO.EDUARDO@MARINHA.MIL.BR	\N	Aprov.Rel.Sv	Não ativado	0.0.0.0	0
 4	14	4	8	06039057		RAIMUNDO RUFINO DA SILVA MENDES RAULINO	RUFINO	ATIVO	d83b65ea0d496c4bd07982515fee1b1b1e6e166be4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	RUFINO.MENDES@MARINHA.MIL.BR	\N	Escala de Serviço	Não ativado	0.0.0.0	0
 3	16	1	8	99242991		LÚCIO ALEXANDRE CORREIA DOS SANTOS	ALEXANDRE	ATIVO	c4ce9a5fa42b7026826369e2e6faa9d3b15f03946d70db7ca89a72739f95ebbfffb25ce615fef27d	TEC_CLTI	LUCIO.ALEXANDRE@MARINHA.MIL.BR	\N	Escala de Serviço	Não ativado	0.0.0.0	0
-9	15	4	26	07360649		FRANCISCO INÁCIO DO SANTOS JUNIOR	INÁCIO	ATIVO	28b80c83d1e7390e1bce3724c72d52619a718dc8e4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	INACIO.SANTOS@MARINHA.MIL.BR	\N	Escala de Serviço	Não ativado	0.0.0.0	0
 14	15	5	10	12136999		LAIS SOUZA E SILVA	LAIS SOUZA	ATIVO	128023fe6773aaa6d7da4b0c5752d69d1a207dcb951e2ddfef267f8353eaeff0918377488b0d2b96	TEC_CLTI	LAIS.SOUZA@MARINHA.MIL.BR	\N	Escala de Serviço	Não ativado	0.0.0.0	0
 12	15	5	10	14149711		MATHEUS PINTO DA SILVA	DA SILVA	ATIVO	dfc64bac8dd3659b29744431825a04b82ffeede9e4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	MATHEUS.PINTO@MARINHA.MIL.BR	\N	Escala de Serviço	Não ativado	0.0.0.0	0
 6	15	5	10	13073672		IRRAYRAS FREIRE AUGUSTO	IRRAYRAS	INATIVO	95ef990e534ced8c38323c805345aed9b09526e2baaa3b1056a02ed47e3b0b994eda5db82c46ce75	TEC_CLTI	IRRAYRAS@MARINHA.MIL.BR	\N	Escala de Serviço	Não ativado	0.0.0.0	0
 16	7	10	12	15089509		PAULO PESSOA DE CARVALHO FILHO	PAULO PESSOA	ATIVO	7a057a40dda48a116213cc234c97ee950ad33487e4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	PAULO.PESSOA@MARINHA.MIL.BR	\N		Não ativado	0.0.0.0	0
 17	15	5	10	11112832		HIAGO BRANDÃO DE MOURA	HIAGO	ATIVO	607290bfc45fb7fdc35eddbbe212a7b1b94b4851dc6f0616d82a0af06128875a25129ad5728e302a	TEC_CLTI	HIAGO.BRANDAO@MARINHA.MIL.BR	\N	Escala de Serviço	Não ativado	0.0.0.0	0
 7	12	4	8	95111531		CARLOS JOSÉ NOGUEIRA DA SILVA	CARLOS JOSÉ	ATIVO	5c7439d072e6a7a25d023036332a63888570ebdce4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	CARLOS.NOGUEIRA@MARINHA.MIL.BR	\N	\N	FELHWOXYPNAGINK3	0.0.0.0	0
+15	8	13	25	21371628		ADERSON JAMIER SANTOS REIS	JAMIER REIS	ATIVO	9a458afd5d42d869fb816bfd6014008a41eca3d4e4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	JAMIER.REIS@MARINHA.MIL.BR	\N	\N	Não ativado	0.0.0.0	0
+2	8	13	25	17098602		CARLOS AUGUSTO RODRIGUES DIAS	CARLOS AUGUSTO	INATIVO	508017483633ee899396415ae9a71749412e0232e4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	C.DIAS@MARINHA.MIL.BR	\N	Aprov.Rel.Sv	Não ativado	0.0.0.0	0
 8	16	13	31	21042624		WALLACE UBIRAJARA DE LIMA	UBIRAJARA	ATIVO	36fdd037dadb96c165f487fd161a83723e089c09e4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	W.BIRAJARA@MARINHA.MIL	\N	\N	VA7EURLOA5VQSX3N	0.0.0.0	0
 5	16	5	10	19091761		VALDINEI DA SILVA SANTOS	VALDINEI	ATIVO	2c31c32296b543348c7afa9df39b91c4fd56a2b5e4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	VALDINEI.SANTOS@MARINHA.MIL.BR	\N	\N	YZGEN5BCUQR4UC52	0.0.0.0	0
+9	14	4	26	07360649		FRANCISCO INÁCIO DO SANTOS JUNIOR	INÁCIO	ATIVO	28b80c83d1e7390e1bce3724c72d52619a718dc8e4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	INACIO.SANTOS@MARINHA.MIL.BR	\N	Escala de Serviço	Não ativado	0.0.0.0	0
+10	8	13	32	18151299		FRANKELENE PINHEIRO DE SOUZA	FRANKELENE	ATIVO	4ffec1b96b5dcc0d22e44e16b7522383b92d9729114d566e2b9de05942aa4eff149edbf22ecb4cbc	TEC_CLTI	FRANKELENE@MARINHA.MIL.BR	\N	Aprov.Rel.Sv	Não ativado	0.0.0.0	0
 \.
 
 
@@ -9558,9 +9614,7 @@ SELECT pg_catalog.setval('tb_lotacao_clti_idtb_lotacao_clti_seq', 17, true);
 --
 
 COPY tb_manutencao_et (idtb_manutencao_et, idtb_estacoes, idtb_om_apoiadas, data_entrada, data_saida, diagnostico, custo_manutencao, situacao) FROM stdin;
-2	17	1	2021-09-24	\N	TROCA DE MEMÓRIA                                                                                                                                                                                                                                               	0	EM PRODUÇÃO
 1	2	1	2021-01-27	\N	NÃO LIGA                                                                                                                                                                                                                                                       	0	EM PRODUÇÃO
-3	17	1	2021-09-24	\N	NÃO LIGA                                                                                                                                                                                                                                                       	0	EM MANUTENÇÃO
 \.
 
 
@@ -9693,7 +9747,7 @@ SELECT pg_catalog.setval('tb_nec_aquisicao_idtb_nec_aquisicao_seq', 1, false);
 --
 
 COPY tb_numerador (idtb_numerador, parametro, prox_num) FROM stdin;
-1	RelServico	290
+1	RelServico	330
 \.
 
 
@@ -9840,6 +9894,11 @@ COPY tb_om_setores (idtb_om_setores, idtb_om_apoiadas, nome_setor, sigla_setor, 
 78	18	DIVISÃO DE BALIZAMENTO	SEC. BALIZAMENTO	SSN3-11	SETOR DE BALIZAMENTO
 79	18	DIVISÃO DE OPERAÇÕES	SEC. OPERAÇÕES	SSN3-31	SETOR DE OPERAÇÕES
 80	18	SEÇÃO DE INFORMATICA	CPD	SSN3-26	SALA DO CPD
+81	13	SERVIÇO DE TECNOLOGIA DA INFORMAÇÃO	STI	02.1	STI
+82	16	SERVIÇO DE TECNOLOGIA DA INFORMAÇÃO	STI	HNNA-01.5	MANUTENÇÃO
+83	16	SERVIÇO DE TECNOLOGIA DA INFORMAÇÃO	STI	HNNA-015	SALA DE ATIVOS
+84	18	SEÇÃO DE PESSOAL	DIV. PESSOAL	SSN3-21	SEÇÃO DE PESSOAL
+85	18	SEÇÃO DE FINANÇAS	DIV. FINANÇAS	SSN3-23	SEÇÃO DE FINANÇAS
 \.
 
 
@@ -9849,7 +9908,7 @@ COPY tb_om_setores (idtb_om_setores, idtb_om_apoiadas, nome_setor, sigla_setor, 
 -- Name: tb_om_setores_idtb_om_setores_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
 
-SELECT pg_catalog.setval('tb_om_setores_idtb_om_setores_seq', 80, true);
+SELECT pg_catalog.setval('tb_om_setores_idtb_om_setores_seq', 85, true);
 
 
 --
@@ -9947,7 +10006,6 @@ COPY tb_permissoes_admin (idtb_permissoes_admin, idtb_om_apoiadas, idtb_estacoes
 1	1	1	OS Nº XX/2021
 2	1	7	OS XX/2021
 3	1	11	OS XX/2021
-4	1	4	OS XX/2021
 5	1	6	OS XX/2021
 6	1	5	OS XX/2021
 7	1	10	OS XX/2021
@@ -10002,13 +10060,15 @@ COPY tb_pessoal_om (idtb_pessoal_om, idtb_om_apoiadas, idtb_posto_grad, idtb_cor
 5	1	12	4	2	96114843		FRANCINALDO JOSÉ DE LACERDA	LACERDA	FRANCINALDO.LACERDA@MARINHA.MIL.BR	ATIVO	NÃO
 6	1	12	4	8	95111531		CARLOS JOSÉ NOGUEIRA DA SILVA	CARLOS JOSÉ	CARLOS.NOGUEIRA@MARINHA.MIL.BR	ATIVO	NÃO
 8	1	15	4	26	07360649		FRANCISCO INÁCIO DO SANTOS JUNIOR	INÁCIO	INACIO.SANTOS@MARINHA.MIL.BR	ATIVO	NÃO
-9	1	15	5	10	13073672		IRRAYRAS FREIRE AUGUSTO	IRRAYRAS	IRRAYRAS@MARINHA.MIL.BR	ATIVO	NÃO
 7	1	14	4	8	06039057		RAIMUNDO RUFINO DA SILVA MENDES RAULINO	RUFINO	RUFINO.MENDES@MARINHA.MIL.BR	ATIVO	NÃO
 10	1	15	5	10	14149711		MATHEUS PINTO DA SILVA	DA SILVA	MATHEUS.PINTO@MARINHA.MIL.BR	ATIVO	NÃO
 11	1	16	5	10	19091761		VALDINEI DA SILVA SANTOS	VALDINEI	VALDINEI.SANTOS@MARINHA.MIL.BR	ATIVO	NÃO
 12	1	16	13	31	21042624		WALLACE UBIRAJARA DE LIMA	UBIRAJARA	W.BIRAJARA@MARINHA.MIL	ATIVO	NÃO
-13	1	16	13	8	16130189		BRENDO JACKSON LEITE DA SILVA	BRENDO	BRENDO.JACKSON@MARINHA.MIL.BR	ATIVO	NÃO
 4	1	8	13	32	18151299		FRANKELENE PINHEIRO DE SOUZA	FRANKELENE	FRANKELENE@MARINHA.MIL.BR	ATIVO	NÃO
+14	18	8	23	32	06047262		LEANDRO DE AZEVEDO SOUSA	SOUSA	SOUSA.AZEVEDO@MARINHA.MIL.BR	ATIVO	SIM
+15	18	12	4	6	86309609		SIDNEY DE ARAUJO ALVES	SIDNEY	SIDNEY.ARAUJO@MARINHA.MIL.BR	INATIVO	SIM
+16	18	16	5	27	16013085		MATHEUS DE ASSIS BASTOS	BASTOS	MATHEUS.BASTOS@MARINHA.MIL.BR	ATIVO	NÃO
+17	18	13	5	4	01011057		MARCOS PAULO DOS SANTOS PEREIRA ALBUQUERQUE	MARCOS PAULO	MARCOS-PAULO.PEREIRA@MARINHA.MIL.BR	ATIVO	SIM
 \.
 
 
@@ -10018,7 +10078,7 @@ COPY tb_pessoal_om (idtb_pessoal_om, idtb_om_apoiadas, idtb_posto_grad, idtb_cor
 -- Name: tb_pessoal_om_idtb_pessoal_om_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
 
-SELECT pg_catalog.setval('tb_pessoal_om_idtb_pessoal_om_seq', 13, true);
+SELECT pg_catalog.setval('tb_pessoal_om_idtb_pessoal_om_seq', 17, true);
 
 
 --
@@ -10040,7 +10100,7 @@ COPY tb_pessoal_ti (idtb_pessoal_ti, idtb_om_apoiadas, idtb_posto_grad, idtb_cor
 52	23	7	19	12	87195151		MÁRCIO LUIZ NETO	MÁRCIO	MARCIO.NETO@MARINHA.MIL.BR	ATIVO	28579dadf3e41efc6a6b193a6fd52b57d00e242697f72b1efb5b2c27ef6ceb01c3188bff3a6919e4	2	Não ativado	0.0.0.0	0
 53	12	8	13	25	19092661		FRANK WAGNER CABRAL WESNER	WESNER	WESNER@MARINHA.MIL.BR	ATIVO	62025c65442a48cd57ee12a6e7222011cdbd1e8aa734cfb77e2f93141723d9ce352805b14e0fdcb1	2	Não ativado	0.0.0.0	0
 36	14	13	4	29	99185547		TIAGO BAUMGARTNER	BAUMGARTNER	BAUMGARTNER@MARINHA.MIL.BR	ATIVO	9d23f25895d81ef1dcc685387d9663b2d965d990b7086759fec5d8c8a563f35e3286de6e88f9f386	1	Não ativado	0.0.0.0	0
-29	13	12	4	28	86921568		HELTON JULIANO MAFALDA	HELTON	HELTON.JULIANO@MARINHA.MIL.BR	ATIVO	4045e90f6cedcd41d1d4b01e15542d305ec8d344100218ec77cde754df7354f495f6349efff02103	1	Não ativado	0.0.0.0	0
+29	13	12	4	28	86921568		HELTON JULIANO MAFALDA	HELTON	HELTON.JULIANO@MARINHA.MIL.BR	ATIVO	4045e90f6cedcd41d1d4b01e15542d305ec8d344f6bb21dc7c2128fd910567f326c5cf43518773e6	1	Não ativado	0.0.0.0	0
 28	1	13	5	10	00124524		KAREN DE SOUZA VIEIRA	KAREN	KAREN.SOUZA@MARINHA.MIL.BR	ATIVO	3c9de54283c326b394bec58fe90f55c909d643e187729f150af868128ec422bda2d42224772ce262	1	Não ativado	0.0.0.0	0
 34	16	6	21	25	81921241		MARCIA MARIA MARQUES DA SILVA	MARCIA	MARCIA.MARQUES@MARINHA.MIL.BR	ATIVO	dda193875295116867a349cc720784991c22d253c25c1d2994195e32160f827f7d8187290b30f7e8	2	Não ativado	0.0.0.0	0
 55	20	12	4	8	86911414		SANDRO CORRÊA BIELLA	BIELLA	SANDRO.BIELLA@MARINHA.MIL.BR	ATIVO	79c27d8a449d481cb629afba9243d456ea1fe8734e0671abfd3a8f43e653819368ce52998a87ff2e	1	Não ativado	0.0.0.0	0
@@ -10060,14 +10120,12 @@ COPY tb_pessoal_ti (idtb_pessoal_ti, idtb_om_apoiadas, idtb_posto_grad, idtb_cor
 83	11	15	4	8	11037610		JONATHAN ERICK SAMPAIO DE BARROS SILVA	ERICK	JONATHAN.BARROS@MARINHA.MIL.BR	ATIVO	eac912f39ce668cc732b2404542c3e921041ac0572e9a48dbbe51b6dc0fb06685b0a9a06f4037f02	1	Não ativado	0.0.0.0	0
 86	6	9	2	12	12046744		BRENO GOMES STORCH	BRENO STORCH	BRENO.STORCH@MARINHA.MIL.BR	ATIVO	80d3da3854f297f57862856c2e6877aef6d789c3875792e010a6f8b49e64792841623e12111484d2	2	Não ativado	0.0.0.0	0
 87	21	7	19	12	87297027		CARLOS OTÁVIO CORREIA DE ALCÂNTARA	OTÁVIO	CARLOS.OTAVIO@MARINHA.MIL.BR	ATIVO	b0c8fff862273c43e21eacf4373e9bb6f15a3fa583e425b1aecf52151e3ef20352c32bbf23692c5f	2	Não ativado	0.0.0.0	0
-90	27	15	5	10	86689185		LILIAN ARAGÃO TORRES	LILIAN	LILIAN.TORRES@MARINHA.MIL.BR	ATIVO	84f31ab0be746fd24375e0036fc0d6bd30e356e8ed844e0debc15321be08c095f2fb98e001f2aadb	1	Não ativado	0.0.0.0	0
 84	9	16	4	3	15027881		IGOR ARQUEU DE LIMA AZEVEDO	ARQUEU	IGOR.ARQUEU@MARINHA.MIL.BR	ATIVO	e83dcd1bd14d6064338d9f185b4fef53860464ebeb7c09835c6c27c0920c9b998e1dd45e3a195d3a	1	Não ativado	0.0.0.0	0
 96	7	9	4	12	13032330		MATHEUS PEREIRA DA SILVA	PEREIRA	MATHEUS.PEREIRA.SILVA@MARINHA.MIL.BR	ATIVO	06b7d2ec9adbf42ba8b0e80be4e8038cd44cf0b6a09c666031da1123ada22fa74b9bb8f60a5668e1	2	Não ativado	0.0.0.0	0
 97	25	6	19	12	95013474		ROGERIO FERNANDES DA COSTA	COSTA	ROGERIO.COSTA@MARINHA.MIL.BR	ATIVO	995c818d39b18b1bb121a37b8e41b43c22a09a37adfa15367c5ea8c7e0a8f4501d62d8c8239dbf1b	2	Não ativado	0.0.0.0	0
 92	28	15	5	10	13126628		MARIA VANESSA GONÇALO DA COSTA	MARIA	MARIA.VANESSA@MARINHA.MIL.BR	ATIVO	67128698e636eb756f1f7d27242b59c250eb35d51ad22b982ebb89c355d9ee50eb069df24ef3b737	1	Não ativado	0.0.0.0	0
 93	12	14	4	21	04012739		EMERSON DE ALMEIDA DA SILVA	EMERSON	EMERSON.ALMEIDA@MARINHA.MIL.BR	ATIVO	607a9eb4093f81ed650478acccb089c52e239e356c74511499079c072e4942a8b90fccd1d1f83a9b	1	Não ativado	0.0.0.0	0
 94	27	7	19	12	86967550		ELCIMAR MACHADO DA SILVA	ELCIMAR	ELCIMAR@MARINHA.MIL.BR	ATIVO	701221250a908d53dbb0aabd6f8a97eaf5b992c76eb4e2d6a3516654d8ce9c4af3a5d97c589b5b2c	2	Não ativado	0.0.0.0	0
-95	19	8	2	12	09023330		GUSTAVO LUIS PESSANHA FERREIRA	PESSANHA	GUSTAVO.PESSANHA@MARINHA.MIL.BR	ATIVO	a4db9ea19477ec249315ca57cff7fc89bbf618783791439e08405cdcc22b87f9cbf1d6a6083991d3	2	Não ativado	0.0.0.0	0
 1	1	16	1	8	99242991		LÚCIO ALEXANDRE CORREIA DOS SANTOS	ALEXANDRE	LUCIO.ALEXANDRE.SANTOS@GMAIL.COM	ATIVO	c4ce9a5fa42b7026826369e2e6faa9d3b15f0394cfa2e07cce7164559deb40983ccefed9255e11bd	5	Não ativado	0.0.0.0	0
 98	15	15	5	10	14142872		PEDRO RAFAEL LEAL DA SILVA BEZERRA	PEDRO	RAFAEL.LEAL@MARINHA.MIL.BR	ATIVO	fcc6c8bcc0507ee298f3789201aead7b8c3c93b126d9cc86152d7285c4b9b2208a281f88b08a8609	1	Não ativado	0.0.0.0	0
 100	24	7	2	12	13082388		ANDERSON DE OLIVEIRA PAULA	ANDERSON	ANDERSON.PAULA@MARINHA.MIL.BR	ATIVO	e930a89b2493663dba00e1b93fabf9a3601905b2e98c1d5f3afe97cc9c166fa7280966d3332e4574	2	Não ativado	0.0.0.0	0
@@ -10082,14 +10140,16 @@ COPY tb_pessoal_ti (idtb_pessoal_ti, idtb_om_apoiadas, idtb_posto_grad, idtb_cor
 85	20	6	2	12	00036161		ROBERTO WALLACE BRAGA LATA JÚNIOR	ROBERTO WALLACE	ROBERTO.WALLACE@MARINHA.MIL.BR	ATIVO	e3914732974dd85067037b3c343dc91cc650c8641e71b1d44f7df03ae2bf08b5c53056af8533d5b4	2	Não ativado	0.0.0.0	0
 109	18	9	19	12	85725196		RAFAEL ARAUJO SZAZ	SZAZ	SZAZ@MARINHA.MIL.BR	ATIVO	4d551eb68cef0abd3af165aa0b90fd575e16e47f69e35bab0fcb4c478290f9fe23c56b78e7bc164f	2	Não ativado	0.0.0.0	0
 101	13	8	9	12	09022686		REINALDO ALMEIDA DAS CHAGAS JUNIOR	REINALDO	REINALDO.CHAGAS@MARINHA.MIL.BR	ATIVO	6328d53a1335f75dc5e7fee95564242bd0b524926ba959bc445821e88c41a4595213c312c3bb487d	2	Não ativado	0.0.0.0	0
-80	1	8	13	25	18103251		DIEGO VITOR SOARES DOS SANTOS	VITOR	DIEGO.VITOR@MARINHA.MIL.BR	ATIVO	e5d51ec7106c2fd5c54439f568d6e359b67d5129e3c699d88a4b32c86e5853062728ab0e03068d99	2	Não ativado	0.0.0.0	0
-89	1	15	5	10	07351836		ALEX CAETANO BARBOSA	ALEX	ALEX.CAETANO@MARINHA.MIL.BR	ATIVO	0a6873fd676fb06f30c22648d99069227b981464e7b348cb5a08159e24385eab2336b15cb58c22c5	1	Não ativado	0.0.0.0	0
 76	16	19	13	23	13050311		CHRISTYAN JORDAN BARROS FERREIRA	JORDAN	CHRISTYANSRN@GMAIL.COM	INATIVO	c7f9175e30e309c7f01930c88e9a1e79a221a426c7f9175e30e309c7f01930c88e9a1e79a221a426	3	Não ativado	0.0.0.0	0
 111	21	15	5	10	15163725		FABIANO DO NASCIMENTO CELESTINO	CELESTINO	FABIANO.CELESTINO@MARINHA.MIL.BR	ATIVO	a84d2fab7b7d3c5a8e667843a145b8d9f941f252abae9f368c6b1c7f3de70b8b8c12f0d172268845	1	Não ativado	0.0.0.0	0
 114	17	15	5	10	12134414		MANOEL DE ANDRADE DOMINGOS	DOMINGOS	MANOEL.DOMINGOS@MARINHA.MIL.BR	ATIVO	844500653b41d365e4c9d65e5d5a15916e2dc910f4c9726a6c4072da71a2199822a4394624737b80	1	Não ativado	0.0.0.0	0
 113	4	7	4	12	14088975		MAURICIO BARROS DE SOUZA	MAURICIO BARROS	MAURICIO.BARROS@MARINHA.MIL.BR	ATIVO	2417507ea8ae316619ba1b9c2a6ad57e02ba53e912eb60344b218b3250f6c01e09ea121621112ebc	2	Não ativado	0.0.0.0	0
-115	16	15	5	10	13073672		IRRAYRAS FREIRE AUGUSTO	IRRAYRAS	IRRAYRAS@MARINHA.MIL.BR	ATIVO	95ef990e534ced8c38323c805345aed9b09526e2e2a783d9d7f3dd562d9f763a453c52ad278a53b6	1	Não ativado	0.0.0.0	0
 116	16	19	13	23	17047943		LUCAS MATEUS SALVIANO DA SILVA	SALVIANO	TESTE@MARINHA.MIL.BR	ATIVO	f36e176dd49ee1f98788832d99112ec511c376b0ac425e42c5fe32581d64d481cf3592c7cd7ffd6b	3	Não ativado	0.0.0.0	0
+117	27	12	4	34	97017841		CLEILSON BARBOSA BEZERRA	CLEILSON	CLEILSON@MARINHA.MIL.BR	ATIVO	d9e0a652c8ec4cfdaab0a81516db4aa87f7a1e21de3498666071151269a67060e0848f6a505df363	1	Não ativado	0.0.0.0	0
+115	16	15	5	10	13073672		IRRAYRAS FREIRE AUGUSTO	IRRAYRAS	IRRAYRAS@MARINHA.MIL.BR	ATIVO	95ef990e534ced8c38323c805345aed9b09526e22a1a5b3fc1cca99daa94f4183ab4254c312fec8a	1	Não ativado	0.0.0.0	0
+118	19	8	2	12	10023381		EDUARDO CESAR TROTTA DE MORAIS	TROTTA	TROTTA@MARINHA.MIL.BR	ATIVO	383ee8df010bb0d79a567f2702e580caf28ca0fb15451a82fc3bdc6dc32a5db96f3591f53784c40b	2	Não ativado	0.0.0.0	0
+121	1	8	13	25	17098602		CARLOS AUGUSTO RODRIGUES DIAS	CARLOS AUGUSTO	C.DIAS@MARINHA.MIL.BR	ATIVO	508017483633ee899396415ae9a71749412e0232c01619e7f1c2ff1d930c34e2c9bccdd63194654d	2	Não ativado	0.0.0.0	0
+89	1	14	5	10	07351836		ALEX CAETANO BARBOSA	ALEX	ALEX.CAETANO@MARINHA.MIL.BR	ATIVO	0a6873fd676fb06f30c22648d99069227b981464c01619e7f1c2ff1d930c34e2c9bccdd63194654d	1	Não ativado	0.0.0.0	0
 \.
 
 
@@ -10099,7 +10159,7 @@ COPY tb_pessoal_ti (idtb_pessoal_ti, idtb_om_apoiadas, idtb_posto_grad, idtb_cor
 -- Name: tb_pessoal_ti_idtb_pessoal_ti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
 
-SELECT pg_catalog.setval('tb_pessoal_ti_idtb_pessoal_ti_seq', 116, true);
+SELECT pg_catalog.setval('tb_pessoal_ti_idtb_pessoal_ti_seq', 121, true);
 
 
 --
@@ -10180,9 +10240,6 @@ COPY tb_proc_modelo (idtb_proc_modelo, idtb_proc_fab, modelo) FROM stdin;
 7	1	Pentium Dual Core
 8	1	Pentium Extreme
 9	1	Xeon
-10	1	Core i3
-11	1	Core i5
-12	1	Core i7
 13	1	Core i7 Extreme Edition
 15	2	Athlon FX
 16	2	AthlonX2
@@ -10229,7 +10286,11 @@ COPY tb_proc_modelo (idtb_proc_modelo, idtb_proc_fab, modelo) FROM stdin;
 56	1	CORE I5-2400
 57	1	XEON E5-2430 V2
 58	1	XEON E5-2620
-59	1	I7-3612QM
+10	1	CORE I3-2300
+11	1	CORE I5-2500
+12	1	CORE I7-2500
+59	1	CORE I7-3612QM
+60	1	XEON BRONZE 3204
 \.
 
 
@@ -10239,7 +10300,7 @@ COPY tb_proc_modelo (idtb_proc_modelo, idtb_proc_fab, modelo) FROM stdin;
 -- Name: tb_proc_modelo_idtb_proc_modelo_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
 
-SELECT pg_catalog.setval('tb_proc_modelo_idtb_proc_modelo_seq', 59, true);
+SELECT pg_catalog.setval('tb_proc_modelo_idtb_proc_modelo_seq', 60, true);
 
 
 --
@@ -10645,21 +10706,61 @@ COPY tb_rel_servico (idtb_rel_servico, sup_sai_servico, sup_entra_servico, num_r
 273	9	17	272	2022-08-05	2022-08-08	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
 269	14	17	268	2022-08-01	2022-08-02	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
 275	9	3	274	2022-08-09	2022-08-10	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-287	17	14	286	2022-08-25	2022-08-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Encerrado
 276	3	17	275	2022-08-10	2022-08-11	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-289	9	12	288	2022-08-29	2022-08-30	Funcionando normalmente	Operando normalmente	Executado normalmente	Em andamento
 277	17	3	276	2022-08-11	2022-08-12	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-288	14	9	287	2022-08-26	2022-08-29	Funcionando normalmente	Operando normalmente	Executado normalmente	Encerrado
-290	12	3	289	2022-08-30	2022-08-31	Funcionando normalmente	Operando normalmente	Executado normalmente	Em andamento
+315	12	14	314	2022-10-05	2022-10-06	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
 278	3	12	277	2022-08-12	2022-08-15	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+288	14	9	287	2022-08-26	2022-08-29	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
 279	9	3	278	2022-08-15	2022-08-16	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+295	14	3	294	2022-09-06	2022-09-07	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
 280	3	17	279	2022-08-16	2022-08-17	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
 281	17	3	280	2022-08-17	2022-08-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+297	17	3	296	2022-09-08	2022-09-09	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
 282	3	12	281	2022-08-18	2022-08-19	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+289	9	12	288	2022-08-29	2022-08-30	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+290	12	3	289	2022-08-30	2022-08-31	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+287	17	14	286	2022-08-25	2022-08-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+304	3	14	303	2022-09-19	2022-09-20	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
 283	12	17	282	2022-08-19	2022-08-22	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+292	14	17	291	2022-09-01	2022-09-02	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+310	9	3	309	2022-09-27	2022-09-28	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
 284	17	12	283	2022-08-22	2022-08-23	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+293	17	9	292	2022-09-02	2022-09-05	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+291	3	14	290	2022-08-31	2022-09-01	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+294	9	14	293	2022-09-05	2022-09-06	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
 285	12	17	284	2022-08-23	2022-08-24	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
 286	17	3	285	2022-08-24	2022-08-25	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+306	9	3	305	2022-09-21	2022-09-22	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+296	3	17	295	2022-09-07	2022-09-08	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+305	14	9	304	2022-09-20	2022-09-21	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+307	3	9	306	2022-09-22	2022-09-23	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+298	3	9	297	2022-09-09	2022-09-12	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+300	14	9	299	2022-09-13	2022-09-14	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+301	17	9	300	2022-09-14	2022-09-15	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+308	9	14	307	2022-09-23	2022-09-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+299	9	14	298	2022-09-12	2022-09-13	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+302	17	9	301	2022-09-15	2022-09-16	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+303	12	3	302	2022-09-16	2022-09-19	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+312	12	14	311	2022-09-29	2022-09-30	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+309	14	9	308	2022-09-26	2022-09-27	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+313	9	3	312	2022-10-03	2022-10-04	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+311	3	12	310	2022-09-28	2022-09-29	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+317	17	12	316	2022-10-07	2022-10-10	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+316	14	17	315	2022-10-06	2022-10-07	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+314	3	9	313	2022-10-04	2022-10-05	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+318	12	3	317	2022-10-10	2022-10-11	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+322	12	17	321	2022-10-14	2022-10-17	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+319	3	12	318	2022-10-11	2022-10-12	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+323	17	3	322	2022-10-17	2022-10-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+321	12	3	320	2022-10-13	2022-10-14	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+324	3	12	323	2022-10-18	2022-10-19	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+320	12	14	319	2022-10-12	2022-10-13	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+325	12	14	324	2022-10-19	2022-10-20	Funcionando normalmente	Operando normalmente	Executado normalmente	Encerrado
+327	3	17	326	2022-10-21	2022-10-24	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+326	14	3	325	2022-10-20	2022-10-21	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+328	17	3	327	2022-10-24	2022-10-25	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+329	3	12	328	2022-10-25	2022-10-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+330	3	17	329	2022-10-26	2022-10-27	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
 \.
 
 
@@ -10669,7 +10770,7 @@ COPY tb_rel_servico (idtb_rel_servico, sup_sai_servico, sup_entra_servico, num_r
 -- Name: tb_rel_servico_idtb_rel_servico_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
 
-SELECT pg_catalog.setval('tb_rel_servico_idtb_rel_servico_seq', 290, true);
+SELECT pg_catalog.setval('tb_rel_servico_idtb_rel_servico_seq', 330, true);
 
 
 --
@@ -10865,6 +10966,33 @@ COPY tb_rel_servico_ocorrencias (idtb_rel_servico_ocorrencias, num_rel, ocorrenc
 160	285	PTC que as 16:46 foi aberto um chamado pela AGBRAN de nº 2022067585, informando erro 500 no servidor do SIGDEM ao tentar anexar um documento. Ao VRF o servidor da OM, foi constatado que a partição /local estava com 100% do espaço alocado, provando assim o erro reportado. Ao analisar os arquivos do servidor e da própria AGBRAN, foi identificado um arquivo de log da base do SIGDEM com aproximadamente 2GB do ano de 2018, logo, através do filezilla copiei essa base, que ficou armazenada na ET do 1T Carlos Augusto, posteriormente dentro do servidor, executei o comando para apagar a base. Em seguida a função do SIGDEM voltou a funcionar, segundo resposta do chamado.	Sup. que entra ciente
 156	277	A conectividade do Com3ºDN apresentou oscilações durante os dias 13 e 14/AGO, havendo interrupção total entre as 08:15h e 10:30h do dia 13/AGO. Verificando-se as ferramentas de monitoramento, não foi possível determinar as causas. Suspeita-se que tenha sido problema interno à OM, tendo em vista que não houveram outras OM da área da Grande Natal apresentando problemas de conectividade.	Sup. que entra ciente
 159	284	Infiltração próximo ao televisor de monitoramento dos rádios. Enviado e-mail 24AGO 08:05P.	Sup. que entra ciente
+162	291	PTC HNRE com indisponibilidade devido ao rompimento da Fibra, sem previsão de volta hoje. 	Sup. que entra ciente
+161	291	Foi realizado pela Div. de INFRA a troca do estabilizador no Rack do mergulhão, pois o mesmo queimou. 	Sup. que entra ciente
+163	292	Foi constatado no sábado dia 03/09 que o HNNA ficou sem conexão das 18:00 as 23:00. PTC que o problema foi decorrente de falta de energia no enlace desse Hospital.\r\n\r\nPTC que na troca de ar-condicionado no domingo (04/09), foi percebido que o segundo ar-condicionado (de marca Briza) não estava gelando muito, pode ser que o ar-condicionado precise de manutenção corretiva em breve.	Sup. que entra ciente
+164	296	PTC que foi constatado pela manhã a falta de conexão com os navios NBHAES, NPACAU, NPAJAU, NPAUNA e RTRNFO. O CB Valdinei entrou em contato com o CB Ubirajara para que o mesmo pudesse vrf as conexões no cais, logo, o CB Ubirajara informou que o Mergulhão estava sem energia elétrica ocasionando assim, a falta de conexão desses navios.Os mesmos informaram que a previsão de volta seria as 16:00.\r\n\r\n	Sup. que entra ciente
+167	300	PTC que foi realizada a migração de protocolo de roteamento do RIP para OSPF dos roteadores deste CLTI pelo pessoal do CTIM. Faina essa que começou no dia 14/09 as 18:00 e foi finalizada  as 19:30 desse mesmo dia. PTC que a faina ocorreu sem problemas.	Sup. que entra ciente
+165	298	Falta de recebimento de Relatório de Entrega (Maiser) e Recibo de Leitura (RCPT) e não transmissão de MSG e Expedientes.\r\n\r\nFoi constatado, após contato telefônico oriundo de OOMM de fora da área do Com3ºDN, que as mensagens e expedientes encaminhados destas para este Distrito Naval, apesar de terem sido recebidas nas caixas postais com3dn-msg e com3dn-secom do Lotus Notes, não estão gerando Relatórios de Entrega (Maiser) e Recibos de Leitura (RCPT) às OOMM origem destas mensagens e expedientes transmitidos. Em contrapartida, as mensagens e expedientes transmitidos por este Distrito Naval através das caixas postais com3dn-msg-tr e com3dn-secom-tr do Lotus Notes NÃO estão sendo recebidas nas OOMM destinatárias, o que foi constatado através de contato telefônico e tampouco estão sendo gerados Relatórios de Entrega (Maiser) e Recibos de Leitura (RCPT).\r\n\r\nOutrossim, foi participado que não estão sendo geradas notificações de erro durante a transmissão dos mesmos.\r\nCHAMADO Nº. ID 2022071882\r\n\r\nApós chamado aberto e escalonado para CTIM, o problema foi resolvido pelo SG LOUBACK - CTIM	Sup. que entra ciente
+166	298	Indisponibilidade constatada no Monitoramento.\r\nConstatada perda de comunicação do ativo CPCE_EBT 2801 10.100.3.2 com a RECIM em nosso sistema de monitoramento. \r\nChamado - ID 2022071972 3SG_ MARANHÃO-CTIM.\r\n\r\nRealizado contato telefônico (85) 98161-8587, atendido pelo SG SOUZA MOURA, e informou que motivo da indisponibilidade, problemas com MPLS Embratel. Já entrou em contato com ela e abriu um chamado solicitando reparo do serviço.\r\nNão há prazo para reparo no momento, aguardando a posição da empresa.\r\n\r\nO Chamado foi respondido e até o presente momento, a OM continuar Indisponível.	Sup. que entra ciente
+176	315	PTC indisponibilidade do MPLS às 15:25. Aberto chamado na EBT \r\nN° 2022765673797 e N° 20227656774097. 	Sup. que entra ciente
+178	315	MPLS normalizado as 16hrs, chamado continua aberto para verificação da EBT.	Sup. que entra ciente
+168	302	AgAracati teve um problema na alimentação do nobreak e a torre de conectividade foi em baixa.	Sup. que entra ciente
+169	302	Intermitência dia 17/09 na ERMN, ficaram sem conexão por alguns minutos. Foi relatado chuva na área da OM.	Sup. que entra ciente
+170	302	Faxina da CTIM realizada com sucesso no dia 17/09. Rádio do Com3DN full duplex 40MB e CPRN com 13MB.	Sup. que entra ciente
+171	302	MPLS ficou fora no dia 19/09 das 6:30 às 6:35.	Sup. que entra ciente
+174	314	Inoperância no Sinal MPLS. // Foi informado as 06:43, pelo SO CARLOS JOSÉ a queda do sinal. Após acionamento do MIL de SVÇ, foram tomadas as devidas providências para verificar e sanar o problema. /// Realizada pesquisa de avarias nos equipamentos de conectividades, foi observado problema no Roteador da Embratel. Foi aberto CHAMADO - Protocolo: 2022765660273 // 2022765660408 às 08:15hs.\r\nSendo realizado reparo pela empresa!	Sup. que entra ciente
+175	314	Sistema reestabelecido às 09:15hs. /// Mais ainda em manutenção. Previsão de prontificação às 11:00hs, prazo estabelecido pela Embratel.\r\n\r\n\r\n/// Causa do problema, rompimento da fibra! ///	Sup. que entra ciente
+173	305	Durante a manhã, ocorreu um incidente na rede da Ag de Aracati, que deixou indisponível a RECIM.\r\nEm contato com a capitania, foi informado que um caminhão passou na frente da agência e rompeu todos os cabos e fios, deixando assim a OM sem Rede.\r\n\r\n	Sup. que entra ciente
+172	304	PTC indisponibilidade do HNRE às 17Hrs, foi feita várias tentativas de contato com a SG Fernanda e com o CPD, mas sem sucesso.	Sup. que entra ciente
+177	176	PTC MPLS normalizado as 16:00, chamado continua aberto para verificação da EBT.	Em andamento
+179	316	Dia 07/10/2022\r\n\r\nPTC que a equipe de Infra regressou as 08:00 da manhã para realizar a troca de no-break na sala de ativos do CLTI. No entanto, devido a abertura de SAR no dia anterior e a permanência do mesmo no dia da troca do equipamento, foi solicitado pelo OSP do distrito via OSE que a troca não fosse realizada. Sendo assim, a equipe não pode realizar a troca do equipamento.	Sup. que entra ciente
+181	316	Dia 09/10/2022\r\n\r\nPTC que ao regressar para o distrito e realizar a troca de ar-condicionado na casa da torre, foi constatado que o ar-condicionado estava desligado. Logo, realizei a religação do mesmo. Verificado os ativos de rede do distrito, fui para a base e contatei que o ar-condicionado do paiol de fibra também estava desligado.	Sup. que entra ciente
+180	316	Dia 08/10/2022\r\n\r\nPTC que nesse dia, foi informado pelo SG Veloso pela manhã, que a rádio Marinha não estava transmitindo, e o mesmo perguntou se os serviços do CLTI estavam OK. De pronto verifiquei que os serviços estavam OK. A tarde foi verificado que duas das três fases estavam cortadas, fazendo com que a rádio viesse a parar seus serviços, mas os serviços do CLTI ficaram em cima devido a única fase ativa. O OSE entrou em contato com a cosern que informou que a rede seria reestabelecida até as 15:30. Nesse período, regressei para o CLTI as 14:30 e esperei até o reestabelecimento da rede, que ocorreu as 18:15.  O regresso foi necessário, pois a COSERN teve que refazer todas as fases e os servidores alocados na rádio tiveram que ser desligados. PTC que após o reestabelecimento, os serviços foram iniciados e os testes realizados pelo OSE do distrito. 	Sup. que entra ciente
+182	317	A ERMN ficou sem energia durante o período de 1600P às 1615P.	Sup. que entra ciente
+183	317	Queda de energia às 17:32 no CLTI.	Sup. que entra ciente
+184	317	Houve falta de energia no HNRE.	Sup. que entra ciente
+185	319	CPPE sem energia no período da tarde.	Sup. que entra ciente
+186	328	PTC que houve uma interrupção no fornecimento de energia elétrica no CLTI no dia 24/10/2022 às 17:20 tendo seu retorno apenas as 17:45. PTC ainda que não houve interrupções no fornecimento de energia nas salas dos servidores.	Sup. que entra ciente
+187	329	DET do CC (T) Eduardo: o MIL de serviço deve desligar toda a sala antes da troca de energia da BNN. Ligando para a sala de estado para verificar, a BNN troca a energia para o gerador todos os dias às 17:30.	Sup. que entra ciente
 \.
 
 
@@ -10874,7 +11002,7 @@ COPY tb_rel_servico_ocorrencias (idtb_rel_servico_ocorrencias, num_rel, ocorrenc
 -- Name: tb_rel_servico_ocorrencias_idtb_rel_servico_ocorrencias_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
 
-SELECT pg_catalog.setval('tb_rel_servico_ocorrencias_idtb_rel_servico_ocorrencias_seq', 160, true);
+SELECT pg_catalog.setval('tb_rel_servico_ocorrencias_idtb_rel_servico_ocorrencias_seq', 187, true);
 
 
 --
@@ -10929,6 +11057,7 @@ COPY tb_servidores (idtb_servidores, idtb_om_apoiadas, fabricante, modelo, idtb_
 6	1	HP	PROLIANT DL380E GEN8	57	2.5	2	128	1630	172.23.119.3	14:58:d0:5a:3f:fc	22	VIRTUALIZAÇÃO	2019-01-01	2020-01-01	EM PRODUÇÃO	7	VMWARE04
 7	1	IBM	SYSTEM X3500 M4	58	2	2	16	8000	172.23.116.15	40:f2:e9:66:31:90	25	BACKUP	2014-01-01	2015-01-01	EM PRODUÇÃO	7	BK01
 5	1	MCAFEE	WG-4500-D	52	3	1	64	1000	172.23.116.32	00:1E:67:06:38:CA	26	PROXY	2015-01-01	2016-01-01	EM PRODUÇÃO	5	WEBGATEWAY
+8	16	DELL	R640	60	1.89999998	2	64	1091	172.23.20.6	78:AC:44:83:AA:28	24	VIRTUALIZAÇÃO	2022-08-29	2023-08-29	EM PRODUÇÃO	83	HNNA-VMWARE01
 \.
 
 
@@ -10957,7 +11086,7 @@ SELECT pg_catalog.setval('tb_servidores_excluidos_idtb_servidores_excluidos_seq'
 -- Name: tb_servidores_idtb_servidores_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
 
-SELECT pg_catalog.setval('tb_servidores_idtb_servidores_seq', 7, true);
+SELECT pg_catalog.setval('tb_servidores_idtb_servidores_seq', 8, true);
 
 
 --
@@ -12354,7 +12483,7 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 REVOKE ALL ON TABLE tb_cidade FROM PUBLIC;
 REVOKE ALL ON TABLE tb_cidade FROM postgres;
 GRANT ALL ON TABLE tb_cidade TO postgres;
-GRANT ALL ON TABLE tb_cidade TO sisclti;
+GRANT ALL ON TABLE tb_cidade TO sigti;
 
 
 --
@@ -12366,7 +12495,7 @@ GRANT ALL ON TABLE tb_cidade TO sisclti;
 REVOKE ALL ON TABLE tb_clti FROM PUBLIC;
 REVOKE ALL ON TABLE tb_clti FROM postgres;
 GRANT ALL ON TABLE tb_clti TO postgres;
-GRANT ALL ON TABLE tb_clti TO sisclti;
+GRANT ALL ON TABLE tb_clti TO sigti;
 
 
 --
@@ -12378,7 +12507,7 @@ GRANT ALL ON TABLE tb_clti TO sisclti;
 REVOKE ALL ON TABLE tb_conectividade FROM PUBLIC;
 REVOKE ALL ON TABLE tb_conectividade FROM postgres;
 GRANT ALL ON TABLE tb_conectividade TO postgres;
-GRANT ALL ON TABLE tb_conectividade TO sisclti;
+GRANT ALL ON TABLE tb_conectividade TO sigti;
 
 
 --
@@ -12390,7 +12519,7 @@ GRANT ALL ON TABLE tb_conectividade TO sisclti;
 REVOKE ALL ON TABLE tb_config FROM PUBLIC;
 REVOKE ALL ON TABLE tb_config FROM postgres;
 GRANT ALL ON TABLE tb_config TO postgres;
-GRANT ALL ON TABLE tb_config TO sisclti;
+GRANT ALL ON TABLE tb_config TO sigti;
 
 
 --
@@ -12402,7 +12531,7 @@ GRANT ALL ON TABLE tb_config TO sisclti;
 REVOKE ALL ON TABLE tb_controle_internet FROM PUBLIC;
 REVOKE ALL ON TABLE tb_controle_internet FROM postgres;
 GRANT ALL ON TABLE tb_controle_internet TO postgres;
-GRANT ALL ON TABLE tb_controle_internet TO sisclti;
+GRANT ALL ON TABLE tb_controle_internet TO sigti;
 
 
 --
@@ -12414,7 +12543,7 @@ GRANT ALL ON TABLE tb_controle_internet TO sisclti;
 REVOKE ALL ON TABLE tb_controle_usb FROM PUBLIC;
 REVOKE ALL ON TABLE tb_controle_usb FROM postgres;
 GRANT ALL ON TABLE tb_controle_usb TO postgres;
-GRANT ALL ON TABLE tb_controle_usb TO sisclti;
+GRANT ALL ON TABLE tb_controle_usb TO sigti;
 
 
 --
@@ -12426,7 +12555,7 @@ GRANT ALL ON TABLE tb_controle_usb TO sisclti;
 REVOKE ALL ON TABLE tb_corpo_quadro FROM PUBLIC;
 REVOKE ALL ON TABLE tb_corpo_quadro FROM postgres;
 GRANT ALL ON TABLE tb_corpo_quadro TO postgres;
-GRANT ALL ON TABLE tb_corpo_quadro TO sisclti;
+GRANT ALL ON TABLE tb_corpo_quadro TO sigti;
 
 
 --
@@ -12438,7 +12567,7 @@ GRANT ALL ON TABLE tb_corpo_quadro TO sisclti;
 REVOKE ALL ON TABLE tb_especialidade FROM PUBLIC;
 REVOKE ALL ON TABLE tb_especialidade FROM postgres;
 GRANT ALL ON TABLE tb_especialidade TO postgres;
-GRANT ALL ON TABLE tb_especialidade TO sisclti;
+GRANT ALL ON TABLE tb_especialidade TO sigti;
 
 
 --
@@ -12450,7 +12579,7 @@ GRANT ALL ON TABLE tb_especialidade TO sisclti;
 REVOKE ALL ON TABLE tb_estacoes FROM PUBLIC;
 REVOKE ALL ON TABLE tb_estacoes FROM postgres;
 GRANT ALL ON TABLE tb_estacoes TO postgres;
-GRANT ALL ON TABLE tb_estacoes TO sisclti;
+GRANT ALL ON TABLE tb_estacoes TO sigti;
 
 
 --
@@ -12462,7 +12591,7 @@ GRANT ALL ON TABLE tb_estacoes TO sisclti;
 REVOKE ALL ON TABLE tb_estado FROM PUBLIC;
 REVOKE ALL ON TABLE tb_estado FROM postgres;
 GRANT ALL ON TABLE tb_estado TO postgres;
-GRANT ALL ON TABLE tb_estado TO sisclti;
+GRANT ALL ON TABLE tb_estado TO sigti;
 
 
 --
@@ -12474,7 +12603,7 @@ GRANT ALL ON TABLE tb_estado TO sisclti;
 REVOKE ALL ON TABLE tb_funcoes_sigdem FROM PUBLIC;
 REVOKE ALL ON TABLE tb_funcoes_sigdem FROM postgres;
 GRANT ALL ON TABLE tb_funcoes_sigdem TO postgres;
-GRANT ALL ON TABLE tb_funcoes_sigdem TO sisclti;
+GRANT ALL ON TABLE tb_funcoes_sigdem TO sigti;
 
 
 --
@@ -12486,7 +12615,7 @@ GRANT ALL ON TABLE tb_funcoes_sigdem TO sisclti;
 REVOKE ALL ON TABLE tb_funcoes_ti FROM PUBLIC;
 REVOKE ALL ON TABLE tb_funcoes_ti FROM postgres;
 GRANT ALL ON TABLE tb_funcoes_ti TO postgres;
-GRANT ALL ON TABLE tb_funcoes_ti TO sisclti;
+GRANT ALL ON TABLE tb_funcoes_ti TO sigti;
 
 
 --
@@ -12498,7 +12627,7 @@ GRANT ALL ON TABLE tb_funcoes_ti TO sisclti;
 REVOKE ALL ON TABLE tb_lotacao_clti FROM PUBLIC;
 REVOKE ALL ON TABLE tb_lotacao_clti FROM postgres;
 GRANT ALL ON TABLE tb_lotacao_clti TO postgres;
-GRANT ALL ON TABLE tb_lotacao_clti TO sisclti;
+GRANT ALL ON TABLE tb_lotacao_clti TO sigti;
 
 
 --
@@ -12510,7 +12639,7 @@ GRANT ALL ON TABLE tb_lotacao_clti TO sisclti;
 REVOKE ALL ON TABLE tb_manutencao_et FROM PUBLIC;
 REVOKE ALL ON TABLE tb_manutencao_et FROM postgres;
 GRANT ALL ON TABLE tb_manutencao_et TO postgres;
-GRANT ALL ON TABLE tb_manutencao_et TO sisclti;
+GRANT ALL ON TABLE tb_manutencao_et TO sigti;
 
 
 --
@@ -12522,7 +12651,7 @@ GRANT ALL ON TABLE tb_manutencao_et TO sisclti;
 REVOKE ALL ON TABLE tb_mapainfra FROM PUBLIC;
 REVOKE ALL ON TABLE tb_mapainfra FROM postgres;
 GRANT ALL ON TABLE tb_mapainfra TO postgres;
-GRANT ALL ON TABLE tb_mapainfra TO sisclti;
+GRANT ALL ON TABLE tb_mapainfra TO sigti;
 
 
 --
@@ -12534,7 +12663,7 @@ GRANT ALL ON TABLE tb_mapainfra TO sisclti;
 REVOKE ALL ON TABLE tb_memorias FROM PUBLIC;
 REVOKE ALL ON TABLE tb_memorias FROM postgres;
 GRANT ALL ON TABLE tb_memorias TO postgres;
-GRANT ALL ON TABLE tb_memorias TO sisclti;
+GRANT ALL ON TABLE tb_memorias TO sigti;
 
 
 --
@@ -12546,7 +12675,7 @@ GRANT ALL ON TABLE tb_memorias TO sisclti;
 REVOKE ALL ON TABLE tb_nec_aquisicao FROM PUBLIC;
 REVOKE ALL ON TABLE tb_nec_aquisicao FROM postgres;
 GRANT ALL ON TABLE tb_nec_aquisicao TO postgres;
-GRANT ALL ON TABLE tb_nec_aquisicao TO sisclti;
+GRANT ALL ON TABLE tb_nec_aquisicao TO sigti;
 
 
 --
@@ -12558,7 +12687,7 @@ GRANT ALL ON TABLE tb_nec_aquisicao TO sisclti;
 REVOKE ALL ON TABLE tb_om_apoiadas FROM PUBLIC;
 REVOKE ALL ON TABLE tb_om_apoiadas FROM postgres;
 GRANT ALL ON TABLE tb_om_apoiadas TO postgres;
-GRANT ALL ON TABLE tb_om_apoiadas TO sisclti;
+GRANT ALL ON TABLE tb_om_apoiadas TO sigti;
 
 
 --
@@ -12570,7 +12699,7 @@ GRANT ALL ON TABLE tb_om_apoiadas TO sisclti;
 REVOKE ALL ON TABLE tb_om_setores FROM PUBLIC;
 REVOKE ALL ON TABLE tb_om_setores FROM postgres;
 GRANT ALL ON TABLE tb_om_setores TO postgres;
-GRANT ALL ON TABLE tb_om_setores TO sisclti;
+GRANT ALL ON TABLE tb_om_setores TO sigti;
 
 
 --
@@ -12582,7 +12711,7 @@ GRANT ALL ON TABLE tb_om_setores TO sisclti;
 REVOKE ALL ON TABLE tb_osic FROM PUBLIC;
 REVOKE ALL ON TABLE tb_osic FROM postgres;
 GRANT ALL ON TABLE tb_osic TO postgres;
-GRANT ALL ON TABLE tb_osic TO sisclti;
+GRANT ALL ON TABLE tb_osic TO sigti;
 
 
 --
@@ -12594,7 +12723,7 @@ GRANT ALL ON TABLE tb_osic TO sisclti;
 REVOKE ALL ON TABLE tb_pais FROM PUBLIC;
 REVOKE ALL ON TABLE tb_pais FROM postgres;
 GRANT ALL ON TABLE tb_pais TO postgres;
-GRANT ALL ON TABLE tb_pais TO sisclti;
+GRANT ALL ON TABLE tb_pais TO sigti;
 
 
 --
@@ -12606,7 +12735,7 @@ GRANT ALL ON TABLE tb_pais TO sisclti;
 REVOKE ALL ON TABLE tb_perfil_internet FROM PUBLIC;
 REVOKE ALL ON TABLE tb_perfil_internet FROM postgres;
 GRANT ALL ON TABLE tb_perfil_internet TO postgres;
-GRANT ALL ON TABLE tb_perfil_internet TO sisclti;
+GRANT ALL ON TABLE tb_perfil_internet TO sigti;
 
 
 --
@@ -12618,7 +12747,7 @@ GRANT ALL ON TABLE tb_perfil_internet TO sisclti;
 REVOKE ALL ON TABLE tb_pessoal_om FROM PUBLIC;
 REVOKE ALL ON TABLE tb_pessoal_om FROM postgres;
 GRANT ALL ON TABLE tb_pessoal_om TO postgres;
-GRANT ALL ON TABLE tb_pessoal_om TO sisclti;
+GRANT ALL ON TABLE tb_pessoal_om TO sigti;
 
 
 --
@@ -12630,7 +12759,7 @@ GRANT ALL ON TABLE tb_pessoal_om TO sisclti;
 REVOKE ALL ON TABLE tb_pessoal_ti FROM PUBLIC;
 REVOKE ALL ON TABLE tb_pessoal_ti FROM postgres;
 GRANT ALL ON TABLE tb_pessoal_ti TO postgres;
-GRANT ALL ON TABLE tb_pessoal_ti TO sisclti;
+GRANT ALL ON TABLE tb_pessoal_ti TO sigti;
 
 
 --
@@ -12642,7 +12771,7 @@ GRANT ALL ON TABLE tb_pessoal_ti TO sisclti;
 REVOKE ALL ON TABLE tb_posto_grad FROM PUBLIC;
 REVOKE ALL ON TABLE tb_posto_grad FROM postgres;
 GRANT ALL ON TABLE tb_posto_grad TO postgres;
-GRANT ALL ON TABLE tb_posto_grad TO sisclti;
+GRANT ALL ON TABLE tb_posto_grad TO sigti;
 
 
 --
@@ -12654,7 +12783,7 @@ GRANT ALL ON TABLE tb_posto_grad TO sisclti;
 REVOKE ALL ON TABLE tb_proc_fab FROM PUBLIC;
 REVOKE ALL ON TABLE tb_proc_fab FROM postgres;
 GRANT ALL ON TABLE tb_proc_fab TO postgres;
-GRANT ALL ON TABLE tb_proc_fab TO sisclti;
+GRANT ALL ON TABLE tb_proc_fab TO sigti;
 
 
 --
@@ -12666,7 +12795,7 @@ GRANT ALL ON TABLE tb_proc_fab TO sisclti;
 REVOKE ALL ON TABLE tb_proc_modelo FROM PUBLIC;
 REVOKE ALL ON TABLE tb_proc_modelo FROM postgres;
 GRANT ALL ON TABLE tb_proc_modelo TO postgres;
-GRANT ALL ON TABLE tb_proc_modelo TO sisclti;
+GRANT ALL ON TABLE tb_proc_modelo TO sigti;
 
 
 --
@@ -12678,7 +12807,7 @@ GRANT ALL ON TABLE tb_proc_modelo TO sisclti;
 REVOKE ALL ON TABLE tb_qualificacao_clti FROM PUBLIC;
 REVOKE ALL ON TABLE tb_qualificacao_clti FROM postgres;
 GRANT ALL ON TABLE tb_qualificacao_clti TO postgres;
-GRANT ALL ON TABLE tb_qualificacao_clti TO sisclti;
+GRANT ALL ON TABLE tb_qualificacao_clti TO sigti;
 
 
 --
@@ -12690,7 +12819,7 @@ GRANT ALL ON TABLE tb_qualificacao_clti TO sisclti;
 REVOKE ALL ON TABLE tb_qualificacao_ti FROM PUBLIC;
 REVOKE ALL ON TABLE tb_qualificacao_ti FROM postgres;
 GRANT ALL ON TABLE tb_qualificacao_ti TO postgres;
-GRANT ALL ON TABLE tb_qualificacao_ti TO sisclti;
+GRANT ALL ON TABLE tb_qualificacao_ti TO sigti;
 
 
 --
@@ -12702,7 +12831,7 @@ GRANT ALL ON TABLE tb_qualificacao_ti TO sisclti;
 REVOKE ALL ON TABLE tb_registro_log FROM PUBLIC;
 REVOKE ALL ON TABLE tb_registro_log FROM postgres;
 GRANT ALL ON TABLE tb_registro_log TO postgres;
-GRANT ALL ON TABLE tb_registro_log TO sisclti;
+GRANT ALL ON TABLE tb_registro_log TO sigti;
 
 
 --
@@ -12714,7 +12843,7 @@ GRANT ALL ON TABLE tb_registro_log TO sisclti;
 REVOKE ALL ON TABLE tb_servidores FROM PUBLIC;
 REVOKE ALL ON TABLE tb_servidores FROM postgres;
 GRANT ALL ON TABLE tb_servidores TO postgres;
-GRANT ALL ON TABLE tb_servidores TO sisclti;
+GRANT ALL ON TABLE tb_servidores TO sigti;
 
 
 --
@@ -12726,7 +12855,7 @@ GRANT ALL ON TABLE tb_servidores TO sisclti;
 REVOKE ALL ON TABLE tb_sor FROM PUBLIC;
 REVOKE ALL ON TABLE tb_sor FROM postgres;
 GRANT ALL ON TABLE tb_sor TO postgres;
-GRANT ALL ON TABLE tb_sor TO sisclti;
+GRANT ALL ON TABLE tb_sor TO sigti;
 
 
 --
@@ -12738,7 +12867,7 @@ GRANT ALL ON TABLE tb_sor TO sisclti;
 REVOKE ALL ON TABLE tb_tipos_clti FROM PUBLIC;
 REVOKE ALL ON TABLE tb_tipos_clti FROM postgres;
 GRANT ALL ON TABLE tb_tipos_clti TO postgres;
-GRANT ALL ON TABLE tb_tipos_clti TO sisclti;
+GRANT ALL ON TABLE tb_tipos_clti TO sigti;
 
 
 --
@@ -12750,7 +12879,7 @@ GRANT ALL ON TABLE tb_tipos_clti TO sisclti;
 REVOKE ALL ON TABLE vw_controle_usb FROM PUBLIC;
 REVOKE ALL ON TABLE vw_controle_usb FROM postgres;
 GRANT ALL ON TABLE vw_controle_usb TO postgres;
-GRANT ALL ON TABLE vw_controle_usb TO sisclti;
+GRANT ALL ON TABLE vw_controle_usb TO sigti;
 
 
 --
@@ -12762,7 +12891,7 @@ GRANT ALL ON TABLE vw_controle_usb TO sisclti;
 REVOKE ALL ON TABLE vw_estacoes FROM PUBLIC;
 REVOKE ALL ON TABLE vw_estacoes FROM postgres;
 GRANT ALL ON TABLE vw_estacoes TO postgres;
-GRANT ALL ON TABLE vw_estacoes TO sisclti;
+GRANT ALL ON TABLE vw_estacoes TO sigti;
 
 
 --
@@ -12774,7 +12903,7 @@ GRANT ALL ON TABLE vw_estacoes TO sisclti;
 REVOKE ALL ON TABLE vw_mapainfra FROM PUBLIC;
 REVOKE ALL ON TABLE vw_mapainfra FROM postgres;
 GRANT ALL ON TABLE vw_mapainfra TO postgres;
-GRANT ALL ON TABLE vw_mapainfra TO sisclti;
+GRANT ALL ON TABLE vw_mapainfra TO sigti;
 
 
 --
@@ -12786,7 +12915,7 @@ GRANT ALL ON TABLE vw_mapainfra TO sisclti;
 REVOKE ALL ON TABLE vw_osic FROM PUBLIC;
 REVOKE ALL ON TABLE vw_osic FROM postgres;
 GRANT ALL ON TABLE vw_osic TO postgres;
-GRANT ALL ON TABLE vw_osic TO sisclti;
+GRANT ALL ON TABLE vw_osic TO sigti;
 
 
 --
@@ -12798,7 +12927,7 @@ GRANT ALL ON TABLE vw_osic TO sisclti;
 REVOKE ALL ON TABLE vw_pessoal_ti FROM PUBLIC;
 REVOKE ALL ON TABLE vw_pessoal_ti FROM postgres;
 GRANT ALL ON TABLE vw_pessoal_ti TO postgres;
-GRANT ALL ON TABLE vw_pessoal_ti TO sisclti;
+GRANT ALL ON TABLE vw_pessoal_ti TO sigti;
 
 
 --
@@ -12810,7 +12939,7 @@ GRANT ALL ON TABLE vw_pessoal_ti TO sisclti;
 REVOKE ALL ON TABLE vw_processadores FROM PUBLIC;
 REVOKE ALL ON TABLE vw_processadores FROM postgres;
 GRANT ALL ON TABLE vw_processadores TO postgres;
-GRANT ALL ON TABLE vw_processadores TO sisclti;
+GRANT ALL ON TABLE vw_processadores TO sigti;
 
 
 --
@@ -12822,7 +12951,7 @@ GRANT ALL ON TABLE vw_processadores TO sisclti;
 REVOKE ALL ON TABLE vw_servidores FROM PUBLIC;
 REVOKE ALL ON TABLE vw_servidores FROM postgres;
 GRANT ALL ON TABLE vw_servidores TO postgres;
-GRANT ALL ON TABLE vw_servidores TO sisclti;
+GRANT ALL ON TABLE vw_servidores TO sigti;
 
 
 --
@@ -12834,10 +12963,10 @@ GRANT ALL ON TABLE vw_servidores TO sisclti;
 REVOKE ALL ON TABLE vw_setores FROM PUBLIC;
 REVOKE ALL ON TABLE vw_setores FROM postgres;
 GRANT ALL ON TABLE vw_setores TO postgres;
-GRANT ALL ON TABLE vw_setores TO sisclti;
+GRANT ALL ON TABLE vw_setores TO sigti;
 
 
--- Completed on 2022-08-30 00:15:02 -03
+-- Completed on 2022-10-28 00:15:02 -03
 
 --
 -- PostgreSQL database dump complete
