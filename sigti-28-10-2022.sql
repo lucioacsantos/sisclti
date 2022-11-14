@@ -8929,7 +8929,7 @@ SELECT pg_catalog.setval('tb_conectividade_idtb_conectividade_seq', 1, true);
 COPY tb_config (idtb_config, parametro, valor) FROM stdin;
 2	ESTADO	RN
 3	CIDADE	Natal
-1	URL	http://172.23.119.35/sisclti
+1	URL	http://localhost/sisclti
 5	author	99242991 Lúcio ALEXANDRE Correia dos Santos lucio.alexandre@marinha.mil.br
 6	generator	LucioACSantos
 7	description	Sistema de Gestão de TI

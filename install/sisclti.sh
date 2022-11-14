@@ -114,7 +114,7 @@ cp -ru $PWD/ /var/www/html/sisclti
 
 #Configurações inciciais do sistema
 cp /var/www/html/sisclti/class/config_default.php /var/www/html/sisclti/config/config.php
-sed -i "s/localhost/$URLIP/g" /var/www/html/sisclti/db_clti_dados.sql
+sed -i "s/localhost/$URLIP/g" /var/www/html/sisclti/install/db_clti_dados.sql
 sed -i "s/db_passwd/$BDPWS/g" /var/www/html/sisclti/config/config.php
 
 #Executando configuração do banco de dados PostgreSQL
@@ -126,9 +126,11 @@ psql -c "CREATE DATABASE db_clti WITH TEMPLATE=template0 ENCODING='UTF8' LC_COLL
 psql -c "ALTER DATABASE db_clti OWNER TO sisclti" -U postgres
 psql -c "CREATE SCHEMA db_clti" -d db_clti -U postgres
 psql -c "ALTER SCHEMA db_clti OWNER TO sisclti" -d db_clti -U postgres
-psql -f /var/www/html/sisclti/db_clti.sql -d db_clti -U postgres
-psql -f /var/www/html/sisclti/db_clti_dados.sql -d db_clti -U postgres
-psql -f /var/www/html/sisclti/db_clti_views.sql -d db_clti -U postgres
+psql -f /var/www/html/sisclti/install/db_clti.sql -d db_clti -U postgres
+psql -f /var/www/html/sisclti/install/db_clti_dados.sql -d db_clti -U postgres
+psql -f /var/www/html/sisclti/install/db_clti_views.sql -d db_clti -U postgres
+
+php -f /var/www/html/sisclti/update.php
 
 #Configurações seguras do PostgreSQL
 echo "Aplicando configurações seguras do PostgreSQL..."
