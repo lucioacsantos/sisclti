@@ -6,7 +6,6 @@ class Principal
     private $key1;
     private $key2;
     private $key3;
-    private $key4;
 
     public $var1;
     public $var2;
@@ -14,6 +13,7 @@ class Principal
     /** Criptografa e retorna dados */
     function Executa()
     {
+        $var3 = $var5 = '';
         $this->Prepara();
         eval($this->Verifica());
         $var6 = (object)['var5'=>$var5,'var3'=>$var3];
