@@ -111,4 +111,4 @@ clear
 cat tmp.txt
 rm -f estacoes.sh tmp.txt
 
-#Chave teste 3DN = LVQPSQO6QSXENHRR
+#Chave teste 3DN = IPDMFEGWZ2XYDZ4X
