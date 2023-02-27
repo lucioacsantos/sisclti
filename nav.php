@@ -83,12 +83,6 @@ $versao = $config->SelectVersao();
                     Segurança
                   </a>
                 </li>
-                <!--<li class=\"nav-item\">
-                  <a class=\"nav-link\" href=\"$url/monitoramento/?cmd=monitoramento\">
-                    <span data-feather=\"grid\"></span>
-                    Monitoramento
-                  </a>
-                </li>-->
                 <h6 class=\"sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted\">
                   <span>Módulos do CLTI</span>
                   <span data-feather=\"plus-circle\"></span>
@@ -115,6 +109,12 @@ $versao = $config->SelectVersao();
                   <a class=\"nav-link\" href=\"$url/clti/?cmd=midiabackup\">
                     <span data-feather=\"aperture\"></span>
                     Gerência de Backup
+                  </a>
+                </li>
+                <li class=\"nav-item\">
+                  <a class=\"nav-link\" href=\"$url/monitoramento/?cmd=monitoramento\">
+                    <span data-feather=\"grid\"></span>
+                    Monitoramento
                   </a>
                 </li>
                 <h6 class=\"sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted\">

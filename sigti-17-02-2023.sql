@@ -4,7 +4,7 @@
 
 -- Dumped from database version 9.2.24
 -- Dumped by pg_dump version 9.2.24
--- Started on 2022-10-28 00:15:01 -03
+-- Started on 2023-02-17 13:21:40 -03
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
@@ -29,7 +29,7 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 3675 (class 0 OID 0)
+-- TOC entry 3752 (class 0 OID 0)
 -- Dependencies: 1
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
 --
@@ -44,7 +44,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- TOC entry 288 (class 1259 OID 19158)
+-- TOC entry 287 (class 1259 OID 19158)
 -- Name: tb_acesso_suspeito; Type: TABLE; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -59,8 +59,8 @@ CREATE TABLE tb_acesso_suspeito (
 
 
 --
--- TOC entry 3676 (class 0 OID 0)
--- Dependencies: 288
+-- TOC entry 3753 (class 0 OID 0)
+-- Dependencies: 287
 -- Name: TABLE tb_acesso_suspeito; Type: COMMENT; Schema: db_clti; Owner: -
 --
 
@@ -68,7 +68,7 @@ COMMENT ON TABLE tb_acesso_suspeito IS 'Tabela contendo Acessos Suspeitos ao Sis
 
 
 --
--- TOC entry 287 (class 1259 OID 19156)
+-- TOC entry 286 (class 1259 OID 19156)
 -- Name: tb_acesso_suspeito_idtb_acesso_suspeito_seq; Type: SEQUENCE; Schema: db_clti; Owner: -
 --
 
@@ -81,12 +81,48 @@ CREATE SEQUENCE tb_acesso_suspeito_idtb_acesso_suspeito_seq
 
 
 --
--- TOC entry 3677 (class 0 OID 0)
--- Dependencies: 287
+-- TOC entry 3754 (class 0 OID 0)
+-- Dependencies: 286
 -- Name: tb_acesso_suspeito_idtb_acesso_suspeito_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
 
 ALTER SEQUENCE tb_acesso_suspeito_idtb_acesso_suspeito_seq OWNED BY tb_acesso_suspeito.idtb_acesso_suspeito;
+
+
+--
+-- TOC entry 303 (class 1259 OID 19317)
+-- Name: tb_acomp_inspecoes_visitas; Type: TABLE; Schema: db_clti; Owner: -; Tablespace: 
+--
+
+CREATE TABLE tb_acomp_inspecoes_visitas (
+    idtb_acomp_inspecoes_visitas integer NOT NULL,
+    idtb_inspecoes_visitas integer NOT NULL,
+    data_acompanhamento date NOT NULL,
+    situacao character varying(255) NOT NULL,
+    observacoes character varying(255) NOT NULL
+);
+
+
+--
+-- TOC entry 302 (class 1259 OID 19315)
+-- Name: tb_acomp_inspecoes_visitas_idtb_acomp_inspecoes_visitas_seq; Type: SEQUENCE; Schema: db_clti; Owner: -
+--
+
+CREATE SEQUENCE tb_acomp_inspecoes_visitas_idtb_acomp_inspecoes_visitas_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 3755 (class 0 OID 0)
+-- Dependencies: 302
+-- Name: tb_acomp_inspecoes_visitas_idtb_acomp_inspecoes_visitas_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
+--
+
+ALTER SEQUENCE tb_acomp_inspecoes_visitas_idtb_acomp_inspecoes_visitas_seq OWNED BY tb_acomp_inspecoes_visitas.idtb_acomp_inspecoes_visitas;
 
 
 --
@@ -115,12 +151,60 @@ CREATE SEQUENCE tb_ade_pad_sic_tic_idtb_ade_pad_sic_tic_seq
 
 
 --
--- TOC entry 3678 (class 0 OID 0)
+-- TOC entry 3756 (class 0 OID 0)
 -- Dependencies: 171
 -- Name: tb_ade_pad_sic_tic_idtb_ade_pad_sic_tic_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
 
 ALTER SEQUENCE tb_ade_pad_sic_tic_idtb_ade_pad_sic_tic_seq OWNED BY tb_ade_pad_sic_tic.idtb_ade_pad_sic_tic;
+
+
+--
+-- TOC entry 299 (class 1259 OID 19295)
+-- Name: tb_agenda_administrativa; Type: TABLE; Schema: db_clti; Owner: -; Tablespace: 
+--
+
+CREATE TABLE tb_agenda_administrativa (
+    idtb_agenda_administrativa integer NOT NULL,
+    assunto character varying(255) NOT NULL,
+    setor_resp character varying(255) NOT NULL,
+    om_apoiadas character varying(255) NOT NULL,
+    destino character varying(255) NOT NULL,
+    prazo date NOT NULL,
+    situacao character varying(255) NOT NULL,
+    observacoes character varying(255) NOT NULL
+);
+
+
+--
+-- TOC entry 3757 (class 0 OID 0)
+-- Dependencies: 299
+-- Name: TABLE tb_agenda_administrativa; Type: COMMENT; Schema: db_clti; Owner: -
+--
+
+COMMENT ON TABLE tb_agenda_administrativa IS 'Agenda Administrativa do CLTI';
+
+
+--
+-- TOC entry 298 (class 1259 OID 19293)
+-- Name: tb_agenda_administrativa_idtb_agenda_administrativa_seq; Type: SEQUENCE; Schema: db_clti; Owner: -
+--
+
+CREATE SEQUENCE tb_agenda_administrativa_idtb_agenda_administrativa_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 3758 (class 0 OID 0)
+-- Dependencies: 298
+-- Name: tb_agenda_administrativa_idtb_agenda_administrativa_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
+--
+
+ALTER SEQUENCE tb_agenda_administrativa_idtb_agenda_administrativa_seq OWNED BY tb_agenda_administrativa.idtb_agenda_administrativa;
 
 
 --
@@ -136,7 +220,7 @@ CREATE TABLE tb_cidade (
 
 
 --
--- TOC entry 3679 (class 0 OID 0)
+-- TOC entry 3759 (class 0 OID 0)
 -- Dependencies: 172
 -- Name: TABLE tb_cidade; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -158,7 +242,7 @@ CREATE SEQUENCE tb_cidade_id_seq
 
 
 --
--- TOC entry 3681 (class 0 OID 0)
+-- TOC entry 3761 (class 0 OID 0)
 -- Dependencies: 173
 -- Name: tb_cidade_id_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -183,7 +267,7 @@ CREATE TABLE tb_clti (
 
 
 --
--- TOC entry 3682 (class 0 OID 0)
+-- TOC entry 3762 (class 0 OID 0)
 -- Dependencies: 174
 -- Name: TABLE tb_clti; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -205,7 +289,7 @@ CREATE SEQUENCE tb_clti_idtb_clti_seq
 
 
 --
--- TOC entry 3684 (class 0 OID 0)
+-- TOC entry 3764 (class 0 OID 0)
 -- Dependencies: 175
 -- Name: tb_clti_idtb_clti_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -234,7 +318,7 @@ CREATE TABLE tb_conectividade (
 
 
 --
--- TOC entry 3685 (class 0 OID 0)
+-- TOC entry 3765 (class 0 OID 0)
 -- Dependencies: 176
 -- Name: TABLE tb_conectividade; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -243,7 +327,7 @@ COMMENT ON TABLE tb_conectividade IS 'Tabela contendo Equipamentos de Conectivid
 
 
 --
--- TOC entry 3686 (class 0 OID 0)
+-- TOC entry 3766 (class 0 OID 0)
 -- Dependencies: 176
 -- Name: COLUMN tb_conectividade.qtde_portas; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -252,7 +336,7 @@ COMMENT ON COLUMN tb_conectividade.qtde_portas IS 'Quantidade de portas do ativo
 
 
 --
--- TOC entry 294 (class 1259 OID 19225)
+-- TOC entry 293 (class 1259 OID 19225)
 -- Name: tb_conectividade_excluidos; Type: TABLE; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -268,8 +352,8 @@ CREATE TABLE tb_conectividade_excluidos (
 
 
 --
--- TOC entry 3688 (class 0 OID 0)
--- Dependencies: 294
+-- TOC entry 3768 (class 0 OID 0)
+-- Dependencies: 293
 -- Name: TABLE tb_conectividade_excluidos; Type: COMMENT; Schema: db_clti; Owner: -
 --
 
@@ -277,7 +361,7 @@ COMMENT ON TABLE tb_conectividade_excluidos IS 'Equipamentos de conectividade ex
 
 
 --
--- TOC entry 293 (class 1259 OID 19223)
+-- TOC entry 292 (class 1259 OID 19223)
 -- Name: tb_conectividade_excluidos_idtb_conectividade_excluidos_seq; Type: SEQUENCE; Schema: db_clti; Owner: -
 --
 
@@ -290,8 +374,8 @@ CREATE SEQUENCE tb_conectividade_excluidos_idtb_conectividade_excluidos_seq
 
 
 --
--- TOC entry 3689 (class 0 OID 0)
--- Dependencies: 293
+-- TOC entry 3769 (class 0 OID 0)
+-- Dependencies: 292
 -- Name: tb_conectividade_excluidos_idtb_conectividade_excluidos_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
 
@@ -312,7 +396,7 @@ CREATE SEQUENCE tb_conectividade_idtb_conectividade_seq
 
 
 --
--- TOC entry 3690 (class 0 OID 0)
+-- TOC entry 3770 (class 0 OID 0)
 -- Dependencies: 177
 -- Name: tb_conectividade_idtb_conectividade_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -333,7 +417,7 @@ CREATE TABLE tb_config (
 
 
 --
--- TOC entry 3691 (class 0 OID 0)
+-- TOC entry 3771 (class 0 OID 0)
 -- Dependencies: 178
 -- Name: TABLE tb_config; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -355,7 +439,7 @@ CREATE SEQUENCE tb_config_idtb_config_seq
 
 
 --
--- TOC entry 3693 (class 0 OID 0)
+-- TOC entry 3773 (class 0 OID 0)
 -- Dependencies: 179
 -- Name: tb_config_idtb_config_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -378,7 +462,7 @@ CREATE TABLE tb_controle_internet (
 
 
 --
--- TOC entry 3694 (class 0 OID 0)
+-- TOC entry 3774 (class 0 OID 0)
 -- Dependencies: 180
 -- Name: TABLE tb_controle_internet; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -400,7 +484,7 @@ CREATE SEQUENCE tb_controle_internet_idtb_controle_internet_seq
 
 
 --
--- TOC entry 3696 (class 0 OID 0)
+-- TOC entry 3776 (class 0 OID 0)
 -- Dependencies: 181
 -- Name: tb_controle_internet_idtb_controle_internet_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -423,7 +507,7 @@ CREATE TABLE tb_controle_usb (
 
 
 --
--- TOC entry 3697 (class 0 OID 0)
+-- TOC entry 3777 (class 0 OID 0)
 -- Dependencies: 182
 -- Name: TABLE tb_controle_usb; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -445,7 +529,7 @@ CREATE SEQUENCE tb_controle_usb_idtb_controle_usb_seq
 
 
 --
--- TOC entry 3699 (class 0 OID 0)
+-- TOC entry 3779 (class 0 OID 0)
 -- Dependencies: 183
 -- Name: tb_controle_usb_idtb_controle_usb_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -467,7 +551,7 @@ CREATE TABLE tb_corpo_quadro (
 
 
 --
--- TOC entry 3700 (class 0 OID 0)
+-- TOC entry 3780 (class 0 OID 0)
 -- Dependencies: 184
 -- Name: TABLE tb_corpo_quadro; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -489,7 +573,7 @@ CREATE SEQUENCE tb_corpo_quadro_idtb_corpo_quadro_seq
 
 
 --
--- TOC entry 3702 (class 0 OID 0)
+-- TOC entry 3782 (class 0 OID 0)
 -- Dependencies: 185
 -- Name: tb_corpo_quadro_idtb_corpo_quadro_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -512,7 +596,7 @@ CREATE TABLE tb_det_serv (
 
 
 --
--- TOC entry 3703 (class 0 OID 0)
+-- TOC entry 3783 (class 0 OID 0)
 -- Dependencies: 186
 -- Name: TABLE tb_det_serv; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -534,7 +618,7 @@ CREATE SEQUENCE tb_det_serv_idtb_det_serv_seq
 
 
 --
--- TOC entry 3704 (class 0 OID 0)
+-- TOC entry 3784 (class 0 OID 0)
 -- Dependencies: 187
 -- Name: tb_det_serv_idtb_det_serv_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -555,7 +639,7 @@ CREATE TABLE tb_dias_troca (
 
 
 --
--- TOC entry 3705 (class 0 OID 0)
+-- TOC entry 3785 (class 0 OID 0)
 -- Dependencies: 188
 -- Name: TABLE tb_dias_troca; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -589,7 +673,7 @@ CREATE SEQUENCE tb_dias_troca_clti_idtb_dias_troca_clti_seq
 
 
 --
--- TOC entry 3706 (class 0 OID 0)
+-- TOC entry 3786 (class 0 OID 0)
 -- Dependencies: 190
 -- Name: tb_dias_troca_clti_idtb_dias_troca_clti_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -611,7 +695,7 @@ CREATE SEQUENCE tb_dias_troca_idtb_dias_troca_seq
 
 
 --
--- TOC entry 3707 (class 0 OID 0)
+-- TOC entry 3787 (class 0 OID 0)
 -- Dependencies: 191
 -- Name: tb_dias_troca_idtb_dias_troca_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -633,7 +717,7 @@ CREATE TABLE tb_especialidade (
 
 
 --
--- TOC entry 3708 (class 0 OID 0)
+-- TOC entry 3788 (class 0 OID 0)
 -- Dependencies: 192
 -- Name: TABLE tb_especialidade; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -655,7 +739,7 @@ CREATE SEQUENCE tb_especialidade_idtb_especialidade_seq
 
 
 --
--- TOC entry 3710 (class 0 OID 0)
+-- TOC entry 3790 (class 0 OID 0)
 -- Dependencies: 193
 -- Name: tb_especialidade_idtb_especialidade_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -691,7 +775,7 @@ CREATE TABLE tb_estacoes (
 
 
 --
--- TOC entry 3711 (class 0 OID 0)
+-- TOC entry 3791 (class 0 OID 0)
 -- Dependencies: 194
 -- Name: TABLE tb_estacoes; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -700,7 +784,7 @@ COMMENT ON TABLE tb_estacoes IS 'Tabela contendo Estações de Trabalho.';
 
 
 --
--- TOC entry 292 (class 1259 OID 19214)
+-- TOC entry 291 (class 1259 OID 19214)
 -- Name: tb_estacoes_excluidas; Type: TABLE; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -718,8 +802,8 @@ CREATE TABLE tb_estacoes_excluidas (
 
 
 --
--- TOC entry 3713 (class 0 OID 0)
--- Dependencies: 292
+-- TOC entry 3793 (class 0 OID 0)
+-- Dependencies: 291
 -- Name: TABLE tb_estacoes_excluidas; Type: COMMENT; Schema: db_clti; Owner: -
 --
 
@@ -727,7 +811,7 @@ COMMENT ON TABLE tb_estacoes_excluidas IS 'Estações de trabalho excluídas';
 
 
 --
--- TOC entry 291 (class 1259 OID 19212)
+-- TOC entry 290 (class 1259 OID 19212)
 -- Name: tb_estacoes_excluidas_idtb_estacoes_excluidas_seq; Type: SEQUENCE; Schema: db_clti; Owner: -
 --
 
@@ -740,8 +824,8 @@ CREATE SEQUENCE tb_estacoes_excluidas_idtb_estacoes_excluidas_seq
 
 
 --
--- TOC entry 3714 (class 0 OID 0)
--- Dependencies: 291
+-- TOC entry 3794 (class 0 OID 0)
+-- Dependencies: 290
 -- Name: tb_estacoes_excluidas_idtb_estacoes_excluidas_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
 
@@ -762,7 +846,7 @@ CREATE SEQUENCE tb_estacoes_idtb_estacoes_seq
 
 
 --
--- TOC entry 3715 (class 0 OID 0)
+-- TOC entry 3795 (class 0 OID 0)
 -- Dependencies: 195
 -- Name: tb_estacoes_idtb_estacoes_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -784,7 +868,7 @@ CREATE TABLE tb_estado (
 
 
 --
--- TOC entry 3716 (class 0 OID 0)
+-- TOC entry 3796 (class 0 OID 0)
 -- Dependencies: 196
 -- Name: TABLE tb_estado; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -806,7 +890,7 @@ CREATE SEQUENCE tb_estado_id_seq
 
 
 --
--- TOC entry 3718 (class 0 OID 0)
+-- TOC entry 3798 (class 0 OID 0)
 -- Dependencies: 197
 -- Name: tb_estado_id_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -828,7 +912,7 @@ CREATE TABLE tb_funcoes_clti (
 
 
 --
--- TOC entry 3719 (class 0 OID 0)
+-- TOC entry 3799 (class 0 OID 0)
 -- Dependencies: 198
 -- Name: TABLE tb_funcoes_clti; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -850,7 +934,7 @@ CREATE SEQUENCE tb_funcoes_clti_idtb_funcoes_clti_seq
 
 
 --
--- TOC entry 3720 (class 0 OID 0)
+-- TOC entry 3800 (class 0 OID 0)
 -- Dependencies: 199
 -- Name: tb_funcoes_clti_idtb_funcoes_clti_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -874,7 +958,7 @@ CREATE TABLE tb_funcoes_sigdem (
 
 
 --
--- TOC entry 3721 (class 0 OID 0)
+-- TOC entry 3801 (class 0 OID 0)
 -- Dependencies: 200
 -- Name: TABLE tb_funcoes_sigdem; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -896,7 +980,7 @@ CREATE SEQUENCE tb_funcoes_sigdem_idtb_funcoes_sigdem_seq
 
 
 --
--- TOC entry 3723 (class 0 OID 0)
+-- TOC entry 3803 (class 0 OID 0)
 -- Dependencies: 201
 -- Name: tb_funcoes_sigdem_idtb_funcoes_sigdem_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -917,7 +1001,7 @@ CREATE TABLE tb_funcoes_ti (
 
 
 --
--- TOC entry 3724 (class 0 OID 0)
+-- TOC entry 3804 (class 0 OID 0)
 -- Dependencies: 202
 -- Name: TABLE tb_funcoes_ti; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -939,7 +1023,7 @@ CREATE SEQUENCE tb_funcoes_ti_idtb_funcoes_ti_seq
 
 
 --
--- TOC entry 3726 (class 0 OID 0)
+-- TOC entry 3806 (class 0 OID 0)
 -- Dependencies: 203
 -- Name: tb_funcoes_ti_idtb_funcoes_ti_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -962,7 +1046,7 @@ CREATE TABLE tb_gw_om (
 
 
 --
--- TOC entry 3727 (class 0 OID 0)
+-- TOC entry 3807 (class 0 OID 0)
 -- Dependencies: 204
 -- Name: TABLE tb_gw_om; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -984,12 +1068,58 @@ CREATE SEQUENCE tb_gw_om_idtb_gw_om_seq
 
 
 --
--- TOC entry 3728 (class 0 OID 0)
+-- TOC entry 3808 (class 0 OID 0)
 -- Dependencies: 205
 -- Name: tb_gw_om_idtb_gw_om_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
 
 ALTER SEQUENCE tb_gw_om_idtb_gw_om_seq OWNED BY tb_gw_om.idtb_gw_om;
+
+
+--
+-- TOC entry 301 (class 1259 OID 19306)
+-- Name: tb_inspecoes_visitas; Type: TABLE; Schema: db_clti; Owner: -; Tablespace: 
+--
+
+CREATE TABLE tb_inspecoes_visitas (
+    idtb_inspecoes_visitas integer NOT NULL,
+    tipo character varying(255) NOT NULL,
+    om_apoiadas character varying(255) NOT NULL,
+    data_agendada date NOT NULL,
+    situacao character varying(255) NOT NULL,
+    observacoes character varying(255) NOT NULL
+);
+
+
+--
+-- TOC entry 3809 (class 0 OID 0)
+-- Dependencies: 301
+-- Name: TABLE tb_inspecoes_visitas; Type: COMMENT; Schema: db_clti; Owner: -
+--
+
+COMMENT ON TABLE tb_inspecoes_visitas IS 'Acompanhamento de Inspeções e Visitas do CLTI';
+
+
+--
+-- TOC entry 300 (class 1259 OID 19304)
+-- Name: tb_inspecoes_visitas_idtb_inspecoes_visitas_seq; Type: SEQUENCE; Schema: db_clti; Owner: -
+--
+
+CREATE SEQUENCE tb_inspecoes_visitas_idtb_inspecoes_visitas_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 3810 (class 0 OID 0)
+-- Dependencies: 300
+-- Name: tb_inspecoes_visitas_idtb_inspecoes_visitas_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
+--
+
+ALTER SEQUENCE tb_inspecoes_visitas_idtb_inspecoes_visitas_seq OWNED BY tb_inspecoes_visitas.idtb_inspecoes_visitas;
 
 
 --
@@ -1019,7 +1149,7 @@ CREATE TABLE tb_lotacao_clti (
 
 
 --
--- TOC entry 3729 (class 0 OID 0)
+-- TOC entry 3811 (class 0 OID 0)
 -- Dependencies: 206
 -- Name: TABLE tb_lotacao_clti; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -1041,7 +1171,7 @@ CREATE SEQUENCE tb_lotacao_clti_idtb_lotacao_clti_seq
 
 
 --
--- TOC entry 3731 (class 0 OID 0)
+-- TOC entry 3813 (class 0 OID 0)
 -- Dependencies: 207
 -- Name: tb_lotacao_clti_idtb_lotacao_clti_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -1067,7 +1197,7 @@ CREATE TABLE tb_manutencao_et (
 
 
 --
--- TOC entry 3732 (class 0 OID 0)
+-- TOC entry 3814 (class 0 OID 0)
 -- Dependencies: 208
 -- Name: TABLE tb_manutencao_et; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -1089,7 +1219,7 @@ CREATE SEQUENCE tb_manutencao_et_idtb_manutencao_et_seq
 
 
 --
--- TOC entry 3734 (class 0 OID 0)
+-- TOC entry 3816 (class 0 OID 0)
 -- Dependencies: 209
 -- Name: tb_manutencao_et_idtb_manutencao_et_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -1115,7 +1245,7 @@ CREATE TABLE tb_mapainfra (
 
 
 --
--- TOC entry 3735 (class 0 OID 0)
+-- TOC entry 3817 (class 0 OID 0)
 -- Dependencies: 210
 -- Name: TABLE tb_mapainfra; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -1137,7 +1267,7 @@ CREATE SEQUENCE tb_mapainfra_idtb_mapainfra_seq
 
 
 --
--- TOC entry 3737 (class 0 OID 0)
+-- TOC entry 3819 (class 0 OID 0)
 -- Dependencies: 211
 -- Name: tb_mapainfra_idtb_mapainfra_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -1159,7 +1289,7 @@ CREATE TABLE tb_memorias (
 
 
 --
--- TOC entry 3738 (class 0 OID 0)
+-- TOC entry 3820 (class 0 OID 0)
 -- Dependencies: 212
 -- Name: TABLE tb_memorias; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -1181,12 +1311,57 @@ CREATE SEQUENCE tb_memorias_idtb_memorias_seq
 
 
 --
--- TOC entry 3740 (class 0 OID 0)
+-- TOC entry 3822 (class 0 OID 0)
 -- Dependencies: 213
 -- Name: tb_memorias_idtb_memorias_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
 
 ALTER SEQUENCE tb_memorias_idtb_memorias_seq OWNED BY tb_memorias.idtb_memorias;
+
+
+--
+-- TOC entry 305 (class 1259 OID 19328)
+-- Name: tb_midias_backup; Type: TABLE; Schema: db_clti; Owner: -; Tablespace: 
+--
+
+CREATE TABLE tb_midias_backup (
+    idtb_midias_backup integer NOT NULL,
+    tipo character varying(255) NOT NULL,
+    numero integer NOT NULL,
+    capacidade integer NOT NULL,
+    situacao character varying(255) NOT NULL
+);
+
+
+--
+-- TOC entry 3823 (class 0 OID 0)
+-- Dependencies: 305
+-- Name: TABLE tb_midias_backup; Type: COMMENT; Schema: db_clti; Owner: -
+--
+
+COMMENT ON TABLE tb_midias_backup IS 'Mídias de armazenamento de backup';
+
+
+--
+-- TOC entry 304 (class 1259 OID 19326)
+-- Name: tb_midias_backup_idtb_midias_backup_seq; Type: SEQUENCE; Schema: db_clti; Owner: -
+--
+
+CREATE SEQUENCE tb_midias_backup_idtb_midias_backup_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 3824 (class 0 OID 0)
+-- Dependencies: 304
+-- Name: tb_midias_backup_idtb_midias_backup_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
+--
+
+ALTER SEQUENCE tb_midias_backup_idtb_midias_backup_seq OWNED BY tb_midias_backup.idtb_midias_backup;
 
 
 --
@@ -1204,7 +1379,7 @@ CREATE TABLE tb_nao_padronizados (
 
 
 --
--- TOC entry 3741 (class 0 OID 0)
+-- TOC entry 3825 (class 0 OID 0)
 -- Dependencies: 214
 -- Name: TABLE tb_nao_padronizados; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -1226,7 +1401,7 @@ CREATE SEQUENCE tb_nao_padronizados_idtb_nao_padronizados_seq
 
 
 --
--- TOC entry 3742 (class 0 OID 0)
+-- TOC entry 3826 (class 0 OID 0)
 -- Dependencies: 215
 -- Name: tb_nao_padronizados_idtb_nao_padronizados_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -1251,7 +1426,7 @@ CREATE TABLE tb_nec_aquisicao (
 
 
 --
--- TOC entry 3743 (class 0 OID 0)
+-- TOC entry 3827 (class 0 OID 0)
 -- Dependencies: 216
 -- Name: TABLE tb_nec_aquisicao; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -1273,7 +1448,7 @@ CREATE SEQUENCE tb_nec_aquisicao_idtb_nec_aquisicao_seq
 
 
 --
--- TOC entry 3745 (class 0 OID 0)
+-- TOC entry 3829 (class 0 OID 0)
 -- Dependencies: 217
 -- Name: tb_nec_aquisicao_idtb_nec_aquisicao_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -1307,7 +1482,7 @@ CREATE SEQUENCE tb_numerador_idtb_numerador_seq
 
 
 --
--- TOC entry 3746 (class 0 OID 0)
+-- TOC entry 3830 (class 0 OID 0)
 -- Dependencies: 219
 -- Name: tb_numerador_idtb_numerador_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -1327,12 +1502,13 @@ CREATE TABLE tb_om_apoiadas (
     sigla character varying(45) NOT NULL,
     indicativo character varying(6) NOT NULL,
     idtb_estado integer NOT NULL,
-    idtb_cidade integer NOT NULL
+    idtb_cidade integer NOT NULL,
+    chave_acesso character varying(16) DEFAULT '000000'::character varying NOT NULL
 );
 
 
 --
--- TOC entry 3747 (class 0 OID 0)
+-- TOC entry 3831 (class 0 OID 0)
 -- Dependencies: 220
 -- Name: TABLE tb_om_apoiadas; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -1354,7 +1530,7 @@ CREATE SEQUENCE tb_om_apoiadas_idtb_om_apoiadas_seq
 
 
 --
--- TOC entry 3749 (class 0 OID 0)
+-- TOC entry 3833 (class 0 OID 0)
 -- Dependencies: 221
 -- Name: tb_om_apoiadas_idtb_om_apoiadas_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -1378,7 +1554,7 @@ CREATE TABLE tb_om_setores (
 
 
 --
--- TOC entry 3750 (class 0 OID 0)
+-- TOC entry 3834 (class 0 OID 0)
 -- Dependencies: 222
 -- Name: TABLE tb_om_setores; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -1400,12 +1576,58 @@ CREATE SEQUENCE tb_om_setores_idtb_om_setores_seq
 
 
 --
--- TOC entry 3752 (class 0 OID 0)
+-- TOC entry 3836 (class 0 OID 0)
 -- Dependencies: 223
 -- Name: tb_om_setores_idtb_om_setores_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
 
 ALTER SEQUENCE tb_om_setores_idtb_om_setores_seq OWNED BY tb_om_setores.idtb_om_setores;
+
+
+--
+-- TOC entry 309 (class 1259 OID 19352)
+-- Name: tb_origem_backup; Type: TABLE; Schema: db_clti; Owner: -; Tablespace: 
+--
+
+CREATE TABLE tb_origem_backup (
+    idtb_origem_backup integer NOT NULL,
+    idtb_servidores integer NOT NULL,
+    dados_backup character varying(255) NOT NULL,
+    freq_backup character varying(50) NOT NULL,
+    tipo_backup character varying(50) NOT NULL,
+    dest_backup character varying(50) NOT NULL
+);
+
+
+--
+-- TOC entry 3837 (class 0 OID 0)
+-- Dependencies: 309
+-- Name: TABLE tb_origem_backup; Type: COMMENT; Schema: db_clti; Owner: -
+--
+
+COMMENT ON TABLE tb_origem_backup IS 'Tabela contendo informações do backup';
+
+
+--
+-- TOC entry 308 (class 1259 OID 19350)
+-- Name: tb_origem_backup_idtb_origem_backup_seq; Type: SEQUENCE; Schema: db_clti; Owner: -
+--
+
+CREATE SEQUENCE tb_origem_backup_idtb_origem_backup_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 3838 (class 0 OID 0)
+-- Dependencies: 308
+-- Name: tb_origem_backup_idtb_origem_backup_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
+--
+
+ALTER SEQUENCE tb_origem_backup_idtb_origem_backup_seq OWNED BY tb_origem_backup.idtb_origem_backup;
 
 
 --
@@ -1431,7 +1653,7 @@ CREATE TABLE tb_osic (
 
 
 --
--- TOC entry 3753 (class 0 OID 0)
+-- TOC entry 3839 (class 0 OID 0)
 -- Dependencies: 224
 -- Name: TABLE tb_osic; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -1453,7 +1675,7 @@ CREATE SEQUENCE tb_osic_idtb_osic_seq
 
 
 --
--- TOC entry 3755 (class 0 OID 0)
+-- TOC entry 3841 (class 0 OID 0)
 -- Dependencies: 225
 -- Name: tb_osic_idtb_osic_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -1477,7 +1699,7 @@ CREATE TABLE tb_pad_sic_tic (
 
 
 --
--- TOC entry 3756 (class 0 OID 0)
+-- TOC entry 3842 (class 0 OID 0)
 -- Dependencies: 226
 -- Name: TABLE tb_pad_sic_tic; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -1499,7 +1721,7 @@ CREATE SEQUENCE tb_pad_sic_tic_idtb_pad_sic_tic_seq
 
 
 --
--- TOC entry 3757 (class 0 OID 0)
+-- TOC entry 3843 (class 0 OID 0)
 -- Dependencies: 227
 -- Name: tb_pad_sic_tic_idtb_pad_sic_tic_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -1520,7 +1742,7 @@ CREATE TABLE tb_pais (
 
 
 --
--- TOC entry 3758 (class 0 OID 0)
+-- TOC entry 3844 (class 0 OID 0)
 -- Dependencies: 228
 -- Name: TABLE tb_pais; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -1542,7 +1764,7 @@ CREATE SEQUENCE tb_pais_id_seq
 
 
 --
--- TOC entry 3760 (class 0 OID 0)
+-- TOC entry 3846 (class 0 OID 0)
 -- Dependencies: 229
 -- Name: tb_pais_id_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -1563,7 +1785,7 @@ CREATE TABLE tb_perfil_internet (
 
 
 --
--- TOC entry 3761 (class 0 OID 0)
+-- TOC entry 3847 (class 0 OID 0)
 -- Dependencies: 230
 -- Name: TABLE tb_perfil_internet; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -1585,7 +1807,7 @@ CREATE SEQUENCE tb_perfil_internet_idtb_perfil_internet_seq
 
 
 --
--- TOC entry 3763 (class 0 OID 0)
+-- TOC entry 3849 (class 0 OID 0)
 -- Dependencies: 231
 -- Name: tb_perfil_internet_idtb_perfil_internet_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -1607,7 +1829,7 @@ CREATE TABLE tb_permissoes_admin (
 
 
 --
--- TOC entry 3764 (class 0 OID 0)
+-- TOC entry 3850 (class 0 OID 0)
 -- Dependencies: 232
 -- Name: TABLE tb_permissoes_admin; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -1629,7 +1851,7 @@ CREATE SEQUENCE tb_permissoes_admin_idtb_permissoes_admin_seq
 
 
 --
--- TOC entry 3765 (class 0 OID 0)
+-- TOC entry 3851 (class 0 OID 0)
 -- Dependencies: 233
 -- Name: tb_permissoes_admin_idtb_permissoes_admin_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -1638,7 +1860,7 @@ ALTER SEQUENCE tb_permissoes_admin_idtb_permissoes_admin_seq OWNED BY tb_permiss
 
 
 --
--- TOC entry 298 (class 1259 OID 19247)
+-- TOC entry 297 (class 1259 OID 19247)
 -- Name: tb_pessoal_excluido; Type: TABLE; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -1656,8 +1878,8 @@ CREATE TABLE tb_pessoal_excluido (
 
 
 --
--- TOC entry 3766 (class 0 OID 0)
--- Dependencies: 298
+-- TOC entry 3852 (class 0 OID 0)
+-- Dependencies: 297
 -- Name: TABLE tb_pessoal_excluido; Type: COMMENT; Schema: db_clti; Owner: -
 --
 
@@ -1665,7 +1887,7 @@ COMMENT ON TABLE tb_pessoal_excluido IS 'Pessoal de TI excluído';
 
 
 --
--- TOC entry 297 (class 1259 OID 19245)
+-- TOC entry 296 (class 1259 OID 19245)
 -- Name: tb_pessoal_excluido_idtb_pessoal_excluido_seq; Type: SEQUENCE; Schema: db_clti; Owner: -
 --
 
@@ -1678,8 +1900,8 @@ CREATE SEQUENCE tb_pessoal_excluido_idtb_pessoal_excluido_seq
 
 
 --
--- TOC entry 3767 (class 0 OID 0)
--- Dependencies: 297
+-- TOC entry 3853 (class 0 OID 0)
+-- Dependencies: 296
 -- Name: tb_pessoal_excluido_idtb_pessoal_excluido_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
 
@@ -1708,7 +1930,7 @@ CREATE TABLE tb_pessoal_om (
 
 
 --
--- TOC entry 3768 (class 0 OID 0)
+-- TOC entry 3854 (class 0 OID 0)
 -- Dependencies: 234
 -- Name: TABLE tb_pessoal_om; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -1730,7 +1952,7 @@ CREATE SEQUENCE tb_pessoal_om_idtb_pessoal_om_seq
 
 
 --
--- TOC entry 3770 (class 0 OID 0)
+-- TOC entry 3856 (class 0 OID 0)
 -- Dependencies: 235
 -- Name: tb_pessoal_om_idtb_pessoal_om_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -1759,12 +1981,14 @@ CREATE TABLE tb_pessoal_ti (
     idtb_funcoes_ti integer NOT NULL,
     secret character varying(16) DEFAULT 'Não ativado'::character varying NOT NULL,
     ip_acesso character varying(15) DEFAULT '0.0.0.0'::character varying NOT NULL,
-    cont_erro integer DEFAULT 0 NOT NULL
+    cont_erro integer DEFAULT 0 NOT NULL,
+    tel_contato character varying(16) DEFAULT '000000'::character varying,
+    retelma character varying(16) DEFAULT '000000'::character varying
 );
 
 
 --
--- TOC entry 3771 (class 0 OID 0)
+-- TOC entry 3857 (class 0 OID 0)
 -- Dependencies: 236
 -- Name: TABLE tb_pessoal_ti; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -1786,7 +2010,7 @@ CREATE SEQUENCE tb_pessoal_ti_idtb_pessoal_ti_seq
 
 
 --
--- TOC entry 3773 (class 0 OID 0)
+-- TOC entry 3859 (class 0 OID 0)
 -- Dependencies: 237
 -- Name: tb_pessoal_ti_idtb_pessoal_ti_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -1807,7 +2031,7 @@ CREATE TABLE tb_posto_grad (
 
 
 --
--- TOC entry 3774 (class 0 OID 0)
+-- TOC entry 3860 (class 0 OID 0)
 -- Dependencies: 238
 -- Name: TABLE tb_posto_grad; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -1829,7 +2053,7 @@ CREATE SEQUENCE tb_posto_grad_idtb_posto_grad_seq
 
 
 --
--- TOC entry 3776 (class 0 OID 0)
+-- TOC entry 3862 (class 0 OID 0)
 -- Dependencies: 239
 -- Name: tb_posto_grad_idtb_posto_grad_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -1849,7 +2073,7 @@ CREATE TABLE tb_proc_fab (
 
 
 --
--- TOC entry 3777 (class 0 OID 0)
+-- TOC entry 3863 (class 0 OID 0)
 -- Dependencies: 240
 -- Name: TABLE tb_proc_fab; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -1871,7 +2095,7 @@ CREATE SEQUENCE tb_proc_fab_idtb_proc_fab_seq
 
 
 --
--- TOC entry 3779 (class 0 OID 0)
+-- TOC entry 3865 (class 0 OID 0)
 -- Dependencies: 241
 -- Name: tb_proc_fab_idtb_proc_fab_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -1892,7 +2116,7 @@ CREATE TABLE tb_proc_modelo (
 
 
 --
--- TOC entry 3780 (class 0 OID 0)
+-- TOC entry 3866 (class 0 OID 0)
 -- Dependencies: 242
 -- Name: TABLE tb_proc_modelo; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -1914,7 +2138,7 @@ CREATE SEQUENCE tb_proc_modelo_idtb_proc_modelo_seq
 
 
 --
--- TOC entry 3782 (class 0 OID 0)
+-- TOC entry 3868 (class 0 OID 0)
 -- Dependencies: 243
 -- Name: tb_proc_modelo_idtb_proc_modelo_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -1942,7 +2166,7 @@ CREATE TABLE tb_qualificacao_clti (
 
 
 --
--- TOC entry 3783 (class 0 OID 0)
+-- TOC entry 3869 (class 0 OID 0)
 -- Dependencies: 244
 -- Name: TABLE tb_qualificacao_clti; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -1964,7 +2188,7 @@ CREATE SEQUENCE tb_qualificacao_clti_idtb_qualificacao_clti_seq
 
 
 --
--- TOC entry 3785 (class 0 OID 0)
+-- TOC entry 3871 (class 0 OID 0)
 -- Dependencies: 245
 -- Name: tb_qualificacao_clti_idtb_qualificacao_clti_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -1992,7 +2216,7 @@ CREATE TABLE tb_qualificacao_ti (
 
 
 --
--- TOC entry 3786 (class 0 OID 0)
+-- TOC entry 3872 (class 0 OID 0)
 -- Dependencies: 246
 -- Name: TABLE tb_qualificacao_ti; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -2014,7 +2238,7 @@ CREATE SEQUENCE tb_qualificacao_ti_idtb_qualificacao_ti_seq
 
 
 --
--- TOC entry 3788 (class 0 OID 0)
+-- TOC entry 3874 (class 0 OID 0)
 -- Dependencies: 247
 -- Name: tb_qualificacao_ti_idtb_qualificacao_ti_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -2023,7 +2247,7 @@ ALTER SEQUENCE tb_qualificacao_ti_idtb_qualificacao_ti_seq OWNED BY tb_qualifica
 
 
 --
--- TOC entry 290 (class 1259 OID 19166)
+-- TOC entry 289 (class 1259 OID 19166)
 -- Name: tb_range_ip; Type: TABLE; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -2036,8 +2260,8 @@ CREATE TABLE tb_range_ip (
 
 
 --
--- TOC entry 3789 (class 0 OID 0)
--- Dependencies: 290
+-- TOC entry 3875 (class 0 OID 0)
+-- Dependencies: 289
 -- Name: TABLE tb_range_ip; Type: COMMENT; Schema: db_clti; Owner: -
 --
 
@@ -2045,7 +2269,7 @@ COMMENT ON TABLE tb_range_ip IS 'Faixas de IP das OM Apoiadas';
 
 
 --
--- TOC entry 289 (class 1259 OID 19164)
+-- TOC entry 288 (class 1259 OID 19164)
 -- Name: tb_range_ip_idtb_range_ip_seq; Type: SEQUENCE; Schema: db_clti; Owner: -
 --
 
@@ -2058,8 +2282,8 @@ CREATE SEQUENCE tb_range_ip_idtb_range_ip_seq
 
 
 --
--- TOC entry 3790 (class 0 OID 0)
--- Dependencies: 289
+-- TOC entry 3876 (class 0 OID 0)
+-- Dependencies: 288
 -- Name: tb_range_ip_idtb_range_ip_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
 
@@ -2080,7 +2304,7 @@ CREATE TABLE tb_registro_log (
 
 
 --
--- TOC entry 3791 (class 0 OID 0)
+-- TOC entry 3877 (class 0 OID 0)
 -- Dependencies: 248
 -- Name: TABLE tb_registro_log; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -2102,7 +2326,7 @@ CREATE SEQUENCE tb_registro_log_idtb_registro_log_seq
 
 
 --
--- TOC entry 3793 (class 0 OID 0)
+-- TOC entry 3879 (class 0 OID 0)
 -- Dependencies: 249
 -- Name: tb_registro_log_idtb_registro_log_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -2125,12 +2349,13 @@ CREATE TABLE tb_rel_servico (
     cel_funcional character varying(255),
     sit_servidores character varying(255),
     sit_backup character varying(255),
-    status character varying(255)
+    status character varying(255),
+    num_midia_bakcup integer DEFAULT 1 NOT NULL
 );
 
 
 --
--- TOC entry 3794 (class 0 OID 0)
+-- TOC entry 3880 (class 0 OID 0)
 -- Dependencies: 250
 -- Name: TABLE tb_rel_servico; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -2152,7 +2377,7 @@ CREATE SEQUENCE tb_rel_servico_idtb_rel_servico_seq
 
 
 --
--- TOC entry 3795 (class 0 OID 0)
+-- TOC entry 3881 (class 0 OID 0)
 -- Dependencies: 251
 -- Name: tb_rel_servico_idtb_rel_servico_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -2175,7 +2400,7 @@ CREATE TABLE tb_rel_servico_log (
 
 
 --
--- TOC entry 3796 (class 0 OID 0)
+-- TOC entry 3882 (class 0 OID 0)
 -- Dependencies: 252
 -- Name: TABLE tb_rel_servico_log; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -2197,7 +2422,7 @@ CREATE SEQUENCE tb_rel_servico_log_idtb_rel_servico_log_seq
 
 
 --
--- TOC entry 3797 (class 0 OID 0)
+-- TOC entry 3883 (class 0 OID 0)
 -- Dependencies: 253
 -- Name: tb_rel_servico_log_idtb_rel_servico_log_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -2219,7 +2444,7 @@ CREATE TABLE tb_rel_servico_ocorrencias (
 
 
 --
--- TOC entry 3798 (class 0 OID 0)
+-- TOC entry 3884 (class 0 OID 0)
 -- Dependencies: 254
 -- Name: TABLE tb_rel_servico_ocorrencias; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -2241,7 +2466,7 @@ CREATE SEQUENCE tb_rel_servico_ocorrencias_idtb_rel_servico_ocorrencias_seq
 
 
 --
--- TOC entry 3799 (class 0 OID 0)
+-- TOC entry 3885 (class 0 OID 0)
 -- Dependencies: 255
 -- Name: tb_rel_servico_ocorrencias_idtb_rel_servico_ocorrencias_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -2269,7 +2494,7 @@ CREATE TABLE tb_rel_sv_v2 (
 
 
 --
--- TOC entry 3800 (class 0 OID 0)
+-- TOC entry 3886 (class 0 OID 0)
 -- Dependencies: 256
 -- Name: TABLE tb_rel_sv_v2; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -2291,7 +2516,7 @@ CREATE SEQUENCE tb_rel_sv_v2_idtb_rel_servico_seq
 
 
 --
--- TOC entry 3801 (class 0 OID 0)
+-- TOC entry 3887 (class 0 OID 0)
 -- Dependencies: 257
 -- Name: tb_rel_sv_v2_idtb_rel_servico_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -2312,7 +2537,7 @@ CREATE TABLE tb_rel_sv_v2_ocorrencias (
 
 
 --
--- TOC entry 3802 (class 0 OID 0)
+-- TOC entry 3888 (class 0 OID 0)
 -- Dependencies: 258
 -- Name: TABLE tb_rel_sv_v2_ocorrencias; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -2334,7 +2559,7 @@ CREATE SEQUENCE tb_rel_sv_v2_ocorrencias_idtb_rel_servico_ocorrencias_seq
 
 
 --
--- TOC entry 3803 (class 0 OID 0)
+-- TOC entry 3889 (class 0 OID 0)
 -- Dependencies: 259
 -- Name: tb_rel_sv_v2_ocorrencias_idtb_rel_servico_ocorrencias_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -2370,7 +2595,7 @@ CREATE TABLE tb_servidores (
 
 
 --
--- TOC entry 3804 (class 0 OID 0)
+-- TOC entry 3890 (class 0 OID 0)
 -- Dependencies: 260
 -- Name: TABLE tb_servidores; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -2379,7 +2604,7 @@ COMMENT ON TABLE tb_servidores IS 'Tabela contendo Servidores.';
 
 
 --
--- TOC entry 296 (class 1259 OID 19236)
+-- TOC entry 295 (class 1259 OID 19236)
 -- Name: tb_servidores_excluidos; Type: TABLE; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -2396,8 +2621,8 @@ CREATE TABLE tb_servidores_excluidos (
 
 
 --
--- TOC entry 3806 (class 0 OID 0)
--- Dependencies: 296
+-- TOC entry 3892 (class 0 OID 0)
+-- Dependencies: 295
 -- Name: TABLE tb_servidores_excluidos; Type: COMMENT; Schema: db_clti; Owner: -
 --
 
@@ -2405,7 +2630,7 @@ COMMENT ON TABLE tb_servidores_excluidos IS 'Servidores excluídos';
 
 
 --
--- TOC entry 295 (class 1259 OID 19234)
+-- TOC entry 294 (class 1259 OID 19234)
 -- Name: tb_servidores_excluidos_idtb_servidores_excluidos_seq; Type: SEQUENCE; Schema: db_clti; Owner: -
 --
 
@@ -2418,8 +2643,8 @@ CREATE SEQUENCE tb_servidores_excluidos_idtb_servidores_excluidos_seq
 
 
 --
--- TOC entry 3807 (class 0 OID 0)
--- Dependencies: 295
+-- TOC entry 3893 (class 0 OID 0)
+-- Dependencies: 294
 -- Name: tb_servidores_excluidos_idtb_servidores_excluidos_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
 
@@ -2440,7 +2665,7 @@ CREATE SEQUENCE tb_servidores_idtb_servidores_seq
 
 
 --
--- TOC entry 3808 (class 0 OID 0)
+-- TOC entry 3894 (class 0 OID 0)
 -- Dependencies: 261
 -- Name: tb_servidores_idtb_servidores_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -2462,7 +2687,7 @@ CREATE TABLE tb_soft_padronizados (
 
 
 --
--- TOC entry 3809 (class 0 OID 0)
+-- TOC entry 3895 (class 0 OID 0)
 -- Dependencies: 262
 -- Name: TABLE tb_soft_padronizados; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -2484,7 +2709,7 @@ CREATE SEQUENCE tb_soft_padronizados_idtb_soft_padronizados_seq
 
 
 --
--- TOC entry 3810 (class 0 OID 0)
+-- TOC entry 3896 (class 0 OID 0)
 -- Dependencies: 263
 -- Name: tb_soft_padronizados_idtb_soft_padronizados_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -2507,7 +2732,7 @@ CREATE TABLE tb_sor (
 
 
 --
--- TOC entry 3811 (class 0 OID 0)
+-- TOC entry 3897 (class 0 OID 0)
 -- Dependencies: 264
 -- Name: TABLE tb_sor; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -2529,7 +2754,7 @@ CREATE SEQUENCE tb_sor_idtb_sor_seq
 
 
 --
--- TOC entry 3813 (class 0 OID 0)
+-- TOC entry 3899 (class 0 OID 0)
 -- Dependencies: 265
 -- Name: tb_sor_idtb_sor_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -2566,7 +2791,7 @@ CREATE SEQUENCE tb_temas_pad_sic_tic_idtb_temas_pad_sic_tic_seq
 
 
 --
--- TOC entry 3814 (class 0 OID 0)
+-- TOC entry 3900 (class 0 OID 0)
 -- Dependencies: 267
 -- Name: tb_temas_pad_sic_tic_idtb_temas_pad_sic_tic_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
@@ -2590,7 +2815,7 @@ CREATE TABLE tb_tipos_clti (
 
 
 --
--- TOC entry 3815 (class 0 OID 0)
+-- TOC entry 3901 (class 0 OID 0)
 -- Dependencies: 268
 -- Name: TABLE tb_tipos_clti; Type: COMMENT; Schema: db_clti; Owner: -
 --
@@ -2612,12 +2837,55 @@ CREATE SEQUENCE tb_tipos_clti_idtb_tipos_clti_seq
 
 
 --
--- TOC entry 3817 (class 0 OID 0)
+-- TOC entry 3903 (class 0 OID 0)
 -- Dependencies: 269
 -- Name: tb_tipos_clti_idtb_tipos_clti_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
 --
 
 ALTER SEQUENCE tb_tipos_clti_idtb_tipos_clti_seq OWNED BY tb_tipos_clti.idtb_tipos_clti;
+
+
+--
+-- TOC entry 307 (class 1259 OID 19341)
+-- Name: tb_tipos_midias_backup; Type: TABLE; Schema: db_clti; Owner: -; Tablespace: 
+--
+
+CREATE TABLE tb_tipos_midias_backup (
+    idtb_tipos_midias_backup integer NOT NULL,
+    descricao character varying(255) NOT NULL,
+    sigla character varying(255) NOT NULL
+);
+
+
+--
+-- TOC entry 3904 (class 0 OID 0)
+-- Dependencies: 307
+-- Name: TABLE tb_tipos_midias_backup; Type: COMMENT; Schema: db_clti; Owner: -
+--
+
+COMMENT ON TABLE tb_tipos_midias_backup IS 'Tipos de mídias de armazenamento de backup';
+
+
+--
+-- TOC entry 306 (class 1259 OID 19339)
+-- Name: tb_tipos_midias_backup_idtb_tipos_midias_backup_seq; Type: SEQUENCE; Schema: db_clti; Owner: -
+--
+
+CREATE SEQUENCE tb_tipos_midias_backup_idtb_tipos_midias_backup_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 3905 (class 0 OID 0)
+-- Dependencies: 306
+-- Name: tb_tipos_midias_backup_idtb_tipos_midias_backup_seq; Type: SEQUENCE OWNED BY; Schema: db_clti; Owner: -
+--
+
+ALTER SEQUENCE tb_tipos_midias_backup_idtb_tipos_midias_backup_seq OWNED BY tb_tipos_midias_backup.idtb_tipos_midias_backup;
 
 
 --
@@ -2720,16 +2988,16 @@ CREATE VIEW vw_pessoal_clti AS
 
 
 --
--- TOC entry 281 (class 1259 OID 18595)
+-- TOC entry 310 (class 1259 OID 19358)
 -- Name: vw_pessoal_ti; Type: VIEW; Schema: db_clti; Owner: -
 --
 
 CREATE VIEW vw_pessoal_ti AS
-    SELECT pesti.idtb_pessoal_ti, pesti.idtb_posto_grad, posto.sigla AS sigla_posto_grad, pesti.idtb_corpo_quadro, corpo.sigla AS sigla_corpo_quadro, corpo.exibir AS exibir_corpo_quadro, pesti.idtb_especialidade, espec.sigla AS sigla_espec, espec.exibir AS exibir_espec, pesti.idtb_om_apoiadas, om.sigla AS sigla_om, pesti.nip, pesti.cpf, pesti.nome, pesti.nome_guerra, pesti.correio_eletronico, pesti.idtb_funcoes_ti, funcao.descricao AS desc_funcao, funcao.sigla AS sigla_funcao, pesti.status FROM tb_pessoal_ti pesti, tb_posto_grad posto, tb_corpo_quadro corpo, tb_especialidade espec, tb_om_apoiadas om, tb_funcoes_ti funcao WHERE (((((pesti.idtb_posto_grad = posto.idtb_posto_grad) AND (pesti.idtb_corpo_quadro = corpo.idtb_corpo_quadro)) AND (pesti.idtb_especialidade = espec.idtb_especialidade)) AND (pesti.idtb_om_apoiadas = om.idtb_om_apoiadas)) AND (pesti.idtb_funcoes_ti = funcao.idtb_funcoes_ti));
+    SELECT pesti.idtb_pessoal_ti, pesti.idtb_posto_grad, posto.sigla AS sigla_posto_grad, pesti.idtb_corpo_quadro, corpo.sigla AS sigla_corpo_quadro, corpo.exibir AS exibir_corpo_quadro, pesti.idtb_especialidade, espec.sigla AS sigla_espec, espec.exibir AS exibir_espec, pesti.idtb_om_apoiadas, om.sigla AS sigla_om, pesti.nip, pesti.cpf, pesti.nome, pesti.nome_guerra, pesti.correio_eletronico, pesti.tel_contato, pesti.retelma, pesti.idtb_funcoes_ti, funcao.descricao AS desc_funcao, funcao.sigla AS sigla_funcao, pesti.status FROM tb_pessoal_ti pesti, tb_posto_grad posto, tb_corpo_quadro corpo, tb_especialidade espec, tb_om_apoiadas om, tb_funcoes_ti funcao WHERE (((((pesti.idtb_posto_grad = posto.idtb_posto_grad) AND (pesti.idtb_corpo_quadro = corpo.idtb_corpo_quadro)) AND (pesti.idtb_especialidade = espec.idtb_especialidade)) AND (pesti.idtb_om_apoiadas = om.idtb_om_apoiadas)) AND (pesti.idtb_funcoes_ti = funcao.idtb_funcoes_ti));
 
 
 --
--- TOC entry 282 (class 1259 OID 18600)
+-- TOC entry 281 (class 1259 OID 18600)
 -- Name: vw_processadores; Type: VIEW; Schema: db_clti; Owner: -
 --
 
@@ -2738,7 +3006,7 @@ CREATE VIEW vw_processadores AS
 
 
 --
--- TOC entry 283 (class 1259 OID 18604)
+-- TOC entry 282 (class 1259 OID 18604)
 -- Name: vw_qualificacao_clti; Type: VIEW; Schema: db_clti; Owner: -
 --
 
@@ -2747,7 +3015,7 @@ CREATE VIEW vw_qualificacao_clti AS
 
 
 --
--- TOC entry 284 (class 1259 OID 18609)
+-- TOC entry 283 (class 1259 OID 18609)
 -- Name: vw_qualificacao_pesti; Type: VIEW; Schema: db_clti; Owner: -
 --
 
@@ -2756,7 +3024,7 @@ CREATE VIEW vw_qualificacao_pesti AS
 
 
 --
--- TOC entry 285 (class 1259 OID 18614)
+-- TOC entry 284 (class 1259 OID 18614)
 -- Name: vw_servidores; Type: VIEW; Schema: db_clti; Owner: -
 --
 
@@ -2765,7 +3033,7 @@ CREATE VIEW vw_servidores AS
 
 
 --
--- TOC entry 286 (class 1259 OID 18619)
+-- TOC entry 285 (class 1259 OID 18619)
 -- Name: vw_setores; Type: VIEW; Schema: db_clti; Owner: -
 --
 
@@ -2774,7 +3042,7 @@ CREATE VIEW vw_setores AS
 
 
 --
--- TOC entry 3223 (class 2604 OID 19161)
+-- TOC entry 3268 (class 2604 OID 19161)
 -- Name: idtb_acesso_suspeito; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2782,7 +3050,15 @@ ALTER TABLE ONLY tb_acesso_suspeito ALTER COLUMN idtb_acesso_suspeito SET DEFAUL
 
 
 --
--- TOC entry 3164 (class 2604 OID 18623)
+-- TOC entry 3276 (class 2604 OID 19320)
+-- Name: idtb_acomp_inspecoes_visitas; Type: DEFAULT; Schema: db_clti; Owner: -
+--
+
+ALTER TABLE ONLY tb_acomp_inspecoes_visitas ALTER COLUMN idtb_acomp_inspecoes_visitas SET DEFAULT nextval('tb_acomp_inspecoes_visitas_idtb_acomp_inspecoes_visitas_seq'::regclass);
+
+
+--
+-- TOC entry 3205 (class 2604 OID 18623)
 -- Name: idtb_ade_pad_sic_tic; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2790,7 +3066,15 @@ ALTER TABLE ONLY tb_ade_pad_sic_tic ALTER COLUMN idtb_ade_pad_sic_tic SET DEFAUL
 
 
 --
--- TOC entry 3165 (class 2604 OID 18624)
+-- TOC entry 3274 (class 2604 OID 19298)
+-- Name: idtb_agenda_administrativa; Type: DEFAULT; Schema: db_clti; Owner: -
+--
+
+ALTER TABLE ONLY tb_agenda_administrativa ALTER COLUMN idtb_agenda_administrativa SET DEFAULT nextval('tb_agenda_administrativa_idtb_agenda_administrativa_seq'::regclass);
+
+
+--
+-- TOC entry 3206 (class 2604 OID 18624)
 -- Name: id; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2798,7 +3082,7 @@ ALTER TABLE ONLY tb_cidade ALTER COLUMN id SET DEFAULT nextval('tb_cidade_id_seq
 
 
 --
--- TOC entry 3166 (class 2604 OID 18625)
+-- TOC entry 3207 (class 2604 OID 18625)
 -- Name: idtb_clti; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2806,7 +3090,7 @@ ALTER TABLE ONLY tb_clti ALTER COLUMN idtb_clti SET DEFAULT nextval('tb_clti_idt
 
 
 --
--- TOC entry 3167 (class 2604 OID 18626)
+-- TOC entry 3208 (class 2604 OID 18626)
 -- Name: idtb_conectividade; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2814,7 +3098,7 @@ ALTER TABLE ONLY tb_conectividade ALTER COLUMN idtb_conectividade SET DEFAULT ne
 
 
 --
--- TOC entry 3226 (class 2604 OID 19228)
+-- TOC entry 3271 (class 2604 OID 19228)
 -- Name: idtb_conectividade_excluidos; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2822,7 +3106,7 @@ ALTER TABLE ONLY tb_conectividade_excluidos ALTER COLUMN idtb_conectividade_excl
 
 
 --
--- TOC entry 3168 (class 2604 OID 18627)
+-- TOC entry 3209 (class 2604 OID 18627)
 -- Name: idtb_config; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2830,7 +3114,7 @@ ALTER TABLE ONLY tb_config ALTER COLUMN idtb_config SET DEFAULT nextval('tb_conf
 
 
 --
--- TOC entry 3169 (class 2604 OID 18628)
+-- TOC entry 3210 (class 2604 OID 18628)
 -- Name: idtb_controle_internet; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2838,7 +3122,7 @@ ALTER TABLE ONLY tb_controle_internet ALTER COLUMN idtb_controle_internet SET DE
 
 
 --
--- TOC entry 3170 (class 2604 OID 18629)
+-- TOC entry 3211 (class 2604 OID 18629)
 -- Name: idtb_controle_usb; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2846,7 +3130,7 @@ ALTER TABLE ONLY tb_controle_usb ALTER COLUMN idtb_controle_usb SET DEFAULT next
 
 
 --
--- TOC entry 3171 (class 2604 OID 18630)
+-- TOC entry 3212 (class 2604 OID 18630)
 -- Name: idtb_corpo_quadro; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2854,7 +3138,7 @@ ALTER TABLE ONLY tb_corpo_quadro ALTER COLUMN idtb_corpo_quadro SET DEFAULT next
 
 
 --
--- TOC entry 3172 (class 2604 OID 18631)
+-- TOC entry 3213 (class 2604 OID 18631)
 -- Name: idtb_det_serv; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2862,7 +3146,7 @@ ALTER TABLE ONLY tb_det_serv ALTER COLUMN idtb_det_serv SET DEFAULT nextval('tb_
 
 
 --
--- TOC entry 3173 (class 2604 OID 18632)
+-- TOC entry 3214 (class 2604 OID 18632)
 -- Name: idtb_dias_troca; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2870,7 +3154,7 @@ ALTER TABLE ONLY tb_dias_troca ALTER COLUMN idtb_dias_troca SET DEFAULT nextval(
 
 
 --
--- TOC entry 3174 (class 2604 OID 18633)
+-- TOC entry 3215 (class 2604 OID 18633)
 -- Name: idtb_dias_troca_clti; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2878,7 +3162,7 @@ ALTER TABLE ONLY tb_dias_troca_clti ALTER COLUMN idtb_dias_troca_clti SET DEFAUL
 
 
 --
--- TOC entry 3175 (class 2604 OID 18634)
+-- TOC entry 3216 (class 2604 OID 18634)
 -- Name: idtb_especialidade; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2886,7 +3170,7 @@ ALTER TABLE ONLY tb_especialidade ALTER COLUMN idtb_especialidade SET DEFAULT ne
 
 
 --
--- TOC entry 3177 (class 2604 OID 18635)
+-- TOC entry 3218 (class 2604 OID 18635)
 -- Name: idtb_estacoes; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2894,7 +3178,7 @@ ALTER TABLE ONLY tb_estacoes ALTER COLUMN idtb_estacoes SET DEFAULT nextval('tb_
 
 
 --
--- TOC entry 3225 (class 2604 OID 19217)
+-- TOC entry 3270 (class 2604 OID 19217)
 -- Name: idtb_estacoes_excluidas; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2902,7 +3186,7 @@ ALTER TABLE ONLY tb_estacoes_excluidas ALTER COLUMN idtb_estacoes_excluidas SET 
 
 
 --
--- TOC entry 3178 (class 2604 OID 18636)
+-- TOC entry 3219 (class 2604 OID 18636)
 -- Name: id; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2910,7 +3194,7 @@ ALTER TABLE ONLY tb_estado ALTER COLUMN id SET DEFAULT nextval('tb_estado_id_seq
 
 
 --
--- TOC entry 3179 (class 2604 OID 18637)
+-- TOC entry 3220 (class 2604 OID 18637)
 -- Name: idtb_funcoes_clti; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2918,7 +3202,7 @@ ALTER TABLE ONLY tb_funcoes_clti ALTER COLUMN idtb_funcoes_clti SET DEFAULT next
 
 
 --
--- TOC entry 3180 (class 2604 OID 18638)
+-- TOC entry 3221 (class 2604 OID 18638)
 -- Name: idtb_funcoes_sigdem; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2926,7 +3210,7 @@ ALTER TABLE ONLY tb_funcoes_sigdem ALTER COLUMN idtb_funcoes_sigdem SET DEFAULT 
 
 
 --
--- TOC entry 3181 (class 2604 OID 18639)
+-- TOC entry 3222 (class 2604 OID 18639)
 -- Name: idtb_funcoes_ti; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2934,7 +3218,7 @@ ALTER TABLE ONLY tb_funcoes_ti ALTER COLUMN idtb_funcoes_ti SET DEFAULT nextval(
 
 
 --
--- TOC entry 3182 (class 2604 OID 18640)
+-- TOC entry 3223 (class 2604 OID 18640)
 -- Name: idtb_gw_om; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2942,7 +3226,15 @@ ALTER TABLE ONLY tb_gw_om ALTER COLUMN idtb_gw_om SET DEFAULT nextval('tb_gw_om_
 
 
 --
--- TOC entry 3185 (class 2604 OID 18641)
+-- TOC entry 3275 (class 2604 OID 19309)
+-- Name: idtb_inspecoes_visitas; Type: DEFAULT; Schema: db_clti; Owner: -
+--
+
+ALTER TABLE ONLY tb_inspecoes_visitas ALTER COLUMN idtb_inspecoes_visitas SET DEFAULT nextval('tb_inspecoes_visitas_idtb_inspecoes_visitas_seq'::regclass);
+
+
+--
+-- TOC entry 3226 (class 2604 OID 18641)
 -- Name: idtb_lotacao_clti; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2950,7 +3242,7 @@ ALTER TABLE ONLY tb_lotacao_clti ALTER COLUMN idtb_lotacao_clti SET DEFAULT next
 
 
 --
--- TOC entry 3189 (class 2604 OID 18642)
+-- TOC entry 3230 (class 2604 OID 18642)
 -- Name: idtb_manutencao_et; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2958,7 +3250,7 @@ ALTER TABLE ONLY tb_manutencao_et ALTER COLUMN idtb_manutencao_et SET DEFAULT ne
 
 
 --
--- TOC entry 3190 (class 2604 OID 18643)
+-- TOC entry 3231 (class 2604 OID 18643)
 -- Name: idtb_mapainfra; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2966,7 +3258,7 @@ ALTER TABLE ONLY tb_mapainfra ALTER COLUMN idtb_mapainfra SET DEFAULT nextval('t
 
 
 --
--- TOC entry 3191 (class 2604 OID 18644)
+-- TOC entry 3232 (class 2604 OID 18644)
 -- Name: idtb_memorias; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2974,7 +3266,15 @@ ALTER TABLE ONLY tb_memorias ALTER COLUMN idtb_memorias SET DEFAULT nextval('tb_
 
 
 --
--- TOC entry 3192 (class 2604 OID 18645)
+-- TOC entry 3277 (class 2604 OID 19331)
+-- Name: idtb_midias_backup; Type: DEFAULT; Schema: db_clti; Owner: -
+--
+
+ALTER TABLE ONLY tb_midias_backup ALTER COLUMN idtb_midias_backup SET DEFAULT nextval('tb_midias_backup_idtb_midias_backup_seq'::regclass);
+
+
+--
+-- TOC entry 3233 (class 2604 OID 18645)
 -- Name: idtb_nao_padronizados; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2982,7 +3282,7 @@ ALTER TABLE ONLY tb_nao_padronizados ALTER COLUMN idtb_nao_padronizados SET DEFA
 
 
 --
--- TOC entry 3193 (class 2604 OID 18646)
+-- TOC entry 3234 (class 2604 OID 18646)
 -- Name: idtb_nec_aquisicao; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2990,7 +3290,7 @@ ALTER TABLE ONLY tb_nec_aquisicao ALTER COLUMN idtb_nec_aquisicao SET DEFAULT ne
 
 
 --
--- TOC entry 3194 (class 2604 OID 18647)
+-- TOC entry 3235 (class 2604 OID 18647)
 -- Name: idtb_numerador; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -2998,7 +3298,7 @@ ALTER TABLE ONLY tb_numerador ALTER COLUMN idtb_numerador SET DEFAULT nextval('t
 
 
 --
--- TOC entry 3195 (class 2604 OID 18648)
+-- TOC entry 3236 (class 2604 OID 18648)
 -- Name: idtb_om_apoiadas; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3006,7 +3306,7 @@ ALTER TABLE ONLY tb_om_apoiadas ALTER COLUMN idtb_om_apoiadas SET DEFAULT nextva
 
 
 --
--- TOC entry 3196 (class 2604 OID 18649)
+-- TOC entry 3238 (class 2604 OID 18649)
 -- Name: idtb_om_setores; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3014,7 +3314,15 @@ ALTER TABLE ONLY tb_om_setores ALTER COLUMN idtb_om_setores SET DEFAULT nextval(
 
 
 --
--- TOC entry 3197 (class 2604 OID 18650)
+-- TOC entry 3279 (class 2604 OID 19355)
+-- Name: idtb_origem_backup; Type: DEFAULT; Schema: db_clti; Owner: -
+--
+
+ALTER TABLE ONLY tb_origem_backup ALTER COLUMN idtb_origem_backup SET DEFAULT nextval('tb_origem_backup_idtb_origem_backup_seq'::regclass);
+
+
+--
+-- TOC entry 3239 (class 2604 OID 18650)
 -- Name: idtb_osic; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3022,7 +3330,7 @@ ALTER TABLE ONLY tb_osic ALTER COLUMN idtb_osic SET DEFAULT nextval('tb_osic_idt
 
 
 --
--- TOC entry 3198 (class 2604 OID 18651)
+-- TOC entry 3240 (class 2604 OID 18651)
 -- Name: idtb_pad_sic_tic; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3030,7 +3338,7 @@ ALTER TABLE ONLY tb_pad_sic_tic ALTER COLUMN idtb_pad_sic_tic SET DEFAULT nextva
 
 
 --
--- TOC entry 3199 (class 2604 OID 18652)
+-- TOC entry 3241 (class 2604 OID 18652)
 -- Name: id; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3038,7 +3346,7 @@ ALTER TABLE ONLY tb_pais ALTER COLUMN id SET DEFAULT nextval('tb_pais_id_seq'::r
 
 
 --
--- TOC entry 3200 (class 2604 OID 18653)
+-- TOC entry 3242 (class 2604 OID 18653)
 -- Name: idtb_perfil_internet; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3046,7 +3354,7 @@ ALTER TABLE ONLY tb_perfil_internet ALTER COLUMN idtb_perfil_internet SET DEFAUL
 
 
 --
--- TOC entry 3201 (class 2604 OID 18654)
+-- TOC entry 3243 (class 2604 OID 18654)
 -- Name: idtb_permissoes_admin; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3054,7 +3362,7 @@ ALTER TABLE ONLY tb_permissoes_admin ALTER COLUMN idtb_permissoes_admin SET DEFA
 
 
 --
--- TOC entry 3228 (class 2604 OID 19250)
+-- TOC entry 3273 (class 2604 OID 19250)
 -- Name: idtb_pessoal_excluido; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3062,7 +3370,7 @@ ALTER TABLE ONLY tb_pessoal_excluido ALTER COLUMN idtb_pessoal_excluido SET DEFA
 
 
 --
--- TOC entry 3202 (class 2604 OID 18655)
+-- TOC entry 3244 (class 2604 OID 18655)
 -- Name: idtb_pessoal_om; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3070,7 +3378,7 @@ ALTER TABLE ONLY tb_pessoal_om ALTER COLUMN idtb_pessoal_om SET DEFAULT nextval(
 
 
 --
--- TOC entry 3203 (class 2604 OID 18656)
+-- TOC entry 3245 (class 2604 OID 18656)
 -- Name: idtb_pessoal_ti; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3078,7 +3386,7 @@ ALTER TABLE ONLY tb_pessoal_ti ALTER COLUMN idtb_pessoal_ti SET DEFAULT nextval(
 
 
 --
--- TOC entry 3207 (class 2604 OID 18657)
+-- TOC entry 3251 (class 2604 OID 18657)
 -- Name: idtb_posto_grad; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3086,7 +3394,7 @@ ALTER TABLE ONLY tb_posto_grad ALTER COLUMN idtb_posto_grad SET DEFAULT nextval(
 
 
 --
--- TOC entry 3208 (class 2604 OID 18658)
+-- TOC entry 3252 (class 2604 OID 18658)
 -- Name: idtb_proc_fab; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3094,7 +3402,7 @@ ALTER TABLE ONLY tb_proc_fab ALTER COLUMN idtb_proc_fab SET DEFAULT nextval('tb_
 
 
 --
--- TOC entry 3209 (class 2604 OID 18659)
+-- TOC entry 3253 (class 2604 OID 18659)
 -- Name: idtb_proc_modelo; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3102,7 +3410,7 @@ ALTER TABLE ONLY tb_proc_modelo ALTER COLUMN idtb_proc_modelo SET DEFAULT nextva
 
 
 --
--- TOC entry 3210 (class 2604 OID 18660)
+-- TOC entry 3254 (class 2604 OID 18660)
 -- Name: idtb_qualificacao_clti; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3110,7 +3418,7 @@ ALTER TABLE ONLY tb_qualificacao_clti ALTER COLUMN idtb_qualificacao_clti SET DE
 
 
 --
--- TOC entry 3211 (class 2604 OID 18661)
+-- TOC entry 3255 (class 2604 OID 18661)
 -- Name: idtb_qualificacao_ti; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3118,7 +3426,7 @@ ALTER TABLE ONLY tb_qualificacao_ti ALTER COLUMN idtb_qualificacao_ti SET DEFAUL
 
 
 --
--- TOC entry 3224 (class 2604 OID 19169)
+-- TOC entry 3269 (class 2604 OID 19169)
 -- Name: idtb_range_ip; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3126,7 +3434,7 @@ ALTER TABLE ONLY tb_range_ip ALTER COLUMN idtb_range_ip SET DEFAULT nextval('tb_
 
 
 --
--- TOC entry 3212 (class 2604 OID 18662)
+-- TOC entry 3256 (class 2604 OID 18662)
 -- Name: idtb_registro_log; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3134,7 +3442,7 @@ ALTER TABLE ONLY tb_registro_log ALTER COLUMN idtb_registro_log SET DEFAULT next
 
 
 --
--- TOC entry 3213 (class 2604 OID 18663)
+-- TOC entry 3257 (class 2604 OID 18663)
 -- Name: idtb_rel_servico; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3142,7 +3450,7 @@ ALTER TABLE ONLY tb_rel_servico ALTER COLUMN idtb_rel_servico SET DEFAULT nextva
 
 
 --
--- TOC entry 3214 (class 2604 OID 18664)
+-- TOC entry 3259 (class 2604 OID 18664)
 -- Name: idtb_rel_servico_log; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3150,7 +3458,7 @@ ALTER TABLE ONLY tb_rel_servico_log ALTER COLUMN idtb_rel_servico_log SET DEFAUL
 
 
 --
--- TOC entry 3215 (class 2604 OID 18665)
+-- TOC entry 3260 (class 2604 OID 18665)
 -- Name: idtb_rel_servico_ocorrencias; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3158,7 +3466,7 @@ ALTER TABLE ONLY tb_rel_servico_ocorrencias ALTER COLUMN idtb_rel_servico_ocorre
 
 
 --
--- TOC entry 3216 (class 2604 OID 18666)
+-- TOC entry 3261 (class 2604 OID 18666)
 -- Name: idtb_rel_servico; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3166,7 +3474,7 @@ ALTER TABLE ONLY tb_rel_sv_v2 ALTER COLUMN idtb_rel_servico SET DEFAULT nextval(
 
 
 --
--- TOC entry 3217 (class 2604 OID 18667)
+-- TOC entry 3262 (class 2604 OID 18667)
 -- Name: idtb_rel_servico_ocorrencias; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3174,7 +3482,7 @@ ALTER TABLE ONLY tb_rel_sv_v2_ocorrencias ALTER COLUMN idtb_rel_servico_ocorrenc
 
 
 --
--- TOC entry 3218 (class 2604 OID 18668)
+-- TOC entry 3263 (class 2604 OID 18668)
 -- Name: idtb_servidores; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3182,7 +3490,7 @@ ALTER TABLE ONLY tb_servidores ALTER COLUMN idtb_servidores SET DEFAULT nextval(
 
 
 --
--- TOC entry 3227 (class 2604 OID 19239)
+-- TOC entry 3272 (class 2604 OID 19239)
 -- Name: idtb_servidores_excluidos; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3190,7 +3498,7 @@ ALTER TABLE ONLY tb_servidores_excluidos ALTER COLUMN idtb_servidores_excluidos 
 
 
 --
--- TOC entry 3219 (class 2604 OID 18669)
+-- TOC entry 3264 (class 2604 OID 18669)
 -- Name: idtb_soft_padronizados; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3198,7 +3506,7 @@ ALTER TABLE ONLY tb_soft_padronizados ALTER COLUMN idtb_soft_padronizados SET DE
 
 
 --
--- TOC entry 3220 (class 2604 OID 18670)
+-- TOC entry 3265 (class 2604 OID 18670)
 -- Name: idtb_sor; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3206,7 +3514,7 @@ ALTER TABLE ONLY tb_sor ALTER COLUMN idtb_sor SET DEFAULT nextval('tb_sor_idtb_s
 
 
 --
--- TOC entry 3221 (class 2604 OID 18671)
+-- TOC entry 3266 (class 2604 OID 18671)
 -- Name: idtb_temas_pad_sic_tic; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3214,7 +3522,7 @@ ALTER TABLE ONLY tb_temas_pad_sic_tic ALTER COLUMN idtb_temas_pad_sic_tic SET DE
 
 
 --
--- TOC entry 3222 (class 2604 OID 18672)
+-- TOC entry 3267 (class 2604 OID 18672)
 -- Name: idtb_tipos_clti; Type: DEFAULT; Schema: db_clti; Owner: -
 --
 
@@ -3222,44 +3530,75 @@ ALTER TABLE ONLY tb_tipos_clti ALTER COLUMN idtb_tipos_clti SET DEFAULT nextval(
 
 
 --
--- TOC entry 3657 (class 0 OID 19158)
--- Dependencies: 288
+-- TOC entry 3278 (class 2604 OID 19344)
+-- Name: idtb_tipos_midias_backup; Type: DEFAULT; Schema: db_clti; Owner: -
+--
+
+ALTER TABLE ONLY tb_tipos_midias_backup ALTER COLUMN idtb_tipos_midias_backup SET DEFAULT nextval('tb_tipos_midias_backup_idtb_tipos_midias_backup_seq'::regclass);
+
+
+--
+-- TOC entry 3722 (class 0 OID 19158)
+-- Dependencies: 287
 -- Data for Name: tb_acesso_suspeito; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
 
 COPY tb_acesso_suspeito (idtb_acesso_suspeito, end_ip, data_acesso, hora_acesso, contador, status) FROM stdin;
-9	172.23.119.35	2022-10-26	18:36:31	0	Acesso com sucesso
-16	172.23.32.50	2022-10-26	18:45:13	0	Acesso com sucesso
-7	172.23.8.72	2022-10-25	17:02:53	0	Acesso com sucesso
-14	10.15.177.19	2022-10-25	17:02:53	0	Acesso com sucesso
-12	172.23.119.115	2022-10-25	17:02:53	0	Acesso com sucesso
-15	10.9.17.1	2022-10-25	17:02:53	0	Acesso com sucesso
-6	172.23.119.27	2022-10-25	17:02:53	0	Acesso com sucesso
-10	172.23.119.113	2022-10-25	17:02:53	0	Acesso com sucesso
-1	172.23.119.13	2022-10-25	17:02:53	0	Acesso com sucesso
-11	172.23.20.239	2022-10-25	17:02:53	0	Acesso com sucesso
-18	172.23.12.26	2022-10-25	17:02:53	0	Acesso com sucesso
-5	172.23.119.120	2022-10-25	17:02:53	0	Acesso com sucesso
-4	172.23.119.139	2022-10-25	17:02:53	0	Acesso com sucesso
-17	172.23.35.139	2022-10-25	17:02:53	0	Acesso com sucesso
-3	172.23.119.61	2022-10-25	17:02:53	0	Acesso com sucesso
-2	172.23.119.150	2022-10-25	17:02:53	0	Acesso com sucesso
-8	172.23.119.184	2022-10-25	17:02:53	0	Acesso com sucesso
-13	172.23.119.38	2022-10-25	17:02:53	0	Acesso com sucesso
+12	172.23.119.115	2023-01-18	18:26:33	1	Acesso suspeito reincidente
+1	172.23.119.13	2023-01-23	11:27:46	2	Acesso suspeito reincidente
+4	172.23.119.139	2023-01-31	13:20:16	2	Acesso suspeito reincidente
+5	172.23.119.120	2023-02-02	11:30:36	1	Acesso suspeito reincidente
+9	172.23.119.35	2023-02-16	15:46:11	0	Acesso com sucesso
+17	172.23.35.139	2023-01-18	13:15:09	0	Acesso com sucesso
+16	172.23.32.50	2023-01-18	13:15:09	0	Acesso com sucesso
+11	172.23.20.239	2023-01-18	13:15:09	0	Acesso com sucesso
+13	172.23.119.38	2023-01-18	13:15:09	0	Acesso com sucesso
+7	172.23.8.72	2023-01-18	13:15:09	0	Acesso com sucesso
+14	10.15.177.19	2023-01-18	13:15:09	0	Acesso com sucesso
+15	10.9.17.1	2023-01-18	13:15:09	0	Acesso com sucesso
+18	172.23.12.26	2023-01-18	13:15:09	0	Acesso com sucesso
+2	172.23.119.150	2023-01-18	13:15:09	0	Acesso com sucesso
+8	172.23.119.184	2023-01-18	13:15:09	0	Acesso com sucesso
+10	172.23.119.113	2023-01-24	14:42:25	1	Acesso suspeito reincidente
+6	172.23.119.27	2023-02-08	19:29:14	2	Acesso suspeito reincidente
+3	172.23.119.61	2023-01-18	13:15:09	0	Acesso com sucesso
+19	172.23.119.119	2023-01-18	13:15:09	0	Acesso com sucesso
+20	172.23.16.12	2023-01-18	13:15:09	0	Acesso com sucesso
+21	172.23.32.145	2023-01-18	13:15:09	0	Acesso com sucesso
+22	172.23.116.26	2023-01-18	13:15:09	0	Acesso com sucesso
 \.
 
 
 --
--- TOC entry 3826 (class 0 OID 0)
--- Dependencies: 287
+-- TOC entry 3913 (class 0 OID 0)
+-- Dependencies: 286
 -- Name: tb_acesso_suspeito_idtb_acesso_suspeito_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
 
-SELECT pg_catalog.setval('tb_acesso_suspeito_idtb_acesso_suspeito_seq', 18, true);
+SELECT pg_catalog.setval('tb_acesso_suspeito_idtb_acesso_suspeito_seq', 22, true);
 
 
 --
--- TOC entry 3556 (class 0 OID 18211)
+-- TOC entry 3738 (class 0 OID 19317)
+-- Dependencies: 303
+-- Data for Name: tb_acomp_inspecoes_visitas; Type: TABLE DATA; Schema: db_clti; Owner: -
+--
+
+COPY tb_acomp_inspecoes_visitas (idtb_acomp_inspecoes_visitas, idtb_inspecoes_visitas, data_acompanhamento, situacao, observacoes) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3914 (class 0 OID 0)
+-- Dependencies: 302
+-- Name: tb_acomp_inspecoes_visitas_idtb_acomp_inspecoes_visitas_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
+--
+
+SELECT pg_catalog.setval('tb_acomp_inspecoes_visitas_idtb_acomp_inspecoes_visitas_seq', 1, false);
+
+
+--
+-- TOC entry 3621 (class 0 OID 18211)
 -- Dependencies: 170
 -- Data for Name: tb_ade_pad_sic_tic; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -3270,7 +3609,7 @@ COPY tb_ade_pad_sic_tic (idtb_ade_pad_sic_tic, idtb_temas_pad_sic_tic, idtb_pess
 
 
 --
--- TOC entry 3827 (class 0 OID 0)
+-- TOC entry 3915 (class 0 OID 0)
 -- Dependencies: 171
 -- Name: tb_ade_pad_sic_tic_idtb_ade_pad_sic_tic_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -3279,7 +3618,26 @@ SELECT pg_catalog.setval('tb_ade_pad_sic_tic_idtb_ade_pad_sic_tic_seq', 1, true)
 
 
 --
--- TOC entry 3558 (class 0 OID 18216)
+-- TOC entry 3734 (class 0 OID 19295)
+-- Dependencies: 299
+-- Data for Name: tb_agenda_administrativa; Type: TABLE DATA; Schema: db_clti; Owner: -
+--
+
+COPY tb_agenda_administrativa (idtb_agenda_administrativa, assunto, setor_resp, om_apoiadas, destino, prazo, situacao, observacoes) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3916 (class 0 OID 0)
+-- Dependencies: 298
+-- Name: tb_agenda_administrativa_idtb_agenda_administrativa_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
+--
+
+SELECT pg_catalog.setval('tb_agenda_administrativa_idtb_agenda_administrativa_seq', 1, false);
+
+
+--
+-- TOC entry 3623 (class 0 OID 18216)
 -- Dependencies: 172
 -- Data for Name: tb_cidade; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -8853,7 +9211,7 @@ COPY tb_cidade (id, nome, estado) FROM stdin;
 
 
 --
--- TOC entry 3828 (class 0 OID 0)
+-- TOC entry 3917 (class 0 OID 0)
 -- Dependencies: 173
 -- Name: tb_cidade_id_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -8862,7 +9220,7 @@ SELECT pg_catalog.setval('tb_cidade_id_seq', 5564, true);
 
 
 --
--- TOC entry 3560 (class 0 OID 18221)
+-- TOC entry 3625 (class 0 OID 18221)
 -- Dependencies: 174
 -- Data for Name: tb_clti; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -8873,7 +9231,7 @@ COPY tb_clti (idtb_clti, efetivo_oficiais, efetivo_pracas, nome, sigla, indicati
 
 
 --
--- TOC entry 3829 (class 0 OID 0)
+-- TOC entry 3918 (class 0 OID 0)
 -- Dependencies: 175
 -- Name: tb_clti_idtb_clti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -8882,19 +9240,19 @@ SELECT pg_catalog.setval('tb_clti_idtb_clti_seq', 1, true);
 
 
 --
--- TOC entry 3562 (class 0 OID 18226)
+-- TOC entry 3627 (class 0 OID 18226)
 -- Dependencies: 176
 -- Data for Name: tb_conectividade; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
 
 COPY tb_conectividade (idtb_conectividade, idtb_om_apoiadas, fabricante, modelo, end_ip, data_aquisicao, data_garantia, idtb_om_setores, qtde_portas, nome, status) FROM stdin;
-1	1	HP	HP1410-24G		2018-12-25	2019-12-25	4	24	SW-01	
+1	1	HP	HP1410-24G		2018-12-25	2019-12-25	1	24	SW-01	EM PRODUÇÃO
 \.
 
 
 --
--- TOC entry 3663 (class 0 OID 19225)
--- Dependencies: 294
+-- TOC entry 3728 (class 0 OID 19225)
+-- Dependencies: 293
 -- Data for Name: tb_conectividade_excluidos; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
 
@@ -8903,8 +9261,8 @@ COPY tb_conectividade_excluidos (idtb_conectividade_excluidos, idtb_om_apoiadas,
 
 
 --
--- TOC entry 3830 (class 0 OID 0)
--- Dependencies: 293
+-- TOC entry 3919 (class 0 OID 0)
+-- Dependencies: 292
 -- Name: tb_conectividade_excluidos_idtb_conectividade_excluidos_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
 
@@ -8912,7 +9270,7 @@ SELECT pg_catalog.setval('tb_conectividade_excluidos_idtb_conectividade_excluido
 
 
 --
--- TOC entry 3831 (class 0 OID 0)
+-- TOC entry 3920 (class 0 OID 0)
 -- Dependencies: 177
 -- Name: tb_conectividade_idtb_conectividade_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -8921,7 +9279,7 @@ SELECT pg_catalog.setval('tb_conectividade_idtb_conectividade_seq', 1, true);
 
 
 --
--- TOC entry 3564 (class 0 OID 18234)
+-- TOC entry 3629 (class 0 OID 18234)
 -- Dependencies: 178
 -- Data for Name: tb_config; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -8929,17 +9287,17 @@ SELECT pg_catalog.setval('tb_conectividade_idtb_conectividade_seq', 1, true);
 COPY tb_config (idtb_config, parametro, valor) FROM stdin;
 2	ESTADO	RN
 3	CIDADE	Natal
-1	URL	http://localhost/sisclti
+1	URL	http://127.0.0.1/sigti
 5	author	99242991 Lúcio ALEXANDRE Correia dos Santos lucio.alexandre@marinha.mil.br
 6	generator	LucioACSantos
 7	description	Sistema de Gestão de TI
 8	TITULO	SiGTI
-4	VERSAO	1.5.25
+4	VERSAO	1.6
 \.
 
 
 --
--- TOC entry 3832 (class 0 OID 0)
+-- TOC entry 3921 (class 0 OID 0)
 -- Dependencies: 179
 -- Name: tb_config_idtb_config_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -8948,7 +9306,7 @@ SELECT pg_catalog.setval('tb_config_idtb_config_seq', 8, true);
 
 
 --
--- TOC entry 3566 (class 0 OID 18242)
+-- TOC entry 3631 (class 0 OID 18242)
 -- Dependencies: 180
 -- Data for Name: tb_controle_internet; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -8959,7 +9317,7 @@ COPY tb_controle_internet (idtb_controle_internet, idtb_om_apoiadas, idtb_pessoa
 
 
 --
--- TOC entry 3833 (class 0 OID 0)
+-- TOC entry 3922 (class 0 OID 0)
 -- Dependencies: 181
 -- Name: tb_controle_internet_idtb_controle_internet_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -8968,7 +9326,7 @@ SELECT pg_catalog.setval('tb_controle_internet_idtb_controle_internet_seq', 1, t
 
 
 --
--- TOC entry 3568 (class 0 OID 18250)
+-- TOC entry 3633 (class 0 OID 18250)
 -- Dependencies: 182
 -- Data for Name: tb_controle_usb; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -8980,7 +9338,6 @@ COPY tb_controle_usb (idtb_controle_usb, idtb_om_apoiadas, idtb_estacoes, autori
 6	1	5	OS XX/2021	\N
 7	1	10	OS XX/2021	\N
 8	1	8	OS XX/2021	\N
-9	1	2	OS XX/2021	\N
 10	1	3	OS XX/2021	\N
 1	1	1	OS XX/2021	\N
 11	1	12	OS XX/2021	\N
@@ -8988,7 +9345,7 @@ COPY tb_controle_usb (idtb_controle_usb, idtb_om_apoiadas, idtb_estacoes, autori
 
 
 --
--- TOC entry 3834 (class 0 OID 0)
+-- TOC entry 3923 (class 0 OID 0)
 -- Dependencies: 183
 -- Name: tb_controle_usb_idtb_controle_usb_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -8997,7 +9354,7 @@ SELECT pg_catalog.setval('tb_controle_usb_idtb_controle_usb_seq', 11, true);
 
 
 --
--- TOC entry 3570 (class 0 OID 18258)
+-- TOC entry 3635 (class 0 OID 18258)
 -- Dependencies: 184
 -- Data for Name: tb_corpo_quadro; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -9030,7 +9387,7 @@ COPY tb_corpo_quadro (idtb_corpo_quadro, nome, sigla, exibir) FROM stdin;
 
 
 --
--- TOC entry 3835 (class 0 OID 0)
+-- TOC entry 3924 (class 0 OID 0)
 -- Dependencies: 185
 -- Name: tb_corpo_quadro_idtb_corpo_quadro_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -9039,7 +9396,7 @@ SELECT pg_catalog.setval('tb_corpo_quadro_idtb_corpo_quadro_seq', 23, true);
 
 
 --
--- TOC entry 3572 (class 0 OID 18263)
+-- TOC entry 3637 (class 0 OID 18263)
 -- Dependencies: 186
 -- Data for Name: tb_det_serv; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -9060,7 +9417,6 @@ COPY tb_det_serv (idtb_det_serv, idtb_lotacao_clti, data_entra_servico, data_sai
 13	14	2022-06-02	2022-06-03	ENCERRADO
 14	3	2022-06-03	2022-06-06	ENCERRADO
 15	12	2022-06-06	2022-06-07	ENCERRADO
-16	6	2022-06-07	2022-06-08	ENCERRADO
 17	14	2022-06-08	2022-06-09	ENCERRADO
 18	3	2022-06-09	2022-06-10	ENCERRADO
 19	12	2022-06-10	2022-06-13	ENCERRADO
@@ -9148,9 +9504,6 @@ COPY tb_det_serv (idtb_det_serv, idtb_lotacao_clti, data_entra_servico, data_sai
 104	17	2022-10-07	2022-10-10	ENCERRADO
 100	9	2022-10-03	2022-10-04	ENCERRADO
 99	14	2022-09-30	2022-10-03	ENCERRADO
-118	17	2022-10-27	2022-10-28	PROGRAMADO
-119	14	2022-10-28	2022-10-31	PROGRAMADO
-120	3	2022-10-31	2022-11-01	PROGRAMADO
 102	3	2022-10-04	2022-10-05	ENCERRADO
 103	12	2022-10-05	2022-10-06	ENCERRADO
 105	12	2022-10-10	2022-10-11	ENCERRADO
@@ -9165,144 +9518,234 @@ COPY tb_det_serv (idtb_det_serv, idtb_lotacao_clti, data_entra_servico, data_sai
 114	3	2022-10-21	2022-10-24	ENCERRADO
 116	3	2022-10-25	2022-10-26	ENCERRADO
 117	12	2022-10-26	2022-10-27	ENCERRADO
+119	14	2022-10-28	2022-10-31	ENCERRADO
+121	14	2022-11-02	2022-11-03	ENCERRADO
+122	12	2022-11-03	2022-11-04	ENCERRADO
+126	14	2022-11-09	2022-11-10	ENCERRADO
+125	9	2022-11-08	2022-11-09	ENCERRADO
+118	12	2022-11-01	2022-11-02	ENCERRADO
+123	9	2022-11-04	2022-11-07	ENCERRADO
+128	12	2022-11-11	2022-11-14	ENCERRADO
+127	14	2022-11-10	2022-11-11	ENCERRADO
+16	6	2022-06-07	2022-06-08	ENCERRADO
+120	3	2022-10-31	2022-11-01	ENCERRADO
+124	14	2022-11-07	2022-11-08	ENCERRADO
+129	9	2022-11-14	2022-11-15	ENCERRADO
+130	12	2022-11-15	2022-11-16	ENCERRADO
+131	14	2022-11-16	2022-11-17	ENCERRADO
+132	9	2022-11-17	2022-11-18	ENCERRADO
+133	14	2022-11-18	2022-11-21	ENCERRADO
+134	8	2022-11-21	2022-11-22	ENCERRADO
+135	5	2022-11-22	2022-11-23	ENCERRADO
+136	3	2022-11-23	2022-11-24	ENCERRADO
+137	14	2022-11-24	2022-11-25	ENCERRADO
+138	17	2022-11-25	2022-11-28	ENCERRADO
+139	9	2022-11-28	2022-11-29	ENCERRADO
+140	5	2022-11-29	2022-11-30	ENCERRADO
+141	3	2022-11-30	2022-12-01	ENCERRADO
+142	3	2022-12-01	2022-12-02	ENCERRADO
+143	9	2022-12-02	2022-12-05	ENCERRADO
+144	14	2022-12-05	2022-12-06	ENCERRADO
+145	17	2022-12-06	2022-12-07	ENCERRADO
+146	9	2022-12-07	2022-12-08	ENCERRADO
+147	5	2022-12-08	2022-12-09	ENCERRADO
+148	3	2022-12-09	2022-12-12	ENCERRADO
+149	12	2022-12-12	2022-12-13	ENCERRADO
+150	14	2022-12-13	2022-12-14	ENCERRADO
+151	17	2022-12-14	2022-12-15	ENCERRADO
+152	9	2022-12-15	2022-12-16	ENCERRADO
+154	9	2022-12-19	2022-12-20	ENCERRADO
+155	14	2022-12-20	2022-12-21	ENCERRADO
+156	17	2022-12-21	2022-12-22	ENCERRADO
+157	9	2022-12-22	2022-12-23	ENCERRADO
+158	14	2022-12-23	2022-12-26	ENCERRADO
+159	9	2022-12-26	2022-12-28	ENCERRADO
+160	17	2022-12-28	2022-12-31	ENCERRADO
+164	17	2023-01-05	2023-01-06	ENCERRADO
+165	12	2023-01-06	2023-01-09	ENCERRADO
+166	14	2023-01-09	2023-01-10	ENCERRADO
+167	17	2023-01-10	2023-01-11	ENCERRADO
+168	12	2023-01-11	2023-01-12	ENCERRADO
+169	17	2023-01-12	2023-01-13	ENCERRADO
+171	12	2023-01-16	2023-01-17	ENCERRADO
+172	14	2023-01-17	2023-01-18	ENCERRADO
+173	17	2023-01-18	2023-01-19	ENCERRADO
+174	12	2023-01-19	2023-01-20	ENCERRADO
+199	14	2023-02-21	2023-02-22	PROGRAMADO
+176	9	2023-01-23	2023-01-24	ENCERRADO
+177	14	2023-01-24	2023-01-25	ENCERRADO
+178	17	2023-01-25	2023-01-26	ENCERRADO
+179	12	2023-01-26	2023-01-27	ENCERRADO
+200	17	2023-02-22	2023-02-23	PROGRAMADO
+201	9	2023-02-23	2023-02-24	PROGRAMADO
+202	17	2023-02-24	2023-02-27	PROGRAMADO
+203	3	2023-02-27	2023-02-28	PROGRAMADO
+205	17	2023-03-01	2023-03-02	PROGRAMADO
+181	14	2023-01-30	2023-01-31	ENCERRADO
+182	17	2023-01-31	2023-02-01	ENCERRADO
+185	9	2023-02-01	2023-02-02	ENCERRADO
+186	12	2023-02-02	2023-02-03	ENCERRADO
+187	3	2023-02-03	2023-02-06	ENCERRADO
+188	14	2023-02-06	2023-02-07	ENCERRADO
+189	17	2023-02-07	2023-02-08	ENCERRADO
+190	9	2023-02-08	2023-02-09	ENCERRADO
+191	3	2023-02-09	2023-02-10	ENCERRADO
+192	12	2023-02-10	2023-02-13	ENCERRADO
+193	14	2023-02-13	2023-02-14	ENCERRADO
+198	3	2023-02-20	2023-02-21	PROGRAMADO
+204	12	2023-02-28	2023-03-01	PROGRAMADO
+206	3	2023-03-02	2023-03-03	PROGRAMADO
+153	3	2022-12-16	2022-12-19	ENCERRADO
+161	12	2022-12-31	2023-01-03	ENCERRADO
+162	17	2023-01-03	2023-01-04	ENCERRADO
+163	14	2023-01-09	2023-01-10	ENCERRADO
+183	9	2023-01-04	2023-01-05	ENCERRADO
+184	12	2023-01-06	2023-01-08	ENCERRADO
+170	14	2023-01-13	2023-01-15	ENCERRADO
+175	17	2023-01-20	2023-01-22	ENCERRADO
+180	9	2023-01-27	2023-01-30	ENCERRADO
+194	12	2023-02-14	2023-02-15	ENCERRADO
+195	9	2023-02-15	2023-02-16	ENCERRADO
+196	12	2023-02-16	2023-02-17	ENCERRADO
+197	14	2023-02-17	2023-02-20	ENCERRADO
 \.
 
 
 --
--- TOC entry 3836 (class 0 OID 0)
+-- TOC entry 3925 (class 0 OID 0)
 -- Dependencies: 187
 -- Name: tb_det_serv_idtb_det_serv_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
 
-SELECT pg_catalog.setval('tb_det_serv_idtb_det_serv_seq', 120, true);
+SELECT pg_catalog.setval('tb_det_serv_idtb_det_serv_seq', 206, true);
 
 
 --
--- TOC entry 3574 (class 0 OID 18268)
+-- TOC entry 3639 (class 0 OID 18268)
 -- Dependencies: 188
 -- Data for Name: tb_dias_troca; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
 
 COPY tb_dias_troca (idtb_dias_troca, id_usuario, dias_troca) FROM stdin;
-25	29	-49
-86	80	-96
-24	28	-96
-61	61	-96
-2	2	-936
-3	3	-936
-4	4	-936
-28	34	-90
-5	5	-936
-1	1	-720
-7	1	-720
-6	6	-936
-8	2	-936
-9	3	-936
-84	78	-691
-60	60	-691
-10	8	-936
-11	10	-936
-12	11	-936
-13	12	-936
-14	13	-936
-15	15	-936
-16	16	-936
-17	22	-936
-18	24	-936
-19	25	-936
-20	33	-936
-21	26	-936
-23	27	-936
-26	32	-936
-27	35	-936
-29	36	-936
-30	21	-936
-31	4	-936
-32	23	-936
-33	6	-936
-34	7	-936
-35	30	-936
-36	9	-936
-37	19	-936
-38	37	-936
-39	18	-936
-40	20	-936
-41	17	-936
-42	31	-936
-43	41	-936
-44	43	-936
-45	47	-936
-46	48	-936
-47	49	-936
-48	5	-936
-49	50	-936
-50	51	-936
-51	52	-936
-52	53	-936
-53	54	-936
-54	55	-936
-55	56	-936
-56	57	-936
-57	58	-936
-58	39	-936
-62	62	-936
-63	63	-936
-64	64	-936
-65	65	-936
-66	46	-936
-67	66	-936
-68	67	-936
-69	68	-936
-70	69	-936
-71	70	-936
-72	44	-936
-73	71	-936
-74	72	-936
-75	38	-936
-76	45	-936
-77	40	-936
-78	42	-936
-79	73	-936
-80	74	-936
-81	75	-936
-82	76	-936
-83	77	-936
-85	79	-936
-87	81	-936
-59	59	-97
-22	14	-9
+51	52	-23
+1	1	0
+7	1	0
+25	29	-168
+86	80	-215
+24	28	-215
+61	61	-215
+2	2	-1055
+3	3	-1055
+4	4	-1055
+28	34	-209
+5	5	-1055
+6	6	-1055
+8	2	-1055
+9	3	-1055
+84	78	-810
+60	60	-810
+10	8	-1055
+11	10	-1055
+12	11	-1055
+13	12	-1055
+14	13	-1055
+15	15	-1055
+16	16	-1055
+17	22	-1055
+18	24	-1055
+19	25	-1055
+20	33	-1055
+21	26	-1055
+23	27	-1055
+26	32	-1055
+27	35	-1055
+29	36	-1055
+30	21	-1055
+31	4	-1055
+32	23	-1055
+33	6	-1055
+34	7	-1055
+35	30	-1055
+36	9	-1055
+37	19	-1055
+38	37	-1055
+39	18	-1055
+40	20	-1055
+41	17	-1055
+42	31	-1055
+43	41	-1055
+44	43	-1055
+45	47	-1055
+46	48	-1055
+47	49	-1055
+48	5	-1055
+49	50	-1055
+50	51	-1055
+52	53	-1055
+53	54	-1055
+54	55	-1055
+55	56	-1055
+56	57	-1055
+57	58	-1055
+58	39	-1055
+62	62	-1055
+63	63	-1055
+64	64	-1055
+65	65	-1055
+66	46	-1055
+67	66	-1055
+68	67	-1055
+69	68	-1055
+70	69	-1055
+71	70	-1055
+72	44	-1055
+73	71	-1055
+74	72	-1055
+75	38	-1055
+76	45	-1055
+77	40	-1055
+78	42	-1055
+79	73	-1055
+80	74	-1055
+81	75	-1055
+82	76	-1055
+83	77	-1055
+85	79	-1055
+87	81	-1055
+59	59	-216
+22	14	-128
 \.
 
 
 --
--- TOC entry 3575 (class 0 OID 18271)
+-- TOC entry 3640 (class 0 OID 18271)
 -- Dependencies: 189
 -- Data for Name: tb_dias_troca_clti; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
 
 COPY tb_dias_troca_clti (idtb_dias_troca_clti, id_usuario, dias_troca) FROM stdin;
-12	12	-231
-1	2	-904
-3	4	-904
-4	5	-904
-8	1	-904
-9	9	-765
-11	11	-761
-13	13	-761
-7	8	-487
-5	6	-345
-2	3	-258
-16	16	-160
-14	14	-105
-6	7	-159
-17	17	-19
-10	10	-49
-15	15	-40
+7	8	-88
+12	12	-350
+1	2	-1023
+3	4	-1023
+4	5	-1023
+8	1	-1023
+9	9	-884
+11	11	-880
+13	13	-880
+5	6	-464
+2	3	-377
+16	16	-279
+6	7	-278
+17	17	-138
+10	10	-168
+15	15	-159
+14	14	-70
 \.
 
 
 --
--- TOC entry 3837 (class 0 OID 0)
+-- TOC entry 3926 (class 0 OID 0)
 -- Dependencies: 190
 -- Name: tb_dias_troca_clti_idtb_dias_troca_clti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -9311,7 +9754,7 @@ SELECT pg_catalog.setval('tb_dias_troca_clti_idtb_dias_troca_clti_seq', 17, true
 
 
 --
--- TOC entry 3838 (class 0 OID 0)
+-- TOC entry 3927 (class 0 OID 0)
 -- Dependencies: 191
 -- Name: tb_dias_troca_idtb_dias_troca_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -9320,7 +9763,7 @@ SELECT pg_catalog.setval('tb_dias_troca_idtb_dias_troca_seq', 87, true);
 
 
 --
--- TOC entry 3578 (class 0 OID 18278)
+-- TOC entry 3643 (class 0 OID 18278)
 -- Dependencies: 192
 -- Data for Name: tb_especialidade; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -9364,7 +9807,7 @@ COPY tb_especialidade (idtb_especialidade, nome, sigla, exibir) FROM stdin;
 
 
 --
--- TOC entry 3839 (class 0 OID 0)
+-- TOC entry 3928 (class 0 OID 0)
 -- Dependencies: 193
 -- Name: tb_especialidade_idtb_especialidade_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -9373,35 +9816,35 @@ SELECT pg_catalog.setval('tb_especialidade_idtb_especialidade_seq', 34, true);
 
 
 --
--- TOC entry 3580 (class 0 OID 18286)
+-- TOC entry 3645 (class 0 OID 18286)
 -- Dependencies: 194
 -- Data for Name: tb_estacoes; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
 
 COPY tb_estacoes (idtb_estacoes, idtb_om_apoiadas, idtb_proc_modelo, clock_proc, fabricante, modelo, memoria, armazenamento, idtb_sor, end_ip, end_mac, data_aquisicao, data_garantia, req_minimos, status, idtb_memorias, idtb_om_setores, nome) FROM stdin;
-1	1	47	3.20000005	ARQUIMEDES	CORPORATIVO - A	8	1000	15	172.23.119.135	b4:2e:99:f3:65:cd	2020-07-06	2021-06-06	SIM	EM PRODUÇÃO	30	4	COM3DN-0163.1
 3	1	47	3.20000005	ARQUIMEDES	CORPORATIVO - A	8	1000	14	172.23.119.115	00-e0-4c-8d-40-1e	2020-06-01	2021-06-01	SIM	EM PRODUÇÃO	30	4	COM3DN-0163
-8	1	53	3.79999995	SPACEBR	IPMH61R2	8	1000	14	172.23.119.13	00:1a:3f:71:e4:50	2012-04-01	2013-04-03	SIM	EM PRODUÇÃO	18	3	COM3DN-01622
-9	1	56	3.0999999	ARQUIMEDES	CORPORATIVO - B	16	1000	14	172.23.119.84	7c-05-07-bf-a0-8b	2015-01-01	2016-01-01	SIM	EM PRODUÇÃO	18	3	COM3DN-01621
-10	1	53	3	SPACEBR	IPMH61R2	4	1000	14	172.23.119.120	38:60:77:27:53:4A	2012-03-01	2013-03-01	SIM	EM PRODUÇÃO	18	2	COM3DN-0161
 15	1	15	3.20000005	ASUSTEK COMPUTER INC.	M5A78L-M PLUS/USB3	4	1000	5	172.23.34.201	34:97:F6:58:A7:03	2016-04-04	2017-04-04	SIM	EM PRODUÇÃO	19	3	COM3DN-0111
 14	1	11	3.20000005	GIGABYTE TECHNOLOGY CO.	B75M-D3H	8	500	5	172.23.34.18	 50:E5:49:FC:A6:70	2012-03-22	2013-03-22	SIM	EM PRODUÇÃO	15	3	COM3DN-011
 16	1	15	3.20000005	ASUSTEK COMPUTER INC	M5A78L-M PLUS/USB3	8	250	5	172.23.34.23	34:97:F6:58:A5:79	2016-04-04	2017-04-04	SIM	EM PRODUÇÃO	1	3	COM3DN-01103
-5	1	55	3.29999995	SPACEBR	IPMH81G1	12	500	15	172.23.119.139	FC:AA:14:F9:2B:2F	2018-01-01	2019-01-01	SIM	EM PRODUÇÃO	18	2	COM3DN-01611
-12	1	2	3	HP	HP COMPAQ 6000 PRO SFF PC	16	250	14	172.23.119.81	D8:D3:85:6C:A3:B6	2018-01-01	2019-01-01	SIM	EM PRODUÇÃO	18	1	COM3DN-016
-6	1	53	3.79999995	SPACEBR	IPMH61R2	8	2000	14	172.23.119.135	38:60:77:27:50:d6	2012-01-01	2013-01-01	SIM	EM PRODUÇÃO	18	2	COM3DN-01633
-11	1	56	3.0999999	ARQUIMEDIS	ARQUIMEDES CORPORATIVO-B	8	1000	15	172.23.119.61	7C:05:07:BF:a1:28	2018-01-02	2019-01-02	SIM	EM PRODUÇÃO	18	2	COM3DN-01613
-7	1	53	3.79999995	SPACEBR	IPMH61R2	8	1000	15	172.23.119.26	38:60:77:27:50:D5	2012-04-30	2013-04-30	SIM	EM PRODUÇÃO	18	2	COM3DN-01612
 18	1	11	3.0999999	HP	COMPAC B200	8	1000	15	172.23.34.116	80:C1:6E:8C:20:72	2011-11-10	2012-10-10	SIM	EM PRODUÇÃO	18	11	COM3DN-8528
 13	1	11	2.70000005	HEWLETT-PACKARD	ALL-IN-ONE	4	1000	5	172.23.32.3	6C:3B:E5:E8:15:8A	2013-04-14	2014-04-14	SIM	EM PRODUÇÃO	19	3	COM3DN-01
 21	18	11	3.20000005	POSITIVO	POS-PIQ57BQ	8	320	14	172.23.12.251	E0:69:95:3B:1A:4B	2021-01-01	2021-01-01	SIM	EM PRODUÇÃO	19	80	SSN3-213
-2	1	47	3.20000005	ARQUIMEDES	CORPORATIVO - A	8	1000	27	172.23.119.35	00:e0:4c:9e:bc:7c	2020-06-01	2021-06-01	SIM	EM PRODUÇÃO	30	4	COM3DN-01632
+1	1	47	3.20000005	ARQUIMEDES	CORPORATIVO - A	8	1000	15	172.23.119.135	b4:2e:99:f3:65:cd	2020-07-06	2021-06-06	SIM	EM PRODUÇÃO	30	4	COM3DN-0162
+12	1	2	3	HP	HP COMPAQ 6000 PRO SFF PC	16	250	14	172.23.119.81	D8:D3:85:6C:A3:B6	2018-01-01	2019-01-01	NÃO	EM PRODUÇÃO	18	1	COM3DN-016
+5	1	55	3.29999995	SPACEBR	IPMH81G1	12	500	15	172.23.119.139	FC:AA:14:F9:2B:2F	2018-01-01	2019-01-01	NÃO	EM PRODUÇÃO	18	2	COM3DN-01611
+7	1	53	3.79999995	SPACEBR	IPMH61R2	8	1000	15	172.23.119.26	38:60:77:27:50:D5	2012-04-30	2013-04-30	NÃO	EM PRODUÇÃO	18	2	COM3DN-01612
+10	1	53	3	SPACEBR	IPMH61R2	4	1000	14	172.23.119.120	38:60:77:27:53:4A	2012-03-01	2013-03-01	NÃO	EM PRODUÇÃO	18	2	COM3DN-0161
+9	1	56	3.0999999	ARQUIMEDES	CORPORATIVO - B	16	1000	14	172.23.119.84	7c-05-07-bf-a0-8b	2015-01-01	2016-01-01	NÃO	EM PRODUÇÃO	18	3	COM3DN-01621
+11	1	56	3.0999999	ARQUIMEDES	ARQUIMEDES CORPORATIVO-B	8	1000	15	172.23.119.61	7C:05:07:BF:a1:28	2018-01-02	2019-01-02	NÃO	EM PRODUÇÃO	18	2	COM3DN-01613
+8	1	53	3.79999995	SPACEBR	IPMH61R2	8	1000	14	172.23.119.13	00:1a:3f:71:e4:50	2012-04-01	2013-04-03	NÃO	EM PRODUÇÃO	18	3	COM3DN-01622
+6	1	53	3.79999995	SPACEBR	IPMH61R2	8	2000	14	172.23.119.135	38:60:77:27:50:d6	2012-01-01	2013-01-01	NÃO	EM PRODUÇÃO	18	2	COM3DN-01633
+24	1	61	3.20000005	 LENOVO	 10A8S20Q00	15	1000	27	172.23.119.35	64:1c:67:69:03:64	2014-06-06	2014-06-06	NÃO	EM PRODUÇÃO	19	4	COM3DN-01632
 \.
 
 
 --
--- TOC entry 3661 (class 0 OID 19214)
--- Dependencies: 292
+-- TOC entry 3726 (class 0 OID 19214)
+-- Dependencies: 291
 -- Data for Name: tb_estacoes_excluidas; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
 
@@ -9410,29 +9853,31 @@ COPY tb_estacoes_excluidas (idtb_estacoes_excluidas, idtb_om_apoiadas, fabricant
 2	1	LENOVO	2122ABP	COM3DN-01614	172.23.119.119	d4:3d:7e:fc:fd:c7	2022-09-22	18:10:00
 3	1	LENOVO	G400S	COM3DN-01632	172.23.119.35	64:1c:67:62:83:17	2022-09-22	18:11:00
 4	1	TESTE	TESTE	TESTE	192.168.1.1	fffffffffffffffffff	2022-10-26	19:20:00
+5	1	ARQUIMEDES	CORPORATIVO - A	COM3DN-01632	172.23.119.35	00:e0:4c:9e:bc:7c	2022-10-28	12:55:00
+6	1	 LENOVO	 10A8S20Q00	COM3DN-01632	172.23.119.35	64:1c:67:69:03:64	2023-02-16	15:55:00
 \.
 
 
 --
--- TOC entry 3840 (class 0 OID 0)
--- Dependencies: 291
+-- TOC entry 3929 (class 0 OID 0)
+-- Dependencies: 290
 -- Name: tb_estacoes_excluidas_idtb_estacoes_excluidas_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
 
-SELECT pg_catalog.setval('tb_estacoes_excluidas_idtb_estacoes_excluidas_seq', 4, true);
+SELECT pg_catalog.setval('tb_estacoes_excluidas_idtb_estacoes_excluidas_seq', 6, true);
 
 
 --
--- TOC entry 3841 (class 0 OID 0)
+-- TOC entry 3930 (class 0 OID 0)
 -- Dependencies: 195
 -- Name: tb_estacoes_idtb_estacoes_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
 
-SELECT pg_catalog.setval('tb_estacoes_idtb_estacoes_seq', 22, true);
+SELECT pg_catalog.setval('tb_estacoes_idtb_estacoes_seq', 24, true);
 
 
 --
--- TOC entry 3582 (class 0 OID 18295)
+-- TOC entry 3647 (class 0 OID 18295)
 -- Dependencies: 196
 -- Data for Name: tb_estado; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -9469,7 +9914,7 @@ COPY tb_estado (id, nome, uf, pais) FROM stdin;
 
 
 --
--- TOC entry 3842 (class 0 OID 0)
+-- TOC entry 3931 (class 0 OID 0)
 -- Dependencies: 197
 -- Name: tb_estado_id_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -9478,7 +9923,7 @@ SELECT pg_catalog.setval('tb_estado_id_seq', 27, true);
 
 
 --
--- TOC entry 3584 (class 0 OID 18300)
+-- TOC entry 3649 (class 0 OID 18300)
 -- Dependencies: 198
 -- Data for Name: tb_funcoes_clti; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -9491,7 +9936,7 @@ COPY tb_funcoes_clti (idtb_funcoes_clti, sigla, descricao, requerida) FROM stdin
 
 
 --
--- TOC entry 3843 (class 0 OID 0)
+-- TOC entry 3932 (class 0 OID 0)
 -- Dependencies: 199
 -- Name: tb_funcoes_clti_idtb_funcoes_clti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -9500,7 +9945,7 @@ SELECT pg_catalog.setval('tb_funcoes_clti_idtb_funcoes_clti_seq', 3, true);
 
 
 --
--- TOC entry 3586 (class 0 OID 18308)
+-- TOC entry 3651 (class 0 OID 18308)
 -- Dependencies: 200
 -- Data for Name: tb_funcoes_sigdem; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -9520,7 +9965,7 @@ COPY tb_funcoes_sigdem (idtb_funcoes_sigdem, idtb_om_apoiadas, descricao, sigla,
 
 
 --
--- TOC entry 3844 (class 0 OID 0)
+-- TOC entry 3933 (class 0 OID 0)
 -- Dependencies: 201
 -- Name: tb_funcoes_sigdem_idtb_funcoes_sigdem_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -9529,7 +9974,7 @@ SELECT pg_catalog.setval('tb_funcoes_sigdem_idtb_funcoes_sigdem_seq', 12, true);
 
 
 --
--- TOC entry 3588 (class 0 OID 18316)
+-- TOC entry 3653 (class 0 OID 18316)
 -- Dependencies: 202
 -- Data for Name: tb_funcoes_ti; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -9544,7 +9989,7 @@ COPY tb_funcoes_ti (idtb_funcoes_ti, descricao, sigla) FROM stdin;
 
 
 --
--- TOC entry 3845 (class 0 OID 0)
+-- TOC entry 3934 (class 0 OID 0)
 -- Dependencies: 203
 -- Name: tb_funcoes_ti_idtb_funcoes_ti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -9553,7 +9998,7 @@ SELECT pg_catalog.setval('tb_funcoes_ti_idtb_funcoes_ti_seq', 5, true);
 
 
 --
--- TOC entry 3590 (class 0 OID 18321)
+-- TOC entry 3655 (class 0 OID 18321)
 -- Dependencies: 204
 -- Data for Name: tb_gw_om; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -9563,7 +10008,7 @@ COPY tb_gw_om (idtb_gw_om, idtb_om_apoiadas, ip_gw, status, qtde_vrf) FROM stdin
 
 
 --
--- TOC entry 3846 (class 0 OID 0)
+-- TOC entry 3935 (class 0 OID 0)
 -- Dependencies: 205
 -- Name: tb_gw_om_idtb_gw_om_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -9572,7 +10017,26 @@ SELECT pg_catalog.setval('tb_gw_om_idtb_gw_om_seq', 1, false);
 
 
 --
--- TOC entry 3592 (class 0 OID 18326)
+-- TOC entry 3736 (class 0 OID 19306)
+-- Dependencies: 301
+-- Data for Name: tb_inspecoes_visitas; Type: TABLE DATA; Schema: db_clti; Owner: -
+--
+
+COPY tb_inspecoes_visitas (idtb_inspecoes_visitas, tipo, om_apoiadas, data_agendada, situacao, observacoes) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3936 (class 0 OID 0)
+-- Dependencies: 300
+-- Name: tb_inspecoes_visitas_idtb_inspecoes_visitas_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
+--
+
+SELECT pg_catalog.setval('tb_inspecoes_visitas_idtb_inspecoes_visitas_seq', 1, false);
+
+
+--
+-- TOC entry 3657 (class 0 OID 18326)
 -- Dependencies: 206
 -- Data for Name: tb_lotacao_clti; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -9581,9 +10045,7 @@ COPY tb_lotacao_clti (idtb_lotacao_clti, idtb_posto_grad, idtb_corpo_quadro, idt
 1	16	1	8	12345678		ADMINCLTI	ADMINCLTI	INATIVO	1f82ea75c5cc526729e2d581aeb3aeccfef4407e256127614ef298fedf9376775a7d7328090f63bf	TEC_CLTI	adminclti@marinha.mil.br	\N	\N	Não ativado	0.0.0.0	0
 13	12	4	2	96114843		FRANCINALDO JOSÉ DE LACERDA	LACERDA	ATIVO	0dcba5a0c94800984c4d9a27132c31a03e465e47e4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	FRANCINALDO.LACERDA@MARINHA.MIL.BR	\N	\N	Não ativado	0.0.0.0	0
 11	6	11	25	00038008		LEONARDO AZEVEDO EDUARDO	EDUARDO	ATIVO	bc1771562b74fe5c7f7d0ca6e58c488072e37c47e4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	LEONARDO.EDUARDO@MARINHA.MIL.BR	\N	Aprov.Rel.Sv	Não ativado	0.0.0.0	0
-4	14	4	8	06039057		RAIMUNDO RUFINO DA SILVA MENDES RAULINO	RUFINO	ATIVO	d83b65ea0d496c4bd07982515fee1b1b1e6e166be4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	RUFINO.MENDES@MARINHA.MIL.BR	\N	Escala de Serviço	Não ativado	0.0.0.0	0
 3	16	1	8	99242991		LÚCIO ALEXANDRE CORREIA DOS SANTOS	ALEXANDRE	ATIVO	c4ce9a5fa42b7026826369e2e6faa9d3b15f03946d70db7ca89a72739f95ebbfffb25ce615fef27d	TEC_CLTI	LUCIO.ALEXANDRE@MARINHA.MIL.BR	\N	Escala de Serviço	Não ativado	0.0.0.0	0
-14	15	5	10	12136999		LAIS SOUZA E SILVA	LAIS SOUZA	ATIVO	128023fe6773aaa6d7da4b0c5752d69d1a207dcb951e2ddfef267f8353eaeff0918377488b0d2b96	TEC_CLTI	LAIS.SOUZA@MARINHA.MIL.BR	\N	Escala de Serviço	Não ativado	0.0.0.0	0
 12	15	5	10	14149711		MATHEUS PINTO DA SILVA	DA SILVA	ATIVO	dfc64bac8dd3659b29744431825a04b82ffeede9e4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	MATHEUS.PINTO@MARINHA.MIL.BR	\N	Escala de Serviço	Não ativado	0.0.0.0	0
 6	15	5	10	13073672		IRRAYRAS FREIRE AUGUSTO	IRRAYRAS	INATIVO	95ef990e534ced8c38323c805345aed9b09526e2baaa3b1056a02ed47e3b0b994eda5db82c46ce75	TEC_CLTI	IRRAYRAS@MARINHA.MIL.BR	\N	Escala de Serviço	Não ativado	0.0.0.0	0
 16	7	10	12	15089509		PAULO PESSOA DE CARVALHO FILHO	PAULO PESSOA	ATIVO	7a057a40dda48a116213cc234c97ee950ad33487e4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	PAULO.PESSOA@MARINHA.MIL.BR	\N		Não ativado	0.0.0.0	0
@@ -9591,15 +10053,17 @@ COPY tb_lotacao_clti (idtb_lotacao_clti, idtb_posto_grad, idtb_corpo_quadro, idt
 7	12	4	8	95111531		CARLOS JOSÉ NOGUEIRA DA SILVA	CARLOS JOSÉ	ATIVO	5c7439d072e6a7a25d023036332a63888570ebdce4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	CARLOS.NOGUEIRA@MARINHA.MIL.BR	\N	\N	FELHWOXYPNAGINK3	0.0.0.0	0
 15	8	13	25	21371628		ADERSON JAMIER SANTOS REIS	JAMIER REIS	ATIVO	9a458afd5d42d869fb816bfd6014008a41eca3d4e4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	JAMIER.REIS@MARINHA.MIL.BR	\N	\N	Não ativado	0.0.0.0	0
 2	8	13	25	17098602		CARLOS AUGUSTO RODRIGUES DIAS	CARLOS AUGUSTO	INATIVO	508017483633ee899396415ae9a71749412e0232e4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	C.DIAS@MARINHA.MIL.BR	\N	Aprov.Rel.Sv	Não ativado	0.0.0.0	0
-8	16	13	31	21042624		WALLACE UBIRAJARA DE LIMA	UBIRAJARA	ATIVO	36fdd037dadb96c165f487fd161a83723e089c09e4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	W.BIRAJARA@MARINHA.MIL	\N	\N	VA7EURLOA5VQSX3N	0.0.0.0	0
-5	16	5	10	19091761		VALDINEI DA SILVA SANTOS	VALDINEI	ATIVO	2c31c32296b543348c7afa9df39b91c4fd56a2b5e4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	VALDINEI.SANTOS@MARINHA.MIL.BR	\N	\N	YZGEN5BCUQR4UC52	0.0.0.0	0
 9	14	4	26	07360649		FRANCISCO INÁCIO DO SANTOS JUNIOR	INÁCIO	ATIVO	28b80c83d1e7390e1bce3724c72d52619a718dc8e4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	INACIO.SANTOS@MARINHA.MIL.BR	\N	Escala de Serviço	Não ativado	0.0.0.0	0
+5	16	5	10	19091761		VALDINEI DA SILVA SANTOS	VALDINEI	ATIVO	2c31c32296b543348c7afa9df39b91c4fd56a2b5e4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	VALDINEI.SANTOS@MARINHA.MIL.BR	\N	Escala de Serviço	YZGEN5BCUQR4UC52	0.0.0.0	0
 10	8	13	32	18151299		FRANKELENE PINHEIRO DE SOUZA	FRANKELENE	ATIVO	4ffec1b96b5dcc0d22e44e16b7522383b92d9729114d566e2b9de05942aa4eff149edbf22ecb4cbc	TEC_CLTI	FRANKELENE@MARINHA.MIL.BR	\N	Aprov.Rel.Sv	Não ativado	0.0.0.0	0
+8	16	13	31	21042624		WALLACE UBIRAJARA DE LIMA	UBIRAJARA	ATIVO	36fdd037dadb96c165f487fd161a83723e089c09114d566e2b9de05942aa4eff149edbf22ecb4cbc	TEC_CLTI	W.BIRAJARA@MARINHA.MIL	\N	Escala de Serviço	BV7UIB73TZLC66VT	0.0.0.0	0
+14	15	5	10	12136999		LAIS SOUZA E SILVA	LAIS SOUZA	ATIVO	128023fe6773aaa6d7da4b0c5752d69d1a207dcbe4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	LAIS.SOUZA@MARINHA.MIL.BR	\N	Escala de Serviço	Não ativado	0.0.0.0	0
+4	14	4	8	06039057		RAIMUNDO RUFINO DA SILVA MENDES RAULINO	RUFINO	INATIVO	d83b65ea0d496c4bd07982515fee1b1b1e6e166be4eb0c1b7f6a2599d7d5b47487dd1e3ab1b828d4	TEC_CLTI	RUFINO.MENDES@MARINHA.MIL.BR	\N	Escala de Serviço	Não ativado	0.0.0.0	0
 \.
 
 
 --
--- TOC entry 3847 (class 0 OID 0)
+-- TOC entry 3937 (class 0 OID 0)
 -- Dependencies: 207
 -- Name: tb_lotacao_clti_idtb_lotacao_clti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -9608,18 +10072,17 @@ SELECT pg_catalog.setval('tb_lotacao_clti_idtb_lotacao_clti_seq', 17, true);
 
 
 --
--- TOC entry 3594 (class 0 OID 18336)
+-- TOC entry 3659 (class 0 OID 18336)
 -- Dependencies: 208
 -- Data for Name: tb_manutencao_et; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
 
 COPY tb_manutencao_et (idtb_manutencao_et, idtb_estacoes, idtb_om_apoiadas, data_entrada, data_saida, diagnostico, custo_manutencao, situacao) FROM stdin;
-1	2	1	2021-01-27	\N	NÃO LIGA                                                                                                                                                                                                                                                       	0	EM PRODUÇÃO
 \.
 
 
 --
--- TOC entry 3848 (class 0 OID 0)
+-- TOC entry 3938 (class 0 OID 0)
 -- Dependencies: 209
 -- Name: tb_manutencao_et_idtb_manutencao_et_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -9628,7 +10091,7 @@ SELECT pg_catalog.setval('tb_manutencao_et_idtb_manutencao_et_seq', 3, true);
 
 
 --
--- TOC entry 3596 (class 0 OID 18344)
+-- TOC entry 3661 (class 0 OID 18344)
 -- Dependencies: 210
 -- Data for Name: tb_mapainfra; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -9640,7 +10103,7 @@ COPY tb_mapainfra (idtb_mapainfra, idtb_conectividade_orig, idtb_conectividade_d
 
 
 --
--- TOC entry 3849 (class 0 OID 0)
+-- TOC entry 3939 (class 0 OID 0)
 -- Dependencies: 211
 -- Name: tb_mapainfra_idtb_mapainfra_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -9649,7 +10112,7 @@ SELECT pg_catalog.setval('tb_mapainfra_idtb_mapainfra_seq', 2, true);
 
 
 --
--- TOC entry 3598 (class 0 OID 18349)
+-- TOC entry 3663 (class 0 OID 18349)
 -- Dependencies: 212
 -- Data for Name: tb_memorias; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -9693,7 +10156,7 @@ COPY tb_memorias (idtb_memorias, tipo, modelo, clock) FROM stdin;
 
 
 --
--- TOC entry 3850 (class 0 OID 0)
+-- TOC entry 3940 (class 0 OID 0)
 -- Dependencies: 213
 -- Name: tb_memorias_idtb_memorias_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -9702,7 +10165,84 @@ SELECT pg_catalog.setval('tb_memorias_idtb_memorias_seq', 34, true);
 
 
 --
--- TOC entry 3600 (class 0 OID 18357)
+-- TOC entry 3740 (class 0 OID 19328)
+-- Dependencies: 305
+-- Data for Name: tb_midias_backup; Type: TABLE DATA; Schema: db_clti; Owner: -
+--
+
+COPY tb_midias_backup (idtb_midias_backup, tipo, numero, capacidade, situacao) FROM stdin;
+1	LTO5	1	1500	DISPONÍVEL
+2	LTO5	2	1500	DISPONÍVEL
+3	LTO5	3	1500	DISPONÍVEL
+4	LTO5	4	1500	DISPONÍVEL
+5	LTO5	5	1500	DISPONÍVEL
+6	LTO5	6	1500	DISPONÍVEL
+7	LTO5	7	1500	DISPONÍVEL
+8	LTO5	8	1500	DISPONÍVEL
+9	LTO5	9	1500	DISPONÍVEL
+10	LTO5	10	1500	DISPONÍVEL
+11	LTO5	11	1500	DISPONÍVEL
+12	LTO5	12	1500	DISPONÍVEL
+13	LTO5	13	1500	DISPONÍVEL
+14	LTO5	14	1500	DISPONÍVEL
+15	LTO5	15	1500	DISPONÍVEL
+16	LTO5	16	1500	DISPONÍVEL
+17	LTO5	17	1500	DISPONÍVEL
+18	LTO5	18	1500	DISPONÍVEL
+19	LTO5	19	1500	DISPONÍVEL
+20	LTO5	20	1500	DISPONÍVEL
+21	LTO5	21	1500	DISPONÍVEL
+22	LTO5	22	1500	DISPONÍVEL
+23	LTO5	23	1500	DISPONÍVEL
+24	LTO5	24	1500	DISPONÍVEL
+25	LTO5	25	1500	DISPONÍVEL
+26	LTO5	26	1500	DISPONÍVEL
+27	LTO5	27	1500	DISPONÍVEL
+28	LTO5	28	1500	DISPONÍVEL
+29	LTO5	29	1500	DISPONÍVEL
+30	LTO5	30	1500	DISPONÍVEL
+31	LTO5	31	1500	DISPONÍVEL
+32	LTO5	32	1500	DISPONÍVEL
+33	LTO5	33	1500	DISPONÍVEL
+34	LTO5	34	1500	DISPONÍVEL
+35	LTO5	35	1500	DISPONÍVEL
+36	LTO5	36	1500	DISPONÍVEL
+37	LTO5	37	1500	DISPONÍVEL
+38	LTO5	38	1500	DISPONÍVEL
+39	LTO5	39	1500	DISPONÍVEL
+40	LTO5	40	1500	DISPONÍVEL
+41	LTO5	41	1500	DISPONÍVEL
+42	LTO5	42	1500	DISPONÍVEL
+43	LTO5	43	1500	DISPONÍVEL
+44	LTO5	44	1500	DISPONÍVEL
+45	LTO5	45	1500	DISPONÍVEL
+46	LTO5	46	1500	DISPONÍVEL
+47	LTO5	47	1500	DISPONÍVEL
+48	LTO5	48	1500	DISPONÍVEL
+49	LTO5	49	1500	DISPONÍVEL
+50	LTO5	50	1500	DISPONÍVEL
+53	LTO5	53	1500	DISPONÍVEL
+54	LTO5	54	1500	DISPONÍVEL
+55	LTO5	55	1500	DISPONÍVEL
+56	LTO5	56	1500	DISPONÍVEL
+57	LTO5	57	1500	DISPONÍVEL
+58	LTO5	58	1500	DISPONÍVEL
+52	LTO5	52	1500	ÚLTIMO BACKUP EM: 2023-02-17
+51	LTO5	51	1500	DISPONÍVEL
+\.
+
+
+--
+-- TOC entry 3941 (class 0 OID 0)
+-- Dependencies: 304
+-- Name: tb_midias_backup_idtb_midias_backup_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
+--
+
+SELECT pg_catalog.setval('tb_midias_backup_idtb_midias_backup_seq', 58, true);
+
+
+--
+-- TOC entry 3665 (class 0 OID 18357)
 -- Dependencies: 214
 -- Data for Name: tb_nao_padronizados; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -9713,7 +10253,7 @@ COPY tb_nao_padronizados (idtb_nao_padronizados, idtb_om_apoiadas, idtb_estacoes
 
 
 --
--- TOC entry 3851 (class 0 OID 0)
+-- TOC entry 3942 (class 0 OID 0)
 -- Dependencies: 215
 -- Name: tb_nao_padronizados_idtb_nao_padronizados_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -9722,7 +10262,7 @@ SELECT pg_catalog.setval('tb_nao_padronizados_idtb_nao_padronizados_seq', 1, tru
 
 
 --
--- TOC entry 3602 (class 0 OID 18365)
+-- TOC entry 3667 (class 0 OID 18365)
 -- Dependencies: 216
 -- Data for Name: tb_nec_aquisicao; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -9732,7 +10272,7 @@ COPY tb_nec_aquisicao (idtb_nec_aquisicao, idtb_manutencao_et, desc_nec_aquisica
 
 
 --
--- TOC entry 3852 (class 0 OID 0)
+-- TOC entry 3943 (class 0 OID 0)
 -- Dependencies: 217
 -- Name: tb_nec_aquisicao_idtb_nec_aquisicao_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -9741,65 +10281,66 @@ SELECT pg_catalog.setval('tb_nec_aquisicao_idtb_nec_aquisicao_seq', 1, false);
 
 
 --
--- TOC entry 3604 (class 0 OID 18373)
+-- TOC entry 3669 (class 0 OID 18373)
 -- Dependencies: 218
 -- Data for Name: tb_numerador; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
 
 COPY tb_numerador (idtb_numerador, parametro, prox_num) FROM stdin;
-1	RelServico	330
+1	RelServico	401
+2	NumMidiaBk	53
 \.
 
 
 --
--- TOC entry 3853 (class 0 OID 0)
+-- TOC entry 3944 (class 0 OID 0)
 -- Dependencies: 219
 -- Name: tb_numerador_idtb_numerador_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
 
-SELECT pg_catalog.setval('tb_numerador_idtb_numerador_seq', 1, true);
+SELECT pg_catalog.setval('tb_numerador_idtb_numerador_seq', 2, true);
 
 
 --
--- TOC entry 3606 (class 0 OID 18378)
+-- TOC entry 3671 (class 0 OID 18378)
 -- Dependencies: 220
 -- Data for Name: tb_om_apoiadas; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
 
-COPY tb_om_apoiadas (idtb_om_apoiadas, cod_om, nome, sigla, indicativo, idtb_estado, idtb_cidade) FROM stdin;
-2	83401	ESTAÇÃO RADIOGONIOMÉTRICA DA MARINHA EM NATAL	ERMN	ERMNAT	20	3302
-3	83200	GRUPAMENTO DE FUZILEIROS NAVAIS DE NATAL	GPTFNNA	GRFNAT	20	3770
-4	83100	COMANDO DO GRUPAMENTO DE PATRULHA NAVAL DO NORDESTE	COMGPTPATNAVNE	GPNDES	20	3770
-5	83103	NAVIO-PATRULHA OCEÂNICO ARAGUARI	NPAOCARAGUARI	NPOCAR	20	3770
-6	83142	NAVIO-PATRULHA GRAÚNA	NPAGRAUNA	NPAUNA	20	3770
-7	83140	NAVIO-PATRULHA GRAJAÚ	NPAGRAJAU	NPAJAU	20	3770
-8	83143	NAVIO-PATRULHA GOIANA	NPAGOIANA	NPAGOI	20	3770
-9	83141	NAVIO-PATRULHA GUAÍBA	NPAGUAIBA	NPAIBA	20	3770
-10	83171	NAVIO-PATRULHA MACAU	NPAMACAU	NPACAU	20	3770
-11	83123	REBOCADOR DE ALTO-MAR TRIUNFO	RBAMTRIUNFO	RTRNFO	20	3770
-12	83800	BASE NAVAL DE NATAL	BNN	BNNATL	20	3770
-13	83810	CENTRO DE INTENDÊNCIA DA MARINHA EM NATAL	CEIMNA	CITNAT	20	3770
-14	83601	ESCOLA DE APRENDIZES-MARINHEIROS DO CEARÁ	EAMCE	EAMFTZ	6	756
-16	83701	HOSPITAL NAVAL DE NATAL	HNNA	HOSNAT	20	3770
-17	83702	HOSPITAL NAVAL DE RECIFE	HNRE	HOSRCF	16	3315
-15	83602	ESCOLA DE APRENDIZES-MARINHEIROS DE PERNAMBUCO	EAMPE	EAMRCF	16	3294
-18	83510	SERVIÇO DE SINALIZAÇÃO NÁUTICA DO NORDESTE	SSN-3	SINDES	20	3770
-20	83310	CAPITANIA DOS PORTOS DE ALAGOAS	CPAL	CPCEIO	2	147
-21	83311	AGÊNCIA FLUVIAL DE PENEDO	AGPENEDO	AGNEDO	2	173
-22	83320	CAPITANIA DOS PORTOS DO CEARÁ	CPCE	CPFTZA	6	756
-23	83322	AGÊNCIA DA CAPITANIA DOS PORTOS EM CAMOCIM	AGCAMOCIM	AGOCIM	6	729
-24	83323	AGÊNCIA DA CAPITANIA DOS PORTOS EM ARACATI	AGARACATI	AGCATI	6	710
-25	83330	CAPITANIA DOS PORTOS DA PARAIBA	CPPB	CPSSOA	15	2655
-26	83350	CAPITANIA DOS PORTOS DO RIO GRANDE DO NORTE	CPRN	CPNATL	20	3770
-27	83351	AGÊNCIA DA CAPITANIA DOS PORTOS EM AREIA BRANCA	AGABRANCA	AGBRAN	20	3693
-28	83340	CAPITANIA DOS PORTOS DE PERNAMBUCO	CPPE	CPCIFE	16	3315
-19	83511	NAVIO HIDROGRÁFICO BALIZADOR COMANDANTE MANHÃES	NHIBCOMTEMANHÃES	NBHAES	20	3770
-1	83000	COMANDO DO 3º DISTRITO NAVAL	COM3ºDN	TERDIS	20	3770
+COPY tb_om_apoiadas (idtb_om_apoiadas, cod_om, nome, sigla, indicativo, idtb_estado, idtb_cidade, chave_acesso) FROM stdin;
+2	83401	ESTAÇÃO RADIOGONIOMÉTRICA DA MARINHA EM NATAL	ERMN	ERMNAT	20	3302	000000
+3	83200	GRUPAMENTO DE FUZILEIROS NAVAIS DE NATAL	GPTFNNA	GRFNAT	20	3770	000000
+4	83100	COMANDO DO GRUPAMENTO DE PATRULHA NAVAL DO NORDESTE	COMGPTPATNAVNE	GPNDES	20	3770	000000
+5	83103	NAVIO-PATRULHA OCEÂNICO ARAGUARI	NPAOCARAGUARI	NPOCAR	20	3770	000000
+6	83142	NAVIO-PATRULHA GRAÚNA	NPAGRAUNA	NPAUNA	20	3770	000000
+7	83140	NAVIO-PATRULHA GRAJAÚ	NPAGRAJAU	NPAJAU	20	3770	000000
+8	83143	NAVIO-PATRULHA GOIANA	NPAGOIANA	NPAGOI	20	3770	000000
+9	83141	NAVIO-PATRULHA GUAÍBA	NPAGUAIBA	NPAIBA	20	3770	000000
+10	83171	NAVIO-PATRULHA MACAU	NPAMACAU	NPACAU	20	3770	000000
+11	83123	REBOCADOR DE ALTO-MAR TRIUNFO	RBAMTRIUNFO	RTRNFO	20	3770	000000
+12	83800	BASE NAVAL DE NATAL	BNN	BNNATL	20	3770	000000
+13	83810	CENTRO DE INTENDÊNCIA DA MARINHA EM NATAL	CEIMNA	CITNAT	20	3770	000000
+14	83601	ESCOLA DE APRENDIZES-MARINHEIROS DO CEARÁ	EAMCE	EAMFTZ	6	756	000000
+17	83702	HOSPITAL NAVAL DE RECIFE	HNRE	HOSRCF	16	3315	000000
+15	83602	ESCOLA DE APRENDIZES-MARINHEIROS DE PERNAMBUCO	EAMPE	EAMRCF	16	3294	000000
+18	83510	SERVIÇO DE SINALIZAÇÃO NÁUTICA DO NORDESTE	SSN-3	SINDES	20	3770	000000
+20	83310	CAPITANIA DOS PORTOS DE ALAGOAS	CPAL	CPCEIO	2	147	000000
+21	83311	AGÊNCIA FLUVIAL DE PENEDO	AGPENEDO	AGNEDO	2	173	000000
+22	83320	CAPITANIA DOS PORTOS DO CEARÁ	CPCE	CPFTZA	6	756	000000
+23	83322	AGÊNCIA DA CAPITANIA DOS PORTOS EM CAMOCIM	AGCAMOCIM	AGOCIM	6	729	000000
+24	83323	AGÊNCIA DA CAPITANIA DOS PORTOS EM ARACATI	AGARACATI	AGCATI	6	710	000000
+25	83330	CAPITANIA DOS PORTOS DA PARAIBA	CPPB	CPSSOA	15	2655	000000
+26	83350	CAPITANIA DOS PORTOS DO RIO GRANDE DO NORTE	CPRN	CPNATL	20	3770	000000
+27	83351	AGÊNCIA DA CAPITANIA DOS PORTOS EM AREIA BRANCA	AGABRANCA	AGBRAN	20	3693	000000
+28	83340	CAPITANIA DOS PORTOS DE PERNAMBUCO	CPPE	CPCIFE	16	3315	000000
+19	83511	NAVIO HIDROGRÁFICO BALIZADOR COMANDANTE MANHÃES	NHIBCOMTEMANHÃES	NBHAES	20	3770	000000
+16	83701	HOSPITAL NAVAL DE NATAL	HNNA	HOSNAT	20	3770	3IRBJGHG6LS6Y4ZU
+1	83000	COMANDO DO 3º DISTRITO NAVAL	COM3ºDN	TERDIS	20	3770	OA2AE3RAG3HTYZT5
 \.
 
 
 --
--- TOC entry 3854 (class 0 OID 0)
+-- TOC entry 3945 (class 0 OID 0)
 -- Dependencies: 221
 -- Name: tb_om_apoiadas_idtb_om_apoiadas_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -9808,7 +10349,7 @@ SELECT pg_catalog.setval('tb_om_apoiadas_idtb_om_apoiadas_seq', 28, true);
 
 
 --
--- TOC entry 3608 (class 0 OID 18383)
+-- TOC entry 3673 (class 0 OID 18383)
 -- Dependencies: 222
 -- Data for Name: tb_om_setores; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -9903,7 +10444,7 @@ COPY tb_om_setores (idtb_om_setores, idtb_om_apoiadas, nome_setor, sigla_setor, 
 
 
 --
--- TOC entry 3855 (class 0 OID 0)
+-- TOC entry 3946 (class 0 OID 0)
 -- Dependencies: 223
 -- Name: tb_om_setores_idtb_om_setores_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -9912,7 +10453,26 @@ SELECT pg_catalog.setval('tb_om_setores_idtb_om_setores_seq', 85, true);
 
 
 --
--- TOC entry 3610 (class 0 OID 18391)
+-- TOC entry 3744 (class 0 OID 19352)
+-- Dependencies: 309
+-- Data for Name: tb_origem_backup; Type: TABLE DATA; Schema: db_clti; Owner: -
+--
+
+COPY tb_origem_backup (idtb_origem_backup, idtb_servidores, dados_backup, freq_backup, tipo_backup, dest_backup) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3947 (class 0 OID 0)
+-- Dependencies: 308
+-- Name: tb_origem_backup_idtb_origem_backup_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
+--
+
+SELECT pg_catalog.setval('tb_origem_backup_idtb_origem_backup_seq', 1, false);
+
+
+--
+-- TOC entry 3675 (class 0 OID 18391)
 -- Dependencies: 224
 -- Data for Name: tb_osic; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -9922,7 +10482,7 @@ COPY tb_osic (idtb_osic, idtb_om_apoiadas, idtb_posto_grad, idtb_corpo_quadro, i
 
 
 --
--- TOC entry 3856 (class 0 OID 0)
+-- TOC entry 3948 (class 0 OID 0)
 -- Dependencies: 225
 -- Name: tb_osic_idtb_osic_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -9931,7 +10491,7 @@ SELECT pg_catalog.setval('tb_osic_idtb_osic_seq', 1, false);
 
 
 --
--- TOC entry 3612 (class 0 OID 18399)
+-- TOC entry 3677 (class 0 OID 18399)
 -- Dependencies: 226
 -- Data for Name: tb_pad_sic_tic; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -9943,7 +10503,7 @@ COPY tb_pad_sic_tic (idtb_pad_sic_tic, idtb_om_apoiadas, ano_base, data_assinatu
 
 
 --
--- TOC entry 3857 (class 0 OID 0)
+-- TOC entry 3949 (class 0 OID 0)
 -- Dependencies: 227
 -- Name: tb_pad_sic_tic_idtb_pad_sic_tic_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -9952,7 +10512,7 @@ SELECT pg_catalog.setval('tb_pad_sic_tic_idtb_pad_sic_tic_seq', 2, true);
 
 
 --
--- TOC entry 3614 (class 0 OID 18407)
+-- TOC entry 3679 (class 0 OID 18407)
 -- Dependencies: 228
 -- Data for Name: tb_pais; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -9963,7 +10523,7 @@ COPY tb_pais (id, nome, sigla) FROM stdin;
 
 
 --
--- TOC entry 3858 (class 0 OID 0)
+-- TOC entry 3950 (class 0 OID 0)
 -- Dependencies: 229
 -- Name: tb_pais_id_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -9972,7 +10532,7 @@ SELECT pg_catalog.setval('tb_pais_id_seq', 1, true);
 
 
 --
--- TOC entry 3616 (class 0 OID 18412)
+-- TOC entry 3681 (class 0 OID 18412)
 -- Dependencies: 230
 -- Data for Name: tb_perfil_internet; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -9988,7 +10548,7 @@ COPY tb_perfil_internet (idtb_perfil_internet, nome, status) FROM stdin;
 
 
 --
--- TOC entry 3859 (class 0 OID 0)
+-- TOC entry 3951 (class 0 OID 0)
 -- Dependencies: 231
 -- Name: tb_perfil_internet_idtb_perfil_internet_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -9997,7 +10557,7 @@ SELECT pg_catalog.setval('tb_perfil_internet_idtb_perfil_internet_seq', 6, true)
 
 
 --
--- TOC entry 3618 (class 0 OID 18417)
+-- TOC entry 3683 (class 0 OID 18417)
 -- Dependencies: 232
 -- Data for Name: tb_permissoes_admin; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -10011,7 +10571,6 @@ COPY tb_permissoes_admin (idtb_permissoes_admin, idtb_om_apoiadas, idtb_estacoes
 7	1	10	OS XX/2021
 8	1	9	OS XX/2021
 9	1	8	OS XX/2021
-10	1	2	OS XX/2021
 11	1	3	OS XX/2021
 12	1	12	OS XX/2021
 13	1	12	OS XX/2021
@@ -10020,7 +10579,7 @@ COPY tb_permissoes_admin (idtb_permissoes_admin, idtb_om_apoiadas, idtb_estacoes
 
 
 --
--- TOC entry 3860 (class 0 OID 0)
+-- TOC entry 3952 (class 0 OID 0)
 -- Dependencies: 233
 -- Name: tb_permissoes_admin_idtb_permissoes_admin_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -10029,8 +10588,8 @@ SELECT pg_catalog.setval('tb_permissoes_admin_idtb_permissoes_admin_seq', 14, tr
 
 
 --
--- TOC entry 3667 (class 0 OID 19247)
--- Dependencies: 298
+-- TOC entry 3732 (class 0 OID 19247)
+-- Dependencies: 297
 -- Data for Name: tb_pessoal_excluido; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
 
@@ -10039,8 +10598,8 @@ COPY tb_pessoal_excluido (idtb_pessoal_excluido, idtb_om_apoiadas, nip, cpf, nom
 
 
 --
--- TOC entry 3861 (class 0 OID 0)
--- Dependencies: 297
+-- TOC entry 3953 (class 0 OID 0)
+-- Dependencies: 296
 -- Name: tb_pessoal_excluido_idtb_pessoal_excluido_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
 
@@ -10048,7 +10607,7 @@ SELECT pg_catalog.setval('tb_pessoal_excluido_idtb_pessoal_excluido_seq', 1, fal
 
 
 --
--- TOC entry 3620 (class 0 OID 18422)
+-- TOC entry 3685 (class 0 OID 18422)
 -- Dependencies: 234
 -- Data for Name: tb_pessoal_om; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -10073,7 +10632,7 @@ COPY tb_pessoal_om (idtb_pessoal_om, idtb_om_apoiadas, idtb_posto_grad, idtb_cor
 
 
 --
--- TOC entry 3862 (class 0 OID 0)
+-- TOC entry 3954 (class 0 OID 0)
 -- Dependencies: 235
 -- Name: tb_pessoal_om_idtb_pessoal_om_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -10082,88 +10641,88 @@ SELECT pg_catalog.setval('tb_pessoal_om_idtb_pessoal_om_seq', 17, true);
 
 
 --
--- TOC entry 3622 (class 0 OID 18430)
+-- TOC entry 3687 (class 0 OID 18430)
 -- Dependencies: 236
 -- Data for Name: tb_pessoal_ti; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
 
-COPY tb_pessoal_ti (idtb_pessoal_ti, idtb_om_apoiadas, idtb_posto_grad, idtb_corpo_quadro, idtb_especialidade, nip, cpf, nome, nome_guerra, correio_eletronico, status, senha, idtb_funcoes_ti, secret, ip_acesso, cont_erro) FROM stdin;
-2	2	14	5	3	02117517		PEDRO FRANCYS FREIRE COIMBRA	COIMBRA	PEDRO.FRANCYS@MARINHA.MIL.BR	ATIVO	44b011aaef071f8d87dd9a89b60476e4f37059df4000150ac0db7d2d141a07b120c716b40d920d76	1	Não ativado	0.0.0.0	0
-11	26	8	19	12	86297091		MAX DE EDEM BARROS BORGES	MAX DE EDEM	MAX.DE.EDEM@MARINHA.MIL.BR	ATIVO	4449f57607faa6e6623643bb528c4b6ee04431045e912ea7603c06f3f836787dcfecc029b7df3b56	2	Não ativado	0.0.0.0	0
-15	2	8	13	25	17098572		GUSTAVO COSTA HOLANDA	HOLANDA	HOLANDA.COSTA@MARINHA.MIL.BR	ATIVO	abff1352fd22d41e8922135cede0bc00313cf4ad234f4892b1395b45fb4fff7d9d5c34a902462e53	2	Não ativado	0.0.0.0	0
-22	6	15	4	3	07364067		LEANDRO NERES NASCIMENTO	NERES	LEANDRO.NERES@MARINHA.MIL.BR	ATIVO	37db720a8ef88a995edc77126fac796d2ea0fc8f47b00c4c6b6b5588f7a4db950746f4b59b845981	1	Não ativado	0.0.0.0	0
-25	5	16	4	3	13015222		MARCOS FELIPE OLIVEIRA DANTAS 	DANTAS	MARCOS.DANTAS@MARINHA.MIL.BR	ATIVO	c2a9fddab28bef207dfdb8a23d88cbc6ba96f30274a8f25dd45ff14d7fe1df95c66923356ea8daae	1	Não ativado	0.0.0.0	0
-33	26	15	5	10	09097147		JOÃO MARIA DA COSTA MOURA	MOURA	JOAO.MOURA@MARINHA.MIL.BR	ATIVO	bfb6df9fd7e2fdb81398881f227b89c68e07b8366cc57c960e0ca6923c17370b668e6390b73913a5	1	Não ativado	0.0.0.0	0
-32	22	15	5	10	06034641		THIAGO SOUSA DE MOURA	SOUSA MOURA	SOUSA.MOURA@MARINHA.MIL.BR	ATIVO	81b2203e33925229d474c98d2454774f61880497952271128ee17324b132e281fb71a98b8591937a	1	Não ativado	0.0.0.0	0
-35	25	14	5	10	07444688		DEULLYSSES DAEL DE OLIVEIRA E SILVA	DEULLYSSES	DEULLYSSES@MARINHA.MIL.BR	ATIVO	6d1ea23cf4b4de666dcbc9e0829fd837bd3141a703107626b3fc305719ae3d26a5bb80df55ec6eea	1	Não ativado	0.0.0.0	0
-26	23	21	20	12	09135201		JOSÉ WELLINGTON ARAGÃO MENEZES	WELLINGTON	WELLINGTON.MENEZES@MARINHA.MIL.BR	ATIVO	09603fae43cc980ee5b4bfcab8de5c3c6cd7764ade24fa913c57789f706bf1a0626eab9c9ab49f6a	1	Não ativado	0.0.0.0	0
-52	23	7	19	12	87195151		MÁRCIO LUIZ NETO	MÁRCIO	MARCIO.NETO@MARINHA.MIL.BR	ATIVO	28579dadf3e41efc6a6b193a6fd52b57d00e242697f72b1efb5b2c27ef6ceb01c3188bff3a6919e4	2	Não ativado	0.0.0.0	0
-53	12	8	13	25	19092661		FRANK WAGNER CABRAL WESNER	WESNER	WESNER@MARINHA.MIL.BR	ATIVO	62025c65442a48cd57ee12a6e7222011cdbd1e8aa734cfb77e2f93141723d9ce352805b14e0fdcb1	2	Não ativado	0.0.0.0	0
-36	14	13	4	29	99185547		TIAGO BAUMGARTNER	BAUMGARTNER	BAUMGARTNER@MARINHA.MIL.BR	ATIVO	9d23f25895d81ef1dcc685387d9663b2d965d990b7086759fec5d8c8a563f35e3286de6e88f9f386	1	Não ativado	0.0.0.0	0
-29	13	12	4	28	86921568		HELTON JULIANO MAFALDA	HELTON	HELTON.JULIANO@MARINHA.MIL.BR	ATIVO	4045e90f6cedcd41d1d4b01e15542d305ec8d344f6bb21dc7c2128fd910567f326c5cf43518773e6	1	Não ativado	0.0.0.0	0
-28	1	13	5	10	00124524		KAREN DE SOUZA VIEIRA	KAREN	KAREN.SOUZA@MARINHA.MIL.BR	ATIVO	3c9de54283c326b394bec58fe90f55c909d643e187729f150af868128ec422bda2d42224772ce262	1	Não ativado	0.0.0.0	0
-34	16	6	21	25	81921241		MARCIA MARIA MARQUES DA SILVA	MARCIA	MARCIA.MARQUES@MARINHA.MIL.BR	ATIVO	dda193875295116867a349cc720784991c22d253c25c1d2994195e32160f827f7d8187290b30f7e8	2	Não ativado	0.0.0.0	0
-55	20	12	4	8	86911414		SANDRO CORRÊA BIELLA	BIELLA	SANDRO.BIELLA@MARINHA.MIL.BR	ATIVO	79c27d8a449d481cb629afba9243d456ea1fe8734e0671abfd3a8f43e653819368ce52998a87ff2e	1	Não ativado	0.0.0.0	0
-57	15	9	13	25	19092407		WILLIAM LUÍS LIMA PEREIRA	LUÍS LIMA	LIMA.LUIS@MARINHA.MIL.BR	ATIVO	32c26335ec9be905ea87b274f79f6a2e1712e27348e543cae193a9c450d199cf0f949befea148bd2	2	Não ativado	0.0.0.0	0
-62	19	16	4	30	16012348		ERICK FERREIRA CALZAVARA	ERICK	ERICK.CALZAVARA@MARINHA.MIL.BR	ATIVO	8be7436d64f1c801bb32134c5fa17aa078e937a6d5c9d2f6d4a67d9e2a781085db9b0d6fc4968fb1	1	Não ativado	0.0.0.0	0
-65	10	15	4	26	07384939		BENNYSON EMANUELL DE SOUSA	EMANUELL	EMANUELL.SOUSA@MARINHA.MIL.BR	ATIVO	9266284559d7b38956d5aa288e81c21c5f4e9d88617b713e0ca29bcb2f2d082583e22c08989935e7	1	Não ativado	0.0.0.0	0
-66	8	7	11	12	07340885		CAIO CORDEIRO QUEIROZ	CORDEIRO	CAIO.CORDEIRO@MARINHA.MIL.BR	ATIVO	309c54e7de7bf4f6d9f5b9032fcbcec0759b8c95e9375214cc6cdcc4f28ea196960a242100625e02	2	Não ativado	0.0.0.0	0
-67	8	16	4	3	16006674		LUAN KENNEDY LIMA BITENCOURT DA CRUZ	DAVID	LUAN.BITENCOURT@MARINHA.MIL.BR	ATIVO	14b93a0f1ccbb3c97bdfdb6baf909918bc39c5d6417ed32ff40a860cb1a76bce4cd5c1d857212c04	1	Não ativado	0.0.0.0	0
-70	7	16	4	3	16034244		GUSTAVO DE SOUZA DIAS DE OLIVEIRA	DIAS	DIAS.GUSTAVO@MARINHA.MIL.BR	ATIVO	e77452a1c70c01170dd36b90376ec0b2c8948b443285d49f6c52d58a70dc8cdfeade92d0f8fb2a9b	1	Não ativado	0.0.0.0	0
-51	24	14	4	24	06020607		THIAGO ANASTÁCIO DA SILVA	ANASTÁCIO	THIAGO.ANASTACIO@MARINHA.MIL.BR	ATIVO	56e74a47e305fa318695ce745ac459f3ff4ef1fa83336f9713b927d21a26ed3b090529d918e91f31	1	Não ativado	0.0.0.0	0
-14	18	13	4	27	99186594		ODIVANILDO GOUVEIA DE SOUSA	GOUVEIA	ODIVANILDO.GOUVEIA@MARINHA.MIL.BR	ATIVO	2d5373068ea51cb292557c1e7cad4cef050a2361a720dc6cba01c92297f4db57a9de074aabcf84a4	1	Não ativado	0.0.0.0	0
-75	16	19	13	23	15069001		DERICK ETIENE DE MELO SILVA	MELO	DERICKETIENE2@GMAIL.COM	ATIVO	645efb11900b2348218533b16a80723c8bf3d93be97394329738614e38ac75ef5c3e303d03ba80fb	3	Não ativado	0.0.0.0	0
-59	4	15	4	3	06029663		LEANDRO MARQUES DE CARVALHO	CARVALHO	LEANDRO.MARQUES@MARINHA.MIL.BR	ATIVO	23f5ce612859464fe6f069982d740c8d80e8ca48c54d9f953a30e2f9f37b68c820ce006e8042b571	1	Não ativado	0.0.0.0	0
-61	3	13	3	9	96010690		ANAXMANDRO PEREIRA DA SILVA	ANAXMANDRO	ANAXMANDRO.SILVA@MARINHA.MIL.BR	ATIVO	53f9a342e40b36560c7d7c4adb1024487d6f43614b571255d5ccee596ad5c58597fa854f35d70338	1	Não ativado	0.0.0.0	0
-77	16	19	13	23	16047532		AIALIS ARAÚJO DA SILVA	AIALIS	AIALIS@GMAIL.COM	ATIVO	bd5c4b5acf9bb7ea8890037f759d713de81ed4afbd5c4b5acf9bb7ea8890037f759d713de81ed4af	3	Não ativado	0.0.0.0	0
-79	9	9	2	12	87375591		JONATAS ALVES SILVA SOARES	SILVA SOARES	JONATAS.ALVES@MARINHA.MIL.BR	ATIVO	95aeed09dde2b4dac749c3d5f0d125a66d2af8b4eb7c09835c6c27c0920c9b998e1dd45e3a195d3a	2	Não ativado	0.0.0.0	0
-83	11	15	4	8	11037610		JONATHAN ERICK SAMPAIO DE BARROS SILVA	ERICK	JONATHAN.BARROS@MARINHA.MIL.BR	ATIVO	eac912f39ce668cc732b2404542c3e921041ac0572e9a48dbbe51b6dc0fb06685b0a9a06f4037f02	1	Não ativado	0.0.0.0	0
-86	6	9	2	12	12046744		BRENO GOMES STORCH	BRENO STORCH	BRENO.STORCH@MARINHA.MIL.BR	ATIVO	80d3da3854f297f57862856c2e6877aef6d789c3875792e010a6f8b49e64792841623e12111484d2	2	Não ativado	0.0.0.0	0
-87	21	7	19	12	87297027		CARLOS OTÁVIO CORREIA DE ALCÂNTARA	OTÁVIO	CARLOS.OTAVIO@MARINHA.MIL.BR	ATIVO	b0c8fff862273c43e21eacf4373e9bb6f15a3fa583e425b1aecf52151e3ef20352c32bbf23692c5f	2	Não ativado	0.0.0.0	0
-84	9	16	4	3	15027881		IGOR ARQUEU DE LIMA AZEVEDO	ARQUEU	IGOR.ARQUEU@MARINHA.MIL.BR	ATIVO	e83dcd1bd14d6064338d9f185b4fef53860464ebeb7c09835c6c27c0920c9b998e1dd45e3a195d3a	1	Não ativado	0.0.0.0	0
-96	7	9	4	12	13032330		MATHEUS PEREIRA DA SILVA	PEREIRA	MATHEUS.PEREIRA.SILVA@MARINHA.MIL.BR	ATIVO	06b7d2ec9adbf42ba8b0e80be4e8038cd44cf0b6a09c666031da1123ada22fa74b9bb8f60a5668e1	2	Não ativado	0.0.0.0	0
-97	25	6	19	12	95013474		ROGERIO FERNANDES DA COSTA	COSTA	ROGERIO.COSTA@MARINHA.MIL.BR	ATIVO	995c818d39b18b1bb121a37b8e41b43c22a09a37adfa15367c5ea8c7e0a8f4501d62d8c8239dbf1b	2	Não ativado	0.0.0.0	0
-92	28	15	5	10	13126628		MARIA VANESSA GONÇALO DA COSTA	MARIA	MARIA.VANESSA@MARINHA.MIL.BR	ATIVO	67128698e636eb756f1f7d27242b59c250eb35d51ad22b982ebb89c355d9ee50eb069df24ef3b737	1	Não ativado	0.0.0.0	0
-93	12	14	4	21	04012739		EMERSON DE ALMEIDA DA SILVA	EMERSON	EMERSON.ALMEIDA@MARINHA.MIL.BR	ATIVO	607a9eb4093f81ed650478acccb089c52e239e356c74511499079c072e4942a8b90fccd1d1f83a9b	1	Não ativado	0.0.0.0	0
-94	27	7	19	12	86967550		ELCIMAR MACHADO DA SILVA	ELCIMAR	ELCIMAR@MARINHA.MIL.BR	ATIVO	701221250a908d53dbb0aabd6f8a97eaf5b992c76eb4e2d6a3516654d8ce9c4af3a5d97c589b5b2c	2	Não ativado	0.0.0.0	0
-1	1	16	1	8	99242991		LÚCIO ALEXANDRE CORREIA DOS SANTOS	ALEXANDRE	LUCIO.ALEXANDRE.SANTOS@GMAIL.COM	ATIVO	c4ce9a5fa42b7026826369e2e6faa9d3b15f0394cfa2e07cce7164559deb40983ccefed9255e11bd	5	Não ativado	0.0.0.0	0
-98	15	15	5	10	14142872		PEDRO RAFAEL LEAL DA SILVA BEZERRA	PEDRO	RAFAEL.LEAL@MARINHA.MIL.BR	ATIVO	fcc6c8bcc0507ee298f3789201aead7b8c3c93b126d9cc86152d7285c4b9b2208a281f88b08a8609	1	Não ativado	0.0.0.0	0
-100	24	7	2	12	13082388		ANDERSON DE OLIVEIRA PAULA	ANDERSON	ANDERSON.PAULA@MARINHA.MIL.BR	ATIVO	e930a89b2493663dba00e1b93fabf9a3601905b2e98c1d5f3afe97cc9c166fa7280966d3332e4574	2	Não ativado	0.0.0.0	0
-102	22	5	11	12	06624391		SIDNEY GOUVEIA DA SILVA	SIDNEY	SIDNEY.GOUVEIA@MARINHA.MIL.BR	ATIVO	e374a985bd8c2fffb4ad86d34d8be5d875f6ea4e0315f3e94cf9e62814a6588e2e6ff34c56e00e4a	2	Não ativado	0.0.0.0	0
-103	28	8	13	25	20343621		EVELYN BRAGA CUNHA	EVELYN	EVELYN.CUNHA@MARINHA.MIL.BR	ATIVO	f50f90b52830722c41964a18b4ba32dd2d2763a26ac68b257ab2da0c81d594a74daf926b1d6f7fef	2	Não ativado	0.0.0.0	0
-104	14	7	23	13	15089827		NAYARA PEREIRA LOBO	NAYARA LOBO	NAYARA.LOBO@MARINHA.MIL.BR	ATIVO	ac38ab42e2ac6c164680d99c5348f89ab528bf3306838f575f655251a27149bc81b8e058d936f336	2	Não ativado	0.0.0.0	0
-105	17	8	13	12	20345828		MARCELO SOARES DOS SANTOS	MARCELO	MARCELO-SOARES.SANTOS@MARINHA.MIL.BR	ATIVO	e40b46af2a76d307ccd7b300d552fd79f6bfd4d9f4c9726a6c4072da71a2199822a4394624737b80	2	Não ativado	0.0.0.0	0
-106	10	8	22	12	16049993		RICARDO MIRANDA CIDRAL	CIDRAL	CIDRAL@MARINHA.MIL.BR	ATIVO	32bf48e296ab3e6c56aa42440eee13a76618f7b70f8ce69deb5b727e3e003c47bc1663558556cc87	2	Não ativado	0.0.0.0	0
-107	5	8	4	12	09023887		JOÃO CARLOS PEREIRA DE ABREU	JOÃO ABREU	JOAO.ABREU@MARINHA.MIL.BR	ATIVO	e449b4df5b06783dfe8479fed734a74e991785db4581b4666848b9e410ded9fa98279ae53523def7	2	Não ativado	0.0.0.0	0
-108	11	9	4	12	95091041		EVERTON ALVARINHO DE OLIVEIRA	EVERTON	EVERTON.ALVARINHO@MARINHA.MIL.BR	ATIVO	86646bcc33b086e23af34a9aade5ddbe6f223f6a642e9ee727f022f619e6257b55e9d12963de3d15	2	Não ativado	0.0.0.0	0
-110	3	9	1	13	12047163		ADRIEL HEBER MAX GUIMARÃES	ADRIEL	ADRIEL.HEBER@MARINHA.MIL.BR	ATIVO	44b217933f5a3524eaf9eb2c7d18401c421da0b30f04f93f4579bee2690dcf0567e017c5bd1486af	2	Não ativado	0.0.0.0	0
-85	20	6	2	12	00036161		ROBERTO WALLACE BRAGA LATA JÚNIOR	ROBERTO WALLACE	ROBERTO.WALLACE@MARINHA.MIL.BR	ATIVO	e3914732974dd85067037b3c343dc91cc650c8641e71b1d44f7df03ae2bf08b5c53056af8533d5b4	2	Não ativado	0.0.0.0	0
-109	18	9	19	12	85725196		RAFAEL ARAUJO SZAZ	SZAZ	SZAZ@MARINHA.MIL.BR	ATIVO	4d551eb68cef0abd3af165aa0b90fd575e16e47f69e35bab0fcb4c478290f9fe23c56b78e7bc164f	2	Não ativado	0.0.0.0	0
-101	13	8	9	12	09022686		REINALDO ALMEIDA DAS CHAGAS JUNIOR	REINALDO	REINALDO.CHAGAS@MARINHA.MIL.BR	ATIVO	6328d53a1335f75dc5e7fee95564242bd0b524926ba959bc445821e88c41a4595213c312c3bb487d	2	Não ativado	0.0.0.0	0
-76	16	19	13	23	13050311		CHRISTYAN JORDAN BARROS FERREIRA	JORDAN	CHRISTYANSRN@GMAIL.COM	INATIVO	c7f9175e30e309c7f01930c88e9a1e79a221a426c7f9175e30e309c7f01930c88e9a1e79a221a426	3	Não ativado	0.0.0.0	0
-111	21	15	5	10	15163725		FABIANO DO NASCIMENTO CELESTINO	CELESTINO	FABIANO.CELESTINO@MARINHA.MIL.BR	ATIVO	a84d2fab7b7d3c5a8e667843a145b8d9f941f252abae9f368c6b1c7f3de70b8b8c12f0d172268845	1	Não ativado	0.0.0.0	0
-114	17	15	5	10	12134414		MANOEL DE ANDRADE DOMINGOS	DOMINGOS	MANOEL.DOMINGOS@MARINHA.MIL.BR	ATIVO	844500653b41d365e4c9d65e5d5a15916e2dc910f4c9726a6c4072da71a2199822a4394624737b80	1	Não ativado	0.0.0.0	0
-113	4	7	4	12	14088975		MAURICIO BARROS DE SOUZA	MAURICIO BARROS	MAURICIO.BARROS@MARINHA.MIL.BR	ATIVO	2417507ea8ae316619ba1b9c2a6ad57e02ba53e912eb60344b218b3250f6c01e09ea121621112ebc	2	Não ativado	0.0.0.0	0
-116	16	19	13	23	17047943		LUCAS MATEUS SALVIANO DA SILVA	SALVIANO	TESTE@MARINHA.MIL.BR	ATIVO	f36e176dd49ee1f98788832d99112ec511c376b0ac425e42c5fe32581d64d481cf3592c7cd7ffd6b	3	Não ativado	0.0.0.0	0
-117	27	12	4	34	97017841		CLEILSON BARBOSA BEZERRA	CLEILSON	CLEILSON@MARINHA.MIL.BR	ATIVO	d9e0a652c8ec4cfdaab0a81516db4aa87f7a1e21de3498666071151269a67060e0848f6a505df363	1	Não ativado	0.0.0.0	0
-115	16	15	5	10	13073672		IRRAYRAS FREIRE AUGUSTO	IRRAYRAS	IRRAYRAS@MARINHA.MIL.BR	ATIVO	95ef990e534ced8c38323c805345aed9b09526e22a1a5b3fc1cca99daa94f4183ab4254c312fec8a	1	Não ativado	0.0.0.0	0
-118	19	8	2	12	10023381		EDUARDO CESAR TROTTA DE MORAIS	TROTTA	TROTTA@MARINHA.MIL.BR	ATIVO	383ee8df010bb0d79a567f2702e580caf28ca0fb15451a82fc3bdc6dc32a5db96f3591f53784c40b	2	Não ativado	0.0.0.0	0
-121	1	8	13	25	17098602		CARLOS AUGUSTO RODRIGUES DIAS	CARLOS AUGUSTO	C.DIAS@MARINHA.MIL.BR	ATIVO	508017483633ee899396415ae9a71749412e0232c01619e7f1c2ff1d930c34e2c9bccdd63194654d	2	Não ativado	0.0.0.0	0
-89	1	14	5	10	07351836		ALEX CAETANO BARBOSA	ALEX	ALEX.CAETANO@MARINHA.MIL.BR	ATIVO	0a6873fd676fb06f30c22648d99069227b981464c01619e7f1c2ff1d930c34e2c9bccdd63194654d	1	Não ativado	0.0.0.0	0
+COPY tb_pessoal_ti (idtb_pessoal_ti, idtb_om_apoiadas, idtb_posto_grad, idtb_corpo_quadro, idtb_especialidade, nip, cpf, nome, nome_guerra, correio_eletronico, status, senha, idtb_funcoes_ti, secret, ip_acesso, cont_erro, tel_contato, retelma) FROM stdin;
+2	2	14	5	3	02117517		PEDRO FRANCYS FREIRE COIMBRA	COIMBRA	PEDRO.FRANCYS@MARINHA.MIL.BR	ATIVO	44b011aaef071f8d87dd9a89b60476e4f37059df4000150ac0db7d2d141a07b120c716b40d920d76	1	Não ativado	0.0.0.0	0	000000	000000
+11	26	8	19	12	86297091		MAX DE EDEM BARROS BORGES	MAX DE EDEM	MAX.DE.EDEM@MARINHA.MIL.BR	ATIVO	4449f57607faa6e6623643bb528c4b6ee04431045e912ea7603c06f3f836787dcfecc029b7df3b56	2	Não ativado	0.0.0.0	0	000000	000000
+15	2	8	13	25	17098572		GUSTAVO COSTA HOLANDA	HOLANDA	HOLANDA.COSTA@MARINHA.MIL.BR	ATIVO	abff1352fd22d41e8922135cede0bc00313cf4ad234f4892b1395b45fb4fff7d9d5c34a902462e53	2	Não ativado	0.0.0.0	0	000000	000000
+22	6	15	4	3	07364067		LEANDRO NERES NASCIMENTO	NERES	LEANDRO.NERES@MARINHA.MIL.BR	ATIVO	37db720a8ef88a995edc77126fac796d2ea0fc8f47b00c4c6b6b5588f7a4db950746f4b59b845981	1	Não ativado	0.0.0.0	0	000000	000000
+25	5	16	4	3	13015222		MARCOS FELIPE OLIVEIRA DANTAS 	DANTAS	MARCOS.DANTAS@MARINHA.MIL.BR	ATIVO	c2a9fddab28bef207dfdb8a23d88cbc6ba96f30274a8f25dd45ff14d7fe1df95c66923356ea8daae	1	Não ativado	0.0.0.0	0	000000	000000
+33	26	15	5	10	09097147		JOÃO MARIA DA COSTA MOURA	MOURA	JOAO.MOURA@MARINHA.MIL.BR	ATIVO	bfb6df9fd7e2fdb81398881f227b89c68e07b8366cc57c960e0ca6923c17370b668e6390b73913a5	1	Não ativado	0.0.0.0	0	000000	000000
+32	22	15	5	10	06034641		THIAGO SOUSA DE MOURA	SOUSA MOURA	SOUSA.MOURA@MARINHA.MIL.BR	ATIVO	81b2203e33925229d474c98d2454774f61880497952271128ee17324b132e281fb71a98b8591937a	1	Não ativado	0.0.0.0	0	000000	000000
+35	25	14	5	10	07444688		DEULLYSSES DAEL DE OLIVEIRA E SILVA	DEULLYSSES	DEULLYSSES@MARINHA.MIL.BR	ATIVO	6d1ea23cf4b4de666dcbc9e0829fd837bd3141a703107626b3fc305719ae3d26a5bb80df55ec6eea	1	Não ativado	0.0.0.0	0	000000	000000
+26	23	21	20	12	09135201		JOSÉ WELLINGTON ARAGÃO MENEZES	WELLINGTON	WELLINGTON.MENEZES@MARINHA.MIL.BR	ATIVO	09603fae43cc980ee5b4bfcab8de5c3c6cd7764ade24fa913c57789f706bf1a0626eab9c9ab49f6a	1	Não ativado	0.0.0.0	0	000000	000000
+53	12	8	13	25	19092661		FRANK WAGNER CABRAL WESNER	WESNER	WESNER@MARINHA.MIL.BR	ATIVO	62025c65442a48cd57ee12a6e7222011cdbd1e8aa734cfb77e2f93141723d9ce352805b14e0fdcb1	2	Não ativado	0.0.0.0	0	000000	000000
+36	14	13	4	29	99185547		TIAGO BAUMGARTNER	BAUMGARTNER	BAUMGARTNER@MARINHA.MIL.BR	ATIVO	9d23f25895d81ef1dcc685387d9663b2d965d990b7086759fec5d8c8a563f35e3286de6e88f9f386	1	Não ativado	0.0.0.0	0	000000	000000
+29	13	12	4	28	86921568		HELTON JULIANO MAFALDA	HELTON	HELTON.JULIANO@MARINHA.MIL.BR	ATIVO	4045e90f6cedcd41d1d4b01e15542d305ec8d344f6bb21dc7c2128fd910567f326c5cf43518773e6	1	Não ativado	0.0.0.0	0	000000	000000
+28	1	13	5	10	00124524		KAREN DE SOUZA VIEIRA	KAREN	KAREN.SOUZA@MARINHA.MIL.BR	ATIVO	3c9de54283c326b394bec58fe90f55c909d643e187729f150af868128ec422bda2d42224772ce262	1	Não ativado	0.0.0.0	0	000000	000000
+34	16	6	21	25	81921241		MARCIA MARIA MARQUES DA SILVA	MARCIA	MARCIA.MARQUES@MARINHA.MIL.BR	ATIVO	dda193875295116867a349cc720784991c22d253c25c1d2994195e32160f827f7d8187290b30f7e8	2	Não ativado	0.0.0.0	0	000000	000000
+55	20	12	4	8	86911414		SANDRO CORRÊA BIELLA	BIELLA	SANDRO.BIELLA@MARINHA.MIL.BR	ATIVO	79c27d8a449d481cb629afba9243d456ea1fe8734e0671abfd3a8f43e653819368ce52998a87ff2e	1	Não ativado	0.0.0.0	0	000000	000000
+57	15	9	13	25	19092407		WILLIAM LUÍS LIMA PEREIRA	LUÍS LIMA	LIMA.LUIS@MARINHA.MIL.BR	ATIVO	32c26335ec9be905ea87b274f79f6a2e1712e27348e543cae193a9c450d199cf0f949befea148bd2	2	Não ativado	0.0.0.0	0	000000	000000
+62	19	16	4	30	16012348		ERICK FERREIRA CALZAVARA	ERICK	ERICK.CALZAVARA@MARINHA.MIL.BR	ATIVO	8be7436d64f1c801bb32134c5fa17aa078e937a6d5c9d2f6d4a67d9e2a781085db9b0d6fc4968fb1	1	Não ativado	0.0.0.0	0	000000	000000
+65	10	15	4	26	07384939		BENNYSON EMANUELL DE SOUSA	EMANUELL	EMANUELL.SOUSA@MARINHA.MIL.BR	ATIVO	9266284559d7b38956d5aa288e81c21c5f4e9d88617b713e0ca29bcb2f2d082583e22c08989935e7	1	Não ativado	0.0.0.0	0	000000	000000
+66	8	7	11	12	07340885		CAIO CORDEIRO QUEIROZ	CORDEIRO	CAIO.CORDEIRO@MARINHA.MIL.BR	ATIVO	309c54e7de7bf4f6d9f5b9032fcbcec0759b8c95e9375214cc6cdcc4f28ea196960a242100625e02	2	Não ativado	0.0.0.0	0	000000	000000
+67	8	16	4	3	16006674		LUAN KENNEDY LIMA BITENCOURT DA CRUZ	DAVID	LUAN.BITENCOURT@MARINHA.MIL.BR	ATIVO	14b93a0f1ccbb3c97bdfdb6baf909918bc39c5d6417ed32ff40a860cb1a76bce4cd5c1d857212c04	1	Não ativado	0.0.0.0	0	000000	000000
+70	7	16	4	3	16034244		GUSTAVO DE SOUZA DIAS DE OLIVEIRA	DIAS	DIAS.GUSTAVO@MARINHA.MIL.BR	ATIVO	e77452a1c70c01170dd36b90376ec0b2c8948b443285d49f6c52d58a70dc8cdfeade92d0f8fb2a9b	1	Não ativado	0.0.0.0	0	000000	000000
+51	24	14	4	24	06020607		THIAGO ANASTÁCIO DA SILVA	ANASTÁCIO	THIAGO.ANASTACIO@MARINHA.MIL.BR	ATIVO	56e74a47e305fa318695ce745ac459f3ff4ef1fa83336f9713b927d21a26ed3b090529d918e91f31	1	Não ativado	0.0.0.0	0	000000	000000
+59	4	15	4	3	06029663		LEANDRO MARQUES DE CARVALHO	CARVALHO	LEANDRO.MARQUES@MARINHA.MIL.BR	ATIVO	23f5ce612859464fe6f069982d740c8d80e8ca48c54d9f953a30e2f9f37b68c820ce006e8042b571	1	Não ativado	0.0.0.0	0	000000	000000
+61	3	13	3	9	96010690		ANAXMANDRO PEREIRA DA SILVA	ANAXMANDRO	ANAXMANDRO.SILVA@MARINHA.MIL.BR	ATIVO	53f9a342e40b36560c7d7c4adb1024487d6f43614b571255d5ccee596ad5c58597fa854f35d70338	1	Não ativado	0.0.0.0	0	000000	000000
+77	16	19	13	23	16047532		AIALIS ARAÚJO DA SILVA	AIALIS	AIALIS@GMAIL.COM	ATIVO	bd5c4b5acf9bb7ea8890037f759d713de81ed4afbd5c4b5acf9bb7ea8890037f759d713de81ed4af	3	Não ativado	0.0.0.0	0	000000	000000
+79	9	9	2	12	87375591		JONATAS ALVES SILVA SOARES	SILVA SOARES	JONATAS.ALVES@MARINHA.MIL.BR	ATIVO	95aeed09dde2b4dac749c3d5f0d125a66d2af8b4eb7c09835c6c27c0920c9b998e1dd45e3a195d3a	2	Não ativado	0.0.0.0	0	000000	000000
+86	6	9	2	12	12046744		BRENO GOMES STORCH	BRENO STORCH	BRENO.STORCH@MARINHA.MIL.BR	ATIVO	80d3da3854f297f57862856c2e6877aef6d789c3875792e010a6f8b49e64792841623e12111484d2	2	Não ativado	0.0.0.0	0	000000	000000
+87	21	7	19	12	87297027		CARLOS OTÁVIO CORREIA DE ALCÂNTARA	OTÁVIO	CARLOS.OTAVIO@MARINHA.MIL.BR	ATIVO	b0c8fff862273c43e21eacf4373e9bb6f15a3fa583e425b1aecf52151e3ef20352c32bbf23692c5f	2	Não ativado	0.0.0.0	0	000000	000000
+84	9	16	4	3	15027881		IGOR ARQUEU DE LIMA AZEVEDO	ARQUEU	IGOR.ARQUEU@MARINHA.MIL.BR	ATIVO	e83dcd1bd14d6064338d9f185b4fef53860464ebeb7c09835c6c27c0920c9b998e1dd45e3a195d3a	1	Não ativado	0.0.0.0	0	000000	000000
+96	7	9	4	12	13032330		MATHEUS PEREIRA DA SILVA	PEREIRA	MATHEUS.PEREIRA.SILVA@MARINHA.MIL.BR	ATIVO	06b7d2ec9adbf42ba8b0e80be4e8038cd44cf0b6a09c666031da1123ada22fa74b9bb8f60a5668e1	2	Não ativado	0.0.0.0	0	000000	000000
+92	28	15	5	10	13126628		MARIA VANESSA GONÇALO DA COSTA	MARIA	MARIA.VANESSA@MARINHA.MIL.BR	ATIVO	67128698e636eb756f1f7d27242b59c250eb35d51ad22b982ebb89c355d9ee50eb069df24ef3b737	1	Não ativado	0.0.0.0	0	000000	000000
+93	12	14	4	21	04012739		EMERSON DE ALMEIDA DA SILVA	EMERSON	EMERSON.ALMEIDA@MARINHA.MIL.BR	ATIVO	607a9eb4093f81ed650478acccb089c52e239e356c74511499079c072e4942a8b90fccd1d1f83a9b	1	Não ativado	0.0.0.0	0	000000	000000
+94	27	7	19	12	86967550		ELCIMAR MACHADO DA SILVA	ELCIMAR	ELCIMAR@MARINHA.MIL.BR	ATIVO	701221250a908d53dbb0aabd6f8a97eaf5b992c76eb4e2d6a3516654d8ce9c4af3a5d97c589b5b2c	2	Não ativado	0.0.0.0	0	000000	000000
+1	1	16	1	8	99242991		LÚCIO ALEXANDRE CORREIA DOS SANTOS	ALEXANDRE	LUCIO.ALEXANDRE.SANTOS@GMAIL.COM	ATIVO	c4ce9a5fa42b7026826369e2e6faa9d3b15f0394cfa2e07cce7164559deb40983ccefed9255e11bd	5	Não ativado	0.0.0.0	0	000000	000000
+98	15	15	5	10	14142872		PEDRO RAFAEL LEAL DA SILVA BEZERRA	PEDRO	RAFAEL.LEAL@MARINHA.MIL.BR	ATIVO	fcc6c8bcc0507ee298f3789201aead7b8c3c93b126d9cc86152d7285c4b9b2208a281f88b08a8609	1	Não ativado	0.0.0.0	0	000000	000000
+100	24	7	2	12	13082388		ANDERSON DE OLIVEIRA PAULA	ANDERSON	ANDERSON.PAULA@MARINHA.MIL.BR	ATIVO	e930a89b2493663dba00e1b93fabf9a3601905b2e98c1d5f3afe97cc9c166fa7280966d3332e4574	2	Não ativado	0.0.0.0	0	000000	000000
+103	28	8	13	25	20343621		EVELYN BRAGA CUNHA	EVELYN	EVELYN.CUNHA@MARINHA.MIL.BR	ATIVO	f50f90b52830722c41964a18b4ba32dd2d2763a26ac68b257ab2da0c81d594a74daf926b1d6f7fef	2	Não ativado	0.0.0.0	0	000000	000000
+104	14	7	23	13	15089827		NAYARA PEREIRA LOBO	NAYARA LOBO	NAYARA.LOBO@MARINHA.MIL.BR	ATIVO	ac38ab42e2ac6c164680d99c5348f89ab528bf3306838f575f655251a27149bc81b8e058d936f336	2	Não ativado	0.0.0.0	0	000000	000000
+105	17	8	13	12	20345828		MARCELO SOARES DOS SANTOS	MARCELO	MARCELO-SOARES.SANTOS@MARINHA.MIL.BR	ATIVO	e40b46af2a76d307ccd7b300d552fd79f6bfd4d9f4c9726a6c4072da71a2199822a4394624737b80	2	Não ativado	0.0.0.0	0	000000	000000
+107	5	8	4	12	09023887		JOÃO CARLOS PEREIRA DE ABREU	JOÃO ABREU	JOAO.ABREU@MARINHA.MIL.BR	ATIVO	e449b4df5b06783dfe8479fed734a74e991785db4581b4666848b9e410ded9fa98279ae53523def7	2	Não ativado	0.0.0.0	0	000000	000000
+97	25	7	19	12	95020908		KYLDERI ANDREY GUIMARÃES SANTOS	KYLDERI	KYLDERI@MARINHA.MIL.BR	ATIVO	995c818d39b18b1bb121a37b8e41b43c22a09a37adfa15367c5ea8c7e0a8f4501d62d8c8239dbf1b	2	Não ativado	0.0.0.0	0	000000	000000
+75	16	19	13	23	15069001		DERICK ETIENE DE MELO SILVA	MELO	DERICKETIENE2@GMAIL.COM	ATIVO	645efb11900b2348218533b16a80723c8bf3d93b20597682588468f47b0317f9c4b50996866087fe	3	Não ativado	0.0.0.0	0	000000	000000
+108	11	9	4	12	95091041		EVERTON ALVARINHO DE OLIVEIRA	EVERTON	EVERTON.ALVARINHO@MARINHA.MIL.BR	ATIVO	86646bcc33b086e23af34a9aade5ddbe6f223f6a642e9ee727f022f619e6257b55e9d12963de3d15	2	Não ativado	0.0.0.0	0	000000	000000
+110	3	9	1	13	12047163		ADRIEL HEBER MAX GUIMARÃES	ADRIEL	ADRIEL.HEBER@MARINHA.MIL.BR	ATIVO	44b217933f5a3524eaf9eb2c7d18401c421da0b30f04f93f4579bee2690dcf0567e017c5bd1486af	2	Não ativado	0.0.0.0	0	000000	000000
+85	20	6	2	12	00036161		ROBERTO WALLACE BRAGA LATA JÚNIOR	ROBERTO WALLACE	ROBERTO.WALLACE@MARINHA.MIL.BR	ATIVO	e3914732974dd85067037b3c343dc91cc650c8641e71b1d44f7df03ae2bf08b5c53056af8533d5b4	2	Não ativado	0.0.0.0	0	000000	000000
+109	18	9	19	12	85725196		RAFAEL ARAUJO SZAZ	SZAZ	SZAZ@MARINHA.MIL.BR	ATIVO	4d551eb68cef0abd3af165aa0b90fd575e16e47f69e35bab0fcb4c478290f9fe23c56b78e7bc164f	2	Não ativado	0.0.0.0	0	000000	000000
+76	16	19	13	23	13050311		CHRISTYAN JORDAN BARROS FERREIRA	JORDAN	CHRISTYANSRN@GMAIL.COM	INATIVO	c7f9175e30e309c7f01930c88e9a1e79a221a426c7f9175e30e309c7f01930c88e9a1e79a221a426	3	Não ativado	0.0.0.0	0	000000	000000
+111	21	15	5	10	15163725		FABIANO DO NASCIMENTO CELESTINO	CELESTINO	FABIANO.CELESTINO@MARINHA.MIL.BR	ATIVO	a84d2fab7b7d3c5a8e667843a145b8d9f941f252abae9f368c6b1c7f3de70b8b8c12f0d172268845	1	Não ativado	0.0.0.0	0	000000	000000
+114	17	15	5	10	12134414		MANOEL DE ANDRADE DOMINGOS	DOMINGOS	MANOEL.DOMINGOS@MARINHA.MIL.BR	ATIVO	844500653b41d365e4c9d65e5d5a15916e2dc910f4c9726a6c4072da71a2199822a4394624737b80	1	Não ativado	0.0.0.0	0	000000	000000
+113	4	7	4	12	14088975		MAURICIO BARROS DE SOUZA	MAURICIO BARROS	MAURICIO.BARROS@MARINHA.MIL.BR	ATIVO	2417507ea8ae316619ba1b9c2a6ad57e02ba53e912eb60344b218b3250f6c01e09ea121621112ebc	2	Não ativado	0.0.0.0	0	000000	000000
+117	27	12	4	34	97017841		CLEILSON BARBOSA BEZERRA	CLEILSON	CLEILSON@MARINHA.MIL.BR	ATIVO	d9e0a652c8ec4cfdaab0a81516db4aa87f7a1e21de3498666071151269a67060e0848f6a505df363	1	Não ativado	0.0.0.0	0	000000	000000
+118	19	8	2	12	10023381		EDUARDO CESAR TROTTA DE MORAIS	TROTTA	TROTTA@MARINHA.MIL.BR	ATIVO	383ee8df010bb0d79a567f2702e580caf28ca0fb15451a82fc3bdc6dc32a5db96f3591f53784c40b	2	Não ativado	0.0.0.0	0	000000	000000
+124	10	8	2	12	10027432		GUILHERME ARAUJO DE BRITO	GUILHERME BRITO	BRITO.GUILHERME@MARINHA.MIL.BR	ATIVO	29bc3cf438ad6c9b1bf2d62b8a71fd87808ef1afe140320f35e407226631c19b7a6f08c0a6beda92	2	Não ativado	0.0.0.0	0	000000	000000
+121	1	8	13	25	17098602		CARLOS AUGUSTO RODRIGUES DIAS	CARLOS AUGUSTO	C.DIAS@MARINHA.MIL.BR	ATIVO	508017483633ee899396415ae9a71749412e0232c01619e7f1c2ff1d930c34e2c9bccdd63194654d	2	Não ativado	0.0.0.0	0	000000	000000
+125	23	7	19	12	06182135		CLAUDENIZ FERNANDES GUIMARÃES	CLAUDENIZ	CLAUDENIZ.FERNANDES@MARINHA.MIL.BR	ATIVO	8940d6a6df2443735a27a23927816b73a1e434955897ab958a5b918fdde24da48b1695c9971ab682	2	Não ativado	0.0.0.0	0	000000	000000
+122	11	16	5	30	15007308		DANIEL GUILHERME SOARES DO NASCIMENTO	DANIEL GUILHERME	DANIEL.GUILHERME@MARINHA.MIL.BR	ATIVO	28bbdc34ce0e87e14f886abddeebbe732cfc6ff95be374173c3b2bf9356394e4084f0c49b8826be5	1	Não ativado	0.0.0.0	0	000000	000000
+115	16	15	5	10	13073672		IRRAYRAS FREIRE AUGUSTO	IRRAYRAS	IRRAYRAS@MARINHA.MIL.BR	ATIVO	95ef990e534ced8c38323c805345aed9b09526e220597682588468f47b0317f9c4b50996866087fe	1	Não ativado	0.0.0.0	0	000000	000000
+116	16	19	13	23	17047943		LUCAS MATEUS SALVIANO DA SILVA	SALVIANO	TESTE@MARINHA.MIL.BR	ATIVO	f36e176dd49ee1f98788832d99112ec511c376b020597682588468f47b0317f9c4b50996866087fe	3	Não ativado	0.0.0.0	0	000000	000000
+101	13	8	18	12	17056039		LARISSA PAZ LOUREIRO	LARISSA PAZ	LARISSA.PAZ@MARINHA.MIL.BR	ATIVO	6328d53a1335f75dc5e7fee95564242bd0b524926ba959bc445821e88c41a4595213c312c3bb487d	2	Não ativado	0.0.0.0	0	000000	000000
+89	1	14	5	10	07351836		ALEX CAETANO BARBOSA	ALEX	ALEX.CAETANO@MARINHA.MIL.BR	ATIVO	0a6873fd676fb06f30c22648d99069227b981464fb361f0fb2c9c0d9577683d4512269c8a4585444	1	Não ativado	0.0.0.0	0	000000	000000
+123	22	5	2	12	96030224		FERNANDO AZEVEDO OLIVEIRA	AZEVEDO	FERNANDO.AZEVEDO@MARINHA.MIL.BR	ATIVO	71c5546a0a105d806e1b740e9cafb10c74c15f938912cb0be37e23e74e97c9fc562991730d90e3d9	2	Não ativado	0.0.0.0	0	000000	000000
+126	18	16	4	27	16013085		MATHEUS DE ASSIS BASTOS	BASTOS	MATHEUS.BASTOS@MARINHA.MIL.BR	ATIVO	3fb7a54f0f6898ca365ca986105b4105f00fc6beae4f3a3d2fdf7c4fb5ce567e339dea896bda7013	1	Não ativado	0.0.0.0	0	8432163554	83133569
 \.
 
 
 --
--- TOC entry 3863 (class 0 OID 0)
+-- TOC entry 3955 (class 0 OID 0)
 -- Dependencies: 237
 -- Name: tb_pessoal_ti_idtb_pessoal_ti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
 
-SELECT pg_catalog.setval('tb_pessoal_ti_idtb_pessoal_ti_seq', 121, true);
+SELECT pg_catalog.setval('tb_pessoal_ti_idtb_pessoal_ti_seq', 126, true);
 
 
 --
--- TOC entry 3624 (class 0 OID 18438)
+-- TOC entry 3689 (class 0 OID 18438)
 -- Dependencies: 238
 -- Data for Name: tb_posto_grad; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -10194,7 +10753,7 @@ COPY tb_posto_grad (idtb_posto_grad, nome, sigla) FROM stdin;
 
 
 --
--- TOC entry 3864 (class 0 OID 0)
+-- TOC entry 3956 (class 0 OID 0)
 -- Dependencies: 239
 -- Name: tb_posto_grad_idtb_posto_grad_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -10203,7 +10762,7 @@ SELECT pg_catalog.setval('tb_posto_grad_idtb_posto_grad_seq', 21, true);
 
 
 --
--- TOC entry 3626 (class 0 OID 18443)
+-- TOC entry 3691 (class 0 OID 18443)
 -- Dependencies: 240
 -- Data for Name: tb_proc_fab; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -10216,7 +10775,7 @@ COPY tb_proc_fab (idtb_proc_fab, nome) FROM stdin;
 
 
 --
--- TOC entry 3865 (class 0 OID 0)
+-- TOC entry 3957 (class 0 OID 0)
 -- Dependencies: 241
 -- Name: tb_proc_fab_idtb_proc_fab_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -10225,7 +10784,7 @@ SELECT pg_catalog.setval('tb_proc_fab_idtb_proc_fab_seq', 3, true);
 
 
 --
--- TOC entry 3628 (class 0 OID 18448)
+-- TOC entry 3693 (class 0 OID 18448)
 -- Dependencies: 242
 -- Data for Name: tb_proc_modelo; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -10291,20 +10850,21 @@ COPY tb_proc_modelo (idtb_proc_modelo, idtb_proc_fab, modelo) FROM stdin;
 12	1	CORE I7-2500
 59	1	CORE I7-3612QM
 60	1	XEON BRONZE 3204
+61	1	CORE(TM) I5-4570
 \.
 
 
 --
--- TOC entry 3866 (class 0 OID 0)
+-- TOC entry 3958 (class 0 OID 0)
 -- Dependencies: 243
 -- Name: tb_proc_modelo_idtb_proc_modelo_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
 
-SELECT pg_catalog.setval('tb_proc_modelo_idtb_proc_modelo_seq', 60, true);
+SELECT pg_catalog.setval('tb_proc_modelo_idtb_proc_modelo_seq', 61, true);
 
 
 --
--- TOC entry 3630 (class 0 OID 18453)
+-- TOC entry 3695 (class 0 OID 18453)
 -- Dependencies: 244
 -- Data for Name: tb_qualificacao_clti; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -10325,7 +10885,6 @@ COPY tb_qualificacao_clti (idtb_qualificacao_clti, nome_curso, instituicao, data
 27	NETWORK DEFENSE ESSENTIALS	ENADCIBER	\N	10	LIVRE	R$ 0,00	EAD	EM ANDAMENTO	11
 29	NETWORK DEFENSE ESSENTIALS	ENADCIBER	\N	10	LIVRE	R$ 0,00	EAD	EM ANDAMENTO	15
 30	NETWORK DEFENSE ESSENTIALS	ENADCIBER	\N	10	LIVRE	R$ 0,00	EAD	EM ANDAMENTO	4
-31	NETWORK DEFENSE ESSENTIALS	ENADCIBER	\N	10	LIVRE	R$ 0,00	EAD	EM ANDAMENTO	14
 32	NETWORK DEFENSE ESSENTIALS	ENADCIBER	\N	10	LIVRE	R$ 0,00	EAD	EM ANDAMENTO	6
 33	NETWORK DEFENSE ESSENTIALS	ENADCIBER	\N	10	LIVRE	R$ 0,00	EAD	EM ANDAMENTO	5
 34	CYBERSECURITY ESSENTIALS	ESCOM-EB	\N	30	LIVRE	R$ 0,00	EAD	EM ANDAMENTO	16
@@ -10356,11 +10915,12 @@ COPY tb_qualificacao_clti (idtb_qualificacao_clti, nome_curso, instituicao, data
 44	CURSO EXPEDITO DE TÉCNICA DE ENSINO (C-EXP-TE)	EAMCE	\N	70	EXPEDITO	R$ 0,00	PRESENCIAL	EM ANDAMENTO	4
 45	CURSO EXPEDITO DE TÉCNICA DE ENSINO (C-EXP-TE)	EAMCE	\N	70	EXPEDITO	R$ 0,00	PRESENCIAL	EM ANDAMENTO	9
 46	PROTEÇÃO DE DADOS PESSOAIS NO SETOR PÚBLICO	ENAP	2022-05-26	15	LIVRE	R$ 0,00	EAD	CONCLUÍDO	2
+31	NETWORK DEFENSE ESSENTIALS	ENADCIBER	\N	10	LIVRE	R$ 0,00	EAD	CONCLUÍDO	14
 \.
 
 
 --
--- TOC entry 3867 (class 0 OID 0)
+-- TOC entry 3959 (class 0 OID 0)
 -- Dependencies: 245
 -- Name: tb_qualificacao_clti_idtb_qualificacao_clti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -10369,7 +10929,7 @@ SELECT pg_catalog.setval('tb_qualificacao_clti_idtb_qualificacao_clti_seq', 46, 
 
 
 --
--- TOC entry 3632 (class 0 OID 18461)
+-- TOC entry 3697 (class 0 OID 18461)
 -- Dependencies: 246
 -- Data for Name: tb_qualificacao_ti; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -10379,7 +10939,7 @@ COPY tb_qualificacao_ti (idtb_qualificacao_ti, nome_curso, instituicao, data_con
 
 
 --
--- TOC entry 3868 (class 0 OID 0)
+-- TOC entry 3960 (class 0 OID 0)
 -- Dependencies: 247
 -- Name: tb_qualificacao_ti_idtb_qualificacao_ti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -10388,8 +10948,8 @@ SELECT pg_catalog.setval('tb_qualificacao_ti_idtb_qualificacao_ti_seq', 4, true)
 
 
 --
--- TOC entry 3659 (class 0 OID 19166)
--- Dependencies: 290
+-- TOC entry 3724 (class 0 OID 19166)
+-- Dependencies: 289
 -- Data for Name: tb_range_ip; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
 
@@ -10398,8 +10958,8 @@ COPY tb_range_ip (idtb_range_ip, idtb_om_apoiadas, sub_rede, mascara) FROM stdin
 
 
 --
--- TOC entry 3869 (class 0 OID 0)
--- Dependencies: 289
+-- TOC entry 3961 (class 0 OID 0)
+-- Dependencies: 288
 -- Name: tb_range_ip_idtb_range_ip_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
 
@@ -10407,7 +10967,7 @@ SELECT pg_catalog.setval('tb_range_ip_idtb_range_ip_seq', 1, false);
 
 
 --
--- TOC entry 3634 (class 0 OID 18469)
+-- TOC entry 3699 (class 0 OID 18469)
 -- Dependencies: 248
 -- Data for Name: tb_registro_log; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -10417,7 +10977,7 @@ COPY tb_registro_log (idtb_registro_log, data_acao, acao, nip_cps_resp) FROM std
 
 
 --
--- TOC entry 3870 (class 0 OID 0)
+-- TOC entry 3962 (class 0 OID 0)
 -- Dependencies: 249
 -- Name: tb_registro_log_idtb_registro_log_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -10426,355 +10986,426 @@ SELECT pg_catalog.setval('tb_registro_log_idtb_registro_log_seq', 1, false);
 
 
 --
--- TOC entry 3636 (class 0 OID 18474)
+-- TOC entry 3701 (class 0 OID 18474)
 -- Dependencies: 250
 -- Data for Name: tb_rel_servico; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
 
-COPY tb_rel_servico (idtb_rel_servico, sup_sai_servico, sup_entra_servico, num_rel, data_entra_servico, data_sai_servico, cel_funcional, sit_servidores, sit_backup, status) FROM stdin;
-26	8	5	26	2021-08-18	2021-08-19	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-27	5	3	27	2021-08-19	2021-08-20	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-15	8	5	15	2021-08-03	2021-08-04	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-16	5	3	16	2021-08-04	2021-08-05	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-35	9	4	35	2021-08-31	2021-09-01	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-17	3	8	17	2021-08-05	2021-08-06	Funcionando normalmente	Operando normalmente	Com observações	Sup. que entra ciente
-2	8	3	2	2021-07-15	2021-07-16	Funcionando normalmente	Operando normalmente	Executado normalmente	Relatório aprovado
-4	4	9	4	2021-07-19	2021-07-20	Funcionando normalmente	Operando normalmente	Executado normalmente	Relatório aprovado
-28	3	9	28	2021-08-20	2021-08-23	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-18	8	9	18	2021-08-06	2021-08-09	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-19	9	8	19	2021-08-09	2021-08-10	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-8	9	4	8	2021-07-23	2021-07-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-20	8	5	20	2021-08-10	2021-08-11	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-9	4	8	9	2021-07-26	2021-07-27	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-29	9	4	29	2021-08-23	2021-08-24	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-21	5	3	21	2021-08-11	2021-08-12	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-10	8	3	10	2021-07-27	2021-07-28	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-11	3	5	11	2021-07-28	2021-07-29	Funcionando normalmente	Com observações	Executado normalmente	Sup. que entra ciente
-1	3	8	1	2021-07-14	2021-07-15	Funcionando normalmente	Operando normalmente	Executado normalmente	Relatório aprovado
-3	3	4	3	2021-07-16	2021-07-19	Funcionando normalmente	Operando normalmente	Executado normalmente	Relatório aprovado
-5	9	5	5	2021-07-20	2021-07-21	Funcionando normalmente	Operando normalmente	Executado normalmente	Relatório aprovado
-6	5	3	6	2021-07-21	2021-07-22	Funcionando normalmente	Operando normalmente	Executado normalmente	Relatório aprovado
-7	3	9	7	2021-07-22	2021-07-23	Funcionando normalmente	Operando normalmente	Executado normalmente	Relatório aprovado
-12	5	4	12	2021-07-29	2021-07-30	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-22	3	5	22	2021-08-12	2021-08-13	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-13	4	9	13	2021-07-30	2021-08-02	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-14	9	8	14	2021-08-02	2021-08-03	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-23	5	9	23	2021-08-13	2021-08-16	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-30	4	8	30	2021-08-24	2021-08-25	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-24	9	4	24	2021-08-16	2021-08-17	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-36	4	8	36	2021-09-01	2021-09-02	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-25	4	8	25	2021-08-17	2021-08-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-43	8	3	43	2021-09-10	2021-09-13	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-37	8	4	37	2021-09-02	2021-09-03	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-32	5	9	32	2021-08-26	2021-08-27	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-33	9	3	33	2021-08-27	2021-08-30	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-31	8	5	31	2021-08-25	2021-08-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-40	3	9	40	2021-09-07	2021-09-08	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-34	3	9	34	2021-08-30	2021-08-30	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-41	9	4	41	2021-09-08	2021-09-09	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-38	4	8	38	2021-09-03	2021-09-06	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-45	9	4	45	2021-09-14	2021-09-15	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-39	8	3	39	2021-09-06	2021-09-07	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-42	4	8	42	2021-09-09	2021-09-10	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-44	3	9	44	2021-09-13	2021-09-14	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-46	4	8	46	2021-09-15	2021-09-16	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-48	3	5	48	2021-09-17	2021-09-20	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-47	8	3	47	2021-09-16	2021-09-17	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-49	5	3	49	2021-09-20	2021-09-21	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-50	3	9	50	2021-09-21	2021-09-22	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-51	9	4	51	2021-09-22	2021-09-23	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-52	4	9	52	2021-09-23	2021-09-24	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-53	9	8	53	2021-09-24	2021-09-27	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-82	5	4	82	2021-11-04	2021-11-05	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-54	8	3	54	2021-09-27	2021-09-28	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-71	8	9	71	2021-10-20	2021-10-21	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-72	9	3	72	2021-10-21	2021-10-22	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-56	3	9	56	2021-09-29	2021-09-30	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-55	5	3	55	2021-09-28	2021-09-29	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-89	3	8	89	2021-11-15	2021-11-16	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-58	5	4	58	2021-10-01	2021-10-04	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-73	3	9	73	2021-10-22	2021-10-25	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-59	4	8	59	2021-10-04	2021-10-05	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-57	9	5	57	2021-09-30	2021-10-01	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-60	8	5	60	2021-10-05	2021-10-06	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-83	4	5	83	2021-11-05	2021-11-08	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-61	5	3	61	2021-10-06	2021-10-07	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-62	3	8	62	2021-10-07	2021-10-08	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-74	9	8	74	2021-10-25	2021-10-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-63	8	5	63	2021-10-08	2021-10-11	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-75	8	9	75	2021-10-26	2021-10-27	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-65	4	8	65	2021-10-12	2021-10-13	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-66	8	9	66	2021-10-13	2021-10-14	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-64	5	4	64	2021-10-11	2021-10-12	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-67	9	4	67	2021-10-14	2021-10-15	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-68	4	9	68	2021-10-15	2021-10-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-84	5	4	84	2021-11-08	2021-11-09	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-69	9	4	69	2021-10-18	2021-10-19	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-70	4	8	70	2021-10-19	2021-10-20	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-78	9	5	78	2021-10-29	2021-11-01	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-79	5	3	79	2021-11-01	2021-11-02	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-76	9	3	76	2021-10-27	2021-10-28	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-90	8	5	90	2021-11-16	2021-11-17	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-77	3	9	77	2021-10-28	2021-10-29	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-80	3	9	80	2021-11-02	2021-11-03	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-85	4	8	85	2021-11-09	2021-11-10	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-81	9	5	81	2021-11-03	2021-11-04	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-86	8	3	86	2021-11-10	2021-11-11	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-91	5	3	91	2021-11-17	2021-11-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-87	3	8	87	2021-11-11	2021-11-12	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-88	8	3	88	2021-11-12	2021-11-15	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-94	9	4	94	2021-11-22	2021-11-23	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-97	5	3	97	2021-11-25	2021-11-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-92	3	5	92	2021-11-18	2021-11-19	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-95	4	8	95	2021-11-23	2021-11-24	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-93	5	9	93	2021-11-19	2021-11-22	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-96	8	5	96	2021-11-24	2021-11-25	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-98	3	9	98	2021-11-26	2021-11-29	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-99	9	4	99	2021-11-29	2021-11-30	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-100	4	8	100	2021-11-30	2021-12-01	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-101	8	5	101	2021-12-01	2021-12-02	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-102	5	3	102	2021-12-02	2021-12-03	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-103	3	9	103	2021-12-03	2021-12-06	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-104	9	4	104	2021-12-06	2021-12-07	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-105	4	3	105	2021-12-07	2021-12-08	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-107	5	4	107	2021-12-09	2021-12-10	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-108	4	3	108	2021-12-10	2021-12-13	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-124	5	3	124	2022-01-11	2022-01-12	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-109	3	9	109	2021-12-13	2021-12-14	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-106	3	5	106	2021-12-08	2021-12-09	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-110	9	4	110	2021-12-14	2021-12-15	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-122	9	8	122	2022-01-07	2022-01-10	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-125	3	5	125	2022-01-12	2022-01-13	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-111	4	3	111	2021-12-15	2021-12-16	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-146	8	5	145	2022-02-09	2022-02-10	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-112	3	5	112	2021-12-16	2021-12-17	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-113	4	5	113	2021-12-20	2021-12-23	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-126	5	3	126	2022-01-13	2022-01-14	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-114	5	9	114	2021-12-23	2021-12-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-135	8	4	135	2022-01-26	2022-01-27	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-115	9	3	115	2021-12-26	2021-12-28	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-127	3	5	127	2022-01-14	2022-01-17	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-116	3	8	116	2021-12-28	2021-12-31	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-117	8	5	117	2021-12-31	2022-01-03	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-118	5	8	118	2022-01-03	2022-01-04	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-128	5	3	128	2022-01-17	2022-01-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-119	8	5	119	2022-01-04	2022-01-05	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-120	5	3	120	2022-01-05	2022-01-06	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-121	3	9	121	2022-01-06	2022-01-07	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-136	4	8	136	2022-01-27	2022-01-28	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-129	3	5	129	2022-01-18	2022-01-19	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-123	8	5	123	2022-01-10	2022-01-11	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-130	5	3	130	2022-01-19	2022-01-20	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-131	3	4	131	2022-01-20	2022-01-21	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-137	8	4	137	2022-01-28	2022-01-31	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-132	4	9	132	2022-01-21	2022-01-24	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-133	9	4	133	2022-01-24	2022-01-25	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-142	5	9	142	2022-02-04	2022-02-07	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-134	4	8	134	2022-01-25	2022-01-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-138	4	8	138	2022-01-31	2022-02-01	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-139	8	4	139	2022-02-01	2022-02-02	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-150	5	3	149	2022-02-15	2022-02-16	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-140	4	8	140	2022-02-02	2022-02-03	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-141	8	5	141	2022-02-03	2022-02-04	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-144	9	4	144	2022-02-07	2022-02-08	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-143	4	8	143	2022-02-08	2022-02-09	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-147	5	9	146	2022-02-10	2022-02-11	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-149	4	5	148	2022-02-14	2022-02-15	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-148	9	4	147	2022-02-11	2022-02-14	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-151	3	6	150	2022-02-16	2022-02-17	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-152	6	3	151	2022-02-17	2022-02-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-159	14	9	158	2022-02-28	2022-03-01	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-154	9	4	153	2022-02-21	2022-02-22	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-153	3	9	152	2022-02-18	2022-02-21	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-155	4	3	154	2022-02-22	2022-02-23	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-156	3	6	155	2022-02-23	2022-02-24	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-158	3	14	157	2022-02-25	2022-02-28	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-157	6	3	156	2022-02-24	2022-02-25	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-199	9	4	198	2022-04-27	2022-04-28	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-160	9	3	159	2022-03-01	2022-03-02	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-189	3	6	188	2022-04-11	2022-04-12	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-196	4	9	195	2022-04-21	2022-04-22	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-190	6	14	189	2022-04-12	2022-04-13	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-161	3	14	160	2022-03-02	2022-03-03	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-182	4	3	181	2022-03-31	2022-04-01	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-162	14	6	161	2022-03-03	2022-03-04	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-163	6	9	162	2022-03-04	2022-03-07	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-183	3	6	182	2022-04-01	2022-04-04	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-164	9	3	163	2022-03-07	2022-03-08	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-165	3	6	164	2022-03-08	2022-03-09	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-166	6	14	165	2022-03-09	2022-03-10	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-167	14	9	166	2022-03-10	2022-03-11	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-184	6	14	183	2022-04-04	2022-04-05	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-172	3	14	171	2022-03-17	2022-03-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-174	6	14	173	2022-03-21	2022-03-22	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-173	14	6	172	2022-03-18	2022-03-21	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-175	14	9	174	2022-03-22	2022-03-23	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-168	9	3	167	2022-03-11	2022-03-14	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-169	3	6	168	2022-03-14	2022-03-15	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-170	6	9	169	2022-03-15	2022-03-16	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-180	14	9	179	2022-03-29	2022-03-30	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-171	9	3	170	2022-03-16	2022-03-17	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-185	14	9	184	2022-04-05	2022-04-06	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-192	6	4	191	2022-04-15	2022-04-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-176	9	3	175	2022-03-23	2022-03-24	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-177	3	4	176	2022-03-24	2022-03-25	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-181	9	4	180	2022-03-30	2022-03-31	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-178	4	6	177	2022-03-25	2022-03-28	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-186	9	4	185	2022-04-06	2022-04-07	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-179	6	14	178	2022-03-28	2022-03-29	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-187	4	14	186	2022-04-07	2022-04-08	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-197	9	3	196	2022-04-25	2022-04-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-188	14	3	187	2022-04-08	2022-04-11	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-191	14	9	190	2022-04-13	2022-04-14	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-193	4	9	192	2022-04-18	2022-04-19	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-200	3	4	199	2022-04-28	2022-04-29	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-194	3	14	193	2022-04-19	2022-04-20	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-195	14	4	194	2022-04-20	2022-04-21	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-198	14	9	197	2022-04-26	2022-04-27	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-202	6	14	201	2022-05-02	2022-05-03	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-204	9	4	203	2022-05-04	2022-05-05	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-201	4	14	200	2022-04-29	2022-05-02	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-203	14	9	202	2022-05-03	2022-05-04	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-205	4	3	204	2022-05-05	2022-05-06	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-206	3	14	205	2022-05-06	2022-05-09	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-207	14	6	206	2022-05-09	2022-05-10	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-208	6	9	207	2022-05-10	2022-05-11	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-209	9	4	208	2022-05-11	2022-05-12	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-211	6	3	210	2022-05-13	2022-05-16	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-210	4	6	209	2022-05-12	2022-05-13	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-212	3	6	211	2022-05-16	2022-05-17	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-215	6	14	214	2022-05-17	2022-05-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-214	6	14	213	2022-05-17	2022-05-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-213	9	14	212	2022-05-17	2022-05-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-218	14	4	217	2022-05-20	2022-05-23	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-217	9	14	216	2022-05-19	2022-05-20	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-219	4	3	218	2022-05-23	2022-05-24	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-216	14	9	215	2022-05-18	2022-05-19	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-221	6	14	220	2022-05-25	2022-05-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-220	3	6	219	2022-05-24	2022-05-25	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-222	14	9	221	2022-05-26	2022-05-27	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-249	4	3	248	2022-07-04	2022-07-05	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-223	9	4	222	2022-05-27	2022-05-30	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-239	3	12	238	2022-06-20	2022-06-21	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-224	4	3	223	2022-05-30	2022-05-31	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-225	3	6	224	2022-05-31	2022-06-01	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-256	3	6	255	2022-07-13	2022-07-14	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-227	14	3	226	2022-06-02	2022-06-03	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-226	6	14	225	2022-06-01	2022-06-02	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-228	3	12	227	2022-06-03	2022-06-06	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-229	12	6	228	2022-06-06	2022-06-07	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-230	6	14	229	2022-06-07	2022-06-08	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-242	12	3	241	2022-06-23	2022-06-24	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-231	14	3	230	2022-06-08	2022-06-09	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-232	3	12	231	2022-06-09	2022-06-10	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-250	3	6	249	2022-07-05	2022-07-06	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-233	12	6	232	2022-06-10	2022-06-13	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-234	6	14	233	2022-06-13	2022-06-14	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-248	9	14	247	2022-07-01	2022-07-04	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-235	14	3	234	2022-06-14	2022-06-15	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-240	12	14	239	2022-06-21	2022-06-22	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-236	3	12	235	2022-06-15	2022-06-16	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-243	3	14	242	2022-06-24	2022-06-27	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-237	12	14	236	2022-06-16	2022-06-17	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-238	14	3	237	2022-06-17	2022-06-20	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-244	14	9	243	2022-06-27	2022-06-28	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-245	9	4	244	2022-06-28	2022-06-29	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-246	4	3	245	2022-06-29	2022-06-30	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-241	14	12	240	2022-06-22	2022-06-23	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-255	4	3	254	2022-07-12	2022-07-13	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-257	6	3	256	2022-07-14	2022-07-15	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-251	6	14	250	2022-07-06	2022-07-07	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-252	14	4	251	2022-07-07	2022-07-08	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-254	9	4	253	2022-07-11	2022-07-12	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-247	3	9	246	2022-06-30	2022-07-01	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-253	4	9	252	2022-07-08	2022-07-11	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-261	4	3	260	2022-07-20	2022-07-21	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-259	14	9	258	2022-07-18	2022-07-19	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-260	9	4	259	2022-07-19	2022-07-20	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-258	3	14	257	2022-07-15	2022-07-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-262	3	14	261	2022-07-21	2022-07-22	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-263	14	17	262	2022-07-22	2022-07-25	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-265	4	9	264	2022-07-26	2022-07-27	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-264	17	4	263	2022-07-25	2022-07-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-266	9	3	265	2022-07-27	2022-07-28	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-268	17	14	267	2022-07-29	2022-08-01	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-274	17	9	273	2022-08-08	2022-08-09	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-270	17	9	269	2022-08-02	2022-08-03	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-271	9	3	270	2022-08-03	2022-08-04	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-272	3	9	271	2022-08-04	2022-08-05	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-267	3	17	266	2022-07-28	2022-07-29	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-273	9	17	272	2022-08-05	2022-08-08	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-269	14	17	268	2022-08-01	2022-08-02	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-275	9	3	274	2022-08-09	2022-08-10	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-276	3	17	275	2022-08-10	2022-08-11	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-277	17	3	276	2022-08-11	2022-08-12	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-315	12	14	314	2022-10-05	2022-10-06	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-278	3	12	277	2022-08-12	2022-08-15	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-288	14	9	287	2022-08-26	2022-08-29	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-279	9	3	278	2022-08-15	2022-08-16	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-295	14	3	294	2022-09-06	2022-09-07	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-280	3	17	279	2022-08-16	2022-08-17	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-281	17	3	280	2022-08-17	2022-08-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-297	17	3	296	2022-09-08	2022-09-09	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-282	3	12	281	2022-08-18	2022-08-19	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-289	9	12	288	2022-08-29	2022-08-30	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-290	12	3	289	2022-08-30	2022-08-31	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-287	17	14	286	2022-08-25	2022-08-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-304	3	14	303	2022-09-19	2022-09-20	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-283	12	17	282	2022-08-19	2022-08-22	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-292	14	17	291	2022-09-01	2022-09-02	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-310	9	3	309	2022-09-27	2022-09-28	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-284	17	12	283	2022-08-22	2022-08-23	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-293	17	9	292	2022-09-02	2022-09-05	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-291	3	14	290	2022-08-31	2022-09-01	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-294	9	14	293	2022-09-05	2022-09-06	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-285	12	17	284	2022-08-23	2022-08-24	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-286	17	3	285	2022-08-24	2022-08-25	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-306	9	3	305	2022-09-21	2022-09-22	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-296	3	17	295	2022-09-07	2022-09-08	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-305	14	9	304	2022-09-20	2022-09-21	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-307	3	9	306	2022-09-22	2022-09-23	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-298	3	9	297	2022-09-09	2022-09-12	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-300	14	9	299	2022-09-13	2022-09-14	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-301	17	9	300	2022-09-14	2022-09-15	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-308	9	14	307	2022-09-23	2022-09-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-299	9	14	298	2022-09-12	2022-09-13	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-302	17	9	301	2022-09-15	2022-09-16	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-303	12	3	302	2022-09-16	2022-09-19	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-312	12	14	311	2022-09-29	2022-09-30	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-309	14	9	308	2022-09-26	2022-09-27	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-313	9	3	312	2022-10-03	2022-10-04	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-311	3	12	310	2022-09-28	2022-09-29	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-317	17	12	316	2022-10-07	2022-10-10	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-316	14	17	315	2022-10-06	2022-10-07	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-314	3	9	313	2022-10-04	2022-10-05	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-318	12	3	317	2022-10-10	2022-10-11	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-322	12	17	321	2022-10-14	2022-10-17	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-319	3	12	318	2022-10-11	2022-10-12	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-323	17	3	322	2022-10-17	2022-10-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-321	12	3	320	2022-10-13	2022-10-14	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-324	3	12	323	2022-10-18	2022-10-19	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-320	12	14	319	2022-10-12	2022-10-13	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-325	12	14	324	2022-10-19	2022-10-20	Funcionando normalmente	Operando normalmente	Executado normalmente	Encerrado
-327	3	17	326	2022-10-21	2022-10-24	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-326	14	3	325	2022-10-20	2022-10-21	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-328	17	3	327	2022-10-24	2022-10-25	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-329	3	12	328	2022-10-25	2022-10-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
-330	3	17	329	2022-10-26	2022-10-27	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente
+COPY tb_rel_servico (idtb_rel_servico, sup_sai_servico, sup_entra_servico, num_rel, data_entra_servico, data_sai_servico, cel_funcional, sit_servidores, sit_backup, status, num_midia_bakcup) FROM stdin;
+26	8	5	26	2021-08-18	2021-08-19	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+27	5	3	27	2021-08-19	2021-08-20	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+15	8	5	15	2021-08-03	2021-08-04	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+16	5	3	16	2021-08-04	2021-08-05	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+35	9	4	35	2021-08-31	2021-09-01	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+17	3	8	17	2021-08-05	2021-08-06	Funcionando normalmente	Operando normalmente	Com observações	Sup. que entra ciente	1
+2	8	3	2	2021-07-15	2021-07-16	Funcionando normalmente	Operando normalmente	Executado normalmente	Relatório aprovado	1
+4	4	9	4	2021-07-19	2021-07-20	Funcionando normalmente	Operando normalmente	Executado normalmente	Relatório aprovado	1
+28	3	9	28	2021-08-20	2021-08-23	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+18	8	9	18	2021-08-06	2021-08-09	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+19	9	8	19	2021-08-09	2021-08-10	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+8	9	4	8	2021-07-23	2021-07-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+20	8	5	20	2021-08-10	2021-08-11	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+9	4	8	9	2021-07-26	2021-07-27	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+29	9	4	29	2021-08-23	2021-08-24	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+21	5	3	21	2021-08-11	2021-08-12	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+10	8	3	10	2021-07-27	2021-07-28	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+11	3	5	11	2021-07-28	2021-07-29	Funcionando normalmente	Com observações	Executado normalmente	Sup. que entra ciente	1
+1	3	8	1	2021-07-14	2021-07-15	Funcionando normalmente	Operando normalmente	Executado normalmente	Relatório aprovado	1
+3	3	4	3	2021-07-16	2021-07-19	Funcionando normalmente	Operando normalmente	Executado normalmente	Relatório aprovado	1
+5	9	5	5	2021-07-20	2021-07-21	Funcionando normalmente	Operando normalmente	Executado normalmente	Relatório aprovado	1
+6	5	3	6	2021-07-21	2021-07-22	Funcionando normalmente	Operando normalmente	Executado normalmente	Relatório aprovado	1
+7	3	9	7	2021-07-22	2021-07-23	Funcionando normalmente	Operando normalmente	Executado normalmente	Relatório aprovado	1
+12	5	4	12	2021-07-29	2021-07-30	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+22	3	5	22	2021-08-12	2021-08-13	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+13	4	9	13	2021-07-30	2021-08-02	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+14	9	8	14	2021-08-02	2021-08-03	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+23	5	9	23	2021-08-13	2021-08-16	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+30	4	8	30	2021-08-24	2021-08-25	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+24	9	4	24	2021-08-16	2021-08-17	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+36	4	8	36	2021-09-01	2021-09-02	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+25	4	8	25	2021-08-17	2021-08-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+43	8	3	43	2021-09-10	2021-09-13	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+37	8	4	37	2021-09-02	2021-09-03	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+32	5	9	32	2021-08-26	2021-08-27	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+33	9	3	33	2021-08-27	2021-08-30	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+31	8	5	31	2021-08-25	2021-08-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+40	3	9	40	2021-09-07	2021-09-08	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+34	3	9	34	2021-08-30	2021-08-30	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+41	9	4	41	2021-09-08	2021-09-09	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+38	4	8	38	2021-09-03	2021-09-06	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+45	9	4	45	2021-09-14	2021-09-15	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+39	8	3	39	2021-09-06	2021-09-07	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+42	4	8	42	2021-09-09	2021-09-10	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+44	3	9	44	2021-09-13	2021-09-14	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+46	4	8	46	2021-09-15	2021-09-16	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+48	3	5	48	2021-09-17	2021-09-20	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+47	8	3	47	2021-09-16	2021-09-17	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+49	5	3	49	2021-09-20	2021-09-21	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+50	3	9	50	2021-09-21	2021-09-22	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+51	9	4	51	2021-09-22	2021-09-23	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+52	4	9	52	2021-09-23	2021-09-24	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+53	9	8	53	2021-09-24	2021-09-27	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+82	5	4	82	2021-11-04	2021-11-05	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+54	8	3	54	2021-09-27	2021-09-28	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+71	8	9	71	2021-10-20	2021-10-21	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+72	9	3	72	2021-10-21	2021-10-22	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+56	3	9	56	2021-09-29	2021-09-30	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+55	5	3	55	2021-09-28	2021-09-29	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+89	3	8	89	2021-11-15	2021-11-16	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+58	5	4	58	2021-10-01	2021-10-04	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+73	3	9	73	2021-10-22	2021-10-25	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+59	4	8	59	2021-10-04	2021-10-05	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+57	9	5	57	2021-09-30	2021-10-01	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+60	8	5	60	2021-10-05	2021-10-06	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+83	4	5	83	2021-11-05	2021-11-08	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+61	5	3	61	2021-10-06	2021-10-07	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+62	3	8	62	2021-10-07	2021-10-08	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+74	9	8	74	2021-10-25	2021-10-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+63	8	5	63	2021-10-08	2021-10-11	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+75	8	9	75	2021-10-26	2021-10-27	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+65	4	8	65	2021-10-12	2021-10-13	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+66	8	9	66	2021-10-13	2021-10-14	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+64	5	4	64	2021-10-11	2021-10-12	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+67	9	4	67	2021-10-14	2021-10-15	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+68	4	9	68	2021-10-15	2021-10-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+84	5	4	84	2021-11-08	2021-11-09	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+69	9	4	69	2021-10-18	2021-10-19	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+70	4	8	70	2021-10-19	2021-10-20	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+78	9	5	78	2021-10-29	2021-11-01	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+79	5	3	79	2021-11-01	2021-11-02	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+76	9	3	76	2021-10-27	2021-10-28	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+90	8	5	90	2021-11-16	2021-11-17	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+77	3	9	77	2021-10-28	2021-10-29	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+80	3	9	80	2021-11-02	2021-11-03	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+85	4	8	85	2021-11-09	2021-11-10	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+81	9	5	81	2021-11-03	2021-11-04	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+86	8	3	86	2021-11-10	2021-11-11	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+91	5	3	91	2021-11-17	2021-11-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+87	3	8	87	2021-11-11	2021-11-12	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+88	8	3	88	2021-11-12	2021-11-15	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+94	9	4	94	2021-11-22	2021-11-23	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+97	5	3	97	2021-11-25	2021-11-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+92	3	5	92	2021-11-18	2021-11-19	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+95	4	8	95	2021-11-23	2021-11-24	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+93	5	9	93	2021-11-19	2021-11-22	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+96	8	5	96	2021-11-24	2021-11-25	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+98	3	9	98	2021-11-26	2021-11-29	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+99	9	4	99	2021-11-29	2021-11-30	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+100	4	8	100	2021-11-30	2021-12-01	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+101	8	5	101	2021-12-01	2021-12-02	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+102	5	3	102	2021-12-02	2021-12-03	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+103	3	9	103	2021-12-03	2021-12-06	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+104	9	4	104	2021-12-06	2021-12-07	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+105	4	3	105	2021-12-07	2021-12-08	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+107	5	4	107	2021-12-09	2021-12-10	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+108	4	3	108	2021-12-10	2021-12-13	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+124	5	3	124	2022-01-11	2022-01-12	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+109	3	9	109	2021-12-13	2021-12-14	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+106	3	5	106	2021-12-08	2021-12-09	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+110	9	4	110	2021-12-14	2021-12-15	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+122	9	8	122	2022-01-07	2022-01-10	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+125	3	5	125	2022-01-12	2022-01-13	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+111	4	3	111	2021-12-15	2021-12-16	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+146	8	5	145	2022-02-09	2022-02-10	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+112	3	5	112	2021-12-16	2021-12-17	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+113	4	5	113	2021-12-20	2021-12-23	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+126	5	3	126	2022-01-13	2022-01-14	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+114	5	9	114	2021-12-23	2021-12-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+135	8	4	135	2022-01-26	2022-01-27	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+115	9	3	115	2021-12-26	2021-12-28	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+127	3	5	127	2022-01-14	2022-01-17	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+116	3	8	116	2021-12-28	2021-12-31	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+117	8	5	117	2021-12-31	2022-01-03	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+118	5	8	118	2022-01-03	2022-01-04	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+128	5	3	128	2022-01-17	2022-01-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+119	8	5	119	2022-01-04	2022-01-05	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+120	5	3	120	2022-01-05	2022-01-06	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+121	3	9	121	2022-01-06	2022-01-07	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+136	4	8	136	2022-01-27	2022-01-28	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+129	3	5	129	2022-01-18	2022-01-19	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+123	8	5	123	2022-01-10	2022-01-11	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+130	5	3	130	2022-01-19	2022-01-20	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+131	3	4	131	2022-01-20	2022-01-21	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+137	8	4	137	2022-01-28	2022-01-31	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+132	4	9	132	2022-01-21	2022-01-24	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+133	9	4	133	2022-01-24	2022-01-25	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+142	5	9	142	2022-02-04	2022-02-07	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+134	4	8	134	2022-01-25	2022-01-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+138	4	8	138	2022-01-31	2022-02-01	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+139	8	4	139	2022-02-01	2022-02-02	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+150	5	3	149	2022-02-15	2022-02-16	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+140	4	8	140	2022-02-02	2022-02-03	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+141	8	5	141	2022-02-03	2022-02-04	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+144	9	4	144	2022-02-07	2022-02-08	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+143	4	8	143	2022-02-08	2022-02-09	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+147	5	9	146	2022-02-10	2022-02-11	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+149	4	5	148	2022-02-14	2022-02-15	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+148	9	4	147	2022-02-11	2022-02-14	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+151	3	6	150	2022-02-16	2022-02-17	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+152	6	3	151	2022-02-17	2022-02-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+159	14	9	158	2022-02-28	2022-03-01	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+154	9	4	153	2022-02-21	2022-02-22	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+153	3	9	152	2022-02-18	2022-02-21	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+155	4	3	154	2022-02-22	2022-02-23	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+156	3	6	155	2022-02-23	2022-02-24	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+158	3	14	157	2022-02-25	2022-02-28	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+157	6	3	156	2022-02-24	2022-02-25	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+199	9	4	198	2022-04-27	2022-04-28	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+160	9	3	159	2022-03-01	2022-03-02	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+189	3	6	188	2022-04-11	2022-04-12	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+196	4	9	195	2022-04-21	2022-04-22	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+190	6	14	189	2022-04-12	2022-04-13	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+161	3	14	160	2022-03-02	2022-03-03	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+182	4	3	181	2022-03-31	2022-04-01	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+162	14	6	161	2022-03-03	2022-03-04	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+163	6	9	162	2022-03-04	2022-03-07	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+183	3	6	182	2022-04-01	2022-04-04	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+164	9	3	163	2022-03-07	2022-03-08	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+165	3	6	164	2022-03-08	2022-03-09	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+166	6	14	165	2022-03-09	2022-03-10	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+167	14	9	166	2022-03-10	2022-03-11	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+184	6	14	183	2022-04-04	2022-04-05	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+172	3	14	171	2022-03-17	2022-03-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+174	6	14	173	2022-03-21	2022-03-22	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+173	14	6	172	2022-03-18	2022-03-21	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+175	14	9	174	2022-03-22	2022-03-23	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+168	9	3	167	2022-03-11	2022-03-14	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+169	3	6	168	2022-03-14	2022-03-15	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+170	6	9	169	2022-03-15	2022-03-16	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+180	14	9	179	2022-03-29	2022-03-30	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+171	9	3	170	2022-03-16	2022-03-17	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+185	14	9	184	2022-04-05	2022-04-06	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+192	6	4	191	2022-04-15	2022-04-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+176	9	3	175	2022-03-23	2022-03-24	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+177	3	4	176	2022-03-24	2022-03-25	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+181	9	4	180	2022-03-30	2022-03-31	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+178	4	6	177	2022-03-25	2022-03-28	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+186	9	4	185	2022-04-06	2022-04-07	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+179	6	14	178	2022-03-28	2022-03-29	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+187	4	14	186	2022-04-07	2022-04-08	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+197	9	3	196	2022-04-25	2022-04-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+188	14	3	187	2022-04-08	2022-04-11	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+191	14	9	190	2022-04-13	2022-04-14	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+193	4	9	192	2022-04-18	2022-04-19	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+200	3	4	199	2022-04-28	2022-04-29	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+194	3	14	193	2022-04-19	2022-04-20	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+195	14	4	194	2022-04-20	2022-04-21	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+198	14	9	197	2022-04-26	2022-04-27	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+202	6	14	201	2022-05-02	2022-05-03	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+204	9	4	203	2022-05-04	2022-05-05	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+201	4	14	200	2022-04-29	2022-05-02	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+203	14	9	202	2022-05-03	2022-05-04	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+205	4	3	204	2022-05-05	2022-05-06	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+206	3	14	205	2022-05-06	2022-05-09	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+207	14	6	206	2022-05-09	2022-05-10	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+208	6	9	207	2022-05-10	2022-05-11	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+209	9	4	208	2022-05-11	2022-05-12	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+211	6	3	210	2022-05-13	2022-05-16	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+210	4	6	209	2022-05-12	2022-05-13	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+212	3	6	211	2022-05-16	2022-05-17	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+215	6	14	214	2022-05-17	2022-05-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+214	6	14	213	2022-05-17	2022-05-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+213	9	14	212	2022-05-17	2022-05-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+218	14	4	217	2022-05-20	2022-05-23	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+217	9	14	216	2022-05-19	2022-05-20	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+219	4	3	218	2022-05-23	2022-05-24	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+216	14	9	215	2022-05-18	2022-05-19	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+221	6	14	220	2022-05-25	2022-05-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+220	3	6	219	2022-05-24	2022-05-25	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+222	14	9	221	2022-05-26	2022-05-27	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+249	4	3	248	2022-07-04	2022-07-05	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+223	9	4	222	2022-05-27	2022-05-30	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+239	3	12	238	2022-06-20	2022-06-21	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+224	4	3	223	2022-05-30	2022-05-31	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+225	3	6	224	2022-05-31	2022-06-01	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+256	3	6	255	2022-07-13	2022-07-14	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+227	14	3	226	2022-06-02	2022-06-03	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+226	6	14	225	2022-06-01	2022-06-02	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+228	3	12	227	2022-06-03	2022-06-06	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+229	12	6	228	2022-06-06	2022-06-07	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+230	6	14	229	2022-06-07	2022-06-08	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+242	12	3	241	2022-06-23	2022-06-24	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+231	14	3	230	2022-06-08	2022-06-09	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+232	3	12	231	2022-06-09	2022-06-10	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+250	3	6	249	2022-07-05	2022-07-06	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+233	12	6	232	2022-06-10	2022-06-13	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+234	6	14	233	2022-06-13	2022-06-14	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+248	9	14	247	2022-07-01	2022-07-04	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+235	14	3	234	2022-06-14	2022-06-15	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+240	12	14	239	2022-06-21	2022-06-22	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+236	3	12	235	2022-06-15	2022-06-16	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+243	3	14	242	2022-06-24	2022-06-27	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+237	12	14	236	2022-06-16	2022-06-17	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+238	14	3	237	2022-06-17	2022-06-20	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+244	14	9	243	2022-06-27	2022-06-28	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+245	9	4	244	2022-06-28	2022-06-29	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+246	4	3	245	2022-06-29	2022-06-30	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+241	14	12	240	2022-06-22	2022-06-23	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+255	4	3	254	2022-07-12	2022-07-13	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+257	6	3	256	2022-07-14	2022-07-15	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+251	6	14	250	2022-07-06	2022-07-07	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+252	14	4	251	2022-07-07	2022-07-08	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+254	9	4	253	2022-07-11	2022-07-12	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+247	3	9	246	2022-06-30	2022-07-01	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+253	4	9	252	2022-07-08	2022-07-11	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+261	4	3	260	2022-07-20	2022-07-21	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+259	14	9	258	2022-07-18	2022-07-19	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+260	9	4	259	2022-07-19	2022-07-20	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+258	3	14	257	2022-07-15	2022-07-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+262	3	14	261	2022-07-21	2022-07-22	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+263	14	17	262	2022-07-22	2022-07-25	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+265	4	9	264	2022-07-26	2022-07-27	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+264	17	4	263	2022-07-25	2022-07-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+266	9	3	265	2022-07-27	2022-07-28	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+268	17	14	267	2022-07-29	2022-08-01	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+274	17	9	273	2022-08-08	2022-08-09	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+270	17	9	269	2022-08-02	2022-08-03	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+271	9	3	270	2022-08-03	2022-08-04	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+272	3	9	271	2022-08-04	2022-08-05	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+267	3	17	266	2022-07-28	2022-07-29	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+273	9	17	272	2022-08-05	2022-08-08	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+269	14	17	268	2022-08-01	2022-08-02	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+275	9	3	274	2022-08-09	2022-08-10	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+276	3	17	275	2022-08-10	2022-08-11	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+277	17	3	276	2022-08-11	2022-08-12	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+315	12	14	314	2022-10-05	2022-10-06	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+278	3	12	277	2022-08-12	2022-08-15	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+288	14	9	287	2022-08-26	2022-08-29	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+279	9	3	278	2022-08-15	2022-08-16	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+295	14	3	294	2022-09-06	2022-09-07	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+280	3	17	279	2022-08-16	2022-08-17	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+281	17	3	280	2022-08-17	2022-08-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+297	17	3	296	2022-09-08	2022-09-09	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+282	3	12	281	2022-08-18	2022-08-19	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+289	9	12	288	2022-08-29	2022-08-30	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+290	12	3	289	2022-08-30	2022-08-31	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+287	17	14	286	2022-08-25	2022-08-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+304	3	14	303	2022-09-19	2022-09-20	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+283	12	17	282	2022-08-19	2022-08-22	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+292	14	17	291	2022-09-01	2022-09-02	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+310	9	3	309	2022-09-27	2022-09-28	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+284	17	12	283	2022-08-22	2022-08-23	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+293	17	9	292	2022-09-02	2022-09-05	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+291	3	14	290	2022-08-31	2022-09-01	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+294	9	14	293	2022-09-05	2022-09-06	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+285	12	17	284	2022-08-23	2022-08-24	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+286	17	3	285	2022-08-24	2022-08-25	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+306	9	3	305	2022-09-21	2022-09-22	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+296	3	17	295	2022-09-07	2022-09-08	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+305	14	9	304	2022-09-20	2022-09-21	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+307	3	9	306	2022-09-22	2022-09-23	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+298	3	9	297	2022-09-09	2022-09-12	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+300	14	9	299	2022-09-13	2022-09-14	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+301	17	9	300	2022-09-14	2022-09-15	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+308	9	14	307	2022-09-23	2022-09-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+299	9	14	298	2022-09-12	2022-09-13	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+302	17	9	301	2022-09-15	2022-09-16	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+303	12	3	302	2022-09-16	2022-09-19	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+312	12	14	311	2022-09-29	2022-09-30	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+309	14	9	308	2022-09-26	2022-09-27	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+313	9	3	312	2022-10-03	2022-10-04	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+311	3	12	310	2022-09-28	2022-09-29	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+317	17	12	316	2022-10-07	2022-10-10	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+316	14	17	315	2022-10-06	2022-10-07	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+314	3	9	313	2022-10-04	2022-10-05	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+318	12	3	317	2022-10-10	2022-10-11	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+322	12	17	321	2022-10-14	2022-10-17	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+319	3	12	318	2022-10-11	2022-10-12	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+323	17	3	322	2022-10-17	2022-10-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+321	12	3	320	2022-10-13	2022-10-14	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+324	3	12	323	2022-10-18	2022-10-19	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+320	12	14	319	2022-10-12	2022-10-13	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+327	3	17	326	2022-10-21	2022-10-24	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+326	14	3	325	2022-10-20	2022-10-21	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+328	17	3	327	2022-10-24	2022-10-25	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+355	3	9	354	2022-12-01	2022-12-02	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+329	3	12	328	2022-10-25	2022-10-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+330	3	17	329	2022-10-26	2022-10-27	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+358	17	9	357	2022-12-06	2022-12-07	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+343	12	14	342	2022-11-15	2022-11-16	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+331	14	3	330	2022-10-28	2022-10-31	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+354	12	3	353	2022-11-30	2022-12-01	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+325	3	14	324	2022-10-28	2022-10-31	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+347	8	5	346	2022-11-21	2022-11-22	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+346	14	3	345	2022-11-18	2022-11-21	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+332	3	12	331	2022-10-31	2022-11-01	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+334	14	12	333	2022-11-02	2022-11-03	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+345	9	14	344	2022-11-17	2022-11-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+348	5	3	347	2022-11-22	2022-11-23	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+349	3	14	348	2022-11-23	2022-11-24	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+356	9	14	355	2022-12-02	2022-12-05	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+333	12	14	332	2022-11-01	2022-11-02	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+336	9	14	335	2022-11-04	2022-11-07	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+338	9	14	337	2022-11-08	2022-11-09	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+340	14	12	339	2022-11-10	2022-11-11	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+368	17	9	367	2022-12-21	2022-12-22	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+366	9	14	365	2022-12-19	2022-12-20	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+359	9	5	358	2022-12-07	2022-12-08	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+350	14	17	349	2022-11-24	2022-11-25	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+342	9	12	341	2022-11-14	2022-11-15	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+365	9	3	364	2022-12-15	2022-12-16	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+353	3	12	352	2022-11-29	2022-11-30	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+361	3	12	360	2022-12-09	2022-12-12	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+357	14	17	356	2022-12-05	2022-12-06	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+360	5	3	359	2022-12-08	2022-12-09	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+335	12	9	334	2022-11-03	2022-11-04	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+337	14	9	336	2022-11-07	2022-11-08	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+339	12	9	338	2022-11-09	2022-11-10	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+341	12	9	340	2022-11-11	2022-11-14	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+344	14	9	343	2022-11-16	2022-11-17	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+351	17	9	350	2022-11-25	2022-11-28	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+367	14	17	366	2022-12-20	2022-12-21	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+362	12	14	361	2022-12-12	2022-12-13	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+363	14	17	362	2022-12-13	2022-12-14	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+370	14	9	369	2022-12-23	2022-12-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+369	9	14	368	2022-12-22	2022-12-23	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+371	9	17	370	2022-12-26	2022-12-28	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+372	17	12	371	2022-12-28	2022-12-31	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+373	17	12	372	2023-01-05	2023-01-06	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+378	17	14	377	2023-01-12	2023-01-13	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+375	14	17	374	2023-01-09	2023-01-10	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+364	17	9	363	2022-12-14	2022-12-15	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+376	17	12	375	2023-01-10	2023-01-11	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+374	12	14	373	2023-01-06	2023-01-09	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+379	12	14	378	2023-01-16	2023-01-17	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+381	17	12	380	2023-01-18	2023-01-19	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+377	12	17	376	2023-01-11	2023-01-12	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+380	14	17	379	2023-01-17	2023-01-18	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+395	3	12	394	2023-02-09	2023-02-10	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+382	12	17	381	2023-01-19	2023-01-20	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+383	9	14	382	2023-01-23	2023-01-24	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+384	14	17	383	2023-01-24	2023-01-25	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+396	12	14	395	2023-02-10	2023-02-13	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+385	17	12	384	2023-01-25	2023-01-26	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+386	12	9	385	2023-01-26	2023-01-27	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+397	12	17	396	2023-02-13	2023-02-14	Funcionando normalmente	Operando normalmente	Executado normalmente	Encerrado	1
+387	14	17	386	2023-01-30	2023-01-31	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+398	12	9	397	2023-02-14	2023-02-15	Funcionando normalmente	Operando normalmente	Executado normalmente	Encerrado	1
+388	17	9	387	2023-01-31	2023-02-01	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+390	12	3	389	2023-02-02	2023-02-03	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+391	3	14	390	2023-02-03	2023-02-06	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+392	14	17	391	2023-02-06	2023-02-07	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+393	17	9	392	2023-02-07	2023-02-08	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+389	9	12	388	2023-02-01	2023-02-02	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+352	9	5	351	2022-11-28	2022-11-29	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+394	9	3	393	2023-02-08	2023-02-09	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+399	9	12	398	2023-02-15	2023-02-16	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+400	12	14	399	2023-02-16	2023-02-17	Funcionando normalmente	Operando normalmente	Executado normalmente	Sup. que entra ciente	1
+401	14	3	400	2023-02-17	2023-02-20	Funcionando normalmente	Operando normalmente	Executado normalmente	Em andamento	52
 \.
 
 
 --
--- TOC entry 3871 (class 0 OID 0)
+-- TOC entry 3963 (class 0 OID 0)
 -- Dependencies: 251
 -- Name: tb_rel_servico_idtb_rel_servico_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
 
-SELECT pg_catalog.setval('tb_rel_servico_idtb_rel_servico_seq', 330, true);
+SELECT pg_catalog.setval('tb_rel_servico_idtb_rel_servico_seq', 401, true);
 
 
 --
--- TOC entry 3638 (class 0 OID 18482)
+-- TOC entry 3703 (class 0 OID 18482)
 -- Dependencies: 252
 -- Data for Name: tb_rel_servico_log; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -10791,7 +11422,7 @@ COPY tb_rel_servico_log (idtb_rel_servico_log, idtb_lotacao_clti, num_rel, cod_a
 
 
 --
--- TOC entry 3872 (class 0 OID 0)
+-- TOC entry 3964 (class 0 OID 0)
 -- Dependencies: 253
 -- Name: tb_rel_servico_log_idtb_rel_servico_log_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -10800,7 +11431,7 @@ SELECT pg_catalog.setval('tb_rel_servico_log_idtb_rel_servico_log_seq', 7, true)
 
 
 --
--- TOC entry 3640 (class 0 OID 18487)
+-- TOC entry 3705 (class 0 OID 18487)
 -- Dependencies: 254
 -- Data for Name: tb_rel_servico_ocorrencias; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -10969,6 +11600,7 @@ COPY tb_rel_servico_ocorrencias (idtb_rel_servico_ocorrencias, num_rel, ocorrenc
 162	291	PTC HNRE com indisponibilidade devido ao rompimento da Fibra, sem previsão de volta hoje. 	Sup. que entra ciente
 161	291	Foi realizado pela Div. de INFRA a troca do estabilizador no Rack do mergulhão, pois o mesmo queimou. 	Sup. que entra ciente
 163	292	Foi constatado no sábado dia 03/09 que o HNNA ficou sem conexão das 18:00 as 23:00. PTC que o problema foi decorrente de falta de energia no enlace desse Hospital.\r\n\r\nPTC que na troca de ar-condicionado no domingo (04/09), foi percebido que o segundo ar-condicionado (de marca Briza) não estava gelando muito, pode ser que o ar-condicionado precise de manutenção corretiva em breve.	Sup. que entra ciente
+205	380	PTC que as 17:20 foi constatado falta de comunicação com a estação Rádio. entrei em contato com a ERMN e o CB Guedes INF que os equipamentos estavam operando normalmente.	Sup. que entra ciente
 164	296	PTC que foi constatado pela manhã a falta de conexão com os navios NBHAES, NPACAU, NPAJAU, NPAUNA e RTRNFO. O CB Valdinei entrou em contato com o CB Ubirajara para que o mesmo pudesse vrf as conexões no cais, logo, o CB Ubirajara informou que o Mergulhão estava sem energia elétrica ocasionando assim, a falta de conexão desses navios.Os mesmos informaram que a previsão de volta seria as 16:00.\r\n\r\n	Sup. que entra ciente
 167	300	PTC que foi realizada a migração de protocolo de roteamento do RIP para OSPF dos roteadores deste CLTI pelo pessoal do CTIM. Faina essa que começou no dia 14/09 as 18:00 e foi finalizada  as 19:30 desse mesmo dia. PTC que a faina ocorreu sem problemas.	Sup. que entra ciente
 165	298	Falta de recebimento de Relatório de Entrega (Maiser) e Recibo de Leitura (RCPT) e não transmissão de MSG e Expedientes.\r\n\r\nFoi constatado, após contato telefônico oriundo de OOMM de fora da área do Com3ºDN, que as mensagens e expedientes encaminhados destas para este Distrito Naval, apesar de terem sido recebidas nas caixas postais com3dn-msg e com3dn-secom do Lotus Notes, não estão gerando Relatórios de Entrega (Maiser) e Recibos de Leitura (RCPT) às OOMM origem destas mensagens e expedientes transmitidos. Em contrapartida, as mensagens e expedientes transmitidos por este Distrito Naval através das caixas postais com3dn-msg-tr e com3dn-secom-tr do Lotus Notes NÃO estão sendo recebidas nas OOMM destinatárias, o que foi constatado através de contato telefônico e tampouco estão sendo gerados Relatórios de Entrega (Maiser) e Recibos de Leitura (RCPT).\r\n\r\nOutrossim, foi participado que não estão sendo geradas notificações de erro durante a transmissão dos mesmos.\r\nCHAMADO Nº. ID 2022071882\r\n\r\nApós chamado aberto e escalonado para CTIM, o problema foi resolvido pelo SG LOUBACK - CTIM	Sup. que entra ciente
@@ -10991,22 +11623,63 @@ COPY tb_rel_servico_ocorrencias (idtb_rel_servico_ocorrencias, num_rel, ocorrenc
 183	317	Queda de energia às 17:32 no CLTI.	Sup. que entra ciente
 184	317	Houve falta de energia no HNRE.	Sup. que entra ciente
 185	319	CPPE sem energia no período da tarde.	Sup. que entra ciente
+195	345	PTC indisponibilidade da ERMN às 03H do dia 20/11. Regressei pra bordo com o CB Ubirajara e ele constatou que o equipamento estava travado. Reiniciamos o equipamento e o admin da ERMN informou que havia normalizado às 08H15min.	Sup. que entra ciente
 186	328	PTC que houve uma interrupção no fornecimento de energia elétrica no CLTI no dia 24/10/2022 às 17:20 tendo seu retorno apenas as 17:45. PTC ainda que não houve interrupções no fornecimento de energia nas salas dos servidores.	Sup. que entra ciente
+189	334	OMs de fora relataram lentidão no SiGDEM, fiz o procedimento para aumentar o espaço apagando o log.nfs e reiniciei o serviço domino.	Sup. que entra ciente
 187	329	DET do CC (T) Eduardo: o MIL de serviço deve desligar toda a sala antes da troca de energia da BNN. Ligando para a sala de estado para verificar, a BNN troca a energia para o gerador todos os dias às 17:30.	Sup. que entra ciente
+190	334	SG Tenorio da DCTIM ligou para ativarmos o contingência do MPLS, mas sem sucesso. A porta 2 do ASA não está habilitado para o MPLS, o mesmo entrará em contato com a Div de Segurança da DCTIM para alinharem as configurações do ASA para tentar novamente na terça.	Sup. que entra ciente
+188	324	O aparelho de ar condicionado da Casa da Torre, que localiza-se acima da central de alarme, encontra-se com mal funcionamento, sendo necessário, portanto, manter o aparelho localizado na parede oposta ligado.	Sup. que entra ciente
+200	372	PTC que as 17:20 do dia 05 de janeiro 2023, fui contatado via telefone pelo admin da BNN. O mesmo informou que o serviço de assinatura cadastral não estava funcionando, informando a mensagem de agente concluído ao tentar realizar a assinatura. Sendo assim, entrei em contato com o SG da Silva para mais orientações, logo, acessei o servidor do SIGDEM da BNN para reiniciar os serviços do domino, no entanto, ao tentar retornar a ligação para o admin da BNN, não obtive sucesso.	Sup. que entra ciente
+199	371	PTC que no dia 29, o admin do NP Macau entrou em contato para tentar solucionar um problema com o SIGDEM do comandante do Navio. O mesmo não conseguia logar no sistema mesmo alterando a senha, sendo assim, entrei como adminclti e apaguei a síntese de senha na ficha do usuário e alterei novamente a senha, logo, ao tentar acessar o sistema, obtive êxito e passei a nova senha para o admin do navio.	Sup. que entra ciente
+198	371	PTC que o Oficial de serviço do Distrito INF que ao tentar assinar documentos no SIGDEM com à assinatura cadastral, o sistema INF o erro de "agent done". PTC que os serviços do domino foram reiniciados e mesmo assim o problema persistiu, necessitando assim da reinicialização do servidor. Ao reinicializar o servidor, o problema foi corrigido.	Sup. que entra ciente
+191	334	Em contato com o SG Wendell e SG Maria (CPPE), foi criada a VCOM para uma REU sobre o casco do NAE São Paulo.	Sup. que entra ciente
+192	336	Indisponibilidade de CPPE as 15h15min, contato com a admin da rede SG Maria, informou que estão realizando a troca de placas solares.	Sup. que entra ciente
+193	336	PTC rede normalizada em CPPE as 16H25min faina de energia finalizada.	Sup. que entra ciente
+194	340	MPLS Cont. configurado pela DCTIM e orientações passadas aos MIL deste Centro.	Sup. que entra ciente
+196	366	PTC indisponibilidade da AgAracati por volta das 04:52 21DEZ. Realizado ctt com o Admin da OM e foi reportado que ja tinha sido aberto um chamado na EBT.  	Sup. que entra ciente
+201	378	HNRe e AgAracati indisponível por manutenção da Embratel. Conexão reestabelecida.	Sup. que entra ciente
+197	367	PTC que a agência de Aracati ficou sem conexão com a RECIM até o desguarnecimento do CLTI às 18:00hs. Ao abrir o CLTI pela manhã, foi constatado que a conexão já havia sido reestabelecida.\r\n\r\nobs: no dia 21 entramos em contato com o admin da AGARACATI e o mesmo INF que existia um problema na área com a EMBRATEL e que um chamado já havia sido aberto junto ao mesmo. 	Sup. que entra ciente
+206	380	Após alguns testes e reinicialização do equipamento de rádio da ERMN, a conexão foi reestabelecida as 18:30. O fato ocorreu devido as condições climática do horário, onde forte ventos e chuva ocasionaram o travamento do equipamento.	Sup. que entra ciente
+203	380	PTC que as 15:50 foi constatado que o Hospital Naval de Recife ficou indisponível por ICMP. Realizei contato telefônico com o OSE onde o mesmo informou que ainda não estava ciente do que ocasionou o problema de conexão. 	Sup. que entra ciente
+204	380	PTC que as 17:30 a conexão com o HNRE foi reestabelecido. O problema foi externo ao HNRE, informação passada pela OSE.	Sup. que entra ciente
+202	380	PTC que no período da manhã fui contatado via whatzap pelo admin do Navio Guaiba, onde o mesmo reportou problemas para acessar a base de ativos do SIGDEM da sua OM, de pronto passei algumas instruções, logo o admin conseguiu o acesso a base.	Sup. que entra ciente
+207	382	Serviço SG Hiágo. \r\n\r\nPTC que no serviço do dia 21 ao regressa para verificação dos equipamentos de conectividade da Base, foi constatado que o ar-condicionado do paiol de fibra estava desligado. Medida adotada: religar o ar-condicionado.\r\n\r\nNo dia 22, por volta de 11:30, foi detectado falta de conexão com a ERMN, os mesmo informaram que houve falta de energia na região. Por volta de 12:30, após o reestabelecimento da energia, o SG Silva Neto informou que o link de conexão com o CLTI não havia voltado, sendo assim, solicitei ao mesmo que reiniciasse o equipamento, mesmo assim o equipamento não voltou. Entrei em contato com o SO Carlos José (supervisor da Divisão de Infraestrutura) onde o mesmo informou que o procedimento a ser adotado seria o de reinicialização do equipamento rádio do CLTI e da ERMN ao mesmo tempo, sendo assim, regressei para o CLTI para efetuar o procedimento de reinicialização. Após a reinicialização a conexão foi reestabelecida, porém após 5 minutos o rádio voltou a cair. \r\nEntrei em contato com o SO Carlos e o mesmo informou que viria para bordo, enquanto o mesmo se deslocava para o CLTI, entrei em contato com o SG Silva Neto para que o mesmo deixasse o rádio desligado. Após a chegada do SO Carlos, e ao ligarmos o rádio enlace, ficamos monitorando através da conexão serial com o rádio se a conexão iria cair novamente, dado 20 minutos de conexão, percebemos que o rádio estabilizou e não houveram mais interrupções de conexão.	Sup. que entra ciente
+211	389	PTC que foi entregue pelo SO Wilker, o novo celular funcional do serviço. \r\nCelular samsung A03.	Sup. que entra ciente
+208	385	A pedido da 1SG Karen, foi executado um lote/regra do DN91 e DN92 após o expediente.	Sup. que entra ciente
+209	385	Foi observado que o servidor de backup estava ficando sem espaço livre, sendo assim, foram removidos os backups compactados mais antigos de cada OM.	Sup. que entra ciente
+210	387	PTC que foi detectado ao assumir o serviço as 07:40, que o servidor WEB que contem as páginas de intranet das OM do 3DN, não estava funcionando. Foi detectado que a VMWARE onde estava o servidor WEB estava sem espaço de armazenamento. Foi executada uma limpeza no servidor onde hospeda o servidor WEB e o serviço voltou a funcionar as 08:15.	Sup. que entra ciente
+212	391	PTC indisponibilidade do rádio da CPRN às 07:26 e reestabelecido às 07:52. 	Sup. que entra ciente
+213	391	PTC indisponibilidade da CPPE às 06:08, por falta de energia. Informações passadas pela Admin SG Maria. Reestabelecido as 08:30. Nova indisponibilidade as 09Hrs. Reestabelecido as 10:49.	Sup. que entra ciente
+214	391	PTC indisponibilidade HNRE as 13:55, reestabelecido as 14:02.	Sup. que entra ciente
+215	391	PTC indisponibilidade do HNRE as 03:15, contato com o Admin, chamado aberto na Embratel N° 2023 767 501 716.	Sup. que entra ciente
+221	393	13:30 - Realizado limpeza e arrumação da Sala dos Servidores. MILITARES: CB-PD Valdinei / CB-TC Ubirajara	Sup. que entra ciente
+216	392	PTC que a indisponibilidade do HNRE que começou as 03:15 de chamado aberto na Embratel N° 2023 767 501 716. Voltou a operar normalmente as 12:05.	Sup. que entra ciente
+222	393	16:14 - Reestabelecida a RECIM.	Sup. que entra ciente
+223	393	12:00 - Foi incluído no mapa da rede da OM e Ativos, o monitoramento da Rede Operacional de Defesa (ROD).	Sup. que entra ciente
+218	393	13:16 - [CPCE] indisponível por ICMP. Foi verificado com o Administrador da Rede Local, e o mesmo, informou que já verificou toda a sua rede e o problema é externo. Foi aberto chamado para Embratel relatando a falta de sinal de Rede. 	Sup. que entra ciente
+217	393	14:00 - Verificação da Temperatura da Sala dos Servidores, MAX: 23 / MIN: 19 / TAXA UMIDADE: 49%	Sup. que entra ciente
+219	393	15:12 - ADMIN informou que Embratel entrou em contato com a OM, e está enviando um técnico para verificar o problema.	Sup. que entra ciente
+220	393	10:00 - Reparado o teto da sala do servidores. Os militares da PRENAN, recolocaram a placa de gesso no teto da antessala da sala de ativos do CLTI. Posteriormente, será lixado e pintado. 	Sup. que entra ciente
+225	394	EAMPE Restabelecido às 13:43.	Sup. que entra ciente
+224	394	EAMPE indisponível às 13:08h por falta de energia elétrica.	Sup. que entra ciente
+226	395	EAMCE fora às 08:27. Restabelecido às 09:18.	Sup. que entra ciente
+227	395	EAMCE fora às 09:33. Reestabelecido 10:38.	Sup. que entra ciente
+228	399	O Switch de Acesso da CPCE está travada e não é gerenciável.	Sup. que entra ciente
+229	399	A mando da OSE, foi preciso trocar a senha do SIGDEM do Sr. CEM às 20:45.	Sup. que entra ciente
 \.
 
 
 --
--- TOC entry 3873 (class 0 OID 0)
+-- TOC entry 3965 (class 0 OID 0)
 -- Dependencies: 255
 -- Name: tb_rel_servico_ocorrencias_idtb_rel_servico_ocorrencias_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
 
-SELECT pg_catalog.setval('tb_rel_servico_ocorrencias_idtb_rel_servico_ocorrencias_seq', 187, true);
+SELECT pg_catalog.setval('tb_rel_servico_ocorrencias_idtb_rel_servico_ocorrencias_seq', 229, true);
 
 
 --
--- TOC entry 3642 (class 0 OID 18495)
+-- TOC entry 3707 (class 0 OID 18495)
 -- Dependencies: 256
 -- Data for Name: tb_rel_sv_v2; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -11016,7 +11689,7 @@ COPY tb_rel_sv_v2 (idtb_rel_servico, sup_sai_servico, sup_entra_servico, num_rel
 
 
 --
--- TOC entry 3874 (class 0 OID 0)
+-- TOC entry 3966 (class 0 OID 0)
 -- Dependencies: 257
 -- Name: tb_rel_sv_v2_idtb_rel_servico_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -11025,7 +11698,7 @@ SELECT pg_catalog.setval('tb_rel_sv_v2_idtb_rel_servico_seq', 1, false);
 
 
 --
--- TOC entry 3644 (class 0 OID 18503)
+-- TOC entry 3709 (class 0 OID 18503)
 -- Dependencies: 258
 -- Data for Name: tb_rel_sv_v2_ocorrencias; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -11035,7 +11708,7 @@ COPY tb_rel_sv_v2_ocorrencias (idtb_rel_servico_ocorrencias, num_rel, ocorrencia
 
 
 --
--- TOC entry 3875 (class 0 OID 0)
+-- TOC entry 3967 (class 0 OID 0)
 -- Dependencies: 259
 -- Name: tb_rel_sv_v2_ocorrencias_idtb_rel_servico_ocorrencias_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -11044,7 +11717,7 @@ SELECT pg_catalog.setval('tb_rel_sv_v2_ocorrencias_idtb_rel_servico_ocorrencias_
 
 
 --
--- TOC entry 3646 (class 0 OID 18511)
+-- TOC entry 3711 (class 0 OID 18511)
 -- Dependencies: 260
 -- Data for Name: tb_servidores; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -11056,32 +11729,32 @@ COPY tb_servidores (idtb_servidores, idtb_om_apoiadas, fabricante, modelo, idtb_
 4	1	DELL	R710	51	3	2	96	1000	172.23.116.13	bc-30-5b-fe-68-b4	9	WSUS	2014-01-01	2015-01-01	EM PRODUÇÃO	5	WSUS-CLTI3DN
 6	1	HP	PROLIANT DL380E GEN8	57	2.5	2	128	1630	172.23.119.3	14:58:d0:5a:3f:fc	22	VIRTUALIZAÇÃO	2019-01-01	2020-01-01	EM PRODUÇÃO	7	VMWARE04
 7	1	IBM	SYSTEM X3500 M4	58	2	2	16	8000	172.23.116.15	40:f2:e9:66:31:90	25	BACKUP	2014-01-01	2015-01-01	EM PRODUÇÃO	7	BK01
-5	1	MCAFEE	WG-4500-D	52	3	1	64	1000	172.23.116.32	00:1E:67:06:38:CA	26	PROXY	2015-01-01	2016-01-01	EM PRODUÇÃO	5	WEBGATEWAY
 8	16	DELL	R640	60	1.89999998	2	64	1091	172.23.20.6	78:AC:44:83:AA:28	24	VIRTUALIZAÇÃO	2022-08-29	2023-08-29	EM PRODUÇÃO	83	HNNA-VMWARE01
 \.
 
 
 --
--- TOC entry 3665 (class 0 OID 19236)
--- Dependencies: 296
+-- TOC entry 3730 (class 0 OID 19236)
+-- Dependencies: 295
 -- Data for Name: tb_servidores_excluidos; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
 
 COPY tb_servidores_excluidos (idtb_servidores_excluidos, idtb_om_apoiadas, fabricante, modelo, end_ip, end_mac, data_del, hora_del) FROM stdin;
+1	1	MCAFEE	WG-4500-D	172.23.116.32	00:1E:67:06:38:CA	2022-10-28	12:54:00
 \.
 
 
 --
--- TOC entry 3876 (class 0 OID 0)
--- Dependencies: 295
+-- TOC entry 3968 (class 0 OID 0)
+-- Dependencies: 294
 -- Name: tb_servidores_excluidos_idtb_servidores_excluidos_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
 
-SELECT pg_catalog.setval('tb_servidores_excluidos_idtb_servidores_excluidos_seq', 1, false);
+SELECT pg_catalog.setval('tb_servidores_excluidos_idtb_servidores_excluidos_seq', 1, true);
 
 
 --
--- TOC entry 3877 (class 0 OID 0)
+-- TOC entry 3969 (class 0 OID 0)
 -- Dependencies: 261
 -- Name: tb_servidores_idtb_servidores_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -11090,7 +11763,7 @@ SELECT pg_catalog.setval('tb_servidores_idtb_servidores_seq', 8, true);
 
 
 --
--- TOC entry 3648 (class 0 OID 18519)
+-- TOC entry 3713 (class 0 OID 18519)
 -- Dependencies: 262
 -- Data for Name: tb_soft_padronizados; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -11111,7 +11784,7 @@ COPY tb_soft_padronizados (idtb_soft_padronizados, categoria, software, status) 
 
 
 --
--- TOC entry 3878 (class 0 OID 0)
+-- TOC entry 3970 (class 0 OID 0)
 -- Dependencies: 263
 -- Name: tb_soft_padronizados_idtb_soft_padronizados_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -11120,7 +11793,7 @@ SELECT pg_catalog.setval('tb_soft_padronizados_idtb_soft_padronizados_seq', 11, 
 
 
 --
--- TOC entry 3650 (class 0 OID 18527)
+-- TOC entry 3715 (class 0 OID 18527)
 -- Dependencies: 264
 -- Data for Name: tb_sor; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -11157,7 +11830,7 @@ COPY tb_sor (idtb_sor, desenvolvedor, descricao, versao, situacao) FROM stdin;
 
 
 --
--- TOC entry 3879 (class 0 OID 0)
+-- TOC entry 3971 (class 0 OID 0)
 -- Dependencies: 265
 -- Name: tb_sor_idtb_sor_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -11166,7 +11839,7 @@ SELECT pg_catalog.setval('tb_sor_idtb_sor_seq', 27, true);
 
 
 --
--- TOC entry 3652 (class 0 OID 18535)
+-- TOC entry 3717 (class 0 OID 18535)
 -- Dependencies: 266
 -- Data for Name: tb_temas_pad_sic_tic; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -11198,7 +11871,7 @@ COPY tb_temas_pad_sic_tic (idtb_temas_pad_sic_tic, idtb_pad_sic_tic, tema, statu
 
 
 --
--- TOC entry 3880 (class 0 OID 0)
+-- TOC entry 3972 (class 0 OID 0)
 -- Dependencies: 267
 -- Name: tb_temas_pad_sic_tic_idtb_temas_pad_sic_tic_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -11207,7 +11880,7 @@ SELECT pg_catalog.setval('tb_temas_pad_sic_tic_idtb_temas_pad_sic_tic_seq', 22, 
 
 
 --
--- TOC entry 3654 (class 0 OID 18543)
+-- TOC entry 3719 (class 0 OID 18543)
 -- Dependencies: 268
 -- Data for Name: tb_tipos_clti; Type: TABLE DATA; Schema: db_clti; Owner: -
 --
@@ -11218,7 +11891,7 @@ COPY tb_tipos_clti (idtb_tipos_clti, norma_atual, data_norma, lotacao_oficiais, 
 
 
 --
--- TOC entry 3881 (class 0 OID 0)
+-- TOC entry 3973 (class 0 OID 0)
 -- Dependencies: 269
 -- Name: tb_tipos_clti_idtb_tipos_clti_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
 --
@@ -11227,7 +11900,27 @@ SELECT pg_catalog.setval('tb_tipos_clti_idtb_tipos_clti_seq', 1, true);
 
 
 --
--- TOC entry 3232 (class 2606 OID 18674)
+-- TOC entry 3742 (class 0 OID 19341)
+-- Dependencies: 307
+-- Data for Name: tb_tipos_midias_backup; Type: TABLE DATA; Schema: db_clti; Owner: -
+--
+
+COPY tb_tipos_midias_backup (idtb_tipos_midias_backup, descricao, sigla) FROM stdin;
+1	FITA LTO5	LTO5
+\.
+
+
+--
+-- TOC entry 3974 (class 0 OID 0)
+-- Dependencies: 306
+-- Name: tb_tipos_midias_backup_idtb_tipos_midias_backup_seq; Type: SEQUENCE SET; Schema: db_clti; Owner: -
+--
+
+SELECT pg_catalog.setval('tb_tipos_midias_backup_idtb_tipos_midias_backup_seq', 1, true);
+
+
+--
+-- TOC entry 3283 (class 2606 OID 18674)
 -- Name: cidade_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11236,7 +11929,7 @@ ALTER TABLE ONLY tb_cidade
 
 
 --
--- TOC entry 3262 (class 2606 OID 18676)
+-- TOC entry 3313 (class 2606 OID 18676)
 -- Name: estado_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11245,7 +11938,7 @@ ALTER TABLE ONLY tb_estado
 
 
 --
--- TOC entry 3304 (class 2606 OID 18678)
+-- TOC entry 3355 (class 2606 OID 18678)
 -- Name: pais_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11254,7 +11947,7 @@ ALTER TABLE ONLY tb_pais
 
 
 --
--- TOC entry 3356 (class 2606 OID 19163)
+-- TOC entry 3407 (class 2606 OID 19163)
 -- Name: tb_acesso_suspeito_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11263,7 +11956,16 @@ ALTER TABLE ONLY tb_acesso_suspeito
 
 
 --
--- TOC entry 3230 (class 2606 OID 18680)
+-- TOC entry 3423 (class 2606 OID 19325)
+-- Name: tb_acomp_inspecoes_visitas_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY tb_acomp_inspecoes_visitas
+    ADD CONSTRAINT tb_acomp_inspecoes_visitas_pkey PRIMARY KEY (idtb_acomp_inspecoes_visitas);
+
+
+--
+-- TOC entry 3281 (class 2606 OID 18680)
 -- Name: tb_ade_pad_sic_tic_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11272,7 +11974,16 @@ ALTER TABLE ONLY tb_ade_pad_sic_tic
 
 
 --
--- TOC entry 3234 (class 2606 OID 18682)
+-- TOC entry 3419 (class 2606 OID 19303)
+-- Name: tb_agenda_administrativa_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY tb_agenda_administrativa
+    ADD CONSTRAINT tb_agenda_administrativa_pkey PRIMARY KEY (idtb_agenda_administrativa);
+
+
+--
+-- TOC entry 3285 (class 2606 OID 18682)
 -- Name: tb_clti_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11281,7 +11992,7 @@ ALTER TABLE ONLY tb_clti
 
 
 --
--- TOC entry 3236 (class 2606 OID 18684)
+-- TOC entry 3287 (class 2606 OID 18684)
 -- Name: tb_conectividade_end_ip_key; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11290,7 +12001,7 @@ ALTER TABLE ONLY tb_conectividade
 
 
 --
--- TOC entry 3362 (class 2606 OID 19233)
+-- TOC entry 3413 (class 2606 OID 19233)
 -- Name: tb_conectividade_excluidos_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11299,7 +12010,7 @@ ALTER TABLE ONLY tb_conectividade_excluidos
 
 
 --
--- TOC entry 3238 (class 2606 OID 18686)
+-- TOC entry 3289 (class 2606 OID 18686)
 -- Name: tb_conectividade_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11308,7 +12019,7 @@ ALTER TABLE ONLY tb_conectividade
 
 
 --
--- TOC entry 3240 (class 2606 OID 18688)
+-- TOC entry 3291 (class 2606 OID 18688)
 -- Name: tb_conectividade_un; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11317,7 +12028,7 @@ ALTER TABLE ONLY tb_conectividade
 
 
 --
--- TOC entry 3242 (class 2606 OID 18690)
+-- TOC entry 3293 (class 2606 OID 18690)
 -- Name: tb_config_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11326,7 +12037,7 @@ ALTER TABLE ONLY tb_config
 
 
 --
--- TOC entry 3244 (class 2606 OID 18692)
+-- TOC entry 3295 (class 2606 OID 18692)
 -- Name: tb_controle_internet_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11335,7 +12046,7 @@ ALTER TABLE ONLY tb_controle_internet
 
 
 --
--- TOC entry 3246 (class 2606 OID 18694)
+-- TOC entry 3297 (class 2606 OID 18694)
 -- Name: tb_controle_usb_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11344,7 +12055,7 @@ ALTER TABLE ONLY tb_controle_usb
 
 
 --
--- TOC entry 3248 (class 2606 OID 18696)
+-- TOC entry 3299 (class 2606 OID 18696)
 -- Name: tb_corpo_quadro_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11353,7 +12064,7 @@ ALTER TABLE ONLY tb_corpo_quadro
 
 
 --
--- TOC entry 3250 (class 2606 OID 18698)
+-- TOC entry 3301 (class 2606 OID 18698)
 -- Name: tb_det_serv_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11362,7 +12073,7 @@ ALTER TABLE ONLY tb_det_serv
 
 
 --
--- TOC entry 3254 (class 2606 OID 18700)
+-- TOC entry 3305 (class 2606 OID 18700)
 -- Name: tb_dias_troca_clti_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11371,7 +12082,7 @@ ALTER TABLE ONLY tb_dias_troca_clti
 
 
 --
--- TOC entry 3252 (class 2606 OID 18702)
+-- TOC entry 3303 (class 2606 OID 18702)
 -- Name: tb_dias_troca_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11380,7 +12091,7 @@ ALTER TABLE ONLY tb_dias_troca
 
 
 --
--- TOC entry 3256 (class 2606 OID 18704)
+-- TOC entry 3307 (class 2606 OID 18704)
 -- Name: tb_especialidade_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11389,7 +12100,7 @@ ALTER TABLE ONLY tb_especialidade
 
 
 --
--- TOC entry 3360 (class 2606 OID 19222)
+-- TOC entry 3411 (class 2606 OID 19222)
 -- Name: tb_estacoes_excluidas_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11398,7 +12109,7 @@ ALTER TABLE ONLY tb_estacoes_excluidas
 
 
 --
--- TOC entry 3258 (class 2606 OID 18706)
+-- TOC entry 3309 (class 2606 OID 18706)
 -- Name: tb_estacoes_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11407,7 +12118,7 @@ ALTER TABLE ONLY tb_estacoes
 
 
 --
--- TOC entry 3260 (class 2606 OID 18708)
+-- TOC entry 3311 (class 2606 OID 18708)
 -- Name: tb_estacoes_un; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11416,7 +12127,7 @@ ALTER TABLE ONLY tb_estacoes
 
 
 --
--- TOC entry 3268 (class 2606 OID 18710)
+-- TOC entry 3319 (class 2606 OID 18710)
 -- Name: tb_funcao_ti_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11425,7 +12136,7 @@ ALTER TABLE ONLY tb_funcoes_ti
 
 
 --
--- TOC entry 3264 (class 2606 OID 18712)
+-- TOC entry 3315 (class 2606 OID 18712)
 -- Name: tb_funcoes_clti_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11434,7 +12145,7 @@ ALTER TABLE ONLY tb_funcoes_clti
 
 
 --
--- TOC entry 3266 (class 2606 OID 18714)
+-- TOC entry 3317 (class 2606 OID 18714)
 -- Name: tb_funcoes_sigdem_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11443,7 +12154,7 @@ ALTER TABLE ONLY tb_funcoes_sigdem
 
 
 --
--- TOC entry 3270 (class 2606 OID 18716)
+-- TOC entry 3321 (class 2606 OID 18716)
 -- Name: tb_gw_om_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11452,7 +12163,16 @@ ALTER TABLE ONLY tb_gw_om
 
 
 --
--- TOC entry 3280 (class 2606 OID 18718)
+-- TOC entry 3421 (class 2606 OID 19314)
+-- Name: tb_inspecoes_visitas_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY tb_inspecoes_visitas
+    ADD CONSTRAINT tb_inspecoes_visitas_pkey PRIMARY KEY (idtb_inspecoes_visitas);
+
+
+--
+-- TOC entry 3331 (class 2606 OID 18718)
 -- Name: tb_manutencao_et_pk; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11461,7 +12181,7 @@ ALTER TABLE ONLY tb_manutencao_et
 
 
 --
--- TOC entry 3282 (class 2606 OID 18720)
+-- TOC entry 3333 (class 2606 OID 18720)
 -- Name: tb_mapainfra_pk; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11470,7 +12190,7 @@ ALTER TABLE ONLY tb_mapainfra
 
 
 --
--- TOC entry 3284 (class 2606 OID 18722)
+-- TOC entry 3335 (class 2606 OID 18722)
 -- Name: tb_memorias_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11479,7 +12199,25 @@ ALTER TABLE ONLY tb_memorias
 
 
 --
--- TOC entry 3286 (class 2606 OID 18724)
+-- TOC entry 3425 (class 2606 OID 19338)
+-- Name: tb_midias_backup_key1; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY tb_midias_backup
+    ADD CONSTRAINT tb_midias_backup_key1 UNIQUE (numero);
+
+
+--
+-- TOC entry 3427 (class 2606 OID 19336)
+-- Name: tb_midias_backup_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY tb_midias_backup
+    ADD CONSTRAINT tb_midias_backup_pkey PRIMARY KEY (idtb_midias_backup);
+
+
+--
+-- TOC entry 3337 (class 2606 OID 18724)
 -- Name: tb_nao_padronizados_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11488,7 +12226,7 @@ ALTER TABLE ONLY tb_nao_padronizados
 
 
 --
--- TOC entry 3289 (class 2606 OID 18726)
+-- TOC entry 3340 (class 2606 OID 18726)
 -- Name: tb_nec_aquisicao_pk; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11497,7 +12235,7 @@ ALTER TABLE ONLY tb_nec_aquisicao
 
 
 --
--- TOC entry 3291 (class 2606 OID 18728)
+-- TOC entry 3342 (class 2606 OID 18728)
 -- Name: tb_numerador_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11506,7 +12244,7 @@ ALTER TABLE ONLY tb_numerador
 
 
 --
--- TOC entry 3293 (class 2606 OID 18730)
+-- TOC entry 3344 (class 2606 OID 18730)
 -- Name: tb_om_apoiadas_cod_om_nome_sigla_indicativo_key; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11515,7 +12253,7 @@ ALTER TABLE ONLY tb_om_apoiadas
 
 
 --
--- TOC entry 3295 (class 2606 OID 18732)
+-- TOC entry 3346 (class 2606 OID 18732)
 -- Name: tb_om_apoiadas_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11524,7 +12262,7 @@ ALTER TABLE ONLY tb_om_apoiadas
 
 
 --
--- TOC entry 3298 (class 2606 OID 18734)
+-- TOC entry 3349 (class 2606 OID 18734)
 -- Name: tb_om_setores_pk; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11533,7 +12271,16 @@ ALTER TABLE ONLY tb_om_setores
 
 
 --
--- TOC entry 3300 (class 2606 OID 18736)
+-- TOC entry 3431 (class 2606 OID 19357)
+-- Name: tb_origem_backup_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY tb_origem_backup
+    ADD CONSTRAINT tb_origem_backup_pkey PRIMARY KEY (idtb_origem_backup);
+
+
+--
+-- TOC entry 3351 (class 2606 OID 18736)
 -- Name: tb_osic_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11542,7 +12289,7 @@ ALTER TABLE ONLY tb_osic
 
 
 --
--- TOC entry 3302 (class 2606 OID 18738)
+-- TOC entry 3353 (class 2606 OID 18738)
 -- Name: tb_pad_sic_tic_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11551,7 +12298,7 @@ ALTER TABLE ONLY tb_pad_sic_tic
 
 
 --
--- TOC entry 3306 (class 2606 OID 18740)
+-- TOC entry 3357 (class 2606 OID 18740)
 -- Name: tb_perfil_internet_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11560,7 +12307,7 @@ ALTER TABLE ONLY tb_perfil_internet
 
 
 --
--- TOC entry 3308 (class 2606 OID 18742)
+-- TOC entry 3359 (class 2606 OID 18742)
 -- Name: tb_permissoes_admin_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11569,7 +12316,7 @@ ALTER TABLE ONLY tb_permissoes_admin
 
 
 --
--- TOC entry 3366 (class 2606 OID 19255)
+-- TOC entry 3417 (class 2606 OID 19255)
 -- Name: tb_pessoal_excluido_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11578,7 +12325,7 @@ ALTER TABLE ONLY tb_pessoal_excluido
 
 
 --
--- TOC entry 3310 (class 2606 OID 18744)
+-- TOC entry 3361 (class 2606 OID 18744)
 -- Name: tb_pessoal_om_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11587,7 +12334,7 @@ ALTER TABLE ONLY tb_pessoal_om
 
 
 --
--- TOC entry 3312 (class 2606 OID 18746)
+-- TOC entry 3363 (class 2606 OID 18746)
 -- Name: tb_pessoal_ti_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11596,7 +12343,7 @@ ALTER TABLE ONLY tb_pessoal_ti
 
 
 --
--- TOC entry 3314 (class 2606 OID 18748)
+-- TOC entry 3365 (class 2606 OID 18748)
 -- Name: tb_posto_grad_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11605,7 +12352,7 @@ ALTER TABLE ONLY tb_posto_grad
 
 
 --
--- TOC entry 3316 (class 2606 OID 18750)
+-- TOC entry 3367 (class 2606 OID 18750)
 -- Name: tb_proc_fab_nome_key; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11614,7 +12361,7 @@ ALTER TABLE ONLY tb_proc_fab
 
 
 --
--- TOC entry 3318 (class 2606 OID 18752)
+-- TOC entry 3369 (class 2606 OID 18752)
 -- Name: tb_proc_fab_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11623,7 +12370,7 @@ ALTER TABLE ONLY tb_proc_fab
 
 
 --
--- TOC entry 3320 (class 2606 OID 18754)
+-- TOC entry 3371 (class 2606 OID 18754)
 -- Name: tb_proc_modelo_modelo_key; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11632,7 +12379,7 @@ ALTER TABLE ONLY tb_proc_modelo
 
 
 --
--- TOC entry 3322 (class 2606 OID 18756)
+-- TOC entry 3373 (class 2606 OID 18756)
 -- Name: tb_proc_modelo_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11641,7 +12388,7 @@ ALTER TABLE ONLY tb_proc_modelo
 
 
 --
--- TOC entry 3324 (class 2606 OID 18758)
+-- TOC entry 3375 (class 2606 OID 18758)
 -- Name: tb_qualificacao_clti_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11650,7 +12397,7 @@ ALTER TABLE ONLY tb_qualificacao_clti
 
 
 --
--- TOC entry 3326 (class 2606 OID 18760)
+-- TOC entry 3377 (class 2606 OID 18760)
 -- Name: tb_qualificacao_ti_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11659,7 +12406,7 @@ ALTER TABLE ONLY tb_qualificacao_ti
 
 
 --
--- TOC entry 3358 (class 2606 OID 19171)
+-- TOC entry 3409 (class 2606 OID 19171)
 -- Name: tb_range_ip_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11668,7 +12415,7 @@ ALTER TABLE ONLY tb_range_ip
 
 
 --
--- TOC entry 3328 (class 2606 OID 18762)
+-- TOC entry 3379 (class 2606 OID 18762)
 -- Name: tb_registro_log_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11677,7 +12424,7 @@ ALTER TABLE ONLY tb_registro_log
 
 
 --
--- TOC entry 3334 (class 2606 OID 18764)
+-- TOC entry 3385 (class 2606 OID 18764)
 -- Name: tb_rel_servico_log_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11686,7 +12433,7 @@ ALTER TABLE ONLY tb_rel_servico_log
 
 
 --
--- TOC entry 3336 (class 2606 OID 18766)
+-- TOC entry 3387 (class 2606 OID 18766)
 -- Name: tb_rel_servico_ocorrencias_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11695,7 +12442,7 @@ ALTER TABLE ONLY tb_rel_servico_ocorrencias
 
 
 --
--- TOC entry 3330 (class 2606 OID 18768)
+-- TOC entry 3381 (class 2606 OID 18768)
 -- Name: tb_rel_servico_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11704,7 +12451,7 @@ ALTER TABLE ONLY tb_rel_servico
 
 
 --
--- TOC entry 3332 (class 2606 OID 18770)
+-- TOC entry 3383 (class 2606 OID 18770)
 -- Name: tb_rel_servico_unique; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11713,7 +12460,7 @@ ALTER TABLE ONLY tb_rel_servico
 
 
 --
--- TOC entry 3342 (class 2606 OID 18772)
+-- TOC entry 3393 (class 2606 OID 18772)
 -- Name: tb_rel_sv_v2_ocorrencias_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11722,7 +12469,7 @@ ALTER TABLE ONLY tb_rel_sv_v2_ocorrencias
 
 
 --
--- TOC entry 3338 (class 2606 OID 18774)
+-- TOC entry 3389 (class 2606 OID 18774)
 -- Name: tb_rel_sv_v2_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11731,7 +12478,7 @@ ALTER TABLE ONLY tb_rel_sv_v2
 
 
 --
--- TOC entry 3340 (class 2606 OID 18776)
+-- TOC entry 3391 (class 2606 OID 18776)
 -- Name: tb_rel_sv_v2_unique; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11740,7 +12487,7 @@ ALTER TABLE ONLY tb_rel_sv_v2
 
 
 --
--- TOC entry 3364 (class 2606 OID 19244)
+-- TOC entry 3415 (class 2606 OID 19244)
 -- Name: tb_servidores_excluidos_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11749,7 +12496,7 @@ ALTER TABLE ONLY tb_servidores_excluidos
 
 
 --
--- TOC entry 3344 (class 2606 OID 18778)
+-- TOC entry 3395 (class 2606 OID 18778)
 -- Name: tb_servidores_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11758,7 +12505,7 @@ ALTER TABLE ONLY tb_servidores
 
 
 --
--- TOC entry 3346 (class 2606 OID 18780)
+-- TOC entry 3397 (class 2606 OID 18780)
 -- Name: tb_servidores_un; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11767,7 +12514,7 @@ ALTER TABLE ONLY tb_servidores
 
 
 --
--- TOC entry 3348 (class 2606 OID 18782)
+-- TOC entry 3399 (class 2606 OID 18782)
 -- Name: tb_soft_padronizados_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11776,7 +12523,7 @@ ALTER TABLE ONLY tb_soft_padronizados
 
 
 --
--- TOC entry 3350 (class 2606 OID 18784)
+-- TOC entry 3401 (class 2606 OID 18784)
 -- Name: tb_sor_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11785,7 +12532,7 @@ ALTER TABLE ONLY tb_sor
 
 
 --
--- TOC entry 3352 (class 2606 OID 18786)
+-- TOC entry 3403 (class 2606 OID 18786)
 -- Name: tb_temas_pad_sic_tic_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11794,7 +12541,7 @@ ALTER TABLE ONLY tb_temas_pad_sic_tic
 
 
 --
--- TOC entry 3354 (class 2606 OID 18788)
+-- TOC entry 3405 (class 2606 OID 18788)
 -- Name: tb_tipos_clti_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11803,7 +12550,16 @@ ALTER TABLE ONLY tb_tipos_clti
 
 
 --
--- TOC entry 3275 (class 2606 OID 18790)
+-- TOC entry 3429 (class 2606 OID 19349)
+-- Name: tb_tipos_midias_backup_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY tb_tipos_midias_backup
+    ADD CONSTRAINT tb_tipos_midias_backup_pkey PRIMARY KEY (idtb_tipos_midias_backup);
+
+
+--
+-- TOC entry 3326 (class 2606 OID 18790)
 -- Name: tb_tripulacao_clti_pkey; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11812,7 +12568,7 @@ ALTER TABLE ONLY tb_lotacao_clti
 
 
 --
--- TOC entry 3277 (class 2606 OID 18792)
+-- TOC entry 3328 (class 2606 OID 18792)
 -- Name: unico_nip_cpf; Type: CONSTRAINT; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11821,7 +12577,7 @@ ALTER TABLE ONLY tb_lotacao_clti
 
 
 --
--- TOC entry 3271 (class 1259 OID 18793)
+-- TOC entry 3322 (class 1259 OID 18793)
 -- Name: fki_id_corpo_quadro; Type: INDEX; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11829,7 +12585,7 @@ CREATE INDEX fki_id_corpo_quadro ON tb_lotacao_clti USING btree (idtb_corpo_quad
 
 
 --
--- TOC entry 3272 (class 1259 OID 18794)
+-- TOC entry 3323 (class 1259 OID 18794)
 -- Name: fki_id_especialidade; Type: INDEX; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11837,7 +12593,7 @@ CREATE INDEX fki_id_especialidade ON tb_lotacao_clti USING btree (idtb_especiali
 
 
 --
--- TOC entry 3273 (class 1259 OID 18795)
+-- TOC entry 3324 (class 1259 OID 18795)
 -- Name: fki_id_posto_grad; Type: INDEX; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11845,7 +12601,7 @@ CREATE INDEX fki_id_posto_grad ON tb_lotacao_clti USING btree (idtb_posto_grad);
 
 
 --
--- TOC entry 3278 (class 1259 OID 18796)
+-- TOC entry 3329 (class 1259 OID 18796)
 -- Name: tb_manutencao_et_idtb_manutencao_et_idx; Type: INDEX; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11853,7 +12609,7 @@ CREATE INDEX tb_manutencao_et_idtb_manutencao_et_idx ON tb_manutencao_et USING b
 
 
 --
--- TOC entry 3287 (class 1259 OID 18797)
+-- TOC entry 3338 (class 1259 OID 18797)
 -- Name: tb_nec_aquisicao_idtb_nec_aquisicao_idx; Type: INDEX; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11861,7 +12617,7 @@ CREATE INDEX tb_nec_aquisicao_idtb_nec_aquisicao_idx ON tb_nec_aquisicao USING b
 
 
 --
--- TOC entry 3296 (class 1259 OID 18798)
+-- TOC entry 3347 (class 1259 OID 18798)
 -- Name: tb_om_setores_idtb_om_setores_idx; Type: INDEX; Schema: db_clti; Owner: -; Tablespace: 
 --
 
@@ -11869,7 +12625,7 @@ CREATE UNIQUE INDEX tb_om_setores_idtb_om_setores_idx ON tb_om_setores USING btr
 
 
 --
--- TOC entry 3367 (class 2606 OID 18799)
+-- TOC entry 3432 (class 2606 OID 18799)
 -- Name: tb_ade_pad_sic_tic_fk; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -11878,7 +12634,7 @@ ALTER TABLE ONLY tb_ade_pad_sic_tic
 
 
 --
--- TOC entry 3368 (class 2606 OID 18804)
+-- TOC entry 3433 (class 2606 OID 18804)
 -- Name: tb_ade_pad_sic_tic_fk2; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -11887,7 +12643,7 @@ ALTER TABLE ONLY tb_ade_pad_sic_tic
 
 
 --
--- TOC entry 3369 (class 2606 OID 18809)
+-- TOC entry 3434 (class 2606 OID 18809)
 -- Name: tb_cidade_estado_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -11896,7 +12652,7 @@ ALTER TABLE ONLY tb_cidade
 
 
 --
--- TOC entry 3370 (class 2606 OID 18814)
+-- TOC entry 3435 (class 2606 OID 18814)
 -- Name: tb_conectividade_fk; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -11905,7 +12661,7 @@ ALTER TABLE ONLY tb_conectividade
 
 
 --
--- TOC entry 3371 (class 2606 OID 18819)
+-- TOC entry 3436 (class 2606 OID 18819)
 -- Name: tb_conectividade_idtb_om_apoiadas_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -11914,7 +12670,7 @@ ALTER TABLE ONLY tb_conectividade
 
 
 --
--- TOC entry 3372 (class 2606 OID 18824)
+-- TOC entry 3437 (class 2606 OID 18824)
 -- Name: tb_controle_internet_fk; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -11923,7 +12679,7 @@ ALTER TABLE ONLY tb_controle_internet
 
 
 --
--- TOC entry 3373 (class 2606 OID 18829)
+-- TOC entry 3438 (class 2606 OID 18829)
 -- Name: tb_controle_internet_fk1; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -11932,7 +12688,7 @@ ALTER TABLE ONLY tb_controle_internet
 
 
 --
--- TOC entry 3374 (class 2606 OID 18834)
+-- TOC entry 3439 (class 2606 OID 18834)
 -- Name: tb_controle_usb_fk; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -11941,7 +12697,7 @@ ALTER TABLE ONLY tb_controle_usb
 
 
 --
--- TOC entry 3375 (class 2606 OID 18839)
+-- TOC entry 3440 (class 2606 OID 18839)
 -- Name: tb_controle_usb_fk1; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -11950,7 +12706,7 @@ ALTER TABLE ONLY tb_controle_usb
 
 
 --
--- TOC entry 3376 (class 2606 OID 18844)
+-- TOC entry 3441 (class 2606 OID 18844)
 -- Name: tb_det_serv_fkey1; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -11959,7 +12715,7 @@ ALTER TABLE ONLY tb_det_serv
 
 
 --
--- TOC entry 3377 (class 2606 OID 18849)
+-- TOC entry 3442 (class 2606 OID 18849)
 -- Name: tb_estacoes_fk; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -11968,7 +12724,7 @@ ALTER TABLE ONLY tb_estacoes
 
 
 --
--- TOC entry 3378 (class 2606 OID 18854)
+-- TOC entry 3443 (class 2606 OID 18854)
 -- Name: tb_estacoes_fk_1; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -11977,7 +12733,7 @@ ALTER TABLE ONLY tb_estacoes
 
 
 --
--- TOC entry 3379 (class 2606 OID 18859)
+-- TOC entry 3444 (class 2606 OID 18859)
 -- Name: tb_estacoes_fk_2; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -11986,7 +12742,7 @@ ALTER TABLE ONLY tb_estacoes
 
 
 --
--- TOC entry 3380 (class 2606 OID 18864)
+-- TOC entry 3445 (class 2606 OID 18864)
 -- Name: tb_estacoes_fk_3; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -11995,7 +12751,7 @@ ALTER TABLE ONLY tb_estacoes
 
 
 --
--- TOC entry 3381 (class 2606 OID 18869)
+-- TOC entry 3446 (class 2606 OID 18869)
 -- Name: tb_estacoes_fk_4; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12004,7 +12760,7 @@ ALTER TABLE ONLY tb_estacoes
 
 
 --
--- TOC entry 3382 (class 2606 OID 18874)
+-- TOC entry 3447 (class 2606 OID 18874)
 -- Name: tb_estado_pais_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12013,7 +12769,7 @@ ALTER TABLE ONLY tb_estado
 
 
 --
--- TOC entry 3383 (class 2606 OID 18879)
+-- TOC entry 3448 (class 2606 OID 18879)
 -- Name: tb_funcoes_sigdem_fk; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12022,7 +12778,7 @@ ALTER TABLE ONLY tb_funcoes_sigdem
 
 
 --
--- TOC entry 3384 (class 2606 OID 18884)
+-- TOC entry 3449 (class 2606 OID 18884)
 -- Name: tb_funcoes_sigdem_idtb_om_apoiadas_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12031,7 +12787,7 @@ ALTER TABLE ONLY tb_funcoes_sigdem
 
 
 --
--- TOC entry 3385 (class 2606 OID 18889)
+-- TOC entry 3450 (class 2606 OID 18889)
 -- Name: tb_gw_om_fk1; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12040,7 +12796,7 @@ ALTER TABLE ONLY tb_gw_om
 
 
 --
--- TOC entry 3386 (class 2606 OID 18894)
+-- TOC entry 3451 (class 2606 OID 18894)
 -- Name: tb_lotacao_clti_idtb_corpo_quadro_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12049,7 +12805,7 @@ ALTER TABLE ONLY tb_lotacao_clti
 
 
 --
--- TOC entry 3387 (class 2606 OID 18899)
+-- TOC entry 3452 (class 2606 OID 18899)
 -- Name: tb_lotacao_clti_idtb_especialidade_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12058,7 +12814,7 @@ ALTER TABLE ONLY tb_lotacao_clti
 
 
 --
--- TOC entry 3388 (class 2606 OID 18904)
+-- TOC entry 3453 (class 2606 OID 18904)
 -- Name: tb_lotacao_clti_idtb_posto_grad_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12067,7 +12823,7 @@ ALTER TABLE ONLY tb_lotacao_clti
 
 
 --
--- TOC entry 3389 (class 2606 OID 18909)
+-- TOC entry 3454 (class 2606 OID 18909)
 -- Name: tb_manutencao_et_fk; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12076,7 +12832,7 @@ ALTER TABLE ONLY tb_manutencao_et
 
 
 --
--- TOC entry 3390 (class 2606 OID 18914)
+-- TOC entry 3455 (class 2606 OID 18914)
 -- Name: tb_manutencao_et_fk_1; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12085,7 +12841,7 @@ ALTER TABLE ONLY tb_manutencao_et
 
 
 --
--- TOC entry 3391 (class 2606 OID 18919)
+-- TOC entry 3456 (class 2606 OID 18919)
 -- Name: tb_mapainfra_fk_1; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12094,7 +12850,7 @@ ALTER TABLE ONLY tb_mapainfra
 
 
 --
--- TOC entry 3392 (class 2606 OID 18924)
+-- TOC entry 3457 (class 2606 OID 18924)
 -- Name: tb_mapainfra_fk_2; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12103,7 +12859,7 @@ ALTER TABLE ONLY tb_mapainfra
 
 
 --
--- TOC entry 3393 (class 2606 OID 18929)
+-- TOC entry 3458 (class 2606 OID 18929)
 -- Name: tb_mapainfra_fk_3; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12112,7 +12868,7 @@ ALTER TABLE ONLY tb_mapainfra
 
 
 --
--- TOC entry 3394 (class 2606 OID 18934)
+-- TOC entry 3459 (class 2606 OID 18934)
 -- Name: tb_mapainfra_fk_4; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12121,7 +12877,7 @@ ALTER TABLE ONLY tb_mapainfra
 
 
 --
--- TOC entry 3395 (class 2606 OID 18939)
+-- TOC entry 3460 (class 2606 OID 18939)
 -- Name: tb_mapainfra_fk_5; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12130,7 +12886,7 @@ ALTER TABLE ONLY tb_mapainfra
 
 
 --
--- TOC entry 3396 (class 2606 OID 18944)
+-- TOC entry 3461 (class 2606 OID 18944)
 -- Name: tb_nao_padronizados_fk; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12139,7 +12895,7 @@ ALTER TABLE ONLY tb_nao_padronizados
 
 
 --
--- TOC entry 3397 (class 2606 OID 18949)
+-- TOC entry 3462 (class 2606 OID 18949)
 -- Name: tb_nao_padronizados_fk1; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12148,7 +12904,7 @@ ALTER TABLE ONLY tb_nao_padronizados
 
 
 --
--- TOC entry 3398 (class 2606 OID 18954)
+-- TOC entry 3463 (class 2606 OID 18954)
 -- Name: tb_nec_aquisicao_fk; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12157,7 +12913,7 @@ ALTER TABLE ONLY tb_nec_aquisicao
 
 
 --
--- TOC entry 3399 (class 2606 OID 18959)
+-- TOC entry 3464 (class 2606 OID 18959)
 -- Name: tb_om_apoiadas_id_cidade_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12166,7 +12922,7 @@ ALTER TABLE ONLY tb_om_apoiadas
 
 
 --
--- TOC entry 3400 (class 2606 OID 18964)
+-- TOC entry 3465 (class 2606 OID 18964)
 -- Name: tb_om_apoiadas_id_estado_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12175,7 +12931,7 @@ ALTER TABLE ONLY tb_om_apoiadas
 
 
 --
--- TOC entry 3401 (class 2606 OID 18969)
+-- TOC entry 3466 (class 2606 OID 18969)
 -- Name: tb_om_setores_fk; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12184,7 +12940,7 @@ ALTER TABLE ONLY tb_om_setores
 
 
 --
--- TOC entry 3402 (class 2606 OID 18974)
+-- TOC entry 3467 (class 2606 OID 18974)
 -- Name: tb_osic_idtb_corpo_quadro_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12193,7 +12949,7 @@ ALTER TABLE ONLY tb_osic
 
 
 --
--- TOC entry 3403 (class 2606 OID 18979)
+-- TOC entry 3468 (class 2606 OID 18979)
 -- Name: tb_osic_idtb_especialidade_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12202,7 +12958,7 @@ ALTER TABLE ONLY tb_osic
 
 
 --
--- TOC entry 3404 (class 2606 OID 18984)
+-- TOC entry 3469 (class 2606 OID 18984)
 -- Name: tb_osic_idtb_om_apoiadas_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12211,7 +12967,7 @@ ALTER TABLE ONLY tb_osic
 
 
 --
--- TOC entry 3405 (class 2606 OID 18989)
+-- TOC entry 3470 (class 2606 OID 18989)
 -- Name: tb_osic_idtb_posto_grad_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12220,7 +12976,7 @@ ALTER TABLE ONLY tb_osic
 
 
 --
--- TOC entry 3406 (class 2606 OID 18994)
+-- TOC entry 3471 (class 2606 OID 18994)
 -- Name: tb_pad_sic_tic_fk1; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12229,7 +12985,7 @@ ALTER TABLE ONLY tb_pad_sic_tic
 
 
 --
--- TOC entry 3407 (class 2606 OID 18999)
+-- TOC entry 3472 (class 2606 OID 18999)
 -- Name: tb_permissoes_admin_fk; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12238,7 +12994,7 @@ ALTER TABLE ONLY tb_permissoes_admin
 
 
 --
--- TOC entry 3408 (class 2606 OID 19004)
+-- TOC entry 3473 (class 2606 OID 19004)
 -- Name: tb_permissoes_admin_fk1; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12247,7 +13003,7 @@ ALTER TABLE ONLY tb_permissoes_admin
 
 
 --
--- TOC entry 3409 (class 2606 OID 19009)
+-- TOC entry 3474 (class 2606 OID 19009)
 -- Name: tb_pessoal_om_idtb_corpo_quadro_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12256,7 +13012,7 @@ ALTER TABLE ONLY tb_pessoal_om
 
 
 --
--- TOC entry 3410 (class 2606 OID 19014)
+-- TOC entry 3475 (class 2606 OID 19014)
 -- Name: tb_pessoal_om_idtb_especialidade_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12265,7 +13021,7 @@ ALTER TABLE ONLY tb_pessoal_om
 
 
 --
--- TOC entry 3411 (class 2606 OID 19019)
+-- TOC entry 3476 (class 2606 OID 19019)
 -- Name: tb_pessoal_om_idtb_om_apoiada_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12274,7 +13030,7 @@ ALTER TABLE ONLY tb_pessoal_om
 
 
 --
--- TOC entry 3412 (class 2606 OID 19024)
+-- TOC entry 3477 (class 2606 OID 19024)
 -- Name: tb_pessoal_om_idtb_posto_grad_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12283,7 +13039,7 @@ ALTER TABLE ONLY tb_pessoal_om
 
 
 --
--- TOC entry 3413 (class 2606 OID 19029)
+-- TOC entry 3478 (class 2606 OID 19029)
 -- Name: tb_pessoal_ti_idtb_corpo_quadro_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12292,7 +13048,7 @@ ALTER TABLE ONLY tb_pessoal_ti
 
 
 --
--- TOC entry 3414 (class 2606 OID 19034)
+-- TOC entry 3479 (class 2606 OID 19034)
 -- Name: tb_pessoal_ti_idtb_especialidade_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12301,7 +13057,7 @@ ALTER TABLE ONLY tb_pessoal_ti
 
 
 --
--- TOC entry 3415 (class 2606 OID 19039)
+-- TOC entry 3480 (class 2606 OID 19039)
 -- Name: tb_pessoal_ti_idtb_funcoes_ti_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12310,7 +13066,7 @@ ALTER TABLE ONLY tb_pessoal_ti
 
 
 --
--- TOC entry 3416 (class 2606 OID 19044)
+-- TOC entry 3481 (class 2606 OID 19044)
 -- Name: tb_pessoal_ti_idtb_om_apoiada_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12319,7 +13075,7 @@ ALTER TABLE ONLY tb_pessoal_ti
 
 
 --
--- TOC entry 3417 (class 2606 OID 19049)
+-- TOC entry 3482 (class 2606 OID 19049)
 -- Name: tb_pessoal_ti_idtb_posto_grad_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12328,7 +13084,7 @@ ALTER TABLE ONLY tb_pessoal_ti
 
 
 --
--- TOC entry 3418 (class 2606 OID 19054)
+-- TOC entry 3483 (class 2606 OID 19054)
 -- Name: tb_proc_modelo_idtb_proc_fab_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12337,7 +13093,7 @@ ALTER TABLE ONLY tb_proc_modelo
 
 
 --
--- TOC entry 3419 (class 2606 OID 19059)
+-- TOC entry 3484 (class 2606 OID 19059)
 -- Name: tb_qualificacao_clti_idtb_lotacao_clti_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12346,7 +13102,7 @@ ALTER TABLE ONLY tb_qualificacao_clti
 
 
 --
--- TOC entry 3420 (class 2606 OID 19064)
+-- TOC entry 3485 (class 2606 OID 19064)
 -- Name: tb_qualificacao_ti_idtb_pessoal_ti_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12355,7 +13111,7 @@ ALTER TABLE ONLY tb_qualificacao_ti
 
 
 --
--- TOC entry 3421 (class 2606 OID 19069)
+-- TOC entry 3486 (class 2606 OID 19069)
 -- Name: tb_rel_servico_fkey1; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12364,7 +13120,7 @@ ALTER TABLE ONLY tb_rel_servico
 
 
 --
--- TOC entry 3422 (class 2606 OID 19074)
+-- TOC entry 3487 (class 2606 OID 19074)
 -- Name: tb_rel_servico_fkey2; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12373,7 +13129,7 @@ ALTER TABLE ONLY tb_rel_servico
 
 
 --
--- TOC entry 3423 (class 2606 OID 19079)
+-- TOC entry 3488 (class 2606 OID 19079)
 -- Name: tb_rel_servico_log_fk1; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12382,7 +13138,7 @@ ALTER TABLE ONLY tb_rel_servico_log
 
 
 --
--- TOC entry 3424 (class 2606 OID 19084)
+-- TOC entry 3489 (class 2606 OID 19084)
 -- Name: tb_rel_servico_ocorrencias_fk1; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12391,7 +13147,7 @@ ALTER TABLE ONLY tb_rel_servico_ocorrencias
 
 
 --
--- TOC entry 3425 (class 2606 OID 19089)
+-- TOC entry 3490 (class 2606 OID 19089)
 -- Name: tb_rel_sv_v2_fkey1; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12400,7 +13156,7 @@ ALTER TABLE ONLY tb_rel_sv_v2
 
 
 --
--- TOC entry 3426 (class 2606 OID 19094)
+-- TOC entry 3491 (class 2606 OID 19094)
 -- Name: tb_rel_sv_v2_fkey2; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12409,7 +13165,7 @@ ALTER TABLE ONLY tb_rel_sv_v2
 
 
 --
--- TOC entry 3427 (class 2606 OID 19099)
+-- TOC entry 3492 (class 2606 OID 19099)
 -- Name: tb_rel_sv_v2_ocorrencias_fk1; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12418,7 +13174,7 @@ ALTER TABLE ONLY tb_rel_sv_v2_ocorrencias
 
 
 --
--- TOC entry 3428 (class 2606 OID 19104)
+-- TOC entry 3493 (class 2606 OID 19104)
 -- Name: tb_servidores_fk; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12427,7 +13183,7 @@ ALTER TABLE ONLY tb_servidores
 
 
 --
--- TOC entry 3429 (class 2606 OID 19109)
+-- TOC entry 3494 (class 2606 OID 19109)
 -- Name: tb_servidores_idtb_om_apoiadas_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12436,7 +13192,7 @@ ALTER TABLE ONLY tb_servidores
 
 
 --
--- TOC entry 3430 (class 2606 OID 19114)
+-- TOC entry 3495 (class 2606 OID 19114)
 -- Name: tb_servidores_idtb_proc_modelo_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12445,7 +13201,7 @@ ALTER TABLE ONLY tb_servidores
 
 
 --
--- TOC entry 3431 (class 2606 OID 19119)
+-- TOC entry 3496 (class 2606 OID 19119)
 -- Name: tb_servidores_idtb_sor_fkey; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12454,7 +13210,7 @@ ALTER TABLE ONLY tb_servidores
 
 
 --
--- TOC entry 3432 (class 2606 OID 19124)
+-- TOC entry 3497 (class 2606 OID 19124)
 -- Name: tb_temas_pad_sic_tic_fk1; Type: FK CONSTRAINT; Schema: db_clti; Owner: -
 --
 
@@ -12463,7 +13219,7 @@ ALTER TABLE ONLY tb_temas_pad_sic_tic
 
 
 --
--- TOC entry 3674 (class 0 OID 0)
+-- TOC entry 3751 (class 0 OID 0)
 -- Dependencies: 8
 -- Name: public; Type: ACL; Schema: -; Owner: -
 --
@@ -12475,7 +13231,7 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
 --
--- TOC entry 3680 (class 0 OID 0)
+-- TOC entry 3760 (class 0 OID 0)
 -- Dependencies: 172
 -- Name: tb_cidade; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12487,7 +13243,7 @@ GRANT ALL ON TABLE tb_cidade TO sigti;
 
 
 --
--- TOC entry 3683 (class 0 OID 0)
+-- TOC entry 3763 (class 0 OID 0)
 -- Dependencies: 174
 -- Name: tb_clti; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12499,7 +13255,7 @@ GRANT ALL ON TABLE tb_clti TO sigti;
 
 
 --
--- TOC entry 3687 (class 0 OID 0)
+-- TOC entry 3767 (class 0 OID 0)
 -- Dependencies: 176
 -- Name: tb_conectividade; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12511,7 +13267,7 @@ GRANT ALL ON TABLE tb_conectividade TO sigti;
 
 
 --
--- TOC entry 3692 (class 0 OID 0)
+-- TOC entry 3772 (class 0 OID 0)
 -- Dependencies: 178
 -- Name: tb_config; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12523,7 +13279,7 @@ GRANT ALL ON TABLE tb_config TO sigti;
 
 
 --
--- TOC entry 3695 (class 0 OID 0)
+-- TOC entry 3775 (class 0 OID 0)
 -- Dependencies: 180
 -- Name: tb_controle_internet; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12535,7 +13291,7 @@ GRANT ALL ON TABLE tb_controle_internet TO sigti;
 
 
 --
--- TOC entry 3698 (class 0 OID 0)
+-- TOC entry 3778 (class 0 OID 0)
 -- Dependencies: 182
 -- Name: tb_controle_usb; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12547,7 +13303,7 @@ GRANT ALL ON TABLE tb_controle_usb TO sigti;
 
 
 --
--- TOC entry 3701 (class 0 OID 0)
+-- TOC entry 3781 (class 0 OID 0)
 -- Dependencies: 184
 -- Name: tb_corpo_quadro; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12559,7 +13315,7 @@ GRANT ALL ON TABLE tb_corpo_quadro TO sigti;
 
 
 --
--- TOC entry 3709 (class 0 OID 0)
+-- TOC entry 3789 (class 0 OID 0)
 -- Dependencies: 192
 -- Name: tb_especialidade; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12571,7 +13327,7 @@ GRANT ALL ON TABLE tb_especialidade TO sigti;
 
 
 --
--- TOC entry 3712 (class 0 OID 0)
+-- TOC entry 3792 (class 0 OID 0)
 -- Dependencies: 194
 -- Name: tb_estacoes; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12583,7 +13339,7 @@ GRANT ALL ON TABLE tb_estacoes TO sigti;
 
 
 --
--- TOC entry 3717 (class 0 OID 0)
+-- TOC entry 3797 (class 0 OID 0)
 -- Dependencies: 196
 -- Name: tb_estado; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12595,7 +13351,7 @@ GRANT ALL ON TABLE tb_estado TO sigti;
 
 
 --
--- TOC entry 3722 (class 0 OID 0)
+-- TOC entry 3802 (class 0 OID 0)
 -- Dependencies: 200
 -- Name: tb_funcoes_sigdem; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12607,7 +13363,7 @@ GRANT ALL ON TABLE tb_funcoes_sigdem TO sigti;
 
 
 --
--- TOC entry 3725 (class 0 OID 0)
+-- TOC entry 3805 (class 0 OID 0)
 -- Dependencies: 202
 -- Name: tb_funcoes_ti; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12619,7 +13375,7 @@ GRANT ALL ON TABLE tb_funcoes_ti TO sigti;
 
 
 --
--- TOC entry 3730 (class 0 OID 0)
+-- TOC entry 3812 (class 0 OID 0)
 -- Dependencies: 206
 -- Name: tb_lotacao_clti; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12631,7 +13387,7 @@ GRANT ALL ON TABLE tb_lotacao_clti TO sigti;
 
 
 --
--- TOC entry 3733 (class 0 OID 0)
+-- TOC entry 3815 (class 0 OID 0)
 -- Dependencies: 208
 -- Name: tb_manutencao_et; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12643,7 +13399,7 @@ GRANT ALL ON TABLE tb_manutencao_et TO sigti;
 
 
 --
--- TOC entry 3736 (class 0 OID 0)
+-- TOC entry 3818 (class 0 OID 0)
 -- Dependencies: 210
 -- Name: tb_mapainfra; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12655,7 +13411,7 @@ GRANT ALL ON TABLE tb_mapainfra TO sigti;
 
 
 --
--- TOC entry 3739 (class 0 OID 0)
+-- TOC entry 3821 (class 0 OID 0)
 -- Dependencies: 212
 -- Name: tb_memorias; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12667,7 +13423,7 @@ GRANT ALL ON TABLE tb_memorias TO sigti;
 
 
 --
--- TOC entry 3744 (class 0 OID 0)
+-- TOC entry 3828 (class 0 OID 0)
 -- Dependencies: 216
 -- Name: tb_nec_aquisicao; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12679,7 +13435,7 @@ GRANT ALL ON TABLE tb_nec_aquisicao TO sigti;
 
 
 --
--- TOC entry 3748 (class 0 OID 0)
+-- TOC entry 3832 (class 0 OID 0)
 -- Dependencies: 220
 -- Name: tb_om_apoiadas; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12691,7 +13447,7 @@ GRANT ALL ON TABLE tb_om_apoiadas TO sigti;
 
 
 --
--- TOC entry 3751 (class 0 OID 0)
+-- TOC entry 3835 (class 0 OID 0)
 -- Dependencies: 222
 -- Name: tb_om_setores; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12703,7 +13459,7 @@ GRANT ALL ON TABLE tb_om_setores TO sigti;
 
 
 --
--- TOC entry 3754 (class 0 OID 0)
+-- TOC entry 3840 (class 0 OID 0)
 -- Dependencies: 224
 -- Name: tb_osic; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12715,7 +13471,7 @@ GRANT ALL ON TABLE tb_osic TO sigti;
 
 
 --
--- TOC entry 3759 (class 0 OID 0)
+-- TOC entry 3845 (class 0 OID 0)
 -- Dependencies: 228
 -- Name: tb_pais; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12727,7 +13483,7 @@ GRANT ALL ON TABLE tb_pais TO sigti;
 
 
 --
--- TOC entry 3762 (class 0 OID 0)
+-- TOC entry 3848 (class 0 OID 0)
 -- Dependencies: 230
 -- Name: tb_perfil_internet; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12739,7 +13495,7 @@ GRANT ALL ON TABLE tb_perfil_internet TO sigti;
 
 
 --
--- TOC entry 3769 (class 0 OID 0)
+-- TOC entry 3855 (class 0 OID 0)
 -- Dependencies: 234
 -- Name: tb_pessoal_om; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12751,7 +13507,7 @@ GRANT ALL ON TABLE tb_pessoal_om TO sigti;
 
 
 --
--- TOC entry 3772 (class 0 OID 0)
+-- TOC entry 3858 (class 0 OID 0)
 -- Dependencies: 236
 -- Name: tb_pessoal_ti; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12763,7 +13519,7 @@ GRANT ALL ON TABLE tb_pessoal_ti TO sigti;
 
 
 --
--- TOC entry 3775 (class 0 OID 0)
+-- TOC entry 3861 (class 0 OID 0)
 -- Dependencies: 238
 -- Name: tb_posto_grad; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12775,7 +13531,7 @@ GRANT ALL ON TABLE tb_posto_grad TO sigti;
 
 
 --
--- TOC entry 3778 (class 0 OID 0)
+-- TOC entry 3864 (class 0 OID 0)
 -- Dependencies: 240
 -- Name: tb_proc_fab; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12787,7 +13543,7 @@ GRANT ALL ON TABLE tb_proc_fab TO sigti;
 
 
 --
--- TOC entry 3781 (class 0 OID 0)
+-- TOC entry 3867 (class 0 OID 0)
 -- Dependencies: 242
 -- Name: tb_proc_modelo; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12799,7 +13555,7 @@ GRANT ALL ON TABLE tb_proc_modelo TO sigti;
 
 
 --
--- TOC entry 3784 (class 0 OID 0)
+-- TOC entry 3870 (class 0 OID 0)
 -- Dependencies: 244
 -- Name: tb_qualificacao_clti; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12811,7 +13567,7 @@ GRANT ALL ON TABLE tb_qualificacao_clti TO sigti;
 
 
 --
--- TOC entry 3787 (class 0 OID 0)
+-- TOC entry 3873 (class 0 OID 0)
 -- Dependencies: 246
 -- Name: tb_qualificacao_ti; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12823,7 +13579,7 @@ GRANT ALL ON TABLE tb_qualificacao_ti TO sigti;
 
 
 --
--- TOC entry 3792 (class 0 OID 0)
+-- TOC entry 3878 (class 0 OID 0)
 -- Dependencies: 248
 -- Name: tb_registro_log; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12835,7 +13591,7 @@ GRANT ALL ON TABLE tb_registro_log TO sigti;
 
 
 --
--- TOC entry 3805 (class 0 OID 0)
+-- TOC entry 3891 (class 0 OID 0)
 -- Dependencies: 260
 -- Name: tb_servidores; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12847,7 +13603,7 @@ GRANT ALL ON TABLE tb_servidores TO sigti;
 
 
 --
--- TOC entry 3812 (class 0 OID 0)
+-- TOC entry 3898 (class 0 OID 0)
 -- Dependencies: 264
 -- Name: tb_sor; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12859,7 +13615,7 @@ GRANT ALL ON TABLE tb_sor TO sigti;
 
 
 --
--- TOC entry 3816 (class 0 OID 0)
+-- TOC entry 3902 (class 0 OID 0)
 -- Dependencies: 268
 -- Name: tb_tipos_clti; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12871,7 +13627,7 @@ GRANT ALL ON TABLE tb_tipos_clti TO sigti;
 
 
 --
--- TOC entry 3818 (class 0 OID 0)
+-- TOC entry 3906 (class 0 OID 0)
 -- Dependencies: 273
 -- Name: vw_controle_usb; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12883,7 +13639,7 @@ GRANT ALL ON TABLE vw_controle_usb TO sigti;
 
 
 --
--- TOC entry 3819 (class 0 OID 0)
+-- TOC entry 3907 (class 0 OID 0)
 -- Dependencies: 274
 -- Name: vw_estacoes; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12895,7 +13651,7 @@ GRANT ALL ON TABLE vw_estacoes TO sigti;
 
 
 --
--- TOC entry 3820 (class 0 OID 0)
+-- TOC entry 3908 (class 0 OID 0)
 -- Dependencies: 276
 -- Name: vw_mapainfra; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12907,7 +13663,7 @@ GRANT ALL ON TABLE vw_mapainfra TO sigti;
 
 
 --
--- TOC entry 3821 (class 0 OID 0)
+-- TOC entry 3909 (class 0 OID 0)
 -- Dependencies: 278
 -- Name: vw_osic; Type: ACL; Schema: db_clti; Owner: -
 --
@@ -12919,20 +13675,8 @@ GRANT ALL ON TABLE vw_osic TO sigti;
 
 
 --
--- TOC entry 3822 (class 0 OID 0)
+-- TOC entry 3910 (class 0 OID 0)
 -- Dependencies: 281
--- Name: vw_pessoal_ti; Type: ACL; Schema: db_clti; Owner: -
---
-
-REVOKE ALL ON TABLE vw_pessoal_ti FROM PUBLIC;
-REVOKE ALL ON TABLE vw_pessoal_ti FROM postgres;
-GRANT ALL ON TABLE vw_pessoal_ti TO postgres;
-GRANT ALL ON TABLE vw_pessoal_ti TO sigti;
-
-
---
--- TOC entry 3823 (class 0 OID 0)
--- Dependencies: 282
 -- Name: vw_processadores; Type: ACL; Schema: db_clti; Owner: -
 --
 
@@ -12943,8 +13687,8 @@ GRANT ALL ON TABLE vw_processadores TO sigti;
 
 
 --
--- TOC entry 3824 (class 0 OID 0)
--- Dependencies: 285
+-- TOC entry 3911 (class 0 OID 0)
+-- Dependencies: 284
 -- Name: vw_servidores; Type: ACL; Schema: db_clti; Owner: -
 --
 
@@ -12955,8 +13699,8 @@ GRANT ALL ON TABLE vw_servidores TO sigti;
 
 
 --
--- TOC entry 3825 (class 0 OID 0)
--- Dependencies: 286
+-- TOC entry 3912 (class 0 OID 0)
+-- Dependencies: 285
 -- Name: vw_setores; Type: ACL; Schema: db_clti; Owner: -
 --
 
@@ -12966,7 +13710,7 @@ GRANT ALL ON TABLE vw_setores TO postgres;
 GRANT ALL ON TABLE vw_setores TO sigti;
 
 
--- Completed on 2022-10-28 00:15:02 -03
+-- Completed on 2023-02-17 13:21:41 -03
 
 --
 -- PostgreSQL database dump complete

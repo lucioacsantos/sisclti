@@ -127,7 +127,11 @@ if (($row) AND ($act == NULL)) {
                         <th scope=\"col\">Nome</th>
                         <th scope=\"col\">Sigla</th>
                         <th scope=\"col\">Ind. Naval</th>
-                        <th scope=\"col\">Ações</th>
+                        <th scope=\"col\">
+                            <span data-feather=\"edit\"></span> Editar</br>
+                            <span data-feather=\"alert-triangle\"></span> Nova Chave</br>
+                            <span data-feather=\"file-text\"></span> Detalhar
+                        </th>
                     </tr>
                 </thead>";
 
@@ -141,8 +145,9 @@ if (($row) AND ($act == NULL)) {
                         <td>".$value->sigla."</td>
                         <td>".$value->indicativo."</td>
                         <td>
-                            <a href=\"?cmd=omapoiadas&act=cad&param=".$value->idtb_om_apoiadas."\">Editar</a> - 
-                            <a href=\"?cmd=omapoiadas&act=chave_acesso&param=".$value->idtb_om_apoiadas."\">Chave de acesso</a>
+                            <a href=\"?cmd=omapoiadas&act=cad&param=".$value->idtb_om_apoiadas."\"><span data-feather=\"edit\"></span></a> - 
+                            <a href=\"?cmd=omapoiadas&act=chave_acesso&param=".$value->idtb_om_apoiadas."\"><span data-feather=\"alert-triangle\"></span></a> - 
+                            <a href=\"?cmd=omapoiadas&act=detalhar&param=".$value->idtb_om_apoiadas."\"><span data-feather=\"file-text\"></span></a>
                         </td>
                     </tr>";
     };
@@ -169,6 +174,38 @@ if ($act == 'chave_acesso') {
         echo(pg_result_error($row) . "<br />\n");
     }
     
+}
+
+/** Detalhar OM */
+if ($act == 'detalhar'){
+    $gw = new Monitoramento();
+    $omap->idtb_om_apoiadas = $param;
+    $gw->idtb_om_apoiadas = $param;
+    $om = $omap->SelectIdOMTable();
+    $ip_gw = $gw->SelectGwIdOM();
+
+    echo"<div class=\"table-responsive\">
+            <table class=\"table table-hover\">
+                <thead>
+                    <tr>
+                        <th scope=\"col\">Código</th>
+                        <th scope=\"col\">Nome</th>
+                        <th scope=\"col\">Sigla</th>
+                        <th scope=\"col\">Ind. Naval</th>
+                        <th scope=\"col\">End.IP</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <th scope=\"row\">".$om->cod_om."</th>
+                        <td>".$om->nome."</td>
+                        <td>".$om->sigla."</td>
+                        <td>".$om->indicativo."</td>
+                        <td>".$ip_gw."</td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>";
+
 }
 
 /* Método INSERT / UPDATE */

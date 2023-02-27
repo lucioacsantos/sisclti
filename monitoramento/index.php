@@ -47,8 +47,6 @@ if (isset($_SESSION['user_name'])){
             </div>";
             break;
 
-        default:
-
         case 'novogateway':
             echo "
                 <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">

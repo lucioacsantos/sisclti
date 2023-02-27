@@ -1002,9 +1002,20 @@ elseif ($versao == '1.5.25'){
 
 }
 
+/*elseif ($versao == '1.6'){
+
+	$pg->exec("ALTER TABLE db_clti.tb_om_apoiadas ADD COLUMN gateway varchar (15) DEFAULT '000.000.000.000' NOT NULL");
+
+	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.7' WHERE parametro='VERSAO' ");
+
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.7.</div>
+	<meta http-equiv=\"refresh\" content=\"5\">";
+
+}*/
+
 elseif ($versao == '1.6'){
 
-	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.6.</div>
+	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.7.</div>
 	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
 
 }

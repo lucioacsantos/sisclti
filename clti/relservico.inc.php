@@ -22,7 +22,7 @@ if (isset($_GET['param'])){
 }
 
 if (isset($_GET['param2'])){
-    $param = $_GET['param2'];
+    $param2 = $_GET['param2'];
   }
 
 if (isset($_GET['senha'])){
@@ -168,7 +168,7 @@ if ($act == NULL) {
                         <td>$value->cel_funcional</td>
                         <td>$value->sit_servidores</td>
                         <td>$value->sit_backup</td>
-                        <td>$value->num_midia_bakcup</td>
+                        <td>".@$value->num_midia_bakcup."</td>
                     <tr>
                     </tr>
                     <tr>
@@ -499,13 +499,13 @@ if ($act == 'reg_ocorrencia') {
     if (isset($_SESSION['status'])){
         $num_rel = $param;
         $idtb_rel_servico_ocorrencias = $param2;
-        if ($idtb_rel_servico_ocorrencias){
-            $rel_svc->idtb_rel_servico_ocorrencias = $idtb_rel_servico_ocorrencias;
-            $ocorrencia = $rel_svc->SelectOcorrenciaId();
-        }
-        else {
+        if ($idtb_rel_servico_ocorrencias == NULL){
             $rel_svc->num_rel = $num_rel;
             $ocorrencia = $rel_svc->SelectId();
+        }
+        else {
+            $rel_svc->idtb_rel_servico_ocorrencias = $idtb_rel_servico_ocorrencias;
+            $ocorrencia = $rel_svc->SelectOcorrenciaId();
         }
         
         echo "
@@ -524,7 +524,7 @@ if ($act == 'reg_ocorrencia') {
                                     <label for=\"ocorrencia\">Ocorrência:</label>
                                 </div>
                                 <div class=\"form-group\">
-                                    <textarea id=\"ocorrencia\" name=\"ocorrencia\" rows=\"10\" cols=\"60\">".@$ocorrencia->ocorrencia."</textarea>
+                                    <textarea id=\"ocorrencia\" name=\"ocorrencia\" rows=\"10\" cols=\"60\">$ocorrencia->ocorrencia</textarea>
                                 </div>
                             </fieldset>
                             <input id=\"status\" name=\"status\" value=\"$ocorrencia->status\" type=\"hidden\">

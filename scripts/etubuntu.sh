@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#### DIGITE ABAIXO O CÓDIGO DA OM E A CHAVE DE ACESSO ####
+cod_om="83000"
+chave='OA2AE3RAG3HTYZT5'
+
 apt update && apt install net-tools curl -y
 
 function interfacesRede(){
@@ -57,18 +61,18 @@ function idSetor(){
 }
 
 clear
-chaveAcesso
+##chaveAcesso
 hardware > /dev/null
 interfacesRede > /dev/null
 discos > /dev/null
 
-curl -sS -X POST -H "Content-Type: application/json" \
+curl --insecure -sS -X POST -H "Content-Type: application/json" \
 	-d '{
 		"cod_om": "'"$cod_om"'",
 		"chave": "'"$chave"'",
 		"act": "select_setores"
 		}' \
-	http://172.23.119.35/sisclti/scripts/submit.inc.php > tmp.txt
+	https://sigti.com3dn.mb/sisclti/scripts/submit.inc.php > tmp.txt
 
 cat tmp.txt
 status=`cat tmp.txt | grep "Erro"`
@@ -80,7 +84,7 @@ else
   idSetor
 fi
 
-curl -sS -X POST -H "Content-Type: application/json" \
+curl --insecure -sS -X POST -H "Content-Type: application/json" \
 	-d '{
 		"act": "cad_et",
 		"cod_om": "'"$cod_om"'",
@@ -110,5 +114,3 @@ curl -sS -X POST -H "Content-Type: application/json" \
 clear
 cat tmp.txt
 rm -f estacoes.sh tmp.txt
-
-#Chave teste 3DN = IPDMFEGWZ2XYDZ4X

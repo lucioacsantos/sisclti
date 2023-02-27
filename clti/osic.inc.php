@@ -192,15 +192,15 @@ if ($act == 'cad') {
                                     </div>
                                     <div class=\"form-group\">
                                         <label for=\"tel_contato\">Telefone de Contato:</label>
-                                        <input id=\"tel_contato\" class=\"form-control\" type=\"email\" name=\"tel_contato\"
+                                        <input id=\"tel_contato\" class=\"form-control\" name=\"tel_contato\"
                                             placeholder=\"(xx) xxxxx-xxxx\" minlength=\"2\" autocomplete=\"off\"
-                                            style=\"text-transform:uppercase\" required=\"true\" value=\"$osic->tel_contato\">
+                                            required=\"true\" value=\"$osic->tel_contato\">
                                     </div>
                                     <div class=\"form-group\">
                                         <label for=\"retelma\">RETELMA:</label>
-                                        <input id=\"retelma\" class=\"form-control\" type=\"email\" name=\"retelma\"
+                                        <input id=\"retelma\" class=\"form-control\" name=\"retelma\"
                                             placeholder=\"xxxx-xxxx\" minlength=\"2\" autocomplete=\"off\"
-                                            style=\"text-transform:uppercase\" required=\"true\" value=\"$osic->retelma\">
+                                            required=\"true\" value=\"$osic->retelma\">
                                     </div>
                                     <div class=\"form-group\">
                                         <label for=\"nip\">NIP:</label>
@@ -313,15 +313,15 @@ if ($act == 'cad') {
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"tel_contato\">Telefone de Contato:</label>
-                                <input id=\"tel_contato\" class=\"form-control\" type=\"email\" name=\"tel_contato\"
+                                <input id=\"tel_contato\" class=\"form-control\" name=\"tel_contato\"
                                     placeholder=\"(xx) xxxxx-xxxx\" minlength=\"2\" autocomplete=\"off\"
-                                    style=\"text-transform:uppercase\" required=\"true\" value=\"$osic->tel_contato\">
+                                    required=\"true\" value=\"$osic->tel_contato\">
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"retelma\">RETELMA:</label>
-                                <input id=\"retelma\" class=\"form-control\" type=\"email\" name=\"retelma\"
+                                <input id=\"retelma\" class=\"form-control\" name=\"retelma\"
                                     placeholder=\"xxxx-xxxx\" minlength=\"2\" autocomplete=\"off\"
-                                    style=\"text-transform:uppercase\" required=\"true\" value=\"$osic->retelma\">
+                                    required=\"true\" value=\"$osic->retelma\">
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"senha\" class=\"control-label\">Senha:</label>

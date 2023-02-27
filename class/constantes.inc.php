@@ -2801,7 +2801,7 @@ class Monitoramento
 {
     public $idtb_gw_om;
     public $end_ip;
-        
+
     public function SelectSrv()
     {
         require_once "pgsql.class.php";
@@ -2813,14 +2813,22 @@ class Monitoramento
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT nome,end_ip FROM db_clti.tb_gw_om WHERE status = 'ATIVO' ");
+        $row = $pg->getRow("SELECT nome,ip_gw FROM db_clti.tb_gw_om WHERE status = 'ATIVO' ");
         return $row;
     }
     public function SelectGwId()
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT nome,end_ip FROM db_clti.tb_gw_om WHERE idtb_gw_om = $this->idtb_gw_om ");
+        $row = $pg->getRow("SELECT nome,ip_gw FROM db_clti.tb_gw_om WHERE idtb_gw_om = $this->idtb_gw_om ");
+        return $row;
+    }
+    /** Seleciona Gateway pelo ID da OM */
+    public function SelectGwIdOM()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getCol("SELECT ip_gw FROM db_clti.tb_gw_om WHERE idtb_om_apoiadas = $this->idtb_om_apoiadas");
         return $row;
     }
     public function PingAtivo()
@@ -2871,7 +2879,7 @@ class RelServico
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getCol("SELECT numero FROM db_clti.tb_midias_backup WHERE situacao = 'DISPONÍVEL' LIMIT 1 ");
+        $row = $pg->getCol("SELECT prox_num FROM db_clti.tb_numerador WHERE parametro = 'NumMidiaBk' ");
         return $row;
     }
     /** Registra Novo Relatório de Serviço */
@@ -2931,10 +2939,19 @@ class RelServico
             data_sai_servico, cel_funcional, sit_servidores, sit_backup, status, num_midia_bakcup) VALUES ($this->sup_sai_servico, $this->sup_entra_servico, 
             $this->num_rel, '$this->data_entra_servico', '$this->data_sai_servico', '$this->cel_funcional', '$this->sit_servidores', '$this->sit_backup', 
             '$this->status', $this->num_midia_bakcup)";
-        $row1 = $pg->insert($sql, 'idtb_rel_servico');
-        $row2 = $pg->exec("UPDATE db_clti.tb_numerador SET prox_num = prox_num +1 WHERE parametro = 'RelServico' ");
-        $row2 = $pg->exec("UPDATE db_clti.tb_midias_backup SET situacao = 'ÚLTIMO BACKUP EM: $this->data_entra_servico' WHERE numero = '$this->num_midia_bakcup' ");
-        return array($row1,$row2);
+        $insert = $pg->insert($sql, 'idtb_rel_servico');
+        $numrel = $pg->exec("UPDATE db_clti.tb_numerador SET prox_num = prox_num +1 WHERE parametro = 'RelServico' ");
+        $midiabk = $pg->exec("UPDATE db_clti.tb_midias_backup SET situacao = 'ÚLTIMO BACKUP EM: $this->data_entra_servico' WHERE numero = '$this->num_midia_bakcup' ");
+        $midias = $pg->getColValues("SELECT numero FROM db_clti.tb_midias_backup WHERE situacao != 'INDISPONÍVEL' ORDER BY numero ASC");
+        $index = array_search($this->num_midia_bakcup, $midias);
+        if($index !== false && $index < count($midias)-1){
+            $next = $midias[$index+1];
+            $row = $pg->exec("UPDATE db_clti.tb_numerador SET prox_num = $next WHERE parametro = 'NumMidiaBk' ");
+        }
+        else{
+            $row = $pg->exec("UPDATE db_clti.tb_numerador SET prox_num = $midias[0] WHERE parametro = 'NumMidiaBk' ");
+        }
+        return array($insert);
     }
     /** Atualiza Relatório de Serviço */
     public function Update()
