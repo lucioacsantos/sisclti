@@ -28,6 +28,7 @@ if (isset($_GET['senha'])){
 /* Classe de interação com o PostgreSQL */
 require_once "../class/constantes.inc.php";
 $bkp = new Backup();
+$srv = new Servidores();
 
 /* Recupera informações */
 $row = $bkp->SelectMidias();
@@ -262,6 +263,11 @@ if ($act == 'insert_tipo') {
         echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
             <meta http-equiv=\"refresh\" content=\"1;$url\">";
     }
+}
+
+/** Método Cadastro de Servidores/Diretórios para Backup */
+if ($act == 'cad_dir'){
+    $servidores = $srv->SelectIdOMSrvView();
 }
 
 ?>

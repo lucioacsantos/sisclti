@@ -3066,7 +3066,10 @@ class RelServico
 class Backup
 {
     public $idtb_midias_backup;
+    public $idtb_tipos_midias_backup;
+    public $descricao;
     public $tipo;
+    public $sigla;
     public $numero;
     public $capacidade;
     public $situacao;

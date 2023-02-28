@@ -1002,18 +1002,27 @@ elseif ($versao == '1.5.25'){
 
 }
 
-/*elseif ($versao == '1.6'){
+elseif ($versao == '1.6'){
 
-	$pg->exec("ALTER TABLE db_clti.tb_om_apoiadas ADD COLUMN gateway varchar (15) DEFAULT '000.000.000.000' NOT NULL");
+	$pg->exec("DROP TABLE db_clti.tb_origem_backup");
+
+	$pg->exec("CREATE TABLE db_clti.tb_origem_backup (
+		idtb_origem_backup serial4 NOT NULL,
+		idtb_servidores int4 NOT NULL,
+		diretorio_backup varchar(255) NOT NULL,
+		freq_backup varchar (255) NOT NULL,
+		CONSTRAINT tb_origem_backup_pkey PRIMARY KEY (idtb_origem_backup)
+	);
+	COMMENT ON TABLE db_clti.tb_origem_backup IS 'Tabela contendo informações dos servidores para realizar backup'; ");
 
 	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.7' WHERE parametro='VERSAO' ");
 
 	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.7.</div>
 	<meta http-equiv=\"refresh\" content=\"5\">";
 
-}*/
+}
 
-elseif ($versao == '1.6'){
+elseif ($versao == '1.7'){
 
 	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema está atualizado, Versão 1.7.</div>
 	<meta http-equiv=\"refresh\" content=\"5;url=$url\">";
