@@ -1011,9 +1011,55 @@ elseif ($versao == '1.6'){
 		idtb_servidores int4 NOT NULL,
 		diretorio_backup varchar(255) NOT NULL,
 		freq_backup varchar (255) NOT NULL,
-		CONSTRAINT tb_origem_backup_pkey PRIMARY KEY (idtb_origem_backup)
+		CONSTRAINT tb_origem_backup_pkey PRIMARY KEY (idtb_origem_backup),
+		CONSTRAINT tb_origem_backup_fkey1 FOREIGN KEY (idtb_servidores) REFERENCES db_clti.tb_servidores(idtb_servidores)
 	);
 	COMMENT ON TABLE db_clti.tb_origem_backup IS 'Tabela contendo informações dos servidores para realizar backup'; ");
+
+	$pg->exec("CREATE TABLE db_clti.tb_srv_backup (
+		idtb_srv_backup serial4 NOT NULL,
+		idtb_servidores int4 NOT NULL,
+		diretorio_backup varchar(255) NOT NULL,
+		CONSTRAINT tb_srv_backup_pkey PRIMARY KEY (idtb_srv_backup),
+		CONSTRAINT tb_srv_backup_fkey1 FOREIGN KEY (idtb_servidores) REFERENCES db_clti.tb_servidores(idtb_servidores)
+	);
+	COMMENT ON TABLE db_clti.tb_srv_backup IS 'Tabela contendo informações do servidor de backup'; ");
+
+	$pg->exec("
+	CREATE OR REPLACE VIEW db_clti.vw_origem_backup
+	AS SELECT srv.idtb_servidores,
+		srv.end_ip,
+		srv.nome,
+		srv_bk.diretorio_backup,
+		srv_bk.freq_backup
+	FROM db_clti.tb_servidores srv,
+		db_clti.tb_origem_backup srv_bk
+	WHERE srv.idtb_servidores = srv_bk.idtb_servidores;");
+
+	$pg->exec("
+	CREATE OR REPLACE VIEW db_clti.vw_srv_backup
+	AS SELECT srv_bk.idtb_srv_backup,
+		srv.idtb_servidores,
+		srv.end_ip,
+		srv.nome,
+		srv_bk.diretorio_backup
+	FROM db_clti.tb_servidores srv,
+		db_clti.tb_srv_backup srv_bk
+	WHERE srv.idtb_servidores = srv_bk.idtb_servidores;");
+
+	$pg->exec("
+	CREATE TABLE db_clti.tb_log_backup (
+		idtb_log_backup serial4 NOT NULL,
+		srv_origem varchar(255) NOT NULL,
+		dir_origem varchar(255) NOT NULL,
+		data_inicio date NOT NULL,
+		hora_inicio time NOT NULL,
+		data_fim date NOT NULL,
+		hora_fim time NOT NULL,
+		tamanho int4 NOT NULL
+	); 
+	COMMENT ON TABLE db_clti.tb_log_backup IS 'Tabela contendo log dos backup realizados';
+	");
 
 	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.7' WHERE parametro='VERSAO' ");
 

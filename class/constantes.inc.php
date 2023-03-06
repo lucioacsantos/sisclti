@@ -3067,6 +3067,10 @@ class Backup
 {
     public $idtb_midias_backup;
     public $idtb_tipos_midias_backup;
+    public $idtb_srv_backup;
+    public $idtb_servidores;
+    public $idtb_origem_backup;
+    public $diretorio_backup;
     public $descricao;
     public $tipo;
     public $sigla;
@@ -3142,6 +3146,30 @@ class Backup
         $sql = "UPDATE db_clti.tb_tipos_midias_backup SET (descricao,sigla) = ('$this->descricao','$this->sigla') 
             WHERE idtb_tipos_midias_backup=$this->idtb_tipos_midias_backup ";
         $row = $pg->exec($sql);
+        return $row;
+    }
+    /** Seleciona Servidores de Backup */
+    public function SelectSrvBk()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_srv_backup ");
+        return $row;
+    }
+    /** Seleciona Servidores de Origem dos Dados para Backup */
+    public function SelectSrvOrigemBk()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_origem_backup ");
+        return $row;
+    }
+    /** Seleciona Servidores de Origem dos Dados para Backup */
+    public function InsertSrvBk()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->exec("INSERT INTO db_clti.tb_srv_backup (idtb_servidores,diretorio_backup) VALUES ($this->idtb_servidores,'$this->diretorio_backup') ");
         return $row;
     }
 }

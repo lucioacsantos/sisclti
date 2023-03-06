@@ -408,6 +408,10 @@ if (isset($_SESSION['user_name'])){
                       Tipos de Mídia</button></a>
                     <a href=\"?cmd=midiabackup&act=cad_tipo\"><button class=\"btn btn-sm btn-outline-secondary\">
                       Cad. Tipo</button></a>
+                    <a href=\"?cmd=midiabackup&act=srv_bk\"><button class=\"btn btn-sm btn-outline-secondary\">
+                      Servidor de Backup</button></a>
+                    <a href=\"?cmd=midiabackup&act=cad_srv\"><button class=\"btn btn-sm btn-outline-secondary\">
+                      Cad. Srv. Backup</button></a>
                   </div>
                 </div>
               </div>";

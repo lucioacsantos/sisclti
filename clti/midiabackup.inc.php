@@ -124,6 +124,41 @@ if ($act == 'cad_tipo') {
     </div>";
 }
 
+/** Cadastro do Servidor de Backup */
+if ($act == 'cad_srv'){
+    $servidores = $srv->SelectAllSrvTable();
+    
+    echo "
+	<div class=\"container-fluid\">
+        <div class=\"row\">
+            <main>
+                <div id=\"form-cadastro\">
+                    <form id=\"midiabackup\" role=\"form\" action=\"?cmd=midiabackup&act=insert_srv_bk\" 
+                        method=\"post\" enctype=\"multipart/form-data\">
+                        <fieldset>
+                            <div class=\"form-group\">
+                                <label for=\"idtb_servidores\">Selecione o Servidor:</label>
+                                <select id=\"idtb_servidores\" class=\"form-control\" name=\"idtb_servidores\">";
+                                    foreach ($servidores as $key => $value) {
+                                        echo"<option value=\"".$value->idtb_servidores."\">
+                                            ".$value->nome."</option>";
+                                    };
+                                echo "</select>
+                            </div>
+                            <div class=\"form-group\">
+                                <label for=\"dir_backup\">Diretório de Destino do Backup:</label>
+                                <input id=\"dir_backup\" class=\"form-control\" type=\"text\" name=\"dir_backup\" autocomplete=\"off\"
+                                    style=\"text-transform:lowercase\" placeholder=\"/home/backup\" maxlength=\"50\">
+                            </div>                            
+                        </fieldset>
+                        <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">
+                    </form>
+                </div>
+            </main>
+        </div>
+    </div>";
+}
+
 /** Exibe relação de tipos de mídias de backup */
 if ($act == 'tipos_midia') {
     $midia = $bkp->SelectTipos();
@@ -264,6 +299,68 @@ if ($act == 'insert_tipo') {
             <meta http-equiv=\"refresh\" content=\"1;$url\">";
     }
 }
+
+/* Método INSERT/UPDATE Servidor de Backup */
+if ($act == 'insert_srv_bk') {
+    if (isset($_SESSION['status'])){
+        $idtb_servidores = $_POST['idtb_servidores'];
+        $bkp->idtb_servidores = $idtb_servidores;
+        $bkp->diretorio_backup = mb_strtolower($_POST['dir_backup']);
+
+        $row = $bkp->InsertSrvBk();
+        if ($row) {
+            echo "<h5>Resgistros incluídos no banco de dados.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;url=?cmd=midiabackup\">";
+        }
+        else {
+            echo "<h5>Ocorreu algum erro, tente novamente.</h5>";
+        }
+        
+    }
+    else{
+        echo "<h5>Ocorreu algum erro, usuário não autenticado.</h5>
+            <meta http-equiv=\"refresh\" content=\"1;$url\">";
+    }
+}
+
+/** Lista Servidor de Backup */
+if ($act == 'srv_bk'){
+    $srv_bk = $bkp->SelectSrvBk();
+    if ($srv_bk){
+    echo"<div class=\"table-responsive\">
+            <table class=\"table table-hover\">
+                <thead>
+                    <tr>
+                        <th scope=\"col\">Nome</th>
+                        <th scope=\"col\">Endereço IP</th>
+                        <th scope=\"col\">Diretório de Destino</th>
+                        <th scope=\"col\">Ações</th>
+                    </tr>
+                </thead>";
+
+    foreach ($srv_bk as $key => $value){
+        
+        echo"       <tr>
+                        <th scope=\"row\">".$value->nome."</th>
+                        <td>".$value->end_ip."</td>
+                        <td>".$value->diretorio_backup."</td>
+                        <td>
+                            <!--<a href=\"?cmd=midiabackup&act=cad_midia&param=".$value->idtb_srv_backup."\">Editar</a> - 
+                            <a href=\"?cmd=midiabackup&act=del&param=".$value->idtb_srv_backup."\">Excluir</a>-->
+                        </td>
+                    </tr>";
+    }
+    echo"
+                </tbody>
+            </table>
+            </div>";
+    }
+    else{
+        
+    }
+}
+
+
 
 /** Método Cadastro de Servidores/Diretórios para Backup */
 if ($act == 'cad_dir'){
