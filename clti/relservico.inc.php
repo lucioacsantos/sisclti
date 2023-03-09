@@ -154,7 +154,8 @@ if ($act == NULL) {
                         <td><a href=\"?cmd=relservico&act=cad&param=".$value->num_rel."\">Editar</a><br/>
                             <a href=\"?cmd=relservico&act=reg_ocorrencia&param=".$value->num_rel."\">Registrar ocorrência</a><br/>
                             <a href=\"?cmd=relservico&act=ocorrencias&param=".$value->num_rel."\">Ocorrências</a><br/>
-                            <a href=\"?cmd=relservico&act=encerrar&param=".$value->num_rel."\">Encerrar relatório</a>
+                            <a href=\"?cmd=relservico&act=encerrar&param=".$value->num_rel."\">Encerrar relatório</a><br />
+                            <a href=\"relpdf.php?param=".$value->num_rel."\" target=\"_blanck\">Gerar PDF</a>
                         </td>
                     </tr>
                     <tr>
@@ -307,6 +308,7 @@ if ($act == 'encerrados') {
                         echo"<td>
                                 <a href=\"?cmd=relservico&act=ocorrencias&param=".$value->num_rel."\">Ocorrências</a> - 
                                 <a href=\"?cmd=relservico&act=reabrir&param=".$value->num_rel."\">Reabrir</a>
+                                <a href=\"relpdf.php?param=".$value->num_rel."\" target=\"_blanck\">Gerar PDF</a>
                             </td>
                     </tr>
                     <tr>

@@ -4,8 +4,75 @@
 *** 99242991 | Lúcio ALEXANDRE Correia dos Santos
 **/
 
+/** Leitura de parâmetros */
+$oa = $cmd = $param = $param2 = $act = $senha = NULL;
+if (isset($_GET['oa'])){
+  $oa = $_GET['oa'];
+}
+
+if (isset($_GET['cmd'])){
+  $cmd = $_GET['cmd'];
+}
+
+if (isset($_GET['act'])){
+  $act = $_GET['act'];
+}
+
+if (isset($_GET['param'])){
+  $param = $_GET['param'];
+}
+
+if (isset($_GET['param2'])){
+    $param2 = $_GET['param2'];
+  }
+
+if (isset($_GET['senha'])){
+    $senha = $_GET['senha'];
+}
+
+/** Formata Posto/Esp/Grad */
+function posto_grad($pessclti){
+    if (($pessclti->exibir_espec == 'NÃO') AND ($pessclti->exibir_corpo_quadro == 'NÃO')){
+        $postograd = $pessclti->sigla_posto_grad;
+    }
+    elseif (($pessclti->exibir_espec == 'NÃO') AND ($pessclti->exibir_corpo_quadro != 'NÃO')){
+        $postograd = $pessclti->sigla_posto_grad ."-". $pessclti->sigla_corpo_quadro;
+    }
+    elseif (($pessclti->exibir_espec != 'NÃO') AND ($pessclti->exibir_corpo_quadro == 'NÃO')){
+        $postograd = $pessclti->sigla_posto_grad ."-". $pessclti->sigla_espec;
+    }
+    else {
+        $postograd = $pessclti->sigla_posto_grad ."-". $pessclti->sigla_corpo_quadro ."-". $pessclti->sigla_espec;
+    }
+    return $postograd;
+}
+
+/* Classe de interação com o PostgreSQL */
+require_once "../class/constantes.inc.php";
+
 /** Incluindo TCPDF */
 require_once "../tcpdf/tcpdf.php";
+
+$rel_svc = new RelServico();
+$pess_clti = new PessoalCLTI();
+
+$rel_svc ->num_rel = $param;
+$rel = $rel_svc->SelectId();
+
+/** Configurando Parâmetros do Relatório */
+$pess_clti->idtb_lotacao_clti = $rel->sup_sai_servico;
+$sup_sai = $pess_clti->SelectId();
+$pess_clti->idtb_lotacao_clti = $rel->sup_entra_servico;
+$sup_entra = $pess_clti->SelectId();
+$rel_svc->num_rel = $rel->num_rel;
+$ocorrencias = $rel_svc->SelectOcorrenciaNumRel();
+$data_entra = date('d/m/Y',strtotime($rel->data_entra_servico));
+$data_sai = date('d/m/Y',strtotime($rel->data_sai_servico));
+$nip_sai = $pess_clti->FormatNIP($sup_sai->nip);
+$nip_entra = $pess_clti->FormatNIP($sup_entra->nip);
+$posto_grad_sai = posto_grad($sup_sai);
+$posto_grad_entra = posto_grad($sup_entra);
+$data_nome_rel = date('d-m-Y',strtotime($rel->data_sai_servico));
 
 /** Inicia Configurações do PDF */
 
@@ -60,7 +127,9 @@ $pdf->Write(0, $txt, '', 0, 'C', true, 0, false, false, 0);
 $pdf->SetFont('times', '', 10);
 
 $txt = <<<EOD
-Nº 001/2023\n
+Nº $param/2023
+
+Serviço do dia $data_entra para o dia $data_sai.\n
 
 EOD;
 
@@ -69,9 +138,9 @@ $pdf->Write(0, $txt, '', 0, 'C', true, 0, false, false, 0);
 /** Início dos dados do relatório */
 
 $txt = <<<EOD
-1) Supervisor de serviço que sai: CB-FN-ET 99.2429.91 ALEXANDRE
+1) Supervisor de serviço que sai: $posto_grad_sai $nip_sai  $sup_sai->nome_guerra
 
-2) Supervisor de serviço que entra: CB-FN-ET 99.2429.91 ALEXANDRE
+2) Supervisor de serviço que entra: $posto_grad_entra $nip_entra $sup_entra->nome_guerra
 
 3) Equipamentos:\n
 
@@ -88,42 +157,42 @@ $tbl = <<<EOD
     </tr>
     <tr>
         <td>3.1) Rádio Enlace <br /></td>
-        <td> </td>
+        <td>$rel->sit_servidores</td>
         <td> </td>
     </tr>
     <tr>
         <td>3.2) Backbone <br /></td>
-        <td> </td>
+        <td>$rel->sit_servidores</td>
         <td> </td>
     </tr>
     <tr>
         <td>3.3) MPLS <br /></td>
-        <td> </td>
+        <td>$rel->sit_servidores</td>
         <td> </td>
     </tr>
     <tr>
         <td>3.4) Internet Distrital <br /></td>
-        <td> </td>
+        <td>$rel->sit_servidores</td>
         <td> </td>
     </tr>
     <tr>
         <td>3.5) Roteador <br /></td>
-        <td> </td>
+        <td>$rel->sit_servidores</td>
         <td> </td>
     </tr>
     <tr>
         <td>3.6) Câmeras <br /></td>
-        <td> </td>
+        <td>$rel->sit_servidores</td>
         <td> </td>
     </tr>
     <tr>
         <td>3.7) Refrigeração <br /></td>
-        <td> </td>
+        <td>$rel->sit_servidores</td>
         <td> </td>
     </tr>
     <tr>
         <td>3.8) Celular Funcional <br /></td>
-        <td> </td>
+        <td>$rel->cel_funcional</td>
         <td> </td>
     </tr>
 
@@ -148,22 +217,22 @@ $tbl = <<<EOD
     </tr>
     <tr>
         <td>4.1) SiGDEM <br /></td>
-        <td> </td>
+        <td>$rel->sit_servidores</td>
         <td> </td>
     </tr>
     <tr>
         <td>4.2) Correio Eletrônico <br /></td>
-        <td> </td>
+        <td>$rel->sit_servidores</td>
         <td> </td>
     </tr>
     <tr>
         <td>4.3) Páginas <br /></td>
-        <td> </td>
+        <td>$rel->sit_servidores</td>
         <td> </td>
     </tr>
     <tr>
         <td>4.4) SAMBA <br /></td>
-        <td> </td>
+        <td>$rel->sit_servidores</td>
         <td> </td>
     </tr>
 
@@ -175,7 +244,7 @@ $pdf->writeHTML($tbl, true, false, false, false, '');
 $pdf->AddPage();
 
 $txt = <<<EOD
-<p>5) Rotina de backup: <b>Mídia Nº 01</b><br/></p>
+<p>5) Rotina de backup: <b>Mídia Nº $rel->num_midia_bakcup</b><br/></p>
 
 EOD;
 
@@ -191,22 +260,22 @@ $tbl = <<<EOD
     </tr>
     <tr>
         <td>5.1) SiGDEM <br /></td>
-        <td> </td>
+        <td>$rel->sit_backup</td>
         <td> </td>
     </tr>
     <tr>
         <td>5.2) Correio Eletrônico <br /></td>
-        <td> </td>
+        <td>$rel->sit_backup</td>
         <td> </td>
     </tr>
     <tr>
         <td>5.3) Páginas <br /></td>
-        <td> </td>
+        <td>$rel->sit_backup</td>
         <td> </td>
     </tr>
     <tr>
         <td>5.4) SAMBA <br /></td>
-        <td> </td>
+        <td>$rel->sit_backup</td>
         <td> </td>
     </tr>
 
@@ -336,8 +405,20 @@ $tbl = <<<EOD
         <td colspan="2"></td>
     </tr>
     <tr>
-        <td align="center">LEONARDO AZEVEDO EDUARDO<br />CAPITÃO DE CORVETA (T)<br /> Encarregado do CLTI</td>
-        <td align="center">LÚCIO ALEXANDRE CORREIA DOS SANTOS<br />CABO (FN-ET)<br />Supervisor de Serviço</td>
+        <td align="center">$sup_sai->nome<br />$posto_grad_sai<br />Passando Serviço</td>
+        <td align="center">$sup_entra->nome<br />$posto_grad_entra<br />Entrando de  Serviço</td>
+    </tr>
+    <tr>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td colspan="2"></td>
+    </tr>
+    <tr>
+        <td colspan="2" align="center">LEONARDO AZEVEDO EDUARDO<br />CAPITÃO DE CORVETA (T)<br /> Encarregado do CLTI</td>
     </tr>
 
 </table>
@@ -346,4 +427,6 @@ EOD;
 $pdf->writeHTML($tbl, true, false, false, false, '');
 
 //Fechar e apresentar saída do Relatório PDF
-$pdf->Output('RelSv_13-02-2023.pdf', 'I');
+$pdf->Output("RelSv_$data_nome_rel.pdf", 'I');
+
+?>

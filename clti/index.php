@@ -356,10 +356,10 @@ if (isset($_SESSION['user_name'])){
                       Em Andamento</button></a>
                     <a href=\"?cmd=relservico&act=encerrados\"><button class=\"btn btn-sm btn-outline-secondary\">
                       Encerrados</button></a>
-                    <a href=\"?cmd=relservico&act=agaprov\"><button class=\"btn btn-sm btn-outline-secondary\">
+                    <!--<a href=\"?cmd=relservico&act=agaprov\"><button class=\"btn btn-sm btn-outline-secondary\">
                       Ag. aprovação</button></a>
                     <a href=\"?cmd=relservico&act=aprovados\"><button class=\"btn btn-sm btn-outline-secondary\">
-                      Aprovados</button></a>
+                      Aprovados</button></a>-->
                   </div>
                 </div>
               </div>";
@@ -370,6 +370,11 @@ if (isset($_SESSION['user_name'])){
         </div>";
     
       break;
+
+      // case 'relsvpdf':
+      //   include "relpdf.php";
+      
+      // break;
 
       case 'seguranca':
         echo "

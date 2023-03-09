@@ -959,8 +959,7 @@ elseif ($versao == '1.5.25'){
 
 	$pg->exec("DROP VIEW db_clti.vw_pessoal_ti");
 
-	$pg->exec("
-	CREATE OR REPLACE VIEW db_clti.vw_pessoal_ti
+	$pg->exec("CREATE OR REPLACE VIEW db_clti.vw_pessoal_ti
 	AS SELECT pesti.idtb_pessoal_ti,
 		pesti.idtb_posto_grad,
 		posto.sigla AS sigla_posto_grad,
@@ -991,7 +990,7 @@ elseif ($versao == '1.5.25'){
 		db_clti.tb_funcoes_ti funcao
 	WHERE pesti.idtb_posto_grad = posto.idtb_posto_grad AND pesti.idtb_corpo_quadro = corpo.idtb_corpo_quadro 
 	AND pesti.idtb_especialidade = espec.idtb_especialidade AND pesti.idtb_om_apoiadas = om.idtb_om_apoiadas 
-	AND pesti.idtb_funcoes_ti = funcao.idtb_funcoes_ti;");
+	AND pesti.idtb_funcoes_ti = funcao.idtb_funcoes_ti; ");
 
 	echo "<div class=\"alert alert-primary\" role=\"alert\">Registrando nova versão. Aguarde...</div>";
 
@@ -1004,7 +1003,7 @@ elseif ($versao == '1.5.25'){
 
 elseif ($versao == '1.6'){
 
-	$pg->exec("DROP TABLE db_clti.tb_origem_backup");
+	$pg->exec("DROP TABLE db_clti.tb_origem_backup ");
 
 	$pg->exec("CREATE TABLE db_clti.tb_origem_backup (
 		idtb_origem_backup serial4 NOT NULL,
@@ -1025,8 +1024,7 @@ elseif ($versao == '1.6'){
 	);
 	COMMENT ON TABLE db_clti.tb_srv_backup IS 'Tabela contendo informações do servidor de backup'; ");
 
-	$pg->exec("
-	CREATE OR REPLACE VIEW db_clti.vw_origem_backup
+	$pg->exec("CREATE OR REPLACE VIEW db_clti.vw_origem_backup
 	AS SELECT srv.idtb_servidores,
 		srv.end_ip,
 		srv.nome,
@@ -1034,10 +1032,9 @@ elseif ($versao == '1.6'){
 		srv_bk.freq_backup
 	FROM db_clti.tb_servidores srv,
 		db_clti.tb_origem_backup srv_bk
-	WHERE srv.idtb_servidores = srv_bk.idtb_servidores;");
+	WHERE srv.idtb_servidores = srv_bk.idtb_servidores;	");
 
-	$pg->exec("
-	CREATE OR REPLACE VIEW db_clti.vw_srv_backup
+	$pg->exec("CREATE OR REPLACE VIEW db_clti.vw_srv_backup
 	AS SELECT srv_bk.idtb_srv_backup,
 		srv.idtb_servidores,
 		srv.end_ip,
@@ -1045,10 +1042,9 @@ elseif ($versao == '1.6'){
 		srv_bk.diretorio_backup
 	FROM db_clti.tb_servidores srv,
 		db_clti.tb_srv_backup srv_bk
-	WHERE srv.idtb_servidores = srv_bk.idtb_servidores;");
+	WHERE srv.idtb_servidores = srv_bk.idtb_servidores; ");
 
-	$pg->exec("
-	CREATE TABLE db_clti.tb_log_backup (
+	$pg->exec("CREATE TABLE db_clti.tb_log_backup (
 		idtb_log_backup serial4 NOT NULL,
 		srv_origem varchar(255) NOT NULL,
 		dir_origem varchar(255) NOT NULL,
@@ -1058,8 +1054,7 @@ elseif ($versao == '1.6'){
 		hora_fim time NOT NULL,
 		tamanho int4 NOT NULL
 	); 
-	COMMENT ON TABLE db_clti.tb_log_backup IS 'Tabela contendo log dos backup realizados';
-	");
+	COMMENT ON TABLE db_clti.tb_log_backup IS 'Tabela contendo log dos backup realizados'; ");
 
 	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.7' WHERE parametro='VERSAO' ");
 
