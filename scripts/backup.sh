@@ -21,6 +21,5 @@ curl --insecure -sS -X POST -H "Content-Type: application/json" \
 
 cat tmp.txt
 status=`cat tmp.txt | grep "Erro"`
-
-
+ 
 exit 0
