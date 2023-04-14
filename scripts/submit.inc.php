@@ -139,13 +139,13 @@ if ($act == "cad_et"){
     $et->status = "EM PRODUÇÃO";
 
     /** Verificação de Requisitos Mínimos
-     * Memória: 8GB DDR4 2400
+     * Memória: 8GB DDR4 3200
      * Processador: 3.1GHz 4 Núcleos 4 Threads
-     * Processador de referência: i3-8100T (8ª Geração)
+     * Processador de referência: i3-1115G4 (11ª Geração)
      * TODO: Adicionar configurações ET Padrão ao Sistema
      */
     
-    if (($data['tipo_memoria'] == 'DDR4') && ($data['velocidade'] >= '2400') && ($data['memoria'] >= '8') 
+    if (($data['tipo_memoria'] == 'DDR4') && ($data['velocidade'] >= '3200') && ($data['memoria'] >= '8') 
       && ($data['clock'] >= '3100') && ($data['cores'] >= '4') && ($data['threads'] >= '4')){
       $et->req_minimos = "SIM";
     }
