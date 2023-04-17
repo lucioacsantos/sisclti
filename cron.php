@@ -6,6 +6,7 @@
 /* Classe de interação com o PostgreSQL */
 require_once "class/constantes.inc.php";
 $usr = new Usuario();
+$estacoes = new Estacoes();
 $rel_sv = new RelServico();
 
 /** Remove QR Code Temporários */
@@ -41,8 +42,6 @@ $rel_sv->num_midia_bakcup = $rel_sv->NumMidiaBk();
 
 $rel_sv->Insert();
 $rel_sv->NewRel();
-
-
 
 echo "Supervisor que sai: ".$sup_sai->idtb_lotacao_clti."\n";
 echo "Supervisor que entra: ".$sup_entra->idtb_lotacao_clti."\n";

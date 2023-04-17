@@ -1974,6 +1974,28 @@ class Estacoes
         $row = $pg->getCol($sql);
         return $row;
     }
+    /** Verificação de Requisitos Mínimos
+     * Memória: 8GB DDR4 3200
+     * Processador: 3.1GHz 4 Núcleos 4 Threads
+     * Processador de referência: i3-1115G4 (11ª Geração)
+     * TODO: Adicionar configurações ET Padrão ao Sistema
+     */
+    public function ReqMinimos()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "UPDATE db_clti.tb_estacoes SET req_minimos = 'NÃO' WHERE idtb_estacoes = ('SELECT idtb_estacoes FROM db_clti.vw_estacoes 
+            WHERE tipo_mem != 'DDR4' AND clock_mem < 3200 AND clock_proc < 3100 AND memoria < 8') ";
+        $row = $pg->exec($sql);
+        return $row;
+        /* if (($data['tipo_memoria'] == 'DDR4') && ($data['velocidade'] >= '3200') && ($data['memoria'] >= '8') 
+            && ($data['clock'] >= '3100') && ($data['cores'] >= '4') && ($data['threads'] >= '4')){
+            $et->req_minimos = "SIM";
+        }
+        else{
+            $et->req_minimos = "NÃO";
+        } */
+    }
 }
 
 /** Classe Servidores */
