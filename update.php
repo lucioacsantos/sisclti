@@ -1004,6 +1004,8 @@ elseif ($versao == '1.5.25'){
 elseif ($versao == '1.6'){
 
 	$pg->exec("DROP TABLE db_clti.tb_origem_backup ");
+	$pg->exec("DROP TABLE db_clti.tb_rel_sv_v2_ocorrencias ");
+	$pg->exec("DROP TABLE db_clti.tb_rel_sv_v2 ");
 
 	$pg->exec("CREATE TABLE db_clti.tb_origem_backup (
 		idtb_origem_backup serial4 NOT NULL,

@@ -159,21 +159,79 @@ if ($act == NULL) {
                         </td>
                     </tr>
                     <tr>
-                        <th scope=\"row\">Serviços</th>
-                        <th scope=\"row\">Situação do Tel. Funcional</th>
-                        <th scope=\"row\">Situação dos Servidores</th>
-                        <th scope=\"row\">Situação do Backup</th>
-                        <th scope=\"row\">Mídia do Backup</th>
+                        <th scope=\"row\" colspan=\"6\">ATIVOS DE REDE</th>
                     </tr>
+                    <tr>
                         <th scope=\"row\"></th>
-                        <td>$value->cel_funcional</td>
-                        <td>$value->sit_servidores</td>
-                        <td>$value->sit_backup</td>
-                        <td>".@$value->num_midia_bakcup."</td>
-                    <tr>
+                        <th scope=\"row\">Nome</th>
+                        <th scope=\"row\">End. IP</th>
+                        <th scope=\"row\">Situação</th>
+                        <th scope=\"row\">Observações</th>
                     </tr>
                     <tr>
-                        <th scope=\"row\">Ocorrências Registradas</th>
+                        <th scope=\"row\" colspan=\"6\">SERVIDORES</th>
+                    </tr>
+                    <tr>
+                        <th scope=\"row\"></th>
+                        <th scope=\"row\">Nome</th>
+                        <th scope=\"row\">End. IP</th>
+                        <th scope=\"row\">Situação</th>
+                        <th scope=\"row\">Observações</th>
+                    </tr>
+                    <tr>
+                        <th scope=\"row\" colspan=\"6\">OUTROS EQUIPAMENTOS</th>
+                    </tr>
+                    <tr>
+                        <th scope=\"row\"></th>
+                        <th scope=\"row\">Equipamento</th>
+                        <th scope=\"row\">Situação</th>
+                        <th scope=\"row\">Observações</th>
+                    </tr>
+                    <tr>
+                        <th scope=\"row\" colspan=\"4\">ROTINA DE BACKUP</th>
+                        <th scope=\"row\">Mídia de Backup Nº</th>
+                        <th scope=\"row\">".@$value->num_midia_bakcup."</th>
+                    </tr>
+                    <tr>
+                        <th scope=\"row\"></th>
+                        <th scope=\"row\">Serviço</th>
+                        <th scope=\"row\">Data/Hora de Início</th>
+                        <th scope=\"row\">Data/Hora de Final</th>
+                        <th scope=\"row\">Situação</th>
+                        <th scope=\"row\">Tamanho Total</th>
+                    </tr>
+                    <tr>
+                        <th scope=\"row\" colspan=\"6\">CONTROLE DE CHAMADOS</th>
+                    </tr>
+                    <tr>
+                        <th scope=\"row\"></th>
+                        <th scope=\"row\">Número</th>
+                        <th scope=\"row\">Origem</th>
+                        <th scope=\"row\">Destino</th>
+                        <th scope=\"row\">Situação</th>
+                        <th scope=\"row\">Resumo</th>
+                    </tr>
+                    <tr>
+                        <th scope=\"row\" colspan=\"6\">INSTALAÇÕES FÍSICAS</th>
+                    </tr>
+                    <tr>
+                        <th scope=\"row\"></th>
+                        <th scope=\"row\">Compartimento</th>
+                        <th scope=\"row\">Situação</th>
+                        <th scope=\"row\">Observações</th>
+                    </tr>
+                    <tr>
+                        <th scope=\"row\" colspan=\"6\">OM APOIADAS</th>
+                    </tr>
+                    <tr>
+                        <th scope=\"row\"></th>
+                        <th scope=\"row\">OM</th>
+                        <th scope=\"row\">End. IP</th>
+                        <th scope=\"row\">Situação</th>
+                        <th scope=\"row\">Observações</th>
+                    </tr>
+                    <tr>
+                        <th scope=\"row\" colspan=\"6\">OCORRÊNCIAS</th>
                     </tr>";
             if ($ocorrencias){
                 foreach ($ocorrencias as $key => $value) {
