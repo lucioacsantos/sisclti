@@ -1,5 +1,5 @@
 # sisclti
-SisCLTI
+SiGTI
 
 Sistema de Gestão de TIC para Centros Locais de Tecnologia da Informação da MB
 
