@@ -9,7 +9,7 @@
                                     <select id="aprovrel" class="form-control" name="aprovrel">
                                     <?php
                                         foreach ($clti as $key => $value) {
-                                            echo"<option value="".$value->idtb_lotacao_clti."">
+                                            echo"<option value=\"".$value->idtb_lotacao_clti."\">
                                                 ".$value->sigla_posto_grad." - ".$value->nome_guerra."</option>";
                                         }
                                     ?>

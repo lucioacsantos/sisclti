@@ -180,6 +180,7 @@ class PerfilInternet
     public $idtb_perfil_internet;
     public $nome;
     public $status;
+    public $ordena;
 
     /** Seleciona todos os perfis */
     public function SelectAll(){
@@ -1171,6 +1172,7 @@ class PessoalCLTI
     public $situacao;
     public $ordena;
     public $condicao;
+    public $secret;
 
     /** Format CPF para apresentação */
     function FormatCPF($value)
@@ -1715,7 +1717,7 @@ class MapaInfra
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRow("SELECT * FROM db_clti.vw_mapainfra WHERE idtb_mapainfra = $this->idtb_mapainfa");
+        $row = $pg->getRow("SELECT * FROM db_clti.vw_mapainfra WHERE idtb_mapainfra = $this->idtb_mapainfra");
         return $row;
     }
     public function SelectAllOMMapaView()
@@ -2822,6 +2824,7 @@ class Contadores{
 class Monitoramento
 {
     public $idtb_gw_om;
+    public $idtb_om_apoiadas;
     public $end_ip;
 
     public function SelectSrv()
@@ -2887,6 +2890,7 @@ class RelServico
     public $data;
     public $ordena;
     public $num_midia_bakcup;
+    public $sit_servidores;
 
     /** Seleciona Próximo Número do Relatório de Serviço */
     public function NumRel()
