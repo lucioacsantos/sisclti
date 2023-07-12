@@ -8,17 +8,17 @@
 if (isset($_SESSION['user_name'])){
     $perfil = $_SESSION['perfil']; 
     if ($perfil == 'TEC_CLTI'){
-        $et = $cont->CountET(NULL);
-        $srv = $cont->CountSrv(NULL);
-        $conect = $cont->CountConect(NULL);
-        $usb = $cont->CountUSBLiberado(NULL);
-        $adm = $cont->CountPermAdmin(NULL);
-        $naopad = $cont->CountSoftNaoPad(NULL);
-        $pessti = $cont->CountPessTI(NULL);
-        $qualiti = $cont->CountQualiTI(NULL);
-        $pessom = $cont->CountPessoalOM(NULL);
-        $perfint = $cont->CountControleInternet(NULL);
-        $sigdem = $cont->CountFuncSiGDEM(NULL);
+        $et = $cont->CountET(null);
+        $srv = $cont->CountSrv(null);
+        $conect = $cont->CountConect(null);
+        $usb = $cont->CountUSBLiberado(null);
+        $adm = $cont->CountPermAdmin(null);
+        $naopad = $cont->CountSoftNaoPad(null);
+        $pessti = $cont->CountPessTI(null);
+        $qualiti = $cont->CountQualiTI(null);
+        $pessom = $cont->CountPessoalOM(null);
+        $perfint = $cont->CountControleInternet(null);
+        $sigdem = $cont->CountFuncSiGDEM(null);
         echo "
             <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
                 <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">

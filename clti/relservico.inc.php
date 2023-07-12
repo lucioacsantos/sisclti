@@ -51,8 +51,9 @@ if ($act == 'cad') {
         $num_rel = $relatorio->num_rel;
     }
     else{
-        $relatorio = (object)['idtb_rel_servico'=>'','sup_sai_servico'=>'','sup_entra_servico'=>'','data_entra_servico'=>'',
-            'data_sai_servico'=>'','cel_funcional'=>'','sit_backup'=>'','status'=>'Em andamento'];
+        $relatorio = (object)['idtb_rel_servico'=>'','sup_sai_servico'=>'','sup_entra_servico'=>'',
+            'data_entra_servico'=>'','data_sai_servico'=>'','cel_funcional'=>'',
+            'sit_backup'=>'','status'=>'Em andamento'];
         $svc_atual = (object)['sigla_posto_grad'=>'','nome_guerra'=>''];
         $num_rel = $rel_svc->NumRel();
     }
@@ -62,13 +63,14 @@ if ($act == 'cad') {
         <div class=\"row\">
             <main>
                 <div id=\"form-cadastro\">
-                    <form id=\"insertom\" action=\"?cmd=relservico&act=insert\" method=\"post\" enctype=\"multipart/form-data\">
+                    <form id=\"insertom\" action=\"?cmd=relservico&act=insert\" method=\"post\"
+                    enctype=\"multipart/form-data\">
                         <fieldset>
                             <legend>Relatório de Serviço Nº $num_rel - Supervisor de Serviço: $svc_sai->sigla_posto_grad $svc_sai->nome_guerra</legend>
                             <div class=\"form-group\">
                                 <label for=\"data_entra_servico\">Serviço do dia:</label>
-                                <input id=\"data_entra_servico\" class=\"form-control\" name=\"data_entra_servico\" type=\"date\" 
-                                    value=\"$relatorio->data_entra_servico\">
+                                <input id=\"data_entra_servico\" class=\"form-control\" name=\"data_entra_servico\"
+                                type=\"date\" value=\"$relatorio->data_entra_servico\">
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"data_sai_servico\">Para o dia:</label>
