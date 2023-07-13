@@ -2892,6 +2892,40 @@ class RelServico
     public $num_midia_bakcup;
     public $sit_servidores;
 
+    /** Seleciona Títulos, Subtítulos e Itens de Relatório */
+    public function SelectConfigRel()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.vw_config_relv2");
+        return $row;
+    }
+    /** Novo Título do Relatório de Serviço */
+    public function NovoTitulo($titulo,$descricao){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "INSERT INTO db_clti.tb_titulos_rel_sv_v2 (titulo,descricao) VALUES ('$titulo','$descricao')";
+        $row = $pg->insert($sql, 'idtb_titulos_rel_sv_v2');
+        return $row;        
+    }
+    /** Novo Subtítulo do Relatório de Serviço */
+    public function NovoSubtitulo($idtb_titulos_rel_sv_v2,$subtitulo,$descricao){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "INSERT INTO db_clti.tb_subtitulos_rel_sv_v2 (idtb_titulos_rel_sv_v2,titulo,descricao) 
+           VALUES ($idtb_titulos_rel_sv_v2,'$subtitulo','$descricao')";
+        $row = $pg->insert($sql, 'idtb_subtitulos_rel_sv_v2                                                                                                                                                                                                                                                   ');
+        return $row;        
+    }
+    /** Novo Item do Relatório de Serviço */
+    public function NovoItem($idtb_subtitulos_rel_sv_v2,$item,$descricao,$valores){
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $sql = "INSERT INTO db_clti.tb_itens_rel_sv_v2 (idtb_subtitulos_rel_sv_v2,titulo,descricao) 
+           VALUES ($idtb_subtitulos_rel_sv_v2,'$item','$descricao','$valores')";
+        $row = $pg->insert($sql, 'idtb_itens_rel_sv_v2');
+        return $row;        
+    }
     /** Seleciona Próximo Número do Relatório de Serviço */
     public function NumRel()
     {

@@ -15,7 +15,7 @@ $versao = $config->SelectVersao();
 
 
 ?>
-    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow" aria-label="Navegação">
       <p class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
         <?php echo "".$sigla." - ".$config->SelectTitulo()." v".$versao.""; ?>
       </p>
@@ -88,7 +88,7 @@ $versao = $config->SelectVersao();
                   <span data-feather=\"plus-circle\"></span>
                 </h6>
                 <li class=\"nav-item\">
-                  <a class=\"nav-link\" href=\"$url/clti/?cmd=relservico\">
+                  <a class=\"nav-link\" href=\"$url/clti/?cmd=relservicov2\">
                     <span data-feather=\"check-square\"></span>
                     Rel. Serviço
                   </a>

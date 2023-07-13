@@ -1058,6 +1058,56 @@ elseif ($versao == '1.6'){
 	); 
 	COMMENT ON TABLE db_clti.tb_log_backup IS 'Tabela contendo log dos backup realizados'; ");
 
+	/** Novo Modelo de Relatório de Serviço Personalizado */
+
+	$pg->exec("CREATE TABLE db_clti.tb_titulos_rel_sv_v2 (
+		idtb_titulos_rel_sv_v2 serial NOT NULL,
+		titulo varchar(255),
+		descricao varchar(255),
+		CONSTRAINT tb_titulos_rel_sv_v2_pkey PRIMARY KEY (idtb_titulos_rel_sv_v2)
+	);
+	COMMENT ON TABLE db_clti.tb_titulos_rel_sv_v2 IS 'Tabela contendo Títulos do Relatórios de Serviço do CLTI Versão 2'; ");
+
+	$pg->exec("CREATE TABLE db_clti.tb_subtitulos_rel_sv_v2 (
+		idtb_subtitulos_rel_sv_v2 serial NOT NULL,
+		idtb_titulos_rel_sv_v2 int4 NOT NULL,
+		subtitulo varchar(255),
+		descricao varchar(255),
+		CONSTRAINT tb_subtitulos_rel_sv_v2_pkey PRIMARY KEY (idtb_subtitulos_rel_sv_v2),
+		CONSTRAINT tb_subtitulos_rel_sv_v2_fkey FOREIGN KEY (idtb_titulos_rel_sv_v2) REFERENCES db_clti.tb_titulos_rel_sv_v2(idtb_titulos_rel_sv_v2)
+	);
+	COMMENT ON TABLE db_clti.tb_subtitulos_rel_sv_v2 IS 'Tabela contento Subtítulos do Relatórios de Serviço do CLTI Versão 2'; ");
+	
+	$pg->exec("CREATE TABLE db_clti.tb_itens_rel_sv_v2 (
+		idtb_itens_rel_sv_v2 serial NOT NULL,
+		idtb_subtitulos_rel_sv_v2 int4 NOT NULL,
+		item varchar(255),
+		descricao varchar(255),
+		valores varchar(255),
+		CONSTRAINT tb_itens_rel_sv_v2_pkey PRIMARY KEY (idtb_itens_rel_sv_v2),
+		CONSTRAINT tb_itens_rel_sv_v2_fkey FOREIGN KEY (idtb_subtitulos_rel_sv_v2) REFERENCES db_clti.tb_subtitulos_rel_sv_v2(idtb_subtitulos_rel_sv_v2)
+	);
+	COMMENT ON TABLE db_clti.tb_itens_rel_sv_v2 IS 'Tabela contendo Itens do Relatórios de Serviço do CLTI Versão 2';");
+
+	$pg->exec("CREATE OR REPLACE VIEW db_clti.vw_config_relv2
+	AS SELECT titulos.idtb_titulos_rel_sv_v2,
+		titulos.titulo,
+		titulos.descricao AS desctitulo,
+		subtitulos.idtb_subtitulos_rel_sv_v2,
+		subtitulos.subtitulo,
+		subtitulos.descricao AS descsubtitulo,
+		itens.idtb_itens_rel_sv_v2,
+		itens.item,
+		itens.descricao AS descitem,
+		itens.valores
+	FROM db_clti.tb_titulos_rel_sv_v2 titulos,
+		db_clti.tb_subtitulos_rel_sv_v2 subtitulos,
+		db_clti.tb_itens_rel_sv_v2 itens
+	WHERE titulos.idtb_titulos_rel_sv_v2 = subtitulos.idtb_titulos_rel_sv_v2 
+	    AND subtitulos.idtb_subtitulos_rel_sv_v2 = itens.idtb_subtitulos_rel_sv_v2; ");
+
+	/** Final Modelo de Relatório de Serviço Personalizado */
+
 	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.7' WHERE parametro='VERSAO' ");
 
 	echo "<div class=\"alert alert-success\" role=\"alert\">Seu sistema foi atualizado, Versão 1.7.</div>
@@ -1077,5 +1127,3 @@ else{
 	echo "<div class=\"alert alert-primary\" role=\"alert\">Verifique sua instalação!</div>";
 
 }
-
-?>

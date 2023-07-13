@@ -37,9 +37,9 @@ foreach ($pesti->SelectEmailOSIC() as $key => $value){
 /* URL Recuperada do Banco de Dados */
 $url = $config->SelectURL();
 
-include "../head.php";
+include_once "../head.php";
 
-include "../nav.php";
+include_once "../nav.php";
 
 @$cmd = $_GET['cmd'];
 
@@ -60,7 +60,7 @@ if (isset($_SESSION['user_name'])){
                   </div>
                 </div>
               </div>";
-        include "tipoclti.inc.php";
+        include_once "tipoclti.inc.php";
         echo"
         </main>
           </div>
@@ -79,7 +79,7 @@ if (isset($_SESSION['user_name'])){
                   </div>
                 </div>
               </div>";
-        include "gerclti.inc.php";
+        include_once "gerclti.inc.php";
         echo"
         </main>
           </div>
@@ -103,7 +103,7 @@ if (isset($_SESSION['user_name'])){
                   </div>
                 </div>
               </div>";
-        include "lotclti.inc.php";
+        include_once "lotclti.inc.php";
         echo"
         </main>
           </div>
@@ -125,7 +125,7 @@ if (isset($_SESSION['user_name'])){
                   </div>
                 </div>
               </div>";
-        include "qualificacao.inc.php";
+        include_once "qualificacao.inc.php";
         echo"
         </main>
           </div>
@@ -144,7 +144,7 @@ if (isset($_SESSION['user_name'])){
                   </div>
                 </div>
               </div>";
-        include "qualificacaoom.inc.php";
+        include_once "qualificacaoom.inc.php";
         echo"
         </main>
           </div>
@@ -164,7 +164,7 @@ if (isset($_SESSION['user_name'])){
                   </div>
                 </div>
               </div>";
-        include "omapoiadas.inc.php";
+        include_once "omapoiadas.inc.php";
         echo"
         </main>
           </div>
@@ -187,7 +187,7 @@ if (isset($_SESSION['user_name'])){
                   </div>
                 </div>
               </div>";
-        include "osic.inc.php";
+        include_once "osic.inc.php";
         echo"
         </main>
           </div>
@@ -209,7 +209,7 @@ if (isset($_SESSION['user_name'])){
                   </div>
                 </div>
               </div>";
-        include "admin.inc.php";
+        include_once "admin.inc.php";
         echo"
         </main>
           </div>
@@ -228,7 +228,7 @@ if (isset($_SESSION['user_name'])){
                   </div>
                 </div>
               </div>";
-        include "pessoalti.inc.php";
+        include_once "pessoalti.inc.php";
         echo"
         </main>
           </div>
@@ -248,7 +248,7 @@ if (isset($_SESSION['user_name'])){
                     </div>
                   </div>
                 </div>";
-          include "funcoesti.inc.php";
+          include_once "funcoesti.inc.php";
           echo"
           </main>
             </div>
@@ -267,7 +267,7 @@ if (isset($_SESSION['user_name'])){
                   </div>
                 </div>
               </div>";
-        include "sistema.inc.php";
+        include_once "sistema.inc.php";
         echo"
         </main>
           </div>
@@ -289,7 +289,7 @@ if (isset($_SESSION['user_name'])){
                   </div>
                 </div>
               </div>";
-        include "perfilinternet.inc.php";
+        include_once "perfilinternet.inc.php";
         echo"
         </main>
           </div>
@@ -311,7 +311,7 @@ if (isset($_SESSION['user_name'])){
                   </div>
                 </div>
               </div>";
-        include "monitoramento.inc.php";
+        include_once "monitoramento.inc.php";
         echo"
         </main>
           </div>
@@ -333,7 +333,7 @@ if (isset($_SESSION['user_name'])){
                   </div>
                 </div>
               </div>";
-        include "detsv.inc.php";
+        include_once "detsv.inc.php";
         echo"
         </main>
           </div>
@@ -350,20 +350,16 @@ if (isset($_SESSION['user_name'])){
                   <div class=\"btn-group mr-2\">
                     <a href=\"?cmd=detsv\"><button class=\"btn btn-sm btn-outline-secondary\">
                       Detalhe de Serv.</button></a>
-                    <!--<a href=\"?cmd=relservico&act=cad\"><button class=\"btn btn-sm btn-outline-secondary\">
-                      Novo Relatório</button></a>-->
                     <a href=\"?cmd=relservico\"><button class=\"btn btn-sm btn-outline-secondary\">
                       Em Andamento</button></a>
                     <a href=\"?cmd=relservico&act=encerrados\"><button class=\"btn btn-sm btn-outline-secondary\">
                       Encerrados</button></a>
-                    <!--<a href=\"?cmd=relservico&act=agaprov\"><button class=\"btn btn-sm btn-outline-secondary\">
-                      Ag. aprovação</button></a>
                     <a href=\"?cmd=relservico&act=aprovados\"><button class=\"btn btn-sm btn-outline-secondary\">
-                      Aprovados</button></a>-->
+                      Aprovados</button></a>
                   </div>
                 </div>
               </div>";
-        include "relservico.inc.php";
+        include_once "relservico.inc.php";
         echo"
         </main>
           </div>
@@ -371,10 +367,33 @@ if (isset($_SESSION['user_name'])){
     
       break;
 
-      // case 'relsvpdf':
-      //   include "relpdf.php";
+      case 'relservicov2':
+        echo "
+        <main role=\"main\" class=\"col-md-9 ml-sm-auto col-lg-10 px-4\">
+          <div class=\"d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom\">
+            <h1 class=\"h2\">Relatório de Serviço</h1>
+            <div class=\"btn-toolbar mb-2 mb-md-0\">
+              <div class=\"btn-group mr-2\">
+                <a href=\"?cmd=detsv\"><button class=\"btn btn-sm btn-outline-secondary\">
+                  Detalhe de Serv.</button></a>
+                <a href=\"?cmd=relservicov2&act=configrel\"><button class=\"btn btn-sm btn-outline-secondary\">
+                  Configurar Relatório</button></a>
+                <a href=\"?cmd=relservicov2\"><button class=\"btn btn-sm btn-outline-secondary\">
+                  Em Andamento</button></a>
+                <a href=\"?cmd=relservicov2&act=encerrados\"><button class=\"btn btn-sm btn-outline-secondary\">
+                  Encerrados</button></a>
+                <a href=\"?cmd=relservicov2&act=aprovados\"><button class=\"btn btn-sm btn-outline-secondary\">
+                  Aprovados</button></a>
+              </div>
+            </div>
+          </div>";
+        include_once "relservicov2.inc.php";
+      echo"
+        </main>
+        </div>
+        </div>";
       
-      // break;
+      break;
 
       case 'seguranca':
         echo "
@@ -390,7 +409,7 @@ if (isset($_SESSION['user_name'])){
                   </div>
                 </div>
               </div>";
-        include "seguranca.inc.php";
+        include_once "seguranca.inc.php";
         echo"
         </main>
           </div>
@@ -420,7 +439,7 @@ if (isset($_SESSION['user_name'])){
                   </div>
                 </div>
               </div>";
-        include "midiabackup.inc.php";
+        include_once "midiabackup.inc.php";
         echo"
         </main>
           </div>
@@ -472,5 +491,5 @@ if (isset($_SESSION['user_name'])){
       <meta http-equiv=\"refresh\" content=\"5;$url\">";
   }
 }
-include "../foot.php";
+include_once "../foot.php";
 ?>
