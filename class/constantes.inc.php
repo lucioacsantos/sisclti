@@ -2900,6 +2900,30 @@ class RelServico
         $row = $pg->getRows("SELECT * FROM db_clti.vw_config_relv2");
         return $row;
     }
+    /** Seleciona Títulos */
+    public function SelectTitulos()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_titulos_rel_sv_v2");
+        return $row;
+    }
+    /** Seleciona Subtítulos */
+    public function SelectSubtitulos()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_subtitulos_rel_sv_v2");
+        return $row;
+    }
+    /** Seleciona Itens */
+    public function SelectItens()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_itens_rel_sv_v2");
+        return $row;
+    }
     /** Novo Título do Relatório de Serviço */
     public function NovoTitulo($titulo,$descricao){
         require_once "pgsql.class.php";
@@ -2912,7 +2936,7 @@ class RelServico
     public function NovoSubtitulo($idtb_titulos_rel_sv_v2,$subtitulo,$descricao){
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "INSERT INTO db_clti.tb_subtitulos_rel_sv_v2 (idtb_titulos_rel_sv_v2,titulo,descricao) 
+        $sql = "INSERT INTO db_clti.tb_subtitulos_rel_sv_v2 (idtb_titulos_rel_sv_v2,subtitulo,descricao) 
            VALUES ($idtb_titulos_rel_sv_v2,'$subtitulo','$descricao')";
         $row = $pg->insert($sql, 'idtb_subtitulos_rel_sv_v2                                                                                                                                                                                                                                                   ');
         return $row;        

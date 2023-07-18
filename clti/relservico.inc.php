@@ -75,7 +75,7 @@ if ($act == 'cad') {
                                             foreach ($svc_entra as $key => $value) {
                                                 echo"<option value=\"".$value->idtb_lotacao_clti."\">
                                                     ".$value->sigla_posto_grad." - ".$value->nome_guerra."</option>";
-                                            };
+                                            }
                                         echo "</select>
                             </div>
                             <div class=\"form-group\">

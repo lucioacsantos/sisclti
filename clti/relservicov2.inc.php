@@ -34,6 +34,10 @@ $num_rel = $rel_svc->NumRel();
 
 /* Carrega form para Novo Relatório */
 if ($act == 'configrel') {
+    $configrel = $rel_svc->SelectConfigRel();
+    $titulos = $rel_svc->SelectTitulos();
+    $subtitulos = $rel_svc->SelectSubtitulos();
+    $itens = $rel_svc->SelectItens();
     echo "
 	<div class=\"container-fluid\">
         <div class=\"row\">
@@ -59,11 +63,90 @@ if ($act == 'configrel') {
             </main>
         </div>
     </div>";
+
+    echo "
+	<div class=\"container-fluid\">
+        <div class=\"row\">
+            <main>
+                <div id=\"form-cadastro\">
+                    <form id=\"novosubtitulo\" action=\"?cmd=relservicov2&act=novosubtitulo\" method=\"post\"
+                    enctype=\"multipart/form-data\">
+                        <fieldset>
+                            <legend>Novo Subtítulo para o Relatório</legend>
+                            <div class=\"form-group\">
+                                <label for=\"idtb_titulos_rel_sv_v2\">Título:</label>
+                                <select id=\"idtb_titulos_rel_sv_v2\" class=\"form-control\" name=\"idtb_titulos_rel_sv_v2\">";
+                                            foreach ($titulos as $key => $value) {
+                                                echo"<option value=\"".$value->idtb_titulos_rel_sv_v2."\">
+                                                    ".$value->titulo."</option>";
+                                            }
+                                        echo "</select>
+                            </div>
+                            <div class=\"form-group\">
+                                <label for=\"subtitulo\">Subtítulo:</label>
+                                <input id=\"subtitulo\" class=\"form-control\" name=\"titulo\"
+                                type=\"text\" value=\"\">
+                            </div>
+                            <div class=\"form-group\">
+                                <label for=\"descricao\">Descrição:</label>
+                                <input id=\"descricao\" class=\"form-control\" name=\"descricao\" type=\"text\"
+                                    value=\"\">
+                            </div>
+                        <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">
+                    </form>
+                </div>
+            </main>
+        </div>
+    </div>";
+
+    echo "
+	<div class=\"container-fluid\">
+        <div class=\"row\">
+            <main>
+                <div id=\"form-cadastro\">
+                    <form id=\"novoitem\" action=\"?cmd=relservicov2&act=novoitem\" method=\"post\"
+                    enctype=\"multipart/form-data\">
+                        <fieldset>
+                            <legend>Novo Item para o Relatório</legend>
+                            <div class=\"form-group\">
+                                <label for=\"idtb_titulos_rel_sv_v2\">Título:</label>
+                                <select id=\"idtb_titulos_rel_sv_v2\" class=\"form-control\" name=\"idtb_titulos_rel_sv_v2\">";
+                                            foreach ($titulos as $key => $value) {
+                                                echo"<option value=\"".$value->idtb_titulos_rel_sv_v2."\">
+                                                    ".$value->titulo."</option>";
+                                            }
+                                        echo "</select>
+                            </div>
+                            <div class=\"form-group\">
+                                <label for=\"subtitulo\">Subtítulo:</label>
+                                <input id=\"subtitulo\" class=\"form-control\" name=\"titulo\"
+                                type=\"text\" value=\"\">
+                            </div>
+                            <div class=\"form-group\">
+                                <label for=\"descricao\">Descrição:</label>
+                                <input id=\"descricao\" class=\"form-control\" name=\"descricao\" type=\"text\"
+                                    value=\"\">
+                            </div>
+                        <input class=\"btn btn-primary btn-block\" type=\"submit\" value=\"Salvar\">
+                    </form>
+                </div>
+            </main>
+        </div>
+    </div>";
+
 }
 
 if ($act == 'novotitulo'){
     $titulo = $_POST['titulo'];
     $descricao = $_POST['descricao'];
     $insert = $rel_svc->NovoTitulo($titulo,$descricao);
+    if ($insert){ print("Registro incluído com sucesso"); }
+}
+
+if ($act == 'novosubtitulo'){
+    $titulo = $_POST['subtitulo'];
+    $descricao = $_POST['descricao'];
+    $idtb_titulos_rel_sv_v2 = $_POST['idtb_titulos_rel_sv_v2'];
+    $insert = $rel_svc->NovoSubtitulo($idtb_titulos_rel_sv_v2,$subtitulo,$descricao);
     if ($insert){ print("Registro incluído com sucesso"); }
 }
