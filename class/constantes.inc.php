@@ -2938,7 +2938,7 @@ class RelServico
         $pg = new PgSql();
         $sql = "INSERT INTO db_clti.tb_subtitulos_rel_sv_v2 (idtb_titulos_rel_sv_v2,subtitulo,descricao) 
            VALUES ($idtb_titulos_rel_sv_v2,'$subtitulo','$descricao')";
-        $row = $pg->insert($sql, 'idtb_subtitulos_rel_sv_v2                                                                                                                                                                                                                                                   ');
+        $row = $pg->insert($sql, 'idtb_subtitulos_rel_sv_v2');
         return $row;        
     }
     /** Novo Item do Relatório de Serviço */

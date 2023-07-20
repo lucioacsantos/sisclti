@@ -1106,6 +1106,44 @@ elseif ($versao == '1.6'){
 	WHERE titulos.idtb_titulos_rel_sv_v2 = subtitulos.idtb_titulos_rel_sv_v2 
 	    AND subtitulos.idtb_subtitulos_rel_sv_v2 = itens.idtb_subtitulos_rel_sv_v2; ");
 
+	$pg->exec("INSERT INTO db_clti.tb_titulos_rel_sv_v2 (titulo,descricao) VALUES 
+		('1) Supervisor de Serviço que Sai:', 'Supervisor de serviço que está passando o serviço.'),
+		('2) Supervisor de Serviço que Entra:', 'Supervisor de serviço que está entrando de serviço.'),
+		('3) Monitoramento:', 'Monitoramento dos ativos de rede e OM Apoiadas.'),
+		('4) Situação dos Servidores:', 'Ocorrências relacionadas aos servidores.'),
+		('5) Rotina de Backup:', 'Ocorrências relacionadas à Rotina de Backup.'),
+		('6) Chamados:', 'Chamados Abertos/Solucionados/Encaminhados.'),
+		('7) Infraestrutura:', 'Compartimentos e infraestrutura física.') ");
+
+	$pg->exec("INSERT INTO db_clti.tb_subtitulos_rel_sv_v2 (idtb_titulos_rel_sv_v2,subtitulo,descricao) VALUES
+		(3, '3.1) Rádio Enlace', 'Ocorrências relacionadas aos equipamentos de rádio enlace.'),
+		(3, '3.2) Backbone', 'Ocorrências relacionadas aos equipamentos do backbone.'),
+		(3, '3.3) MPLS', 'Ocorrências relacionadas aos equipamentos do MPLS.'),
+		(3, '3.4) Internet Distrital', 'Ocorrências relacionadas aos equipamentos da Internet Distrital.'),
+		(3, '3.5) Roteadores', 'Ocorrências relacionadas aos equipamentos roteadores.'),
+		(3, '3.6) Câmeras', 'Ocorrências relacionadas aos equipamentos de vigilância.'),
+		(3, '3.7) Refrigeração', 'Ocorrências relacionadas aos equipamentos de refrigeração.'),
+		(3, '3.8) Celular Funcional', 'Ocorrências relacionadas ao celular funcional.'),
+		(4,'4.1) SiGDEM','Ocorrências relacionadas aos servidores de SiGDEM.'),
+		(4,'4.2) Correio Eletrônico','Ocorrências relacionadas ao servidor do Correio Notes.'),
+		(4,'4.3) Páginas','Ocorrências relacionadas ao servidor Web.'),
+		(4,'4.4) SAMBA','Ocorrências relacionadas ao servidor de arquivos do CLTI.'),
+		(4,'4.5) WSUS','Ocorrências relacionadas ao servidor de atualizações do Windows.'),
+		(5,'5.1) SiGDEM','Situação do backup dos servidores de SiGDEM.'),
+		(5,'5.2) Arquivos','Situação do backup do servidor de arquivos do CLTI.'),
+		(5,'5.3) Páginas','Situação do backup do servidor de Web.'),
+		(6,'6.1) CLTI','Chamados abertos/solucionados pelo CLTI.'),
+		(6,'6.2) CTIM','Chamados abertos/encaminhados para o CTIM.'),
+		(6,'6.3) DAdM','Chamados abertos/encaminhados para a DAdM.'),
+		(6,'6.4) Claro','Chamados abertos/encaminhados para a Claro (MPLS).'),
+		(6,'6.5) RNP','Chamados abertos/encaminhados para a RNP (Internet Distrital).'),
+		(6,'6.6) ROD','Chamados abertos/encaminhados para a ROD.'),
+		(7,'7.1) Sala do CLTI','Ocorrências físicas na sala do CLTI.'),
+		(7,'7.2) Sala dos Transmissores','Ocorrências na Sala dos Transmissores da Rádio MB.'),
+		(7,'7.3) Sala dos Servidores','Ocorrências físicas na Sala dos Servidores na BNN.'),
+		(7,'7.4) Paiol de Fibra','Ocorrências físicas no Paiol de Fibras na BNN.'),
+		(7,'7.5) Casa da Torre','Ocorrências físicas na Casa da Torre no Com3ºDN.') ");
+
 	/** Final Modelo de Relatório de Serviço Personalizado */
 
 	$pg->exec("UPDATE db_clti.tb_config SET valor = '1.7' WHERE parametro='VERSAO' ");

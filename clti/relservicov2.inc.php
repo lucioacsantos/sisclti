@@ -84,7 +84,7 @@ if ($act == 'configrel') {
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"subtitulo\">Subtítulo:</label>
-                                <input id=\"subtitulo\" class=\"form-control\" name=\"titulo\"
+                                <input id=\"subtitulo\" class=\"form-control\" name=\"subtitulo\"
                                 type=\"text\" value=\"\">
                             </div>
                             <div class=\"form-group\">
@@ -109,17 +109,17 @@ if ($act == 'configrel') {
                         <fieldset>
                             <legend>Novo Item para o Relatório</legend>
                             <div class=\"form-group\">
-                                <label for=\"idtb_titulos_rel_sv_v2\">Título:</label>
-                                <select id=\"idtb_titulos_rel_sv_v2\" class=\"form-control\" name=\"idtb_titulos_rel_sv_v2\">";
-                                            foreach ($titulos as $key => $value) {
-                                                echo"<option value=\"".$value->idtb_titulos_rel_sv_v2."\">
-                                                    ".$value->titulo."</option>";
+                                <label for=\"idtb_subtitulos_rel_sv_v2\">Subtítulo:</label>
+                                <select id=\"idtb_subtitulos_rel_sv_v2\" class=\"form-control\" name=\"idtb_subtitulos_rel_sv_v2\">";
+                                            foreach ($subtitulos as $key => $value) {
+                                                echo"<option value=\"".$value->idtb_subtitulos_rel_sv_v2."\">
+                                                    ".$value->subtitulo."</option>";
                                             }
                                         echo "</select>
                             </div>
                             <div class=\"form-group\">
-                                <label for=\"subtitulo\">Subtítulo:</label>
-                                <input id=\"subtitulo\" class=\"form-control\" name=\"titulo\"
+                                <label for=\"item\">Item:</label>
+                                <input id=\"item\" class=\"form-control\" name=\"item\"
                                 type=\"text\" value=\"\">
                             </div>
                             <div class=\"form-group\">
@@ -140,13 +140,13 @@ if ($act == 'novotitulo'){
     $titulo = $_POST['titulo'];
     $descricao = $_POST['descricao'];
     $insert = $rel_svc->NovoTitulo($titulo,$descricao);
-    if ($insert){ print("Registro incluído com sucesso"); }
+    if ($insert){ print "Registro incluído com sucesso"; echo "<meta http-equiv=\"refresh\" content=\"1;url=?cmd=relservicov2&act=configrel\">"; }
 }
 
 if ($act == 'novosubtitulo'){
-    $titulo = $_POST['subtitulo'];
+    $subtitulo = $_POST['subtitulo'];
     $descricao = $_POST['descricao'];
     $idtb_titulos_rel_sv_v2 = $_POST['idtb_titulos_rel_sv_v2'];
     $insert = $rel_svc->NovoSubtitulo($idtb_titulos_rel_sv_v2,$subtitulo,$descricao);
-    if ($insert){ print("Registro incluído com sucesso"); }
+    if ($insert){ print "Registro incluído com sucesso"; echo "<meta http-equiv=\"refresh\" content=\"1;url=?cmd=relservicov2&act=configrel\">"; }
 }
