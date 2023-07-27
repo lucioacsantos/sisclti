@@ -5,7 +5,7 @@
 **/
 
 /** Leitura de parâmetros */
-$oa = $cmd = $param = $param2 = $act = $senha = NULL;
+$oa = $cmd = $param = $param2 = $act = $senha = null;
 if (isset($_GET['oa'])){
   $oa = $_GET['oa'];
 }
@@ -31,7 +31,7 @@ if (isset($_GET['senha'])){
 }
 
 /** Formata Posto/Esp/Grad */
-function posto_grad($pessclti){
+function postoGrad($pessclti){
     if (($pessclti->exibir_espec == 'NÃO') AND ($pessclti->exibir_corpo_quadro == 'NÃO')){
         $postograd = $pessclti->sigla_posto_grad;
     }
@@ -70,8 +70,8 @@ $data_entra = date('d/m/Y',strtotime($rel->data_entra_servico));
 $data_sai = date('d/m/Y',strtotime($rel->data_sai_servico));
 $nip_sai = $pess_clti->FormatNIP($sup_sai->nip);
 $nip_entra = $pess_clti->FormatNIP($sup_entra->nip);
-$posto_grad_sai = posto_grad($sup_sai);
-$posto_grad_entra = posto_grad($sup_entra);
+$posto_grad_sai = postoGrad($sup_sai);
+$posto_grad_entra = postoGrad($sup_entra);
 $data_nome_rel = date('d-m-Y',strtotime($rel->data_sai_servico));
 
 /** Inicia Configurações do PDF */
@@ -96,7 +96,7 @@ $pdf->SetAutoPageBreak(TRUE, 10);
 $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
 if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
-    require_once(dirname(__FILE__).'/lang/eng.php');
+    require_once dirname(__FILE__).'/lang/eng.php';
     $pdf->setLanguageArray($l);
 }
 

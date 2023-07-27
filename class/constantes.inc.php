@@ -2945,7 +2945,7 @@ class RelServico
     public function NovoItem($idtb_subtitulos_rel_sv_v2,$item,$descricao,$valores){
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $sql = "INSERT INTO db_clti.tb_itens_rel_sv_v2 (idtb_subtitulos_rel_sv_v2,titulo,descricao) 
+        $sql = "INSERT INTO db_clti.tb_itens_rel_sv_v2 (idtb_subtitulos_rel_sv_v2,item,descricao,valores) 
            VALUES ($idtb_subtitulos_rel_sv_v2,'$item','$descricao','$valores')";
         $row = $pg->insert($sql, 'idtb_itens_rel_sv_v2');
         return $row;        
