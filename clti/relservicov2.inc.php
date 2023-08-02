@@ -66,10 +66,10 @@ if ($act == null) {
                         <td>".$sup_sai->sigla_posto_grad." - ".$sup_sai->nome_guerra."</td>
                         <td>".$sup_entra->sigla_posto_grad." - ".$sup_entra->nome_guerra."</td>
                         <td>".@$value->num_midia_bakcup."</td>
-                        <td><a href=\"?cmd=relservico&act=cad&param=".$value->num_rel."\">Editar</a><br/>
-                            <a href=\"?cmd=relservico&act=reg_ocorrencia&param=".$value->num_rel."\">Registrar ocorrência</a><br/>
-                            <a href=\"?cmd=relservico&act=ocorrencias&param=".$value->num_rel."\">Ocorrências</a><br/>
-                            <a href=\"?cmd=relservico&act=encerrar&param=".$value->num_rel."\">Encerrar relatório</a><br />
+                        <td><a href=\"?cmd=relservicov2&act=cad&param=".$value->num_rel."\">Editar</a><br/>
+                            <a href=\"?cmd=relservicov2&act=reg_ocorrencia&param=".$value->num_rel."\">Registrar ocorrência</a><br/>
+                            <a href=\"?cmd=relservicov2&act=ocorrencias&param=".$value->num_rel."\">Ocorrências</a><br/>
+                            <a href=\"?cmd=relservicov2&act=encerrar&param=".$value->num_rel."\">Encerrar relatório</a><br />
                             <a href=\"relpdf.php?param=".$value->num_rel."\" target=\"_blanck\">Gerar PDF</a>
                         </td>
                     </tr>";
@@ -84,7 +84,7 @@ if ($act == null) {
 if ($act == 'configrel') {
     $configrel = $rel_svc->SelectConfigRel();
     $titulos = $rel_svc->SelectTitulos();
-    $subtitulos = $rel_svc->SelectSubtitulos();
+    $subtitulos = $rel_svc->SelectAllSubtitulos();
     $itens = $rel_svc->SelectItens();
     echo "
 	<div class=\"container-fluid\">

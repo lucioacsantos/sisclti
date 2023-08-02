@@ -2909,11 +2909,24 @@ class RelServico
         return $row;
     }
     /** Seleciona Subtítulos */
-    public function SelectSubtitulos()
+    public function SelectSubtitulos($idtb_titulos_rel_sv_v2 = null)
     {
         require_once "pgsql.class.php";
         $pg = new PgSql();
-        $row = $pg->getRows("SELECT * FROM db_clti.tb_subtitulos_rel_sv_v2");
+        if ($idtb_titulos_rel_sv_v2){
+            $row = $pg->getRows("SELECT * FROM db_clti.tb_subtitulos_rel_sv_v2 WHERE idtb_titulos_rel_sv_v2 = $idtb_titulos_rel_sv_v2 ");
+        }
+        else{
+            $row = null;
+        }        
+        return $row;
+    }
+    /** Seleciona Todos os Subtítulos */
+    public function SelectAllSubtitulos()
+    {
+        require_once "pgsql.class.php";
+        $pg = new PgSql();
+        $row = $pg->getRows("SELECT * FROM db_clti.tb_subtitulos_rel_sv_v2 ");
         return $row;
     }
     /** Seleciona Itens */
